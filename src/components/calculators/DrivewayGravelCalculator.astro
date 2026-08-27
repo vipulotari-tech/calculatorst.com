@@ -1,0 +1,52 @@
+---
+---
+
+<div id="driveway-calc" class="rounded-lg border border-hairline bg-canvas p-5 shadow-card sm:p-6">
+  <form id="d-form" novalidate class="space-y-5">
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label class="block"><span class="text-sm font-medium text-ink">Driveway length</span>
+        <div class="mt-1.5 flex"><input id="d-len" type="number" min="0" step="any" placeholder="40" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:ring-2 focus:ring-link/20 focus:border-link focus:outline-none" required/><select id="d-len-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="m">m</option><option value="yd">yd</option></select></div>
+        <span id="d-len-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Driveway width</span>
+        <div class="mt-1.5 flex"><input id="d-wid" type="number" min="0" step="any" placeholder="12" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:ring-2 focus:ring-link/20 focus:border-link focus:outline-none" required/><select id="d-wid-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="m">m</option></select></div>
+        <span id="d-wid-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-3">
+      <label class="block"><span class="text-sm font-medium text-ink">Gravel depth</span>
+        <div class="mt-1.5 flex"><input id="d-depth" type="number" min="0" step="any" placeholder="4" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm" required/><select id="d-depth-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option></select></div>
+        <span id="d-depth-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Number of layers / sections</span><input id="d-layers" type="number" min="1" max="10" step="1" value="1" class="mt-1.5 h-11 w-full rounded-sm border border-hairline bg-canvas px-3 text-sm"/></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Material</span><select id="d-mat" class="mt-1.5 h-11 w-full rounded-sm border border-hairline bg-canvas px-3 text-sm"><option value="crushed">Crushed Stone 1.40 t/yd³</option><option value="pea">Pea Gravel 1.35</option><option value="river">River Rock 1.33</option><option value="limestone">Limestone 1.60</option></select></label>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-3">
+      <label class="block"><span class="text-sm font-medium text-ink">Waste %</span><div class="mt-1.5 flex"><input id="d-waste" type="number" min="0" max="50" value="10" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><span class="flex h-11 items-center rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">%</span></div></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Price</span><div class="mt-1.5 flex"><span class="flex h-11 items-center rounded-l-sm border border-hairline bg-canvas-soft px-2 text-sm text-mute">$</span><input id="d-price" type="number" min="0" step="any" placeholder="45" class="h-11 w-full border-y border-hairline bg-canvas px-3 text-sm"/><select id="d-price-unit" class="h-11 rounded-r-sm border border-hairline bg-canvas-soft px-2 text-xs"><option value="yd">/ yd³</option><option value="ton">/ ton</option></select></div></label>
+      <div class="flex items-end"><p class="font-mono text-[11px] leading-4 text-mute">Multiply by layers for multi-section driveways. Depth per layer.</p></div>
+    </div>
+    <div class="flex gap-2"><button type="submit" class="h-11 rounded-sm bg-primary px-6 text-sm font-medium text-on-primary hover:bg-[#242424] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Calculate</button><button type="reset" id="d-reset" class="h-11 rounded-sm border border-hairline bg-canvas px-6 text-sm font-medium text-ink">Reset</button></div>
+  </form>
+  <div id="d-results" class="mt-6 hidden" aria-live="polite">
+    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5">
+      <p class="font-mono text-[11px] tracking-widest text-mute">DRIVEWAY GRAVEL ESTIMATE</p>
+      <p class="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink"><span id="d-yd3" class="tabular-nums">—</span> yd³ <span class="text-base font-medium text-body">· <span id="d-tons">—</span> tons</span></p>
+      <p class="font-mono text-xs tabular-nums text-body"><span id="d-ft3">—</span> ft³ · <span id="d-lb">—</span> lb</p>
+      <div class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 sm:grid-cols-3">
+        <div><p class="font-mono text-[11px] text-mute">With waste</p><p class="text-sm font-semibold tabular-nums text-ink"><span id="d-yd3w">—</span> yd³</p><p class="font-mono text-xs tabular-nums text-body"><span id="d-tonsw">—</span> tons</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Weight</p><p class="text-sm font-semibold tabular-nums text-ink"><span id="d-lbw">—</span> lb</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Est. cost</p><p id="d-cost" class="text-sm font-semibold text-ink">—</p><p id="d-cost-note" class="font-mono text-xs text-mute">Add price</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script is:inline>
+(()=>{const $=id=>document.getElementById(id);const form=$("d-form"),res=$("d-results");const dens={pea:1.35,crushed:1.40,river:1.33,limestone:1.60};function toFeet(v,u){if(u==="ft")return v;if(u==="in")return v/12;if(u==="yd")return v*3;if(u==="m")return v*3.28084;if(u==="cm")return v*0.0328084;return v;}
+function fmt(n,d=2){return new Intl.NumberFormat("en-US",{maximumFractionDigits:d,minimumFractionDigits:d===0?0:2}).format(n);}
+function show(id,msg){const e=$(id);e.textContent=msg;e.classList.remove("hidden");}
+function clear(){["d-len-error","d-wid-error","d-depth-error"].forEach(id=>{$(id).textContent="";$(id).classList.add("hidden");});}
+form.addEventListener("submit",e=>{e.preventDefault();clear();const L=parseFloat($("d-len").value),W=parseFloat($("d-wid").value),D=parseFloat($("d-depth").value),layers=parseInt($("d-layers").value)||1,waste=parseFloat($("d-waste").value)||0,price=parseFloat($("d-price").value);let ok=true;if(!(L>0)){show("d-len-error","Please enter a valid length.");ok=false;}if(!(W>0)){show("d-wid-error","Please enter a valid width.");ok=false;}if(!(D>0)){show("d-depth-error","Depth must be greater than 0.");ok=false;}if(!ok)return;
+const Lf=toFeet(L,$("d-len-unit").value),Wf=toFeet(W,$("d-wid-unit").value),Df=toFeet(D,$("d-depth-unit").value);const tonsPerYd=dens[$("d-mat").value]??1.4;const cuFt=Lf*Wf*Df*layers,cuYd=cuFt/27,tons=cuYd*tonsPerYd,lb=tons*2000,w=1+waste/100;const cuYdW=cuYd*w,tonsW=tons*w,lbW=lb*w;
+$("d-ft3").textContent=fmt(cuFt);$("d-yd3").textContent=fmt(cuYd);$("d-tons").textContent=fmt(tons);$("d-lb").textContent=fmt(lb,0);$("d-yd3w").textContent=fmt(cuYdW);$("d-tonsw").textContent=fmt(tonsW);$("d-lbw").textContent=fmt(lbW,0);
+let cost="—",note="Add price";if(isFinite(price)&&price>0){const unit=$("d-price-unit").value;const c=unit==="yd"?cuYdW*price:tonsW*price;cost=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(c);note=`at $${fmt(price)} per ${unit==="yd"?"yd³":"ton"} incl. waste`;}
+$("d-cost").textContent=cost;$("d-cost-note").textContent=note;res.classList.remove("hidden");res.scrollIntoView({behavior:"smooth",block:"nearest"});
+});$("d-reset").addEventListener("click",()=>{clear();res.classList.add("hidden");});})();
+</script>

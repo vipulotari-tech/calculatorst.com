@@ -1,0 +1,21 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+---
+
+<Layout title="Disclaimer — Calculator Street" description="Disclaimer: Calculator Street provides estimates only; verify with professionals.">
+  <Header />
+  <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Disclaimer" }]} />
+    <div class="mx-auto max-w-[720px] pt-6">
+      <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Disclaimer</h1>
+      <div class="mt-6 rounded-lg border border-hairline bg-canvas p-6 text-sm leading-6 text-body dark:bg-canvas">
+        <p>All calculators on Calculator Street provide estimates only. Materials, densities, coverage rates, prices and labor vary by location, supplier, product and project specifics. Always confirm quantities with your supplier and comply with local building codes.</p>
+        <p class="mt-3">Nothing on this site is professional construction, engineering or financial advice. For structural, roofing or load-bearing questions, consult a licensed professional.</p>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

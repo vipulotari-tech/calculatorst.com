@@ -1,0 +1,53 @@
+---
+import CalculatorLayout from "../../components/CalculatorLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import DrivewayGravelCalculator from "../../components/calculators/DrivewayGravelCalculator.astro";
+
+const related = [
+  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "General gravel — all materials" },
+  { title: "Pea Gravel Calculator", href: "/pea-gravel-calculator/", desc: "Pea gravel patios & paths" },
+  { title: "Paver Calculator", href: "/paver-calculator/", desc: "Pavers + base & sand" },
+  { title: "Concrete Slab Calculator", href: "/concrete-slab-calculator/", desc: "For concrete driveways" },
+];
+const faq = [
+  { q: "How much gravel do I need for a driveway?", a: "A 12×40 ft single-car drive at 6 inches needs about 8.9 yd³ (≈12–13 tons) before waste; a 12×100 ft rural drive at 8 inches needs ~37 yd³ (≈53 tons). Enter your exact length, width and depth, set layers for a two-course build, and the calculator shows both cubic yards and tons — then divide tons by truck capacity (often 12–15 tons per load) to get trips." },
+  { q: "How deep should a gravel driveway be?", a: "New residential: 8 inches total is the safest minimum — 6 inches of compacted crusher-run base plus 2 inches of #57 top. Firm sandy soil with light cars can do 4 inches base + 2 inches top (6 inches total). Soft clay or heavy trucks need 8 inches base + 2–3 inches top (10–11 inches). Resurfacing an existing base needs only 2–3 inches of fresh top stone." },
+  { q: "What gravel is best for driveways?", a: "Crusher run / road base (1.45 t/yd³) for the base — it locks when compacted. #57 crushed stone (1.40 t/yd³) for the surface — drains well and stays put. Avoid rounded <a href=\"/pea-gravel-calculator/\" class=\"text-link underline hover:text-link-deep\">pea gravel</a> for the driving surface; it shifts. For decorative borders, size those separately with the <a href=\"/gravel-calculator/\" class=\"text-link underline hover:text-link-deep\">Gravel Calculator</a>." },
+  { q: "How many tons of gravel for a 100-foot driveway?", a: "About 42 tons total for a 12×100 ft drive with a standard two-layer build (6-inch base + 2-inch top). That’s roughly 29 yd³ base (41.9 tons) plus 8.5 yd³ surface (11.9 tons). The calculator splits layers so you can order base and surface as separate tickets — never mix them." },
+  { q: "How do layers and compaction work?", a: "Order loose, place compacted. Open-graded #57 settles ~8% (×1.10), dense-graded crusher run compacts 15–25% (×1.20–1.25). The calculator first does <span class=\"font-mono text-xs\">Length × Width × Depth ÷ 324</span> per layer for raw yards, then applies compaction if you’re building a base. Waste (5–10% for a full build) is separate — add it after compaction." },
+  { q: "How much does driveway gravel cost?", a: "Material in 2026 is typically $15–$30/ton for crusher run, $28–$45/ton for #57, plus $50–$150 delivery per load. A 12×40 ft two-layer drive is often $600–$1,200 in stone alone before grading or fabric. Enter your price per yard or per ton — the calculator multiplies the waste-adjusted tons or yards so you can compare a per-ton bulk quote to a per-yard bag quote." },
+  { q: "How do I handle multiple sections or a turnaround?", a: "Set <em>Layers</em> to the number of identical rectangles (e.g., 2 for a main run plus a 30×30 ft turnaround as a second area). For different sizes, run the calculator once per section and sum the waste-adjusted tons — or use the <a href=\"/gravel-calculator/\" class=\"text-link underline hover:text-link-deep\">Gravel Calculator</a> for each pad and add them. Keep waste at 10% on the total, not per section." },
+];
+---
+
+<CalculatorLayout
+  title="Driveway Gravel Calculator — Volume & Cost | Calculator Street"
+  description="Driveway gravel calculator for length, width, depth & layers. Get cubic yards, tons, pounds and cost with waste."
+  h1="Driveway Gravel Calculator"
+  intro="Plan a gravel driveway by true dimensions. Enter length, width and depth in US or metric units, choose material, add layers for multi-section builds and waste — get volume, tons and cost."
+  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Gravel Calculators", href: "/construction/gravel/" }, { label: "Driveway Gravel Calculator" }]}
+  related={related}
+  faq={faq}
+  canonical="/driveway-gravel-calculator/"
+>
+  <Header slot="header" />
+  <DrivewayGravelCalculator slot="calculator" />
+  <section class="space-y-6">
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
+      <p class="mt-2 text-sm leading-6 text-body">Rectangular prism × layers, then density. Overhang and crown are not modeled — add 5% if you crown the center.</p>
+      <div class="mt-3 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm dark:bg-white/[0.03]"><p>Volume = L × W × D × Layers</p><p>Cubic Yards = Volume ÷ 27</p><p>Tons = Cubic Yards × Density</p></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
+      <p class="mt-2 text-sm leading-6 text-body">Driveway 40 ft × 12 ft × 4 in crushed stone, 1 layer, 10% waste, $46/yd³:</p>
+      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">STEP</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">ft³</td><td class="px-3 py-2">40×12×0.333=160</td></tr><tr><td class="px-3 py-2">yd³</td><td class="px-3 py-2">5.93</td></tr><tr><td class="px-3 py-2">tons</td><td class="px-3 py-2">8.30</td></tr><tr><td class="px-3 py-2">w/ waste</td><td class="px-3 py-2">6.52 yd³ · 9.13 tons</td></tr><tr><td class="px-3 py-2">cost</td><td class="px-3 py-2">$300</td></tr></tbody></table></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Uniform depth per layer. For variable depth, average it.</li><li>Loose density; compacted adds ~15–20% weight per volume.</li><li>No geotextile or edging included.</li></ul>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</CalculatorLayout>

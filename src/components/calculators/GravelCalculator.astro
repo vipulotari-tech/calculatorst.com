@@ -1,0 +1,209 @@
+---
+---
+
+<div id="gravel-calculator" class="rounded-lg border border-hairline bg-canvas p-5 shadow-card dark:bg-canvas sm:p-6">
+  <form id="gravel-form" novalidate class="space-y-5">
+    <div class="grid gap-4 sm:grid-cols-3">
+      <label class="block">
+        <span class="text-sm font-medium text-ink">Length</span>
+        <div class="mt-1.5 flex">
+          <input id="g-length" name="length" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 20" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="g-length-error" />
+          <select id="g-length-unit" class="h-11 shrink-0 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none">
+            <option value="ft">ft</option>
+            <option value="in">in</option>
+            <option value="yd">yd</option>
+            <option value="m">m</option>
+          </select>
+        </div>
+        <span id="g-length-error" class="mt-1 hidden text-xs text-error" role="alert"></span>
+      </label>
+      <label class="block">
+        <span class="text-sm font-medium text-ink">Width</span>
+        <div class="mt-1.5 flex">
+          <input id="g-width" name="width" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="g-width-error" />
+          <select id="g-width-unit" class="h-11 shrink-0 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm">
+            <option value="ft">ft</option>
+            <option value="in">in</option>
+            <option value="yd">yd</option>
+            <option value="m">m</option>
+          </select>
+        </div>
+        <span id="g-width-error" class="mt-1 hidden text-xs text-error" role="alert"></span>
+      </label>
+      <label class="block">
+        <span class="text-sm font-medium text-ink">Depth / Thickness</span>
+        <div class="mt-1.5 flex">
+          <input id="g-depth" name="depth" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 4" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="g-depth-error" />
+          <select id="g-depth-unit" class="h-11 shrink-0 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm">
+            <option value="in" selected>in</option>
+            <option value="ft">ft</option>
+            <option value="cm">cm</option>
+            <option value="m">m</option>
+          </select>
+        </div>
+        <span id="g-depth-error" class="mt-1 hidden text-xs text-error" role="alert"></span>
+      </label>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-3">
+      <label class="block">
+        <span class="text-sm font-medium text-ink">Material</span>
+        <select id="g-material" class="mt-1.5 h-11 w-full rounded-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20">
+          <option value="pea">Pea Gravel — 1.35 tons/yd³</option>
+          <option value="crushed">Crushed Stone — 1.40 tons/yd³</option>
+          <option value="river">River Rock — 1.33 tons/yd³</option>
+          <option value="limestone">Limestone — 1.60 tons/yd³</option>
+          <option value="granite">Granite — 1.42 tons/yd³</option>
+        </select>
+        <span class="mt-1 block font-mono text-[11px] text-mute">Density varies by supplier. Adjust price for accuracy.</span>
+      </label>
+      <label class="block">
+        <span class="text-sm font-medium text-ink">Waste / Overage</span>
+        <div class="mt-1.5 flex">
+          <input id="g-waste" type="number" inputmode="decimal" min="0" max="50" step="1" value="10" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" />
+          <span class="flex h-11 items-center rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">%</span>
+        </div>
+      </label>
+      <label class="block">
+        <span class="text-sm font-medium text-ink">Price (optional)</span>
+        <div class="mt-1.5 flex">
+          <span class="flex h-11 items-center rounded-l-sm border border-hairline bg-canvas-soft px-2 text-sm text-mute">$</span>
+          <input id="g-price" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 45" class="h-11 w-full border-y border-hairline bg-canvas px-3 text-sm focus:outline-none" />
+          <select id="g-price-unit" class="h-11 shrink-0 rounded-r-sm border border-hairline bg-canvas-soft px-2 text-[12px]">
+            <option value="yd">/ yd³</option>
+            <option value="ton">/ ton</option>
+          </select>
+        </div>
+      </label>
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+      <button type="submit" class="inline-flex h-11 items-center justify-center rounded-sm bg-primary px-6 text-sm font-medium text-on-primary transition hover:bg-[#242424] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-primary">Calculate</button>
+      <button type="reset" id="g-reset" class="inline-flex h-11 items-center justify-center rounded-sm border border-hairline bg-canvas px-6 text-sm font-medium text-ink transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Reset</button>
+      <span class="inline-flex items-center font-mono text-xs text-mute">Enter dimensions → Calculate. Waste included in totals.</span>
+    </div>
+  </form>
+
+  <!-- Results -->
+  <div id="g-results" class="mt-6 hidden" aria-live="polite">
+    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5 dark:bg-white/[0.04]">
+      <p class="font-mono text-[11px] font-medium tracking-widest text-mute">YOUR GRAVEL ESTIMATE</p>
+      <div class="mt-2 flex flex-wrap items-baseline gap-2">
+        <p class="text-3xl font-semibold tracking-[-0.03em] text-ink"><span id="g-yd3" class="tabular-nums">—</span> <span class="text-lg font-medium text-body">yd³</span></p>
+        <span class="text-body">·</span>
+        <p class="text-lg font-semibold tabular-nums text-ink"><span id="g-tons">—</span> tons</p>
+        <button type="button" id="g-copy" class="ml-auto hidden rounded-full border border-hairline bg-canvas px-3 py-1 font-mono text-xs hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link sm:inline-flex">Copy</button>
+      </div>
+      <p class="mt-1 font-mono text-xs tabular-nums text-body"><span id="g-ft3">—</span> ft³ · <span id="g-lb">—</span> lb</p>
+
+      <div class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 dark:bg-canvas sm:grid-cols-3">
+        <div>
+          <p class="font-mono text-[11px] tracking-wide text-mute">With waste</p>
+          <p class="mt-0.5 text-sm font-semibold tabular-nums text-ink"><span id="g-yd3-w">—</span> yd³</p>
+          <p class="font-mono text-xs tabular-nums text-body"><span id="g-tons-w">—</span> tons</p>
+        </div>
+        <div>
+          <p class="font-mono text-[11px] tracking-wide text-mute">Weight</p>
+          <p class="mt-0.5 text-sm font-semibold tabular-nums text-ink"><span id="g-tonsw">—</span> tons</p>
+          <p class="font-mono text-xs tabular-nums text-body"><span id="g-lbw">—</span> lb waste incl.</p>
+        </div>
+        <div>
+          <p class="font-mono text-[11px] tracking-wide text-mute">Est. cost</p>
+          <p class="mt-0.5 text-sm font-semibold text-ink" id="g-cost">—</p>
+          <p class="font-mono text-xs text-mute" id="g-cost-note">Add price for cost</p>
+        </div>
+      </div>
+      <p class="mt-3 font-mono text-[11px] leading-4 text-mute">Assumes rectangular area. Density: <span id="g-density-note">—</span>. Verify with supplier.</p>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const $ = (id) => document.getElementById(id);
+    const form = $("gravel-form");
+    const results = $("gravel-results") || document.getElementById("g-results");
+    const densityMap = { pea: 1.35, crushed: 1.40, river: 1.33, limestone: 1.60, granite: 1.42 };
+    const densityLabel = { pea: "Pea Gravel 1.35 t/yd³", crushed: "Crushed 1.40", river: "River Rock 1.33", limestone: "Limestone 1.60", granite: "Granite 1.42" };
+    function toFeet(v, unit) {
+      if (unit === "ft") return v;
+      if (unit === "in") return v / 12;
+      if (unit === "yd") return v * 3;
+      if (unit === "m") return v * 3.28084;
+      if (unit === "cm") return v * 0.0328084;
+      return v;
+    }
+    function fmt(n, dec=2) {
+      if (!isFinite(n)) return "—";
+      return new Intl.NumberFormat("en-US", { maximumFractionDigits: dec, minimumFractionDigits: dec === 0 ? 0 : dec === 2 ? 2 : 0 }).format(n);
+    }
+    function showError(id, msg) {
+      const el = $(id);
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.remove("hidden");
+    }
+    function clearErrors() {
+      ["g-length-error","g-width-error","g-depth-error"].forEach(id => { const e=$(id); if(e){e.textContent=""; e.classList.add("hidden"); }});
+    }
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      clearErrors();
+      const L = parseFloat($("g-length").value);
+      const W = parseFloat($("g-width").value);
+      const D = parseFloat($("g-depth").value);
+      const waste = parseFloat($("g-waste").value) || 0;
+      const price = parseFloat($("g-price").value);
+      let valid = true;
+      if (!(L>0)) { showError("g-length-error","Please enter a valid length."); valid=false; }
+      if (!(W>0)) { showError("g-width-error","Please enter a valid width."); valid=false; }
+      if (!(D>0)) { showError("g-depth-error","Depth must be greater than 0."); valid=false; }
+      if (!valid) return;
+      const Lf = toFeet(L, $("g-length-unit").value);
+      const Wf = toFeet(W, $("g-width-unit").value);
+      const Df = toFeet(D, $("g-depth-unit").value);
+      const cuFt = Lf * Wf * Df;
+      const cuYd = cuFt / 27;
+      const mat = $("g-material").value;
+      const tonsPerYd = densityMap[mat] ?? 1.4;
+      const tons = cuYd * tonsPerYd;
+      const pounds = tons * 2000;
+      const wasteF = 1 + waste/100;
+      const cuYdW = cuYd * wasteF;
+      const tonsW = tons * wasteF;
+      const lbW = pounds * wasteF;
+      $("g-ft3").textContent = fmt(cuFt);
+      $("g-yd3").textContent = fmt(cuYd);
+      $("g-tons").textContent = fmt(tons);
+      $("g-lb").textContent = fmt(pounds,0);
+      $("g-yd3-w").textContent = fmt(cuYdW);
+      $("g-tons-w").textContent = fmt(tonsW);
+      $("g-tonsw").textContent = fmt(tonsW);
+      $("g-lbw").textContent = fmt(lbW,0);
+      $("g-density-note").textContent = densityLabel[mat];
+      // cost
+      const priceUnit = $("g-price-unit").value;
+      let costText = "—";
+      let note = "Add price for cost";
+      if (isFinite(price) && price>0) {
+        const cost = priceUnit === "yd" ? cuYdW * price : tonsW * price;
+        costText = new Intl.NumberFormat("en-US", { style:"currency", currency:"USD" }).format(cost);
+        note = `at $${fmt(price)} per ${priceUnit === "yd" ? "yd³" : "ton"} incl. waste`;
+      }
+      $("g-cost").textContent = costText;
+      $("g-cost-note").textContent = note;
+      results.classList.remove("hidden");
+      const copyBtn = $("g-copy");
+      if (copyBtn) {
+        copyBtn.classList.remove("hidden");
+        copyBtn.textContent = "Copy";
+        copyBtn.onclick = async () => {
+          const text = `Gravel: ${fmt(cuYdW)} yd³ (${fmt(tonsW)} tons) incl. ${waste}% waste`;
+          try { await navigator.clipboard.writeText(text); copyBtn.textContent = "Copied!"; setTimeout(()=> copyBtn.textContent="Copy",1500);} catch {}
+        };
+      }
+      results.scrollIntoView({ behavior:"smooth", block:"nearest"});
+    });
+    $("g-reset").addEventListener("click", () => { clearErrors(); results.classList.add("hidden"); });
+  })();
+</script>

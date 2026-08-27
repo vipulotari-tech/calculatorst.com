@@ -1,0 +1,46 @@
+---
+---
+
+<div id="mulch-calc" class="rounded-lg border border-hairline bg-canvas p-5 shadow-card sm:p-6">
+  <form id="m-form" novalidate class="space-y-5">
+    <div class="grid gap-4 sm:grid-cols-3">
+      <label class="block"><span class="text-sm font-medium text-ink">Length</span><div class="mt-1.5 flex"><input id="m-len" type="number" min="0" step="any" placeholder="20" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm" required/><select id="m-len-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="in">in</option><option value="m">m</option></select></div><span id="m-len-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Width</span><div class="mt-1.5 flex"><input id="m-wid" type="number" min="0" step="any" placeholder="10" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm" required/><select id="m-wid-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="m">m</option></select></div><span id="m-wid-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Depth</span><div class="mt-1.5 flex"><input id="m-depth" type="number" min="0" step="any" value="3" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm" required/><select id="m-depth-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option></select></div><span id="m-depth-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-3">
+      <label class="block"><span class="text-sm font-medium text-ink">Number of areas</span><input id="m-areas" type="number" min="1" max="20" value="1" class="mt-1.5 h-11 w-full rounded-sm border border-hairline bg-canvas px-3 text-sm"/></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Bag size</span><select id="m-bag" class="mt-1.5 h-11 w-full rounded-sm border border-hairline bg-canvas px-3 text-sm"><option value="2">2 ft³ (most common US)</option><option value="1.5">1.5 ft³</option><option value="3">3 ft³</option><option value="0">Bulk (no bags)</option></select></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Waste %</span><div class="mt-1.5 flex"><input id="m-waste" type="number" min="0" max="30" value="10" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><span class="flex h-11 items-center rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">%</span></div></label>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label class="block"><span class="text-sm font-medium text-ink">Price (optional)</span><div class="mt-1.5 flex"><span class="flex h-11 items-center rounded-l-sm border border-hairline bg-canvas-soft px-2 text-sm text-mute">$</span><input id="m-price" type="number" min="0" step="any" placeholder="4.50" class="h-11 w-full border-y border-hairline bg-canvas px-3 text-sm"/><select id="m-price-unit" class="h-11 rounded-r-sm border border-hairline bg-canvas-soft px-2 text-xs"><option value="bag">/ bag</option><option value="yd">/ yd³</option></select></div></label>
+      <div class="flex items-end"><p class="font-mono text-[11px] leading-4 text-mute">Bulk mulch sold by cubic yard. Bag = 2 ft³ covers ~8 ft² at 3" deep.</p></div>
+    </div>
+    <div class="flex gap-2"><button type="submit" class="h-11 rounded-sm bg-primary px-6 text-sm font-medium text-on-primary">Calculate</button><button type="reset" id="m-reset" class="h-11 rounded-sm border border-hairline bg-canvas px-6 text-sm font-medium text-ink">Reset</button></div>
+  </form>
+  <div id="m-results" class="mt-6 hidden" aria-live="polite">
+    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5">
+      <p class="font-mono text-[11px] tracking-widest text-mute">MULCH ESTIMATE</p>
+      <p class="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink"><span id="m-yd3" class="tabular-nums">—</span> yd³ <span class="text-sm font-medium text-body">· <span id="m-ft3">—</span> ft³</span></p>
+      <div class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 sm:grid-cols-3">
+        <div><p class="font-mono text-[11px] text-mute">Bags needed</p><p id="m-bags" class="text-sm font-semibold tabular-nums text-ink">—</p><p id="m-bag-note" class="font-mono text-xs text-mute">2 ft³ bags</p></div>
+        <div><p class="font-mono text-[11px] text-mute">With waste</p><p id="m-yd3w" class="text-sm font-semibold tabular-nums text-ink">—</p><p id="m-bagsw" class="font-mono text-xs tabular-nums text-body">— bags</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Est. cost</p><p id="m-cost" class="text-sm font-semibold text-ink">—</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script is:inline>
+(()=>{const $=id=>document.getElementById(id);const f=$("m-form"),r=$("m-results");function toFeet(v,u){if(u==="ft")return v;if(u==="in")return v/12;if(u==="m")return v*3.28084;if(u==="cm")return v*0.0328084;return v;}
+function fmt(n,d=2){return new Intl.NumberFormat("en-US",{maximumFractionDigits:d,minimumFractionDigits:d===0?0:2}).format(n);}
+f.addEventListener("submit",e=>{e.preventDefault();const L=parseFloat($("m-len").value),W=parseFloat($("m-wid").value),D=parseFloat($("m-depth").value);const e1=$("m-len-error"),e2=$("m-wid-error"),e3=$("m-depth-error");[e1,e2,e3].forEach(el=>{el.textContent="";el.classList.add("hidden");});let ok=true;if(!(L>0)){e1.textContent="Please enter a valid length.";e1.classList.remove("hidden");ok=false;}if(!(W>0)){e2.textContent="Please enter a valid width.";e2.classList.remove("hidden");ok=false;}if(!(D>0)){e3.textContent="Depth must be greater than 0.";e3.classList.remove("hidden");ok=false;}if(!ok)return;
+const Lf=toFeet(L,$("m-len-unit").value),Wf=toFeet(W,$("m-wid-unit").value),Df=toFeet(D,$("m-depth-unit").value),areas=parseInt($("m-areas").value)||1,waste=parseFloat($("m-waste").value)||0,bag=parseFloat($("m-bag").value),price=parseFloat($("m-price").value);
+const cuFt=Lf*Wf*Df*areas,cuYd=cuFt/27,w=1+waste/100,cuFtW=cuFt*w,cuYdW=cuYd*w;
+$("m-ft3").textContent=fmt(cuFt);$("m-yd3").textContent=fmt(cuYd);$("m-yd3w").textContent=fmt(cuYdW);
+let bags="—",bagsW="—",note="Bulk";if(bag>0){bags=String(Math.ceil(cuFt/bag));bagsW=String(Math.ceil(cuFtW/bag));note=`${bag} ft³ bags`;} else {bags="Bulk";bagsW="Bulk";}
+$("m-bags").textContent=bags;$("m-bagsw").textContent=bagsW;$("m-bag-note").textContent=note;
+let cost="—";if(isFinite(price)&&price>0){const unit=$("m-price-unit").value;const c=unit==="bag"?(bag>0?Math.ceil(cuFtW/bag)*price:0):cuYdW*price;if(c>0) cost=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(c);}
+$("m-cost").textContent=cost;r.classList.remove("hidden");r.scrollIntoView({behavior:"smooth",block:"nearest"});
+});$("m-reset").addEventListener("click",()=>{r.classList.add("hidden");["m-len-error","m-wid-error","m-depth-error"].forEach(id=>{const e=$(id);e.textContent="";e.classList.add("hidden");});});})();
+</script>

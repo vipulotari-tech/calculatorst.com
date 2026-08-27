@@ -1,0 +1,48 @@
+---
+interface Crumb {
+  label: string;
+  href?: string;
+}
+interface Props {
+  items: Crumb[];
+}
+const { items } = Astro.props;
+
+const breadcrumbData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: item.label,
+    ...(item.href ? { item: new URL(item.href, Astro.site ?? "https://calculatorst.com").href } : {}),
+  })),
+};
+---
+
+<nav aria-label="Breadcrumb" class="w-full">
+  <ol class="flex flex-wrap items-center gap-1.5 text-sm" role="list">
+    {
+      items.map((item, idx) => (
+        <li class="flex items-center gap-1.5">
+          {idx > 0 && (
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="text-mute">
+              <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+            </svg>
+          )}
+          {item.href ? (
+            <a href={item.href} class="rounded-sm px-1 py-0.5 font-medium text-body transition-colors hover:text-ink hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">
+              {item.label}
+            </a>
+          ) : (
+            <span aria-current="page" class="px-1 py-0.5 font-medium text-ink">
+              {item.label}
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbData)} is:inline />

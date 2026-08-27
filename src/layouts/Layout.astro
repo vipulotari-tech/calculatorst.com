@@ -1,23 +1,147 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import "../styles/global.css";
+import BackToTop from "../components/BackToTop.astro";
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = "Calculator Street — Free Construction & Home Improvement Calculators",
+  description = "Free, fast, and accurate calculators for decking, roofing, gravel, concrete, fencing, pavers and mulch. Built for US homeowners and DIY pros — mobile-friendly, private, and offline-ready.",
+  canonical: canonicalProp,
+  noindex = false,
+} = Astro.props;
+
+const site = Astro.site?.toString() ?? "https://calculatorst.com";
+const canonicalUrl = canonicalProp
+  ? new URL(canonicalProp, site).href
+  : new URL(Astro.url.pathname, site).href;
+
+// OG image — 1200×630 PNG for better CTR (fallback to svg if png missing)
+const ogImage = new URL("/og.png", site).href;
+const ogImageAlt = "Calculator Street — Construction & Home Improvement Calculators";
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Calculator Street",
+  alternateName: "CalculatorSt.com",
+  url: site,
+  description: description,
+  inLanguage: "en-US",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${site}/calculators/?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Calculator Street",
+  url: site,
+  logo: new URL("/favicon.svg", site).href,
+  sameAs: [],
+};
+---
+
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+    />
+
+    <title>{title}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:site_name" content="Calculator Street" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+
+    <!-- Structured Data: WebSite + Organization -->
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} is:inline />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} is:inline />
+
+    <!-- Theme — no FOUC -->
+    <script is:inline>
+      (function () {
+        try {
+          const stored = localStorage.getItem("theme");
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const shouldDark = stored ? stored === "dark" : prefersDark;
+          document.documentElement.classList.toggle("dark", shouldDark);
+        } catch {}
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen bg-canvas-soft text-ink antialiased selection:bg-primary selection:text-on-primary dark:bg-canvas-soft dark:text-ink">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-primary focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-on-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-link"
+    >
+      Skip to content
+    </a>
+    <slot />
+    <BackToTop />
+
+    <!-- Theme persistence helper -->
+    <script is:inline>
+      // Expose helper for toggle buttons
+      window.__setTheme = function (mode) {
+        try {
+          localStorage.setItem("theme", mode);
+          document.documentElement.classList.toggle("dark", mode === "dark");
+        } catch {}
+      };
+      // Listen for system changes when no explicit preference
+      try {
+        const mq = window.matchMedia("(prefers-color-scheme: dark)");
+        mq.addEventListener("change", (e) => {
+          if (!localStorage.getItem("theme")) {
+            document.documentElement.classList.toggle("dark", e.matches);
+          }
+        });
+      } catch {}
+    </script>
+  </body>
+</html>

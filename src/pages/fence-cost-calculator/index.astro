@@ -1,0 +1,58 @@
+---
+import CalculatorLayout from "../../components/CalculatorLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import FenceCostCalculator from "../../components/calculators/FenceCostCalculator.astro";
+
+const related = [
+  { title: "Paver Calculator", href: "/paver-calculator/", desc: "For paver patios & edges" },
+  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "Drainage gravel for posts" },
+  { title: "Concrete Slab Calculator", href: "/concrete-slab-calculator/", desc: "Footings & posts" },
+  { title: "Deck Material Calculator", href: "/deck-material-calculator/", desc: "Decks vs fences" },
+];
+const faq = [
+  { q: "How much does a fence cost per linear foot in 2026?", a: "Installed: chain link $10–$25, pressure-treated wood $15–$30, vinyl $25–$40, composite $30–$50, wrought iron $30–$70 per linear foot at 6 ft height. Material-only is roughly $5–$12 for chain link, $8–$15 for wood, $12–$22 for vinyl. A 150 ft wood privacy fence is often $4,500–$6,800 installed. The calculator shows material-only with waste — get 2–3 local bids for labor, which is ~60% of installed cost." },
+  { q: "How many fence posts do I need and how far apart?", a: "Posts = <span class=\"font-mono text-xs\">ceil(effective length ÷ spacing) + 1 + 2 × gates</span>. Spacing is center-to-center: 8 ft is standard for wood and chain link, 6 ft for vinyl. Effective length subtracts gate widths. Example: 100 ft with 8-ft spacing and one 4-ft gate → ceil(96 ÷ 8) + 1 + 2 = 15 posts. Add waste after." },
+  { q: "What affects fence cost the most?", a: "Material choice (3–8× range), fence height (4 ft ×0.75, 8 ft ×1.30 vs 6 ft baseline), post depth and concrete (36-inch holes, ~1.5 ft³ or ~3 bags of 60-lb per post), gate count ($200–$600 walk-through, $300–$1,200 double), and terrain (slope adds $3–$10/ft, clearing $2–$6/ft). Region matters — coastal labor is 30% higher." },
+  { q: "How much does a fence gate add to the cost?", a: "Walk-through gates $200–$600 each, double-drive $300–$1,200, automatic $1,900–$6,000+. Each gate also needs two extra posts and hardware. The calculator adds 2 posts per gate and includes gate width in effective length so you can compare a single 4-ft gate vs two gates directly." },
+  { q: "Wood vs vinyl vs chain link — which should I choose?", a: "Chain link: cheapest, 15–20 yr, minimal privacy. Wood (PT pine $8–$15 materials, cedar $15–$25): 15–25 yr with staining every 2–3 years. Vinyl ($12–$22 materials): 25–40 yr, zero maintenance, limited colors and brittle in extreme cold. For a <a href=\"/deck-material-calculator/\" class=\"text-link underline hover:text-link-deep\">deck</a> perimeter, vinyl or composite often pairs best with composite decking for lifetime cost." },
+  { q: "How much concrete do I need per post?", a: "About 1.5 ft³ per 36-inch hole (4×4 post) — roughly three 60-lb bags (0.45 ft³ each) or two 80-lb bags. Deeper or wider holes on slopes or tall fences (8 ft needs 36-inch depth, 3 bags) use more. The calculator estimates <span class=\"font-mono text-xs\">posts × 0.5 bags of 50-lb</span> as a planning figure — confirm with your post-hole depth and bag yield (80-lb = 0.60 ft³, 60-lb = 0.45 ft³)." },
+  { q: "How much waste should I add for a fence?", a: "10% is typical for simple runs on flat ground. Use 15% for sloped, staggered board, or board-on-board designs where cuts increase. Chain link waste is lower (5%). The calculator’s waste multiplies posts, panels and linear rails together — material-only cost then reflects waste-adjusted quantities." },
+];
+---
+
+<CalculatorLayout
+  title="Fence Cost Calculator — Posts, Panels & Cost | Calculator Street"
+  description="Estimate fence materials and cost for wood, vinyl or chain link. Inputs for length, height, spacing, gates, rails & waste."
+  h1="Fence Cost Calculator"
+  intro="Estimate a fence like a contractor: enter total length, height, material, post spacing, gate count and rails — get posts, panels/pickets, linear rail feet, fence area, concrete bags and a material cost range. Labor excluded — see assumptions."
+  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Fence Calculators", href: "/construction/fencing/" }, { label: "Fence Cost Calculator" }]}
+  related={related}
+  faq={faq}
+  canonical="/fence-cost-calculator/"
+>
+  <Header slot="header" />
+  <FenceCostCalculator slot="calculator" />
+  <section class="space-y-6">
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
+      <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
+        <li>Effective length = total length − gates × gate width</li>
+        <li>Posts = ceil(effective ÷ spacing) + 1 + 2×gates</li>
+        <li>Panels ≈ ceil(effective ÷ 8) (for panel systems)</li>
+        <li>Linear rails = effective × rails per bay</li>
+        <li>Area = total length × height. Concrete ≈ 0.5 × 50 lb bag/post</li>
+      </ol>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
+      <p class="mt-2 text-sm leading-6 text-body">100 ft wood fence, 6 ft high, 8 ft spacing, 1×4 ft gate, 2 rails, 10% waste:</p>
+      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">OUTPUT</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">Effective</td><td class="px-3 py-2">96 ft</td></tr><tr><td class="px-3 py-2">Posts</td><td class="px-3 py-2">13 → 15 w/ waste</td></tr><tr><td class="px-3 py-2">Panels (8 ft)</td><td class="px-3 py-2">12 → 14 w/ waste</td></tr><tr><td class="px-3 py-2">Rails</td><td class="px-3 py-2">192 lin ft → 212 w/ waste</td></tr><tr><td class="px-3 py-2">Area</td><td class="px-3 py-2">600 ft²</td></tr></tbody></table></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Flat terrain. Slopes add posts.</li><li>Gates are pre-hung; hardware extra.</li><li>8 ft panel width is US typical — adjust waste if using 6 ft.</li><li>Price per foot/panel/post as entered — we multiply by waste-adjusted count.</li></ul>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</CalculatorLayout>

@@ -1,0 +1,56 @@
+---
+import CalculatorLayout from "../../components/CalculatorLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import RoofSquareFootageCalculator from "../../components/calculators/RoofSquareFootageCalculator.astro";
+
+const related = [
+  { title: "Roof Pitch Calculator", href: "/roof-pitch-calculator/", desc: "Find your pitch first" },
+  { title: "Shingle Calculator (soon)", href: "/roof-pitch-calculator/", desc: "Bundles from squares" },
+  { title: "Paver Calculator", href: "/paver-calculator/", desc: "Flat roofs vs pavers" },
+];
+const faq = [
+  { q: "How do I calculate roof square footage from building size?", a: "Start with footprint including overhangs: <span class=\"font-mono text-xs\">(Length + 2×overhang) × (Width + 2×overhang) × sections</span>. Multiply by the pitch multiplier <span class=\"font-mono text-xs\">√(pitch²+144) ÷ 12</span> to get true roof area. Divide by 100 for roofing squares. The calculator does this and adds waste last. Find your pitch first with the <a href=\"/roof-pitch-calculator/\" class=\"text-link underline hover:text-link-deep\">Roof Pitch Calculator</a> if you don’t know it." },
+  { q: "How many roofing squares do I need?", a: "One square is 100 sq ft of roof area. After you get roof square footage, divide by 100. Example: 1,586 sq ft = 15.86 squares → order 17–18 squares with waste. Shingles are sold by the square or by bundles (typically 3 bundles per square for 3-tab, which varies by product). Always round up — partial squares aren’t sold." },
+  { q: "Does roof pitch affect square footage?", a: "Yes — steeper pitch means more area than the footprint. Multiplier examples: 4:12 = 1.054, 6:12 = 1.118, 8:12 = 1.202, 12:12 = 1.414. A 1,200 sq ft footprint at 6:12 is ~1,342 sq ft of roof. The calculator applies the multiplier automatically once you enter pitch." },
+  { q: "Should I include roof overhang in the calculation?", a: "Yes — add overhang to both length and width before multiplying. A 1.5-ft overhang on a 40×30 ft building makes footprint 43×33 ft. Overhang is added before the pitch multiplier, not after, because the sloped area includes the eave. If your overhang varies, measure each side separately and average." },
+  { q: "How do I handle multiple sections, dormers or hips?", a: "Use <em>Roof sections</em> for identical gables (e.g., 2 for a main house plus garage). For dormers, calculate the main roof, then subtract large dormer footprints if they’re significant, or add 5% to area for hips and valleys which add cuts. The tool assumes a simple gable — add 5% for hips, 15% waste for complex roofs." },
+  { q: "How much waste should I add for roofing?", a: "Simple gable with few penetrations: 10%. Hips, valleys, dormers or lots of valleys: 15%. Complex cuts, starter and ridge caps, and hip/ridge shingles are extra beyond field squares. The calculator’s waste control lets you test 10% vs 15% and see squares instantly." },
+  { q: "What’s the difference between roof area and footprint?", a: "Footprint is the building’s ground projection. Roof area is larger because of slope and overhang. For example, a 40×30 ft building (1,200 ft² footprint) with 1.5-ft overhangs is 1,419 ft² footprint, then at 6:12 pitch it’s ~1,586 ft² roof. Use footprint for foundation, roof area for shingles." },
+];
+---
+
+<CalculatorLayout
+  title="Roof Square Footage Calculator — Area & Squares | Calculator Street"
+  description="Calculate roof square footage and roofing squares from building size, pitch, overhang & waste. Includes pitch multiplier."
+  h1="Roof Square Footage Calculator"
+  intro="Estimate true roof area — not just the footprint. Enter building length, width, pitch (rise per 12), overhang and waste — get footprint, roof area and roofing squares."
+  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Roofing Calculators", href: "/construction/roofing/" }, { label: "Roof Square Footage Calculator" }]}
+  related={related}
+  faq={faq}
+  canonical="/roof-square-footage-calculator/"
+>
+  <Header slot="header" />
+  <RoofSquareFootageCalculator slot="calculator" />
+  <section class="space-y-6">
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
+      <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
+        <li>Footprint with overhang: (L+2×overhang) × (W+2×overhang) × sections</li>
+        <li>Multiplier = √(pitch²+144) ÷ 12</li>
+        <li>Roof area = footprint × multiplier</li>
+        <li>Squares = roof area ÷ 100. Waste multiplies last.</li>
+      </ol>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
+      <p class="mt-2 text-sm leading-6 text-body">Building 40×30 ft, 6:12 pitch, 1.5 ft overhang, 10% waste:</p>
+      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">STEP</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">Footprint</td><td class="px-3 py-2">43×33=1419 ft²</td></tr><tr><td class="px-3 py-2">Multiplier</td><td class="px-3 py-2">1.118</td></tr><tr><td class="px-3 py-2">Roof</td><td class="px-3 py-2">1586 ft² (15.86 squares)</td></tr><tr><td class="px-3 py-2">With waste</td><td class="px-3 py-2">1745 ft² (17.45 squares)</td></tr></tbody></table></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Gable roof. Hip: add 5% to area.</li><li>Overhang adds to footprint before multiplier — not after.</li><li>Does not subtract dormers — subtract manually if large.</li></ul>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</CalculatorLayout>

@@ -1,0 +1,50 @@
+---
+---
+
+<div id="deck-calc" class="rounded-lg border border-hairline bg-canvas p-5 shadow-card sm:p-6">
+  <form id="dk-form" novalidate class="space-y-5">
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label class="block"><span class="text-sm font-medium text-ink">Deck length</span><div class="mt-1.5 flex"><input id="dk-len" type="number" min="0" step="any" placeholder="16" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm" required/><select id="dk-len-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="m">m</option></select></div><span id="dk-len-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Deck width</span><div class="mt-1.5 flex"><input id="dk-wid" type="number" min="0" step="any" placeholder="12" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm" required/><select id="dk-wid-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="m">m</option></select></div><span id="dk-wid-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-3">
+      <label class="block"><span class="text-sm font-medium text-ink">Board width</span><div class="mt-1.5 flex"><input id="dk-bw" type="number" min="0" step="any" value="5.5" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><select id="dk-bw-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="in" selected>in</option><option value="cm">cm</option></select></div></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Board length</span><div class="mt-1.5 flex"><input id="dk-bl" type="number" min="0" step="any" value="16" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><select id="dk-bl-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="m">m</option></select></div></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Gap</span><div class="mt-1.5 flex"><input id="dk-gap" type="number" min="0" max="1" step="any" value="0.125" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><select id="dk-gap-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="in" selected>in</option><option value="mm">mm</option></select></div></label>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-3">
+      <label class="block"><span class="text-sm font-medium text-ink">Joist spacing</span><select id="dk-joist" class="mt-1.5 h-11 w-full rounded-sm border border-hairline bg-canvas px-3 text-sm"><option value="12">12" o.c.</option><option value="16" selected>16" o.c.</option><option value="24">24" o.c.</option></select></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Waste %</span><div class="mt-1.5 flex"><input id="dk-waste" type="number" min="0" max="30" value="10" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><span class="flex h-11 items-center rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">%</span></div></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Price</span><div class="mt-1.5 flex"><span class="flex h-11 items-center rounded-l-sm border border-hairline bg-canvas-soft px-2 text-sm text-mute">$</span><input id="dk-price" type="number" min="0" step="any" placeholder="35" class="h-11 w-full border-y border-hairline bg-canvas px-3 text-sm"/><select id="dk-price-unit" class="h-11 rounded-r-sm border border-hairline bg-canvas-soft px-2 text-xs"><option value="board">/ board</option><option value="lf">/ lin ft</option></select></div></label>
+    </div>
+    <div class="flex gap-2"><button type="submit" class="h-11 rounded-sm bg-primary px-6 text-sm font-medium text-on-primary">Calculate</button><button type="reset" id="dk-reset" class="h-11 rounded-sm border border-hairline bg-canvas px-6 text-sm font-medium text-ink">Reset</button></div>
+  </form>
+  <div id="dk-results" class="mt-6 hidden" aria-live="polite">
+    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5">
+      <p class="font-mono text-[11px] tracking-widest text-mute">DECK MATERIAL ESTIMATE</p>
+      <p class="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink"><span id="dk-boards" class="tabular-nums">—</span> boards <span class="text-sm font-medium text-body">· <span id="dk-sqft">—</span> ft²</span></p>
+      <div class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 sm:grid-cols-3">
+        <div><p class="font-mono text-[11px] text-mute">Linear feet</p><p id="dk-lf" class="text-sm font-semibold tabular-nums text-ink">—</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Joists</p><p id="dk-joists" class="text-sm font-semibold tabular-nums text-ink">—</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Fasteners (~)</p><p id="dk-fast" class="text-sm font-semibold tabular-nums text-ink">—</p></div>
+      </div>
+      <div class="mt-3 flex items-center justify-between rounded-md border border-hairline bg-canvas p-3">
+        <p class="font-mono text-[11px] text-mute">With waste</p><p id="dk-boards-w" class="text-sm font-semibold tabular-nums text-ink">—</p>
+        <p id="dk-cost" class="text-sm font-semibold text-ink">—</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script is:inline>
+(()=>{const $=id=>document.getElementById(id);const f=$("dk-form"),r=$("dk-results");function toFeet(v,u){if(u==="ft")return v;if(u==="m")return v*3.28084;if(u==="in")return v/12;if(u==="cm")return v*0.0328084;if(u==="mm")return v*0.00328084;return v;}
+function fmt(n,d=1){return new Intl.NumberFormat("en-US",{maximumFractionDigits:d}).format(n);}
+f.addEventListener("submit",e=>{e.preventDefault();const L=parseFloat($("dk-len").value),W=parseFloat($("dk-wid").value);const e1=$("dk-len-error"),e2=$("dk-wid-error");e1.textContent="";e1.classList.add("hidden");e2.textContent="";e2.classList.add("hidden");let ok=true;if(!(L>0)){e1.textContent="Please enter a valid length.";e1.classList.remove("hidden");ok=false;}if(!(W>0)){e2.textContent="Please enter a valid width.";e2.classList.remove("hidden");ok=false;}if(!ok)return;
+const Lf=toFeet(L,$("dk-len-unit").value),Wf=toFeet(W,$("dk-wid-unit").value),bw=toFeet(parseFloat($("dk-bw").value)||5.5,$("dk-bw-unit").value),bl=toFeet(parseFloat($("dk-bl").value)||16,$("dk-bl-unit").value),gap=toFeet(parseFloat($("dk-gap").value)||0.125,$("dk-gap-unit").value),joistIn=parseFloat($("dk-joist").value)||16,waste=parseFloat($("dk-waste").value)||0,price=parseFloat($("dk-price").value);
+const deckSqFt=Lf*Wf;const effBoardWidth=bw+gap;const rows=Math.ceil(Wf/effBoardWidth);const boardsPerRow=Math.ceil(Lf/bl);let boards=rows*boardsPerRow;
+const linearFt=boards*bl;const joistSpacingFt=joistIn/12;const joists=Math.ceil(Lf/joistSpacingFt)+1;const fasteners=boards*2*Math.ceil(joistSpacingFt?Lf/joistSpacingFt:0); // approx 2 per joist
+const w=1+waste/100;const boardsW=Math.ceil(boards*w);
+$("dk-sqft").textContent=fmt(deckSqFt,1);$("dk-boards").textContent=String(boards);$("dk-lf").textContent=fmt(linearFt,1)+" ft";$("dk-joists").textContent=String(joists);$("dk-fast").textContent=fmt(fasteners,0);$("dk-boards-w").textContent=String(boardsW)+" boards w/ waste";
+let cost="—";if(isFinite(price)&&price>0){const unit=$("dk-price-unit").value;const c=unit==="board"?boardsW*price:linearFt*w*price;cost=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(c);}
+$("dk-cost").textContent=cost;r.classList.remove("hidden");r.scrollIntoView({behavior:"smooth",block:"nearest"});
+});$("dk-reset").addEventListener("click",()=>{r.classList.add("hidden");["dk-len-error","dk-wid-error"].forEach(id=>{const e=$(id);e.textContent="";e.classList.add("hidden");});});})();
+</script>

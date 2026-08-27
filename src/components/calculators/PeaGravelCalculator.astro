@@ -1,0 +1,50 @@
+---
+---
+
+<div id="pea-calculator" class="rounded-lg border border-hairline bg-canvas p-5 shadow-card dark:bg-canvas sm:p-6">
+  <form id="pea-form" novalidate class="space-y-5">
+    <div class="grid gap-4 sm:grid-cols-3">
+      <label class="block"><span class="text-sm font-medium text-ink">Length</span>
+        <div class="mt-1.5 flex"><input id="p-length" type="number" min="0" step="any" placeholder="20" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="p-length-error"/><select id="p-length-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="in">in</option><option value="yd">yd</option><option value="m">m</option></select></div>
+        <span id="p-length-error" class="mt-1 hidden text-xs text-error" role="alert"></span>
+      </label>
+      <label class="block"><span class="text-sm font-medium text-ink">Width</span>
+        <div class="mt-1.5 flex"><input id="p-width" type="number" min="0" step="any" placeholder="10" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="p-width-error"/><select id="p-width-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="in">in</option><option value="yd">yd</option><option value="m">m</option></select></div>
+        <span id="p-width-error" class="mt-1 hidden text-xs text-error" role="alert"></span>
+      </label>
+      <label class="block"><span class="text-sm font-medium text-ink">Depth</span>
+        <div class="mt-1.5 flex"><input id="p-depth" type="number" min="0" step="any" placeholder="3" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="p-depth-error"/><select id="p-depth-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option></select></div>
+        <span id="p-depth-error" class="mt-1 hidden text-xs text-error" role="alert"></span>
+      </label>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-3">
+      <label class="block"><span class="text-sm font-medium text-ink">Waste</span><div class="mt-1.5 flex"><input id="p-waste" type="number" min="0" max="50" value="10" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><span class="flex h-11 items-center rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">%</span></div></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Price (optional)</span><div class="mt-1.5 flex"><span class="flex h-11 items-center rounded-l-sm border border-hairline bg-canvas-soft px-2 text-sm text-mute">$</span><input id="p-price" type="number" min="0" step="any" placeholder="52" class="h-11 w-full border-y border-hairline bg-canvas px-3 text-sm"/><select id="p-price-unit" class="h-11 rounded-r-sm border border-hairline bg-canvas-soft px-2 text-xs"><option value="yd">/ yd³</option><option value="ton">/ ton</option></select></div></label>
+      <div class="flex items-end"><p class="font-mono text-[11px] leading-4 text-mute">Pea gravel density 1.35 tons/yd³ (≈22 lb/ft³). Adjust if supplier differs.</p></div>
+    </div>
+    <div class="flex gap-2"><button type="submit" class="h-11 rounded-sm bg-primary px-6 text-sm font-medium text-on-primary hover:bg-[#242424] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Calculate</button><button type="reset" id="p-reset" class="h-11 rounded-sm border border-hairline bg-canvas px-6 text-sm font-medium text-ink hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Reset</button></div>
+  </form>
+  <div id="p-results" class="mt-6 hidden" aria-live="polite">
+    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5 dark:bg-white/[0.04]">
+      <p class="font-mono text-[11px] tracking-widest text-mute">PEA GRAVEL ESTIMATE</p>
+      <p class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-ink"><span id="p-yd3" class="tabular-nums">—</span> yd³ <span class="text-base font-medium text-body">· <span id="p-tons">—</span> tons</span></p>
+      <p class="font-mono text-xs tabular-nums text-body"><span id="p-ft3">—</span> ft³ · <span id="p-lb">—</span> lb</p>
+      <div class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 sm:grid-cols-3">
+        <div><p class="font-mono text-[11px] text-mute">With waste</p><p class="text-sm font-semibold tabular-nums text-ink"><span id="p-yd3w">—</span> yd³</p><p class="font-mono text-xs tabular-nums text-body"><span id="p-tonsw">—</span> tons</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Pounds</p><p class="text-sm font-semibold tabular-nums text-ink"><span id="p-lbw">—</span> lb</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Est. cost</p><p id="p-cost" class="text-sm font-semibold text-ink">—</p><p id="p-cost-note" class="font-mono text-xs text-mute">Add price</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script is:inline>
+(()=>{const $=id=>document.getElementById(id);const form=$("pea-form");const res=$("p-results");function toFeet(v,u){if(u==="ft")return v;if(u==="in")return v/12;if(u==="yd")return v*3;if(u==="m")return v*3.28084;if(u==="cm")return v*0.0328084;return v;}
+function fmt(n,d=2){if(!isFinite(n))return "—";return new Intl.NumberFormat("en-US",{maximumFractionDigits:d,minimumFractionDigits:d===0?0:2}).format(n);}
+function show(id,msg){const e=$(id);e.textContent=msg;e.classList.remove("hidden");}
+function clear(){["p-length-error","p-width-error","p-depth-error"].forEach(id=>{const e=$(id);e.textContent="";e.classList.add("hidden");});}
+form.addEventListener("submit",e=>{e.preventDefault();clear();const L=parseFloat($("p-length").value),W=parseFloat($("p-width").value),D=parseFloat($("p-depth").value),waste=parseFloat($("p-waste").value)||0,price=parseFloat($("p-price").value);let ok=true;if(!(L>0)){show("p-length-error","Please enter a valid length.");ok=false;}if(!(W>0)){show("p-width-error","Please enter a valid width.");ok=false;}if(!(D>0)){show("p-depth-error","Depth must be greater than 0.");ok=false;}if(!ok)return;const Lf=toFeet(L,$("p-length-unit").value),Wf=toFeet(W,$("p-width-unit").value),Df=toFeet(D,$("p-depth-unit").value);const cuFt=Lf*Wf*Df,cuYd=cuFt/27,tons=cuYd*1.35,lb=tons*2000,w=1+waste/100;const cuYdW=cuYd*w,tonsW=tons*w,lbW=lb*w;
+$("p-ft3").textContent=fmt(cuFt);$("p-yd3").textContent=fmt(cuYd);$("p-tons").textContent=fmt(tons);$("p-lb").textContent=fmt(lb,0);$("p-yd3w").textContent=fmt(cuYdW);$("p-tonsw").textContent=fmt(tonsW);$("p-lbw").textContent=fmt(lbW,0);
+let cost="—",note="Add price";if(isFinite(price)&&price>0){const unit=$("p-price-unit").value;const c=unit==="yd"?cuYdW*price:tonsW*price;cost=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(c);note=`at $${fmt(price)} per ${unit==="yd"?"yd³":"ton"} incl. waste`;}
+$("p-cost").textContent=cost;$("p-cost-note").textContent=note;res.classList.remove("hidden");res.scrollIntoView({behavior:"smooth",block:"nearest"});
+});$("p-reset").addEventListener("click",()=>{clear();res.classList.add("hidden");});})();
+</script>

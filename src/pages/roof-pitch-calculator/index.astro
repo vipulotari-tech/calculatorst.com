@@ -1,0 +1,52 @@
+---
+import CalculatorLayout from "../../components/CalculatorLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import RoofPitchCalculator from "../../components/calculators/RoofPitchCalculator.astro";
+
+const related = [
+  { title: "Roof Square Footage Calculator", href: "/roof-square-footage-calculator/", desc: "Area & roofing squares" },
+  { title: "Paver Calculator", href: "/paver-calculator/", desc: "Ground-level patios" },
+  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "Drainage around structure" },
+];
+const faq = [
+  { q: "What is roof pitch and how is it measured?", a: "Pitch is rise over run — e.g., 6:12 means 6 inches of vertical rise per 12 inches of horizontal run. On site, level a 12-inch ruler horizontally from the roof surface and measure vertically to the rafter; that vertical is the pitch number. The calculator converts any units to a common base before dividing." },
+  { q: "How do I calculate roof pitch from rise and run?", a: "Divide rise by run for decimal slope, then <span class=\"font-mono text-xs\">Angle = arctan(rise ÷ run) × 180/π</span>. Example: 6 ÷ 12 = 0.50 slope → arctan(0.50) = 26.6°. Pitch per 12 is slope × 12, so 0.50 × 12 = 6:12. Enter any rise and run — the calculator shows ratio, angle, decimal slope and percent at once." },
+  { q: "How do I convert roof pitch to degrees?", a: "Use <span class=\"font-mono text-xs\">degrees = arctan(rise ÷ run) × 57.2958</span>. Common conversions: 4:12 = 18.4°, 6:12 = 26.6°, 8:12 = 33.7°, 12:12 = 45°. The tool handles this and also shows percent slope (rise/run × 100). For area, use the <a href=\"/roof-square-footage-calculator/\" class=\"text-link underline hover:text-link-deep\">Roof Square Footage Calculator</a> which needs pitch." },
+  { q: "What does 4/12 or 6/12 roof pitch mean?", a: "It’s rise in inches per 12 inches of run. 4/12 rises 4 inches over a foot — low slope. 6/12 rises 6 inches — medium. 12/12 rises 12 inches — steep, 45°. Higher first numbers are steeper, shed water and snow faster, but need different underlayment and safety gear." },
+  { q: "What is a common roof pitch for US homes?", a: "Most US homes are 4:12 to 9:12. 4:12–6:12 is common for suburban gables, 6:12–8:12 for steeper traditional or snow country, below 3:12 is considered low-slope and often requires membrane roofing. Check manufacturer specs — many shingles require ≥2:12 with special underlayment and ≥4:12 for standard install." },
+  { q: "How does roof pitch affect roof area and cost?", a: "Steeper pitch increases true area vs footprint. A 6:12 pitch multiplies footprint by ~1.118 (√(6²+144)/12). So a 1,200 sq ft footprint becomes ~1,342 sq ft of roof. The <a href=\"/roof-square-footage-calculator/\" class=\"text-link underline hover:text-link-deep\">Roof Square Footage Calculator</a> applies this multiplier plus overhang and waste to get squares (1 square = 100 ft²)." },
+  { q: "What pitch should I choose for my climate?", a: "Low slope (&lt;3:12) needs continuous membrane to prevent ponding. Moderate 4:12–6:12 balances cost and shedding. Steep &gt;9:12 sheds snow best but costs more in material, labor and fall protection. In high-wind or hurricane zones, follow local code for fastening. Always confirm with your roofer and code official before ordering." },
+];
+---
+
+<CalculatorLayout
+  title="Roof Pitch Calculator — Ratio, Angle & Slope | Calculator Street"
+  description="Free roof pitch calculator. Enter rise and run to get pitch ratio, angle in degrees, decimal slope and per-12 pitch."
+  h1="Roof Pitch Calculator"
+  intro="Find roof pitch from any rise and run — in inches, feet or centimeters. Get the ratio, angle, decimal slope and x:12 value for ordering and code checks."
+  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Roofing Calculators", href: "/construction/roofing/" }, { label: "Roof Pitch Calculator" }]}
+  related={related}
+  faq={faq}
+  canonical="/roof-pitch-calculator/"
+>
+  <Header slot="header" />
+  <RoofPitchCalculator slot="calculator" />
+  <section class="space-y-6">
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
+      <div class="mt-3 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm dark:bg-white/[0.03]"><p>Angle = arctan(rise ÷ run) × 180/π</p><p>Decimal slope = rise ÷ run</p><p>Pitch per 12 = slope × 12 : 12</p></div>
+      <p class="mt-3 text-sm leading-6 text-body">Units convert to a common base (inches) before division, so you can mix feet and centimeters.</p>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
+      <p class="mt-2 text-sm leading-6 text-body">Rise 6 in, run 12 in:</p>
+      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">OUTPUT</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">Slope</td><td class="px-3 py-2">0.50</td></tr><tr><td class="px-3 py-2">Angle</td><td class="px-3 py-2">26.6°</td></tr><tr><td class="px-3 py-2">Per 12</td><td class="px-3 py-2">6.00 : 12</td></tr></tbody></table></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Straight gable — hips/valleys change area, not pitch.</li><li>Run is horizontal, not rafter length. Use square footage calculator for area.</li></ul>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</CalculatorLayout>

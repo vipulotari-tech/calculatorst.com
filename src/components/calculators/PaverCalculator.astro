@@ -1,0 +1,43 @@
+---
+---
+
+<div id="paver-calc" class="rounded-lg border border-hairline bg-canvas p-5 shadow-card sm:p-6">
+  <form id="pv-form" novalidate class="space-y-5">
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label class="block"><span class="text-sm font-medium text-ink">Area length</span><div class="mt-1.5 flex"><input id="pv-len" type="number" min="0" step="any" placeholder="20" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm" required/><select id="pv-len-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="m">m</option></select></div><span id="pv-len-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Area width</span><div class="mt-1.5 flex"><input id="pv-wid" type="number" min="0" step="any" placeholder="10" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm" required/><select id="pv-wid-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="m">m</option></select></div><span id="pv-wid-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-3">
+      <label class="block"><span class="text-sm font-medium text-ink">Paver length</span><div class="mt-1.5 flex"><input id="pv-plen" type="number" min="0" step="any" value="12" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><select id="pv-plen-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="in" selected>in</option><option value="cm">cm</option></select></div></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Paver width</span><div class="mt-1.5 flex"><input id="pv-pwid" type="number" min="0" step="any" value="12" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><select id="pv-pwid-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="in" selected>in</option><option value="cm">cm</option></select></div></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Waste %</span><div class="mt-1.5 flex"><input id="pv-waste" type="number" min="0" max="30" value="10" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><span class="flex h-11 items-center rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">%</span></div></label>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label class="block"><span class="text-sm font-medium text-ink">Base depth (gravel)</span><div class="mt-1.5 flex"><input id="pv-base" type="number" min="0" step="any" value="4" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><select id="pv-base-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="in">in</option><option value="cm">cm</option></select></div></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Sand depth</span><div class="mt-1.5 flex"><input id="pv-sand" type="number" min="0" step="any" value="1" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><select id="pv-sand-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="in">in</option></select></div></label>
+    </div>
+    <div class="flex gap-2"><button type="submit" class="h-11 rounded-sm bg-primary px-6 text-sm font-medium text-on-primary">Calculate</button><button type="reset" id="pv-reset" class="h-11 rounded-sm border border-hairline bg-canvas px-6 text-sm font-medium text-ink">Reset</button></div>
+  </form>
+  <div id="pv-results" class="mt-6 hidden" aria-live="polite">
+    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5">
+      <p class="font-mono text-[11px] tracking-widest text-mute">PAVER ESTIMATE</p>
+      <p class="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink"><span id="pv-count" class="tabular-nums">—</span> pavers <span class="text-sm font-medium text-body">· <span id="pv-sqft">—</span> ft²</span></p>
+      <div class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 sm:grid-cols-3">
+        <div><p class="font-mono text-[11px] text-mute">With waste</p><p id="pv-countw" class="text-sm font-semibold tabular-nums text-ink">—</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Base gravel</p><p id="pv-gravel" class="text-sm font-semibold tabular-nums text-ink">—</p><p class="font-mono text-xs text-mute">yd³</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Bedding sand</p><p id="pv-sandres" class="text-sm font-semibold tabular-nums text-ink">—</p><p class="font-mono text-xs text-mute">yd³</p></div>
+      </div>
+      <p class="mt-2 font-mono text-[11px] leading-4 text-mute">Add ~5% extra for cuts and curves. Edge restraints not included.</p>
+    </div>
+  </div>
+</div>
+<script is:inline>
+(()=>{const $=id=>document.getElementById(id);const f=$("pv-form"),r=$("pv-results");function toFeet(v,u){if(u==="ft")return v;if(u==="m")return v*3.28084;if(u==="in")return v/12;if(u==="cm")return v*0.0328084;return v;}
+function fmt(n,d=1){return new Intl.NumberFormat("en-US",{maximumFractionDigits:d}).format(n);}
+f.addEventListener("submit",e=>{e.preventDefault();const L=parseFloat($("pv-len").value),W=parseFloat($("pv-wid").value);const e1=$("pv-len-error"),e2=$("pv-wid-error");e1.textContent="";e1.classList.add("hidden");e2.textContent="";e2.classList.add("hidden");let ok=true;if(!(L>0)){e1.textContent="Please enter a valid length.";e1.classList.remove("hidden");ok=false;}if(!(W>0)){e2.textContent="Please enter a valid width.";e2.classList.remove("hidden");ok=false;}if(!ok)return;
+const Lf=toFeet(L,$("pv-len-unit").value),Wf=toFeet(W,$("pv-wid-unit").value),pl=toFeet(parseFloat($("pv-plen").value)||12,$("pv-plen-unit").value),pw=toFeet(parseFloat($("pv-pwid").value)||12,$("pv-pwid-unit").value),waste=parseFloat($("pv-waste").value)||0,base=toFeet(parseFloat($("pv-base").value)||4,$("pv-base-unit").value),sand=toFeet(parseFloat($("pv-sand").value)||1,$("pv-sand-unit").value);
+const area=Lf*Wf;const paverArea=pl*pw;const count=Math.ceil(area/paverArea);const w=1+waste/100;const countW=Math.ceil(count*w);const gravelYd=(area*base)/27*w, sandYd=(area*sand)/27*w;
+$("pv-sqft").textContent=fmt(area,1);$("pv-count").textContent=String(count);$("pv-countw").textContent=String(countW);$("pv-gravel").textContent=fmt(gravelYd,2);$("pv-sandres").textContent=fmt(sandYd,2);
+r.classList.remove("hidden");r.scrollIntoView({behavior:"smooth",block:"nearest"});
+});$("pv-reset").addEventListener("click",()=>{r.classList.add("hidden");["pv-len-error","pv-wid-error"].forEach(id=>{const e=$(id);e.textContent="";e.classList.add("hidden");});});})();
+</script>

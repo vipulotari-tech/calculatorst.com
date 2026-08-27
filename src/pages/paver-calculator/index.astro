@@ -1,0 +1,57 @@
+---
+import CalculatorLayout from "../../components/CalculatorLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PaverCalculator from "../../components/calculators/PaverCalculator.astro";
+
+const related = [
+  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "Base gravel details" },
+  { title: "Concrete Slab Calculator", href: "/concrete-slab-calculator/", desc: "Poured alternative" },
+  { title: "Mulch Calculator", href: "/mulch-calculator/", desc: "For adjacent beds" },
+  { title: "Deck Material Calculator", href: "/deck-material-calculator/", desc: " Raised vs paver" },
+];
+const faq = [
+  { q: "How many pavers do I need for my patio?", a: "Divide area by paver area and round up, then add waste. Example: 12×12 inch paver = 1 ft², so a 200 sq ft patio needs 200 pavers before waste. A 4×8 inch paver is 0.222 ft², so the same patio needs 900 pavers (4.5 per ft²). Enter your paver length and width — the calculator does <span class=\"font-mono text-xs\">ceil(area ÷ (length × width))</span> and shows the waste-adjusted count." },
+  { q: "How many pavers are needed per square foot?", a: "Count = 1 ÷ paver area in ft². Common: 12×12 = 1 per ft², 6×12 = 2 per ft², 4×8 = 4.5 per ft², 6×9 = 2.7 per ft². For running bond or herringbone, add 5% extra beyond the 10% rectangular waste because cuts increase. The calculator lets you test 12×12 vs 4×8 instantly." },
+  { q: "How much paver base do I need?", a: "Patio on soil: 4 inches of compacted crushed base (6–8 inches for driveways). Base volume is <span class=\"font-mono text-xs\">area × depth ÷ 27</span> for cubic yards. For 200 sq ft at 4 inches, that’s 2.47 yd³ before waste, 2.72 yd³ with 10%. Order base as crusher run and size it with the <a href=\"/gravel-calculator/\" class=\"text-link underline hover:text-link-deep\">Gravel Calculator</a> if you need tons." },
+  { q: "How much sand do I need for pavers?", a: "Bedding sand is typically 1 inch (0.083 ft) of concrete sand screeded over the base. Sand yards = <span class=\"font-mono text-xs\">area × 0.083 ÷ 27</span>. For 200 sq ft that’s 0.62 yd³, 0.68 yd³ with waste — about 1.5 tons of sand. Don’t use more than 1 inch; excess sand causes settling. Polymeric joint sand is extra and sold by the bag." },
+  { q: "How much extra should I order for cuts and waste?", a: "10% for a simple rectangle with saw cuts, 15% for curves, circles or diagonal layouts, and add another 5% for herringbone where every edge is a cut. The calculator’s waste multiplies pavers, base and sand together. Keep a few extra pavers after the job for future repairs — dye lots vary." },
+  { q: "How do I handle odd shapes or multiple areas?", a: "Split the shape into rectangles, calculate each, and add the totals. The paver count is purely area-based, so an L-shape (e.g., 12×10 plus 8×6) is two runs. If you have a circular pad, use its diameter as length and width and the calculator will slightly overestimate — trim the waste to 10% instead of 15%." },
+  { q: "How much does a paver patio cost?", a: "Pavers $3–$6 per sq ft, base gravel $30–$50 per ton, sand $20–$40 per yard, plus edging and polymeric sand. A 200 sq ft patio needs ~220 pavers, 2.7 yd³ base and 0.7 yd³ sand before delivery. Enter your paver price or leave it blank for a quantity-only plan, then compare to a poured <a href=\"/concrete-slab-calculator/\" class=\"text-link underline hover:text-link-deep\">concrete slab</a> for the same footprint." },
+];
+---
+
+<CalculatorLayout
+  title="Paver Calculator — Pavers, Base & Sand | Calculator Street"
+  description="Paver calculator for patios & walkways. Inputs for area, paver size, base & sand depths with waste — get count, gravel & sand."
+  h1="Paver Calculator"
+  intro="Figure pavers plus what goes under them. Enter your patio or walkway size, paver dimensions, base and sand depths, and waste — get paver count, base gravel and bedding sand in cubic yards."
+  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Landscaping Calculators", href: "/construction/landscaping/" }, { label: "Paver Calculator" }]}
+  related={related}
+  faq={faq}
+  canonical="/paver-calculator/"
+>
+  <Header slot="header" />
+  <PaverCalculator slot="calculator" />
+  <section class="space-y-6">
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
+      <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
+        <li>Area = Length × Width</li>
+        <li>Pavers = ceil(area ÷ (paver length × paver width))</li>
+        <li>Base gravel yd³ = area × base depth ÷ 27</li>
+        <li>Sand yd³ = area × sand depth ÷ 27 (both × waste)</li>
+      </ol>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
+      <p class="mt-2 text-sm leading-6 text-body">Patio 20×10 ft, 12×12 in pavers, 4 in base, 1 in sand, 10% waste:</p>
+      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">OUTPUT</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">Area</td><td class="px-3 py-2">200 ft²</td></tr><tr><td class="px-3 py-2">Pavers</td><td class="px-3 py-2">200 → 220 w/ waste</td></tr><tr><td class="px-3 py-2">Base</td><td class="px-3 py-2">2.47 yd³ → 2.72 w/ waste</td></tr><tr><td class="px-3 py-2">Sand</td><td class="px-3 py-2">0.62 → 0.68 yd³</td></tr></tbody></table></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Rectangular area; cuts add waste.</li><li>Uncompacted thickness — compaction reduces depth ~10%.</li><li>Pavers set tight with polymeric sand, not large joints.</li></ul>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</CalculatorLayout>

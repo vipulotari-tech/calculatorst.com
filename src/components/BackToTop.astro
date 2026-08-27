@@ -1,0 +1,75 @@
+---
+---
+
+<button
+  id="back-to-top"
+  type="button"
+  class="fixed bottom-4 right-4 z-50 hidden h-11 w-11 items-center justify-center rounded-full border border-hairline bg-canvas text-ink shadow-float transition duration-200 hover:bg-canvas-soft hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-canvas dark:text-ink dark:border-hairline sm:bottom-6 sm:right-6"
+  style="bottom: max(1rem, env(safe-area-inset-bottom)); right: max(1rem, env(safe-area-inset-right));"
+  aria-label="Back to top"
+  title="Back to top"
+>
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M8 12.5V3.5M8 3.5L4.2 7.3M8 3.5L11.8 7.3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<script is:inline>
+  (() => {
+    const btn = document.getElementById("back-to-top");
+    if (!btn) return;
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let ticking = false;
+    let visible = false;
+
+    function updateVisibility() {
+      const shouldShow = window.scrollY > 400;
+      if (shouldShow !== visible) {
+        visible = shouldShow;
+        btn.classList.toggle("hidden", !visible);
+        btn.classList.toggle("flex", visible);
+        btn.setAttribute("aria-hidden", String(!visible));
+        if (visible) btn.removeAttribute("inert");
+        else btn.setAttribute("inert", "");
+      }
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateVisibility);
+      }
+    }
+
+    // Passive scroll for performance
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // Initial check
+    updateVisibility();
+
+    btn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: prefersReduced ? "auto" : "smooth",
+      });
+      // Move focus to top for accessibility
+      const main = document.getElementById("main");
+      if (main) main.focus({ preventScroll: true });
+    });
+
+    // Keyboard: also allow Escape to hide? Not needed
+  })();
+</script>
+
+<style>
+  #back-to-top {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #back-to-top {
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>

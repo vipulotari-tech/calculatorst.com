@@ -1,0 +1,56 @@
+---
+import CalculatorLayout from "../../components/CalculatorLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import DeckMaterialCalculator from "../../components/calculators/DeckMaterialCalculator.astro";
+
+const related = [
+  { title: "Paver Calculator", href: "/paver-calculator/", desc: "Ground-level alternative" },
+  { title: "Concrete Slab Calculator", href: "/concrete-slab-calculator/", desc: "Concrete patio vs deck" },
+  { title: "Fence Cost Calculator", href: "/fence-cost-calculator/", desc: "Railing & privacy" },
+];
+const faq = [
+  { q: "How many deck boards do I need?", a: "Rows = <span class=\"font-mono text-xs\">Deck width ÷ (board width + gap)</span>, then boards = rows × <span class=\"font-mono text-xs\">ceil(deck length ÷ board length)</span>. Example: 16×12 ft deck with 5.5-inch boards, 0.125-inch gap and 16-ft boards needs 26 boards, 29 with 10% waste. The gap matters — 1/8 vs 1/4 inch changes row count by one or two boards across the width." },
+  { q: "How do I calculate deck square footage?", a: "Multiply length × width for square footage — e.g., 16 × 12 = 192 sq ft. Square footage drives board count only indirectly; the real driver is board width plus gap. For a ground-level patio alternative, compare to the <a href=\"/paver-calculator/\" class=\"text-link underline hover:text-link-deep\">Paver Calculator</a> which uses area ÷ paver area." },
+  { q: "How much decking material do I need including waste?", a: "Calculate boards as above, then add waste: 10% for simple rectangles, 15% for diagonal, herringbone or picture-frame borders where cuts increase. Linear feet is boards × board length. The calculator shows both and lets you price per board or per linear foot so you can compare a per-board quote to a per-foot one." },
+  { q: "How far apart should deck boards be spaced?", a: "Typical gap is 1/8 inch (3 mm) for wood and 3/16 inch (4.5 mm) for composite to allow drainage and expansion. Composite manufacturers often specify 1/8–1/4 inch. Too tight traps debris and water; too wide feels uneven. Enter your actual gap — the calculator adds it to board width before dividing the deck width." },
+  { q: "How many joists do I need and what spacing?", a: "Joists = <span class=\"font-mono text-xs\">ceil(length ÷ spacing) + 1</span>. Spacing is on-center: 16 inches for 5/4 decking (most common), 12 inches for diagonal decking or many composites, 24 inches only for 2×6 decking. A 16-ft deck at 16-inch spacing needs 13 joists (ledger + rim included; add one for free-standing). Check span tables for your joist size." },
+  { q: "How many fasteners or hidden clips do I need?", a: "Rough rule: 2 fasteners per joist per board. Hidden clips are similar — one clip per joist per board. For 26 boards × 13 joists that’s 676 fasteners. The calculator estimates this so you can order boxes (often 100 or 350 count). Verify with your clip manufacturer — some systems use one clip per board per joist plus starter clips." },
+  { q: "How much does deck material cost?", a: "In 2026, pressure-treated pine is often $2–$4 per linear foot, composite $4–$8, hardwoods higher. Enter your price per board or per linear foot — e.g., $35 per 16-ft board at 29 boards with waste is about $1,015 before tax, joists and fasteners. Compare to a <a href=\"/concrete-slab-calculator/\" class=\"text-link underline hover:text-link-deep\">Concrete Slab Calculator</a> patio if you’re deciding between deck and slab." },
+];
+---
+
+<CalculatorLayout
+  title="Deck Material Calculator — Boards, Joists & Cost | Calculator Street"
+  description="Deck material calculator for boards, linear feet, joists & fasteners. Input deck size, board size, gap, joist spacing & waste."
+  h1="Deck Material Calculator"
+  intro="Plan a deck with true material counts. Enter deck size, board dimensions, gap, joist spacing, waste and price — see square footage, number of boards, linear feet, joists and fasteners."
+  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Decking Calculators", href: "/construction/decking/" }, { label: "Deck Material Calculator" }]}
+  related={related}
+  faq={faq}
+  canonical="/deck-material-calculator/"
+>
+  <Header slot="header" />
+  <DeckMaterialCalculator slot="calculator" />
+  <section class="space-y-6">
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
+      <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
+        <li>Sq ft = Length × Width</li>
+        <li>Rows = Width ÷ (board width + gap)</li>
+        <li>Boards = rows × ceil(length ÷ board length)</li>
+        <li>Joists = ceil(length ÷ joist spacing) + 1</li>
+      </ol>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
+      <p class="mt-2 text-sm leading-6 text-body">Deck 16×12 ft, 5.5 in board, 16 ft length, 0.125 in gap, 16 in joists, 10% waste:</p>
+      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">OUTPUT</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">Sq ft</td><td class="px-3 py-2">192</td></tr><tr><td class="px-3 py-2">Rows</td><td class="px-3 py-2">26</td></tr><tr><td class="px-3 py-2">Boards</td><td class="px-3 py-2">26 → 29 w/ waste</td></tr><tr><td class="px-3 py-2">Joists</td><td class="px-3 py-2">13</td></tr></tbody></table></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Boards run along length. Rotate 90° by swapping L/W if needed.</li><li>No stair or picture-frame boards included.</li><li>Joist count assumes ledger + rim — add one for free-standing.</li></ul>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</CalculatorLayout>

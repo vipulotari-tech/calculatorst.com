@@ -1,0 +1,237 @@
+---
+interface Calc {
+  title: string;
+  desc: string;
+  href: string;
+  badge?: string;
+  icon: string;
+  meta: string;
+}
+
+const calculators: Calc[] = [
+  {
+    title: "Mortgage Calculator",
+    desc: "Monthly payment, total interest, and amortization. Shareable link with every input.",
+    href: "#",
+    badge: "Popular",
+    icon: "M3 6.5h10M5 6.5V12M8 6.5V12M11 6.5V12M4 3.5h8a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z",
+    meta: "Finance · 1.2s avg",
+  },
+  {
+    title: "BMI Calculator",
+    desc: "Body mass index with healthy range, chart, and metric/imperial toggle.",
+    href: "#",
+    icon: "M8 13L3.5 8.5a3 3 0 0 1 4.2-4.2L8 4.6l.3-.3A3 3 0 1 1 12.5 8.5L8 13Z",
+    meta: "Health · offline",
+  },
+  {
+    title: "Percentage Calculator",
+    desc: "What is X% of Y, percent change, and difference — three modes in one.",
+    href: "#",
+    icon: "M4 3.5h8M4 8h8M4 12.5h8M6 3.5v9M10 3.5v9",
+    meta: "Math · instant",
+  },
+  {
+    title: "Compound Interest",
+    desc: "Future value with contributions, yearly breakdown, and exportable table.",
+    href: "#",
+    icon: "M3 12l3-3 2 2 4-6M11 5h2v2",
+    meta: "Finance · chart",
+  },
+  {
+    title: "Dog Chocolate Toxicity",
+    desc: "Enter weight & chocolate type — see risk level and vet guidance instantly.",
+    href: "#",
+    badge: "Low KD",
+    icon: "M8 3.5c0 0-3 1.2-3 4a3 3 0 0 0 3 3 3 3 0 0 0 3-3c0-2.8-3-4-3-4Z M5.5 8.5c.8.6 1.6.9 2.5.9s1.7-.3 2.5-.9",
+    meta: "Pet Health · KD 5",
+  },
+  {
+    title: "Paver Sand Calculator",
+    desc: "Bags, weight, and cost for any patio size. Metric & imperial.",
+    href: "#",
+    badge: "Low KD",
+    icon: "M3.5 12.5h9M5 9l1.5-3h3L11 9M5 9h6M8 6v3",
+    meta: "Construction · KD 6",
+  },
+  {
+    title: "Aquarium Salinity",
+    desc: "Salt needed for target ppt or specific gravity — marine & brackish.",
+    href: "#",
+    badge: "Low KD",
+    icon: "M3 8c2-2 4-2 5 0s3 2 5 0M3 11c2-2 4-2 5 0s3 2 5 0",
+    meta: "Pets · KD 4",
+  },
+  {
+    title: "Mortar Mix Ratio",
+    desc: "1:4, 1:5, 1:6 mixes — cement, sand, and water volumes by job size.",
+    href: "#",
+    badge: "Low KD",
+    icon: "M4 10l4-6 4 6H4ZM8 4v8",
+    meta: "Trades · KD 7",
+  },
+  {
+    title: "Stair Stringer",
+    desc: "Rise, run, and stringer length from total height — code-friendly.",
+    href: "#",
+    badge: "Low KD",
+    icon: "M3 12.5l9-9M3 12.5h9v-9",
+    meta: "Construction · KD 8",
+  },
+  {
+    title: "Chicken Feed",
+    desc: "Daily & monthly feed per bird by age and weight — flock planner.",
+    href: "#",
+    badge: "Low KD",
+    icon: "M8 3.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM8 9.5v3M6.5 12.5h3",
+    meta: "Agriculture · KD 5",
+  },
+  {
+    title: "Mulch Coverage",
+    desc: "Cubic yards, bags, and cost for beds and paths — avoid over-ordering.",
+    href: "#",
+    icon: "M4 12.5h8M5 9h8M6 6h6",
+    meta: "Garden · KD 9",
+  },
+  {
+    title: "Pregnant Dog Due Date",
+    desc: "Due window from mating date with week-by-week guidance.",
+    href: "#",
+    badge: "Low KD",
+    icon: "M8 3.5c-1.2 0-2.2.8-2.5 2 0 2 2.5 4.5 2.5 4.5s2.5-2.5 2.5-4.5c-.3-1.2-1.3-2-2.5-2Z",
+    meta: "Pet Health · KD 5",
+  },
+];
+---
+
+<section id="calculators" class="bg-canvas py-16 sm:py-20 lg:py-24" aria-labelledby="calc-heading">
+  <div class="mx-auto max-w-[1400px] px-6 max-md:px-4">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <p class="font-mono text-caption font-medium tracking-widest text-mute">POPULAR &amp; LOW-COMPETITION</p>
+        <h2 id="calc-heading" class="mt-2 text-display-lg font-semibold tracking-[-0.04em] text-ink [text-wrap:balance]">
+          Explore calculators — made for speed.
+        </h2>
+        <p class="mt-2 max-w-[560px] text-body-md leading-6 text-body [text-wrap:pretty]">
+          12 ready today. Every page loads in &lt;100 ms, works offline, and respects your privacy.
+          Low&nbsp;KD picks are highlighted for early SEO wins.
+        </p>
+      </div>
+      <a
+        href="#"
+        class="hidden shrink-0 items-center gap-1.5 rounded-full border border-hairline bg-canvas px-4 py-2 text-sm font-medium text-ink shadow-card transition-colors hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link md:inline-flex"
+      >
+        View all 40+ <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"
+          ><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg
+        >
+      </a>
+    </div>
+
+    <!-- Search — accessible, no JS needed for static -->
+    <form
+      role="search"
+      aria-label="Search calculators"
+      class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
+      onsubmit="return false"
+    >
+      <div class="relative flex-1">
+        <label for="calc-search" class="sr-only">Search calculators</label>
+        <svg
+          class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-mute"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"></path>
+        </svg>
+        <input
+          id="calc-search"
+          name="q"
+          type="search"
+          inputmode="search"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="Search calculators… try “mortgage” or “paver”"
+          class="h-10 w-full rounded-sm border border-hairline bg-canvas py-2 pl-9 pr-3 text-sm text-ink placeholder:text-mute focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20"
+        />
+      </div>
+      <p class="font-mono text-caption text-mute sm:ml-2">
+        <span class="hidden sm:inline">Tip: </span>Press <span translate="no">⌘&nbsp;K</span> anytime.
+      </p>
+    </form>
+
+    <!-- Grid — template-card 3-up → 2-up → 1-up -->
+    <ul
+      class="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3"
+      role="list"
+      aria-label="Calculator list"
+    >
+      {
+        calculators.map((c) => (
+          <li>
+            <a
+              href={c.href}
+              class="group flex h-full flex-col rounded-md border border-hairline bg-canvas p-4 shadow-card transition duration-200 hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+            >
+              <div class="flex items-start justify-between gap-3">
+                <span
+                  class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border border-hairline bg-canvas-soft text-ink transition-colors group-hover:bg-canvas"
+                  aria-hidden="true"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d={c.icon} stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                {c.badge && (
+                  <span
+                    class:list={[
+                      "inline-flex items-center rounded-full px-2 py-0.5 font-mono text-[11px] font-medium tracking-wide ring-1",
+                      c.badge === "Popular"
+                        ? "bg-link-bg-soft text-link-deep ring-link/20"
+                        : "bg-cyan-soft text-cyan-deep ring-cyan/20",
+                    ]}
+                  >
+                    {c.badge}
+                  </span>
+                )}
+              </div>
+              <h3 class="mt-3 line-clamp-1 text-[15px] font-semibold tracking-[-0.02em] text-ink">{c.title}</h3>
+              <p class="mt-1 line-clamp-2 flex-1 text-sm leading-5 text-body">{c.desc}</p>
+              <div class="mt-3 flex items-center justify-between gap-2 border-t border-hairline pt-3">
+                <span class="font-mono text-[11px] tracking-wide text-mute">{c.meta}</span>
+                <span class="inline-flex items-center gap-1 text-sm font-medium text-ink group-hover:text-link">
+                  Open
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    aria-hidden="true"
+                    class="transition-transform group-hover:translate-x-0.5"
+                  >
+                    <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-6 flex justify-center md:hidden">
+      <a
+        href="#"
+        class="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-canvas px-4 py-2 text-sm font-medium text-ink shadow-card hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+      >
+        View all calculators <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>

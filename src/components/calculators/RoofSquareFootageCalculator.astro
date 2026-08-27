@@ -1,0 +1,43 @@
+---
+---
+
+<div id="rsq-calc" class="rounded-lg border border-hairline bg-canvas p-5 shadow-card sm:p-6">
+  <form id="rsq-form" novalidate class="space-y-5">
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label class="block"><span class="text-sm font-medium text-ink">Building length</span><div class="mt-1.5 flex"><input id="rsq-len" type="number" min="0" step="any" placeholder="40" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm" required/><select id="rsq-len-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="m">m</option></select></div><span id="rsq-len-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Building width</span><div class="mt-1.5 flex"><input id="rsq-wid" type="number" min="0" step="any" placeholder="30" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm" required/><select id="rsq-wid-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="m">m</option></select></div><span id="rsq-wid-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-3">
+      <label class="block"><span class="text-sm font-medium text-ink">Roof pitch (rise per 12")</span><div class="mt-1.5 flex"><input id="rsq-pitch" type="number" min="0" max="20" step="any" value="6" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><span class="flex h-11 items-center rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">:12</span></div></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Overhang (each side)</span><div class="mt-1.5 flex"><input id="rsq-over" type="number" min="0" step="any" value="1.5" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><select id="rsq-over-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="in">in</option></select></div></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Waste %</span><div class="mt-1.5 flex"><input id="rsq-waste" type="number" min="0" max="30" value="10" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm"/><span class="flex h-11 items-center rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">%</span></div></label>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label class="block"><span class="text-sm font-medium text-ink">Roof sections</span><input id="rsq-sec" type="number" min="1" max="10" value="1" class="mt-1.5 h-11 w-full rounded-sm border border-hairline bg-canvas px-3 text-sm"/></label>
+      <div class="flex items-end"><p class="font-mono text-[11px] leading-4 text-mute">Multiplier = √(pitch²+144)/12. Gable = 1× footprint × multiplier.</p></div>
+    </div>
+    <div class="flex gap-2"><button type="submit" class="h-11 rounded-sm bg-primary px-6 text-sm font-medium text-on-primary">Calculate</button><button type="reset" id="rsq-reset" class="h-11 rounded-sm border border-hairline bg-canvas px-6 text-sm font-medium text-ink">Reset</button></div>
+  </form>
+  <div id="rsq-results" class="mt-6 hidden" aria-live="polite">
+    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5">
+      <p class="font-mono text-[11px] tracking-widest text-mute">ROOF AREA ESTIMATE</p>
+      <p class="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink"><span id="rsq-area" class="tabular-nums">—</span> ft² <span class="text-sm font-medium text-body">· <span id="rsq-squares">—</span> squares</span></p>
+      <div class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 sm:grid-cols-3">
+        <div><p class="font-mono text-[11px] text-mute">Footprint area</p><p id="rsq-foot" class="text-sm font-semibold tabular-nums text-ink">—</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Pitch multiplier</p><p id="rsq-mult" class="text-sm font-semibold tabular-nums text-ink">—</p></div>
+        <div><p class="font-mono text-[11px] text-mute">With waste</p><p id="rsq-waste-res" class="text-sm font-semibold tabular-nums text-ink">—</p></div>
+      </div>
+      <p class="mt-2 font-mono text-[11px] leading-4 text-mute">1 square = 100 ft². Validate hips/valleys and dormers on site.</p>
+    </div>
+  </div>
+</div>
+<script is:inline>
+(()=>{const $=id=>document.getElementById(id);const f=$("rsq-form"),r=$("rsq-results");function toFeet(v,u){if(u==="ft")return v;if(u==="m")return v*3.28084;if(u==="in")return v/12;return v;}
+function fmt(n,d=1){return new Intl.NumberFormat("en-US",{maximumFractionDigits:d,minimumFractionDigits:d}).format(n);}
+f.addEventListener("submit",e=>{e.preventDefault();const L=parseFloat($("rsq-len").value),W=parseFloat($("rsq-wid").value);const e1=$("rsq-len-error"),e2=$("rsq-wid-error");e1.textContent="";e1.classList.add("hidden");e2.textContent="";e2.classList.add("hidden");let ok=true;if(!(L>0)){e1.textContent="Please enter a valid length.";e1.classList.remove("hidden");ok=false;}if(!(W>0)){e2.textContent="Please enter a valid width.";e2.classList.remove("hidden");ok=false;}if(!ok)return;
+const Lf=toFeet(L,$("rsq-len-unit").value),Wf=toFeet(W,$("rsq-wid-unit").value),pitch=parseFloat($("rsq-pitch").value)||0,over=toFeet(parseFloat($("rsq-over").value)||0,$("rsq-over-unit").value),waste=parseFloat($("rsq-waste").value)||0,sec=parseInt($("rsq-sec").value)||1;
+const footprint=(Lf+over*2)*(Wf+over*2)*sec;const mult=Math.sqrt(pitch*pitch+144)/12;const roof=footprint*mult;const w=1+waste/100;const roofW=roof*w;
+$("rsq-foot").textContent=fmt(footprint,1)+" ft²";$("rsq-area").textContent=fmt(roof,1);$("rsq-squares").textContent=fmt(roof/100,2);$("rsq-mult").textContent="× "+fmt(mult,3);$("rsq-waste-res").textContent=fmt(roofW,1)+" ft² ("+fmt(roofW/100,2)+" sq)";
+r.classList.remove("hidden");r.scrollIntoView({behavior:"smooth",block:"nearest"});
+});$("rsq-reset").addEventListener("click",()=>{r.classList.add("hidden");["rsq-len-error","rsq-wid-error"].forEach(id=>{const e=$(id);e.textContent="";e.classList.add("hidden");});});})();
+</script>

@@ -1,0 +1,25 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+---
+
+<Layout title="Fence Calculators — Calculator Street" description="Fence calculators for cost, posts, panels and materials for wood, vinyl and chain link.">
+  <Header />
+  <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Fence Calculators" }]} />
+    <div class="mx-auto max-w-[900px] pt-4">
+      <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Fence Calculators</h1>
+      <p class="mt-2 text-sm leading-6 text-body">Plan fences by length, height, spacing, gates and rails — wood, vinyl & chain link with waste.</p>
+      <ul class="mt-6 grid gap-4 sm:grid-cols-2" role="list">
+        <li><a href="/fence-cost-calculator/" class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card hover:shadow-card-hover dark:bg-canvas"><h2 class="text-sm font-semibold text-ink">Fence Cost Calculator</h2><p class="mt-1 text-sm leading-5 text-body">Posts, panels, rails, concrete & cost. Material-only vs total explained.</p><span class="mt-3 text-sm font-medium text-ink">Open →</span></a></li>
+      </ul>
+      <div class="mt-8 rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Coming next</h2>
+        <p class="mt-2 text-sm leading-6 text-body">Fence material, wood/vinyl/chain-link specifics, post & panel calculators — each linked contextually.</p>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

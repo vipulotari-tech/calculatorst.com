@@ -1,0 +1,58 @@
+---
+import CalculatorLayout from "../../components/CalculatorLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import ConcreteSlabCalculator from "../../components/calculators/ConcreteSlabCalculator.astro";
+
+const related = [
+  { title: "Paver Calculator", href: "/paver-calculator/", desc: "Paver alternative to poured slab" },
+  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "Base gravel under slab" },
+  { title: "Mulch Calculator", href: "/mulch-calculator/", desc: "For surrounding beds" },
+  { title: "Fence Cost Calculator", href: "/fence-cost-calculator/", desc: "Fence footings" },
+];
+const faq = [
+  { q: "How much concrete do I need for a slab?", a: "Multiply length × width × thickness (all in feet) and divide by 27 for cubic yards. Example: 10×10 ft at 4 inches (0.333 ft) = 33.3 ft³ = 1.23 yd³. Add 5–10% for waste and uneven subgrade, then use the calculator — it handles inches-to-feet and shows both yards and bags. For a base layer, add gravel via the <a href=\"/gravel-calculator/\" class=\"text-link underline hover:text-link-deep\">Gravel Calculator</a>." },
+  { q: "How many 80-lb bags are in a yard of concrete?", a: "About 45 bags of 80-lb (0.60 ft³ each), 60 bags of 60-lb (0.45 ft³), or 90 bags of 40-lb (0.30 ft³) make one cubic yard (27 ft³). For a 10×10 ft slab at 4 inches you need about 56 bags of 80-lb (1.23 yd³ × 45). The calculator rounds up — you can’t buy part of a bag." },
+  { q: "How thick should a concrete slab be?", a: "Patios, walkways and shed pads: 3.5–4 inches. Driveways, garage floors and RV pads: 5–6 inches, often 4,000 psi mix. Sidewalks: 4 inches. Commercial: 6–8 inches. Thicker adds volume fast — a 6-inch slab uses 50% more than a 4-inch over the same footprint. Confirm with local code and your engineer for loads." },
+  { q: "Should I order ready-mix or bags?", a: "Under ~0.75 yd³ (about 30–40 bags of 80-lb) bags can be practical. Over ~1–1.5 yd³, ready-mix delivery is usually cheaper and far faster. A 12×10 ft patio at 4 inches is 1.48 yd³ — that’s 74 bags of 80-lb with waste, so a truck wins. The calculator shows both so you can compare instantly." },
+  { q: "How much extra concrete should I order for waste?", a: "Add 5–10% for spillage, over-excavation and slight thickness variation — 10% is safe for most residential forms. Keep the subgrade well-compacted and evenly graded to the right depth, and keep an extra bag per 10 as a buffer. The calculator applies waste after volume, then rounds bags up." },
+  { q: "How do I calculate concrete for multiple slabs or an L-shape?", a: "Use <em>Number of slabs</em> for identical rectangles, or run the calculator twice for different sizes and sum the waste-adjusted yards. For an L-shape, split it into two rectangles (e.g., 12×10 plus 8×6) and add the cubic yards. Coverage per bag already assumes proper water ratio — don’t thin the mix to stretch it." },
+  { q: "How much does a concrete slab cost?", a: "Ready-mix is often $140–$180 per yard plus $100–$200 delivery/minimum in 2026; bags are $4–$7 per 80-lb. A 10×10 ft 4-inch slab (~1.35 yd³ with waste) is roughly $200–$300 in ready-mix versus $280–$380 in bags before tax. Enter your price per yard or per bag — the calculator multiplies waste-adjusted yards or the rounded bag count for a material-only total." },
+];
+---
+
+<CalculatorLayout
+  title="Concrete Slab Calculator — Yards, Bags & Cost | Calculator Street"
+  description="Concrete slab calculator for length, width & thickness. Get sq ft, cubic yards and bags (40/60/80 lb) with waste & cost."
+  h1="Concrete Slab Calculator"
+  intro="Plan a concrete slab with US customary or metric sizes. Enter length, width and thickness, number of slabs, waste and price per yard or per 80-lb bag — instantly see square footage, cubic yards and how many bags to buy."
+  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Concrete Calculators", href: "/construction/concrete/" }, { label: "Concrete Slab Calculator" }]}
+  related={related}
+  faq={faq}
+  canonical="/concrete-slab-calculator/"
+>
+  <Header slot="header" />
+  <ConcreteSlabCalculator slot="calculator" />
+  <section class="space-y-6">
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
+      <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
+        <li>Sq ft = Length × Width × number of slabs</li>
+        <li>Cubic feet = Sq ft × thickness (in feet)</li>
+        <li>Cubic yards = Cubic feet ÷ 27 (waste multiplies after)</li>
+        <li>Bags = ceil(cubic feet with waste ÷ coverage per bag)</li>
+      </ol>
+      <div class="mt-3 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm dark:bg-white/[0.03]"><p>Coverages: 80-lb = 0.60 ft³, 60-lb = 0.45 ft³, 40-lb = 0.30 ft³</p></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
+      <p class="mt-2 text-sm leading-6 text-body">Patio 12 ft × 10 ft × 4 in, 1 slab, 10% waste:</p>
+      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">OUTPUT</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">Sq ft</td><td class="px-3 py-2">120</td></tr><tr><td class="px-3 py-2">Cubic ft</td><td class="px-3 py-2">40.00</td></tr><tr><td class="px-3 py-2">Cubic yd</td><td class="px-3 py-2">1.48</td></tr><tr><td class="px-3 py-2">With waste</td><td class="px-3 py-2">1.63 yd³ (44 ft³)</td></tr><tr><td class="px-3 py-2">80-lb bags</td><td class="px-3 py-2">74</td></tr></tbody></table></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Rectangular slabs. L-shapes: calculate as two rectangles.</li><li>No subbase gravel — add via gravel calculator if needed.</li><li>Mix coverage assumes proper water ratio — add one extra bag per 10 for safety.</li></ul>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</CalculatorLayout>

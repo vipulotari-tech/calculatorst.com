@@ -1,0 +1,54 @@
+---
+import CalculatorLayout from "../../components/CalculatorLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PeaGravelCalculator from "../../components/calculators/PeaGravelCalculator.astro";
+
+const related = [
+  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "All gravel types — tons & yards" },
+  { title: "Driveway Gravel Calculator", href: "/driveway-gravel-calculator/", desc: "Layers & sections" },
+  { title: "Paver Calculator", href: "/paver-calculator/", desc: "Pavers + base & sand" },
+  { title: "Mulch Calculator", href: "/mulch-calculator/", desc: "Bulk & bags" },
+];
+const faq = [
+  { q: "How much pea gravel do I need for a 10×10 patio?", a: "A 100 sq ft patio at 2 inches needs about 0.62 yd³ (≈0.83 tons or 34 bags of 50 lb), at 3 inches about 0.93 yd³ (≈1.25 tons). The calculator does <span class=\"font-mono text-xs\">Length × Width × (Depth ÷ 12) ÷ 27</span> for yards, then × 1.35 for tons, and adds waste. For driveways, use the <a href=\"/driveway-gravel-calculator/\" class=\"text-link underline hover:text-link-deep\">Driveway Gravel Calculator</a> which sizes base and top layers separately." },
+  { q: "How much area does one ton of pea gravel cover?", a: "About 120 sq ft at 2 inches, 80 sq ft at 3 inches, 60 sq ft at 4 inches and 40 sq ft at 6 inches when using 1.35 tons per yard. Wet material covers slightly less. Compare to the general <a href=\"/gravel-calculator/\" class=\"text-link underline hover:text-link-deep\">Gravel Calculator</a> if you’re deciding between pea gravel and crushed stone — pea gravel is lighter and never compacts." },
+  { q: "How deep should pea gravel be?", a: "Decorative beds: 2 inches. Walkways and patios: 2–3 inches over a compacted base with landscape fabric and edging. Dog runs and drainage beds: 3–4 inches. Playground safety surfacing: 9–12 inches per CPSC guidelines — at that depth pea gravel is often not preferred; check local codes. Going deeper than 4 inches feels unstable because rounded stone shifts underfoot." },
+  { q: "How do I convert pea gravel cubic yards to tons?", a: "Multiply cubic yards by 1.35. One cubic yard is 27 ft³ or 54 bags of 0.5 ft³. One ton is 0.74 yd³ of pea gravel. The calculator shows ft³, yd³, tons and pounds together so you can compare a bag quote from a home store to a bulk ton quote instantly." },
+  { q: "What’s the difference between pea gravel and crushed stone?", a: "Pea gravel is rounded, smooth and loose — it drains well and stays decorative but never locks together. Crushed stone is angular and compacts to a firm surface, better for driveways and bases. For a firm patio base, size the lower lift with the <a href=\"/gravel-calculator/\" class=\"text-link underline hover:text-link-deep\">Gravel Calculator</a> using crushed stone, then top with pea gravel." },
+  { q: "How much does pea gravel cost?", a: "Bulk pea gravel is typically $35–$60 per ton delivered, or $40–$65 per yard, plus $50–$150 delivery per load in 2026. Bags (0.5 ft³) are $4–$8 each — about $240–$480 per ton equivalent, so bulk wins over ~50 sq ft. Enter your price per yard or per ton; the calculator multiplies waste-adjusted yards or tons for a material-only total." },
+  { q: "Do I need landscape fabric under pea gravel?", a: "Fabric helps suppress weeds and keeps stone from sinking into soil, but it can impede drainage in French drains. For patios and paths, use woven fabric with firm edging; for drainage layers, skip fabric or use non-woven geotextile as your engineer specifies. Add 10% waste for edge trimming regardless." },
+];
+---
+
+<CalculatorLayout
+  title="Pea Gravel Calculator — Yards, Tons & Cost | Calculator Street"
+  description="Dedicated pea gravel calculator for US patios and paths. Input length, width, depth & waste — get cubic yards, tons, pounds and cost."
+  h1="Pea Gravel Calculator"
+  intro="Dedicated pea gravel tool for patios, garden paths, playgrounds and drainage. Enter your area in feet, inches, yards or meters, add waste and an optional price per yd³ or per ton — see volume, weight and cost instantly."
+  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Gravel Calculators", href: "/construction/gravel/" }, { label: "Pea Gravel Calculator" }]}
+  related={related}
+  faq={faq}
+  canonical="/pea-gravel-calculator/"
+>
+  <Header slot="header" />
+  <PeaGravelCalculator slot="calculator" />
+
+  <section class="space-y-6">
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
+      <p class="mt-2 text-sm leading-6 text-body">Same rectangular volume as the main gravel calculator, fixed to pea gravel density (1.35 tons/yd³, ~100 lb/ft³) for simplicity.</p>
+      <div class="mt-3 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm dark:bg-white/[0.03]"><p>Cubic Feet = L × W × D (all in feet)</p><p>Cubic Yards = Cubic Feet ÷ 27</p><p>Tons = Cubic Yards × 1.35</p></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
+      <p class="mt-2 text-sm leading-6 text-body">Garden path 24 ft × 3 ft × 3 in, 10% waste:</p>
+      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">STEP</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">Depth ft</td><td class="px-3 py-2">3/12=0.25</td></tr><tr><td class="px-3 py-2">ft³</td><td class="px-3 py-2">24×3×0.25=18</td></tr><tr><td class="px-3 py-2">yd³</td><td class="px-3 py-2">0.67</td></tr><tr><td class="px-3 py-2">tons</td><td class="px-3 py-2">0.90</td></tr><tr><td class="px-3 py-2">w/ waste</td><td class="px-3 py-2">0.73 yd³ · 0.99 tons</td></tr></tbody></table></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Loose pea gravel, not compacted.</li><li>Rectangular area — add waste for curves.</li><li>Short tons (2000 lb). Metric tonnes ×0.907.</li></ul>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</CalculatorLayout>

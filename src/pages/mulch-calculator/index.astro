@@ -1,0 +1,55 @@
+---
+import CalculatorLayout from "../../components/CalculatorLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import MulchCalculator from "../../components/calculators/MulchCalculator.astro";
+
+const related = [
+  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "For drainage & paths" },
+  { title: "Paver Calculator", href: "/paver-calculator/", desc: "Patios near beds" },
+  { title: "Topsoil Calculator (soon)", href: "/construction/landscaping/", desc: "Soil vs mulch depth" },
+];
+const faq = [
+  { q: "How much mulch do I need for my beds?", a: "Measure each bed’s length, width and depth, then use the calculator. For one 20×10 ft bed at 3 inches, that’s 50 ft³ = 1.85 yd³. Set <em>Number of areas</em> for identical beds, or run the calculator per bed and sum. The result shows both cubic yards for bulk and bags for bagged mulch so you can compare." },
+  { q: "How many cubic yards of mulch do I need?", a: "Cubic yards = <span class=\"font-mono text-xs\">Length × Width × (Depth ÷ 12) × areas ÷ 27</span>. Depth in inches is divided by 12 first. The calculator handles feet, inches, meters and yards — a 10×10 ft bed at 2 inches is 0.62 yd³, at 3 inches 0.93 yd³. Add waste after, not before." },
+  { q: "How many bags of mulch do I need?", a: "Bags = <span class=\"font-mono text-xs\">ceil(cubic feet with waste ÷ bag size)</span>. US bags are most commonly 2 ft³ (also 1.5 and 3 ft³). One 2-ft³ bag covers ~12 sq ft at 2 inches or ~8 sq ft at 3 inches. A 1.85-yd³ bed needs 25 bags of 2 ft³ (28 with 10% waste). Use <em>Bulk</em> for no bags and order by yards." },
+  { q: "How deep should mulch be?", a: "Garden beds: 2–3 inches once settled. New beds: 3 inches initially to account for ~15% settling in the first weeks. Play areas: 3–4 inches, but check safety standards — deeper than 4 inches can stay too wet and suffocate roots. Don’t exceed 3 inches around tree trunks (keep a 6-inch clearance)." },
+  { q: "How much area does one yard of mulch cover?", a: "One cubic yard covers about 162 sq ft at 2 inches, 108 sq ft at 3 inches, 81 sq ft at 4 inches. The inverse: a 10×10 ft bed (100 sq ft) needs ~0.62 yd³ at 2 inches, ~0.93 yd³ at 3 inches. For <a href=\"/paver-calculator/\" class=\"text-link underline hover:text-link-deep\">paver</a> borders next to beds, size the hardscape separately so mulch doesn’t mix." },
+  { q: "How do I convert mulch bags to cubic yards?", a: "Bags × bag ft³ ÷ 27 = yards. Example: 10 bags of 2 ft³ = 20 ft³ ÷ 27 = 0.74 yd³. The calculator shows both instantly. If you’re comparing a bulk quote of $35 per yard to $4.50 per bag ($60 per yard equivalent at 13.5 bags per yard), bulk wins over ~5 yards." },
+  { q: "How much does mulch cost per yard or per bag?", a: "Bulk mulch is often $25–$45 per yard plus delivery, bags $4–$7 per 2 ft³ in 2026. A 1.85-yd³ bed at $35 per yard is ~$65; the same as 28 bags at $4.50 is $126 — bulk is nearly half for larger beds. Enter your price per bag or per yard; the calculator multiplies waste-adjusted bags or yards for a material-only total." },
+];
+---
+
+<CalculatorLayout
+  title="Mulch Calculator — Cubic Yards & Bags | Calculator Street"
+  description="Mulch calculator for length, width, depth & number of beds. Get cubic yards and US bag counts (2/1.5/3 ft³) with waste & cost."
+  h1="Mulch Calculator"
+  intro="Mulch beds without over-ordering. Enter length, width and depth per bed, number of identical areas, bag size, waste and price — see cubic yards, bags and cost."
+  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Landscaping Calculators", href: "/construction/landscaping/" }, { label: "Mulch Calculator" }]}
+  related={related}
+  faq={faq}
+  canonical="/mulch-calculator/"
+>
+  <Header slot="header" />
+  <MulchCalculator slot="calculator" />
+  <section class="space-y-6">
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
+      <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
+        <li>All dimensions → feet, then cubic feet = L×W×D×areas</li>
+        <li>Cubic yards = cubic feet ÷ 27</li>
+        <li>Bags = ceil(cubic feet ÷ bag size). Waste multiplies first.</li>
+      </ol>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
+      <p class="mt-2 text-sm leading-6 text-body">Bed 20×10 ft × 3 in, 1 area, 2 ft³ bags, 10% waste, $4.50/bag:</p>
+      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">OUTPUT</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">ft³</td><td class="px-3 py-2">50.00</td></tr><tr><td class="px-3 py-2">yd³</td><td class="px-3 py-2">1.85</td></tr><tr><td class="px-3 py-2">Bags</td><td class="px-3 py-2">25 → 28 w/ waste</td></tr><tr><td class="px-3 py-2">Cost</td><td class="px-3 py-2">$126</td></tr></tbody></table></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Rectangular beds. Irregular: break into rectangles.</li><li>Loose fill. Settling ~15% not modeled beyond waste.</li><li>2 ft³ bags cover ~8 ft² at 3 in.</li></ul>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</CalculatorLayout>

@@ -1,0 +1,40 @@
+---
+---
+
+<div id="roof-pitch-calc" class="rounded-lg border border-hairline bg-canvas p-5 shadow-card sm:p-6">
+  <form id="rp-form" novalidate class="space-y-5">
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label class="block"><span class="text-sm font-medium text-ink">Rise</span>
+        <div class="mt-1.5 flex"><input id="rp-rise" type="number" min="0" step="any" placeholder="6" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm" required/><select id="rp-rise-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="in">in</option><option value="ft">ft</option><option value="cm">cm</option></select></div>
+        <span id="rp-rise-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Run (horizontal)</span>
+        <div class="mt-1.5 flex"><input id="rp-run" type="number" min="0" step="any" placeholder="12" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm" required/><select id="rp-run-unit" class="h-11 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="in">in</option><option value="ft">ft</option></select></div>
+        <span id="rp-run-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    </div>
+    <p class="font-mono text-[11px] leading-4 text-mute">Enter rise and run in same or mixed units — we convert. Common US pitch is rise in inches per 12" run. Angle and slope update instantly.</p>
+    <div class="flex gap-2"><button type="submit" class="h-11 rounded-sm bg-primary px-6 text-sm font-medium text-on-primary">Calculate</button><button type="reset" id="rp-reset" class="h-11 rounded-sm border border-hairline bg-canvas px-6 text-sm font-medium text-ink">Reset</button></div>
+  </form>
+  <div id="rp-results" class="mt-6 hidden" aria-live="polite">
+    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5">
+      <p class="font-mono text-[11px] tracking-widest text-mute">ROOF PITCH RESULT</p>
+      <p class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-ink"><span id="rp-ratio" class="tabular-nums">—</span> <span class="text-base font-medium text-body">pitch</span> <span class="mx-2 text-body">·</span> <span id="rp-angle" class="tabular-nums">—</span>°</p>
+      <div class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 sm:grid-cols-3">
+        <div><p class="font-mono text-[11px] text-mute">Decimal slope</p><p id="rp-slope" class="text-sm font-semibold tabular-nums text-ink">—</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Pitch (x:12)</p><p id="rp-x12" class="text-sm font-semibold tabular-nums text-ink">—</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Slope %</p><p id="rp-pct" class="text-sm font-semibold tabular-nums text-ink">—</p></div>
+      </div>
+      <p class="mt-3 font-mono text-[11px] leading-4 text-mute">Formula: angle = arctan(rise/run). Low slope &lt;3:12, steep &gt;9:12. Check local snow/wind codes.</p>
+    </div>
+  </div>
+</div>
+<script is:inline>
+(()=>{const $=id=>document.getElementById(id);const f=$("rp-form"),r=$("rp-results");function toIn(v,u){if(u==="in")return v;if(u==="ft")return v*12;if(u==="cm")return v*0.393701;return v;}
+function fmt(n,d=2){return new Intl.NumberFormat("en-US",{maximumFractionDigits:d}).format(n);}
+f.addEventListener("submit",e=>{e.preventDefault();const rise=parseFloat($("rp-rise").value),run=parseFloat($("rp-run").value);const er1=$("rp-rise-error"),er2=$("rp-run-error");er1.textContent="";er1.classList.add("hidden");er2.textContent="";er2.classList.add("hidden");let ok=true;if(!(rise>0)){er1.textContent="Please enter a valid rise.";er1.classList.remove("hidden");ok=false;}if(!(run>0)){er2.textContent="Run must be greater than 0.";er2.classList.remove("hidden");ok=false;}if(!ok)return;
+const riseIn=toIn(rise,$("rp-rise-unit").value),runIn=toIn(run,$("rp-run-unit").value);const slope=riseIn/runIn;const angle=Math.atan(slope)*180/Math.PI;const ratio=`${fmt(riseIn,2)}:12`;
+const x12=(slope*12);
+$("rp-ratio").textContent=`${fmt(riseIn,2)} : ${fmt(runIn,2)}`;
+$("rp-angle").textContent=fmt(angle,1);$("rp-slope").textContent=fmt(slope,3);$("rp-x12").textContent=`${fmt(x12,2)} : 12`;$("rp-pct").textContent=fmt(slope*100,1)+"%";
+r.classList.remove("hidden");r.scrollIntoView({behavior:"smooth",block:"nearest"});
+});$("rp-reset").addEventListener("click",()=>{r.classList.add("hidden");["rp-rise-error","rp-run-error"].forEach(id=>{const e=$(id);e.textContent="";e.classList.add("hidden");});});})();
+</script>

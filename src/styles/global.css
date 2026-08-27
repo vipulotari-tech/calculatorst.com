@@ -1,0 +1,308 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Colors — from DESIGN.md */
+  --color-primary: #171717;
+  --color-on-primary: #ffffff;
+  --color-ink: #171717;
+  --color-body: #4d4d4d;
+  --color-mute: #888888;
+  --color-hairline: #ebebeb;
+  --color-hairline-strong: #a1a1a1;
+  --color-canvas: #ffffff;
+  --color-canvas-soft: #fafafa;
+  --color-canvas-soft-2: #f5f5f5;
+  --color-link: #0070f3;
+  --color-link-deep: #0761d1;
+  --color-link-bg-soft: #d3e5ff;
+  --color-success: #0070f3;
+  --color-error: #ee0000;
+  --color-error-soft: #f7d4d6;
+  --color-error-deep: #c50000;
+  --color-warning: #f5a623;
+  --color-warning-soft: #ffefcf;
+  --color-warning-deep: #ab570a;
+  --color-violet: #7928ca;
+  --color-violet-soft: #d8ccf1;
+  --color-violet-deep: #4c2889;
+  --color-cyan: #50e3c2;
+  --color-cyan-soft: #aaffec;
+  --color-cyan-deep: #29bc9b;
+  --color-highlight-pink: #ff0080;
+  --color-highlight-magenta: #eb367f;
+  --color-gradient-develop-start: #007cf0;
+  --color-gradient-develop-end: #00dfd8;
+  --color-gradient-preview-start: #7928ca;
+  --color-gradient-preview-end: #ff0080;
+  --color-gradient-ship-start: #ff4d4d;
+  --color-gradient-ship-end: #f9cb28;
+
+  --font-sans: "Geist", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill-sm: 64px;
+  --radius-pill: 100px;
+
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 40px;
+  --spacing-3xl: 48px;
+  --spacing-4xl: 64px;
+  --spacing-5xl: 96px;
+  --spacing-6xl: 128px;
+  --spacing-section: 192px;
+
+  --container-page: 1400px;
+  --container-content: 1200px;
+
+  /* Fluid typography — clamp for all viewports 320 → 2560+ */
+  --text-display-xl: clamp(1.875rem, 5vw + 0.75rem, 3rem); /* 30→48 */
+  --text-display-xl--line-height: 1;
+  --text-display-xl--letter-spacing: -0.05em;
+  --text-display-xl--font-weight: 600;
+
+  --text-display-lg: clamp(1.5rem, 3.5vw + 0.5rem, 2rem); /* 24→32 */
+  --text-display-lg--line-height: 1.25;
+  --text-display-lg--letter-spacing: -0.04em;
+  --text-display-lg--font-weight: 600;
+
+  --text-display-md: clamp(1.25rem, 2.5vw + 0.5rem, 1.5rem); /* 20→24 */
+  --text-display-md--line-height: 1.33;
+  --text-display-md--letter-spacing: -0.04em;
+  --text-display-md--font-weight: 600;
+
+  --text-display-sm: clamp(1.0625rem, 1.8vw + 0.5rem, 1.25rem); /* 17→20 */
+  --text-display-sm--line-height: 1.4;
+  --text-display-sm--letter-spacing: -0.03em;
+  --text-display-sm--font-weight: 600;
+
+  --text-body-lg: clamp(1rem, 1.2vw + 0.75rem, 1.125rem); /* 16→18 */
+  --text-body-lg--line-height: 1.55;
+
+  --text-body-md: 1rem; /* 16 fixed, readable min */
+  --text-body-md--line-height: 1.5;
+
+  --text-body-sm: 0.875rem; /* 14 */
+  --text-body-sm--line-height: 1.43;
+  --text-body-sm--letter-spacing: -0.02em;
+
+  --text-caption: 0.75rem; /* 12 */
+  --text-caption--line-height: 1.33;
+
+  --text-code: 0.8125rem; /* 13 */
+  --text-code--line-height: 1.54;
+
+  --breakpoint-xs: 360px;
+}
+
+/* Base — Vercel minimal ink on soft canvas */
+@layer base {
+  html {
+    color-scheme: light;
+    scrollbar-gutter: stable;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+  img, video, canvas, svg {
+    max-width: 100%;
+    height: auto;
+  }
+  table {
+    max-width: 100%;
+  }
+  input, select, textarea, button {
+    min-width: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-canvas-soft);
+    color: var(--color-ink);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    /* Prevent horizontal scroll from safe-area + padding */
+    box-sizing: border-box;
+  }
+
+  ::selection {
+    background: var(--color-primary);
+    color: var(--color-canvas);
+  }
+
+  /* Focus — visible ring per web-interface-guidelines */
+  :focus-visible {
+    outline: 2px solid var(--color-link);
+    outline-offset: 2px;
+  }
+
+  /* Heading balance/pretty per guidelines */
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Tabular nums for comparisons */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Utilities — project primitives */
+@utility container-page {
+  max-width: var(--container-page);
+  margin-inline: auto;
+  padding-inline: 24px;
+  @media (max-width: 768px) {
+    padding-inline: 16px;
+  }
+}
+
+@utility hairline {
+  border-color: var(--color-hairline);
+}
+
+@utility shadow-card {
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.08),
+    0 1px 1px rgba(0,0,0,0.05),
+    0 2px 2px rgba(0,0,0,0.05);
+}
+@utility shadow-card-hover {
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.08),
+    0 2px 2px rgba(0,0,0,0.06),
+    0 8px 8px -8px rgba(0,0,0,0.08);
+}
+@utility shadow-float {
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.08),
+    0 2px 2px rgba(0,0,0,0.06),
+    0 8px 16px -4px rgba(0,0,0,0.08);
+}
+@utility shadow-modal {
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.08),
+    0 1px 1px rgba(0,0,0,0.05),
+    0 8px 16px -4px rgba(0,0,0,0.08),
+    0 24px 32px -8px rgba(0,0,0,0.08);
+}
+
+/* Mesh gradient — hero atmospheric (cyan/blue/magenta/amber) */
+@utility mesh-gradient {
+  background:
+    radial-gradient(ellipse 800px 600px at 15% 10%, rgba(0,124,240,0.14), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 85% 15%, rgba(121,40,202,0.12), transparent 60%),
+    radial-gradient(ellipse 900px 700px at 50% 80%, rgba(255,0,128,0.08), transparent 65%),
+    radial-gradient(ellipse 600px 400px at 90% 85%, rgba(249,203,40,0.08), transparent 60%),
+    radial-gradient(ellipse 500px 500px at 20% 90%, rgba(80,227,194,0.07), transparent 60%);
+}
+
+/* Responsive tables — scroll inside container only on small screens */
+@media (max-width: 640px) {
+  .overflow-x-auto table {
+    min-width: 440px;
+  }
+}
+/* Fluid containers — ensure no overflow at 320 */
+@media (max-width: 360px) {
+  .mx-auto {
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
+  }
+}
+
+/* Dark mode — polished, persists via html.dark class */
+html.dark {
+  color-scheme: dark;
+  --color-primary: #fafafa;
+  --color-on-primary: #0a0a0a;
+  --color-ink: #fafafa;
+  --color-body: #a1a1a1;
+  --color-mute: #888888;
+  --color-hairline: #262626;
+  --color-hairline-strong: #3a3a3a;
+  --color-canvas: #171717;
+  --color-canvas-soft: #0a0a0a;
+  --color-canvas-soft-2: #1f1f1f;
+  --color-link-bg-soft: #0f1a2e;
+  --color-error-soft: #2a0f0f;
+  --color-warning-soft: #2a1f0a;
+  --color-violet-soft: #1e1030;
+  --color-cyan-soft: #0a221c;
+}
+
+html.dark body {
+  background: var(--color-canvas-soft);
+  color: var(--color-ink);
+}
+
+html.dark ::selection {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+/* Dark shadows — lighter ring */
+html.dark .shadow-card {
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 1px 1px rgba(0,0,0,0.2),
+    0 2px 2px rgba(0,0,0,0.2);
+}
+html.dark .shadow-card-hover {
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.1),
+    0 2px 2px rgba(0,0,0,0.2),
+    0 8px 8px -8px rgba(0,0,0,0.3);
+}
+html.dark .shadow-float {
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 2px 2px rgba(0,0,0,0.3),
+    0 8px 16px -4px rgba(0,0,0,0.4);
+}
+html.dark .mesh-gradient {
+  background:
+    radial-gradient(ellipse 800px 600px at 15% 10%, rgba(0,124,240,0.18), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 85% 15%, rgba(121,40,202,0.16), transparent 60%),
+    radial-gradient(ellipse 900px 700px at 50% 80%, rgba(255,0,128,0.10), transparent 65%),
+    radial-gradient(ellipse 600px 400px at 90% 85%, rgba(249,203,40,0.08), transparent 60%),
+    radial-gradient(ellipse 500px 500px at 20% 90%, rgba(80,227,194,0.08), transparent 60%);
+}
+
+/* Safe areas */
+@utility safe-px {
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+}

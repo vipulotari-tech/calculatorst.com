@@ -1,0 +1,56 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const popular = [
+  { title: "Gravel Calculator", href: "/gravel-calculator/" },
+  { title: "Concrete Slab Calculator", href: "/concrete-slab-calculator/" },
+  { title: "Fence Cost Calculator", href: "/fence-cost-calculator/" },
+  { title: "Deck Material Calculator", href: "/deck-material-calculator/" },
+  { title: "Roof Pitch Calculator", href: "/roof-pitch-calculator/" },
+  { title: "Paver Calculator", href: "/paver-calculator/" },
+];
+---
+
+<Layout
+  title="Page not found — Calculator Street"
+  description="The page you’re looking for doesn’t exist. Try our popular calculators or browse categories."
+  noindex={true}
+>
+  <Header />
+  <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-4 py-12 sm:px-6 sm:py-16">
+    <div class="mx-auto max-w-[720px] text-center">
+      <p class="font-mono text-caption font-medium tracking-widest text-mute">404</p>
+      <h1 class="mt-2 text-display-lg font-semibold tracking-[-0.04em] text-ink [text-wrap:balance]">Page not found.</h1>
+      <p class="mx-auto mt-3 max-w-[520px] text-sm leading-6 text-body [text-wrap:pretty]">
+        The calculator or page you’re looking for doesn’t exist or was moved. Try one of our popular calculators or browse a category.
+      </p>
+      <div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href="/" class="inline-flex h-11 items-center justify-center rounded-sm bg-primary px-6 text-sm font-medium text-on-primary hover:bg-[#242424] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Go to homepage</a>
+        <a href="/calculators/" class="inline-flex h-11 items-center justify-center rounded-sm border border-hairline bg-canvas px-6 text-sm font-medium text-ink hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Browse all calculators</a>
+      </div>
+
+      <div class="mt-10 text-left">
+        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Popular calculators</h2>
+        <ul class="mt-4 grid gap-3 sm:grid-cols-2" role="list">
+          {popular.map((c) => (
+            <li>
+              <a href={c.href} class="flex items-center justify-between rounded-md border border-hairline bg-canvas p-4 shadow-card transition hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">
+                <span class="text-sm font-medium text-ink">{c.title}</span>
+                <span class="text-sm text-mute">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-6 flex flex-wrap justify-center gap-2">
+          <a href="/construction/" class="rounded-full border border-hairline bg-canvas px-4 py-2 text-sm font-medium text-ink hover:bg-canvas-soft">Construction</a>
+          <a href="/construction/gravel/" class="rounded-full border border-hairline bg-canvas px-4 py-2 text-sm font-medium text-ink hover:bg-canvas-soft">Gravel</a>
+          <a href="/construction/roofing/" class="rounded-full border border-hairline bg-canvas px-4 py-2 text-sm font-medium text-ink hover:bg-canvas-soft">Roofing</a>
+          <a href="/construction/landscaping/" class="rounded-full border border-hairline bg-canvas px-4 py-2 text-sm font-medium text-ink hover:bg-canvas-soft">Landscaping</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

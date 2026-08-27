@@ -1,0 +1,27 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+---
+
+<Layout title="Privacy Policy — Calculator Street" description="Privacy policy: Calculator Street runs 100% in-browser, no tracking, no data leaving your device.">
+  <Header />
+  <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Privacy Policy" }]} />
+    <div class="mx-auto max-w-[720px] pt-6">
+      <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Privacy Policy</h1>
+      <p class="mt-1 font-mono text-xs text-mute">Last updated: August 27, 2026</p>
+      <div class="mt-6 space-y-6 rounded-lg border border-hairline bg-canvas p-6 text-sm leading-6 text-body dark:bg-canvas">
+        <p>Calculator Street is a static, privacy-friendly site. All calculator computations happen 100% in your browser. We do not have a database, user accounts or server-side calculation.</p>
+        <h2 class="font-semibold text-ink">What we collect</h2>
+        <ul class="list-disc pl-5 space-y-1"><li>Standard anonymous analytics (page views) if enabled — no personal data.</li><li>No input values are sent to a server.</li></ul>
+        <h2 class="font-semibold text-ink">Cookies & Google AdSense</h2>
+        <p>We use Google AdSense to show ads. Google, as a third-party vendor, uses cookies — including the DoubleClick cookie — to serve ads based on your visit to this site and other sites. You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" class="text-link underline" target="_blank" rel="noopener">Google Ads Settings</a>. See <a href="https://policies.google.com/technologies/ads" class="text-link underline" target="_blank" rel="noopener">Google’s ad policy</a> for details. You can disable cookies in your browser to opt out. We do not use cookies to collect personal data via calculators.</p>
+        <h2 class="font-semibold text-ink">Contact</h2>
+        <p>Questions: <a href="mailto:hello@calculatorst.com" class="text-link underline">hello@calculatorst.com</a></p>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

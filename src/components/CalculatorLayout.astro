@@ -1,0 +1,85 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "./Breadcrumbs.astro";
+import RelatedCalculators from "./RelatedCalculators.astro";
+import FAQ from "./FAQ.astro";
+import AdPlaceholder from "./AdPlaceholder.astro";
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+interface Related {
+  title: string;
+  href: string;
+  desc?: string;
+}
+interface QA {
+  q: string;
+  a: string;
+}
+interface Props {
+  title: string;
+  description: string;
+  h1: string;
+  intro: string;
+  breadcrumbs: BreadcrumbItem[];
+  related?: Related[];
+  faq?: QA[];
+  canonical?: string;
+}
+
+const { title, description, h1, intro, breadcrumbs, related = [], faq = [], canonical } = Astro.props;
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <slot name="header" />
+  <main id="main" tabindex="-1" class="w-full">
+    <!-- Top breadcrumb -->
+    <div class="mx-auto max-w-[1400px] px-6 py-4 max-md:px-4">
+      <Breadcrumbs items={breadcrumbs} />
+    </div>
+
+    <!-- H1 + intro + calculator -->
+    <section class="mx-auto max-w-[1400px] px-6 pb-8 max-md:px-4">
+      <div class="mx-auto max-w-[900px]">
+        <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink [text-wrap:balance] sm:text-display-xl sm:tracking-[-0.05em]">
+          {h1}
+        </h1>
+        <p class="mt-3 max-w-[720px] text-body-md leading-6 text-body [text-wrap:pretty]">{intro}</p>
+      </div>
+
+      <!-- Calculator slot — visually prominent, above fold -->
+      <div class="mx-auto mt-8 max-w-[900px]">
+        <slot name="calculator" />
+      </div>
+
+      <!-- Ad placeholder after results -->
+      <div class="mx-auto mt-6 max-w-[900px]">
+        <AdPlaceholder label="Advertisement — after results" height="h-[120px]" />
+      </div>
+
+      <!-- Supporting content -->
+      <div class="mx-auto mt-10 max-w-[900px] space-y-12">
+        <slot />
+
+        {related.length > 0 && <RelatedCalculators calculators={related} />}
+
+        {faq.length > 0 && <FAQ items={faq} />}
+
+        <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+          <p class="font-mono text-caption font-medium tracking-widest text-mute">ABOUT CALCULATOR STREET</p>
+          <p class="mt-2 text-sm leading-6 text-body [text-wrap:pretty]">
+            Calculator Street builds fast, private, US-focused calculators for home improvement and
+            construction. Every tool runs 100% in your browser — no backend, no tracking, no data leaving
+            your device. Bookmark results via shareable URLs.
+          </p>
+          <div class="mt-3 flex flex-wrap gap-2 font-mono text-[11px] text-mute">
+            <span>Free</span><span class="text-hairline">·</span><span>Fast</span><span class="text-hairline">·</span><span>Mobile-friendly</span><span class="text-hairline">·</span><span>US units</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <slot name="footer" />
+</Layout>

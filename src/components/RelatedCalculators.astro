@@ -1,0 +1,38 @@
+---
+interface Related {
+  title: string;
+  href: string;
+  desc?: string;
+}
+interface Props {
+  calculators: Related[];
+  heading?: string;
+}
+const { calculators, heading = "Related calculators" } = Astro.props;
+---
+
+<section aria-labelledby="related-heading" class="w-full">
+  <h2 id="related-heading" class="text-display-sm font-semibold tracking-[-0.03em] text-ink [text-wrap:balance]">
+    {heading}
+  </h2>
+  <ul class="mt-4 grid gap-3 sm:grid-cols-2" role="list">
+    {
+      calculators.map((c) => (
+        <li>
+          <a
+            href={c.href}
+            class="flex h-full items-center justify-between gap-3 rounded-md border border-hairline bg-canvas p-4 shadow-card transition duration-200 hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-canvas"
+          >
+            <div class="min-w-0">
+              <p class="truncate text-sm font-semibold tracking-[-0.02em] text-ink">{c.title}</p>
+              {c.desc && <p class="mt-0.5 line-clamp-1 text-xs leading-4 text-body">{c.desc}</p>}
+            </div>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="shrink-0 text-mute">
+              <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+            </svg>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

@@ -1,0 +1,30 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+---
+
+<Layout title="About — Calculator Street" description="About Calculator Street — a US-focused, fast and private calculator platform for construction and home improvement.">
+  <Header />
+  <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />
+    <div class="mx-auto max-w-[720px] pt-6">
+      <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">About Calculator Street</h1>
+      <p class="mt-3 text-sm leading-6 text-body [text-wrap:pretty]">Calculator Street (CalculatorSt.com) builds fast, accurate and private calculators for US homeowners, DIYers and contractors. We focus on home improvement — gravel, concrete, fencing, roofing, decking and landscaping — and we build fewer calculators extremely well rather than many thin pages.</p>
+      <div class="mt-8 space-y-6 rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Our principles</h2>
+        <ul class="list-disc space-y-2 pl-5 text-sm leading-6 text-body">
+          <li><span class="font-semibold text-ink">Static & private</span> — all calculations run in your browser. No database, no accounts, no tracking.</li>
+          <li><span class="font-semibold text-ink">US-focused</span> — feet, inches, yards, tons, plus metric where useful.</li>
+          <li><span class="font-semibold text-ink">Mobile-first</span> — large inputs, thumb-friendly, works on the job site.</li>
+          <li><span class="font-semibold text-ink">Transparent</span> — every page shows formulas, examples, assumptions and related calculators.</li>
+        </ul>
+        <h3 class="text-sm font-semibold tracking-[-0.02em] text-ink">Roadmap</h3>
+        <p class="text-sm leading-6 text-body">10 live → 30 vetted cluster pages → 50 → 100+. We expand only after Search Console shows impressions and we can beat the SERP with better UX.</p>
+      </div>
+      <p class="mt-6 text-sm leading-6 text-body">Questions? <a href="/contact/" class="text-link underline hover:text-link-deep">Contact us</a>.</p>
+    </div>
+  </main>
+  <Footer />
+</Layout>
