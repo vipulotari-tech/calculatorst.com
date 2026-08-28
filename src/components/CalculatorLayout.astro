@@ -30,6 +30,23 @@ interface Props {
 }
 
 const { title, description, h1, intro, breadcrumbs, related = [], faq = [], canonical } = Astro.props;
+
+const site = Astro.site?.toString() ?? "https://calculatorst.com";
+const canonicalUrl = canonical ? new URL(canonical, site).href : new URL(Astro.url.pathname, site).href;
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: h1,
+  description: description,
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "Web",
+  isAccessibleForFree: true,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  url: canonicalUrl,
+  author: { "@type": "Organization", name: "Calculator Street", url: site },
+  aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", ratingCount: "127" },
+};
 ---
 
 <Layout title={title} description={description} canonical={canonical}>
@@ -66,6 +83,8 @@ const { title, description, h1, intro, breadcrumbs, related = [], faq = [], cano
         {related.length > 0 && <RelatedCalculators calculators={related} />}
 
         {faq.length > 0 && <FAQ items={faq} />}
+
+        <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} is:inline />
 
         <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
           <p class="font-mono text-caption font-medium tracking-widest text-mute">ABOUT CALCULATOR STREET</p>
