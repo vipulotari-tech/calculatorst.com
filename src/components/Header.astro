@@ -7,21 +7,21 @@ import ThemeToggle from "./ThemeToggle.astro";
   role="banner"
 >
   <div
-    class="mx-auto flex h-[64px] max-w-[1400px] items-center gap-4 px-4 sm:px-6 ps-[max(1rem,env(safe-area-inset-left))] pe-[max(1rem,env(safe-area-inset-right))]"
+    class="mx-auto flex max-w-[1400px] items-center gap-3 px-3 sm:px-4 ps-[max(0.75rem,env(safe-area-inset-left))] pe-[max(0.75rem,env(safe-area-inset-right))] py-2.5 sm:py-3 min-h-[56px] sm:min-h-[64px]"
   >
     <!-- Left: Brand -->
     <a
       href="/"
-      class="flex shrink-0 items-center gap-2.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+      class="flex shrink-0 items-center gap-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
       aria-label="Calculator Street — home"
     >
       <span
-        class="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-[6px] bg-[#0a0a0a] shadow-sm ring-1 ring-black/10 dark:bg-[#0a0a0a]"
+        class="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-[6px] bg-[#0a0a0a] shadow-sm ring-1 ring-black/10 dark:bg-[#0a0a0a]"
         aria-hidden="true"
-        ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" class="h-8 w-8"><rect width="32" height="32" rx="8" fill="#0a0a0a"/><g transform="translate(6 6) rotate(-6 16 12)"><rect x="0" y="0" width="20" height="20" rx="3" fill="white"/><rect x="2.5" y="2.5" width="15" height="4.5" rx="1" fill="#dbeafe"/><rect x="3" y="3" width="14" height="3.5" rx="0.6" fill="#bfdbfe" opacity="0.7"/><g fill="#1f2937"><rect x="2.5" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="14.1" width="3.2" height="2.2" rx="0.6"/></g></g></svg></span
+        ><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32" class="h-7 w-7"><rect width="32" height="32" rx="8" fill="#0a0a0a"/><g transform="translate(6 6) rotate(-6 16 12)"><rect x="0" y="0" width="20" height="20" rx="3" fill="white"/><rect x="2.5" y="2.5" width="15" height="4.5" rx="1" fill="#dbeafe"/><rect x="3" y="3" width="14" height="3.5" rx="0.6" fill="#bfdbfe" opacity="0.7"/><g fill="#1f2937"><rect x="2.5" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="14.1" width="3.2" height="2.2" rx="0.6"/></g></g></svg></span
       >
       <span class="hidden text-[16px] font-semibold tracking-[-0.02em] text-ink sm:inline">Calculator Street</span>
-      <span class="text-[16px] font-semibold tracking-[-0.02em] text-ink sm:hidden">CalculatorSt</span>
+      <span class="text-[14px] font-semibold tracking-[-0.02em] text-ink sm:hidden max-w-[100px] truncate">CalculatorSt</span>
       <span
         class="hidden items-center gap-1.5 rounded-full border border-hairline bg-canvas-soft px-2.5 py-1 font-mono text-[10px] font-medium leading-none tracking-wide text-mute shadow-sm ring-1 ring-black/[0.04] dark:bg-white/[0.06] dark:ring-white/10 sm:inline-flex"
         aria-label="US-focused — built for United States"
@@ -44,29 +44,29 @@ import ThemeToggle from "./ThemeToggle.astro";
     </nav>
 
     <!-- Right: Actions -->
-    <div class="hidden shrink-0 items-center gap-3 lg:flex">
+    <div class="hidden shrink-0 items-center gap-2 lg:flex">
       <button
         type="button"
         id="search-btn"
-        class="inline-flex items-center gap-2 rounded-full border border-hairline bg-canvas px-3.5 py-2 text-sm font-medium text-ink shadow-sm transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+        class="inline-flex items-center gap-2 rounded-full border border-hairline bg-canvas px-3 py-2 text-sm font-medium text-ink shadow-sm transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
         aria-label="Search calculators"
       >
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="text-mute">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="text-mute shrink-0">
           <path d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/>
         </svg>
-        <span class="text-[13.5px]">Search</span>
+        <span class="text-[13.5px] hidden sm:inline">Search</span>
         <span class="ml-1 hidden rounded bg-canvas-soft-2 px-1.5 py-0.5 font-mono text-[10px] leading-none tracking-wide text-mute ring-1 ring-hairline xl:inline-flex">⌘&nbsp;K</span>
       </button>
-      <div class="h-6 w-px bg-hairline" aria-hidden="true"></div>
+      <div class="h-6 w-px bg-hairline hidden sm:block" aria-hidden="true"></div>
       <ThemeToggle id="theme-toggle" />
     </div>
 
     <!-- Mobile: Search + Theme + Menu -->
-    <div class="flex shrink-0 items-center gap-1.5 lg:hidden">
+    <div class="flex shrink-0 items-center gap-1 lg:hidden">
       <button
         type="button"
         id="search-btn-mobile"
-        class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-canvas text-mute shadow-sm transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-hairline bg-canvas text-mute shadow-sm transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
         aria-label="Search calculators"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>
@@ -75,7 +75,7 @@ import ThemeToggle from "./ThemeToggle.astro";
       <button
         id="menu-toggle"
         type="button"
-        class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-canvas text-ink shadow-sm transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-hairline bg-canvas text-ink shadow-sm transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
         aria-expanded="false"
         aria-controls="mobile-menu"
         aria-label="Open menu"
@@ -94,14 +94,14 @@ import ThemeToggle from "./ThemeToggle.astro";
     aria-modal="true"
     aria-label="Mobile navigation"
   >
-    <nav class="flex flex-col gap-1 p-4 pb-[max(1rem,env(safe-area-inset-bottom))]" aria-label="Mobile primary">
-      <a href="/construction/" class="flex items-center justify-between rounded-lg px-3 py-3 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Construction <span class="text-mute">→</span></a>
-      <a href="/construction/landscaping/" class="flex items-center justify-between rounded-lg px-3 py-3 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Landscaping <span class="text-mute">→</span></a>
-      <a href="/construction/roofing/" class="flex items-center justify-between rounded-lg px-3 py-3 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Roofing <span class="text-mute">→</span></a>
-      <a href="/construction/concrete/" class="flex items-center justify-between rounded-lg px-3 py-3 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Concrete <span class="text-mute">→</span></a>
-      <a href="/construction/fencing/" class="flex items-center justify-between rounded-lg px-3 py-3 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Fence <span class="text-mute">→</span></a>
-      <a href="/construction/decking/" class="flex items-center justify-between rounded-lg px-3 py-3 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Deck <span class="text-mute">→</span></a>
-      <div class="mt-2 flex items-center justify-between rounded-lg border border-hairline bg-canvas-soft px-3 py-3 dark:bg-white/[0.03]">
+    <nav class="flex flex-col gap-0.5 px-3 py-3 pb-[max(1rem,env(safe-area-inset-bottom))]" aria-label="Mobile primary">
+      <a href="/construction/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link" data-testid="mobile-nav-construction">Construction <span class="text-mute">→</span></a>
+      <a href="/construction/landscaping/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Landscaping <span class="text-mute">→</span></a>
+      <a href="/construction/roofing/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Roofing <span class="text-mute">→</span></a>
+      <a href="/construction/concrete/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Concrete <span class="text-mute">→</span></a>
+      <a href="/construction/fencing/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Fence <span class="text-mute">→</span></a>
+      <a href="/construction/decking/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Deck <span class="text-mute">→</span></a>
+      <div class="mt-3 flex items-center justify-between rounded-lg border border-hairline bg-canvas-soft px-3 py-3 dark:bg-white/[0.03]">
         <span class="text-sm font-medium text-ink">Theme</span>
         <span class="font-mono text-xs text-mute">Light / Dark</span>
       </div>
