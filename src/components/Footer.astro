@@ -65,16 +65,11 @@
 
     <div class="mt-10 flex flex-col gap-3 border-t border-hairline pt-6 sm:flex-row sm:items-center sm:justify-between">
       <p class="font-mono text-caption leading-4 text-mute">
-        © <span id="year"></span> Calculator Street. Built with Astro &amp; Tailwind CSS v4. No cookies. No trackers.
+        © 2026 Calculator Street. Built with Astro &amp; Tailwind CSS v4. No cookies. No trackers.
       </p>
       <p class="font-mono text-caption leading-4 text-mute">
         Crafted for speed · <span translate="no">calculatorst.com</span>
       </p>
     </div>
   </div>
-
-  <script is:inline>
-    const y = document.getElementById("year");
-    if (y) y.textContent = String(new Date().getFullYear());
-  </script>
 </footer>
