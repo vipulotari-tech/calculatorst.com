@@ -3,13 +3,11 @@ import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <header
-  class="sticky top-0 z-50 w-full border-b border-hairline bg-canvas/80 backdrop-blur-[12px] supports-[backdrop-filter]:bg-canvas/80 dark:bg-canvas/80"
+  class="sticky top-0 z-50 w-full flex items-center justify-between px-4 py-3 border-b border-hairline bg-canvas/80 backdrop-blur-[12px] supports-[backdrop-filter]:bg-canvas/80 dark:bg-canvas/80"
   role="banner"
 >
-  <div
-    class="mx-auto flex max-w-[1400px] items-center gap-3 px-3 sm:px-4 ps-[max(0.75rem,env(safe-area-inset-left))] pe-[max(0.75rem,env(safe-area-inset-right))] py-2.5 sm:py-3 min-h-[56px] sm:min-h-[64px]"
-  >
-    <!-- Left: Brand -->
+  <!-- Left Brand Section -->
+  <div class="flex items-center gap-2 shrink-0">
     <a
       href="/"
       class="flex shrink-0 items-center gap-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
@@ -29,22 +27,22 @@ import ThemeToggle from "./ThemeToggle.astro";
         ><svg width="16" height="11" viewBox="0 0 16 11" fill="none" aria-hidden="true" class="shrink-0 overflow-hidden rounded-[1.5px] ring-1 ring-black/10"><rect width="16" height="11" rx="1.2" fill="#B22234"/><g stroke="white" stroke-width="0.75"><path d="M0 1.7H16"/><path d="M0 3.4H16"/><path d="M0 5.1H16"/><path d="M0 6.85H16"/><path d="M0 8.55H16"/><path d="M0 10.25H16"/></g><rect width="6.2" height="5.86" rx="0.8" fill="#0B2A5B"/><g fill="white"><circle cx="1" cy="1" r="0.5"/><circle cx="2.4" cy="1" r="0.5"/><circle cx="3.8" cy="1" r="0.5"/><circle cx="5.2" cy="1" r="0.5"/><circle cx="1.7" cy="2.1" r="0.5"/><circle cx="3.1" cy="2.1" r="0.5"/><circle cx="4.5" cy="2.1" r="0.5"/><circle cx="1" cy="3.2" r="0.5"/><circle cx="2.4" cy="3.2" r="0.5"/><circle cx="3.8" cy="3.2" r="0.5"/><circle cx="5.2" cy="3.2" r="0.5"/><circle cx="1.7" cy="4.3" r="0.5"/><circle cx="3.1" cy="4.3" r="0.5"/><circle cx="4.5" cy="4.3" r="0.5"/></g></svg> US</span
       >
     </a>
+  </div>
 
-    <!-- Center: Navigation — flex-1 centered -->
-    <nav
-      class="hidden flex-1 items-center justify-center gap-1 lg:flex"
-      aria-label="Primary"
-    >
-      <a href="/construction/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Construction</a>
-      <a href="/construction/landscaping/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Landscaping</a>
-      <a href="/construction/roofing/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Roofing</a>
-      <a href="/construction/concrete/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Concrete</a>
-      <a href="/construction/fencing/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Fence</a>
-      <a href="/construction/decking/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Deck</a>
-    </nav>
+  <!-- Center: Navigation — desktop only -->
+  <nav class="hidden lg:flex items-center justify-center gap-1 flex-1" aria-label="Primary">
+    <a href="/construction/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Construction</a>
+    <a href="/construction/landscaping/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Landscaping</a>
+    <a href="/construction/roofing/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Roofing</a>
+    <a href="/construction/concrete/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Concrete</a>
+    <a href="/construction/fencing/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Fence</a>
+    <a href="/construction/decking/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Deck</a>
+  </nav>
 
-    <!-- Right: Actions -->
-    <div class="hidden shrink-0 items-center gap-2 lg:flex">
+  <!-- Right Actions Section -->
+  <div class="flex items-center gap-3 shrink-0">
+    <!-- Desktop Search -->
+    <div class="hidden lg:flex items-center gap-2">
       <button
         type="button"
         id="search-btn"
@@ -54,28 +52,28 @@ import ThemeToggle from "./ThemeToggle.astro";
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="text-mute shrink-0">
           <path d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/>
         </svg>
-        <span class="text-[13.5px] hidden sm:inline">Search</span>
+        <span class="text-[13.5px]">Search</span>
         <span class="ml-1 hidden rounded bg-canvas-soft-2 px-1.5 py-0.5 font-mono text-[10px] leading-none tracking-wide text-mute ring-1 ring-hairline xl:inline-flex">⌘&nbsp;K</span>
       </button>
-      <div class="h-6 w-px bg-hairline hidden sm:block" aria-hidden="true"></div>
-      <ThemeToggle id="theme-toggle" />
+      <div class="h-6 w-px bg-hairline" aria-hidden="true"></div>
+      <ThemeToggle id="theme-toggle" class="w-[60px] shrink-0" />
     </div>
 
     <!-- Mobile: Search + Theme + Menu -->
-    <div class="flex shrink-0 items-center gap-1 lg:hidden">
+    <div class="flex items-center gap-2 lg:hidden">
       <button
         type="button"
         id="search-btn-mobile"
-        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-hairline bg-canvas text-mute shadow-sm transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+        class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border border-gray-200 bg-canvas text-mute shadow-sm transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
         aria-label="Search calculators"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>
       </button>
-      <ThemeToggle id="theme-toggle-mobile" />
+      <ThemeToggle id="theme-toggle-mobile" class="w-[60px] shrink-0" />
       <button
         id="menu-toggle"
         type="button"
-        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-hairline bg-canvas text-ink shadow-sm transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+        class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border border-gray-200 bg-canvas text-ink shadow-sm transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
         aria-expanded="false"
         aria-controls="mobile-menu"
         aria-label="Open menu"
@@ -85,30 +83,30 @@ import ThemeToggle from "./ThemeToggle.astro";
       </button>
     </div>
   </div>
-
-  <!-- Mobile menu — premium sheet -->
-  <div
-    id="mobile-menu"
-    class="hidden border-t border-hairline bg-canvas/95 backdrop-blur-[12px] dark:bg-canvas/95 lg:hidden"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Mobile navigation"
-  >
-    <nav class="flex flex-col gap-0.5 px-3 py-3 pb-[max(1rem,env(safe-area-inset-bottom))]" aria-label="Mobile primary">
-      <a href="/construction/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link" data-testid="mobile-nav-construction">Construction <span class="text-mute">→</span></a>
-      <a href="/construction/landscaping/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Landscaping <span class="text-mute">→</span></a>
-      <a href="/construction/roofing/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Roofing <span class="text-mute">→</span></a>
-      <a href="/construction/concrete/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Concrete <span class="text-mute">→</span></a>
-      <a href="/construction/fencing/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Fence <span class="text-mute">→</span></a>
-      <a href="/construction/decking/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Deck <span class="text-mute">→</span></a>
-      <div class="mt-3 flex items-center justify-between rounded-lg border border-hairline bg-canvas-soft px-3 py-3 dark:bg-white/[0.03]">
-        <span class="text-sm font-medium text-ink">Theme</span>
-        <span class="font-mono text-xs text-mute">Light / Dark</span>
-      </div>
-      <p class="px-3 pt-2 font-mono text-[11px] leading-4 text-mute">Tip: Press <span translate="no">⌘&nbsp;K</span> to search anywhere.</p>
-    </nav>
-  </div>
 </header>
+
+<!-- Mobile menu — premium sheet -->
+<div
+  id="mobile-menu"
+  class="hidden border-t border-hairline bg-canvas/95 backdrop-blur-[12px] dark:bg-canvas/95 lg:hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Mobile navigation"
+>
+  <nav class="flex flex-col gap-0.5 px-3 py-3 pb-[max(1rem,env(safe-area-inset-bottom))]" aria-label="Mobile primary">
+    <a href="/construction/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link" data-testid="mobile-nav-construction">Construction <span class="text-mute">→</span></a>
+    <a href="/construction/landscaping/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Landscaping <span class="text-mute">→</span></a>
+    <a href="/construction/roofing/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Roofing <span class="text-mute">→</span></a>
+    <a href="/construction/concrete/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Concrete <span class="text-mute">→</span></a>
+    <a href="/construction/fencing/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Fence <span class="text-mute">→</span></a>
+    <a href="/construction/decking/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Deck <span class="text-mute">→</span></a>
+    <div class="mt-3 flex items-center justify-between rounded-lg border border-hairline bg-canvas-soft px-3 py-3 dark:bg-white/[0.03]">
+      <span class="text-sm font-medium text-ink">Theme</span>
+      <span class="font-mono text-xs text-mute">Light / Dark</span>
+    </div>
+    <p class="px-3 pt-2 font-mono text-[11px] leading-4 text-mute">Tip: Press <span translate="no">⌘&nbsp;K</span> to search anywhere.</p>
+  </nav>
+</div>
 
 <script is:inline>
   // Mobile menu
