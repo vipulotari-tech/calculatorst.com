@@ -63,13 +63,30 @@
       </div>
     </div>
 
-    <div class="mt-10 flex flex-col gap-3 border-t border-hairline pt-6 sm:flex-row sm:items-center sm:justify-between">
-      <p class="font-mono text-caption leading-4 text-mute">
-        © 2026 Calculator Street. Built with Astro &amp; Tailwind CSS v4. No cookies. No trackers.
-      </p>
-      <p class="font-mono text-caption leading-4 text-mute">
-        Crafted for speed · <span translate="no">calculatorst.com</span>
-      </p>
+    <!-- Luxury Bottom Bar — replaces plain black bar -->
+    <div class="mt-12 border-t border-hairline pt-8">
+      <div class="flex flex-col items-center gap-5">
+        <!-- Ornament -->
+        <div class="flex items-center gap-3" aria-hidden="true">
+          <span class="h-px w-10 bg-gradient-to-r from-transparent to-hairline sm:w-16"></span>
+          <span class="flex h-6 w-6 items-center justify-center rounded-full border border-hairline bg-canvas-soft text-[10px] text-mute">✦</span>
+          <span class="h-px w-10 bg-gradient-to-l from-transparent to-hairline sm:w-16"></span>
+        </div>
+        <div class="text-center">
+          <p class="font-mono text-[11px] tracking-[0.16em] uppercase text-mute">© 2026 Calculator Street</p>
+          <p class="mt-1.5 font-mono text-[11px] leading-5 text-mute">
+            Built with <span class="font-medium text-ink">Astro</span> &amp; <span class="font-medium text-ink">Tailwind CSS v4</span> <span class="mx-1.5 text-hairline">·</span> No cookies <span class="mx-1.5 text-hairline">·</span> No trackers
+          </p>
+        </div>
+        <a href="/" class="group inline-flex items-center gap-2 rounded-full border border-hairline bg-ink px-4 py-2 text-xs font-medium tracking-wide text-white shadow-sm transition hover:bg-ink/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-white dark:text-black dark:border-white/10" aria-label="Calculator Street home">
+          <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+          <span translate="no">calculatorst.com</span>
+          <span class="opacity-60">·</span>
+          Crafted for speed
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="opacity-60 transition-transform group-hover:translate-x-0.5"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <p class="font-mono text-[10px] tracking-[0.14em] uppercase text-mute/60">Precision · Speed · Privacy</p>
+      </div>
     </div>
   </div>
 </footer>
