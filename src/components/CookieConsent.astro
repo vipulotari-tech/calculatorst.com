@@ -1,0 +1,99 @@
+---
+// Cookie Consent — EU User Consent Policy compliant, lightweight, no dependencies
+---
+
+<div
+  id="cookie-consent"
+  class="fixed inset-x-0 bottom-0 z-[100] hidden border-t border-hairline bg-canvas/95 px-4 py-4 backdrop-blur-[12px] shadow-float dark:bg-canvas/95"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="cookie-title"
+  aria-describedby="cookie-desc"
+>
+  <div class="mx-auto flex max-w-[1400px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex-1">
+      <p id="cookie-title" class="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-ink">Cookie Notice</p>
+      <p id="cookie-desc" class="mt-1 max-w-[640px] text-sm leading-5 text-body [text-wrap:pretty]">
+        We use cookies for analytics and ads (Google AdSense). Calculators run 100% in your browser — no tracking by us. See <a href="/privacy/" class="underline hover:text-ink">Privacy</a>.
+      </p>
+    </div>
+    <div class="flex shrink-0 items-center gap-2">
+      <button
+        id="cookie-decline"
+        type="button"
+        class="inline-flex h-9 items-center justify-center rounded-full border border-hairline bg-canvas px-4 text-sm font-medium text-ink transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+      >
+        Decline
+      </button>
+      <button
+        id="cookie-accept"
+        type="button"
+        class="inline-flex h-9 items-center justify-center rounded-full bg-ink px-5 text-sm font-medium text-white transition hover:bg-ink/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-white dark:text-black"
+      >
+        Accept
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const CONSENT_KEY = "cookieConsent";
+    const ADS_CLIENT = "ca-pub-3234603610000879";
+    const banner = document.getElementById("cookie-consent");
+    const acceptBtn = document.getElementById("cookie-accept");
+    const declineBtn = document.getElementById("cookie-decline");
+
+    function loadAds() {
+      if (document.querySelector('script[data-adsense]')) return;
+      const s = document.createElement("script");
+      s.async = true;
+      s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + ADS_CLIENT;
+      s.crossOrigin = "anonymous";
+      s.setAttribute("data-adsense", "true");
+      document.head.appendChild(s);
+    }
+
+    function hideBanner() {
+      if (banner) {
+        banner.classList.add("hidden");
+        banner.setAttribute("aria-hidden", "true");
+      }
+    }
+
+    function showBanner() {
+      if (banner) {
+        banner.classList.remove("hidden");
+        banner.removeAttribute("aria-hidden");
+      }
+    }
+
+    try {
+      const consent = localStorage.getItem(CONSENT_KEY);
+      if (consent === "accepted") {
+        loadAds();
+      } else if (consent === "declined") {
+        // do not load ads
+      } else {
+        // no choice yet — show banner
+        showBanner();
+      }
+    } catch {}
+
+    acceptBtn?.addEventListener("click", () => {
+      try { localStorage.setItem(CONSENT_KEY, "accepted"); } catch {}
+      loadAds();
+      hideBanner();
+      // push consent to dataLayer for gtag if needed
+      window.dataLayer = window.dataLayer || [];
+      window.gtag?.("consent", "update", { ad_storage: "granted", analytics_storage: "granted" });
+    });
+
+    declineBtn?.addEventListener("click", () => {
+      try { localStorage.setItem(CONSENT_KEY, "declined"); } catch {}
+      hideBanner();
+      window.dataLayer = window.dataLayer || [];
+      window.gtag?.("consent", "update", { ad_storage: "denied", analytics_storage: "denied" });
+    });
+  })();
+</script>
