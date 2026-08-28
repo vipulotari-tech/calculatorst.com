@@ -1,30 +1,27 @@
-# Cloudflare Pages — canonical redirects
+# Workers Assets — relative redirects only (absolute www→apex handled via Cloudflare Dashboard Redirect Rule, not _redirects)
+# Enforce trailing slash (matches sitemap/canonical & astro.config trailingSlash: always)
+# www redirect must be configured in Cloudflare Dashboard → Rules → Redirect Rules: https://www.calculatorst.com/* → https://calculatorst.com/:splat 301
 
-# www → apex (SEO: prevent duplicate host)
-https://www.calculatorst.com/* https://calculatorst.com/:splat 301
-
-# Enforce trailing slash for calculator & category pages (matches sitemap/canonical)
-# Astro trailingSlash: "always" already generates /index.html, but this catches direct non-slash hits via Pages
-https://calculatorst.com/gravel-calculator https://calculatorst.com/gravel-calculator/ 301
-https://calculatorst.com/pea-gravel-calculator https://calculatorst.com/pea-gravel-calculator/ 301
-https://calculatorst.com/driveway-gravel-calculator https://calculatorst.com/driveway-gravel-calculator/ 301
-https://calculatorst.com/paver-calculator https://calculatorst.com/paver-calculator/ 301
-https://calculatorst.com/fence-cost-calculator https://calculatorst.com/fence-cost-calculator/ 301
-https://calculatorst.com/concrete-slab-calculator https://calculatorst.com/concrete-slab-calculator/ 301
-https://calculatorst.com/mulch-calculator https://calculatorst.com/mulch-calculator/ 301
-https://calculatorst.com/deck-material-calculator https://calculatorst.com/deck-material-calculator/ 301
-https://calculatorst.com/roof-pitch-calculator https://calculatorst.com/roof-pitch-calculator/ 301
-https://calculatorst.com/roof-square-footage-calculator https://calculatorst.com/roof-square-footage-calculator/ 301
-https://calculatorst.com/calculators https://calculatorst.com/calculators/ 301
-https://calculatorst.com/construction https://calculatorst.com/construction/ 301
-https://calculatorst.com/construction/gravel https://calculatorst.com/construction/gravel/ 301
-https://calculatorst.com/construction/fencing https://calculatorst.com/construction/fencing/ 301
-https://calculatorst.com/construction/concrete https://calculatorst.com/construction/concrete/ 301
-https://calculatorst.com/construction/roofing https://calculatorst.com/construction/roofing/ 301
-https://calculatorst.com/construction/decking https://calculatorst.com/construction/decking/ 301
-https://calculatorst.com/construction/landscaping https://calculatorst.com/construction/landscaping/ 301
-https://calculatorst.com/about https://calculatorst.com/about/ 301
-https://calculatorst.com/contact https://calculatorst.com/contact/ 301
-https://calculatorst.com/privacy https://calculatorst.com/privacy/ 301
-https://calculatorst.com/terms https://calculatorst.com/terms/ 301
-https://calculatorst.com/disclaimer https://calculatorst.com/disclaimer/ 301
+/gravel-calculator /gravel-calculator/ 301
+/pea-gravel-calculator /pea-gravel-calculator/ 301
+/driveway-gravel-calculator /driveway-gravel-calculator/ 301
+/paver-calculator /paver-calculator/ 301
+/fence-cost-calculator /fence-cost-calculator/ 301
+/concrete-slab-calculator /concrete-slab-calculator/ 301
+/mulch-calculator /mulch-calculator/ 301
+/deck-material-calculator /deck-material-calculator/ 301
+/roof-pitch-calculator /roof-pitch-calculator/ 301
+/roof-square-footage-calculator /roof-square-footage-calculator/ 301
+/calculators /calculators/ 301
+/construction /construction/ 301
+/construction/gravel /construction/gravel/ 301
+/construction/fencing /construction/fencing/ 301
+/construction/concrete /construction/concrete/ 301
+/construction/roofing /construction/roofing/ 301
+/construction/decking /construction/decking/ 301
+/construction/landscaping /construction/landscaping/ 301
+/about /about/ 301
+/contact /contact/ 301
+/privacy /privacy/ 301
+/terms /terms/ 301
+/disclaimer /disclaimer/ 301
