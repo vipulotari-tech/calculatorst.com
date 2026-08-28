@@ -5,19 +5,31 @@ import Footer from "../../../components/Footer.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 ---
 
-<Layout title="Fence Calculators — Calculator Street" description="Fence calculators for cost, posts, panels and materials for wood, vinyl and chain link.">
+<Layout title="Fence Calculators — Calculator Street" description="Fence calculators for wood, vinyl & chain link. Calculate posts, panels, rails, gates & material cost with waste. US units.">
   <Header />
   <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Fence Calculators" }]} />
     <div class="mx-auto max-w-[900px] pt-4">
       <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Fence Calculators</h1>
-      <p class="mt-2 text-sm leading-6 text-body">Plan fences by length, height, spacing, gates and rails — wood, vinyl & chain link with waste.</p>
+      <p class="mt-2 text-sm leading-6 text-body">Posts, panels, rails, gates and concrete for wood, vinyl and chain link. Linear feet, spacing and cost with waste.</p>
       <ul class="mt-6 grid gap-4 sm:grid-cols-2" role="list">
-        <li><a href="/fence-cost-calculator/" class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card hover:shadow-card-hover dark:bg-canvas"><h2 class="text-sm font-semibold text-ink">Fence Cost Calculator</h2><p class="mt-1 text-sm leading-5 text-body">Posts, panels, rails, concrete & cost. Material-only vs total explained.</p><span class="mt-3 text-sm font-medium text-ink">Open →</span></a></li>
+        <li><a href="/fence-cost-calculator/" class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card hover:shadow-card-hover dark:bg-canvas"><h2 class="text-sm font-semibold text-ink">Fence Cost Calculator</h2><p class="mt-1 text-sm leading-5 text-body">Posts, panels, cost & concrete bags for any fence.</p><span class="mt-3 text-sm font-medium text-ink">Open →</span></a></li>
       </ul>
-      <div class="mt-8 rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
-        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Coming next</h2>
-        <p class="mt-2 text-sm leading-6 text-body">Fence material, wood/vinyl/chain-link specifics, post & panel calculators — each linked contextually.</p>
+      <div class="mt-10 space-y-8">
+        <section class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Fence spacing & gates</h2>
+          <p class="mt-2 text-sm leading-6 text-body">Standard spacing is 8 ft on-center for wood and chain link, 6 ft for vinyl. Posts = ceil(effective length ÷ spacing) +1 +2×gates. Effective length subtracts gate widths. Example: 100 ft with one 4-ft gate at 8-ft spacing → ceil(96÷8)+1+2 = 15 posts. Add 10% waste for flat runs, 15% for slopes or board-on-board.</p>
+          <div class="mt-4 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">MATERIAL</th><th class="px-3 py-2">INSTALLED $/FT (2026)</th><th class="px-3 py-2">LIFE</th></tr></thead><tbody class="divide-y divide-hairline"><tr><td class="px-3 py-2">Chain link 6ft</td><td class="px-3 py-2">10–25</td><td class="px-3 py-2">15–20 yr</td></tr><tr><td class="px-3 py-2">Wood PT pine</td><td class="px-3 py-2">15–30</td><td class="px-3 py-2">15–25 yr</td></tr><tr><td class="px-3 py-2">Vinyl 6ft</td><td class="px-3 py-2">25–40</td><td class="px-3 py-2">25–40 yr</td></tr><tr><td class="px-3 py-2">Composite</td><td class="px-3 py-2">30–50</td><td class="px-3 py-2">25+ yr</td></tr></tbody></table></div>
+        </section>
+        <section class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Concrete per post</h2>
+          <p class="mt-2 text-sm leading-6 text-body">About 1.5 ft³ per 36-inch hole (4×4 post) — three 60-lb bags (0.45 ft³ each) or two 80-lb bags (0.60 ft³). Our tool estimates bags ≈ 0.5×50-lb per post as a planning figure. Confirm with your hole depth and bag yield. For post-base drainage, consider <a href="/gravel-calculator/" class="text-link underline">drainage gravel</a>.</p>
+        </section>
+        <section class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Next steps</h2>
+          <p class="mt-2 text-sm leading-6 text-body">Pair fence with <a href="/deck-material-calculator/" class="text-link underline">deck</a> or <a href="/paver-calculator/" class="text-link underline">paver patio</a> planning. Reviewed by Vipul Otari, updated Aug 2026. Get 2–3 local bids — labor is ~60% of installed cost.</p>
+        </section>
+        <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas"><h2 class="text-display-sm font-semibold text-ink">Coming next</h2><p class="mt-2 text-sm leading-6 text-body">Pickett spacing, rail count, privacy vs semi-privacy, and cost-per-foot breakdown. Track with Search Console.</p></div>
       </div>
     </div>
   </main>

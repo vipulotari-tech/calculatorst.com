@@ -14,13 +14,13 @@ const clusters = [
 ];
 ---
 
-<Layout title="Construction Calculators — Calculator Street" description="Construction calculators for gravel, concrete, fencing, roofing and decking. Fast, US-focused, mobile-friendly and free.">
+<Layout title="Construction Calculators — Calculator Street" description="Construction calculators for gravel, concrete, fencing, roofing & decking. Fast, private, US-focused calculators with waste & cost.">
   <Header />
   <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Construction Calculators" }]} />
     <div class="mx-auto max-w-[900px] pt-4">
       <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink [text-wrap:balance]">Construction Calculators</h1>
-      <p class="mt-3 max-w-[640px] text-sm leading-6 text-body [text-wrap:pretty]">A focused cluster for builders and DIY homeowners — estimate materials, quantities and costs for gravel, concrete, fences, roofs and decks. Every tool is static, private and built for US units.</p>
+      <p class="mt-3 max-w-[640px] text-sm leading-6 text-body [text-wrap:pretty]">A focused cluster for builders and DIY homeowners — estimate materials, quantities and costs for gravel, concrete, fences, roofs and decks. Every tool is static, private and built for US units with metric where useful.</p>
       <div class="mt-8 grid gap-4 sm:grid-cols-2">
         {clusters.map((c) => (
           <a href={c.href} class="rounded-lg border border-hairline bg-canvas p-6 shadow-card transition hover:shadow-card-hover dark:bg-canvas">
@@ -34,8 +34,13 @@ const clusters = [
       </div>
       <div class="mt-10 rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
         <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How we cluster for SEO</h2>
-        <p class="mt-2 text-sm leading-6 text-body">Each cluster interlinks tightly (e.g., Gravel ↔ Pea Gravel ↔ Driveway Gravel) and links up to Construction. This builds topical authority for 10 → 30 → 100+ pages without thin content.</p>
+        <p class="mt-2 text-sm leading-6 text-body">Each cluster interlinks tightly (e.g., Gravel ↔ Pea Gravel ↔ Driveway Gravel) and links up to Construction. This builds topical authority for 10 → 30 → 100+ pages without thin content. All calculators interlink via Related and Breadcrumbs for depth 1 from homepage.</p>
         <a href="/calculators/" class="mt-4 inline-flex text-sm font-medium text-link hover:text-link-deep">View all calculators →</a>
+      </div>
+      <div class="mt-8 rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Why construction calculators need accuracy</h2>
+        <p class="mt-2 text-sm leading-6 text-body">Over-ordering 10% extra concrete on a 20×20 ft patio wastes ~$150; under-ordering gravel by 1 ton stops a job. Our calculators include waste, compaction and material densities so you order once. Reviewed by Vipul Otari, updated Aug 2026, sources: TxDOT, CPSC, manufacturer yields. All 100% in-browser — no data leaving your device.</p>
+        <p class="mt-3 text-sm leading-6 text-body">US units first: feet, inches, yards, tons. Metric converts to feet before math. Need help? <a href="/contact/" class="text-link underline">Contact us</a> with dimensions.</p>
       </div>
     </div>
   </main>

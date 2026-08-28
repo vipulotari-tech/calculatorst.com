@@ -5,18 +5,34 @@ import Footer from "../../../components/Footer.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 ---
 
-<Layout title="Landscaping Calculators — Calculator Street" description="Landscaping calculators for pavers, mulch, topsoil and sod.">
+<Layout title="Landscaping Calculators — Calculator Street" description="Landscaping calculators for pavers, mulch, topsoil & sod. Get cubic yards, bags, paver count & cost with waste. US units.">
   <Header />
   <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Landscaping Calculators" }]} />
     <div class="mx-auto max-w-[900px] pt-4">
       <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Landscaping Calculators</h1>
-      <p class="mt-2 text-sm leading-6 text-body">Pavers, mulch and upcoming topsoil & sod tools.</p>
+      <p class="mt-2 text-sm leading-6 text-body">Pavers, mulch, topsoil and sod — bulk yards, bags and paver counts. US units plus metric where useful.</p>
       <ul class="mt-6 grid gap-4 sm:grid-cols-2" role="list">
-        <li><a href="/paver-calculator/" class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card hover:shadow-card-hover dark:bg-canvas"><h2 class="text-sm font-semibold text-ink">Paver Calculator</h2><p class="mt-1 text-sm leading-5 text-body">Pavers + base & sand</p><span class="mt-3 text-sm font-medium text-ink">Open →</span></a></li>
-        <li><a href="/mulch-calculator/" class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card hover:shadow-card-hover dark:bg-canvas"><h2 class="text-sm font-semibold text-ink">Mulch Calculator</h2><p class="mt-1 text-sm leading-5 text-body">Yards & bags</p><span class="mt-3 text-sm font-medium text-ink">Open →</span></a></li>
+        <li><a href="/paver-calculator/" class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card hover:shadow-card-hover dark:bg-canvas"><h2 class="text-sm font-semibold text-ink">Paver Calculator</h2><p class="mt-1 text-sm leading-5 text-body">Pavers + base gravel & bedding sand</p><span class="mt-3 text-sm font-medium text-ink">Open →</span></a></li>
+        <li><a href="/mulch-calculator/" class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card hover:shadow-card-hover dark:bg-canvas"><h2 class="text-sm font-semibold text-ink">Mulch Calculator</h2><p class="mt-1 text-sm leading-5 text-body">Cubic yards & bags with waste</p><span class="mt-3 text-sm font-medium text-ink">Open →</span></a></li>
       </ul>
-      <div class="mt-8 rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas"><h2 class="text-display-sm font-semibold text-ink">Planned</h2><p class="mt-2 text-sm leading-6 text-body">Topsoil, sand, sod calculators.</p></div>
+      <div class="mt-10 space-y-8">
+        <section class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Pavers vs mulch — different jobs</h2>
+          <p class="mt-2 text-sm leading-6 text-body">Pavers need count plus base (4 inches crusher run) and sand (1 inch). For 200 ft²: 200 pavers (12×12) → 220 with waste, 2.72 yd³ base, 0.68 yd³ sand. Mulch needs yards vs bags: 1 yd³ covers 162 ft² at 2 inches, 108 ft² at 3 inches. Don’t exceed 3 inches mulch around trunks (6-inch clearance).</p>
+          <div class="mt-4 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">JOB</th><th class="px-3 py-2">DEPTH</th><th class="px-3 py-2">1 YD³ COVERS</th></tr></thead><tbody class="divide-y divide-hairline"><tr><td class="px-3 py-2">Mulch bed</td><td class="px-3 py-2">3 in</td><td class="px-3 py-2">108 ft²</td></tr><tr><td class="px-3 py-2">Paver base</td><td class="px-3 py-2">4 in</td><td class="px-3 py-2">81 ft²</td></tr><tr><td class="px-3 py-2">Paver sand</td><td class="px-3 py-2">1 in</td><td class="px-3 py-2">324 ft²</td></tr></tbody></table></div>
+        </section>
+        <section class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Planning tips</h2>
+          <p class="mt-2 text-sm leading-6 text-body">Break irregular beds into rectangles and sum. For curves, add 10–15% waste. For paver circles, use diameter as length/width and trim waste to 10%. Keep extra pavers for repairs — dye lots vary. Bulk mulch ($25–45/yd) beats bags ($4–7 per 2 ft³) over ~5 yards.</p>
+          <p class="mt-3 text-sm leading-6 text-body">Need drainage base? Use the <a href="/gravel-calculator/" class="text-link underline">Gravel Calculator</a> for tons. For decay-resistant beds per <a href="https://www.cpsc.gov/safety-education/safety-guides/playgrounds" target="_blank" rel="noopener" class="text-link underline">CPSC</a> playground surfacing 9–12 in, check local codes.</p>
+        </section>
+        <section class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Review & coming soon</h2>
+          <p class="mt-2 text-sm leading-6 text-body">Reviewed by Vipul Otari, updated Aug 2026. Planned: topsoil, sod, planter soil, paver sand, and mulch cost. We ship only when Search Console proves demand and we can beat the SERP UX.</p>
+        </section>
+        <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas"><h2 class="text-display-sm font-semibold text-ink">Planned</h2><p class="mt-2 text-sm leading-6 text-body">Topsoil tons & yards, sod pallets/squares, planter mix. Next in roadmap after 10 validated.</p></div>
+      </div>
     </div>
   </main>
   <Footer />

@@ -5,17 +5,33 @@ import Footer from "../../../components/Footer.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 ---
 
-<Layout title="Deck Calculators — Calculator Street" description="Deck calculators for boards, joists and cost.">
+<Layout title="Deck Calculators — Calculator Street" description="Deck calculators for boards, joists & fasteners. Plan deck size, board gap, joist spacing & cost with waste. US units.">
   <Header />
   <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Deck Calculators" }]} />
     <div class="mx-auto max-w-[900px] pt-4">
       <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Deck Calculators</h1>
-      <p class="mt-2 text-sm leading-6 text-body">Boards, linear feet, joists & fasteners for US decks.</p>
+      <p class="mt-2 text-sm leading-6 text-body">Boards, joists and fasteners for wood and composite decks. Gap, spacing and waste-aware counts.</p>
       <ul class="mt-6 grid gap-4 sm:grid-cols-2" role="list">
-        <li><a href="/deck-material-calculator/" class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card hover:shadow-card-hover dark:bg-canvas"><h2 class="text-sm font-semibold text-ink">Deck Material Calculator</h2><p class="mt-1 text-sm leading-5 text-body">Boards, joists & cost</p><span class="mt-3 text-sm font-medium text-ink">Open →</span></a></li>
+        <li><a href="/deck-material-calculator/" class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card hover:shadow-card-hover dark:bg-canvas"><h2 class="text-sm font-semibold text-ink">Deck Material Calculator</h2><p class="mt-1 text-sm leading-5 text-body">Boards, linear feet, joists & fasteners</p><span class="mt-3 text-sm font-medium text-ink">Open →</span></a></li>
       </ul>
-      <div class="mt-8 rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas"><h2 class="text-display-sm font-semibold text-ink">Planned</h2><p class="mt-2 text-sm leading-6 text-body">Board, cost & joist calculators.</p></div>
+      <div class="mt-10 space-y-8">
+        <section class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Boards & gaps</h2>
+          <p class="mt-2 text-sm leading-6 text-body">Rows = Width ÷ (board width + gap). Boards = rows × ceil(length ÷ board length). Gap matters: 1/8 in (3mm) wood, 3/16 in (4.5mm) composite per manufacturer — 1/8 vs 1/4 changes row count by 1–2 boards across 12 ft width. Our calculator lets you test instantly.</p>
+          <div class="mt-4 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">BOARD</th><th class="px-3 py-2">WIDTH</th><th class="px-3 py-2">ROWS FOR 12FT @1/8 GAP</th></tr></thead><tbody class="divide-y divide-hairline"><tr><td class="px-3 py-2">5/4×6</td><td class="px-3 py-2">5.5 in</td><td class="px-3 py-2">26</td></tr><tr><td class="px-3 py-2">2×6</td><td class="px-3 py-2">5.5 in</td><td class="px-3 py-2">26</td></tr><tr><td class="px-3 py-2">5.5 composite</td><td class="px-3 py-2">5.5 in</td><td class="px-3 py-2">26</td></tr></tbody></table></div>
+        </section>
+        <section class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Joists & fasteners</h2>
+          <p class="mt-2 text-sm leading-6 text-body">Joists = ceil(length ÷ spacing)+1: 16 in OC for 5/4 decking, 12 in for diagonal, 24 in only for 2×6. A 16-ft deck at 16-in needs 13 joists (ledger+rim, add one for freestanding). Fasteners ≈ 2 per joist per board — 26 boards ×13 joists = 676 hidden clips. Check your clip manufacturer — starter clips extra.</p>
+          <p class="mt-3 text-sm leading-6 text-body">Comparing to paver or concrete? See the <a href="/paver-calculator/" class="text-link underline">Paver Calculator</a> or <a href="/concrete-slab-calculator/" class="text-link underline">Concrete Slab Calculator</a> for the same footprint.</p>
+        </section>
+        <section class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Review & tips</h2>
+          <p class="mt-2 text-sm leading-6 text-body">Reviewed by Vipul Otari, updated Aug 2026. Stagger joints, add 10% waste rectangle, 15% diagonal/herringbone. Always verify joist span tables for your species and load.</p>
+        </section>
+        <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas"><h2 class="text-display-sm font-semibold text-ink">Planned</h2><p class="mt-2 text-sm leading-6 text-body">Stair stringer, railing, ledger board and cost breakdown. Next after traffic validation.</p></div>
+      </div>
     </div>
   </main>
   <Footer />
