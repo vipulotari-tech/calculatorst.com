@@ -5,6 +5,7 @@ import ThemeToggle from "./ThemeToggle.astro";
 <header
   class="sticky top-0 z-50 w-full flex items-center justify-between px-4 py-3 border-b border-hairline bg-canvas/80 backdrop-blur-[12px] supports-[backdrop-filter]:bg-canvas/80 dark:bg-canvas/80"
   role="banner"
+  style="padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right));"
 >
   <!-- Left Brand Section -->
   <div class="flex items-center gap-2 shrink-0">
@@ -52,11 +53,11 @@ import ThemeToggle from "./ThemeToggle.astro";
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="text-mute shrink-0">
           <path d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/>
         </svg>
-        <span class="text-[13.5px]">Search</span>
+        <span class="text-[13.5px] hidden md:inline">Search</span>
         <span class="ml-1 hidden rounded bg-canvas-soft-2 px-1.5 py-0.5 font-mono text-[10px] leading-none tracking-wide text-mute ring-1 ring-hairline xl:inline-flex">⌘&nbsp;K</span>
       </button>
       <div class="h-6 w-px bg-hairline" aria-hidden="true"></div>
-      <ThemeToggle id="theme-toggle" class="w-[60px] shrink-0" />
+      <ThemeToggle id="theme-toggle" class="w-[52px] sm:w-[56px] shrink-0" />
     </div>
 
     <!-- Mobile: Search + Theme + Menu -->
@@ -64,16 +65,16 @@ import ThemeToggle from "./ThemeToggle.astro";
       <button
         type="button"
         id="search-btn-mobile"
-        class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border border-gray-200 bg-canvas text-mute shadow-sm transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+        class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border border-hairline bg-canvas text-mute shadow-sm transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
         aria-label="Search calculators"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>
       </button>
-      <ThemeToggle id="theme-toggle-mobile" class="w-[60px] shrink-0" />
+      <ThemeToggle id="theme-toggle-mobile" class="w-[52px] shrink-0" />
       <button
         id="menu-toggle"
         type="button"
-        class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border border-gray-200 bg-canvas text-ink shadow-sm transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+        class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border border-hairline bg-canvas text-ink shadow-sm transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
         aria-expanded="false"
         aria-controls="mobile-menu"
         aria-label="Open menu"
