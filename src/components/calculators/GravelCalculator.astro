@@ -122,7 +122,8 @@
   (() => {
     const $ = (id) => document.getElementById(id);
     const form = $("gravel-form");
-    const results = $("gravel-results") || document.getElementById("g-results");
+    const results = $("g-results");
+    if (!form || !results) return;
     const densityMap = { pea: 1.35, crushed: 1.40, river: 1.33, limestone: 1.60, granite: 1.42 };
     const densityLabel = { pea: "Pea Gravel 1.35 t/yd³", crushed: "Crushed 1.40", river: "River Rock 1.33", limestone: "Limestone 1.60", granite: "Granite 1.42" };
     function toFeet(v, unit) {

@@ -45,8 +45,8 @@
   </div>
 </div>
 <script is:inline>
-(()=>{const $=id=>document.getElementById(id);const f=$("f-form"),r=$("f-results");function toFeet(v,u){if(u==="ft")return v;if(u==="in")return v/12;if(u==="m")return v*3.28084;return v;}
-function fmt(n,d=0){return new Intl.NumberFormat("en-US",{maximumFractionDigits:d}).format(n);}
+(() => { const $ = (id) => document.getElementById(id); const f = $("f-form"), r = $("f-results"); if (!f || !r) return; function toFeet(v, u) { if (u === "ft") return v; if (u === "in") return v / 12; if (u === "m") return v * 3.28084; return v; }
+function fmt(n, d = 0) { if (!isFinite(n)) return "—"; return new Intl.NumberFormat("en-US", { maximumFractionDigits: d }).format(n); }
 f.addEventListener("submit",e=>{e.preventDefault();const L=parseFloat($("f-len").value);let ok=true;const err=$("f-len-error");err.textContent="";err.classList.add("hidden");if(!(L>0)){err.textContent="Please enter a valid fence length.";err.classList.remove("hidden");ok=false;}if(!ok)return;
 const Lf=toFeet(L,$("f-len-unit").value),Hf=toFeet(parseFloat($("f-height").value)||6,$("f-height-unit").value),spacing=toFeet(parseFloat($("f-spacing").value)||8,$("f-spacing-unit").value),gates=parseInt($("f-gates").value)||0,gateW=toFeet(parseFloat($("f-gatew").value)||0,$("f-gatew-unit").value),rails=parseInt($("f-rails").value)||0,waste=parseFloat($("f-waste").value)||0,price=parseFloat($("f-price").value);
 const effectiveLen=Math.max(0,Lf - gates*gateW);

@@ -38,7 +38,7 @@
   </div>
 </div>
 <script is:inline>
-(()=>{const $=id=>document.getElementById(id);const form=$("pea-form");const res=$("p-results");function toFeet(v,u){if(u==="ft")return v;if(u==="in")return v/12;if(u==="yd")return v*3;if(u==="m")return v*3.28084;if(u==="cm")return v*0.0328084;return v;}
+(() => { const $ = (id) => document.getElementById(id); const form = $("pea-form"); const res = $("p-results"); if (!form || !res) return; function toFeet(v, u) { if (u === "ft") return v; if (u === "in") return v / 12; if (u === "yd") return v * 3; if (u === "m") return v * 3.28084; if (u === "cm") return v * 0.0328084; return v; }
 function fmt(n,d=2){if(!isFinite(n))return "—";return new Intl.NumberFormat("en-US",{maximumFractionDigits:d,minimumFractionDigits:d===0?0:d===2?2:0}).format(n);}
 function show(id,msg){const e=$(id);e.textContent=msg;e.classList.remove("hidden");}
 function clear(){["p-length-error","p-width-error","p-depth-error"].forEach(id=>{const e=$(id);e.textContent="";e.classList.add("hidden");});}

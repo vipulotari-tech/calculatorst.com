@@ -32,7 +32,7 @@
   </div>
 </div>
 <script is:inline>
-(()=>{const $=id=>document.getElementById(id);const f=$("m-form"),r=$("m-results");function toFeet(v,u){if(u==="ft")return v;if(u==="in")return v/12;if(u==="m")return v*3.28084;if(u==="cm")return v*0.0328084;return v;}
+(() => { const $ = (id) => document.getElementById(id); const f = $("m-form"), r = $("m-results"); if (!f || !r) return; function toFeet(v, u) { if (u === "ft") return v; if (u === "in") return v / 12; if (u === "m") return v * 3.28084; if (u === "cm") return v * 0.0328084; return v; }
 function fmt(n,d=2){if(!isFinite(n)) return "—";return new Intl.NumberFormat("en-US",{maximumFractionDigits:d,minimumFractionDigits:d===0?0:d===2?2:0}).format(n);}
 f.addEventListener("submit",e=>{e.preventDefault();const L=parseFloat($("m-len").value),W=parseFloat($("m-wid").value),D=parseFloat($("m-depth").value);const e1=$("m-len-error"),e2=$("m-wid-error"),e3=$("m-depth-error");[e1,e2,e3].forEach(el=>{el.textContent="";el.classList.add("hidden");});let ok=true;if(!(L>0)){e1.textContent="Please enter a valid length.";e1.classList.remove("hidden");ok=false;}if(!(W>0)){e2.textContent="Please enter a valid width.";e2.classList.remove("hidden");ok=false;}if(!(D>0)){e3.textContent="Depth must be greater than 0.";e3.classList.remove("hidden");ok=false;}if(!ok)return;
 const Lf=toFeet(L,$("m-len-unit").value),Wf=toFeet(W,$("m-wid-unit").value),Df=toFeet(D,$("m-depth-unit").value),areas=parseInt($("m-areas").value)||1,waste=parseFloat($("m-waste").value)||0,bag=parseFloat($("m-bag").value),price=parseFloat($("m-price").value);

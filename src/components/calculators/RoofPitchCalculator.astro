@@ -28,8 +28,8 @@
   </div>
 </div>
 <script is:inline>
-(()=>{const $=id=>document.getElementById(id);const f=$("rp-form"),r=$("rp-results");function toIn(v,u){if(u==="in")return v;if(u==="ft")return v*12;if(u==="cm")return v*0.393701;return v;}
-function fmt(n,d=2){return new Intl.NumberFormat("en-US",{maximumFractionDigits:d}).format(n);}
+(() => { const $ = (id) => document.getElementById(id); const f = $("rp-form"), r = $("rp-results"); if (!f || !r) return; function toIn(v, u) { if (u === "in") return v; if (u === "ft") return v * 12; if (u === "cm") return v * 0.393701; return v; }
+function fmt(n, d = 2) { if (!isFinite(n)) return "—"; return new Intl.NumberFormat("en-US", { maximumFractionDigits: d }).format(n); }
 f.addEventListener("submit",e=>{e.preventDefault();const rise=parseFloat($("rp-rise").value),run=parseFloat($("rp-run").value);const er1=$("rp-rise-error"),er2=$("rp-run-error");er1.textContent="";er1.classList.add("hidden");er2.textContent="";er2.classList.add("hidden");let ok=true;if(!(rise>0)){er1.textContent="Please enter a valid rise.";er1.classList.remove("hidden");ok=false;}if(!(run>0)){er2.textContent="Run must be greater than 0.";er2.classList.remove("hidden");ok=false;}if(!ok)return;
 const riseIn=toIn(rise,$("rp-rise-unit").value),runIn=toIn(run,$("rp-run-unit").value);const slope=riseIn/runIn;const angle=Math.atan(slope)*180/Math.PI;const ratio=`${fmt(riseIn,2)}:12`;
 const x12=(slope*12);

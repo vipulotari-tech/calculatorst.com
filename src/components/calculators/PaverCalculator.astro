@@ -32,8 +32,8 @@
   </div>
 </div>
 <script is:inline>
-(()=>{const $=id=>document.getElementById(id);const f=$("pv-form"),r=$("pv-results");function toFeet(v,u){if(u==="ft")return v;if(u==="m")return v*3.28084;if(u==="in")return v/12;if(u==="cm")return v*0.0328084;return v;}
-function fmt(n,d=1){return new Intl.NumberFormat("en-US",{maximumFractionDigits:d}).format(n);}
+(() => { const $ = (id) => document.getElementById(id); const f = $("pv-form"), r = $("pv-results"); if (!f || !r) return; function toFeet(v, u) { if (u === "ft") return v; if (u === "m") return v * 3.28084; if (u === "in") return v / 12; if (u === "cm") return v * 0.0328084; return v; }
+function fmt(n, d = 1) { if (!isFinite(n)) return "—"; return new Intl.NumberFormat("en-US", { maximumFractionDigits: d }).format(n); }
 f.addEventListener("submit",e=>{e.preventDefault();const L=parseFloat($("pv-len").value),W=parseFloat($("pv-wid").value);const e1=$("pv-len-error"),e2=$("pv-wid-error");e1.textContent="";e1.classList.add("hidden");e2.textContent="";e2.classList.add("hidden");let ok=true;if(!(L>0)){e1.textContent="Please enter a valid length.";e1.classList.remove("hidden");ok=false;}if(!(W>0)){e2.textContent="Please enter a valid width.";e2.classList.remove("hidden");ok=false;}if(!ok)return;
 const Lf=toFeet(L,$("pv-len-unit").value),Wf=toFeet(W,$("pv-wid-unit").value),pl=toFeet(parseFloat($("pv-plen").value)||12,$("pv-plen-unit").value),pw=toFeet(parseFloat($("pv-pwid").value)||12,$("pv-pwid-unit").value),waste=parseFloat($("pv-waste").value)||0,base=toFeet(parseFloat($("pv-base").value)||4,$("pv-base-unit").value),sand=toFeet(parseFloat($("pv-sand").value)||1,$("pv-sand-unit").value);
 const area=Lf*Wf;const paverArea=pl*pw;const count=Math.ceil(area/paverArea);const w=1+waste/100;const countW=Math.ceil(count*w);const gravelYd=(area*base)/27*w, sandYd=(area*sand)/27*w;

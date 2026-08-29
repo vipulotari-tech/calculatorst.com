@@ -32,8 +32,8 @@
   </div>
 </div>
 <script is:inline>
-(()=>{const $=id=>document.getElementById(id);const f=$("rsq-form"),r=$("rsq-results");function toFeet(v,u){if(u==="ft")return v;if(u==="m")return v*3.28084;if(u==="in")return v/12;return v;}
-function fmt(n,d=1){return new Intl.NumberFormat("en-US",{maximumFractionDigits:d,minimumFractionDigits:d}).format(n);}
+(() => { const $ = (id) => document.getElementById(id); const f = $("rsq-form"), r = $("rsq-results"); if (!f || !r) return; function toFeet(v, u) { if (u === "ft") return v; if (u === "m") return v * 3.28084; if (u === "in") return v / 12; return v; }
+function fmt(n, d = 1) { if (!isFinite(n)) return "—"; return new Intl.NumberFormat("en-US", { maximumFractionDigits: d, minimumFractionDigits: d }).format(n); }
 f.addEventListener("submit",e=>{e.preventDefault();const L=parseFloat($("rsq-len").value),W=parseFloat($("rsq-wid").value);const e1=$("rsq-len-error"),e2=$("rsq-wid-error");e1.textContent="";e1.classList.add("hidden");e2.textContent="";e2.classList.add("hidden");let ok=true;if(!(L>0)){e1.textContent="Please enter a valid length.";e1.classList.remove("hidden");ok=false;}if(!(W>0)){e2.textContent="Please enter a valid width.";e2.classList.remove("hidden");ok=false;}if(!ok)return;
 const Lf=toFeet(L,$("rsq-len-unit").value),Wf=toFeet(W,$("rsq-wid-unit").value),pitch=parseFloat($("rsq-pitch").value)||0,over=toFeet(parseFloat($("rsq-over").value)||0,$("rsq-over-unit").value),waste=parseFloat($("rsq-waste").value)||0,sec=parseInt($("rsq-sec").value)||1;
 const footprint=(Lf+over*2)*(Wf+over*2)*sec;const mult=Math.sqrt(pitch*pitch+144)/12;const roof=footprint*mult;const w=1+waste/100;const roofW=roof*w;

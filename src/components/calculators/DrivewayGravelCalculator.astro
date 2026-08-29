@@ -39,7 +39,7 @@
   </div>
 </div>
 <script is:inline>
-(()=>{const $=id=>document.getElementById(id);const form=$("d-form"),res=$("d-results");const dens={pea:1.35,crushed:1.40,river:1.33,limestone:1.60};function toFeet(v,u){if(u==="ft")return v;if(u==="in")return v/12;if(u==="yd")return v*3;if(u==="m")return v*3.28084;if(u==="cm")return v*0.0328084;return v;}
+(() => { const $ = (id) => document.getElementById(id); const form = $("d-form"), res = $("d-results"); if (!form || !res) return; const dens = { pea: 1.35, crushed: 1.40, river: 1.33, limestone: 1.60 }; function toFeet(v, u) { if (u === "ft") return v; if (u === "in") return v / 12; if (u === "yd") return v * 3; if (u === "m") return v * 3.28084; if (u === "cm") return v * 0.0328084; return v; }
 function fmt(n,d=2){if(!isFinite(n)) return "—";return new Intl.NumberFormat("en-US",{maximumFractionDigits:d,minimumFractionDigits:d===0?0:d===2?2:0}).format(n);}
 function show(id,msg){const e=$(id);e.textContent=msg;e.classList.remove("hidden");}
 function clear(){["d-len-error","d-wid-error","d-depth-error"].forEach(id=>{$(id).textContent="";$(id).classList.add("hidden");});}
