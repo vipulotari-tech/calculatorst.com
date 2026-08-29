@@ -2,6 +2,7 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import CalculatorVisual from "../../components/CalculatorVisual.astro";
 import PeaGravelCalculator from "../../components/calculators/PeaGravelCalculator.astro";
 
 const related = [
@@ -32,12 +33,13 @@ const faq = [
   canonical="/pea-gravel-calculator/"
   ogImage="/og-pea-gravel.png"
   datePublished="2026-08-27"
-  dateModified="2026-08-28"
+  dateModified="2026-08-29"
 >
   <Header slot="header" />
   <PeaGravelCalculator slot="calculator" />
 
   <section class="space-y-6">
+    <CalculatorVisual variant="pea" />
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
       <p class="mt-2 text-sm leading-6 text-body">Same rectangular volume as the main gravel calculator, fixed to pea gravel density (1.35 tons/yd³, ~100 lb/ft³) for simplicity.</p>

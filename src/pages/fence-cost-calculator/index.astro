@@ -2,6 +2,7 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import CalculatorVisual from "../../components/CalculatorVisual.astro";
 import FenceCostCalculator from "../../components/calculators/FenceCostCalculator.astro";
 
 const related = [
@@ -32,11 +33,12 @@ const faq = [
   canonical="/fence-cost-calculator/"
   ogImage="/og-fence.png"
   datePublished="2026-08-27"
-  dateModified="2026-08-28"
+  dateModified="2026-08-29"
 >
   <Header slot="header" />
   <FenceCostCalculator slot="calculator" />
   <section class="space-y-6">
+    <CalculatorVisual variant="fence" />
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
       <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
