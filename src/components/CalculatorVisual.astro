@@ -74,6 +74,11 @@ const { variant } = Astro.props;
     </div>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] leading-4 text-mute">Top view + cross-section — measure your area correctly the first time.</figcaption>
   </figure>
+  <figure class="mt-4 overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+    <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">REAL PHOTO — GRAVEL YARD</span></div>
+    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80&auto=format&fit=crop" alt="Gravel yard with different aggregates stockpiled" class="w-full h-[220px] object-cover" loading="lazy" decoding="async" />
+    <figcaption class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Bulk gravel at quarry scale house — same material you calculate. Verify density with supplier ticket.</figcaption>
+  </figure>
 )}
 
 {variant === "concrete" && (
@@ -130,6 +135,20 @@ const { variant } = Astro.props;
     </div>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Plan + isometric views — thickness arrow and rebar grid show how much concrete you need.</figcaption>
   </figure>
+  <!-- Hybrid: Real photo + 3D -->
+  <div class="mt-4 grid md:grid-cols-2 gap-4">
+    <figure class="overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+      <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">REAL PHOTO — POUR IN PROGRESS</span></div>
+      <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80&auto=format&fit=crop" alt="Concrete slab being poured with wooden forms and rebar" class="w-full h-[240px] object-cover" loading="lazy" decoding="async" />
+      <figcaption class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Wooden forms + rebar before pour — forms define Length×Width, screed defines thickness.</figcaption>
+    </figure>
+    <div class="overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+      <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline flex justify-between"><span class="font-mono text-[11px] tracking-widest text-mute">3D MODEL — ROTATE & ZOOM</span><span class="font-mono text-[10px] text-mute">WebGL</span></div>
+      <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" poster="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80&auto=format&fit=crop" alt="3D concrete slab model — replace with slab.glb" ar camera-controls touch-action="pan-y" auto-rotate shadow-intensity="0.8" environment-image="neutral" style="width:100%; height:240px; background:#fafafa;" loading="lazy" reveal="interaction"></model-viewer>
+      <div class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Demo model — swap <span class="text-ink font-medium">/public/models/slab.glb</span> for your custom slab. Drag to rotate.</div>
+    </div>
+  </div>
+  <script is:inline type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 )}
 
 {variant === "pea" && (
@@ -158,6 +177,11 @@ const { variant } = Astro.props;
       <p class="mt-2 text-center font-mono text-[11px] text-mute">Pea is rounded & smooth — rakes needed. Crushed locks together.</p>
     </div>
   </figure>
+  <figure class="mt-4 overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+    <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">REAL PHOTO — PEA GRAVEL PATH</span></div>
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop" alt="Pea gravel garden path between pavers" class="w-full h-[220px] object-cover" loading="lazy" decoding="async" />
+    <figcaption class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Rounded pea — soft underfoot but needs edging to hold.</figcaption>
+  </figure>
 )}
 
 {variant === "driveway" && (
@@ -174,6 +198,11 @@ const { variant } = Astro.props;
       <g transform="translate(350 55)"><rect x="-30" y="-10" width="60" height="14" rx="6" fill="#171717"/><circle cx="-18" cy="8" r="5" fill="#333" stroke="white"/><circle cx="18" cy="8" r="5" fill="#333" stroke="white"/></g>
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Driveway = base + top. Calculate layers separately — our tool multiplies by layers.</figcaption>
+  </figure>
+  <figure class="mt-4 overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+    <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">REAL PHOTO — GRAVEL DRIVEWAY</span></div>
+    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80&auto=format&fit=crop" alt="Gravel driveway leading to house" class="w-full h-[220px] object-cover" loading="lazy" decoding="async" />
+    <figcaption class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">2-layer build — 6&quot; base + 2&quot; top handles cars and rain.</figcaption>
   </figure>
 )}
 
@@ -205,6 +234,11 @@ const { variant } = Astro.props;
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Posts = ceil(length / spacing) + 1 + 2 per gate. Measure the longest straight run for accurate count.</figcaption>
   </figure>
+  <figure class="mt-4 overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+    <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">REAL PHOTO — FENCE LINE</span></div>
+    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80&auto=format&fit=crop" alt="Wooden fence with posts and panels" class="w-full h-[220px] object-cover" loading="lazy" decoding="async" />
+    <figcaption class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Panels hang between posts — rails add strength.</figcaption>
+  </figure>
 )}
 
 {variant === "deck" && (
@@ -231,6 +265,19 @@ const { variant } = Astro.props;
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Boards + 1/8" gap = effective width. Joists 16" o.c. → ceil(length / 1.33) + 1.</figcaption>
   </figure>
+  <div class="mt-4 grid md:grid-cols-2 gap-4">
+    <figure class="overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+      <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">REAL PHOTO — DECK BUILD</span></div>
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80&auto=format&fit=crop" alt="Wooden deck under construction" class="w-full h-[240px] object-cover" loading="lazy" decoding="async" />
+      <figcaption class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Boards run the long way — joists every 16" carry the load.</figcaption>
+    </figure>
+    <div class="overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+      <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline flex justify-between"><span class="font-mono text-[11px] tracking-widest text-mute">3D MODEL — DECK FRAMING</span><span class="font-mono text-[10px] text-mute">WebGL</span></div>
+      <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" poster="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80&auto=format&fit=crop" alt="3D deck model" ar camera-controls auto-rotate shadow-intensity="0.8" style="width:100%; height:240px; background:#fafafa;" loading="lazy" reveal="interaction"></model-viewer>
+      <div class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Demo — replace with <span class="text-ink font-medium">/models/deck.glb</span>. Drag to rotate joists.</div>
+    </div>
+  </div>
+  <script is:inline type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 )}
 
 {variant === "paver" && (
@@ -267,6 +314,11 @@ const { variant } = Astro.props;
     </div>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Top grid + side layers — base yd³ = area × base depth ÷ 27.</figcaption>
   </figure>
+  <figure class="mt-4 overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+    <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">REAL PHOTO — PAVER PATIO</span></div>
+    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80&auto=format&fit=crop" alt="Paver patio with stone pattern" class="w-full h-[220px] object-cover" loading="lazy" decoding="async" />
+    <figcaption class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">12&quot; pavers on 4&quot; base + 1&quot; sand — edge restraint prevents shift.</figcaption>
+  </figure>
 )}
 
 {variant === "mulch" && (
@@ -285,6 +337,11 @@ const { variant } = Astro.props;
       </g>
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">2 ft³ bag = 8 ft² @ 3". Bulk yd³ × 13.5 bags per yard.</figcaption>
+  </figure>
+  <figure class="mt-4 overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+    <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">REAL PHOTO — MULCHED BED</span></div>
+    <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80&auto=format&fit=crop" alt="Garden bed with fresh mulch" class="w-full h-[220px] object-cover" loading="lazy" decoding="async" />
+    <figcaption class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">3&quot; deep — keeps weeds down and holds moisture.</figcaption>
   </figure>
 )}
 
@@ -312,6 +369,19 @@ const { variant } = Astro.props;
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Right triangle — rise/run → angle = arctan(rise/run). 3:12 low, 9:12 steep.</figcaption>
   </figure>
+  <div class="mt-4 grid md:grid-cols-2 gap-4">
+    <figure class="overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+      <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">REAL PHOTO — ROOF IN PROGRESS</span></div>
+      <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80&auto=format&fit=crop" alt="House roof under construction showing pitch" class="w-full h-[240px] object-cover" loading="lazy" decoding="async" />
+      <figcaption class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Carpenter measuring rise with level — 6:12 pitch.</figcaption>
+    </figure>
+    <div class="overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+      <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline flex justify-between"><span class="font-mono text-[11px] tracking-widest text-mute">3D MODEL — ROTATE</span><span class="font-mono text-[10px] text-mute">WebGL</span></div>
+      <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" poster="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80&auto=format&fit=crop" alt="3D roof pitch model" ar camera-controls auto-rotate shadow-intensity="0.8" style="width:100%; height:240px; background:#fafafa;" loading="lazy" reveal="interaction"></model-viewer>
+      <div class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Demo — replace with <span class="text-ink font-medium">/models/roof-pitch.glb</span>. Drag to rotate.</div>
+    </div>
+  </div>
+  <script is:inline type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 )}
 
 {variant === "roof-area" && (
@@ -335,4 +405,17 @@ const { variant } = Astro.props;
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Footprint + overhang × multiplier = roof. Multiplier = √(pitch²+144)/12.</figcaption>
   </figure>
+  <div class="mt-4 grid md:grid-cols-2 gap-4">
+    <figure class="overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+      <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">REAL PHOTO — AERIAL ROOF</span></div>
+      <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80&auto=format&fit=crop" alt="Aerial view of house roof" class="w-full h-[240px] object-cover" loading="lazy" decoding="async" />
+      <figcaption class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Footprint includes overhang — 43×33 + 1.5 ft each side.</figcaption>
+    </figure>
+    <div class="overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+      <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline flex justify-between"><span class="font-mono text-[11px] tracking-widest text-mute">3D MODEL — ROOF VOLUME</span><span class="font-mono text-[10px] text-mute">WebGL</span></div>
+      <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" poster="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80&auto=format&fit=crop" alt="3D roof area model" ar camera-controls auto-rotate shadow-intensity="0.8" style="width:100%; height:240px; background:#fafafa;" loading="lazy" reveal="interaction"></model-viewer>
+      <div class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Demo — replace with <span class="text-ink font-medium">/models/roof.glb</span>. Drag to rotate.</div>
+    </div>
+  </div>
+  <script is:inline type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 )}
