@@ -1,115 +1,75 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+import { hubCategories } from "../data/hubCalculators";
 ---
 
-<header
-  class="sticky top-0 z-50 w-full flex items-center justify-between px-3 xs:px-4 py-3 border-b border-hairline bg-canvas/80 backdrop-blur-[12px] supports-[backdrop-filter]:bg-canvas/80 dark:bg-canvas/80"
-  role="banner"
-  style="padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max(0.75rem, env(safe-area-inset-right));"
->
-  <!-- Left Brand Section -->
+<header class="sticky top-0 z-50 w-full flex items-center justify-between px-3 xs:px-4 py-3 border-b border-hairline bg-canvas/80 backdrop-blur-[12px] supports-[backdrop-filter]:bg-canvas/80 dark:bg-canvas/80" role="banner" style="padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max(0.75rem, env(safe-area-inset-right));">
   <div class="flex items-center gap-2 shrink-0">
-    <a
-      href="/"
-      class="flex shrink-0 items-center gap-1.5 sm:gap-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
-      aria-label="Calculator Street — home"
-    >
-      <span
-        class="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center overflow-hidden rounded-[6px] bg-[#0a0a0a] shadow-sm ring-1 ring-black/10 dark:bg-[#0a0a0a]"
-        aria-hidden="true"
-        ><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32" class="h-6 w-6 sm:h-7 sm:w-7"><rect width="32" height="32" rx="8" fill="#0a0a0a"/><g transform="translate(6 6) rotate(-6 16 12)"><rect x="0" y="0" width="20" height="20" rx="3" fill="white"/><rect x="2.5" y="2.5" width="15" height="4.5" rx="1" fill="#dbeafe"/><rect x="3" y="3" width="14" height="3.5" rx="0.6" fill="#bfdbfe" opacity="0.7"/><g fill="#1f2937"><rect x="2.5" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="14.1" width="3.2" height="2.2" rx="0.6"/></g></g></svg></span
-      >
+    <a href="/" class="flex shrink-0 items-center gap-1.5 sm:gap-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link" aria-label="Calculator Street — home">
+      <span class="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center overflow-hidden rounded-[6px] bg-[#0a0a0a] shadow-sm ring-1 ring-black/10 dark:bg-[#0a0a0a]" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32" class="h-6 w-6 sm:h-7 sm:w-7"><rect width="32" height="32" rx="8" fill="#0a0a0a"/><g transform="translate(6 6) rotate(-6 16 12)"><rect x="0" y="0" width="20" height="20" rx="3" fill="white"/><rect x="2.5" y="2.5" width="15" height="4.5" rx="1" fill="#dbeafe"/><g fill="#1f2937"><rect x="2.5" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="14.1" width="3.2" height="2.2" rx="0.6"/></g></g></svg></span>
       <span class="whitespace-nowrap shrink-0 text-[11px] xs:text-[13px] sm:text-[16px] font-semibold tracking-[-0.02em] text-ink">Calculator Street</span>
-      <span
-        class="inline-flex shrink-0 items-center gap-1 sm:gap-1.5 rounded-full border border-hairline bg-canvas-soft px-1.5 py-0.5 sm:px-2.5 sm:py-1 font-mono text-[8px] sm:text-[10px] font-medium leading-none tracking-wide text-mute shadow-sm ring-1 ring-black/[0.04] dark:bg-white/[0.06] dark:ring-white/10"
-        aria-label="US-focused — built for United States"
-        title="US-focused"
-        ><svg width="16" height="11" viewBox="0 0 16 11" fill="none" aria-hidden="true" class="shrink-0 overflow-hidden rounded-[1.5px] ring-1 ring-black/10 w-[12px] h-[8px] sm:w-4 sm:h-[11px]"><rect width="16" height="11" rx="1.2" fill="#B22234"/><g stroke="white" stroke-width="0.75"><path d="M0 1.7H16"/><path d="M0 3.4H16"/><path d="M0 5.1H16"/><path d="M0 6.85H16"/><path d="M0 8.55H16"/><path d="M0 10.25H16"/></g><rect width="6.2" height="5.86" rx="0.8" fill="#0B2A5B"/><g fill="white"><circle cx="1" cy="1" r="0.5"/><circle cx="2.4" cy="1" r="0.5"/><circle cx="3.8" cy="1" r="0.5"/><circle cx="5.2" cy="1" r="0.5"/><circle cx="1.7" cy="2.1" r="0.5"/><circle cx="3.1" cy="2.1" r="0.5"/><circle cx="4.5" cy="2.1" r="0.5"/><circle cx="1" cy="3.2" r="0.5"/><circle cx="2.4" cy="3.2" r="0.5"/><circle cx="3.8" cy="3.2" r="0.5"/><circle cx="5.2" cy="3.2" r="0.5"/><circle cx="1.7" cy="4.3" r="0.5"/><circle cx="3.1" cy="4.3" r="0.5"/><circle cx="4.5" cy="4.3" r="0.5"/></g></svg> US</span
-      >
+      <span class="hidden sm:inline-flex items-center gap-1 rounded-full border border-hairline bg-canvas-soft px-2 py-0.5 font-mono text-[10px] tracking-wide text-mute">200</span>
     </a>
   </div>
 
-  <!-- Center: Navigation — desktop only -->
   <nav class="hidden lg:flex items-center justify-center gap-1 flex-1" aria-label="Primary">
-    <a href="/construction/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Construction</a>
-    <a href="/construction/landscaping/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Landscaping</a>
-    <a href="/construction/roofing/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Roofing</a>
-    <a href="/construction/concrete/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Concrete</a>
-    <a href="/construction/fencing/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Fence</a>
-    <a href="/construction/decking/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Deck</a>
+    <div class="relative group">
+      <button type="button" class="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link" aria-expanded="false" aria-haspopup="true">Calculators <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="text-mute group-hover:text-ink transition-transform group-hover:rotate-180"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></button>
+      <div class="absolute left-1/2 top-full hidden -translate-x-1/2 pt-3 group-hover:block group-focus-within:block">
+        <div class="max-h-[70vh] w-[720px] overflow-auto rounded-lg border border-hairline bg-canvas p-4 shadow-float dark:bg-canvas">
+          <div class="grid grid-cols-3 gap-4">
+            {hubCategories.map((cat) => (
+              <a href={`/construction/${cat.slug}/`} class="rounded-md border border-hairline bg-canvas-soft p-3 hover:bg-canvas hover:shadow-card transition">
+                <p class="text-sm font-semibold text-ink">{cat.name}</p>
+                <p class="font-mono text-xs text-mute">{cat.count} calculators</p>
+                <p class="mt-1 line-clamp-2 text-xs leading-4 text-body">{cat.desc}</p>
+              </a>
+            ))}
+          </div>
+          <a href="/calculators/" class="mt-4 flex items-center justify-center rounded-md bg-primary py-2.5 text-sm font-medium text-on-primary hover:bg-[#242424]">Browse all 200 calculators →</a>
+        </div>
+      </div>
+    </div>
+    <a href="/construction/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink">Categories</a>
+    <a href="/calculators/" class="rounded-full px-3 py-2 text-[13.5px] font-medium tracking-[-0.01em] text-body transition-colors hover:bg-canvas-soft hover:text-ink">All 200</a>
   </nav>
 
-  <!-- Right Actions Section -->
   <div class="flex items-center gap-2 xs:gap-3 shrink-0">
-    <!-- Desktop Search -->
     <div class="hidden lg:flex items-center gap-2">
-      <button
-        type="button"
-        id="search-btn"
-        class="inline-flex items-center gap-2 rounded-full border border-hairline bg-canvas px-3 py-2 text-sm font-medium text-ink shadow-sm transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
-        aria-label="Search calculators"
-      >
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="text-mute shrink-0">
-          <path d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/>
-        </svg>
-        <span class="text-[13.5px] hidden md:inline">Search</span>
+      <button type="button" id="search-btn" class="inline-flex items-center gap-2 rounded-full border border-hairline bg-canvas px-3 py-2 text-sm font-medium text-ink shadow-sm transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link" aria-label="Search 200 calculators">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="text-mute shrink-0"><path d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>
+        <span class="text-[13.5px] hidden md:inline">Search 200</span>
         <span class="ml-1 hidden rounded bg-canvas-soft-2 px-1.5 py-0.5 font-mono text-[10px] leading-none tracking-wide text-mute ring-1 ring-hairline xl:inline-flex">⌘&nbsp;K</span>
       </button>
       <div class="h-6 w-px bg-hairline" aria-hidden="true"></div>
       <ThemeToggle id="theme-toggle" class="w-[52px] sm:w-[56px] shrink-0" />
     </div>
-
-    <!-- Mobile: Search + Theme + Menu -->
     <div class="flex items-center gap-1 xs:gap-1.5 lg:hidden">
-      <button
-        type="button"
-        id="search-btn-mobile"
-        class="w-11 h-11 rounded-full flex items-center justify-center shrink-0 border border-hairline bg-canvas text-mute shadow-sm transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
-        aria-label="Search calculators"
-      >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>
-      </button>
+      <button type="button" id="search-btn-mobile" class="w-11 h-11 rounded-full flex items-center justify-center shrink-0 border border-hairline bg-canvas text-mute shadow-sm transition hover:bg-canvas-soft hover:text-ink" aria-label="Search 200 calculators"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg></button>
       <ThemeToggle id="theme-toggle-mobile" class="w-[52px] xs:w-[56px] shrink-0" />
-      <button
-        id="menu-toggle"
-        type="button"
-        class="w-11 h-11 rounded-full flex items-center justify-center shrink-0 border border-hairline bg-canvas text-ink shadow-sm transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-        aria-label="Open menu"
-      >
-        <svg class="icon-open" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 5h11M2.5 8h11M2.5 11h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        <svg class="icon-close hidden" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4L4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </button>
+      <button id="menu-toggle" type="button" class="w-11 h-11 rounded-full flex items-center justify-center shrink-0 border border-hairline bg-canvas text-ink shadow-sm transition hover:bg-canvas-soft" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><svg class="icon-open" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 5h11M2.5 8h11M2.5 11h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg class="icon-close hidden" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4L4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
     </div>
   </div>
 </header>
 
-<!-- Mobile menu — premium sheet -->
-<div
-  id="mobile-menu"
-  class="hidden border-t border-hairline bg-canvas/95 backdrop-blur-[12px] dark:bg-canvas/95 lg:hidden"
-  role="dialog"
-  aria-modal="true"
-  aria-label="Mobile navigation"
->
+<div id="mobile-menu" class="hidden border-t border-hairline bg-canvas/95 backdrop-blur-[12px] dark:bg-canvas/95 lg:hidden" role="dialog" aria-modal="true" aria-label="Mobile navigation">
   <nav class="flex flex-col gap-0.5 px-3 py-3 pb-[max(1rem,env(safe-area-inset-bottom))]" aria-label="Mobile primary">
-    <a href="/construction/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link" data-testid="mobile-nav-construction">Construction <span class="text-mute">→</span></a>
-    <a href="/construction/landscaping/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Landscaping <span class="text-mute">→</span></a>
-    <a href="/construction/roofing/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Roofing <span class="text-mute">→</span></a>
-    <a href="/construction/concrete/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Concrete <span class="text-mute">→</span></a>
-    <a href="/construction/fencing/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Fence <span class="text-mute">→</span></a>
-    <a href="/construction/decking/" class="flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body transition hover:bg-canvas-soft hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Deck <span class="text-mute">→</span></a>
-    <div class="mt-3 flex items-center justify-between rounded-lg border border-hairline bg-canvas-soft px-3 py-3 dark:bg-white/[0.03]">
-      <span class="text-sm font-medium text-ink">Theme</span>
-      <span class="font-mono text-xs text-mute">Light / Dark</span>
+    <a href="/calculators/" class="flex items-center justify-between rounded-lg bg-primary px-3 py-3.5 text-sm font-medium text-on-primary">Browse all 200 calculators <span>→</span></a>
+    <div class="mt-3 grid grid-cols-2 gap-2">
+      {hubCategories.map((cat) => (
+        <a href={`/construction/${cat.slug}/`} class="rounded-lg border border-hairline bg-canvas p-3 hover:bg-canvas-soft">
+          <p class="text-sm font-semibold text-ink">{cat.name}</p>
+          <p class="font-mono text-xs text-mute">{cat.count}</p>
+        </a>
+      ))}
     </div>
-    <p class="px-3 pt-2 font-mono text-[11px] leading-4 text-mute">Tip: Press <span translate="no">⌘&nbsp;K</span> to search anywhere.</p>
+    <a href="/construction/" class="mt-3 flex items-center justify-between rounded-lg px-3 py-3.5 text-sm font-medium text-body hover:bg-canvas-soft">All categories <span>→</span></a>
+    <div class="mt-3 flex items-center justify-between rounded-lg border border-hairline bg-canvas-soft px-3 py-3 dark:bg-white/[0.03]"><span class="text-sm font-medium text-ink">Theme</span><span class="font-mono text-xs text-mute">Light / Dark</span></div>
+    <p class="px-3 pt-2 font-mono text-[11px] leading-4 text-mute">Tip: Press <span translate="no">⌘&nbsp;K</span> to search 200 calculators anywhere.</p>
   </nav>
 </div>
 
 <script is:inline>
-  // Mobile menu
   const btn = document.getElementById("menu-toggle");
   const menu = document.getElementById("mobile-menu");
   if (btn && menu) {
@@ -126,31 +86,15 @@ import ThemeToggle from "./ThemeToggle.astro";
     }
     btn.addEventListener("click", () => setOpen(btn.getAttribute("aria-expanded") !== "true"));
     links.forEach((a) => a.addEventListener("click", () => setOpen(false)));
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") { setOpen(false); btn.focus(); }
-    });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") { setOpen(false); btn.focus(); }});
     window.addEventListener("resize", () => { if (window.innerWidth >= 1024 && btn.getAttribute("aria-expanded") === "true") setOpen(false); });
   }
-  // Search — focus if on page, else navigate
   function handleSearch() {
-    const el = document.getElementById("calc-search");
-    if (el) {
-      el.focus();
-      el.scrollIntoView({ behavior: "smooth", block: "center" });
-    } else {
-      window.location.href = "/calculators/";
-    }
+    const el = document.getElementById("calc-search") || document.getElementById("hero-search");
+    if (el) { el.focus(); el.scrollIntoView({ behavior: "smooth", block: "center" }); } else { window.location.href = "/calculators/"; }
   }
   document.getElementById("search-btn")?.addEventListener("click", handleSearch);
   document.getElementById("search-btn-mobile")?.addEventListener("click", handleSearch);
-  document.addEventListener("keydown", (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-      e.preventDefault();
-      handleSearch();
-    }
-  });
+  document.addEventListener("keydown", (e) => { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); handleSearch(); }});
 </script>
-
-<style>
-  header button, header a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-</style>
+<style>header button, header a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }</style>

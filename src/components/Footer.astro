@@ -1,96 +1,59 @@
 ---
-import { calculators } from "../data/calculators";
-const footerCalcs = calculators;
+import { hubCalculators, hubCategories } from "../data/hubCalculators";
+const popular = hubCalculators.filter(c => ["concrete-slab-calculator","gravel-calculator","roof-pitch-calculator","fence-cost-calculator"].includes(c.slug)).slice(0,4);
 ---
 
 <footer class="border-t border-hairline bg-canvas" aria-labelledby="footer-heading">
   <h2 id="footer-heading" class="sr-only">Footer</h2>
   <div class="mx-auto max-w-[1400px] px-6 py-12 sm:py-16 max-md:px-4">
-    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
-      <!-- Brand — luxury -->
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1.2fr_1fr]">
       <div class="space-y-4">
         <a href="/" class="group inline-flex items-center gap-3 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link" aria-label="Calculator Street home">
-          <span class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg bg-[#0a0a0a] shadow-sm ring-1 ring-black/10 transition-shadow group-hover:shadow-md" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" class="h-8 w-8"><rect width="32" height="32" rx="8" fill="#0a0a0a"/><g transform="translate(6 6) rotate(-6 16 12)"><rect x="0" y="0" width="20" height="20" rx="3" fill="white"/><rect x="2.5" y="2.5" width="15" height="4.5" rx="1" fill="#dbeafe"/><g fill="#1f2937"><rect x="2.5" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="14.1" width="3.2" height="2.2" rx="0.6"/></g></g></svg></span>
+          <span class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg bg-[#0a0a0a] shadow-sm ring-1 ring-black/10" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" class="h-8 w-8"><rect width="32" height="32" rx="8" fill="#0a0a0a"/><g transform="translate(6 6) rotate(-6 16 12)"><rect x="0" y="0" width="20" height="20" rx="3" fill="white"/><rect x="2.5" y="2.5" width="15" height="4.5" rx="1" fill="#dbeafe"/><g fill="#1f2937"><rect x="2.5" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="14.1" width="3.2" height="2.2" rx="0.6"/></g></g></svg></span>
           <span class="text-[16px] font-semibold tracking-[-0.022em] text-ink">Calculator Street</span>
           <span class="hidden sm:inline-flex items-center gap-1 rounded-full border border-hairline bg-canvas-soft px-2 py-0.5 font-mono text-[10px] tracking-wide text-mute">✦ EST. 2026</span>
         </a>
-        <p class="max-w-[340px] text-[13.5px] leading-6 text-body [text-wrap:pretty]">
-          Free construction &amp; home improvement calculators — <span class="font-medium text-ink">fast, private</span> and mobile-friendly. Built with Astro and Tailwind CSS v4.
-        </p>
-        <div class="inline-flex items-center gap-2 rounded-full border border-hairline bg-canvas-soft px-3 py-1.5 shadow-sm">
-          <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></span>
-          <span class="font-mono text-[11px] tracking-wide text-mute">Private by design · No tracking by us</span>
-        </div>
+        <p class="max-w-[340px] text-[13.5px] leading-6 text-body [text-wrap:pretty]">Free construction & home improvement calculators — <span class="font-medium text-ink">200 tools</span>, fast, private and mobile-friendly. Built with Astro + Tailwind CSS v4.</p>
+        <div class="inline-flex items-center gap-2 rounded-full border border-hairline bg-canvas-soft px-3 py-1.5 shadow-sm"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></span><span class="font-mono text-[11px] tracking-wide text-mute">200 calculators · Private by design</span></div>
         <div class="flex gap-2 pt-1">
-          <a href="https://github.com/calculatorst" target="_blank" rel="noopener" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-hairline bg-canvas text-mute shadow-sm transition hover:bg-ink hover:text-white hover:border-ink hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:hover:bg-white dark:hover:text-black" aria-label="GitHub">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.5a6.5 6.5 0 0 0-2.05 12.66c.32.06.44-.14.44-.31v-1.1C4.67 13.13 4.1 11.96 4.1 11.96c-.29-.74-.7-.94-.7-.94-.58-.39.04-.38.04-.38.64.04.98.66.98.66.57.97 1.5.69 1.86.53.06-.41.22-.69.4-.85-1.43-.16-2.93-.71-2.93-3.18 0-.7.25-1.27.66-1.72-.07-.16-.29-.81.06-1.69 0 0 .54-.17 1.77.66a6.1 6.1 0 0 1 3.22 0c1.23-.83 1.77-.66 1.77-.66.35.88.13 1.53.06 1.69.41.45.66 1.02.66 1.72 0 2.47-1.5 3.02-2.94 3.18.23.2.44.59.44 1.19v1.77c0 .17.11.37.44.31A6.5 6.5 0 0 0 8 1.5Z" fill="currentColor"></path></svg>
-          </a>
-          <a href="https://x.com/calculatorst" target="_blank" rel="noopener" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-hairline bg-canvas text-mute shadow-sm transition hover:bg-ink hover:text-white hover:border-ink hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:hover:bg-white dark:hover:text-black" aria-label="X (Twitter)">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12.5 3L4.2 12.5M12.5 12.5L4.2 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path><path d="M8 3.2C8 3.2 6.5 5.5 5 8c1.5 2.5 3 4.8 3 4.8s1.5-2.3 3-4.8c-1.5-2.5-3-4.8-3-4.8Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"></path></svg>
-          </a>
-          <a href="mailto:hello@calculatorst.com" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-hairline bg-canvas text-mute shadow-sm transition hover:bg-ink hover:text-white hover:border-ink hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:hover:bg-white dark:hover:text-black" aria-label="Email us">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 5.5l5 3 5-3M3 11.5h10a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v5.5a1 1 0 0 0 1 1Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </a>
+          <a href="https://github.com/calculatorst" target="_blank" rel="noopener" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-hairline bg-canvas text-mute shadow-sm transition hover:bg-ink hover:text-white" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.5a6.5 6.5 0 0 0-2.05 12.66c.32.06.44-.14.44-.31v-1.1C4.67 13.13 4.1 11.96 4.1 11.96c-.29-.74-.7-.94-.7-.94-.58-.39.04-.38.04-.38.64.04.98.66.98.66.57.97 1.5.69 1.86.53.06-.41.22-.69.4-.85-1.43-.16-2.93-.71-2.93-3.18 0-.7.25-1.27.66-1.72-.07-.16-.29-.81.06-1.69 0 0 .54-.17 1.77.66a6.1 6.1 0 0 1 3.22 0c1.23-.83 1.77-.66 1.77-.66.35.88.13 1.53.06 1.69.41.45.66 1.02.66 1.72 0 2.47-1.5 3.02-2.94 3.18.23.2.44.59.44 1.19v1.77c0 .17.11.37.44.31A6.5 6.5 0 0 0 8 1.5Z" fill="currentColor"/></svg></a>
+          <a href="https://x.com/calculatorst" target="_blank" rel="noopener" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-hairline bg-canvas text-mute shadow-sm transition hover:bg-ink hover:text-white" aria-label="X"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12.5 3L4.2 12.5M12.5 12.5L4.2 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></a>
+          <a href="mailto:hello@calculatorst.com" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-hairline bg-canvas text-mute shadow-sm transition hover:bg-ink hover:text-white" aria-label="Email"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 5.5l5 3 5-3M3 11.5h10a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v5.5a1 1 0 0 0 1 1Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
       </div>
 
-      <!-- Calculators — dynamic from data/calculators.ts for even equity -->
       <div>
-        <h3 class="flex items-center gap-2 font-mono text-[11px] font-medium tracking-[0.16em] uppercase text-mute"><span class="h-px w-6 bg-hairline"></span> Calculators</h3>
+        <h3 class="flex items-center gap-2 font-mono text-[11px] font-medium tracking-[0.16em] uppercase text-mute"><span class="h-px w-6 bg-hairline"></span> Popular</h3>
         <ul class="mt-4 space-y-2.5 text-[13.5px]" role="list">
-          {footerCalcs.map((c) => (
-            <li><a href={`/${c.slug}/`} class="group inline-flex items-center gap-1.5 text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">{c.h1} <span class="opacity-0 transition group-hover:opacity-100 group-hover:translate-x-0.5 text-mute">→</span></a></li>
-          ))}
-          <li><a href="/calculators/" class="group inline-flex items-center gap-1.5 font-medium text-ink transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">View all {calculators.length} <span class="transition group-hover:translate-x-0.5">→</span></a></li>
+          {popular.map((c) => <li><a href={`/${c.slug}/`} class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">{c.h1}</a></li>)}
+          <li><a href="/calculators/" class="font-medium text-ink hover:text-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">View all 200 →</a></li>
         </ul>
       </div>
 
-      <!-- Clusters — luxury -->
       <div>
-        <h3 class="flex items-center gap-2 font-mono text-[11px] font-medium tracking-[0.16em] uppercase text-mute"><span class="h-px w-6 bg-hairline"></span> Clusters</h3>
-        <ul class="mt-4 space-y-2.5 text-[13.5px]" role="list">
-          <li><a href="/construction/gravel/" class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Gravel</a></li>
-          <li><a href="/construction/concrete/" class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Concrete</a></li>
-          <li><a href="/construction/roofing/" class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Roofing</a></li>
-          <li><a href="/construction/landscaping/" class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Landscaping</a></li>
+        <h3 class="flex items-center gap-2 font-mono text-[11px] font-medium tracking-[0.16em] uppercase text-mute"><span class="h-px w-6 bg-hairline"></span> Categories</h3>
+        <ul class="mt-4 space-y-2 text-[13.5px]" role="list">
+          {hubCategories.slice(0,8).map((cat) => <li><a href={`/construction/${cat.slug}/`} class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">{cat.name} <span class="font-mono text-xs text-mute">({cat.count})</span></a></li>)}
+          <li><a href="/construction/" class="font-medium text-ink hover:text-link">All categories →</a></li>
         </ul>
       </div>
 
-      <!-- Company — luxury -->
       <div>
         <h3 class="flex items-center gap-2 font-mono text-[11px] font-medium tracking-[0.16em] uppercase text-mute"><span class="h-px w-6 bg-hairline"></span> Company</h3>
         <ul class="mt-4 space-y-2.5 text-[13.5px]" role="list">
-          <li><a href="/about/" class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">About</a></li>
-          <li><a href="/contact/" class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Contact</a></li>
-          <li><a href="/privacy/" class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Privacy</a></li>
-          <li><a href="/terms/" class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Terms</a></li>
-          <li><a href="/disclaimer/" class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Disclaimer</a></li>
+          <li><a href="/about/" class="text-body transition hover:text-ink">About</a></li>
+          <li><a href="/contact/" class="text-body transition hover:text-ink">Contact</a></li>
+          <li><a href="/privacy/" class="text-body transition hover:text-ink">Privacy</a></li>
+          <li><a href="/terms/" class="text-body transition hover:text-ink">Terms</a></li>
+          <li><a href="/disclaimer/" class="text-body transition hover:text-ink">Disclaimer</a></li>
+          <li><a href="/sitemap.xml" class="text-body transition hover:text-ink">Sitemap</a></li>
         </ul>
       </div>
     </div>
-
-    <!-- Luxury Bottom Bar — replaces plain black bar -->
     <div class="mt-12 border-t border-hairline pt-8">
       <div class="flex flex-col items-center gap-5">
-        <!-- Ornament -->
-        <div class="flex items-center gap-3" aria-hidden="true">
-          <span class="h-px w-10 bg-gradient-to-r from-transparent to-hairline sm:w-16"></span>
-          <span class="flex h-6 w-6 items-center justify-center rounded-full border border-hairline bg-canvas-soft text-[10px] text-mute">✦</span>
-          <span class="h-px w-10 bg-gradient-to-l from-transparent to-hairline sm:w-16"></span>
-        </div>
-        <div class="text-center">
-          <p class="font-mono text-[11px] tracking-[0.16em] uppercase text-mute">© 2026 Calculator Street</p>
-          <p class="mt-1.5 font-mono text-[11px] leading-5 text-mute">
-            Built with <span class="font-medium text-ink">Astro</span> &amp; <span class="font-medium text-ink">Tailwind CSS v4</span> <span class="mx-1.5 text-hairline">·</span> Private by design <span class="mx-1.5 text-hairline">·</span> <a href="/privacy/" class="underline hover:text-ink">Google may use cookies for ads</a>
-          </p>
-        </div>
-        <a href="/" class="group inline-flex items-center gap-2 rounded-full border border-hairline bg-ink px-4 py-2 text-xs font-medium tracking-wide text-white shadow-sm transition hover:bg-ink/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-white dark:text-black dark:border-white/10" aria-label="Calculator Street home">
-          <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
-          <span translate="no">calculatorst.com</span>
-          <span class="opacity-60">·</span>
-          Crafted for speed
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="opacity-60 transition-transform group-hover:translate-x-0.5"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
+        <div class="flex items-center gap-3" aria-hidden="true"><span class="h-px w-10 bg-gradient-to-r from-transparent to-hairline sm:w-16"></span><span class="flex h-6 w-6 items-center justify-center rounded-full border border-hairline bg-canvas-soft text-[10px] text-mute">✦</span><span class="h-px w-10 bg-gradient-to-l from-transparent to-hairline sm:w-16"></span></div>
+        <div class="text-center"><p class="font-mono text-[11px] tracking-[0.16em] uppercase text-mute">© 2026 Calculator Street — 200 calculators</p><p class="mt-1.5 font-mono text-[11px] leading-5 text-mute">Built with <span class="font-medium text-ink">Astro</span> & <span class="font-medium text-ink">Tailwind CSS v4</span> <span class="mx-1.5 text-hairline">·</span> Private by design <span class="mx-1.5 text-hairline">·</span> <a href="/privacy/" class="underline hover:text-ink">Google may use cookies for ads</a></p></div>
         <p class="font-mono text-[10px] tracking-[0.14em] uppercase text-mute/60">Precision · Speed · Privacy</p>
       </div>
     </div>

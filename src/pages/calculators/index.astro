@@ -18,11 +18,22 @@ for (const h of hubCalculators) if (!existing.has(h.slug)) allCalculators.push(h
       <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">All Calculators</h1>
       <p class="mt-2 text-sm leading-6 text-body">200 construction calculators — US-focused, static, private and mobile-first. Every tool runs 100% in your browser.</p>
       <div class="mt-6">
-        <input id="calc-search" type="search" placeholder="Search calculators… try gravel or deck" class="h-11 w-full rounded-sm border border-hairline bg-canvas px-4 text-sm placeholder:text-mute focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" />
+        <input id="calc-search" type="search" placeholder="Search 200 calculators… try concrete slab, roof pitch, gravel..." class="h-11 w-full rounded-sm border border-hairline bg-canvas px-4 text-sm placeholder:text-mute focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" />
+      </div>
+      <div class="mt-4 flex flex-wrap gap-2" role="group" aria-label="Filter by category">
+        <button type="button" data-filter="" class="filter-btn rounded-full bg-primary px-3 py-1.5 text-xs font-medium text-on-primary">All 200</button>
+        <button type="button" data-filter="concrete" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Concrete</button>
+        <button type="button" data-filter="gravel" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Gravel</button>
+        <button type="button" data-filter="rebar" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Rebar</button>
+        <button type="button" data-filter="roofing" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Roofing</button>
+        <button type="button" data-filter="flooring" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Flooring</button>
+        <button type="button" data-filter="framing" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Framing</button>
+        <button type="button" data-filter="deck" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Deck</button>
+        <button type="button" data-filter="fence" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Fence</button>
       </div>
       <ul id="calc-list" class="mt-6 grid gap-4 sm:grid-cols-2" role="list">
         {allCalculators.map(c => (
-          <li data-title={c.title.toLowerCase()} data-desc={c.description.toLowerCase()}>
+          <li data-title={c.title.toLowerCase()} data-desc={c.description.toLowerCase()} data-category={c.category.toLowerCase()} data-cluster={c.cluster.toLowerCase()}>
             <a href={`/${c.slug}/`} class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card transition hover:shadow-card-hover dark:bg-canvas">
               <h2 class="text-sm font-semibold text-ink">{c.title.split(" —")[0]}</h2>
               <p class="mt-1 line-clamp-2 text-sm leading-5 text-body">{c.description}</p>
@@ -37,15 +48,31 @@ for (const h of hubCalculators) if (!existing.has(h.slug)) allCalculators.push(h
   <script is:inline>
     const input = document.getElementById("calc-search");
     const list = document.getElementById("calc-list");
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    let activeFilter = "";
+    function applyFilter() {
+      const q = (input?.value || "").toLowerCase().trim();
+      const items = list ? Array.from(list.children) : [];
+      items.forEach(li => {
+        const title = li.getAttribute("data-title") || "";
+        const desc = li.getAttribute("data-desc") || "";
+        const cat = li.getAttribute("data-category") || "";
+        const cluster = li.getAttribute("data-cluster") || "";
+        const matchesSearch = !q || title.includes(q) || desc.includes(q);
+        const matchesFilter = !activeFilter || cat.includes(activeFilter) || cluster.includes(activeFilter);
+        li.style.display = (matchesSearch && matchesFilter) ? "" : "none";
+      });
+    }
     if (input && list) {
-      const items = Array.from(list.children);
-      input.addEventListener("input", () => {
-        const q = input.value.toLowerCase().trim();
-        items.forEach(li => {
-          const title = li.getAttribute("data-title") || "";
-          const desc = li.getAttribute("data-desc") || "";
-          const show = !q || title.includes(q) || desc.includes(q);
-          li.style.display = show ? "" : "none";
+      input.addEventListener("input", applyFilter);
+      filterBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          activeFilter = btn.getAttribute("data-filter") || "";
+          filterBtns.forEach(b => {
+            const isActive = b.getAttribute("data-filter") === activeFilter;
+            b.className = isActive ? "filter-btn rounded-full bg-primary px-3 py-1.5 text-xs font-medium text-on-primary" : "filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft";
+          });
+          applyFilter();
         });
       });
     }
