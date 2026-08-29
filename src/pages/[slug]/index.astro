@@ -5,10 +5,10 @@ import Footer from "../../components/Footer.astro";
 import GenericCalculator from "../../components/calculators/GenericCalculator.astro";
 import CalculatorVisual from "../../components/CalculatorVisual.astro";
 import { hubCalculators } from "../../data/hubCalculators";
+import { calculatorDetails } from "../../data/calculatorDetails";
 import { calculators } from "../../data/calculators";
 
 export async function getStaticPaths() {
-  // Exclude 10 already statically generated to avoid collision
   const existingSlugs = new Set(calculators.map(c => c.slug));
   const filtered = hubCalculators.filter(c => !existingSlugs.has(c.slug));
   return filtered.map((calc) => ({
@@ -18,8 +18,8 @@ export async function getStaticPaths() {
 }
 
 const { calc } = Astro.props;
+const details = calculatorDetails[calc.slug] || {};
 
-// Derive inputs based on name/category
 function getInputsForCalc(calc) {
   const name = calc.h1.toLowerCase();
   if (name.includes("rebar") || name.includes("reinforcement")) {
@@ -64,14 +64,12 @@ function getInputsForCalc(calc) {
       { id: "depth", label: "Depth / Height", placeholder: "4", units: ["in","ft"], unit: "in" },
     ];
   }
-  // Default volume
   return [
     { id: "length", label: "Length", placeholder: "20", required: true, units: ["ft","m","yd"], unit: "ft" },
     { id: "width", label: "Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
     { id: "depth", label: "Depth / Thickness", placeholder: "4", required: true, units: ["in","ft","cm","m"], unit: "in" },
   ];
 }
-
 function getFormulaKey(calc) {
   const n = calc.h1.toLowerCase();
   if (n.includes("cost")) return "volume";
@@ -80,49 +78,43 @@ function getFormulaKey(calc) {
   if (n.includes("area") || n.includes("square")) return "area";
   return "volume";
 }
-
 function getVisualVariant(calc) {
   const cluster = calc.cluster;
-  if (cluster === "concrete" || cluster === "slab" || cluster === "foundation") return "concrete";
-  if (cluster === "gravel" || cluster === "excavation") return "gravel";
+  if (cluster === "concrete") return "concrete";
+  if (cluster === "slab") return "concrete";
+  if (cluster === "foundation") return "excavation";
   if (cluster === "rebar") return "concrete";
-  if (cluster === "brick" || cluster === "cmu" || cluster === "mortar") return "concrete";
-  if (cluster === "framing") return "deck";
+  if (cluster === "brick") return "brick";
+  if (cluster === "cmu") return "brick";
+  if (cluster === "mortar") return "mortar";
+  if (cluster === "gravel") return "gravel";
+  if (cluster === "excavation") return "excavation";
+  if (cluster === "framing") return "framing";
   if (cluster === "roofing") return "roof-pitch";
-  if (cluster === "flooring" || cluster === "drywall") return "deck";
-  if (cluster === "deck-fence" || cluster === "fence") return "fence";
-  if (cluster === "landscaping" || cluster === "asphalt") return "paver";
+  if (cluster === "flooring") return "flooring";
+  if (cluster === "drywall") return "drywall";
+  if (cluster === "deck-fence") return "deck";
+  if (cluster === "landscaping") return "paver";
+  if (cluster === "asphalt") return "paver";
   return "gravel";
 }
-
 const inputs = getInputsForCalc(calc);
 const formulaKey = getFormulaKey(calc);
 const visualVariant = getVisualVariant(calc);
-
-// Related: same cluster first, then same category
-const related = hubCalculators
-  .filter(c => c.cluster === calc.cluster && c.slug !== calc.slug)
-  .slice(0, 3)
-  .map(c => ({ title: c.h1, href: `/${c.slug}/`, desc: c.description.slice(0, 60) + "..." }));
+const related = hubCalculators.filter(c => c.cluster === calc.cluster && c.slug !== calc.slug).slice(0,3).map(c=>({title:c.h1, href:`/${c.slug}/`, desc:c.description.slice(0,60)+"..."}));
 if (related.length < 4) {
-  const extra = hubCalculators.filter(c => c.category === calc.category && c.slug !== calc.slug && !related.find(r => r.href.includes(c.slug))).slice(0, 4 - related.length);
-  extra.forEach(c => related.push({ title: c.h1, href: `/${c.slug}/`, desc: c.description.slice(0,60)+"..." }));
+  const extra = hubCalculators.filter(c => c.category === calc.category && c.slug !== calc.slug && !related.find(r=>r.href.includes(c.slug))).slice(0,4-related.length);
+  extra.forEach(c=>related.push({title:c.h1, href:`/${c.slug}/`, desc:c.description.slice(0,60)+"..."}));
 }
-
-// Breadcrumbs
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Construction", href: "/construction/" },
   { label: calc.category, href: `/construction/${calc.cluster}/` },
   { label: calc.h1 },
 ];
-
-// FAQ — original, specific
-const faq = [
-  { q: `What does the ${calc.h1} calculate?`, a: `The ${calc.h1} estimates ${calc.h1.toLowerCase().replace(' calculator','')} quantity for US construction. Enter your dimensions in feet, inches or meters, add waste and an optional price — get volume/area, weight or count plus cost instantly. Results are estimates; verify with your supplier or professional.` },
-  { q: `How accurate is the ${calc.h1}?`, a: `Accuracy depends on your measurements. We convert all units to feet before math (inches ÷12, yards ×3, meters ×3.28084) then apply the standard formula. Add 5–10% waste for rectangular areas and 10–15% for irregular shapes. For structural or load-critical work, confirm with a qualified professional.` },
-  { q: `What units does the ${calc.h1} support?`, a: `US customary is default — feet, inches, yards, square feet, cubic feet, cubic yards, pounds and tons — with metric where useful. Use the unit selectors next to each input; the calculator converts automatically before calculating.` },
-  { q: `Do I need to add waste for ${calc.h1.toLowerCase()}?`, a: `Yes for most jobs. Waste covers spillage, over-excavation, cuts and uneven subgrade. The calculator applies waste last: <span class="font-mono text-xs">× (1+ waste%)</span>. 10% is safe for most residential work.` },
+const d = details || {};
+const faq = d.faq || [
+  { q: `What does the ${calc.h1} calculate?`, a: `The ${calc.h1} estimates quantity for US construction. Enter dimensions, choose units, add waste and price — get results instantly.` },
 ];
 ---
 
@@ -146,90 +138,84 @@ const faq = [
 
     <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">What Is This Calculator?</h2>
-      <p class="mt-2 text-sm leading-6 text-body [text-wrap:pretty]">The <span class="font-medium text-ink">{calc.h1}</span> is a free, browser-based tool for US homeowners and contractors. It solves a single job-site problem: how much {calc.h1.toLowerCase().replace(' calculator','')} material you need, with waste and cost, without a spreadsheet.</p>
-      <p class="mt-2 text-sm leading-6 text-body">Use it for estimating, ordering and budgeting — no signup, no data leaves your device.</p>
+      <p class="mt-2 text-sm leading-6 text-body [text-wrap:pretty]" set:html={d.whatIs || `The ${calc.h1} helps you estimate ${calc.h1.toLowerCase().replace(' calculator','')} for US construction.`}></p>
     </div>
 
     <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">What Does It Calculate?</h2>
       <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
-        <li>Primary quantity — volume, area or count in US units (with metric conversion)</li>
-        <li>Waste-adjusted total — your order quantity with {inputs[0]?.label.toLowerCase() || "dimension"} × waste included</li>
-        <li>Weight or count where applicable (tons, pounds, bags, units)</li>
-        <li>Material-only cost when you enter a price per unit</li>
+        {(d.whatCalculates || ["Primary quantity in US units","Waste-adjusted total","Cost with waste"]).map((item) => <li>{item}</li>)}
       </ul>
-      <p class="mt-3 text-sm leading-6 text-body">All results show units clearly so you can compare a bulk yard quote to a bag or ton quote.</p>
     </div>
 
     <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How to Use the Calculator</h2>
       <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
-        <li>Measure {inputs.map(i=>i.label.toLowerCase()).join(", ")} on site in feet or inches.</li>
-        <li>Enter each value and choose its unit from the selector.</li>
-        <li>Adjust waste % (5–10% rectangular, 10–15% irregular) and optional price.</li>
-        <li>Click <span class="font-medium text-ink">Calculate</span> — results appear instantly with waste included. Use <span class="font-medium text-ink">Reset</span> to clear.</li>
+        {(d.howToUse || ["Measure on site","Enter values and units","Adjust waste and price","Calculate and Reset"]).map((step) => <li>{step}</li>)}
       </ol>
     </div>
 
     <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Formula</h2>
       <div class="mt-3 rounded-md border border-hairline bg-canvas-soft-2 p-4 font-mono text-sm leading-6 dark:bg-white/[0.03]">
-        {formulaKey === "volume" && <><p>Cubic Feet = L(ft) × W(ft) × D(ft)</p><p>Cubic Yards = Cubic Feet ÷ 27</p><p>With Waste = Cubic Yards × (1 + waste%)</p></>}
-        {formulaKey === "area" && <><p>Square Feet = Length(ft) × Width(ft)</p><p>With Waste = Square Feet × (1 + waste%)</p></>}
-        {formulaKey === "quantity" && <><p>Quantity = Area ÷ Unit Area</p><p>With Waste = ceil(Quantity × (1 + waste%))</p></>}
-        {formulaKey !== "volume" && formulaKey !== "area" && formulaKey !== "quantity" && <p>Quantity = Product of dimensions × (1 + waste%)</p>}
+        <p class="font-semibold text-ink">{d.formula || "Quantity = Product of dimensions × (1 + waste%)"}</p>
+        {d.variables && d.variables.length > 0 && (
+          <ul class="mt-2 list-disc pl-5 text-xs text-body">
+            {d.variables.map((v) => <li><span class="font-semibold text-ink">{v.symbol}</span> — {v.meaning}</li>)}
+          </ul>
+        )}
       </div>
-      <p class="mt-3 text-sm leading-6 text-body">We convert every input to feet first: inches ÷12, yards ×3, meters ×3.28084, centimeters ×0.0328084. This keeps the math consistent across US and metric.</p>
+      <p class="mt-3 text-sm leading-6 text-body">All units convert to feet before math: inches /12, yards ×3, meters ×3.28084. This keeps US and metric consistent.</p>
     </div>
 
     <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Worked Example</h2>
-      <p class="mt-2 text-sm leading-6 text-body">Example for a typical US job: {inputs[0]?.label} 20 ft × {inputs[1]?.label} 10 ft × {inputs[2]?.label || "depth"} 4 in, 10% waste, $45 per unit:</p>
+      <p class="mt-2 text-sm leading-6 text-body">Example: {d.example?.inputs || "Length 20 ft × Width 10 ft × Depth 4 in, 10% waste"}</p>
       <div class="mt-3 overflow-x-auto rounded-md border border-hairline">
         <table class="w-full text-left text-sm">
           <thead class="bg-canvas-soft font-mono text-[11px] tracking-widest text-mute"><tr><th class="px-3 py-2">STEP</th><th class="px-3 py-2">VALUE</th></tr></thead>
           <tbody class="divide-y divide-hairline font-mono tabular-nums">
-            <tr><td class="px-3 py-2">Convert to feet</td><td class="px-3 py-2">4 in ÷12 = 0.333 ft</td></tr>
-            <tr><td class="px-3 py-2">Raw quantity</td><td class="px-3 py-2">20 ×10 ×0.333 = 66.67</td></tr>
-            <tr><td class="px-3 py-2">With 10% waste</td><td class="px-3 py-2">73.33</td></tr>
-            <tr><td class="px-3 py-2">Cost @ $45</td><td class="px-3 py-2">$3,300</td></tr>
+            {(d.example?.steps || [{label:"Convert",value:"4 in /12 = 0.333 ft"},{label:"Result",value:"66.67"}]).map((r) => <tr><td class="px-3 py-2 text-body">{r.label}</td><td class="px-3 py-2 text-ink font-medium">{r.value}</td></tr>)}
           </tbody>
         </table>
       </div>
-      <p class="mt-2 text-xs font-mono leading-4 text-mute">Your numbers will vary — the calculator does these steps instantly for your exact inputs.</p>
     </div>
 
     <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
-      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Construction Information — {calc.category}</h2>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
-        <li>Always measure the longest × widest for rectangular areas; for L-shapes split into two rectangles and add.</li>
-        <li>Compacted subgrade and uniform depth reduce waste — keep an extra bag or 5% buffer for spillage.</li>
-        <li>For structural sizing (beams, headers, rebar laps, footing depths) treat results as estimates and verify with a qualified professional, manufacturer specs or local code.</li>
-      </ul>
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Construction Information</h2>
+      <div class="mt-2 text-sm leading-6 text-body [text-wrap:pretty]" set:html={d.constructionInfo || "Measure longest × widest; split L-shapes and add. Verify structural sizing with a professional."}></div>
+    </div>
+
+    {d.materialInfo && (
+      <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Material Information</h2>
+        <p class="mt-2 text-sm leading-6 text-body [text-wrap:pretty]" set:html={d.materialInfo}></p>
+      </div>
+    )}
+
+    <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Waste & Overages</h2>
+      <p class="mt-2 text-sm leading-6 text-body" set:html={d.wasteInfo || "Add 5–10% waste for rectangular, 10–15% for irregular. Waste is applied last: ×(1+waste%)."}></p>
     </div>
 
     <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Practical Tips</h2>
       <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
-        <li>Double-check units before Calculate — mixing feet and inches without converting is the #1 mistake.</li>
-        <li>Order in the unit your supplier sells: bulk by ton/yard, bags by cubic foot — the calculator shows both where applicable.</li>
-        <li>Take a photo of your measurements and keep the results screen for the scale house or delivery ticket.</li>
+        {(d.tips || ["Double-check units","Order in supplier units","Photo your measurements"]).map((t) => <li>{t}</li>)}
       </ul>
     </div>
 
     <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Common Mistakes</h2>
       <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
-        <li>Forgetting waste — ordering the theoretical minimum means a second trip fee for a small top-up.</li>
-        <li>Using wrong density or coverage (e.g., pea gravel 1.35 t/yd³ vs limestone 1.60) — confirm with supplier.</li>
-        <li>Not converting metric — 10 cm is not 10 inches; use the unit selector.</li>
+        {(d.mistakes || ["Forgetting waste","Wrong density","Not converting metric"]).map((m) => <li>{m}</li>)}
       </ul>
     </div>
 
     <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
-      <p class="mt-2 text-sm leading-6 text-body">This calculator provides an estimate based on the dimensions you enter. Actual material requirements may vary depending on site conditions, installation methods, material specifications and local requirements. For load-bearing or code-regulated work, have your plans reviewed by a qualified professional.</p>
-      <p class="mt-2 text-sm leading-6 text-body">Calculations run 100% in your browser — no data leaves your device. US customary is default; metric converts to feet before math.</p>
+      <p class="mt-2 text-sm leading-6 text-body" set:html={d.assumptions || "Estimate based on your inputs. Actual needs vary by site and material. For code-regulated work, consult a professional."}></p>
+      <p class="mt-2 text-sm leading-6 text-body">Calculations run 100% in your browser — no data leaves your device.</p>
     </div>
   </section>
   <Footer slot="footer" />
