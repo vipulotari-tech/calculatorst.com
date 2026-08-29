@@ -1,0 +1,21 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  rows: { label: string; value: string }[];
+}
+const { title = "Worked Example", description, rows } = Astro.props;
+---
+<div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+  <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">{title}</h2>
+  {description && <p class="mt-2 text-sm leading-6 text-body [text-wrap:pretty]">{description}</p>}
+  <div class="mt-3 overflow-x-auto rounded-md border border-hairline">
+    <table class="w-full text-left text-sm">
+      <thead class="bg-canvas-soft font-mono text-[11px] tracking-widest text-mute"><tr><th class="px-3 py-2">INPUT / STEP</th><th class="px-3 py-2">VALUE</th></tr></thead>
+      <tbody class="divide-y divide-hairline font-mono tabular-nums">
+        {rows.map((r) => <tr><td class="px-3 py-2 text-body">{r.label}</td><td class="px-3 py-2 text-ink font-medium">{r.value}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+  <slot />
+</div>

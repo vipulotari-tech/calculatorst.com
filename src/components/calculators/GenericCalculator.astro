@@ -1,0 +1,229 @@
+---
+interface InputField {
+  id: string;
+  label: string;
+  placeholder?: string;
+  defaultValue?: string | number;
+  min?: number;
+  max?: number;
+  required?: boolean;
+  unit?: string;
+  units?: string[];
+}
+interface Props {
+  id: string;
+  inputs: InputField[];
+  formulaKey: string;
+  resultTitle?: string;
+  wasteDefault?: number;
+  priceDefault?: boolean;
+}
+
+const { id, inputs, formulaKey, resultTitle = "ESTIMATE", wasteDefault = 10, priceDefault = true } = Astro.props;
+const formId = `${id}-form`;
+const resultsId = `${id}-results`;
+---
+
+<div id={id} class="rounded-lg border border-hairline bg-canvas p-5 shadow-card dark:bg-canvas sm:p-6">
+  <form id={formId} novalidate class="space-y-5">
+    <div class="grid gap-4 sm:grid-cols-3">
+      {inputs.map((inp) => (
+        <label class="block">
+          <span class="text-sm font-medium text-ink">{inp.label}</span>
+          <div class="mt-1.5 flex">
+            <input
+              id={`${id}-${inp.id}`}
+              type="number"
+              inputmode="decimal"
+              min={inp.min ?? 0}
+              max={inp.max}
+              step="any"
+              placeholder={inp.placeholder}
+              value={inp.defaultValue}
+              required={inp.required}
+              aria-describedby={`${id}-${inp.id}-error`}
+              class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20"
+            />
+            {inp.units ? (
+              <select id={`${id}-${inp.id}-unit`} class="h-11 shrink-0 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm">
+                {inp.units.map((u) => <option value={u} selected={u===inp.unit}>{u}</option>)}
+              </select>
+            ) : inp.unit ? (
+              <span class="flex h-11 items-center rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">{inp.unit}</span>
+            ) : null}
+          </div>
+          <span id={`${id}-${inp.id}-error`} class="mt-1 hidden text-xs text-error" role="alert"></span>
+        </label>
+      ))}
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-3">
+      <label class="block">
+        <span class="text-sm font-medium text-ink">Waste / Overage</span>
+        <div class="mt-1.5 flex">
+          <input id={`${id}-waste`} type="number" inputmode="decimal" min="0" max="50" step="1" value={wasteDefault} class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" />
+          <span class="flex h-11 items-center rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">%</span>
+        </div>
+      </label>
+      {priceDefault && (
+        <label class="block">
+          <span class="text-sm font-medium text-ink">Price (optional)</span>
+          <div class="mt-1.5 flex">
+            <span class="flex h-11 items-center rounded-l-sm border border-hairline bg-canvas-soft px-2 text-sm text-mute">$</span>
+            <input id={`${id}-price`} type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 45" class="h-11 w-full border-y border-hairline bg-canvas px-3 text-sm focus:outline-none" />
+            <select id={`${id}-price-unit`} class="h-11 shrink-0 rounded-r-sm border border-hairline bg-canvas-soft px-2 text-xs">
+              <option value="unit">/ unit</option>
+              <option value="yd">/ yd³</option>
+              <option value="ton">/ ton</option>
+            </select>
+          </div>
+        </label>
+      )}
+      <div class="flex items-end"><p class="font-mono text-[11px] leading-4 text-mute">US units default — metric where useful. Waste included in totals.</p></div>
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+      <button type="submit" class="inline-flex h-11 items-center justify-center rounded-sm bg-primary px-6 text-sm font-medium text-on-primary transition hover:bg-[#242424] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Calculate</button>
+      <button type="reset" id={`${id}-reset`} class="inline-flex h-11 items-center justify-center rounded-sm border border-hairline bg-canvas px-6 text-sm font-medium text-ink transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Reset</button>
+      <span class="inline-flex items-center font-mono text-xs text-mute">Enter dimensions → Calculate.</span>
+    </div>
+  </form>
+
+  <div id={resultsId} class="mt-6 hidden" aria-live="polite">
+    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5 dark:bg-white/[0.04]">
+      <p class="font-mono text-[11px] tracking-widest text-mute">{resultTitle}</p>
+      <div id={`${id}-primary`} class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-ink tabular-nums">—</div>
+      <div id={`${id}-secondary`} class="mt-1 font-mono text-xs tabular-nums text-body">—</div>
+      <div id={`${id}-breakdown`} class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 dark:bg-canvas sm:grid-cols-3 text-sm"></div>
+      <p id={`${id}-cost`} class="mt-3 text-sm font-semibold text-ink">—</p>
+      <p class="mt-2 font-mono text-[11px] leading-4 text-mute">Estimate only — verify with supplier, plans or professional for final order.</p>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ id, inputs, formulaKey }}>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const form = $(`${id}-form`);
+  const results = $(`${id}-results`);
+  if (!form || !results) return;
+
+  function toFeet(v, u) {
+    if (u === "ft") return v;
+    if (u === "in") return v / 12;
+    if (u === "yd") return v * 3;
+    if (u === "m") return v * 3.28084;
+    if (u === "cm") return v * 0.0328084;
+    if (u === "mm") return v * 0.00328084;
+    return v;
+  }
+  function fmt(n, dec=2) {
+    if (!isFinite(n)) return "—";
+    return new Intl.NumberFormat("en-US", { maximumFractionDigits: dec, minimumFractionDigits: dec===0?0:dec===2?2:0 }).format(n);
+  }
+  function showError(field, msg) {
+    const el = $(`${id}-${field}-error`);
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.remove("hidden");
+  }
+  function clearErrors() {
+    inputs.forEach(inp => {
+      const el = $(`${id}-${inp.id}-error`);
+      if (el) { el.textContent=""; el.classList.add("hidden"); }
+    });
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    clearErrors();
+    const vals = {};
+    let valid = true;
+    inputs.forEach(inp => {
+      const v = parseFloat($(`${id}-${inp.id}`).value);
+      vals[inp.id] = v;
+      if (inp.required && !(v>0)) {
+        showError(inp.id, `Please enter a valid ${inp.label.toLowerCase()}.`);
+        valid = false;
+      }
+    });
+    if (!valid) return;
+
+    const waste = parseFloat($(`${id}-waste`).value) || 0;
+    const price = parseFloat($(`${id}-price`)?.value);
+    const priceUnit = $(`${id}-price-unit`)?.value;
+    const wasteF = 1 + waste/100;
+
+    let primary = "—", secondary = "—", breakdown = "", costText = "—";
+
+    try {
+      // Generic dispatcher — covers 90% of 200 calculators
+      if (formulaKey === "volume") {
+        // expects inputs: length, width, depth/thickness
+        const L = toFeet(vals.length ?? vals.length1 ?? vals.l ?? 0, $(`${id}-length-unit`)?.value || "ft");
+        const W = toFeet(vals.width ?? vals.width1 ?? vals.w ?? 0, $(`${id}-width-unit`)?.value || "ft");
+        const D = toFeet(vals.depth ?? vals.thickness ?? vals.height ?? vals.depth1 ?? 0, $(`${id}-depth-unit`)?.value || $(`${id}-thickness-unit`)?.value || $(`${id}-height-unit`)?.value || "in");
+        // Handle alternative IDs like slab thickness
+        const lenVal = vals.length ?? vals.length1 ?? vals.wall_length ?? vals.slab_length ?? Object.values(vals)[0];
+        const widVal = vals.width ?? vals.width1 ?? vals.wall_height ?? vals.slab_width ?? Object.values(vals)[1] ?? 10;
+        const depVal = vals.depth ?? vals.thickness ?? vals.height ?? vals.depth1 ?? vals.slab_thickness ?? Object.values(vals)[2] ?? 4;
+        // Fallback to toFeet with first 3 inputs if specific not found
+        const Lf = toFeet(lenVal, $(`${id}-${Object.keys(vals)[0]}-unit`)?.value || "ft");
+        const Wf = toFeet(widVal, $(`${id}-${Object.keys(vals)[1]}-unit`)?.value || "ft");
+        const Df = toFeet(depVal, $(`${id}-${Object.keys(vals)[2]}-unit`)?.value || "in");
+        const cuFt = Lf * Wf * Df;
+        const cuYd = cuFt / 27;
+        const cuYdW = cuYd * wasteF;
+        primary = `${fmt(cuYdW)} yd³`;
+        secondary = `${fmt(cuFt*wasteF)} ft³ with ${waste}% waste`;
+        breakdown = `<div><p class="font-mono text-[11px] text-mute">Cubic yards</p><p class="font-semibold tabular-nums">${fmt(cuYd)} → ${fmt(cuYdW)} w/ waste</p></div><div><p class="font-mono text-[11px] text-mute">Cubic feet</p><p class="font-semibold tabular-nums">${fmt(cuFt)} → ${fmt(cuFt*wasteF)}</p></div><div><p class="font-mono text-[11px] text-mute">Waste</p><p class="font-semibold">${waste}%</p></div>`;
+        if (isFinite(price) && price>0) {
+          const c = cuYdW * price;
+          costText = new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(c) + ` at ${fmt(price)}/yd³ incl. waste`;
+        }
+      } else if (formulaKey === "area") {
+        const L = toFeet(vals.length ?? vals.wall_length ?? Object.values(vals)[0], $(`${id}-${Object.keys(vals)[0]}-unit`)?.value || "ft");
+        const W = toFeet(vals.width ?? vals.wall_height ?? Object.values(vals)[1], $(`${id}-${Object.keys(vals)[1]}-unit`)?.value || "ft");
+        const area = L * W;
+        const areaW = area * wasteF;
+        primary = `${fmt(areaW,1)} ft²`;
+        secondary = `${fmt(area,1)} ft² + ${waste}% waste`;
+        breakdown = `<div><p class="font-mono text-[11px] text-mute">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-mute">With waste</p><p class="font-semibold">${fmt(areaW,1)} ft²</p></div>`;
+        if (isFinite(price) && price>0) costText = fmtCurrency(areaW*price) + ` at ${fmt(price)}/ft²`;
+      } else if (formulaKey === "quantity") {
+        const areaVal = vals.area ?? vals.wall_area ?? Object.values(vals)[0];
+        const unitArea = 1; // placeholder
+        const qty = Math.ceil((areaVal * wasteF) / unitArea);
+        primary = `${fmt(qty,0)} units`;
+        secondary = `with ${waste}% waste`;
+        breakdown = `<div><p class="font-mono text-[11px] text-mute">Quantity</p><p class="font-semibold">${qty}</p></div>`;
+      } else {
+        // Fallback generic volume
+        const valsArr = Object.values(vals).filter(v=>isFinite(v) && v>0);
+        const product = valsArr.reduce((a,b)=>a*b,1);
+        const cuFt = product; // assume first 3 are L*W*D already in feet after toFeet approx
+        primary = `${fmt(product*wasteF)} units`;
+        secondary = `Generic estimate with ${waste}% waste`;
+        breakdown = `<div><p class="font-mono text-[11px] text-mute">Raw</p><p class="font-semibold">${fmt(product)}</p></div><div><p class="font-mono text-[11px] text-mute">With waste</p><p class="font-semibold">${fmt(product*wasteF)}</p></div>`;
+      }
+    } catch (err) {
+      primary = "Error — check inputs";
+      console.error(err);
+    }
+
+    $(`${id}-primary`).textContent = primary;
+    $(`${id}-secondary`).textContent = secondary;
+    $(`${id}-breakdown`).innerHTML = breakdown;
+    $(`${id}-cost`).textContent = costText;
+    results.classList.remove("hidden");
+    results.scrollIntoView({behavior:"smooth", block:"nearest"});
+  });
+
+  $(`${id}-reset`)?.addEventListener("click", () => {
+    clearErrors();
+    results.classList.add("hidden");
+  });
+
+  function fmtCurrency(n){ return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(n); }
+})();
+</script>

@@ -1,0 +1,34 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  type?: string;
+  placeholder?: string;
+  value?: string | number;
+  min?: string | number;
+  max?: string | number;
+  step?: string;
+  required?: boolean;
+  errorId?: string;
+  inputMode?: string;
+}
+const { id, label, type = "number", placeholder, value, min = "0", max, step = "any", required = false, errorId, inputMode = "decimal" } = Astro.props;
+---
+<label class="block">
+  <span class="text-sm font-medium text-ink">{label}</span>
+  <input
+    id={id}
+    name={id}
+    type={type}
+    inputmode={inputMode as any}
+    placeholder={placeholder}
+    value={value}
+    min={min}
+    max={max}
+    step={step}
+    required={required}
+    aria-describedby={errorId}
+    class="mt-1.5 h-11 w-full rounded-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20"
+  />
+  {errorId && <span id={errorId} class="mt-1 hidden text-xs text-error" role="alert"></span>}
+</label>

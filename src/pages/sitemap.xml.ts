@@ -2,10 +2,11 @@ import type { APIRoute } from "astro";
 import fs from "fs";
 import path from "path";
 import { calculators } from "../data/calculators";
+import { hubCalculators } from "../data/hubCalculators";
 
 const site = "https://calculatorst.com";
 
-// Core pages — calculators injected dynamically from src/data/calculators.ts for single-source truth
+// Core pages — 16 category hubs + 200 calculators
 const staticPages = [
   "/",
   "/construction/",
@@ -15,6 +16,18 @@ const staticPages = [
   "/construction/roofing/",
   "/construction/decking/",
   "/construction/landscaping/",
+  // New 10 hubs for 200-hub
+  "/construction/slab-patio-driveway/",
+  "/construction/foundation/",
+  "/construction/rebar/",
+  "/construction/brick-masonry/",
+  "/construction/concrete-block/",
+  "/construction/mortar-grout-cement/",
+  "/construction/excavation/",
+  "/construction/framing/",
+  "/construction/flooring/",
+  "/construction/drywall-paint/",
+  "/construction/asphalt/",
   "/calculators/",
   "/about/",
   "/contact/",
@@ -22,8 +35,14 @@ const staticPages = [
   "/terms/",
   "/disclaimer/",
 ];
-const calculatorPages = calculators.map((c) => `/${c.slug}/`);
-const pages = [...staticPages.slice(0, 8), ...calculatorPages, ...staticPages.slice(8)];
+// Merge 10 existing + 190 new (avoid duplicates)
+const allCalcs = [...calculators];
+const existingSlugs = new Set(calculators.map(c=>c.slug));
+for (const h of hubCalculators) {
+  if (!existingSlugs.has(h.slug)) allCalcs.push(h as any);
+}
+const calculatorPages = allCalcs.map((c) => `/${c.slug}/`);
+const pages = [...staticPages.slice(0, 18), ...calculatorPages, ...staticPages.slice(18)];
 
 function getLastmod(urlPath: string): string {
   const fallback = new Date().toISOString().split("T")[0];
@@ -37,6 +56,17 @@ function getLastmod(urlPath: string): string {
       "/construction/roofing/": "src/pages/construction/roofing/index.astro",
       "/construction/decking/": "src/pages/construction/decking/index.astro",
       "/construction/landscaping/": "src/pages/construction/landscaping/index.astro",
+      "/construction/slab-patio-driveway/": "src/pages/construction/slab-patio-driveway/index.astro",
+      "/construction/foundation/": "src/pages/construction/foundation/index.astro",
+      "/construction/rebar/": "src/pages/construction/rebar/index.astro",
+      "/construction/brick-masonry/": "src/pages/construction/brick-masonry/index.astro",
+      "/construction/concrete-block/": "src/pages/construction/concrete-block/index.astro",
+      "/construction/mortar-grout-cement/": "src/pages/construction/mortar-grout-cement/index.astro",
+      "/construction/excavation/": "src/pages/construction/excavation/index.astro",
+      "/construction/framing/": "src/pages/construction/framing/index.astro",
+      "/construction/flooring/": "src/pages/construction/flooring/index.astro",
+      "/construction/drywall-paint/": "src/pages/construction/drywall-paint/index.astro",
+      "/construction/asphalt/": "src/pages/construction/asphalt/index.astro",
       "/calculators/": "src/pages/calculators/index.astro",
       "/about/": "src/pages/about/index.astro",
       "/contact/": "src/pages/contact/index.astro",
@@ -46,9 +76,12 @@ function getLastmod(urlPath: string): string {
     };
     let rel = fileMap[urlPath];
     if (!rel) {
-      // Dynamic calculator: /slug/ -> src/pages/slug/index.astro
+      // Dynamic calculator: /slug/ -> src/pages/[slug]/index.astro or src/pages/slug/index.astro
       const slug = urlPath.replace(/^\//, "").replace(/\/$/, "");
-      rel = `src/pages/${slug}/index.astro`;
+      // Try static file first, else dynamic template
+      const staticPath = `src/pages/${slug}/index.astro`;
+      const dynamicPath = `src/pages/[slug]/index.astro`;
+      rel = fs.existsSync(path.join(process.cwd(), staticPath)) ? staticPath : dynamicPath;
     }
     const full = path.join(process.cwd(), rel);
     const stat = fs.statSync(full);

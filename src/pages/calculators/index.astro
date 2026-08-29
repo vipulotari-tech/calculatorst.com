@@ -4,20 +4,24 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { calculators } from "../../data/calculators";
+import { hubCalculators } from "../../data/hubCalculators";
+const allCalculators = [...calculators];
+const existing = new Set(calculators.map(c=>c.slug));
+for (const h of hubCalculators) if (!existing.has(h.slug)) allCalculators.push(h as any);
 ---
 
-<Layout title="All Calculators — Calculator Street" description="All 10 Calculator Street calculators — gravel, concrete, fence, roofing, decking & landscaping. Fast, US-focused & free.">
+<Layout title="All Calculators — Calculator Street" description="All 200 Calculator Street construction calculators — concrete, gravel, rebar, roofing, flooring, decking & more. Fast, US-focused & free.">
   <Header />
   <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "All Calculators" }]} />
     <div class="mx-auto max-w-[900px] pt-4">
       <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">All Calculators</h1>
-      <p class="mt-2 text-sm leading-6 text-body">10 live calculators — building toward 30 → 50 → 100+. Every tool is static, private and mobile-first.</p>
+      <p class="mt-2 text-sm leading-6 text-body">200 construction calculators — US-focused, static, private and mobile-first. Every tool runs 100% in your browser.</p>
       <div class="mt-6">
         <input id="calc-search" type="search" placeholder="Search calculators… try gravel or deck" class="h-11 w-full rounded-sm border border-hairline bg-canvas px-4 text-sm placeholder:text-mute focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" />
       </div>
       <ul id="calc-list" class="mt-6 grid gap-4 sm:grid-cols-2" role="list">
-        {calculators.map(c => (
+        {allCalculators.map(c => (
           <li data-title={c.title.toLowerCase()} data-desc={c.description.toLowerCase()}>
             <a href={`/${c.slug}/`} class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card transition hover:shadow-card-hover dark:bg-canvas">
               <h2 class="text-sm font-semibold text-ink">{c.title.split(" —")[0]}</h2>

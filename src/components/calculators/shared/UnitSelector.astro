@@ -1,0 +1,11 @@
+---
+interface Props {
+  id: string;
+  options: { value: string; label: string; selected?: boolean }[];
+  ariaLabel?: string;
+}
+const { id, options, ariaLabel } = Astro.props;
+---
+<select id={id} aria-label={ariaLabel} class="h-11 shrink-0 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none">
+  {options.map((o) => <option value={o.value} selected={o.selected}>{o.label}</option>)}
+</select>

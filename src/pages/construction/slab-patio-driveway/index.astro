@@ -1,0 +1,43 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import { hubCalculators } from "../../../data/hubCalculators";
+
+const calculators = hubCalculators.filter(c => ["slab-thickness-calculator","slab-cost-calculator","slab-reinforcement-calculator","patio-concrete-calculator","patio-cost-calculator","driveway-concrete-calculator","driveway-cost-calculator","driveway-thickness-calculator","garage-slab-calculator","shed-foundation-calculator"].includes(c.slug));
+---
+
+<Layout title="Slab, Patio & Driveway Calculators — Construction Calculators | Calculator Street" description="Slab thickness, cost, reinforcement and garage/shed pads. Includes patio and driveway concrete — Free US construction calculators with waste and cost." canonical="/construction/slab-patio-driveway/">
+  <Header slot="header" />
+  <main id="main" tabindex="-1" class="w-full">
+    <div class="mx-auto max-w-[1400px] px-6 py-4 max-md:px-4">
+      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Slab, Patio & Driveway Calculators" }]} />
+    </div>
+    <section class="mx-auto max-w-[1400px] px-6 pb-12 max-md:px-4">
+      <div class="mx-auto max-w-[900px]">
+        <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Slab, Patio & Driveway Calculators</h1>
+        <p class="mt-3 text-body-md leading-6 text-body [text-wrap:pretty]">Slab thickness, cost, reinforcement and garage/shed pads. Includes patio and driveway concrete. All calculators run 100% in your browser — no backend, no tracking. US customary default with metric where useful. Estimates only — verify with a qualified professional for structural or code-regulated work.</p>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          {calculators.map((c) => (
+            <a href={`/${c.slug}/`} class="group rounded-lg border border-hairline bg-canvas p-5 shadow-card transition hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">
+              <h3 class="text-[15px] font-semibold tracking-[-0.02em] text-ink group-hover:text-link">{c.h1}</h3>
+              <p class="mt-1 line-clamp-2 text-sm leading-5 text-body">{c.description}</p>
+              <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-ink group-hover:text-link">Open <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="transition group-hover:translate-x-0.5"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+            </a>
+          ))}
+        </div>
+        <div class="mt-10 rounded-lg border border-hairline bg-canvas p-6">
+          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How to use these calculators</h2>
+          <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
+            <li>Choose the calculator that matches your job (e.g., volume vs. cost vs. weight).</li>
+            <li>Enter dimensions and select units — the tool converts to feet before math.</li>
+            <li>Add waste % (5–10% rectangular, 10–15% irregular) and optional price to see cost.</li>
+          </ol>
+          <p class="mt-3 text-sm leading-6 text-body">All results are estimates. Actual needs vary by site, material and installation. For beams, headers and loads, have a professional review your plans.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer slot="footer" />
+</Layout>

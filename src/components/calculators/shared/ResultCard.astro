@@ -1,0 +1,13 @@
+---
+interface Props {
+  title?: string;
+  id?: string;
+}
+const { title = "RESULT", id = "calc-results" } = Astro.props;
+---
+<div id={id} class="mt-6 hidden" aria-live="polite">
+  <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5 dark:bg-white/[0.04]">
+    <p class="font-mono text-[11px] tracking-widest text-mute">{title}</p>
+    <slot />
+  </div>
+</div>
