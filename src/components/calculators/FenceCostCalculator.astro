@@ -58,7 +58,7 @@ const concreteBags=Math.ceil(posts*0.5); // ~0.5 bag 50lb per post ~ 0.5ft³
 const wasteF=1+waste/100;
 const postsW=Math.ceil(posts*wasteF),panelsW=Math.ceil(panels*wasteF);
 $("f-posts").textContent=String(postsW);$("f-panels").textContent=String(panelsW);$("f-rails-res").textContent=fmt(linearRails*wasteF,1);$("f-area").textContent=fmt(area,1)+" ft²";$("f-concrete").textContent=String(Math.ceil(concreteBags*wasteF));
-let cost="—";if(isFinite(price)&&price>0){const unit=$("f-price-unit").value;let base=0;if(unit==="ft") base=Lf*price;else if(unit==="panel") base=panels*price;else base=posts*price;cost=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(base*wasteF);}
+let cost="—";if(isFinite(price)&&price>0){const unit=$("f-price-unit").value;let base=0;if(unit==="ft") base=Lf*price;else if(unit==="panel") base=panelsW*price;else base=posts*price;cost=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(base*wasteF);}
 $("f-cost").textContent=cost;r.classList.remove("hidden");r.scrollIntoView({behavior:"smooth",block:"nearest"});
 });$("f-reset").addEventListener("click",()=>{r.classList.add("hidden");const e=$("f-len-error");e.textContent="";e.classList.add("hidden");});})();
 </script>
