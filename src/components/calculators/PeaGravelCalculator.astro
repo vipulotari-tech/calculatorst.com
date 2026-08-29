@@ -39,7 +39,7 @@
 </div>
 <script is:inline>
 (()=>{const $=id=>document.getElementById(id);const form=$("pea-form");const res=$("p-results");function toFeet(v,u){if(u==="ft")return v;if(u==="in")return v/12;if(u==="yd")return v*3;if(u==="m")return v*3.28084;if(u==="cm")return v*0.0328084;return v;}
-function fmt(n,d=2){if(!isFinite(n))return "—";return new Intl.NumberFormat("en-US",{maximumFractionDigits:d,minimumFractionDigits:d===0?0:2}).format(n);}
+function fmt(n,d=2){if(!isFinite(n))return "—";return new Intl.NumberFormat("en-US",{maximumFractionDigits:d,minimumFractionDigits:d===0?0:d===2?2:0}).format(n);}
 function show(id,msg){const e=$(id);e.textContent=msg;e.classList.remove("hidden");}
 function clear(){["p-length-error","p-width-error","p-depth-error"].forEach(id=>{const e=$(id);e.textContent="";e.classList.add("hidden");});}
 form.addEventListener("submit",e=>{e.preventDefault();clear();const L=parseFloat($("p-length").value),W=parseFloat($("p-width").value),D=parseFloat($("p-depth").value),waste=parseFloat($("p-waste").value)||0,price=parseFloat($("p-price").value);let ok=true;if(!(L>0)){show("p-length-error","Please enter a valid length.");ok=false;}if(!(W>0)){show("p-width-error","Please enter a valid width.");ok=false;}if(!(D>0)){show("p-depth-error","Depth must be greater than 0.");ok=false;}if(!ok)return;const Lf=toFeet(L,$("p-length-unit").value),Wf=toFeet(W,$("p-width-unit").value),Df=toFeet(D,$("p-depth-unit").value);const cuFt=Lf*Wf*Df,cuYd=cuFt/27,tons=cuYd*1.35,lb=tons*2000,w=1+waste/100;const cuYdW=cuYd*w,tonsW=tons*w,lbW=lb*w;
