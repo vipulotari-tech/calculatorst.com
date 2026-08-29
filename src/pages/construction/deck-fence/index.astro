@@ -5,19 +5,19 @@ import Footer from "../../../components/Footer.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import { hubCalculators } from "../../../data/hubCalculators";
 
-const calculators = hubCalculators.filter(c => ["flooring-calculator","flooring-cost-calculator","hardwood-flooring-calculator","hardwood-flooring-cost-calculator","laminate-flooring-calculator","vinyl-flooring-calculator","carpet-calculator","carpet-cost-calculator","tile-calculator","tile-quantity-calculator","tile-cost-calculator","tile-grout-calculator","tile-adhesive-calculator","flooring-waste-calculator","underlayment-calculator"].includes(c.slug));
+const calculators = hubCalculators.filter(c => ["deck-calculator","deck-cost-calculator","deck-board-calculator","deck-joist-calculator","deck-footing-calculator","deck-stair-calculator","deck-railing-calculator","fence-calculator","fence-cost-calculator","fence-post-calculator","fence-panel-calculator","fence-picket-calculator","fence-concrete-calculator","gate-calculator","gate-cost-calculator"].includes(c.slug));
 ---
 
-<Layout title="Flooring & Tile Calculators — Construction Calculators | Calculator Street" description="Hardwood, laminate, vinyl, carpet and tile — 15 tools — Free US construction calculators with waste and cost." canonical="/construction/flooring/">
+<Layout title="Deck, Fence & Outdoor Calculators — Construction Calculators | Calculator Street" description="Boards, joists, posts, panels and gates — 15 outdoor tools — Free US construction calculators with waste and cost." canonical="/construction/deck-fence/">
   <Header slot="header" />
   <main id="main" tabindex="-1" class="w-full">
     <div class="mx-auto max-w-[1400px] px-6 py-4 max-md:px-4">
-      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Flooring & Tile Calculators" }]} />
+      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Deck, Fence & Outdoor Calculators" }]} />
     </div>
     <section class="mx-auto max-w-[1400px] px-6 pb-12 max-md:px-4">
       <div class="mx-auto max-w-[900px]">
-        <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Flooring & Tile Calculators</h1>
-        <p class="mt-3 text-body-md leading-6 text-body [text-wrap:pretty]">Hardwood, laminate, vinyl, carpet and tile — 15 tools. All calculators run 100% in your browser — no backend, no tracking. US customary default with metric where useful. Estimates only — verify with a qualified professional for structural or code-regulated work.</p>
+        <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Deck, Fence & Outdoor Calculators</h1>
+        <p class="mt-3 text-body-md leading-6 text-body [text-wrap:pretty]">Boards, joists, posts, panels and gates — 15 outdoor tools. All calculators run 100% in your browser — no backend, no tracking. US customary default with metric where useful. Estimates only — verify with a qualified professional for structural or code-regulated work.</p>
         <p class="mt-2 font-mono text-xs tracking-wide text-mute">15 calculators in this category</p>
         <div class="mt-8 grid gap-4 sm:grid-cols-2">
           {calculators.map((c) => (

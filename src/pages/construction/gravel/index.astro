@@ -3,51 +3,33 @@ import Layout from "../../../layouts/Layout.astro";
 import Header from "../../../components/Header.astro";
 import Footer from "../../../components/Footer.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
-const items = [
-  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "Cubic yards, tons & cost for any gravel type" },
-  { title: "Pea Gravel Calculator", href: "/pea-gravel-calculator/", desc: "Dedicated pea gravel for patios & paths" },
-  { title: "Driveway Gravel Calculator", href: "/driveway-gravel-calculator/", desc: "Layers & multi-section driveways" },
-];
+import { hubCalculators } from "../../../data/hubCalculators";
+
+const calculators = hubCalculators.filter(c => ["gravel-calculator","gravel-cost-calculator","gravel-weight-calculator","gravel-depth-calculator","crushed-stone-calculator","crushed-stone-cost-calculator","aggregate-calculator","aggregate-weight-calculator","sand-calculator","sand-weight-calculator","sand-cost-calculator","fill-dirt-calculator","fill-dirt-cost-calculator","topsoil-calculator","topsoil-cost-calculator"].includes(c.slug));
 ---
 
-<Layout title="Gravel Calculators — Calculator Street" description="Gravel calculators for pea gravel, driveway & general gravel. Get cubic yards, tons & cost with waste. US & metric units, 2026 prices.">
-  <Header />
-  <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
-    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Gravel Calculators" }]} />
-    <div class="mx-auto max-w-[900px] pt-4">
-      <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Gravel Calculators</h1>
-      <p class="mt-2 text-sm leading-6 text-body">Estimate gravel for landscaping, patios, paths and driveways. All calculators support US & metric units, material-specific densities and waste. Built for US yards, tons and 2026 material costs.</p>
-      <ul class="mt-6 grid gap-4 sm:grid-cols-2" role="list">
-        {items.map(c => (
-          <li><a href={c.href} class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card transition hover:shadow-card-hover dark:bg-canvas"><h2 class="text-sm font-semibold text-ink">{c.title}</h2><p class="mt-1 text-sm leading-5 text-body">{c.desc}</p><span class="mt-3 text-sm font-medium text-ink">Open →</span></a></li>
-        ))}
-      </ul>
-
-      <div class="mt-10 space-y-8">
-        <section class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
-          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Choosing gravel for your project</h2>
-          <p class="mt-2 text-sm leading-6 text-body">Pea gravel (rounded, 1.35 tons/yd³) stays loose and drains well — ideal for patios and decorative beds but not for driveways. Crushed stone (#57, 1.40 tons/yd³) is angular and locks when compacted — best for bases and driveways <a href="https://www.txdot.gov/manuals/brg/offpeo5.html" target="_blank" rel="noopener" class="text-link underline hover:text-link-deep">per TxDOT</a>. Limestone (1.60 tons/yd³) is heaviest and most durable. Use the general <a href="/gravel-calculator/" class="text-link underline">Gravel Calculator</a> to compare materials and cost side-by-side.</p>
-          <div class="mt-4 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">MATERIAL</th><th class="px-3 py-2">TONS/YD³</th><th class="px-3 py-2">BEST FOR</th></tr></thead><tbody class="divide-y divide-hairline"><tr><td class="px-3 py-2">Pea Gravel</td><td class="px-3 py-2">1.35</td><td class="px-3 py-2">Patios, paths, drainage — never compacts</td></tr><tr><td class="px-3 py-2">Crushed #57</td><td class="px-3 py-2">1.40</td><td class="px-3 py-2">Driveways, drainage, base</td></tr><tr><td class="px-3 py-2">Crusher Run</td><td class="px-3 py-2">1.45</td><td class="px-3 py-2">Base — locks under compaction</td></tr><tr><td class="px-3 py-2">Limestone</td><td class="px-3 py-2">1.60</td><td class="px-3 py-2">Heavy-duty base, high load</td></tr></tbody></table></div>
-        </section>
-
-        <section class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
-          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How we calculate — waste & compaction</h2>
-          <p class="mt-2 text-sm leading-6 text-body">All three tools use <span class="font-mono text-xs">Length × Width × Depth ÷ 27</span> for cubic yards, then × density for tons. Waste is applied after: 5–10% for rectangles, 10–15% for curves. Open-graded #57 settles ~8% (×1.10), dense-graded crusher run compacts 15–25% (×1.20 per TxDOT). Enter waste separately — the driveway tool separates compaction from waste so you don’t double-add.</p>
-          <ul class="mt-3 list-disc space-y-1 pl-5 text-sm leading-6 text-body"><li>Paths/patios: 2–3 inches over fabric</li><li>Driveways: 6–8 inches total (6 in base + 2 in top is safest)</li><li>Measure multiple rectangles and sum for L-shapes</li></ul>
-        </section>
-
-        <section class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
-          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Related & next steps</h2>
-          <p class="mt-2 text-sm leading-6 text-body">Planning a patio? Size the base with the general gravel tool, top with <a href="/pea-gravel-calculator/" class="text-link underline">pea gravel</a>, and edge with the <a href="/paver-calculator/" class="text-link underline">Paver Calculator</a>. For borders, try the <a href="/mulch-calculator/" class="text-link underline">Mulch Calculator</a>. Need cost per ton vs per yard? Each calculator shows both instantly so you can compare supplier quotes.</p>
-          <p class="mt-3 text-sm leading-6 text-body">Reviewed by Vipul Otari — updated Aug 2026. Sources: TxDOT compaction, scale-house densities. Questions? <a href="/contact/" class="text-link underline">Contact us</a>.</p>
-        </section>
-
-        <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
-          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Future in this cluster</h2>
-          <p class="mt-2 text-sm leading-6 text-body">Planned: gravel tons vs yards converter, crushed stone specific, French drain gravel, river rock, cost-only pages — interlinked for topical authority as we measure Search Console demand.</p>
+<Layout title="Gravel & Aggregate Calculators — Construction Calculators | Calculator Street" description="Gravel, crushed stone, sand, topsoil and fill dirt — 15 tools — Free US construction calculators with waste and cost." canonical="/construction/gravel/">
+  <Header slot="header" />
+  <main id="main" tabindex="-1" class="w-full">
+    <div class="mx-auto max-w-[1400px] px-6 py-4 max-md:px-4">
+      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Gravel & Aggregate Calculators" }]} />
+    </div>
+    <section class="mx-auto max-w-[1400px] px-6 pb-12 max-md:px-4">
+      <div class="mx-auto max-w-[900px]">
+        <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Gravel & Aggregate Calculators</h1>
+        <p class="mt-3 text-body-md leading-6 text-body [text-wrap:pretty]">Gravel, crushed stone, sand, topsoil and fill dirt — 15 tools. All calculators run 100% in your browser — no backend, no tracking. US customary default with metric where useful. Estimates only — verify with a qualified professional for structural or code-regulated work.</p>
+        <p class="mt-2 font-mono text-xs tracking-wide text-mute">15 calculators in this category</p>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          {calculators.map((c) => (
+            <a href={`/${c.slug}/`} class="group rounded-lg border border-hairline bg-canvas p-5 shadow-card transition hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">
+              <h3 class="text-[15px] font-semibold tracking-[-0.02em] text-ink group-hover:text-link">{c.h1}</h3>
+              <p class="mt-1 line-clamp-2 text-sm leading-5 text-body">{c.description}</p>
+              <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-ink group-hover:text-link">Open <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="transition group-hover:translate-x-0.5"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+            </a>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   </main>
-  <Footer />
+  <Footer slot="footer" />
 </Layout>

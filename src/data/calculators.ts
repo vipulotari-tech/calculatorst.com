@@ -128,10 +128,9 @@ export function getCalculator(slug: string) {
 }
 
 export const categories = [
-  { name: "Gravel Calculators", slug: "gravel", desc: "Crushed stone, pea gravel and driveway estimates", icon: "gravel" },
-  { name: "Concrete Calculators", slug: "concrete", desc: "Slabs, driveways, footings and bags", icon: "concrete" },
-  { name: "Fence Calculators", slug: "fencing", desc: "Posts, panels, gates and cost", icon: "fence" },
-  { name: "Roofing Calculators", slug: "roofing", desc: "Pitch, area and shingles", icon: "roof" },
-  { name: "Deck Calculators", slug: "decking", desc: "Boards, joists and cost", icon: "deck" },
-  { name: "Landscaping Calculators", slug: "landscaping", desc: "Pavers, mulch, topsoil and sod", icon: "landscape" },
+  { name: "Gravel Calculators", slug: "gravel", desc: "Crushed stone, pea gravel and driveway estimates" },
+  { name: "Concrete Calculators", slug: "concrete", desc: "Slabs, footings, walls and bags" },
+  { name: "Roofing Calculators", slug: "roofing", desc: "Pitch, area and shingles" },
+  { name: "Deck Calculators", slug: "decking", desc: "Boards, joists and cost" },
+  { name: "Landscaping Calculators", slug: "landscaping", desc: "Pavers, mulch and topsoil" },
 ];

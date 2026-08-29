@@ -3,34 +3,33 @@ import Layout from "../../../layouts/Layout.astro";
 import Header from "../../../components/Header.astro";
 import Footer from "../../../components/Footer.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import { hubCalculators } from "../../../data/hubCalculators";
+
+const calculators = hubCalculators.filter(c => ["roofing-calculator","roof-area-calculator","roof-pitch-calculator","roof-slope-calculator","roofing-shingle-calculator","shingle-quantity-calculator","shingle-cost-calculator","roofing-material-calculator","roofing-underlayment-calculator","roof-sheathing-calculator","roof-rafter-calculator","rafter-length-calculator","roof-truss-calculator","roof-flashing-calculator","roof-waste-calculator"].includes(c.slug));
 ---
 
-<Layout title="Roofing Calculators — Calculator Street" description="Roofing calculators for pitch, square footage & squares. Get ratio, angle, slope & roofing cost from building size & overhang.">
-  <Header />
-  <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
-    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Roofing Calculators" }]} />
-    <div class="mx-auto max-w-[900px] pt-4">
-      <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Roofing Calculators</h1>
-      <p class="mt-2 text-sm leading-6 text-body">Pitch, area, squares and shingles for gable and hip roofs. Measured in rise/run, degrees and squares (100 ft²).</p>
-      <ul class="mt-6 grid gap-4 sm:grid-cols-2" role="list">
-        <li><a href="/roof-pitch-calculator/" class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card hover:shadow-card-hover dark:bg-canvas"><h2 class="text-sm font-semibold text-ink">Roof Pitch Calculator</h2><p class="mt-1 text-sm leading-5 text-body">Ratio, angle & slope from rise & run</p><span class="mt-3 text-sm font-medium text-ink">Open →</span></a></li>
-        <li><a href="/roof-square-footage-calculator/" class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card hover:shadow-card-hover dark:bg-canvas"><h2 class="text-sm font-semibold text-ink">Roof Square Footage Calculator</h2><p class="mt-1 text-sm leading-5 text-body">Area & squares with waste and overhang</p><span class="mt-3 text-sm font-medium text-ink">Open →</span></a></li>
-      </ul>
-
-      <div class="mt-10 space-y-8">
-        <section class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
-          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Pitch & area relationship</h2>
-          <p class="mt-2 text-sm leading-6 text-body">Pitch is rise over run per 12 inches. Angle = arctan(rise÷run)×180/π. Multiplier = √(pitch²+144)÷12: 4:12=1.054, 6:12=1.118, 8:12=1.202, 12:12=1.414. So a 1,200 ft² footprint at 6:12 becomes ~1,342 ft² roof. Use the <a href="/roof-pitch-calculator/" class="text-link underline">pitch tool</a> first, then the <a href="/roof-square-footage-calculator/" class="text-link underline">area tool</a> for squares.</p>
-          <div class="mt-4 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">PITCH</th><th class="px-3 py-2">ANGLE</th><th class="px-3 py-2">MULTIPLIER</th><th class="px-3 py-2">NOTE</th></tr></thead><tbody class="divide-y divide-hairline"><tr><td class="px-3 py-2">4:12</td><td class="px-3 py-2">18.4°</td><td class="px-3 py-2">1.054</td><td class="px-3 py-2">Low slope, membrane needed &lt;3:12</td></tr><tr><td class="px-3 py-2">6:12</td><td class="px-3 py-2">26.6°</td><td class="px-3 py-2">1.118</td><td class="px-3 py-2">Common US suburban</td></tr><tr><td class="px-3 py-2">8:12</td><td class="px-3 py-2">33.7°</td><td class="px-3 py-2">1.202</td><td class="px-3 py-2">Steep, snow sheds</td></tr><tr><td class="px-3 py-2">12:12</td><td class="px-3 py-2">45°</td><td class="px-3 py-2">1.414</td><td class="px-3 py-2">Very steep, safety gear</td></tr></tbody></table></div>
-        </section>
-        <section class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
-          <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Overhang, hips & waste</h2>
-          <p class="mt-2 text-sm leading-6 text-body">Include overhang in footprint before multiplier: (Length+2×overhang)×(Width+2×overhang)×sections. Add 10% waste for simple gable, 15% for hips/valleys/dormers. Starter, ridge and hip shingles are extra beyond field squares.</p>
-          <p class="mt-3 text-sm leading-6 text-body">Sources: manufacturer specs (most shingles ≥2:12 with underlayment, ≥4:12 standard). Reviewed by Vipul Otari, updated Aug 2026.</p>
-        </section>
-        <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas"><h2 class="text-display-sm font-semibold text-ink">Planned</h2><p class="mt-2 text-sm leading-6 text-body">Shingle bundles (3 bundles ≈ 1 square for 3-tab, varies), roofing squares cost, ridge length. Priority after impressions in Search Console.</p></div>
-      </div>
+<Layout title="Roofing Calculators — Construction Calculators | Calculator Street" description="Area, pitch, shingles, rafters and sheathing — 15 roofing tools — Free US construction calculators with waste and cost." canonical="/construction/roofing/">
+  <Header slot="header" />
+  <main id="main" tabindex="-1" class="w-full">
+    <div class="mx-auto max-w-[1400px] px-6 py-4 max-md:px-4">
+      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Roofing Calculators" }]} />
     </div>
+    <section class="mx-auto max-w-[1400px] px-6 pb-12 max-md:px-4">
+      <div class="mx-auto max-w-[900px]">
+        <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Roofing Calculators</h1>
+        <p class="mt-3 text-body-md leading-6 text-body [text-wrap:pretty]">Area, pitch, shingles, rafters and sheathing — 15 roofing tools. All calculators run 100% in your browser — no backend, no tracking. US customary default with metric where useful. Estimates only — verify with a qualified professional for structural or code-regulated work.</p>
+        <p class="mt-2 font-mono text-xs tracking-wide text-mute">15 calculators in this category</p>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          {calculators.map((c) => (
+            <a href={`/${c.slug}/`} class="group rounded-lg border border-hairline bg-canvas p-5 shadow-card transition hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">
+              <h3 class="text-[15px] font-semibold tracking-[-0.02em] text-ink group-hover:text-link">{c.h1}</h3>
+              <p class="mt-1 line-clamp-2 text-sm leading-5 text-body">{c.description}</p>
+              <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-ink group-hover:text-link">Open <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="transition group-hover:translate-x-0.5"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
   </main>
-  <Footer />
+  <Footer slot="footer" />
 </Layout>

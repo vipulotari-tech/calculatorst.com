@@ -157,7 +157,7 @@ const resultsId = `${id}-results`;
     let primary = "—", secondary = "—", breakdown = "", costText = "—";
 
     try {
-      // Generic dispatcher — covers 90% of 200 calculators
+      // Generic dispatcher — covers the calculator library
       if (formulaKey === "volume") {
         // expects inputs: length, width, depth/thickness
         const L = toFeet(vals.length ?? vals.length1 ?? vals.l ?? 0, $(`${id}-length-unit`)?.value || "ft");

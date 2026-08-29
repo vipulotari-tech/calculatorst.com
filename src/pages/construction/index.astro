@@ -6,15 +6,17 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { hubCategories, hubCalculators } from "../../data/hubCalculators";
 
 const total = hubCalculators.length;
+const categoryCount = hubCategories.length;
 ---
 
-<Layout title={`Construction Calculators — ${total} Tools | Calculator Street`} description={`${total} construction calculators for concrete, gravel, rebar, brick, roofing, flooring, decking & more. Fast, private, US-focused with waste & cost.`}>
+<Layout title="Construction Calculators | Calculator Street"
+   description="Construction calculators for concrete, gravel, rebar, brick, roofing, flooring, decking & more. Fast, private, US-focused with waste and cost.">
   <Header />
   <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Construction Calculators" }]} />
     <div class="mx-auto max-w-[900px] pt-4">
       <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink [text-wrap:balance]">Construction Calculators</h1>
-      <p class="mt-3 max-w-[640px] text-sm leading-6 text-body [text-wrap:pretty]">{total} calculators for builders and DIY homeowners — concrete, gravel, rebar, brick, roofing, flooring, drywall, deck, fence and more. Every tool is static, private and US-focused with waste and cost.</p>
+      <p class="mt-3 max-w-[640px] text-sm leading-6 text-body [text-wrap:pretty]">Construction calculators for concrete, gravel, rebar, brick, roofing, flooring, drywall, deck, fence and more. Every tool is static, private and US-focused with waste and cost.</p>
       <div class="mt-8 grid gap-4 sm:grid-cols-2">
         {hubCategories.map((c) => (
           <a href={`/construction/${c.slug}/`} class="group rounded-lg border border-hairline bg-canvas p-6 shadow-card transition hover:shadow-card-hover dark:bg-canvas">
@@ -26,9 +28,9 @@ const total = hubCalculators.length;
         ))}
       </div>
       <div class="mt-10 rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
-        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Why 200 matters</h2>
-        <p class="mt-2 text-sm leading-6 text-body">From a single slab to a full build, the right calculator saves a trip to the store. Our 200 tools share one design system, one unit engine and one SEO architecture — so adding #201 is one JSON. All internals link tightly for topical authority, and every page is 100% in-browser.</p>
-        <a href="/calculators/" class="mt-4 inline-flex text-sm font-medium text-link hover:text-link-deep">View all {total} calculators →</a>
+        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Why Calculators Matter</h2>
+        <p class="mt-2 text-sm leading-6 text-body">From a single slab to a full build, the right calculator saves time and resources. Our tools share one design system, one unit engine and one SEO architecture — so adding new tools is seamless. All pages are 100% in-browser.</p>
+        <a href="/calculators/" class="mt-4 inline-flex text-sm font-medium text-link hover:text-link-deep">View all calculators →</a>
       </div>
     </div>
   </main>

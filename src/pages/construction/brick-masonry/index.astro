@@ -8,7 +8,7 @@ import { hubCalculators } from "../../../data/hubCalculators";
 const calculators = hubCalculators.filter(c => ["brick-calculator","brick-wall-calculator","brick-quantity-calculator","brick-cost-calculator","brick-mortar-calculator","brick-veneer-calculator","brick-patio-calculator","brick-paver-calculator","masonry-calculator","masonry-wall-calculator","masonry-cost-calculator","masonry-block-calculator","brick-weight-calculator","brick-waste-calculator","brick-joint-calculator"].includes(c.slug));
 ---
 
-<Layout title="Brick & Masonry Calculators — Construction Calculators | Calculator Street" description="Brick quantity, mortar, veneer, pavers and masonry walls with waste and joints — Free US construction calculators with waste and cost." canonical="/construction/brick-masonry/">
+<Layout title="Brick & Masonry Calculators — Construction Calculators | Calculator Street" description="Brick quantity, mortar, veneer and joint — 15 masonry tools — Free US construction calculators with waste and cost." canonical="/construction/brick-masonry/">
   <Header slot="header" />
   <main id="main" tabindex="-1" class="w-full">
     <div class="mx-auto max-w-[1400px] px-6 py-4 max-md:px-4">
@@ -17,7 +17,8 @@ const calculators = hubCalculators.filter(c => ["brick-calculator","brick-wall-c
     <section class="mx-auto max-w-[1400px] px-6 pb-12 max-md:px-4">
       <div class="mx-auto max-w-[900px]">
         <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Brick & Masonry Calculators</h1>
-        <p class="mt-3 text-body-md leading-6 text-body [text-wrap:pretty]">Brick quantity, mortar, veneer, pavers and masonry walls with waste and joints. All calculators run 100% in your browser — no backend, no tracking. US customary default with metric where useful. Estimates only — verify with a qualified professional for structural or code-regulated work.</p>
+        <p class="mt-3 text-body-md leading-6 text-body [text-wrap:pretty]">Brick quantity, mortar, veneer and joint — 15 masonry tools. All calculators run 100% in your browser — no backend, no tracking. US customary default with metric where useful. Estimates only — verify with a qualified professional for structural or code-regulated work.</p>
+        <p class="mt-2 font-mono text-xs tracking-wide text-mute">15 calculators in this category</p>
         <div class="mt-8 grid gap-4 sm:grid-cols-2">
           {calculators.map((c) => (
             <a href={`/${c.slug}/`} class="group rounded-lg border border-hairline bg-canvas p-5 shadow-card transition hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">
