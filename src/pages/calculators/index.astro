@@ -50,7 +50,7 @@ const filterCategories = hubCategories;
           <input id="calc-search" type="search" placeholder="Search the library… try concrete slab, roof pitch, fence posts" class="h-[52px] w-full rounded-full border border-hairline bg-white pl-11 pr-4 text-[14px] shadow-sm placeholder:text-mute focus:border-link/20 focus:shadow-search-focus focus:outline-none dark:bg-[#171717] dark:border-white/10" autocomplete="off" spellcheck="false" />
         </div>
         <div class="mt-3 flex flex-wrap justify-center gap-2" role="group" aria-label="Filter by category">
-          <button type="button" data-filter="" class="filter-btn rounded-full bg-ink px-3.5 py-1.5 font-mono text-[11px] font-medium tracking-wide text-white dark:bg-white dark:text-black">All</button>
+          <button type="button" data-filter="" class="filter-btn rounded-full border border-hairline bg-white px-3.5 py-1.5 font-mono text-[11px] font-medium tracking-wide text-mute hover:text-ink hover:border-hairline-strong/40 dark:bg-canvas dark:border-white/10">All</button>
           {filterCategories.map(cat => (
             <button type="button" data-filter={cat.slug} class="filter-btn rounded-full border border-hairline bg-white px-3 py-1.5 font-mono text-[11px] font-medium tracking-wide text-mute hover:text-ink hover:border-hairline-strong/40 dark:bg-canvas dark:border-white/10">{cat.name.replace(" Calculators","")}</button>
           ))}
