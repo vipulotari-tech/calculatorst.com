@@ -36,18 +36,18 @@ import { hubCategories, hubCalculators } from "../data/hubCalculators";
 
   <div class="flex items-center gap-2.5 shrink-0">
     <div class="hidden lg:flex items-center gap-2.5">
-      <button type="button" id="search-btn" class="inline-flex items-center gap-2 rounded-full border border-hairline bg-white px-3 py-1.5 text-sm font-[450] text-ink shadow-sm transition hover:bg-[#fcfcfc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link" aria-label="Search calculators">
+      <button type="button" id="search-btn" class="inline-flex items-center gap-2 rounded-full border border-hairline bg-white px-3 py-1.5 text-sm font-[450] text-ink shadow-sm transition hover:bg-[#fcfcfc] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-white/[0.06] dark:border-white/10 dark:text-mute dark:hover:bg-white/[0.10] dark:hover:text-ink" aria-label="Search calculators">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="text-mute shrink-0"><path d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>
         <span class="text-[13px] hidden md:inline">Search</span>
-        <span class="ml-1 hidden rounded bg-[#fcfcfc] px-1.5 py-0.5 font-mono text-[10px] leading-none tracking-wide text-mute ring-1 ring-hairline xl:inline-flex">⌘&nbsp;K</span>
+        <span class="ml-1 hidden rounded bg-[#fcfcfc] px-1.5 py-0.5 font-mono text-[10px] leading-none tracking-wide text-mute ring-1 ring-hairline xl:inline-flex dark:bg-white/[0.06] dark:text-mute dark:ring-white/10">⌘&nbsp;K</span>
       </button>
       <div class="h-5 w-px bg-hairline" aria-hidden="true"></div>
       <ThemeToggle id="theme-toggle" class="w-[52px] sm:w-[56px] shrink-0" />
     </div>
     <div class="flex items-center gap-1.5 lg:hidden">
-      <button type="button" id="search-btn-mobile" class="flex h-9 w-9 items-center justify-center shrink-0 rounded-full border border-hairline bg-white text-mute shadow-sm transition hover:bg-[#fcfcfc] hover:text-ink" aria-label="Search calculators"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg></button>
+      <button type="button" id="search-btn-mobile" class="flex h-9 w-9 items-center justify-center shrink-0 rounded-full border border-hairline bg-white text-mute shadow-sm transition hover:bg-[#fcfcfc] hover:text-ink dark:bg-white/[0.06] dark:border-white/10 dark:text-mute dark:hover:bg-white/[0.10] dark:hover:text-ink" aria-label="Search calculators"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg></button>
       <ThemeToggle id="theme-toggle-mobile" class="w-[52px] xs:w-[56px] shrink-0" />
-      <button id="menu-toggle" type="button" class="flex h-9 w-9 items-center justify-center shrink-0 rounded-full border border-hairline bg-white text-ink shadow-sm transition hover:bg-[#fcfcfc]" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><svg class="icon-open" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 5h11M2.5 8h11M2.5 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><svg class="icon-close hidden" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      <button id="menu-toggle" type="button" class="flex h-9 w-9 items-center justify-center shrink-0 rounded-full border border-hairline bg-white text-ink shadow-sm transition hover:bg-[#fcfcfc] dark:bg-white/[0.06] dark:border-white/10 dark:text-mute dark:hover:bg-white/[0.10] dark:hover:text-ink" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><svg class="icon-open" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 5h11M2.5 8h11M2.5 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><svg class="icon-close hidden" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
     </div>
   </div>
 </header>
