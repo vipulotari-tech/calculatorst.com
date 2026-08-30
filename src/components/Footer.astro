@@ -1,6 +1,6 @@
 ---
 import { hubCalculators, hubCategories } from "../data/hubCalculators";
-const popular = hubCalculators.filter(c => ["concrete-slab-calculator","gravel-calculator","roof-pitch-calculator","fence-cost-calculator"].includes(c.slug)).slice(0,4);
+const popular = hubCalculators.filter(c => c.featured).slice(0,7);
 ---
 
 <footer class="border-t border-hairline bg-white dark:bg-canvas" aria-labelledby="footer-heading">
@@ -33,7 +33,7 @@ const popular = hubCalculators.filter(c => ["concrete-slab-calculator","gravel-c
       <div>
         <h3 class="flex items-center gap-2 font-mono text-[11px] font-medium tracking-[0.16em] uppercase text-mute"><span class="h-px w-6 bg-hairline"></span> Categories</h3>
         <ul class="mt-4 space-y-2 text-[13.5px]" role="list">
-          {hubCategories.slice(0,8).map((cat) => <li><a href={`/construction/${cat.slug}/`} class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">{cat.name} <span class="font-mono text-xs text-mute">({cat.count})</span></a></li>)}
+          {hubCategories.map((cat) => <li><a href={`/construction/${cat.slug}/`} class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">{cat.name} <span class="font-mono text-xs text-mute">({cat.count})</span></a></li>)}
           <li><a href="/construction/" class="font-medium text-ink hover:text-link">All categories →</a></li>
         </ul>
       </div>

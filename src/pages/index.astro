@@ -5,7 +5,7 @@ import Footer from "../components/Footer.astro";
 import { hubCalculators, hubCategories } from "../data/hubCalculators";
 import { clusterGroups, projectGroups } from "../data/subcategories";
 
-const popular = hubCalculators.filter(c => ["concrete-slab-calculator","gravel-calculator","rebar-calculator","brick-wall-calculator","roof-pitch-calculator","fence-cost-calculator","tile-calculator","paint-calculator","deck-calculator","paver-calculator","concrete-calculator","excavation-calculator"].includes(c.slug)).slice(0,12);
+const popular = hubCalculators.filter(c => c.featured).slice(0,12);
 const actualPopular = popular.length ? popular : hubCalculators.slice(0,12);
 const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.slug === s)).filter(Boolean) as typeof hubCalculators;
 ---
@@ -13,6 +13,7 @@ const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.
 <Layout
   title={`Calculator Street — Free Construction & Home Improvement Calculators`}
   description={`Free construction & home improvement calculators — fast, private and mobile-friendly. Built with Astro + Tailwind CSS v4.`}
+  canonical="/"
 >
   <Header />
   <main id="main" tabindex="-1">

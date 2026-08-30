@@ -29,7 +29,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "concrete volume calculator",
       "concrete volume calculator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "concrete-cost-calculator",
@@ -43,7 +43,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "concrete cost calculator",
       "concrete cost calculator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "concrete-pour-calculator",
@@ -57,7 +57,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "concrete pour calculator",
       "concrete pour calculator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "concrete-mix-calculator",
@@ -71,7 +71,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "concrete mix calculator",
       "concrete mix calculator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "concrete-weight-calculator",
@@ -85,7 +85,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "concrete weight calculator",
       "concrete weight calculator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "concrete-slab-calculator",
@@ -113,7 +113,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "concrete footing calculator",
       "concrete footing calculator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "concrete-foundation-calculator",
@@ -127,7 +127,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "concrete foundation calculator",
       "concrete foundation calculator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "concrete-wall-calculator",
@@ -141,7 +141,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "concrete wall calculator",
       "concrete wall calculator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "concrete-column-calculator",
@@ -365,7 +365,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "foundation cost calculator",
       "foundation cost calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "foundation-excavation-calculator",
@@ -505,7 +505,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "rebar calculator",
       "rebar calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "rebar-weight-calculator",
@@ -645,7 +645,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "brick calculator",
       "brick calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "brick-wall-calculator",
@@ -869,7 +869,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "cmu calculator",
       "cmu calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "cmu-wall-calculator",
@@ -995,7 +995,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "mortar calculator",
       "mortar calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "mortar-mix-calculator",
@@ -1135,7 +1135,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "gravel calculator",
       "gravel calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "gravel-cost-calculator",
@@ -1345,7 +1345,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "excavation calculator",
       "excavation calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "excavation-cost-calculator",
@@ -1485,7 +1485,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "framing calculator",
       "framing calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "wall-framing-calculator",
@@ -1709,7 +1709,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "roof area calculator",
       "roof area calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "roof-pitch-calculator",
@@ -1723,7 +1723,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "roof pitch calculator",
       "roof pitch calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "roof-slope-calculator",
@@ -1905,7 +1905,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "flooring calculator",
       "flooring calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "flooring-cost-calculator",
@@ -2115,7 +2115,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "drywall calculator",
       "drywall calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "drywall-sheet-calculator",
@@ -2199,7 +2199,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "paint calculator",
       "paint calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "paint-coverage-calculator",
@@ -2325,7 +2325,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "deck calculator",
       "deck calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "deck-cost-calculator",
@@ -2423,7 +2423,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "fence calculator",
       "fence calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "fence-cost-calculator",
@@ -2535,7 +2535,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "paver calculator",
       "paver calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "paver-cost-calculator",
@@ -2605,7 +2605,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "landscaping calculator",
       "landscaping calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "landscaping-cost-calculator",
@@ -2633,7 +2633,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "mulch calculator",
       "mulch calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "mulch-cost-calculator",
@@ -2675,7 +2675,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "asphalt calculator",
       "asphalt calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "asphalt-cost-calculator",
@@ -2803,6 +2803,51 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     ],
     "featured": false
   }
+,
+  {
+    "slug": "pea-gravel-calculator",
+    "title": "Pea Gravel Calculator — Yards, Tons & Cost",
+    "h1": "Pea Gravel Calculator",
+    "description": "Dedicated pea gravel calculator for patios, paths and landscaping. Get cubic yards, tons and estimated cost with waste.",
+    "category": "Gravel & Aggregate",
+    "cluster": "gravel",
+    "iconPath": "M8 3.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM8 9.5v3M6.5 12.5h3",
+    "keywords": ["pea gravel calculator"],
+    "featured": true
+  },
+  {
+    "slug": "driveway-gravel-calculator",
+    "title": "Driveway Gravel Calculator — Volume & Cost",
+    "h1": "Driveway Gravel Calculator",
+    "description": "Estimate gravel for driveways by length, width, depth and layers. Results in cubic yards, tons and cost.",
+    "category": "Gravel & Aggregate",
+    "cluster": "gravel",
+    "iconPath": "M3.5 12.5h9M5 9l1.5-3h3L11 9M5 9h6M8 6v3",
+    "keywords": ["driveway gravel calculator"],
+    "featured": true
+  },
+  {
+    "slug": "roof-square-footage-calculator",
+    "title": "Roof Square Footage Calculator — Area & Squares",
+    "h1": "Roof Square Footage Calculator",
+    "description": "Calculate roof square footage and roofing squares from building size, pitch and overhang with waste.",
+    "category": "Roofing",
+    "cluster": "roofing",
+    "iconPath": "M4 9l4-5 4 5M4 9h8v3H4z",
+    "keywords": ["roof square footage calculator"],
+    "featured": true
+  },
+  {
+    "slug": "deck-material-calculator",
+    "title": "Deck Material Calculator — Boards, Joists & Cost",
+    "h1": "Deck Material Calculator",
+    "description": "Estimate deck boards, joists, fasteners and cost from deck size, board size and spacing with waste.",
+    "category": "Deck, Fence & Outdoor",
+    "cluster": "deck-fence",
+    "iconPath": "M3 8c2-2 4-2 5 0s3 2 5 0M3 11c2-2 4-2 5 0s3 2 5 0",
+    "keywords": ["deck material calculator","deck board calculator"],
+    "featured": true
+  }
 ];
 
 export const hubCategories = [
@@ -2813,13 +2858,13 @@ export const hubCategories = [
   { name: "Brick & Masonry", slug: "brick-masonry", desc: "Quantity, mortar, veneer and joint", count: 15 },
   { name: "Concrete Block & CMU", slug: "concrete-block", desc: "CMU walls, grout and reinforcement", count: 10 },
   { name: "Mortar, Grout & Cement", slug: "mortar-grout-cement", desc: "Mix ratios, bags and sand ratios", count: 10 },
-  { name: "Gravel, Aggregate & Dirt", slug: "gravel", desc: "Gravel, crushed stone, sand, topsoil and fill dirt", count: 15 },
+  { name: "Gravel, Aggregate & Dirt", slug: "gravel", desc: "Gravel, crushed stone, sand, topsoil and fill dirt", count: 17 },
   { name: "Excavation & Earthwork", slug: "excavation", desc: "Trenches, cut/fill and soil volume", count: 10 },
   { name: "Framing & Lumber", slug: "framing", desc: "Studs, joists, beams and board feet", count: 15 },
-  { name: "Roofing Calculators", slug: "roofing", desc: "Area, pitch, shingles, rafters and sheathing", count: 15 },
+  { name: "Roofing Calculators", slug: "roofing", desc: "Area, pitch, shingles, rafters and sheathing", count: 16 },
   { name: "Flooring & Tile", slug: "flooring", desc: "Hardwood, laminate, vinyl, carpet and tile", count: 15 },
   { name: "Drywall, Paint & Insulation", slug: "drywall-paint", desc: "Sheets, screws, paint coverage and spray foam", count: 15 },
-  { name: "Deck, Fence & Outdoor", slug: "deck-fence", desc: "Boards, joists, posts, panels and gates", count: 15 },
+  { name: "Deck, Fence & Outdoor", slug: "deck-fence", desc: "Boards, joists, posts, panels and gates", count: 16 },
   { name: "Paver & Landscaping", slug: "landscaping", desc: "Pavers, base, sand and retaining walls", count: 10 },
   { name: "Asphalt & Surface", slug: "asphalt", desc: "Driveways, parking lots, road base and surface area", count: 10 },
 ];

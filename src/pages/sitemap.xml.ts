@@ -6,28 +6,15 @@ import { hubCalculators } from "../data/hubCalculators";
 
 const site = "https://calculatorst.com";
 
-// Core pages — 16 category hubs + 200 calculators
+// Core pages — 16 category hubs (hubCategories) + 200 calculators — single registry
+import { hubCategories } from "../data/hubCalculators";
 const staticPages = [
   "/",
   "/construction/",
-  "/construction/gravel/",
+  ...hubCategories.map(c => `/construction/${c.slug}/`),
+  // Legacy aliases — keep for indexed URLs, not primary
   "/construction/fencing/",
-  "/construction/concrete/",
-  "/construction/roofing/",
   "/construction/decking/",
-  "/construction/landscaping/",
-  // New 10 hubs for 200-hub
-  "/construction/slab-patio-driveway/",
-  "/construction/foundation/",
-  "/construction/rebar/",
-  "/construction/brick-masonry/",
-  "/construction/concrete-block/",
-  "/construction/mortar-grout-cement/",
-  "/construction/excavation/",
-  "/construction/framing/",
-  "/construction/flooring/",
-  "/construction/drywall-paint/",
-  "/construction/asphalt/",
   "/calculators/",
   "/about/",
   "/contact/",
@@ -42,7 +29,8 @@ for (const h of hubCalculators) {
   if (!existingSlugs.has(h.slug)) allCalcs.push(h as any);
 }
 const calculatorPages = allCalcs.map((c) => `/${c.slug}/`);
-const pages = [...staticPages.slice(0, 18), ...calculatorPages, ...staticPages.slice(18)];
+const calcIdx = staticPages.indexOf("/calculators/");
+const pages = [...staticPages.slice(0, calcIdx + 1), ...calculatorPages, ...staticPages.slice(calcIdx + 1)];
 
 function getLastmod(urlPath: string): string {
   const fallback = new Date().toISOString().split("T")[0];
@@ -50,23 +38,7 @@ function getLastmod(urlPath: string): string {
     const fileMap: Record<string, string> = {
       "/": "src/pages/index.astro",
       "/construction/": "src/pages/construction/index.astro",
-      "/construction/gravel/": "src/pages/construction/gravel/index.astro",
-      "/construction/fencing/": "src/pages/construction/fencing/index.astro",
-      "/construction/concrete/": "src/pages/construction/concrete/index.astro",
-      "/construction/roofing/": "src/pages/construction/roofing/index.astro",
-      "/construction/decking/": "src/pages/construction/decking/index.astro",
-      "/construction/landscaping/": "src/pages/construction/landscaping/index.astro",
-      "/construction/slab-patio-driveway/": "src/pages/construction/slab-patio-driveway/index.astro",
-      "/construction/foundation/": "src/pages/construction/foundation/index.astro",
-      "/construction/rebar/": "src/pages/construction/rebar/index.astro",
-      "/construction/brick-masonry/": "src/pages/construction/brick-masonry/index.astro",
-      "/construction/concrete-block/": "src/pages/construction/concrete-block/index.astro",
-      "/construction/mortar-grout-cement/": "src/pages/construction/mortar-grout-cement/index.astro",
-      "/construction/excavation/": "src/pages/construction/excavation/index.astro",
-      "/construction/framing/": "src/pages/construction/framing/index.astro",
-      "/construction/flooring/": "src/pages/construction/flooring/index.astro",
-      "/construction/drywall-paint/": "src/pages/construction/drywall-paint/index.astro",
-      "/construction/asphalt/": "src/pages/construction/asphalt/index.astro",
+      ...Object.fromEntries(hubCategories.map(c => [`/construction/${c.slug}/`, `src/pages/construction/${c.slug}/index.astro`])),
       "/calculators/": "src/pages/calculators/index.astro",
       "/about/": "src/pages/about/index.astro",
       "/contact/": "src/pages/contact/index.astro",

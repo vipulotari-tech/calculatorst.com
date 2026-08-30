@@ -101,15 +101,34 @@ function getVisualVariant(calc) {
 const inputs = getInputsForCalc(calc);
 const formulaKey = getFormulaKey(calc);
 const visualVariant = getVisualVariant(calc);
-const related = hubCalculators.filter(c => c.cluster === calc.cluster && c.slug !== calc.slug).slice(0,3).map(c=>({title:c.h1, href:`/${c.slug}/`, desc:c.description.slice(0,60)+"..."}));
+const clusterToSlug: Record<string,string> = {
+  concrete: "concrete",
+  slab: "slab-patio-driveway",
+  foundation: "foundation",
+  rebar: "rebar",
+  brick: "brick-masonry",
+  cmu: "concrete-block",
+  mortar: "mortar-grout-cement",
+  gravel: "gravel",
+  excavation: "excavation",
+  framing: "framing",
+  roofing: "roofing",
+  flooring: "flooring",
+  drywall: "drywall-paint",
+  "deck-fence": "deck-fence",
+  landscaping: "landscaping",
+  asphalt: "asphalt",
+};
+const categorySlug = clusterToSlug[calc.cluster] || calc.cluster;
+const related = hubCalculators.filter(c => c.cluster === calc.cluster && c.slug !== calc.slug).slice(0,6).map(c=>({title:c.h1, href:`/${c.slug}/`, desc:c.description.slice(0,60)+"..."}));
 if (related.length < 4) {
-  const extra = hubCalculators.filter(c => c.category === calc.category && c.slug !== calc.slug && !related.find(r=>r.href.includes(c.slug))).slice(0,4-related.length);
+  const extra = hubCalculators.filter(c => c.category === calc.category && c.slug !== calc.slug && !related.find(r=>r.href.includes(c.slug))).slice(0,8-related.length);
   extra.forEach(c=>related.push({title:c.h1, href:`/${c.slug}/`, desc:c.description.slice(0,60)+"..."}));
 }
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Construction", href: "/construction/" },
-  { label: calc.category, href: `/construction/${calc.cluster}/` },
+  { label: calc.category, href: `/construction/${categorySlug}/` },
   { label: calc.h1 },
 ];
 const d = details || {};
