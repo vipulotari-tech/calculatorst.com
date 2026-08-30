@@ -2,7 +2,7 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import CalculatorVisual from "../../components/CalculatorVisual.astro";
+import CalculatorDiagram from "../../components/CalculatorDiagram.astro";
 import GravelCalculator from "../../components/calculators/GravelCalculator.astro";
 
 const related = [
@@ -45,7 +45,7 @@ const faq = [
   <GravelCalculator slot="calculator" />
 
   <section class="space-y-6">
-    <CalculatorVisual variant="gravel" />
+    <CalculatorDiagram slug="gravel-calculator" cluster="gravel" h1="Gravel Calculator" inputs={[{"id":"length","label":"Length","unit":"ft"},{"id":"width","label":"Width","unit":"ft"},{"id":"depth","label":"Depth","unit":"in"}]} />
     <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
       <p class="mt-2 text-sm leading-6 text-body [text-wrap:pretty]">We compute the rectangular volume and convert units to feet before any math. Then we convert to cubic yards and to weight using the material's density. Waste is applied last so you order enough.</p>
@@ -60,7 +60,7 @@ const faq = [
 
     <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Formula</h2>
-      <div class="mt-3 rounded-md border border-hairline bg-canvas-soft-2 p-4 font-mono text-sm leading-6 dark:bg-white/[0.03]">
+      <div class="mt-3 rounded-md border border-hairline bg-canvas-soft-2 dark:bg-white/[0.04] p-4 font-mono text-sm leading-6 dark:bg-white/[0.03]">
         <p>Cubic Feet = L(ft) × W(ft) × D(ft)</p>
         <p>Cubic Yards = Cubic Feet ÷ 27</p>
         <p>Tons = Cubic Yards × Density (tons/yd³)</p>

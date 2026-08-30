@@ -1,0 +1,88 @@
+---
+interface Input { id: string; label: string; unit?: string; }
+interface Props { slug: string; cluster?: string; h1?: string; title?: string; inputs?: Input[]; formula?: string; }
+const { slug, cluster="generic", h1, title, inputs=[], formula } = Astro.props;
+const label = (h1 || title || slug).trim();
+const hash = [...slug].reduce((a,c)=>a+c.charCodeAt(0),0);
+const accents = ["#0070f3","#7928ca","#ab570a","#29bc9b","#ee0000","#0761d1"] as const;
+const accent = accents[hash % accents.length];
+const accent2 = accents[(hash+2)%accents.length];
+const words = label.replace(/Calculator/i,"").trim();
+const short = words.slice(0,26);
+const dimA = inputs[0]?.label || "Length";
+const dimB = inputs[1]?.label || "Width";
+const dimC = inputs[2]?.label || "Depth";
+const unitA = inputs[0]?.unit || "ft";
+const unitB = inputs[1]?.unit || "ft";
+const unitC = inputs[2]?.unit || "in";
+const exL = 10 + (hash % 14);
+const exW = 8 + ((hash>>2) % 10);
+const exD = [3,4,6,8,10][hash%5];
+const waste = [5,7,10,12][hash%4];
+const isPitch = slug.includes("pitch") || /pitch/i.test(label);
+const isRoof = slug.includes("roof") && !isPitch;
+const isRebar = cluster==="rebar" || /rebar/i.test(label);
+const isBrick = cluster==="brick" || cluster==="cmu" || /brick|block|cmu/i.test(label);
+const isFence = /fence|gate/i.test(label);
+const isDeck = /deck/i.test(label);
+const isPaver = /paver|tile/i.test(label);
+const kind = isPitch ? "pitch" : isRoof ? "roof" : isRebar ? "rebar" : isBrick ? "brick" : isFence ? "fence" : isDeck ? "deck" : isPaver ? "paver" : "volume";
+---
+<figure class="overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
+  <div class="bg-canvas-soft-2 px-4 py-2 flex items-center justify-between border-b border-hairline gap-2">
+    <span class="font-mono text-[11px] tracking-widest text-mute truncate">VISUAL GUIDE — {label.toUpperCase()}</span>
+    <span class="font-mono text-[10px] px-2 py-0.5 rounded-full border border-hairline bg-white text-mute dark:bg-white/[0.06] dark:text-mute shrink-0">{cluster} · {slug}</span>
+  </div>
+
+  {kind==="pitch" && (
+    <div class="p-5 bg-canvas">
+      <p class="text-center font-mono text-[11px] text-mute mb-3">{short} — rise : run</p>
+      <svg viewBox="0 0 700 200" class="w-full h-auto" role="img"><title>{label} pitch</title><rect x="0" y="0" width="700" height="200" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/><polygon points="120,150 480,150 480,60" fill="var(--color-canvas)" stroke="var(--color-ink)" stroke-width="1.5"/><line x1="500" y1="60" x2="500" y2="150" stroke={accent} stroke-width="1.5"/><rect x="508" y="96" width="48" height="18" rx="9" fill={accent}/><text x="532" y="109" text-anchor="middle" font-size="10" fill="var(--color-canvas)" font-weight="700">{exD}" rise</text><line x1="120" y1="168" x2="480" y2="168" stroke={accent2} stroke-width="1.5"/><rect x="285" y="172" width="60" height="18" rx="9" fill={accent2}/><text x="315" y="185" text-anchor="middle" font-size="10" fill="var(--color-canvas)" font-weight="700">12" run</text><text x="300" y="105" text-anchor="middle" font-size="11" fill="var(--color-ink)" font-weight="600">{words}</text><text x="300" y="120" text-anchor="middle" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">{exD}:12 · {(Math.atan(exD/12)*180/Math.PI).toFixed(1)}°</text></svg>
+      <p class="mt-2 text-center font-mono text-[11px] text-mute">{dimA} {exL}{unitA} · pitch {exD}:12 → {(Math.sqrt(exD*exD+144)/12).toFixed(3)}×</p>
+    </div>
+  )}
+
+  {kind==="roof" && (
+    <div class="p-5 bg-canvas">
+      <p class="text-center font-mono text-[11px] text-mute mb-3">{short} — footprint + overhang</p>
+      <svg viewBox="0 0 700 200" class="w-full h-auto" role="img"><title>{label} roof</title><rect x="0" y="0" width="700" height="200" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/><rect x="80" y="70" width="300" height="90" rx="4" fill="var(--color-canvas)" stroke="var(--color-ink)" stroke-dasharray="6 4"/><rect x="60" y="50" width="340" height="130" rx="6" fill="none" stroke={accent} stroke-width="1.2"/><text x="230" y="40" text-anchor="middle" font-size="9" fill={accent} font-family="Geist Mono,monospace">+1.5 ft overhang</text><text x="230" y="100" text-anchor="middle" font-size="10" fill="var(--color-body)" font-weight="600">{exL}×{exW} ft footprint</text><g transform="translate(480 50)"><polygon points="0,80 80,80 80,40" fill="var(--color-canvas)" stroke="var(--color-ink)"/><text x="88" y="65" font-size="9" fill={accent} font-weight="700">{exD}"</text><text x="40" y="55" font-size="9" fill="#ab570a" font-weight="700">×{(Math.sqrt(exD*exD+144)/12).toFixed(3)}</text></g><text x="520" y="155" text-anchor="middle" font-size="10" fill="var(--color-ink)" font-weight="600">→ {Math.round(exL*exW*Math.sqrt(exD*exD+144)/12)} ft²</text></svg>
+    </div>
+  )}
+
+  {kind==="rebar" && (
+    <div class="grid md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:divide-x divide-hairline">
+      <div class="p-5 bg-canvas"><p class="text-center font-mono text-[11px] text-mute mb-3">{dimA} → {dimB} spacing</p><svg viewBox="0 0 360 220" class="w-full h-auto" role="img"><title>{label} rebar</title><rect x="0" y="0" width="360" height="220" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/><rect x="40" y="60" width="280" height="80" rx="4" fill="var(--color-canvas)" stroke="var(--color-ink)"/><line x1="60" y1="60" x2="60" y2="140" stroke={accent} stroke-width="1.4"/><line x1="95" y1="60" x2="95" y2="140" stroke={accent} stroke-width="1"/><line x1="130" y1="60" x2="130" y2="140" stroke={accent} stroke-width="1" stroke-dasharray="3 3"/><line x1="165" y1="60" x2="165" y2="140" stroke={accent} stroke-width="1"/><line x1="200" y1="60" x2="200" y2="140" stroke={accent} stroke-width="1"/><text x="180" y="108" text-anchor="middle" font-size="11" fill="var(--color-ink)" font-weight="600">{words}</text><text x="180" y="123" text-anchor="middle" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">ceil({exL}/{(8+hash%10)/12})+1 bars</text></svg></div>
+      <div class="p-5 bg-canvas"><p class="text-center font-mono text-[11px] text-mute mb-3">Cross-section · cover 3"</p><svg viewBox="0 0 360 220" class="w-full h-auto" role="img"><title>{label} section</title><rect x="0" y="0" width="360" height="220" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/><rect x="60" y="70" width="240" height="80" rx="4" fill="var(--color-canvas)" stroke="var(--color-ink)"/><circle cx="90" cy="95" r="6" fill="none" stroke={accent} stroke-width="1.5"/><circle cx="180" cy="95" r="6" fill="none" stroke={accent} stroke-width="1.5"/><circle cx="270" cy="95" r="6" fill="none" stroke={accent} stroke-width="1.5"/><text x="180" y="50" text-anchor="middle" font-size="10" fill="var(--color-ink)" font-weight="600">Lap 40×d</text></svg><p class="mt-2 text-center font-mono text-[11px] text-mute">{formula || "count = ceil(L/spacing)+1"} · {waste}% waste</p></div>
+    </div>
+  )}
+
+  {kind==="brick" && (
+    <div class="p-5 bg-canvas"><p class="text-center font-mono text-[11px] text-mute mb-3">{short} — {dimA} × {dimB} · 3/8" joint</p><svg viewBox="0 0 700 180" class="w-full h-auto" role="img"><title>{label} brick</title><rect x="0" y="0" width="700" height="180" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/><g transform="translate(80 40)"><rect x="0" y="0" width="60" height="22" rx="1" fill="#ffefcf" stroke={accent}/><rect x="64" y="0" width="60" height="22" rx="1" fill="#ffefcf" stroke={accent}/><rect x="128" y="0" width="60" height="22" rx="1" fill="#ffefcf" stroke={accent}/><rect x="0" y="26" width="60" height="22" rx="1" fill="#ffefcf" stroke={accent}/><rect x="64" y="26" width="60" height="22" rx="1" fill="#ffefcf" stroke={accent2}/><rect x="128" y="26" width="60" height="22" rx="1" fill="#ffefcf" stroke={accent}/></g><text x="350" y="100" font-size="10" fill="var(--color-ink)" font-weight="600">{words}</text><text x="350" y="115" font-size="9" fill="var(--color-mute)">{exL*exW} ft² → ~{Math.round(exL*exW*6.8)} bricks +{waste}%</text></svg></div>
+  )}
+
+  {kind==="fence" && (
+    <div class="p-5 bg-canvas"><p class="text-center font-mono text-[11px] text-mute mb-3">{short} — posts {8+hash%4} ft o.c.</p><svg viewBox="0 0 700 180" class="w-full h-auto" role="img"><title>{label} fence</title><rect x="0" y="0" width="700" height="180" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/><line x1="40" y1="135" x2="660" y2="135" stroke="var(--color-mute)" stroke-width="1.5"/><rect x="60" y="65" width="10" height="70" rx="1" fill="var(--color-ink)"/><rect x="200" y="65" width="10" height="70" rx="1" fill="var(--color-ink)"/><rect x="340" y="65" width="10" height="70" rx="1" fill="var(--color-ink)"/><rect x="480" y="65" width="10" height="70" rx="1" fill="var(--color-ink)"/><rect x="620" y="65" width="10" height="70" rx="1" fill="var(--color-ink)"/><rect x="70" y="75" width="130" height="45" rx="2" fill="var(--color-canvas)" stroke="var(--color-body)"/><rect x="350" y="75" width="130" height="45" rx="2" fill="#ffefcf" stroke={accent} stroke-dasharray="4 3"/><text x="415" y="102" text-anchor="middle" font-size="10" fill={accent} font-weight="700">GATE · {words}</text><line x1="70" y1="45" x2="200" y2="45" stroke={accent} stroke-width="1"/><rect x="120" y="28" width="36" height="14" rx="7" fill={accent}/><text x="138" y="38" text-anchor="middle" font-size="8" fill="var(--color-canvas)" font-weight="700">{8+hash%4} ft</text></svg></div>
+  )}
+
+  {kind==="deck" && (
+    <div class="p-5 bg-canvas"><p class="text-center font-mono text-[11px] text-mute mb-3">{short} — 5.5" boards + gap</p><svg viewBox="0 0 700 200" class="w-full h-auto" role="img"><title>{label} deck</title><rect x="0" y="0" width="700" height="200" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/><rect x="40" y="40" width="420" height="120" rx="4" fill="var(--color-canvas)" stroke="var(--color-ink)"/><g stroke={accent} stroke-dasharray="4 3" opacity="0.6"><line x1="80" y1="40" x2="80" y2="160"/><line x1="140" y1="40" x2="140" y2="160"/><line x1="200" y1="40" x2="200" y2="160"/></g><g fill="#ffefcf" stroke="#f5a623"><rect x="40" y="45" width="420" height="14" rx="1"/><rect x="40" y="63" width="420" height="14" rx="1"/><rect x="40" y="81" width="420" height="14" rx="1"/><rect x="40" y="99" width="420" height="14" rx="1"/></g><text x="250" y="30" text-anchor="middle" font-size="10" fill="var(--color-ink)" font-weight="600">{exL}×{exW} ft — {words} · {Math.ceil(exW*12/5.625)} boards</text></svg></div>
+  )}
+
+  {kind==="paver" && (
+    <div class="grid md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:divide-x divide-hairline">
+      <div class="p-4 bg-canvas"><p class="text-center font-mono text-[11px] text-mute mb-2">{short} — 12" pavers</p><svg viewBox="0 0 320 180" class="w-full h-auto" role="img"><title>{label} pavers</title><rect x="0" y="0" width="320" height="180" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/><rect x="20" y="30" width="200" height="120" rx="4" fill="var(--color-canvas)" stroke="var(--color-ink)"/><g fill="var(--color-canvas)" stroke="var(--color-hairline)"><rect x="20" y="30" width="48" height="38" rx="1" stroke={accent} stroke-width="1.2"/><rect x="70" y="30" width="48" height="38" rx="1"/><rect x="120" y="30" width="48" height="38" rx="1"/><rect x="170" y="30" width="50" height="38" rx="1"/><rect x="70" y="70" width="48" height="38" rx="1" fill="#ffefcf" stroke={accent2}/></g><text x="270" y="90" text-anchor="middle" font-size="10" fill="var(--color-ink)" font-weight="600">×{Math.round(exL*exW*(1+waste/100))}</text></svg></div>
+      <div class="p-4 bg-canvas"><p class="text-center font-mono text-[11px] text-mute mb-2">Base 4" + sand 1"</p><svg viewBox="0 0 320 180" class="w-full h-auto" role="img"><title>{label} base</title><rect x="0" y="0" width="320" height="180" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/><rect x="20" y="95" width="280" height="30" rx="2" fill="#d3e5ff" stroke={accent}/><text x="160" y="115" text-anchor="middle" font-size="9" fill={accent} font-weight="600">Gravel base 4" · {words}</text><rect x="20" y="80" width="280" height="15" rx="2" fill="#ffefcf" stroke="#f5a623"/></svg></div>
+    </div>
+  )}
+
+  {(kind==="volume") && (
+    <div class="grid md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:divide-x divide-hairline">
+      <div class="p-5 bg-canvas"><p class="text-center font-mono text-[11px] text-mute mb-3">TOP VIEW — {dimA} × {dimB}</p><svg viewBox="0 0 360 220" class="w-full h-auto" role="img"><title>{label} top</title><rect x="0" y="0" width="360" height="220" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/><rect x="50" y="45" width="220" height="110" rx="6" fill="var(--color-canvas)" stroke="var(--color-ink)" stroke-width="1.5"/><rect x="50" y="45" width="220" height="110" rx="6" fill="none" stroke={accent} stroke-dasharray="6 4" opacity="0.5"/><line x1="50" y1="22" x2="270" y2="22" stroke="var(--color-ink)" stroke-width="1"/><rect x="125" y="6" width="70" height="16" rx="8" fill="var(--color-canvas)" stroke="var(--color-hairline)"/><text x="160" y="17" text-anchor="middle" font-size="10" font-family="Geist Mono,monospace" fill="var(--color-ink)" font-weight="600">{dimA} {exL}{unitA}</text><line x1="22" y1="45" x2="22" y2="155" stroke="var(--color-ink)" stroke-width="1"/><g transform="rotate(-90 22 100)"><rect x="-10" y="92" width="52" height="16" rx="8" fill="var(--color-canvas)" stroke="var(--color-hairline)"/><text x="16" y="103" text-anchor="middle" font-size="10" font-family="Geist Mono,monospace" fill="var(--color-ink)" font-weight="600">{dimB}</text></g><text x="160" y="102" text-anchor="middle" font-size="11" fill="var(--color-body)" font-weight="500">{short}</text><text x="160" y="118" text-anchor="middle" font-size="10" font-family="Geist Mono,monospace" fill="var(--color-mute)">{exL}×{exW} = {exL*exW} {unitA}²</text></svg></div>
+      <div class="p-5 bg-canvas"><p class="text-center font-mono text-[11px] text-mute mb-3">SECTION — {dimC} {exD}{unitC}</p><svg viewBox="0 0 360 220" class="w-full h-auto" role="img"><title>{label} section</title><rect x="0" y="0" width="360" height="220" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/><rect x="40" y="110" width="280" height="38" rx="2" fill="var(--color-canvas)" stroke={accent} stroke-width="1.2"/><text x="180" y="133" text-anchor="middle" font-size="11" fill={accent} font-weight="600">{words} {exD}{unitC}</text><line x1="325" y1="110" x2="325" y2="148" stroke="var(--color-ink)" stroke-width="1"/><rect x="330" y="122" width="22" height="14" rx="7" fill="var(--color-ink)"/><text x="341" y="132" text-anchor="middle" font-size="8" fill="var(--color-canvas)" font-weight="600">{exD}"</text><text x="180" y="198" text-anchor="middle" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">{formula || "Vol = L×W×D"} · +{waste}% → {(exL*exW*(exD/12)*(1+waste/100)/27).toFixed(2)} yd³</text></svg></div>
+    </div>
+  )}
+
+  <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] leading-4 text-mute">
+    {label} — {formula || `${dimA} × ${dimB} × ${dimC}`} · example {exL}×{exW} @{exD}{unitC} = {(exL*exW*(exD/12)).toFixed(1)} ft³ ({(exL*exW*(exD/12)/27).toFixed(2)} yd³) → {(exL*exW*(exD/12)*(1+waste/100)/27).toFixed(2)} yd³ with {waste}% waste · {slug}
+  </figcaption>
+</figure>

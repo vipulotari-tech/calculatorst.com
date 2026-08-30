@@ -2,7 +2,7 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import CalculatorVisual from "../../components/CalculatorVisual.astro";
+import CalculatorDiagram from "../../components/CalculatorDiagram.astro";
 import PeaGravelCalculator from "../../components/calculators/PeaGravelCalculator.astro";
 
 const related = [
@@ -39,11 +39,11 @@ const faq = [
   <PeaGravelCalculator slot="calculator" />
 
   <section class="space-y-6">
-    <CalculatorVisual variant="pea" />
+    <CalculatorDiagram slug="pea-gravel-calculator" cluster="gravel" h1="Pea Gravel Calculator" inputs={[{"id":"length","label":"Length","unit":"ft"},{"id":"width","label":"Width","unit":"ft"},{"id":"depth","label":"Depth","unit":"in"}]} />
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
       <p class="mt-2 text-sm leading-6 text-body">Same rectangular volume as the main gravel calculator, fixed to pea gravel density (1.35 tons/yd³, ~100 lb/ft³) for simplicity.</p>
-      <div class="mt-3 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm dark:bg-white/[0.03]"><p>Cubic Feet = L × W × D (all in feet)</p><p>Cubic Yards = Cubic Feet ÷ 27</p><p>Tons = Cubic Yards × 1.35</p></div>
+      <div class="mt-3 rounded-md bg-canvas-soft-2 dark:bg-white/[0.04] p-4 font-mono text-sm dark:bg-white/[0.03]"><p>Cubic Feet = L × W × D (all in feet)</p><p>Cubic Yards = Cubic Feet ÷ 27</p><p>Tons = Cubic Yards × 1.35</p></div>
     </div>
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>

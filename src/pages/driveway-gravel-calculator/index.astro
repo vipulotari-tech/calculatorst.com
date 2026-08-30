@@ -2,7 +2,7 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import CalculatorVisual from "../../components/CalculatorVisual.astro";
+import CalculatorDiagram from "../../components/CalculatorDiagram.astro";
 import DrivewayGravelCalculator from "../../components/calculators/DrivewayGravelCalculator.astro";
 
 const related = [
@@ -38,11 +38,11 @@ const faq = [
   <Header slot="header" />
   <DrivewayGravelCalculator slot="calculator" />
   <section class="space-y-6">
-    <CalculatorVisual variant="driveway" />
+    <CalculatorDiagram slug="driveway-gravel-calculator" cluster="gravel" h1="Driveway Gravel Calculator" inputs={[{"id":"length","label":"Driveway Length","unit":"ft"},{"id":"width","label":"Driveway Width","unit":"ft"},{"id":"depth","label":"Depth","unit":"in"}]} />
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
       <p class="mt-2 text-sm leading-6 text-body">Rectangular prism × layers, then density. Overhang and crown are not modeled — add 5% if you crown the center.</p>
-      <div class="mt-3 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm dark:bg-white/[0.03]"><p>Volume = L × W × D × Layers</p><p>Cubic Yards = Volume ÷ 27</p><p>Tons = Cubic Yards × Density</p></div>
+      <div class="mt-3 rounded-md bg-canvas-soft-2 dark:bg-white/[0.04] p-4 font-mono text-sm dark:bg-white/[0.03]"><p>Volume = L × W × D × Layers</p><p>Cubic Yards = Volume ÷ 27</p><p>Tons = Cubic Yards × Density</p></div>
     </div>
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>

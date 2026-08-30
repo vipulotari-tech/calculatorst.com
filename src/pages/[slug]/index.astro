@@ -3,7 +3,7 @@ import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import GenericCalculator from "../../components/calculators/GenericCalculator.astro";
-import CalculatorVisual from "../../components/CalculatorVisual.astro";
+import CalculatorDiagram from "../../components/CalculatorDiagram.astro";
 import { hubCalculators } from "../../data/hubCalculators";
 import { calculatorDetails } from "../../data/calculatorDetails";
 import { calculators } from "../../data/calculators";
@@ -134,7 +134,7 @@ const faq = d.faq || [
   <Header slot="header" />
   <GenericCalculator slot="calculator" id={calc.slug} inputs={inputs} formulaKey={formulaKey} resultTitle={`${calc.h1.toUpperCase()} ESTIMATE`} />
   <section class="space-y-6">
-    <CalculatorVisual variant={visualVariant} />
+    <CalculatorDiagram slug={calc.slug} cluster={calc.cluster} h1={calc.h1} inputs={inputs} formula={d.formula} />
 
     <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">What Is This Calculator?</h2>
@@ -157,7 +157,7 @@ const faq = d.faq || [
 
     <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Formula</h2>
-      <div class="mt-3 rounded-md border border-hairline bg-canvas-soft-2 p-4 font-mono text-sm leading-6 dark:bg-white/[0.03]">
+      <div class="mt-3 rounded-md border border-hairline bg-canvas-soft-2 dark:bg-white/[0.04] p-4 font-mono text-sm leading-6 dark:bg-white/[0.03]">
         <p class="font-semibold text-ink">{d.formula || "Quantity = Product of dimensions × (1 + waste%)"}</p>
         {d.variables && d.variables.length > 0 && (
           <ul class="mt-2 list-disc pl-5 text-xs text-body">

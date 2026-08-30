@@ -2,7 +2,7 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import CalculatorVisual from "../../components/CalculatorVisual.astro";
+import CalculatorDiagram from "../../components/CalculatorDiagram.astro";
 import FenceCostCalculator from "../../components/calculators/FenceCostCalculator.astro";
 
 const related = [
@@ -38,7 +38,7 @@ const faq = [
   <Header slot="header" />
   <FenceCostCalculator slot="calculator" />
   <section class="space-y-6">
-    <CalculatorVisual variant="fence" />
+    <CalculatorDiagram slug="fence-cost-calculator" cluster="deck-fence" h1="Fence Cost Calculator" inputs={[{"id":"length","label":"Fence Length","unit":"ft"},{"id":"width","label":"Post Spacing","unit":"ft"},{"id":"depth","label":"Height","unit":"ft"}]} />
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
       <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">

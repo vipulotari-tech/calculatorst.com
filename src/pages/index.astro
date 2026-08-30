@@ -21,7 +21,8 @@ const actualPopular = popular.length ? popular : hubCalculators.slice(0,12);
       <div class="pointer-events-none absolute inset-0 opacity-[0.035] dark:opacity-[0.06]" style="background-image: linear-gradient(rgba(23,23,23,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(23,23,23,0.9) 1px, transparent 1px); background-size: 48px 48px;" aria-hidden="true"></div>
       <div class="pointer-events-none absolute inset-0 hero-premium opacity-[0.55] dark:opacity-[0.4]" aria-hidden="true"></div>
       <!-- Gentle radial light -->
-      <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse 900px 420px at 50% 0%, rgba(255,255,255,0.9) 0%, transparent 62%), radial-gradient(ellipse 700px 380px at 88% 14%, rgba(0,112,243,0.035) 0%, transparent 60%);" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute inset-0 dark:hidden" style="background: radial-gradient(ellipse 900px 420px at 50% 0%, rgba(255,255,255,0.9) 0%, transparent 62%), radial-gradient(ellipse 700px 380px at 88% 14%, rgba(0,112,243,0.035) 0%, transparent 60%);" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute inset-0 hidden dark:block" style="background: radial-gradient(ellipse 900px 420px at 50% 0%, rgba(255,255,255,0.06) 0%, transparent 62%), radial-gradient(ellipse 700px 380px at 88% 14%, rgba(59,130,246,0.08) 0%, transparent 60%);" aria-hidden="true"></div>
       <div class="relative mx-auto max-w-[1400px] px-6 py-[56px] sm:py-[72px] lg:py-[88px] max-md:px-4">
         <div class="mx-auto max-w-[720px] text-center">
           <!-- Eyebrow -->
@@ -52,11 +53,11 @@ const actualPopular = popular.length ? popular : hubCalculators.slice(0,12);
                 autocomplete="off"
                 spellcheck="false"
                 name="q"
-                class="h-[56px] w-full rounded-full border border-hairline bg-white py-0 pl-[50px] pr-5 text-[15px] font-[450] tracking-[-0.01em] text-ink shadow-search placeholder:text-mute/70 placeholder:font-normal focus:border-[rgba(0,112,243,0.18)] focus:shadow-search-focus focus:outline-none focus-visible:outline-none sm:h-[60px] sm:pl-[52px] sm:text-[16px] dark:bg-[#171717] dark:placeholder:text-mute"
+                class="h-[56px] w-full rounded-full border border-hairline bg-white py-0 pl-[50px] pr-5 text-[15px] font-[450] tracking-[-0.01em] text-ink shadow-search placeholder:text-mute/70 placeholder:font-normal focus:border-[rgba(0,112,243,0.18)] focus:shadow-search-focus focus:outline-none focus-visible:outline-none sm:h-[60px] sm:pl-[52px] sm:text-[16px] dark:bg-[#171717] dark:border-white/10 dark:placeholder:text-mute dark:focus:border-[rgba(59,130,246,0.35)]"
               />
             </div>
             <!-- Premium command results -->
-            <div id="hero-search-results" class="mt-3 hidden overflow-hidden rounded-[16px] border border-hairline bg-white text-left shadow-float dark:bg-[#1a1a1a]" role="listbox" aria-label="Search results"></div>
+            <div id="hero-search-results" class="mt-3 hidden overflow-hidden rounded-[16px] border border-hairline bg-white text-left shadow-float dark:bg-[#1f1f1f] dark:border-white/10" role="listbox" aria-label="Search results"></div>
 
             <!-- Subtle suggestions -->
             <div class="mt-4 flex flex-wrap items-center justify-center gap-x-1 gap-y-2">

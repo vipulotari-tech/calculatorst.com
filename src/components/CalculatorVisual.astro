@@ -18,28 +18,28 @@ const { variant } = Astro.props;
         <svg viewBox="0 0 360 220" class="w-full h-auto" role="img" aria-labelledby="gravel-top-title">
           <title id="gravel-top-title">Gravel area top view - length and width</title>
           <!-- background grid -->
-          <rect x="0" y="0" width="360" height="220" rx="8" fill="#fafafa" stroke="#ebebeb"/>
+          <rect x="0" y="0" width="360" height="220" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
           <!-- yard -->
-          <rect x="40" y="40" width="240" height="120" rx="6" fill="white" stroke="#171717" stroke-width="1.5"/>
+          <rect x="40" y="40" width="240" height="120" rx="6" fill="var(--color-canvas)" stroke="var(--color-ink)" stroke-width="1.5"/>
           <rect x="40" y="40" width="240" height="120" rx="6" fill="none" stroke="#0070f3" stroke-width="1" stroke-dasharray="6 4" opacity="0.5"/>
           <!-- gravel texture dots -->
-          <g fill="#a1a1a1" opacity="0.35">
+          <g fill="var(--color-mute)" opacity="0.35">
             <circle cx="60" cy="65" r="1.5"/><circle cx="90" cy="80" r="1.2"/><circle cx="120" cy="70" r="1.5"/><circle cx="150" cy="85" r="1.2"/><circle cx="180" cy="65" r="1.5"/><circle cx="210" cy="75" r="1.2"/><circle cx="240" cy="90" r="1.5"/><circle cx="70" cy="100" r="1.2"/><circle cx="110" cy="110" r="1.5"/><circle cx="140" cy="95" r="1.2"/><circle cx="170" cy="115" r="1.5"/><circle cx="200" cy="105" r="1.2"/><circle cx="230" cy="120" r="1.5"/><circle cx="80" cy="135" r="1.2"/><circle cx="130" cy="140" r="1.5"/><circle cx="190" cy="130" r="1.2"/>
           </g>
           <!-- dimension Length top -->
-          <line x1="40" y1="22" x2="280" y2="22" stroke="#171717" stroke-width="1"/>
-          <polygon points="40,22 48,18 48,26" fill="#171717"/><polygon points="280,22 272,18 272,26" fill="#171717"/>
-          <rect x="135" y="6" width="50" height="16" rx="8" fill="white" stroke="#ebebeb"/><text x="160" y="17" text-anchor="middle" font-size="10" font-family="Geist Mono,monospace" fill="#171717" font-weight="600">Length</text>
+          <line x1="40" y1="22" x2="280" y2="22" stroke="var(--color-ink)" stroke-width="1"/>
+          <polygon points="40,22 48,18 48,26" fill="var(--color-ink)"/><polygon points="280,22 272,18 272,26" fill="var(--color-ink)"/>
+          <rect x="135" y="6" width="50" height="16" rx="8" fill="var(--color-canvas)" stroke="var(--color-hairline)"/><text x="160" y="17" text-anchor="middle" font-size="10" font-family="Geist Mono,monospace" fill="var(--color-ink)" font-weight="600">Length</text>
           <!-- dimension Width left -->
-          <line x1="22" y1="40" x2="22" y2="160" stroke="#171717" stroke-width="1"/>
-          <polygon points="22,40 18,48 26,48" fill="#171717"/><polygon points="22,160 18,152 26,152" fill="#171717"/>
-          <g transform="rotate(-90 22 100)"><rect x="-10" y="92" width="52" height="16" rx="8" fill="white" stroke="#ebebeb"/><text x="16" y="103" text-anchor="middle" font-size="10" font-family="Geist Mono,monospace" fill="#171717" font-weight="600">Width</text></g>
+          <line x1="22" y1="40" x2="22" y2="160" stroke="var(--color-ink)" stroke-width="1"/>
+          <polygon points="22,40 18,48 26,48" fill="var(--color-ink)"/><polygon points="22,160 18,152 26,152" fill="var(--color-ink)"/>
+          <g transform="rotate(-90 22 100)"><rect x="-10" y="92" width="52" height="16" rx="8" fill="var(--color-canvas)" stroke="var(--color-hairline)"/><text x="16" y="103" text-anchor="middle" font-size="10" font-family="Geist Mono,monospace" fill="var(--color-ink)" font-weight="600">Width</text></g>
           <!-- labels inside -->
-          <text x="160" y="105" text-anchor="middle" font-size="11" font-family="Geist, sans-serif" fill="#4d4d4d" font-weight="500">Gravel Area</text>
-          <text x="160" y="120" text-anchor="middle" font-size="10" font-family="Geist Mono,monospace" fill="#888" >L × W</text>
+          <text x="160" y="105" text-anchor="middle" font-size="11" font-family="Geist, sans-serif" fill="var(--color-body)" font-weight="500">Gravel Area</text>
+          <text x="160" y="120" text-anchor="middle" font-size="10" font-family="Geist Mono,monospace" fill="var(--color-mute)" >L × W</text>
           <!-- compass -->
           <g transform="translate(310 160)">
-            <circle cx="0" cy="0" r="14" fill="white" stroke="#ebebeb"/><text x="0" y="4" text-anchor="middle" font-size="8" fill="#171717" font-weight="700">N</text><path d="M0 -8 L2 -2 L0 -4 L-2 -2 Z" fill="#ee0000"/>
+            <circle cx="0" cy="0" r="14" fill="var(--color-canvas)" stroke="var(--color-hairline)"/><text x="0" y="4" text-anchor="middle" font-size="8" fill="var(--color-ink)" font-weight="700">N</text><path d="M0 -8 L2 -2 L0 -4 L-2 -2 Z" fill="#ee0000"/>
           </g>
         </svg>
         <p class="mt-2 text-center font-mono text-[11px] text-mute">Measure longest × widest. For L-shape split into 2 rectangles.</p>
@@ -49,10 +49,10 @@ const { variant } = Astro.props;
         <p class="text-center font-mono text-[11px] tracking-wide text-mute mb-3">CROSS-SECTION — depth & layers</p>
         <svg viewBox="0 0 360 220" class="w-full h-auto" role="img" aria-labelledby="gravel-side-title">
           <title id="gravel-side-title">Gravel depth cross section</title>
-          <rect x="0" y="0" width="360" height="220" rx="8" fill="#fafafa" stroke="#ebebeb"/>
+          <rect x="0" y="0" width="360" height="220" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
           <!-- ground -->
           <rect x="40" y="160" width="280" height="6" rx="2" fill="#1f1f1f"/>
-          <text x="180" y="178" text-anchor="middle" font-size="9" font-family="Geist Mono,monospace" fill="#888">Compacted subgrade</text>
+          <text x="180" y="178" text-anchor="middle" font-size="9" font-family="Geist Mono,monospace" fill="var(--color-mute)">Compacted subgrade</text>
           <!-- fabric -->
           <line x1="40" y1="148" x2="320" y2="148" stroke="#0070f3" stroke-width="1.5" stroke-dasharray="4 3"/><text x="325" y="152" font-size="8" fill="#0070f3" font-family="Geist Mono,monospace">Fabric</text>
           <!-- gravel layer -->
@@ -63,9 +63,9 @@ const { variant } = Astro.props;
           </g>
           <text x="180" y="133" text-anchor="middle" font-size="11" font-weight="600" fill="#4c2889" font-family="Geist, sans-serif">Gravel</text>
           <!-- depth arrow -->
-          <line x1="325" y1="110" x2="325" y2="148" stroke="#171717" stroke-width="1"/>
-          <polygon points="325,110 322,118 328,118" fill="#171717"/><polygon points="325,148 322,140 328,140" fill="#171717"/>
-          <rect x="330" y="122" width="22" height="14" rx="7" fill="#171717"/><text x="341" y="132" text-anchor="middle" font-size="8" fill="white" font-family="Geist Mono,monospace" font-weight="600">D</text>
+          <line x1="325" y1="110" x2="325" y2="148" stroke="var(--color-ink)" stroke-width="1"/>
+          <polygon points="325,110 322,118 328,118" fill="var(--color-ink)"/><polygon points="325,148 322,140 328,140" fill="var(--color-ink)"/>
+          <rect x="330" y="122" width="22" height="14" rx="7" fill="var(--color-ink)"/><text x="341" y="132" text-anchor="middle" font-size="8" fill="var(--color-canvas)" font-family="Geist Mono,monospace" font-weight="600">D</text>
           <!-- base layer hints -->
           <rect x="40" y="85" width="280" height="18" rx="2" fill="#ffefcf" stroke="#ab570a" stroke-dasharray="4 4" opacity="0.9"/><text x="180" y="97" text-anchor="middle" font-size="8" fill="#ab570a" font-family="Geist Mono,monospace">Optional base (driveway) — 4-6"</text>
         </svg>
@@ -92,9 +92,9 @@ const { variant } = Astro.props;
         <p class="text-center font-mono text-[11px] tracking-wide text-mute mb-3">TOP VIEW — length × width</p>
         <svg viewBox="0 0 360 220" class="w-full h-auto" role="img" aria-labelledby="conc-top">
           <title id="conc-top">Concrete slab top view</title>
-          <rect x="0" y="0" width="360" height="220" rx="8" fill="#fafafa" stroke="#ebebeb"/>
-          <rect x="50" y="45" width="220" height="110" rx="4" fill="white" stroke="#171717" stroke-width="1.5"/>
-          <rect x="50" y="45" width="220" height="110" rx="4" fill="none" stroke="#ebebeb" stroke-dasharray="8 6"/>
+          <rect x="0" y="0" width="360" height="220" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
+          <rect x="50" y="45" width="220" height="110" rx="4" fill="var(--color-canvas)" stroke="var(--color-ink)" stroke-width="1.5"/>
+          <rect x="50" y="45" width="220" height="110" rx="4" fill="none" stroke="var(--color-hairline)" stroke-dasharray="8 6"/>
           <!-- rebar grid -->
           <g stroke="#d3e5ff" stroke-width="0.8">
             <line x1="70" y1="45" x2="70" y2="155"/><line x1="90" y1="45" x2="90" y2="155"/><line x1="110" y1="45" x2="110" y2="155"/><line x1="130" y1="45" x2="130" y2="155"/><line x1="150" y1="45" x2="150" y2="155"/><line x1="170" y1="45" x2="170" y2="155"/><line x1="190" y1="45" x2="190" y2="155"/><line x1="210" y1="45" x2="210" y2="155"/><line x1="230" y1="45" x2="230" y2="155"/><line x1="250" y1="45" x2="250" y2="155"/>
@@ -102,32 +102,32 @@ const { variant } = Astro.props;
           </g>
           <circle cx="70" cy="65" r="1.5" fill="#0070f3"/><circle cx="130" cy="105" r="1.5" fill="#0070f3"/><circle cx="210" cy="125" r="1.5" fill="#0070f3"/>
           <!-- dimensions -->
-          <line x1="50" y1="22" x2="270" y2="22" stroke="#171717" stroke-width="1"/><polygon points="50,22 58,18 58,26" fill="#171717"/><polygon points="270,22 262,18 262,26" fill="#171717"/>
-          <rect x="135" y="6" width="50" height="16" rx="8" fill="white" stroke="#ebebeb"/><text x="160" y="17" text-anchor="middle" font-size="10" font-family="Geist Mono,monospace" fill="#171717" font-weight="600">Length</text>
-          <line x1="22" y1="45" x2="22" y2="155" stroke="#171717" stroke-width="1"/><polygon points="22,45 18,53 26,53" fill="#171717"/><polygon points="22,155 18,147 26,147" fill="#171717"/>
-          <g transform="rotate(-90 22 100)"><rect x="-8" y="92" width="52" height="16" rx="8" fill="white" stroke="#ebebeb"/><text x="18" y="103" text-anchor="middle" font-size="10" font-family="Geist Mono,monospace" fill="#171717" font-weight="600">Width</text></g>
-          <text x="160" y="102" text-anchor="middle" font-size="10" fill="#4d4d4d" font-family="Geist,sans-serif">Slab — forms + rebar</text>
-          <text x="160" y="118" text-anchor="middle" font-size="9" fill="#888" font-family="Geist Mono,monospace">Add 5-10% waste</text>
+          <line x1="50" y1="22" x2="270" y2="22" stroke="var(--color-ink)" stroke-width="1"/><polygon points="50,22 58,18 58,26" fill="var(--color-ink)"/><polygon points="270,22 262,18 262,26" fill="var(--color-ink)"/>
+          <rect x="135" y="6" width="50" height="16" rx="8" fill="var(--color-canvas)" stroke="var(--color-hairline)"/><text x="160" y="17" text-anchor="middle" font-size="10" font-family="Geist Mono,monospace" fill="var(--color-ink)" font-weight="600">Length</text>
+          <line x1="22" y1="45" x2="22" y2="155" stroke="var(--color-ink)" stroke-width="1"/><polygon points="22,45 18,53 26,53" fill="var(--color-ink)"/><polygon points="22,155 18,147 26,147" fill="var(--color-ink)"/>
+          <g transform="rotate(-90 22 100)"><rect x="-8" y="92" width="52" height="16" rx="8" fill="var(--color-canvas)" stroke="var(--color-hairline)"/><text x="18" y="103" text-anchor="middle" font-size="10" font-family="Geist Mono,monospace" fill="var(--color-ink)" font-weight="600">Width</text></g>
+          <text x="160" y="102" text-anchor="middle" font-size="10" fill="var(--color-body)" font-family="Geist,sans-serif">Slab — forms + rebar</text>
+          <text x="160" y="118" text-anchor="middle" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">Add 5-10% waste</text>
         </svg>
       </div>
       <div class="p-5">
         <p class="text-center font-mono text-[11px] tracking-wide text-mute mb-3">ISOMETRIC — thickness</p>
         <svg viewBox="0 0 360 220" class="w-full h-auto" role="img" aria-labelledby="conc-iso">
           <title id="conc-iso">Concrete slab thickness isometric</title>
-          <rect x="0" y="0" width="360" height="220" rx="8" fill="#fafafa" stroke="#ebebeb"/>
+          <rect x="0" y="0" width="360" height="220" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
           <!-- isometric slab -->
-          <path d="M70 120 L220 70 L300 90 L150 140 Z" fill="white" stroke="#171717" stroke-width="1.3"/>
-          <path d="M70 120 L70 145 L150 165 L150 140 Z" fill="#f5f5f5" stroke="#171717" stroke-width="1.2"/>
-          <path d="M150 140 L150 165 L300 115 L300 90 Z" fill="#fafafa" stroke="#171717" stroke-width="1.2"/>
-          <path d="M70 145 L150 165 L300 115" fill="none" stroke="#ebebeb" stroke-width="1"/>
+          <path d="M70 120 L220 70 L300 90 L150 140 Z" fill="var(--color-canvas)" stroke="var(--color-ink)" stroke-width="1.3"/>
+          <path d="M70 120 L70 145 L150 165 L150 140 Z" fill="var(--color-canvas-soft-2)" stroke="var(--color-ink)" stroke-width="1.2"/>
+          <path d="M150 140 L150 165 L300 115 L300 90 Z" fill="var(--color-canvas-soft)" stroke="var(--color-ink)" stroke-width="1.2"/>
+          <path d="M70 145 L150 165 L300 115" fill="none" stroke="var(--color-hairline)" stroke-width="1"/>
           <!-- thickness -->
           <line x1="310" y1="90" x2="310" y2="115" stroke="#ee0000" stroke-width="1.5"/>
           <polygon points="310,90 307,98 313,98" fill="#ee0000"/><polygon points="310,115 307,107 313,107" fill="#ee0000"/>
-          <rect x="318" y="96" width="32" height="14" rx="7" fill="#ee0000"/><text x="334" y="106" text-anchor="middle" font-size="8" fill="white" font-family="Geist Mono,monospace" font-weight="700">4"</text>
-          <text x="185" y="115" text-anchor="middle" font-size="11" fill="#171717" font-weight="600" font-family="Geist,sans-serif">1.48 yd³</text>
-          <text x="185" y="130" text-anchor="middle" font-size="9" fill="#888" font-family="Geist Mono,monospace">for 12×10 ft @ 4"</text>
+          <rect x="318" y="96" width="32" height="14" rx="7" fill="#ee0000"/><text x="334" y="106" text-anchor="middle" font-size="8" fill="var(--color-canvas)" font-family="Geist Mono,monospace" font-weight="700">4"</text>
+          <text x="185" y="115" text-anchor="middle" font-size="11" fill="var(--color-ink)" font-weight="600" font-family="Geist,sans-serif">1.48 yd³</text>
+          <text x="185" y="130" text-anchor="middle" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">for 12×10 ft @ 4"</text>
           <g transform="translate(40 180)">
-            <rect x="0" y="0" width="10" height="10" rx="2" fill="white" stroke="#171717"/><line x1="2" y1="5" x2="8" y2="5" stroke="#0070f3" stroke-width="0.8"/><line x1="5" y1="2" x2="5" y2="8" stroke="#0070f3" stroke-width="0.8"/><text x="14" y="9" font-size="9" fill="#4d4d4d" font-family="Geist,sans-serif">Rebar / wire mesh</text>
+            <rect x="0" y="0" width="10" height="10" rx="2" fill="var(--color-canvas)" stroke="var(--color-ink)"/><line x1="2" y1="5" x2="8" y2="5" stroke="#0070f3" stroke-width="0.8"/><line x1="5" y1="2" x2="5" y2="8" stroke="#0070f3" stroke-width="0.8"/><text x="14" y="9" font-size="9" fill="var(--color-body)" font-family="Geist,sans-serif">Rebar / wire mesh</text>
           </g>
         </svg>
         <p class="mt-2 text-center font-mono text-[11px] text-mute">4" patio, 6" driveway. 27 ft³ = 1 yd³.</p>
@@ -144,7 +144,7 @@ const { variant } = Astro.props;
     </figure>
     <div class="overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
       <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline flex justify-between"><span class="font-mono text-[11px] tracking-widest text-mute">3D MODEL — ROTATE & ZOOM</span><span class="font-mono text-[10px] text-mute">WebGL</span></div>
-      <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" poster="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80&auto=format&fit=crop" alt="3D concrete slab model — replace with slab.glb" ar camera-controls touch-action="pan-y" auto-rotate shadow-intensity="0.8" environment-image="neutral" style="width:100%; height:240px; background:#fafafa;" loading="lazy" reveal="interaction"></model-viewer>
+      <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" poster="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80&auto=format&fit=crop" alt="3D concrete slab model — replace with slab.glb" ar camera-controls touch-action="pan-y" auto-rotate shadow-intensity="0.8" environment-image="neutral" style="width:100%; height:240px; background:var(--color-canvas-soft);" loading="lazy" reveal="interaction"></model-viewer>
       <div class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Demo model — swap <span class="text-ink font-medium">/public/models/slab.glb</span> for your custom slab. Drag to rotate.</div>
     </div>
   </div>
@@ -157,21 +157,21 @@ const { variant } = Astro.props;
     <div class="p-5">
       <svg viewBox="0 0 700 180" class="w-full h-auto" role="img" aria-labelledby="pea-title">
         <title id="pea-title">Pea gravel sizes and coverage</title>
-        <rect x="0" y="0" width="700" height="180" rx="8" fill="#fafafa" stroke="#ebebeb"/>
+        <rect x="0" y="0" width="700" height="180" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
         <!-- 3 circles showing size -->
         <g transform="translate(60 90)">
-          <circle cx="0" cy="0" r="28" fill="#d8ccf1" stroke="#7928ca"/><circle cx="-8" cy="-6" r="8" fill="white" opacity="0.6"/><text x="0" y="45" text-anchor="middle" font-size="10" fill="#4d4d4d" font-weight="600">3/8" Pea</text><text x="0" y="58" text-anchor="middle" font-size="9" fill="#888" font-family="Geist Mono,monospace">Path/Patios</text>
+          <circle cx="0" cy="0" r="28" fill="#d8ccf1" stroke="#7928ca"/><circle cx="-8" cy="-6" r="8" fill="var(--color-canvas)" opacity="0.6"/><text x="0" y="45" text-anchor="middle" font-size="10" fill="var(--color-body)" font-weight="600">3/8" Pea</text><text x="0" y="58" text-anchor="middle" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">Path/Patios</text>
         </g>
         <g transform="translate(230 90)">
-          <circle cx="0" cy="0" r="18" fill="#aaffec" stroke="#29bc9b"/><circle cx="-5" cy="-4" r="5" fill="white" opacity="0.6"/><text x="0" y="45" text-anchor="middle" font-size="10" fill="#4d4d4d" font-weight="600">3/4" Crushed</text><text x="0" y="58" text-anchor="middle" font-size="9" fill="#888" font-family="Geist Mono,monospace">Driveway</text>
+          <circle cx="0" cy="0" r="18" fill="#aaffec" stroke="#29bc9b"/><circle cx="-5" cy="-4" r="5" fill="var(--color-canvas)" opacity="0.6"/><text x="0" y="45" text-anchor="middle" font-size="10" fill="var(--color-body)" font-weight="600">3/4" Crushed</text><text x="0" y="58" text-anchor="middle" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">Driveway</text>
         </g>
         <g transform="translate(400 90)">
-          <rect x="-30" y="-22" width="60" height="44" rx="6" fill="white" stroke="#171717"/><g fill="#888" opacity="0.2"><circle cx="-12" cy="-8" r="4"/><circle cx="8" cy="-5" r="3"/><circle cx="-5" cy="10" r="4"/><circle cx="12" cy="8" r="3"/></g><text x="0" y="45" text-anchor="middle" font-size="10" fill="#4d4d4d" font-weight="600">Yard @ 3"</text><text x="0" y="58" text-anchor="middle" font-size="9" fill="#888" font-family="Geist Mono,monospace">~80 ft² / ton</text>
+          <rect x="-30" y="-22" width="60" height="44" rx="6" fill="var(--color-canvas)" stroke="var(--color-ink)"/><g fill="var(--color-mute)" opacity="0.2"><circle cx="-12" cy="-8" r="4"/><circle cx="8" cy="-5" r="3"/><circle cx="-5" cy="10" r="4"/><circle cx="12" cy="8" r="3"/></g><text x="0" y="45" text-anchor="middle" font-size="10" fill="var(--color-body)" font-weight="600">Yard @ 3"</text><text x="0" y="58" text-anchor="middle" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">~80 ft² / ton</text>
         </g>
         <g transform="translate(560 90)">
-          <rect x="-40" y="-30" width="80" height="60" rx="8" fill="#ffefcf" stroke="#ab570a"/><text x="0" y="-8" text-anchor="middle" font-size="10" fill="#ab570a" font-weight="700">1.35 t/yd³</text><text x="0" y="8" text-anchor="middle" font-size="10" fill="#4d4d4d">Pea density</text><text x="0" y="22" text-anchor="middle" font-size="9" fill="#888" font-family="Geist Mono,monospace">2700 lb / yd³</text>
+          <rect x="-40" y="-30" width="80" height="60" rx="8" fill="#ffefcf" stroke="#ab570a"/><text x="0" y="-8" text-anchor="middle" font-size="10" fill="#ab570a" font-weight="700">1.35 t/yd³</text><text x="0" y="8" text-anchor="middle" font-size="10" fill="var(--color-body)">Pea density</text><text x="0" y="22" text-anchor="middle" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">2700 lb / yd³</text>
         </g>
-        <line x1="140" y1="60" x2="160" y2="60" stroke="#ebebeb" stroke-width="1" marker-end="url(#arrow)"/><line x1="310" y1="60" x2="330" y2="60" stroke="#ebebeb" stroke-width="1"/><line x1="480" y1="60" x2="500" y2="60" stroke="#ebebeb" stroke-width="1"/>
+        <line x1="140" y1="60" x2="160" y2="60" stroke="var(--color-hairline)" stroke-width="1" marker-end="url(#arrow)"/><line x1="310" y1="60" x2="330" y2="60" stroke="var(--color-hairline)" stroke-width="1"/><line x1="480" y1="60" x2="500" y2="60" stroke="var(--color-hairline)" stroke-width="1"/>
         <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ebebeb"/></marker></defs>
       </svg>
       <p class="mt-2 text-center font-mono text-[11px] text-mute">Pea is rounded & smooth — rakes needed. Crushed locks together.</p>
@@ -189,13 +189,13 @@ const { variant } = Astro.props;
     <div class="bg-canvas-soft-2 px-4 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">VISUAL GUIDE — DRIVEWAY LAYERS</span></div>
     <svg viewBox="0 0 700 190" class="w-full h-auto p-5 bg-canvas" role="img" aria-labelledby="drv-title">
       <title id="drv-title">Driveway layers cross section</title>
-      <rect x="0" y="0" width="700" height="190" rx="8" fill="#fafafa" stroke="#ebebeb"/>
+      <rect x="0" y="0" width="700" height="190" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
       <rect x="40" y="140" width="620" height="8" rx="2" fill="#1f1f1f"/>
       <rect x="40" y="110" width="620" height="30" rx="2" fill="#d3e5ff" stroke="#0070f3"/><text x="350" y="130" text-anchor="middle" font-size="11" fill="#0761d1" font-weight="600">Base — 4-6" crushed #57 + fines (compacted)</text>
       <rect x="40" y="85" width="620" height="25" rx="2" fill="#d8ccf1" stroke="#7928ca"/><text x="350" y="102" text-anchor="middle" font-size="11" fill="#4c2889" font-weight="600">Top — 2-3" pea / #8 (decorative)</text>
-      <line x1="665" y1="85" x2="665" y2="140" stroke="#171717" stroke-width="1"/><polygon points="665,85 662,93 668,93" fill="#171717"/><polygon points="665,140 662,132 668,132" fill="#171717"/><rect x="672" y="104" width="20" height="14" rx="7" fill="#171717"/><text x="682" y="114" text-anchor="middle" font-size="8" fill="white" font-weight="700">6"</text>
+      <line x1="665" y1="85" x2="665" y2="140" stroke="var(--color-ink)" stroke-width="1"/><polygon points="665,85 662,93 668,93" fill="var(--color-ink)"/><polygon points="665,140 662,132 668,132" fill="var(--color-ink)"/><rect x="672" y="104" width="20" height="14" rx="7" fill="var(--color-ink)"/><text x="682" y="114" text-anchor="middle" font-size="8" fill="var(--color-canvas)" font-weight="700">6"</text>
       <!-- car -->
-      <g transform="translate(350 55)"><rect x="-30" y="-10" width="60" height="14" rx="6" fill="#171717"/><circle cx="-18" cy="8" r="5" fill="#333" stroke="white"/><circle cx="18" cy="8" r="5" fill="#333" stroke="white"/></g>
+      <g transform="translate(350 55)"><rect x="-30" y="-10" width="60" height="14" rx="6" fill="var(--color-ink)"/><circle cx="-18" cy="8" r="5" fill="#333" stroke="white"/><circle cx="18" cy="8" r="5" fill="#333" stroke="white"/></g>
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Driveway = base + top. Calculate layers separately — our tool multiplies by layers.</figcaption>
   </figure>
@@ -211,26 +211,26 @@ const { variant } = Astro.props;
     <div class="bg-canvas-soft-2 px-4 py-2 border-b border-hairline flex justify-between"><span class="font-mono text-[11px] tracking-widest text-mute">VISUAL GUIDE — POSTS & PANELS</span><span class="font-mono text-[11px] text-mute">8 ft spacing</span></div>
     <svg viewBox="0 0 700 180" class="w-full h-auto p-5 bg-canvas" role="img" aria-labelledby="fence-title">
       <title id="fence-title">Fence posts and panels diagram</title>
-      <rect x="0" y="0" width="700" height="180" rx="8" fill="#fafafa" stroke="#ebebeb"/>
+      <rect x="0" y="0" width="700" height="180" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
       <!-- ground -->
-      <line x1="40" y1="135" x2="660" y2="135" stroke="#a1a1a1" stroke-width="1.5"/>
+      <line x1="40" y1="135" x2="660" y2="135" stroke="var(--color-mute)" stroke-width="1.5"/>
       <!-- posts -->
-      <g fill="#171717" stroke="#171717">
+      <g fill="var(--color-ink)" stroke="var(--color-ink)">
         <rect x="60" y="65" width="10" height="70" rx="1"/><rect x="200" y="65" width="10" height="70" rx="1"/><rect x="340" y="65" width="10" height="70" rx="1"/><rect x="480" y="65" width="10" height="70" rx="1"/><rect x="620" y="65" width="10" height="70" rx="1"/>
-        <rect x="62" y="135" width="6" height="18" rx="1" fill="#a1a1a1"/>
-        <rect x="202" y="135" width="6" height="18" rx="1" fill="#a1a1a1"/><rect x="342" y="135" width="6" height="18" rx="1" fill="#a1a1a1"/><rect x="482" y="135" width="6" height="18" rx="1" fill="#a1a1a1"/><rect x="622" y="135" width="6" height="18" rx="1" fill="#a1a1a1"/>
+        <rect x="62" y="135" width="6" height="18" rx="1" fill="var(--color-mute)"/>
+        <rect x="202" y="135" width="6" height="18" rx="1" fill="var(--color-mute)"/><rect x="342" y="135" width="6" height="18" rx="1" fill="var(--color-mute)"/><rect x="482" y="135" width="6" height="18" rx="1" fill="var(--color-mute)"/><rect x="622" y="135" width="6" height="18" rx="1" fill="var(--color-mute)"/>
       </g>
       <!-- panels -->
-      <g fill="white" stroke="#4d4d4d" stroke-width="1.2">
-        <rect x="70" y="75" width="130" height="45" rx="2"/><line x1="70" y1="90" x2="200" y2="90" stroke="#ebebeb"/><line x1="70" y1="105" x2="200" y2="105" stroke="#ebebeb"/>
-        <rect x="210" y="75" width="130" height="45" rx="2"/><line x1="210" y1="90" x2="340" y2="90" stroke="#ebebeb"/><line x1="210" y1="105" x2="340" y2="105" stroke="#ebebeb"/>
+      <g fill="var(--color-canvas)" stroke="var(--color-body)" stroke-width="1.2">
+        <rect x="70" y="75" width="130" height="45" rx="2"/><line x1="70" y1="90" x2="200" y2="90" stroke="var(--color-hairline)"/><line x1="70" y1="105" x2="200" y2="105" stroke="var(--color-hairline)"/>
+        <rect x="210" y="75" width="130" height="45" rx="2"/><line x1="210" y1="90" x2="340" y2="90" stroke="var(--color-hairline)"/><line x1="210" y1="105" x2="340" y2="105" stroke="var(--color-hairline)"/>
         <rect x="350" y="75" width="130" height="45" rx="2"/><rect x="490" y="75" width="130" height="45" rx="2"/>
       </g>
       <!-- spacing arrow -->
-      <line x1="70" y1="45" x2="200" y2="45" stroke="#0070f3" stroke-width="1"/><polygon points="70,45 78,41 78,49" fill="#0070f3"/><polygon points="200,45 192,41 192,49" fill="#0070f3"/><rect x="120" y="28" width="30" height="14" rx="7" fill="#0070f3"/><text x="135" y="38" text-anchor="middle" font-size="8" fill="white" font-weight="700">8 ft</text>
+      <line x1="70" y1="45" x2="200" y2="45" stroke="#0070f3" stroke-width="1"/><polygon points="70,45 78,41 78,49" fill="#0070f3"/><polygon points="200,45 192,41 192,49" fill="#0070f3"/><rect x="120" y="28" width="30" height="14" rx="7" fill="#0070f3"/><text x="135" y="38" text-anchor="middle" font-size="8" fill="var(--color-canvas)" font-weight="700">8 ft</text>
       <!-- gate -->
       <rect x="350" y="75" width="130" height="45" rx="2" fill="#ffefcf" stroke="#ab570a" stroke-dasharray="4 3"/><text x="415" y="102" text-anchor="middle" font-size="10" fill="#ab570a" font-weight="700">GATE 4 ft</text>
-      <text x="65" y="155" font-size="9" fill="#888" font-family="Geist Mono,monospace">Post 0</text><text x="625" y="155" font-size="9" fill="#888" font-family="Geist Mono,monospace">End</text>
+      <text x="65" y="155" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">Post 0</text><text x="625" y="155" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">End</text>
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Posts = ceil(length / spacing) + 1 + 2 per gate. Measure the longest straight run for accurate count.</figcaption>
   </figure>
@@ -246,9 +246,9 @@ const { variant } = Astro.props;
     <div class="bg-canvas-soft-2 px-4 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">VISUAL GUIDE — BOARDS & JOISTS</span></div>
     <svg viewBox="0 0 700 200" class="w-full h-auto p-5 bg-canvas" role="img" aria-labelledby="deck-title">
       <title id="deck-title">Deck boards and joists top view</title>
-      <rect x="0" y="0" width="700" height="200" rx="8" fill="#fafafa" stroke="#ebebeb"/>
+      <rect x="0" y="0" width="700" height="200" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
       <!-- deck outline -->
-      <rect x="40" y="40" width="420" height="120" rx="4" fill="white" stroke="#171717" stroke-width="1.5"/>
+      <rect x="40" y="40" width="420" height="120" rx="4" fill="var(--color-canvas)" stroke="var(--color-ink)" stroke-width="1.5"/>
       <!-- joists dashed -->
       <g stroke="#0070f3" stroke-width="1" stroke-dasharray="4 3" opacity="0.6">
         <line x1="80" y1="40" x2="80" y2="160"/><line x1="140" y1="40" x2="140" y2="160"/><line x1="200" y1="40" x2="200" y2="160"/><line x1="260" y1="40" x2="260" y2="160"/><line x1="320" y1="40" x2="320" y2="160"/><line x1="380" y1="40" x2="380" y2="160"/><line x1="440" y1="40" x2="440" y2="160"/>
@@ -257,10 +257,10 @@ const { variant } = Astro.props;
       <g fill="#ffefcf" stroke="#f5a623" stroke-width="1">
         <rect x="40" y="45" width="420" height="14" rx="1"/><rect x="40" y="63" width="420" height="14" rx="1"/><rect x="40" y="81" width="420" height="14" rx="1"/><rect x="40" y="99" width="420" height="14" rx="1"/><rect x="40" y="117" width="420" height="14" rx="1"/><rect x="40" y="135" width="420" height="14" rx="1"/>
       </g>
-      <text x="250" y="30" text-anchor="middle" font-size="10" fill="#171717" font-weight="600">Deck 16×12 ft — boards run along length</text>
+      <text x="250" y="30" text-anchor="middle" font-size="10" fill="var(--color-ink)" font-weight="600">Deck 16×12 ft — boards run along length</text>
       <g transform="translate(500 50)">
-        <rect x="0" y="0" width="160" height="70" rx="6" fill="white" stroke="#ebebeb"/><text x="80" y="16" text-anchor="middle" font-size="10" fill="#171717" font-weight="600">5.5" board + 1/8" gap</text><line x1="20" y1="28" x2="70" y2="28" stroke="#171717" stroke-width="1"/><polygon points="20,28 26,24 26,32" fill="#171717"/><polygon points="70,28 64,24 64,32" fill="#171717"/><text x="45" y="44" text-anchor="middle" font-size="8" fill="#888" font-family="Geist Mono,monospace">board</text><line x1="75" y1="28" x2="85" y2="28" stroke="#f5a623"/><text x="80" y="44" text-anchor="middle" font-size="8" fill="#888">gap</text>
-        <text x="80" y="60" text-anchor="middle" font-size="9" fill="#4d4d4d">Joists 16" o.c.</text>
+        <rect x="0" y="0" width="160" height="70" rx="6" fill="var(--color-canvas)" stroke="var(--color-hairline)"/><text x="80" y="16" text-anchor="middle" font-size="10" fill="var(--color-ink)" font-weight="600">5.5" board + 1/8" gap</text><line x1="20" y1="28" x2="70" y2="28" stroke="var(--color-ink)" stroke-width="1"/><polygon points="20,28 26,24 26,32" fill="var(--color-ink)"/><polygon points="70,28 64,24 64,32" fill="var(--color-ink)"/><text x="45" y="44" text-anchor="middle" font-size="8" fill="var(--color-mute)" font-family="Geist Mono,monospace">board</text><line x1="75" y1="28" x2="85" y2="28" stroke="#f5a623"/><text x="80" y="44" text-anchor="middle" font-size="8" fill="var(--color-mute)">gap</text>
+        <text x="80" y="60" text-anchor="middle" font-size="9" fill="var(--color-body)">Joists 16" o.c.</text>
       </g>
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Boards + 1/8" gap = effective width. Joists 16" o.c. → ceil(length / 1.33) + 1.</figcaption>
@@ -273,7 +273,7 @@ const { variant } = Astro.props;
     </figure>
     <div class="overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
       <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline flex justify-between"><span class="font-mono text-[11px] tracking-widest text-mute">3D MODEL — DECK FRAMING</span><span class="font-mono text-[10px] text-mute">WebGL</span></div>
-      <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" poster="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80&auto=format&fit=crop" alt="3D deck model" ar camera-controls auto-rotate shadow-intensity="0.8" style="width:100%; height:240px; background:#fafafa;" loading="lazy" reveal="interaction"></model-viewer>
+      <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" poster="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80&auto=format&fit=crop" alt="3D deck model" ar camera-controls auto-rotate shadow-intensity="0.8" style="width:100%; height:240px; background:var(--color-canvas-soft);" loading="lazy" reveal="interaction"></model-viewer>
       <div class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Demo — replace with <span class="text-ink font-medium">/models/deck.glb</span>. Drag to rotate joists.</div>
     </div>
   </div>
@@ -287,28 +287,28 @@ const { variant } = Astro.props;
       <div class="p-4">
         <svg viewBox="0 0 320 180" class="w-full h-auto" role="img" aria-labelledby="paver-top">
           <title id="paver-top">Paver grid top view</title>
-          <rect x="0" y="0" width="320" height="180" rx="8" fill="#fafafa" stroke="#ebebeb"/>
-          <rect x="20" y="30" width="200" height="120" rx="4" fill="white" stroke="#171717"/>
-          <g fill="white" stroke="#ebebeb">
-            <rect x="20" y="30" width="48" height="38" rx="1" stroke="#171717" stroke-width="1.2"/><rect x="70" y="30" width="48" height="38" rx="1"/><rect x="120" y="30" width="48" height="38" rx="1"/><rect x="170" y="30" width="50" height="38" rx="1"/>
+          <rect x="0" y="0" width="320" height="180" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
+          <rect x="20" y="30" width="200" height="120" rx="4" fill="var(--color-canvas)" stroke="var(--color-ink)"/>
+          <g fill="var(--color-canvas)" stroke="var(--color-hairline)">
+            <rect x="20" y="30" width="48" height="38" rx="1" stroke="var(--color-ink)" stroke-width="1.2"/><rect x="70" y="30" width="48" height="38" rx="1"/><rect x="120" y="30" width="48" height="38" rx="1"/><rect x="170" y="30" width="50" height="38" rx="1"/>
             <rect x="20" y="70" width="48" height="38" rx="1"/><rect x="70" y="70" width="48" height="38" rx="1"/><rect x="120" y="70" width="48" height="38" rx="1"/><rect x="170" y="70" width="50" height="38" rx="1"/>
             <rect x="20" y="110" width="48" height="40" rx="1"/><rect x="70" y="110" width="48" height="40" rx="1"/><rect x="120" y="110" width="48" height="40" rx="1"/><rect x="170" y="110" width="50" height="40" rx="1"/>
           </g>
-          <text x="120" y="20" text-anchor="middle" font-size="9" fill="#888" font-family="Geist Mono,monospace">12" × 12" pavers</text>
-          <text x="270" y="90" text-anchor="middle" font-size="10" fill="#171717" font-weight="600">×200</text>
-          <text x="270" y="105" text-anchor="middle" font-size="9" fill="#888" font-family="Geist Mono,monospace">for 20×10 ft</text>
+          <text x="120" y="20" text-anchor="middle" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">12" × 12" pavers</text>
+          <text x="270" y="90" text-anchor="middle" font-size="10" fill="var(--color-ink)" font-weight="600">×200</text>
+          <text x="270" y="105" text-anchor="middle" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">for 20×10 ft</text>
         </svg>
       </div>
       <div class="p-4">
         <svg viewBox="0 0 320 180" class="w-full h-auto" role="img" aria-labelledby="paver-side">
           <title id="paver-side">Paver base cross section</title>
-          <rect x="0" y="0" width="320" height="180" rx="8" fill="#fafafa" stroke="#ebebeb"/>
+          <rect x="0" y="0" width="320" height="180" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
           <rect x="20" y="135" width="280" height="6" rx="2" fill="#1f1f1f"/>
           <rect x="20" y="95" width="280" height="30" rx="2" fill="#d3e5ff" stroke="#0070f3"/><text x="160" y="115" text-anchor="middle" font-size="9" fill="#0761d1" font-weight="600">Gravel base 4"</text>
           <rect x="20" y="80" width="280" height="15" rx="2" fill="#ffefcf" stroke="#f5a623"/><text x="160" y="90" text-anchor="middle" font-size="9" fill="#ab570a" font-weight="600">Sand 1"</text>
-          <g fill="white" stroke="#171717" stroke-width="1"><rect x="20" y="62" width="34" height="18" rx="1"/><rect x="56" y="62" width="34" height="18" rx="1"/><rect x="92" y="62" width="34" height="18" rx="1"/><rect x="128" y="62" width="34" height="18" rx="1"/><rect x="164" y="62" width="34" height="18" rx="1"/><rect x="200" y="62" width="34" height="18" rx="1"/><rect x="236" y="62" width="34" height="18" rx="1"/><rect x="272" y="62" width="28" height="18" rx="1"/></g>
-          <text x="160" y="50" text-anchor="middle" font-size="9" fill="#888" font-family="Geist Mono,monospace">Edge restraint</text>
-          <line x1="10" y1="62" x2="310" y2="62" stroke="#ebebeb" stroke-dasharray="4 3"/>
+          <g fill="var(--color-canvas)" stroke="var(--color-ink)" stroke-width="1"><rect x="20" y="62" width="34" height="18" rx="1"/><rect x="56" y="62" width="34" height="18" rx="1"/><rect x="92" y="62" width="34" height="18" rx="1"/><rect x="128" y="62" width="34" height="18" rx="1"/><rect x="164" y="62" width="34" height="18" rx="1"/><rect x="200" y="62" width="34" height="18" rx="1"/><rect x="236" y="62" width="34" height="18" rx="1"/><rect x="272" y="62" width="28" height="18" rx="1"/></g>
+          <text x="160" y="50" text-anchor="middle" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">Edge restraint</text>
+          <line x1="10" y1="62" x2="310" y2="62" stroke="var(--color-hairline)" stroke-dasharray="4 3"/>
         </svg>
       </div>
     </div>
@@ -326,14 +326,14 @@ const { variant } = Astro.props;
     <div class="bg-canvas-soft-2 px-4 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">VISUAL GUIDE — MULCH BED</span></div>
     <svg viewBox="0 0 700 160" class="w-full h-auto p-5 bg-canvas" role="img" aria-labelledby="mulch-title">
       <title id="mulch-title">Mulch bed depth diagram</title>
-      <rect x="0" y="0" width="700" height="160" rx="8" fill="#fafafa" stroke="#ebebeb"/>
-      <rect x="40" y="120" width="620" height="8" rx="2" fill="#4d4d4d"/>
+      <rect x="0" y="0" width="700" height="160" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
+      <rect x="40" y="120" width="620" height="8" rx="2" fill="var(--color-body)"/>
       <rect x="40" y="90" width="620" height="30" rx="6" fill="#ffefcf" stroke="#ab570a"/><g fill="#ab570a" opacity="0.15"><circle cx="60" cy="105" r="4"/><circle cx="90" cy="110" r="3"/><circle cx="120" cy="102" r="4"/><circle cx="160" cy="108" r="3"/><circle cx="200" cy="105" r="4"/><circle cx="500" cy="106" r="4"/></g>
       <text x="350" y="108" text-anchor="middle" font-size="11" fill="#ab570a" font-weight="600">Mulch 3" deep</text>
-      <line x1="665" y1="90" x2="665" y2="120" stroke="#171717" stroke-width="1.2"/><polygon points="665,90 662,98 668,98" fill="#171717"/><polygon points="665,120 662,112 668,112" fill="#171717"/><rect x="672" y="100" width="22" height="14" rx="7" fill="#171717"/><text x="683" y="110" text-anchor="middle" font-size="8" fill="white" font-weight="700">3"</text>
+      <line x1="665" y1="90" x2="665" y2="120" stroke="var(--color-ink)" stroke-width="1.2"/><polygon points="665,90 662,98 668,98" fill="var(--color-ink)"/><polygon points="665,120 662,112 668,112" fill="var(--color-ink)"/><rect x="672" y="100" width="22" height="14" rx="7" fill="var(--color-ink)"/><text x="683" y="110" text-anchor="middle" font-size="8" fill="var(--color-canvas)" font-weight="700">3"</text>
       <g transform="translate(40 30)">
-        <rect x="0" y="0" width="40" height="50" rx="4" fill="white" stroke="#ebebeb"/><rect x="5" y="8" width="30" height="20" rx="2" fill="#ffefcf" stroke="#ab570a"/><text x="20" y="40" text-anchor="middle" font-size="8" fill="#888">2 ft³</text><text x="20" y="48" text-anchor="middle" font-size="7" fill="#888" font-family="Geist Mono,monospace">bag</text>
-        <text x="90" y="18" font-size="10" fill="#171717" font-weight="600">1 bag = 2 ft³</text><text x="90" y="32" font-size="9" fill="#888">covers ~8 ft² @ 3"</text><text x="90" y="44" font-size="9" fill="#888">25 bags for 200 ft²</text>
+        <rect x="0" y="0" width="40" height="50" rx="4" fill="var(--color-canvas)" stroke="var(--color-hairline)"/><rect x="5" y="8" width="30" height="20" rx="2" fill="#ffefcf" stroke="#ab570a"/><text x="20" y="40" text-anchor="middle" font-size="8" fill="var(--color-mute)">2 ft³</text><text x="20" y="48" text-anchor="middle" font-size="7" fill="var(--color-mute)" font-family="Geist Mono,monospace">bag</text>
+        <text x="90" y="18" font-size="10" fill="var(--color-ink)" font-weight="600">1 bag = 2 ft³</text><text x="90" y="32" font-size="9" fill="var(--color-mute)">covers ~8 ft² @ 3"</text><text x="90" y="44" font-size="9" fill="var(--color-mute)">25 bags for 200 ft²</text>
       </g>
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">2 ft³ bag = 8 ft² @ 3". Bulk yd³ × 13.5 bags per yard.</figcaption>
@@ -350,22 +350,22 @@ const { variant } = Astro.props;
     <div class="bg-canvas-soft-2 px-4 py-2 border-b border-hairline flex justify-between"><span class="font-mono text-[11px] tracking-widest text-mute">VISUAL GUIDE — PITCH TRIANGLE</span><span class="font-mono text-[11px] text-mute">rise : run</span></div>
     <svg viewBox="0 0 700 200" class="w-full h-auto p-5 bg-canvas" role="img" aria-labelledby="pitch-title">
       <title id="pitch-title">Roof pitch triangle rise over run</title>
-      <rect x="0" y="0" width="700" height="200" rx="8" fill="#fafafa" stroke="#ebebeb"/>
+      <rect x="0" y="0" width="700" height="200" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
       <!-- triangle -->
-      <polygon points="120,150 480,150 480,60" fill="white" stroke="#171717" stroke-width="1.5" stroke-linejoin="round"/>
+      <polygon points="120,150 480,150 480,60" fill="var(--color-canvas)" stroke="var(--color-ink)" stroke-width="1.5" stroke-linejoin="round"/>
       <polygon points="120,150 480,150 480,60" fill="none" stroke="#0070f3" stroke-width="1" stroke-dasharray="0" opacity="0.1"/>
       <!-- right angle -->
-      <path d="M465 150 L465 135 L480 135" fill="none" stroke="#4d4d4d" stroke-width="1"/>
+      <path d="M465 150 L465 135 L480 135" fill="none" stroke="var(--color-body)" stroke-width="1"/>
       <!-- rise arrow vertical -->
       <line x1="500" y1="60" x2="500" y2="150" stroke="#ee0000" stroke-width="1.5"/><polygon points="500,60 496,68 504,68" fill="#ee0000"/><polygon points="500,150 496,142 504,142" fill="#ee0000"/>
-      <rect x="508" y="96" width="44" height="18" rx="9" fill="#ee0000"/><text x="530" y="109" text-anchor="middle" font-size="10" fill="white" font-weight="700">Rise 6"</text>
+      <rect x="508" y="96" width="44" height="18" rx="9" fill="#ee0000"/><text x="530" y="109" text-anchor="middle" font-size="10" fill="var(--color-canvas)" font-weight="700">Rise 6"</text>
       <!-- run arrow horizontal -->
       <line x1="120" y1="168" x2="480" y2="168" stroke="#7928ca" stroke-width="1.5"/><polygon points="120,168 128,164 128,172" fill="#7928ca"/><polygon points="480,168 472,164 472,172" fill="#7928ca"/>
-      <rect x="275" y="172" width="60" height="18" rx="9" fill="#7928ca"/><text x="305" y="185" text-anchor="middle" font-size="10" fill="white" font-weight="700">Run 12"</text>
+      <rect x="275" y="172" width="60" height="18" rx="9" fill="#7928ca"/><text x="305" y="185" text-anchor="middle" font-size="10" fill="var(--color-canvas)" font-weight="700">Run 12"</text>
       <!-- angle arc -->
       <path d="M170 150 A50 50 0 0 0 195 110" fill="none" stroke="#f5a623" stroke-width="1.5"/><text x="195" y="125" font-size="10" fill="#ab570a" font-weight="700">26.6°</text>
       <!-- slope -->
-      <text x="320" y="100" text-anchor="middle" font-size="11" fill="#171717" font-weight="600">Slope = 0.5</text><text x="320" y="115" text-anchor="middle" font-size="10" fill="#888" font-family="Geist Mono,monospace">6 : 12 pitch</text>
+      <text x="320" y="100" text-anchor="middle" font-size="11" fill="var(--color-ink)" font-weight="600">Slope = 0.5</text><text x="320" y="115" text-anchor="middle" font-size="10" fill="var(--color-mute)" font-family="Geist Mono,monospace">6 : 12 pitch</text>
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Right triangle — rise/run → angle = arctan(rise/run). 3:12 low, 9:12 steep.</figcaption>
   </figure>
@@ -377,7 +377,7 @@ const { variant } = Astro.props;
     </figure>
     <div class="overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
       <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline flex justify-between"><span class="font-mono text-[11px] tracking-widest text-mute">3D MODEL — ROTATE</span><span class="font-mono text-[10px] text-mute">WebGL</span></div>
-      <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" poster="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80&auto=format&fit=crop" alt="3D roof pitch model" ar camera-controls auto-rotate shadow-intensity="0.8" style="width:100%; height:240px; background:#fafafa;" loading="lazy" reveal="interaction"></model-viewer>
+      <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" poster="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80&auto=format&fit=crop" alt="3D roof pitch model" ar camera-controls auto-rotate shadow-intensity="0.8" style="width:100%; height:240px; background:var(--color-canvas-soft);" loading="lazy" reveal="interaction"></model-viewer>
       <div class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Demo — replace with <span class="text-ink font-medium">/models/roof-pitch.glb</span>. Drag to rotate.</div>
     </div>
   </div>
@@ -389,19 +389,19 @@ const { variant } = Astro.props;
     <div class="bg-canvas-soft-2 px-4 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">VISUAL GUIDE — ROOF AREA & OVERHANG</span></div>
     <svg viewBox="0 0 700 200" class="w-full h-auto p-5 bg-canvas" role="img" aria-labelledby="roofarea-title">
       <title id="roofarea-title">Roof area with pitch multiplier</title>
-      <rect x="0" y="0" width="700" height="200" rx="8" fill="#fafafa" stroke="#ebebeb"/>
+      <rect x="0" y="0" width="700" height="200" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
       <!-- footprint -->
-      <rect x="80" y="70" width="300" height="90" rx="4" fill="white" stroke="#171717" stroke-width="1.2" stroke-dasharray="6 4"/>
+      <rect x="80" y="70" width="300" height="90" rx="4" fill="var(--color-canvas)" stroke="var(--color-ink)" stroke-width="1.2" stroke-dasharray="6 4"/>
       <!-- overhang -->
       <rect x="60" y="50" width="340" height="130" rx="6" fill="none" stroke="#0070f3" stroke-width="1.2"/>
       <line x1="60" y1="50" x2="80" y2="70" stroke="#0070f3" stroke-dasharray="3 3"/><line x1="400" y1="50" x2="380" y2="70" stroke="#0070f3" stroke-dasharray="3 3"/><line x1="60" y1="180" x2="80" y2="160" stroke="#0070f3" stroke-dasharray="3 3"/><line x1="400" y1="180" x2="380" y2="160" stroke="#0070f3" stroke-dasharray="3 3"/>
       <text x="230" y="40" text-anchor="middle" font-size="9" fill="#0070f3" font-family="Geist Mono,monospace">+1.5 ft overhang</text>
-      <text x="230" y="100" text-anchor="middle" font-size="10" fill="#4d4d4d" font-weight="600">Footprint 43×33</text><text x="230" y="118" text-anchor="middle" font-size="9" fill="#888">1419 ft²</text>
+      <text x="230" y="100" text-anchor="middle" font-size="10" fill="var(--color-body)" font-weight="600">Footprint 43×33</text><text x="230" y="118" text-anchor="middle" font-size="9" fill="var(--color-mute)">1419 ft²</text>
       <!-- pitch -->
       <g transform="translate(480 50)">
-        <polygon points="0,80 80,80 80,40" fill="white" stroke="#171717"/><text x="25" y="75" font-size="9" fill="#888" font-family="Geist Mono,monospace">12"</text><text x="88" y="65" font-size="9" fill="#ee0000" font-weight="700">6"</text><text x="40" y="55" font-size="9" fill="#ab570a" font-weight="700">×1.118</text>
+        <polygon points="0,80 80,80 80,40" fill="var(--color-canvas)" stroke="var(--color-ink)"/><text x="25" y="75" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">12"</text><text x="88" y="65" font-size="9" fill="#ee0000" font-weight="700">6"</text><text x="40" y="55" font-size="9" fill="#ab570a" font-weight="700">×1.118</text>
       </g>
-      <text x="520" y="155" text-anchor="middle" font-size="10" fill="#171717" font-weight="600">→ 1586 ft² roof</text><text x="520" y="170" text-anchor="middle" font-size="9" fill="#888" font-family="Geist Mono,monospace">15.86 squares</text>
+      <text x="520" y="155" text-anchor="middle" font-size="10" fill="var(--color-ink)" font-weight="600">→ 1586 ft² roof</text><text x="520" y="170" text-anchor="middle" font-size="9" fill="var(--color-mute)" font-family="Geist Mono,monospace">15.86 squares</text>
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Footprint + overhang × multiplier = roof. Multiplier = √(pitch²+144)/12.</figcaption>
   </figure>
@@ -413,7 +413,7 @@ const { variant } = Astro.props;
     </figure>
     <div class="overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
       <div class="bg-canvas-soft-2 px-3 py-2 border-b border-hairline flex justify-between"><span class="font-mono text-[11px] tracking-widest text-mute">3D MODEL — ROOF VOLUME</span><span class="font-mono text-[10px] text-mute">WebGL</span></div>
-      <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" poster="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80&auto=format&fit=crop" alt="3D roof area model" ar camera-controls auto-rotate shadow-intensity="0.8" style="width:100%; height:240px; background:#fafafa;" loading="lazy" reveal="interaction"></model-viewer>
+      <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" poster="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80&auto=format&fit=crop" alt="3D roof area model" ar camera-controls auto-rotate shadow-intensity="0.8" style="width:100%; height:240px; background:var(--color-canvas-soft);" loading="lazy" reveal="interaction"></model-viewer>
       <div class="px-3 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Demo — replace with <span class="text-ink font-medium">/models/roof.glb</span>. Drag to rotate.</div>
     </div>
   </div>
@@ -425,17 +425,17 @@ const { variant } = Astro.props;
     <div class="bg-canvas-soft-2 px-4 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">VISUAL GUIDE — BRICK WALL</span></div>
     <svg viewBox="0 0 700 180" class="w-full h-auto p-5 bg-canvas" role="img" aria-labelledby="brick-title">
       <title id="brick-title">Brick wall with mortar joint diagram</title>
-      <rect x="0" y="0" width="700" height="180" rx="8" fill="#fafafa" stroke="#ebebeb"/>
+      <rect x="0" y="0" width="700" height="180" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
       <g transform="translate(80 40)">
         <rect x="0" y="0" width="60" height="22" rx="1" fill="#ffefcf" stroke="#ab570a"/><rect x="64" y="0" width="60" height="22" rx="1" fill="#ffefcf" stroke="#ab570a"/><rect x="128" y="0" width="60" height="22" rx="1" fill="#ffefcf" stroke="#ab570a"/>
         <rect x="0" y="26" width="60" height="22" rx="1" fill="#ffefcf" stroke="#ab570a"/><rect x="64" y="26" width="60" height="22" rx="1" fill="#ffefcf" stroke="#ab570a"/><rect x="128" y="26" width="60" height="22" rx="1" fill="#ffefcf" stroke="#ab570a"/>
         <rect x="0" y="52" width="60" height="22" rx="1" fill="#ffefcf" stroke="#ab570a"/><rect x="64" y="52" width="60" height="22" rx="1" fill="#ffefcf" stroke="#ab570a"/><rect x="128" y="52" width="60" height="22" rx="1" fill="#ffefcf" stroke="#ab570a"/>
-        <line x1="0" y1="88" x2="188" y2="88" stroke="#171717" stroke-width="1"/><polygon points="0,88 6,84 6,92" fill="#171717"/><polygon points="188,88 182,84 182,92" fill="#171717"/><text x="94" y="100" text-anchor="middle" font-size="9" fill="#4d4d4d" font-weight="600">Length</text>
-        <line x1="200" y1="0" x2="200" y2="74" stroke="#171717" stroke-width="1"/><polygon points="200,0 196,6 204,6" fill="#171717"/><polygon points="200,74 196,68 204,68" fill="#171717"/><text x="212" y="40" font-size="9" fill="#4d4d4d" font-weight="600">Height</text>
-        <rect x="62" y="0" width="4" height="74" fill="#ebebeb"/><text x="64" y="85" text-anchor="middle" font-size="7" fill="#888" font-family="Geist Mono,monospace">joint 3/8"</text>
+        <line x1="0" y1="88" x2="188" y2="88" stroke="var(--color-ink)" stroke-width="1"/><polygon points="0,88 6,84 6,92" fill="var(--color-ink)"/><polygon points="188,88 182,84 182,92" fill="var(--color-ink)"/><text x="94" y="100" text-anchor="middle" font-size="9" fill="var(--color-body)" font-weight="600">Length</text>
+        <line x1="200" y1="0" x2="200" y2="74" stroke="var(--color-ink)" stroke-width="1"/><polygon points="200,0 196,6 204,6" fill="var(--color-ink)"/><polygon points="200,74 196,68 204,68" fill="var(--color-ink)"/><text x="212" y="40" font-size="9" fill="var(--color-body)" font-weight="600">Height</text>
+        <rect x="62" y="0" width="4" height="74" fill="#ebebeb"/><text x="64" y="85" text-anchor="middle" font-size="7" fill="var(--color-mute)" font-family="Geist Mono,monospace">joint 3/8"</text>
       </g>
-      <text x="350" y="100" font-size="10" fill="#171717" font-weight="600">Wall — bricks + mortar</text><text x="350" y="115" font-size="9" fill="#888">7.5" x 2.25" brick, 3/8" joint</text>
-      <g transform="translate(480 30)"><rect x="0" y="0" width="160" height="70" rx="6" fill="white" stroke="#ebebeb"/><text x="80" y="16" text-anchor="middle" font-size="10" fill="#171717" font-weight="600">Coverage</text><text x="80" y="32" text-anchor="middle" font-size="9" fill="#888">~6.8 bricks/ft2</text><text x="80" y="46" text-anchor="middle" font-size="9" fill="#888">with joint</text><text x="80" y="60" text-anchor="middle" font-size="8" fill="#ab570a">+7% waste</text></g>
+      <text x="350" y="100" font-size="10" fill="var(--color-ink)" font-weight="600">Wall — bricks + mortar</text><text x="350" y="115" font-size="9" fill="var(--color-mute)">7.5" x 2.25" brick, 3/8" joint</text>
+      <g transform="translate(480 30)"><rect x="0" y="0" width="160" height="70" rx="6" fill="var(--color-canvas)" stroke="var(--color-hairline)"/><text x="80" y="16" text-anchor="middle" font-size="10" fill="var(--color-ink)" font-weight="600">Coverage</text><text x="80" y="32" text-anchor="middle" font-size="9" fill="var(--color-mute)">~6.8 bricks/ft2</text><text x="80" y="46" text-anchor="middle" font-size="9" fill="var(--color-mute)">with joint</text><text x="80" y="60" text-anchor="middle" font-size="8" fill="#ab570a">+7% waste</text></g>
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Wall length x height / brick area (with joint) = count.</figcaption>
   </figure>
@@ -446,11 +446,11 @@ const { variant } = Astro.props;
     <div class="bg-canvas-soft-2 px-4 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">VISUAL GUIDE — TRENCH & EXCAVATION</span></div>
     <svg viewBox="0 0 700 160" class="w-full h-auto p-5 bg-canvas" role="img" aria-labelledby="excav-title">
       <title id="excav-title">Trench excavation diagram</title>
-      <rect x="0" y="0" width="700" height="160" rx="8" fill="#fafafa" stroke="#ebebeb"/>
-      <rect x="80" y="40" width="300" height="60" rx="2" fill="#f5f5f5" stroke="#171717" stroke-dasharray="6 4"/><rect x="80" y="40" width="300" height="20" rx="2" fill="#d3e5ff" stroke="#0070f3"/><text x="230" y="53" text-anchor="middle" font-size="9" fill="#0761d1" font-weight="600">Trench — L x W x D</text>
-      <line x1="80" y1="115" x2="380" y2="115" stroke="#171717" stroke-width="1"/><polygon points="80,115 86,111 86,119" fill="#171717"/><polygon points="380,115 374,111 374,119" fill="#171717"/><text x="230" y="128" text-anchor="middle" font-size="9" fill="#4d4d4d" font-weight="600">Length</text>
+      <rect x="0" y="0" width="700" height="160" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
+      <rect x="80" y="40" width="300" height="60" rx="2" fill="var(--color-canvas-soft-2)" stroke="var(--color-ink)" stroke-dasharray="6 4"/><rect x="80" y="40" width="300" height="20" rx="2" fill="#d3e5ff" stroke="#0070f3"/><text x="230" y="53" text-anchor="middle" font-size="9" fill="#0761d1" font-weight="600">Trench — L x W x D</text>
+      <line x1="80" y1="115" x2="380" y2="115" stroke="var(--color-ink)" stroke-width="1"/><polygon points="80,115 86,111 86,119" fill="var(--color-ink)"/><polygon points="380,115 374,111 374,119" fill="var(--color-ink)"/><text x="230" y="128" text-anchor="middle" font-size="9" fill="var(--color-body)" font-weight="600">Length</text>
       <line x1="390" y1="40" x2="390" y2="100" stroke="#ee0000" stroke-width="1"/><polygon points="390,40 386,48 394,48" fill="#ee0000"/><polygon points="390,100 386,92 394,92" fill="#ee0000"/><text x="402" y="73" font-size="9" fill="#ee0000" font-weight="700">Depth</text>
-      <text x="500" y="50" font-size="10" fill="#171717" font-weight="600">Volume = L x W x D</text><text x="500" y="65" font-size="9" fill="#888">/27 = yd3</text><text x="500" y="80" font-size="9" fill="#ab570a">Backfill = Trench - Pipe</text>
+      <text x="500" y="50" font-size="10" fill="var(--color-ink)" font-weight="600">Volume = L x W x D</text><text x="500" y="65" font-size="9" fill="var(--color-mute)">/27 = yd3</text><text x="500" y="80" font-size="9" fill="#ab570a">Backfill = Trench - Pipe</text>
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Trench volume less pipe = backfill. Add 10% for over-excavation.</figcaption>
   </figure>
@@ -461,15 +461,15 @@ const { variant } = Astro.props;
     <div class="bg-canvas-soft-2 px-4 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">VISUAL GUIDE — STUDS & JOISTS</span></div>
     <svg viewBox="0 0 700 160" class="w-full h-auto p-5 bg-canvas" role="img" aria-labelledby="frame-title">
       <title id="frame-title">Framing studs and joists diagram</title>
-      <rect x="0" y="0" width="700" height="160" rx="8" fill="#fafafa" stroke="#ebebeb"/>
+      <rect x="0" y="0" width="700" height="160" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
       <g transform="translate(60 30)">
-        <rect x="0" y="0" width="200" height="80" rx="2" fill="white" stroke="#171717"/><line x1="30" y1="0" x2="30" y2="80" stroke="#0070f3" stroke-width="2"/><line x1="70" y1="0" x2="70" y2="80" stroke="#0070f3" stroke-width="2"/><line x1="110" y1="0" x2="110" y2="80" stroke="#0070f3" stroke-width="2"/><line x1="150" y1="0" x2="150" y2="80" stroke="#0070f3" stroke-width="2"/>
-        <text x="100" y="95" text-anchor="middle" font-size="9" fill="#4d4d4d" font-weight="600">Studs 16" o.c.</text><line x1="30" y1="95" x2="70" y2="95" stroke="#171717" stroke-width="1"/><polygon points="30,95 36,91 36,99" fill="#171717"/><polygon points="70,95 64,91 64,99" fill="#171717"/><text x="50" y="108" text-anchor="middle" font-size="8" fill="#888">16"</text>
+        <rect x="0" y="0" width="200" height="80" rx="2" fill="var(--color-canvas)" stroke="var(--color-ink)"/><line x1="30" y1="0" x2="30" y2="80" stroke="#0070f3" stroke-width="2"/><line x1="70" y1="0" x2="70" y2="80" stroke="#0070f3" stroke-width="2"/><line x1="110" y1="0" x2="110" y2="80" stroke="#0070f3" stroke-width="2"/><line x1="150" y1="0" x2="150" y2="80" stroke="#0070f3" stroke-width="2"/>
+        <text x="100" y="95" text-anchor="middle" font-size="9" fill="var(--color-body)" font-weight="600">Studs 16" o.c.</text><line x1="30" y1="95" x2="70" y2="95" stroke="var(--color-ink)" stroke-width="1"/><polygon points="30,95 36,91 36,99" fill="var(--color-ink)"/><polygon points="70,95 64,91 64,99" fill="var(--color-ink)"/><text x="50" y="108" text-anchor="middle" font-size="8" fill="var(--color-mute)">16"</text>
       </g>
       <g transform="translate(320 30)">
-        <rect x="0" y="0" width="200" height="80" rx="2" fill="white" stroke="#171717"/><g stroke="#f5a623" stroke-width="1"><rect x="10" y="10" width="180" height="12" rx="1" fill="#ffefcf"/><rect x="10" y="30" width="180" height="12" rx="1" fill="#ffefcf"/><rect x="10" y="50" width="180" height="12" rx="1" fill="#ffefcf"/></g><text x="100" y="95" text-anchor="middle" font-size="9" fill="#4d4d4d" font-weight="600">Joists + Board feet</text>
+        <rect x="0" y="0" width="200" height="80" rx="2" fill="var(--color-canvas)" stroke="var(--color-ink)"/><g stroke="#f5a623" stroke-width="1"><rect x="10" y="10" width="180" height="12" rx="1" fill="#ffefcf"/><rect x="10" y="30" width="180" height="12" rx="1" fill="#ffefcf"/><rect x="10" y="50" width="180" height="12" rx="1" fill="#ffefcf"/></g><text x="100" y="95" text-anchor="middle" font-size="9" fill="var(--color-body)" font-weight="600">Joists + Board feet</text>
       </g>
-      <text x="350" y="140" text-anchor="middle" font-size="9" fill="#888">Studs = ceil(L / spacing)+1  •  Board feet = (T x W x L)/12</text>
+      <text x="350" y="140" text-anchor="middle" font-size="9" fill="var(--color-mute)">Studs = ceil(L / spacing)+1  •  Board feet = (T x W x L)/12</text>
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Studs and joists — spacing defines count, board feet defines lumber volume.</figcaption>
   </figure>
@@ -480,14 +480,14 @@ const { variant } = Astro.props;
     <div class="bg-canvas-soft-2 px-4 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">VISUAL GUIDE — MORTAR MIX</span></div>
     <svg viewBox="0 0 700 140" class="w-full h-auto p-5 bg-canvas" role="img" aria-labelledby="mortar-title">
       <title id="mortar-title">Mortar mix ratio diagram</title>
-      <rect x="0" y="0" width="700" height="140" rx="8" fill="#fafafa" stroke="#ebebeb"/>
+      <rect x="0" y="0" width="700" height="140" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
       <g transform="translate(100 30)">
-        <rect x="0" y="0" width="60" height="40" rx="4" fill="#d3e5ff" stroke="#0761d1"/><text x="30" y="25" text-anchor="middle" font-size="10" fill="#0761d1" font-weight="700">1</text><text x="30" y="38" text-anchor="middle" font-size="8" fill="#4d4d4d">Cement</text>
-        <rect x="70" y="0" width="90" height="40" rx="4" fill="#ffefcf" stroke="#ab570a"/><text x="115" y="25" text-anchor="middle" font-size="10" fill="#ab570a" font-weight="700">3</text><text x="115" y="38" text-anchor="middle" font-size="8" fill="#4d4d4d">Sand</text>
-        <text x="170" y="25" font-size="16" fill="#4d4d4d">=</text>
-        <rect x="190" y="0" width="80" height="40" rx="4" fill="#f5f5f5" stroke="#171717"/><text x="230" y="25" text-anchor="middle" font-size="10" fill="#171717" font-weight="700">Mortar</text><text x="230" y="38" text-anchor="middle" font-size="8" fill="#888">Type S 1:3</text>
+        <rect x="0" y="0" width="60" height="40" rx="4" fill="#d3e5ff" stroke="#0761d1"/><text x="30" y="25" text-anchor="middle" font-size="10" fill="#0761d1" font-weight="700">1</text><text x="30" y="38" text-anchor="middle" font-size="8" fill="var(--color-body)">Cement</text>
+        <rect x="70" y="0" width="90" height="40" rx="4" fill="#ffefcf" stroke="#ab570a"/><text x="115" y="25" text-anchor="middle" font-size="10" fill="#ab570a" font-weight="700">3</text><text x="115" y="38" text-anchor="middle" font-size="8" fill="var(--color-body)">Sand</text>
+        <text x="170" y="25" font-size="16" fill="var(--color-body)">=</text>
+        <rect x="190" y="0" width="80" height="40" rx="4" fill="var(--color-canvas-soft-2)" stroke="var(--color-ink)"/><text x="230" y="25" text-anchor="middle" font-size="10" fill="var(--color-ink)" font-weight="700">Mortar</text><text x="230" y="38" text-anchor="middle" font-size="8" fill="var(--color-mute)">Type S 1:3</text>
       </g>
-      <text x="350" y="95" text-anchor="middle" font-size="9" fill="#888">1 part cement : 3 parts sand + water to flowable consistency</text>
+      <text x="350" y="95" text-anchor="middle" font-size="9" fill="var(--color-mute)">1 part cement : 3 parts sand + water to flowable consistency</text>
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Mortar mix — 1:3 cement:sand for Type S, 1:4 for Type N. Add water to workable slump.</figcaption>
   </figure>
@@ -498,9 +498,9 @@ const { variant } = Astro.props;
     <div class="bg-canvas-soft-2 px-4 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">VISUAL GUIDE — FLOORING LAYOUT</span></div>
     <svg viewBox="0 0 700 140" class="w-full h-auto p-5 bg-canvas" role="img" aria-labelledby="floor-title">
       <title id="floor-title">Flooring layout with waste diagram</title>
-      <rect x="0" y="0" width="700" height="140" rx="8" fill="#fafafa" stroke="#ebebeb"/>
-      <rect x="80" y="30" width="200" height="80" rx="2" fill="white" stroke="#171717"/><g fill="#ffefcf" stroke="#ebebeb"><rect x="80" y="30" width="50" height="25" rx="1"/><rect x="135" y="30" width="50" height="25" rx="1"/><rect x="190" y="30" width="50" height="25" rx="1"/><rect x="80" y="60" width="50" height="25" rx="1"/><rect x="135" y="60" width="50" height="25" rx="1"/><rect x="190" y="60" width="50" height="25" rx="1"/></g><text x="180" y="125" text-anchor="middle" font-size="9" fill="#4d4d4d" font-weight="600">Room 12x10 ft — planks + 10% waste</text>
-      <g transform="translate(340 30)"><rect x="0" y="0" width="200" height="60" rx="4" fill="white" stroke="#ebebeb"/><text x="100" y="20" text-anchor="middle" font-size="10" fill="#171717" font-weight="600">Coverage 20 ft2/box</text><text x="100" y="36" text-anchor="middle" font-size="9" fill="#888">120 ft2 /20 = 6 boxes</text><text x="100" y="50" text-anchor="middle" font-size="9" fill="#ab570a">+1 box waste =7</text></g>
+      <rect x="0" y="0" width="700" height="140" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
+      <rect x="80" y="30" width="200" height="80" rx="2" fill="var(--color-canvas)" stroke="var(--color-ink)"/><g fill="#ffefcf" stroke="var(--color-hairline)"><rect x="80" y="30" width="50" height="25" rx="1"/><rect x="135" y="30" width="50" height="25" rx="1"/><rect x="190" y="30" width="50" height="25" rx="1"/><rect x="80" y="60" width="50" height="25" rx="1"/><rect x="135" y="60" width="50" height="25" rx="1"/><rect x="190" y="60" width="50" height="25" rx="1"/></g><text x="180" y="125" text-anchor="middle" font-size="9" fill="var(--color-body)" font-weight="600">Room 12x10 ft — planks + 10% waste</text>
+      <g transform="translate(340 30)"><rect x="0" y="0" width="200" height="60" rx="4" fill="var(--color-canvas)" stroke="var(--color-hairline)"/><text x="100" y="20" text-anchor="middle" font-size="10" fill="var(--color-ink)" font-weight="600">Coverage 20 ft2/box</text><text x="100" y="36" text-anchor="middle" font-size="9" fill="var(--color-mute)">120 ft2 /20 = 6 boxes</text><text x="100" y="50" text-anchor="middle" font-size="9" fill="#ab570a">+1 box waste =7</text></g>
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Area / coverage + waste. Stagger joints 6" for strength.</figcaption>
   </figure>
@@ -511,9 +511,9 @@ const { variant } = Astro.props;
     <div class="bg-canvas-soft-2 px-4 py-2 border-b border-hairline"><span class="font-mono text-[11px] tracking-widest text-mute">VISUAL GUIDE — DRYWALL SHEETS</span></div>
     <svg viewBox="0 0 700 140" class="w-full h-auto p-5 bg-canvas" role="img" aria-labelledby="drywall-title">
       <title id="drywall-title">Drywall sheets layout diagram</title>
-      <rect x="0" y="0" width="700" height="140" rx="8" fill="#fafafa" stroke="#ebebeb"/>
-      <rect x="80" y="30" width="200" height="80" rx="2" fill="white" stroke="#171717"/><line x1="150" y1="30" x2="150" y2="110" stroke="#0070f3" stroke-dasharray="4 3"/><line x1="80" y1="70" x2="280" y2="70" stroke="#0070f3" stroke-dasharray="4 3"/><text x="180" y="125" text-anchor="middle" font-size="9" fill="#4d4d4d" font-weight="600">Walls 352 ft2 — 4x8 sheets (32 ft2)</text>
-      <g transform="translate(340 30)"><rect x="0" y="0" width="60" height="40" rx="2" fill="white" stroke="#171717"/><text x="30" y="18" text-anchor="middle" font-size="8" fill="#888">4x8</text><text x="30" y="30" text-anchor="middle" font-size="9" fill="#171717" font-weight="600">32 ft2</text><text x="100" y="20" font-size="10" fill="#171717">11 sheets</text><text x="100" y="32" font-size="9" fill="#888">+ screws 28/sheet</text></g>
+      <rect x="0" y="0" width="700" height="140" rx="8" fill="var(--color-canvas-soft)" stroke="var(--color-hairline)"/>
+      <rect x="80" y="30" width="200" height="80" rx="2" fill="var(--color-canvas)" stroke="var(--color-ink)"/><line x1="150" y1="30" x2="150" y2="110" stroke="#0070f3" stroke-dasharray="4 3"/><line x1="80" y1="70" x2="280" y2="70" stroke="#0070f3" stroke-dasharray="4 3"/><text x="180" y="125" text-anchor="middle" font-size="9" fill="var(--color-body)" font-weight="600">Walls 352 ft2 — 4x8 sheets (32 ft2)</text>
+      <g transform="translate(340 30)"><rect x="0" y="0" width="60" height="40" rx="2" fill="var(--color-canvas)" stroke="var(--color-ink)"/><text x="30" y="18" text-anchor="middle" font-size="8" fill="var(--color-mute)">4x8</text><text x="30" y="30" text-anchor="middle" font-size="9" fill="var(--color-ink)" font-weight="600">32 ft2</text><text x="100" y="20" font-size="10" fill="var(--color-ink)">11 sheets</text><text x="100" y="32" font-size="9" fill="var(--color-mute)">+ screws 28/sheet</text></g>
     </svg>
     <figcaption class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] text-mute">Sheets = ceil(area / 32) — 4x8 sheet covers 32 ft2. Add screws and tape.</figcaption>
   </figure>

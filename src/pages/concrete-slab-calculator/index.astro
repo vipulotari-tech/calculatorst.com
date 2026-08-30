@@ -2,7 +2,7 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import CalculatorVisual from "../../components/CalculatorVisual.astro";
+import CalculatorDiagram from "../../components/CalculatorDiagram.astro";
 import ConcreteSlabCalculator from "../../components/calculators/ConcreteSlabCalculator.astro";
 
 const related = [
@@ -38,7 +38,7 @@ const faq = [
   <Header slot="header" />
   <ConcreteSlabCalculator slot="calculator" />
   <section class="space-y-6">
-    <CalculatorVisual variant="concrete" />
+    <CalculatorDiagram slug="concrete-slab-calculator" cluster="concrete" h1="Concrete Slab Calculator" inputs={[{"id":"length","label":"Length","unit":"ft"},{"id":"width","label":"Width","unit":"ft"},{"id":"depth","label":"Thickness","unit":"in"}]} />
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
       <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
@@ -47,7 +47,7 @@ const faq = [
         <li>Cubic yards = Cubic feet ÷ 27 (waste multiplies after)</li>
         <li>Bags = ceil(cubic feet with waste ÷ coverage per bag)</li>
       </ol>
-      <div class="mt-3 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm dark:bg-white/[0.03]"><p>Coverages: 80-lb = 0.60 ft³, 60-lb = 0.45 ft³, 40-lb = 0.30 ft³</p></div>
+      <div class="mt-3 rounded-md bg-canvas-soft-2 dark:bg-white/[0.04] p-4 font-mono text-sm dark:bg-white/[0.03]"><p>Coverages: 80-lb = 0.60 ft³, 60-lb = 0.45 ft³, 40-lb = 0.30 ft³</p></div>
     </div>
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>

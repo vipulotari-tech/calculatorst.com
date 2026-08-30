@@ -225,6 +225,19 @@
     0 8px 24px -8px rgba(0,0,0,0.08),
     0 20px 40px -16px rgba(0,0,0,0.06);
 }
+html.dark .shadow-search {
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 4px 16px rgba(0,0,0,0.4),
+    0 16px 32px -12px rgba(0,0,0,0.5);
+}
+html.dark .shadow-search-focus {
+  box-shadow:
+    0 0 0 1px rgba(59,130,246,0.28),
+    0 0 0 4px rgba(59,130,246,0.14),
+    0 8px 24px -8px rgba(0,0,0,0.4),
+    0 20px 40px -16px rgba(0,0,0,0.5);
+}
 @utility shadow-modal {
   box-shadow:
     0 0 0 1px rgba(0,0,0,0.08),
@@ -267,19 +280,21 @@
   }
 }
 
-/* Dark mode — polished, persists via html.dark class */
+/* Dark mode — premium tonal hierarchy */
 html.dark {
   color-scheme: dark;
   --color-primary: #fafafa;
   --color-on-primary: #0a0a0a;
-  --color-ink: #fafafa;
-  --color-body: #a1a1a1;
+  --color-ink: #f2f2f2;
+  --color-body: #a3a3a3;
   --color-mute: #888888;
   --color-hairline: #262626;
-  --color-hairline-strong: #3a3a3a;
-  --color-canvas: #171717;
-  --color-canvas-soft: #0a0a0a;
-  --color-canvas-soft-2: #1f1f1f;
+  --color-hairline-strong: #333333;
+  --color-canvas: #171717;       /* cards / surfaces */
+  --color-canvas-soft: #0f0f0f;  /* page — deep charcoal, not pure black */
+  --color-canvas-soft-2: #1f1f1f;/* elevated — dropdowns, modals */
+  --color-link: #3b82f6;
+  --color-link-deep: #60a5fa;
   --color-link-bg-soft: #0f1a2e;
   --color-error-soft: #2a0f0f;
   --color-warning-soft: #2a1f0a;
@@ -329,6 +344,26 @@ html.dark .hero-premium {
     radial-gradient(ellipse 600px 400px at 88% 12%, rgba(0,112,243,0.06), transparent 60%),
     linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+}
+
+/* Theme transition — instant but smooth */
+html {
+  transition: background-color 150ms ease, color 150ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { transition: none; }
+}
+/* Ensure SVGs and inputs transition subtly */
+html.dark svg, html.dark input, html.dark button {
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.dark svg, html.dark input, html.dark button { transition: none; }
+}
+
+/* Dark mode — premium tonal overrides for model-viewer and helper */
+html.dark model-viewer {
+  --poster-color: #1f1f1f;
 }
 
 /* Safe areas */
