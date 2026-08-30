@@ -15,134 +15,173 @@ const actualPopular = popular.length ? popular : hubCalculators.slice(0,12);
 >
   <Header />
   <main id="main" tabindex="-1">
-    <!-- Hero -->
-    <section class="relative isolate overflow-hidden border-b border-hairline bg-canvas dark:bg-canvas" aria-labelledby="hero-heading">
-      <div class="pointer-events-none absolute inset-0 mesh-gradient opacity-90" aria-hidden="true"></div>
-      <div class="pointer-events-none absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style="background-image: linear-gradient(#171717 1px, transparent 1px), linear-gradient(90deg,#171717 1px, transparent 1px); background-size:32px 32px;" aria-hidden="true"></div>
-      <div class="relative mx-auto max-w-[1400px] px-6 py-12 sm:py-16 lg:py-20 max-md:px-4">
-        <div class="mx-auto max-w-[760px] text-center">
-          <p class="font-mono text-[11px] font-medium tracking-[0.16em] uppercase text-mute">Construction & Home Improvement Calculators</p>
-          <h1 id="hero-heading" class="mt-3 text-display-xl font-semibold tracking-[-0.05em] text-ink [text-wrap:balance] sm:text-[48px] sm:leading-[48px]">
-              Calculators for Construction, Remodeling & Home Projects.
-            </h1>
-          <p class="mx-auto mt-4 max-w-[640px] text-body-lg leading-7 text-body [text-wrap:pretty]">
-            Quickly estimate materials, quantities, costs, dimensions, and project requirements with free, easy-to-use calculators.
+    <!-- Hero — premium, calm, editorial -->
+    <section class="relative isolate overflow-hidden border-b border-hairline bg-[#fcfcfc] dark:bg-[#0f0f0f]" aria-labelledby="hero-heading">
+      <!-- Subtle architectural texture -->
+      <div class="pointer-events-none absolute inset-0 opacity-[0.035] dark:opacity-[0.06]" style="background-image: linear-gradient(rgba(23,23,23,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(23,23,23,0.9) 1px, transparent 1px); background-size: 48px 48px;" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute inset-0 hero-premium opacity-[0.55] dark:opacity-[0.4]" aria-hidden="true"></div>
+      <!-- Gentle radial light -->
+      <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse 900px 420px at 50% 0%, rgba(255,255,255,0.9) 0%, transparent 62%), radial-gradient(ellipse 700px 380px at 88% 14%, rgba(0,112,243,0.035) 0%, transparent 60%);" aria-hidden="true"></div>
+      <div class="relative mx-auto max-w-[1400px] px-6 py-[56px] sm:py-[72px] lg:py-[88px] max-md:px-4">
+        <div class="mx-auto max-w-[720px] text-center">
+          <!-- Eyebrow -->
+          <p class="inline-flex items-center justify-center gap-2 font-mono text-[11px] font-medium tracking-[0.14em] uppercase text-mute">
+            <span class="hidden h-px w-6 bg-hairline sm:inline-block" aria-hidden="true"></span>
+            Construction &amp; Home Improvement
+            <span class="hidden h-px w-6 bg-hairline sm:inline-block" aria-hidden="true"></span>
           </p>
-          <!-- Hero Search -->
-          <div class="mx-auto mt-8 max-w-[640px]">
-            <label for="hero-search" class="sr-only">Search calculators</label>
-            <div class="relative flex items-center">
-              <span class="pointer-events-none absolute left-4 text-mute"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M11.5 11.5L14 14M12.5 7.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg></span>
-              <input id="hero-search" type="search" placeholder="What do you need to calculate? Try concrete slab, roof pitch, gravel..." class="h-14 w-full rounded-full border border-hairline bg-canvas-soft pl-14 pr-12 text-sm placeholder:text-mute/60 shadow-sm focus:border-primary focus-visible:outline-none focus-ring-primary/20 dark:bg-canvas" autocomplete="off" />
-              <a href="/calculators/" class="absolute right-2 flex h-11 w-11 items-center justify-center rounded-full bg-primary text-[12px] font-medium text-on-primary hover:bg-[#242424] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Find a Calculator</a>
-            </div>
-            <div id="hero-search-results" class="mt-3 hidden max-h-[320px] overflow-auto rounded-lg border border-hairline bg-canvas text-left shadow-float dark:bg-canvas" role="listbox" aria-label="Search results"></div>
-            <p class="mt-3 flex flex-wrap justify-center gap-2 font-mono text-[11px] text-mute">
-              <span>Try:</span>
-              <a href="/concrete-slab-calculator/" class="rounded-full border border-hairline bg-canvas px-2.5 py-1 hover:bg-canvas-soft hover:text-ink">Concrete slab</a>
-              <a href="/roof-pitch-calculator/" class="rounded-full border border-hairline bg-canvas px-2.5 py-1 hover:bg-canvas-soft hover:text-ink">Roof pitch</a>
-              <a href="/gravel-calculator/" class="rounded-full border border-hairline bg-canvas px-2.5 py-1 hover:bg-canvas-soft hover:text-ink">Gravel</a>
-              <a href="/fence-calculator/" class="rounded-full border border-hairline bg-canvas px-2.5 py-1 hover:bg-canvas-soft hover:text-ink">Fence</a>
-            </p>
-          </div>
-          <div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a href="#popular" class="inline-flex h-11 items-center justify-center rounded-pill bg-primary px-6 text-sm font-medium text-on-primary shadow-card transition hover:bg-[#242424] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Find a Calculator</a>
-            <a href="/calculators/" class="inline-flex h-11 items-center justify-center rounded-pill border border-hairline bg-canvas px-6 text-sm font-medium text-ink shadow-card transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Browse All Calculators</a>
-          </div>
-          <p class="mt-3 font-mono text-caption tracking-wide text-mute">Free · Fast · No sign-up · US units · Works offline</p>
-        </div>
+          <!-- Headline — editorial, not oversized -->
+          <h1 id="hero-heading" class="mx-auto mt-4 max-w-[640px] text-[32px] font-[600] leading-[0.95] tracking-[-0.03em] text-ink [text-wrap:balance] sm:text-[40px] sm:leading-[0.96] lg:text-[44px]">
+            Construction &amp; Home<br class="hidden sm:block" /> Improvement Calculators
+          </h1>
+          <p class="mx-auto mt-4 max-w-[520px] text-[15px] leading-6 text-body [text-wrap:pretty] sm:text-[15.5px] sm:leading-[26px]">
+            Calculate materials, quantities, dimensions, costs, and project requirements with clear, practical tools.
+          </p>
 
-        <div class="mx-auto mt-10 grid max-w-[920px] gap-3 sm:grid-cols-3">
-          <div class="rounded-lg border border-hairline bg-canvas p-4 text-center shadow-card dark:bg-canvas"><p class="font-mono text-[11px] tracking-widest text-mute">CALCULATORS</p><p class="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink">{totalCount} live</p><p class="font-mono text-xs text-mute">All categories · No placeholders</p></div>
-          <div class="rounded-lg border border-hairline bg-canvas p-4 text-center shadow-card dark:bg-canvas"><p class="font-mono text-[11px] tracking-widest text-mute">CATEGORIES</p><p class="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink">{hubCategories.length} focused</p><p class="font-mono text-xs text-mute">Concrete · Roofing · Flooring · More</p></div>
-          <div class="rounded-lg border border-hairline bg-canvas p-4 text-center shadow-card dark:bg-canvas"><p class="font-mono text-[11px] tracking-widest text-mute">PERFORMANCE</p><p class="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink">&lt;100 ms</p><p class="font-mono text-xs text-mute">Static · No tracking · Private</p></div>
+          <!-- Premium Search — hero element -->
+          <div class="mx-auto mt-9 max-w-[600px]">
+            <label for="hero-search" class="sr-only">Search calculators</label>
+            <div class="group relative">
+              <span class="pointer-events-none absolute left-[18px] top-1/2 -translate-y-1/2 text-mute transition-colors group-focus-within:text-ink" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M11.2 11.2L13.8 13.8M12.3 7.3a4.95 4.95 0 1 1-9.9 0 4.95 4.95 0 0 1 9.9 0Z" stroke="currentColor" stroke-width="1.45" stroke-linecap="round"/></svg>
+              </span>
+              <input
+                id="hero-search"
+                type="search"
+                placeholder="Search for a calculator…"
+                autocomplete="off"
+                spellcheck="false"
+                name="q"
+                class="h-[56px] w-full rounded-full border border-hairline bg-white py-0 pl-[50px] pr-5 text-[15px] font-[450] tracking-[-0.01em] text-ink shadow-search placeholder:text-mute/70 placeholder:font-normal focus:border-[rgba(0,112,243,0.18)] focus:shadow-search-focus focus:outline-none focus-visible:outline-none sm:h-[60px] sm:pl-[52px] sm:text-[16px] dark:bg-[#171717] dark:placeholder:text-mute"
+              />
+            </div>
+            <!-- Premium command results -->
+            <div id="hero-search-results" class="mt-3 hidden overflow-hidden rounded-[16px] border border-hairline bg-white text-left shadow-float dark:bg-[#1a1a1a]" role="listbox" aria-label="Search results"></div>
+
+            <!-- Subtle suggestions -->
+            <div class="mt-4 flex flex-wrap items-center justify-center gap-x-1 gap-y-2">
+              <span class="font-mono text-[11px] tracking-wide text-mute">Try —</span>
+              <a href="/concrete-slab-calculator/" class="inline-flex items-center rounded-full px-2.5 py-1 font-mono text-[11px] tracking-wide text-mute transition hover:bg-white hover:text-ink hover:shadow-sm hover:ring-1 hover:ring-hairline dark:hover:bg-white/[0.06]">Concrete Slab</a>
+              <span class="text-hairline" aria-hidden="true">·</span>
+              <a href="/roof-pitch-calculator/" class="inline-flex items-center rounded-full px-2.5 py-1 font-mono text-[11px] tracking-wide text-mute transition hover:bg-white hover:text-ink hover:shadow-sm hover:ring-1 hover:ring-hairline dark:hover:bg-white/[0.06]">Roof Pitch</a>
+              <span class="text-hairline" aria-hidden="true">·</span>
+              <a href="/gravel-calculator/" class="inline-flex items-center rounded-full px-2.5 py-1 font-mono text-[11px] tracking-wide text-mute transition hover:bg-white hover:text-ink hover:shadow-sm hover:ring-1 hover:ring-hairline dark:hover:bg-white/[0.06]">Gravel</a>
+              <span class="text-hairline" aria-hidden="true">·</span>
+              <a href="/fence-calculator/" class="inline-flex items-center rounded-full px-2.5 py-1 font-mono text-[11px] tracking-wide text-mute transition hover:bg-white hover:text-ink hover:shadow-sm hover:ring-1 hover:ring-hairline dark:hover:bg-white/[0.06]">Fence</a>
+              <span class="text-hairline" aria-hidden="true">·</span>
+              <a href="/deck-calculator/" class="inline-flex items-center rounded-full px-2.5 py-1 font-mono text-[11px] tracking-wide text-mute transition hover:bg-white hover:text-ink hover:shadow-sm hover:ring-1 hover:ring-hairline dark:hover:bg-white/[0.06]">Deck</a>
+            </div>
+
+            <!-- Single secondary action -->
+            <div class="mt-6 flex justify-center">
+              <a href="/calculators/" class="group inline-flex items-center gap-1.5 font-mono text-[11px] font-medium tracking-wide text-mute transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">
+                Browse all calculators
+                <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Quiet proof line — not cards -->
+          <p class="mt-8 font-mono text-[11px] tracking-wide text-mute/80">
+            Free · No sign-up · US units · Works offline
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- Popular -->
-    <section id="popular" class="bg-canvas py-14 sm:py-16 lg:py-20" aria-labelledby="popular-heading">
+    <!-- Popular — refined -->
+    <section id="popular" class="bg-white py-16 sm:py-20 lg:py-24 dark:bg-canvas" aria-labelledby="popular-heading">
       <div class="mx-auto max-w-[1400px] px-6 max-md:px-4">
-        <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p class="font-mono text-caption font-medium tracking-widest text-mute">POPULAR</p>
-            <h2 id="popular-heading" class="mt-1 text-display-lg font-semibold tracking-[-0.04em] text-ink">Popular calculators</h2>
-            <p class="mt-1 max-w-[520px] text-sm leading-5 text-body">Most-used tools — curated selection.</p>
+            <p class="font-mono text-[11px] font-medium tracking-[0.14em] uppercase text-mute">Popular</p>
+            <h2 id="popular-heading" class="mt-2 text-[22px] font-semibold tracking-[-0.03em] text-ink sm:text-[26px]">Popular calculators</h2>
+            <p class="mt-1.5 max-w-[520px] text-[13.5px] leading-5 text-body">Most-used tools — a precise selection from the library.</p>
           </div>
-          <a href="/calculators/" class="hidden shrink-0 items-center gap-1.5 rounded-full border border-hairline bg-canvas px-4 py-2 text-sm font-medium text-ink hover:bg-canvas-soft sm:inline-flex">Browse all →</a>
+          <a href="/calculators/" class="hidden shrink-0 items-center gap-1.5 font-mono text-[11px] font-medium tracking-wide text-mute transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link sm:inline-flex">Browse all <span aria-hidden="true">→</span></a>
         </div>
-        <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        <ul class="mt-8 grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list">
           {actualPopular.map((c) => (
-            <li>
-              <a href={`/${c.slug}/`} class="group flex h-full flex-col rounded-md border border-hairline bg-canvas p-4 shadow-card transition hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-canvas">
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-sm border border-hairline bg-canvas-soft text-ink dark:bg-white/[0.06]" aria-hidden="true">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d={c.iconPath} stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                <p class="mt-1 font-mono text-[11px] tracking-wide text-mute">{c.category.toUpperCase()}</p>
-                <h3 class="line-clamp-1 text-[15px] font-semibold tracking-[-0.02em] text-ink">{c.h1}</h3>
-                <p class="mt-1 line-clamp-2 flex-1 text-sm leading-5 text-body">{c.description}</p>
-                <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-ink group-hover:text-link">Calculate →</span>
+            <li class="min-w-0">
+              <a href={`/${c.slug}/`} class="group flex h-full flex-col rounded-xl border border-hairline bg-white p-[18px] shadow-card transition-[border-color,box-shadow,transform] duration-200 hover:border-hairline-strong/40 hover:shadow-card-hover hover:-translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-canvas">
+                <div class="flex items-start justify-between gap-3">
+                  <span class="inline-flex h-[32px] w-[32px] items-center justify-center rounded-lg border border-hairline bg-[#fcfcfc] text-ink dark:bg-white/[0.06]" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d={c.iconPath} stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <span class="mt-1 font-mono text-[10px] tracking-wide text-mute">{c.category}</span>
+                </div>
+                <h3 class="mt-3 line-clamp-1 text-[15.5px] font-semibold tracking-[-0.02em] text-ink">{c.h1}</h3>
+                <p class="mt-1 line-clamp-2 flex-1 text-[13.5px] leading-[20px] text-body">{c.description}</p>
+                <span class="mt-4 inline-flex items-center gap-1 font-mono text-[11px] font-medium tracking-wide text-mute transition group-hover:text-ink">Calculate <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span></span>
               </a>
             </li>
           ))}
         </ul>
+        <div class="mt-6 flex justify-center sm:hidden">
+          <a href="/calculators/" class="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-white px-4 py-2 font-mono text-[11px] font-medium tracking-wide text-ink shadow-sm">Browse all calculators →</a>
+        </div>
       </div>
     </section>
 
-    <!-- Browse by Category -->
-    <section class="border-y border-hairline bg-canvas-soft py-14 sm:py-16 lg:py-20 dark:bg-canvas-soft" aria-labelledby="cat-heading">
+    <!-- Browse by Category — technical reference -->
+    <section class="border-y border-hairline bg-[#fcfcfc] py-16 sm:py-20 lg:py-24 dark:bg-canvas-soft" aria-labelledby="cat-heading">
       <div class="mx-auto max-w-[1400px] px-6 max-md:px-4">
-        <div class="mx-auto max-w-[640px] text-center">
-          <h2 id="cat-heading" class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Browse calculators by category</h2>
-          <p class="mt-2 text-sm leading-5 text-body">All categories — counts generated automatically from the registry. Every category has live calculators, no placeholders.</p>
+        <div class="mx-auto max-w-[600px] text-center">
+          <p class="font-mono text-[11px] font-medium tracking-[0.14em] uppercase text-mute">Library</p>
+          <h2 id="cat-heading" class="mt-2 text-[22px] font-semibold tracking-[-0.03em] text-ink sm:text-[26px] [text-wrap:balance]">Browse by category</h2>
+          <p class="mx-auto mt-2 max-w-[520px] text-[13.5px] leading-5 text-body">Eighteen focused groups — every category has live calculators, no placeholders.</p>
         </div>
-        <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-10 grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {hubCategories.map((cat) => (
-            <a href={`/construction/${cat.slug}/`} class="group rounded-lg border border-hairline bg-canvas p-6 shadow-card transition hover:shadow-card-hover dark:bg-canvas">
-              <h3 class="text-display-sm font-semibold tracking-[-0.03em] text-ink group-hover:text-link">{cat.name}</h3>
-              <p class="mt-1 font-mono text-xs tracking-wide text-mute">{cat.count} calculators</p>
-              <p class="mt-2 text-sm leading-5 text-body">{cat.desc}</p>
-              <span class="mt-3 inline-flex text-sm font-medium text-ink group-hover:text-link">View {cat.name} →</span>
+            <a href={`/construction/${cat.slug}/`} class="group flex flex-col rounded-xl border border-hairline bg-white p-5 shadow-card transition-[border-color,box-shadow,transform] duration-200 hover:border-hairline-strong/40 hover:shadow-card-hover hover:-translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-canvas">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-[15px] font-semibold tracking-[-0.02em] text-ink group-hover:text-ink">{cat.name}</h3>
+                <span class="shrink-0 rounded-full bg-canvas-soft px-2 py-1 font-mono text-[10px] tracking-wide text-mute ring-1 ring-hairline">{cat.count}</span>
+              </div>
+              <p class="mt-2 line-clamp-2 flex-1 text-[13.5px] leading-[20px] text-body">{cat.desc}</p>
+              <span class="mt-4 inline-flex items-center gap-1 font-mono text-[11px] font-medium tracking-wide text-mute transition group-hover:text-ink">View <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span></span>
             </a>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- Why -->
-    <section class="bg-canvas py-14 sm:py-16" aria-labelledby="why-heading">
+    <!-- Why — quiet confidence -->
+    <section class="bg-white py-16 sm:py-20 lg:py-24 dark:bg-canvas" aria-labelledby="why-heading">
       <div class="mx-auto max-w-[1400px] px-6 max-md:px-4">
-        <div class="grid gap-8 lg:grid-cols-2">
-          <div>
-            <p class="font-mono text-caption font-medium tracking-widest text-mute">WHY CALCULATOR STREET</p>
-            <h2 id="why-heading" class="mt-2 text-display-lg font-semibold tracking-[-0.04em] text-ink">Built for real projects.</h2>
-            <p class="mt-3 max-w-[560px] text-sm leading-6 text-body">Calculators covering concrete, gravel, rebar, brick, roofing, flooring, drywall, deck, fence, landscaping and more — each with original formulas, worked examples and FAQs. No dark patterns.</p>
-            <ul class="mt-6 grid gap-3 sm:grid-cols-2" role="list">
-              <li class="rounded-md border border-hairline bg-canvas p-4 dark:bg-canvas"><p class="text-sm font-semibold text-ink">Free to use</p><p class="text-sm leading-5 text-body">No paywall. Static & fast.</p></li>
-              <li class="rounded-md border border-hairline bg-canvas p-4 dark:bg-canvas"><p class="text-sm font-semibold text-ink">Clear results</p><p class="text-sm leading-5 text-body">Units shown clearly, no fake precision.</p></li>
-              <li class="rounded-md border border-hairline bg-canvas p-4 dark:bg-canvas"><p class="text-sm font-semibold text-ink">Broad library</p><p class="text-sm leading-5 text-body">Comprehensive tools for construction.</p></li>
-              <li class="rounded-md border border-hairline bg-canvas p-4 dark:bg-canvas"><p class="text-sm font-semibold text-ink">Private</p><p class="text-sm leading-5 text-body">Runs in browser, no tracking by us.</p></li>
-            </ul>
-          </div>
-          <div class="rounded-lg border border-hairline bg-canvas-soft p-6 dark:bg-white/[0.02]">
-            <h3 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h3>
-            <ol class="mt-4 space-y-3 text-sm leading-5 text-body" role="list">
-              <li class="flex gap-3"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-on-primary">1</span><span><span class="font-semibold text-ink">Choose a calculator</span> — Find it from the library via search or categories.</span></li>
-              <li class="flex gap-3"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-on-primary">2</span><span><span class="font-semibold text-ink">Enter your measurements</span> — Dimensions, quantities or project info.</span></li>
-              <li class="flex gap-3"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-on-primary">3</span><span><span class="font-semibold text-ink">Get your result</span> — Instantly with units and explanation.</span></li>
-            </ol>
-            <a href="/calculators/" class="mt-6 inline-flex h-10 items-center justify-center rounded-sm bg-primary px-5 text-sm font-medium text-on-primary hover:bg-[#242424] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Explore all calculators</a>
+        <div class="mx-auto max-w-[720px] text-center">
+          <p class="font-mono text-[11px] font-medium tracking-[0.14em] uppercase text-mute">Why Calculator Street</p>
+          <h2 id="why-heading" class="mt-2 text-[22px] font-semibold tracking-[-0.03em] text-ink sm:text-[26px]">Built for real projects</h2>
+          <p class="mx-auto mt-3 max-w-[560px] text-[13.5px] leading-6 text-body">Concrete, gravel, rebar, brick, roofing, flooring, drywall, deck, fence and more — each calculator has original formulas, worked examples and clear FAQs. No dark patterns.</p>
+        </div>
+        <div class="mx-auto mt-10 grid max-w-[800px] gap-3 sm:grid-cols-4">
+          <div class="rounded-xl border border-hairline bg-[#fcfcfc] px-4 py-5 text-center dark:bg-white/[0.03]"><p class="font-mono text-[11px] tracking-wide text-mute">Access</p><p class="mt-1 text-[13.5px] font-semibold tracking-[-0.01em] text-ink">Free to use</p><p class="mt-1 text-xs leading-4 text-body">No paywall. Static & fast.</p></div>
+          <div class="rounded-xl border border-hairline bg-[#fcfcfc] px-4 py-5 text-center dark:bg-white/[0.03]"><p class="font-mono text-[11px] tracking-wide text-mute">Clarity</p><p class="mt-1 text-[13.5px] font-semibold tracking-[-0.01em] text-ink">Clear results</p><p class="mt-1 text-xs leading-4 text-body">Units clear, no fake precision.</p></div>
+          <div class="rounded-xl border border-hairline bg-[#fcfcfc] px-4 py-5 text-center dark:bg-white/[0.03]"><p class="font-mono text-[11px] tracking-wide text-mute">Coverage</p><p class="mt-1 text-[13.5px] font-semibold tracking-[-0.01em] text-ink">Broad library</p><p class="mt-1 text-xs leading-4 text-body">Construction, every trade.</p></div>
+          <div class="rounded-xl border border-hairline bg-[#fcfcfc] px-4 py-5 text-center dark:bg-white/[0.03]"><p class="font-mono text-[11px] tracking-wide text-mute">Privacy</p><p class="mt-1 text-[13.5px] font-semibold tracking-[-0.01em] text-ink">Private</p><p class="mt-1 text-xs leading-4 text-body">Runs locally, no tracking.</p></div>
+        </div>
+        <div class="mx-auto mt-8 max-w-[720px] rounded-xl border border-hairline bg-[#fcfcfc] p-6 sm:p-7 dark:bg-white/[0.03]">
+          <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+            <div class="flex-1">
+              <h3 class="text-[15px] font-semibold tracking-[-0.02em] text-ink">How it works</h3>
+              <ol class="mt-4 space-y-3" role="list">
+                <li class="flex gap-3 text-[13.5px] leading-5 text-body"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-[11px] font-semibold text-ink ring-1 ring-hairline" aria-hidden="true">1</span><span><span class="font-medium text-ink">Choose a calculator</span> — via search or category.</span></li>
+                <li class="flex gap-3 text-[13.5px] leading-5 text-body"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-[11px] font-semibold text-ink ring-1 ring-hairline" aria-hidden="true">2</span><span><span class="font-medium text-ink">Enter your measurements</span> — dimensions, quantities.</span></li>
+                <li class="flex gap-3 text-[13.5px] leading-5 text-body"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-[11px] font-semibold text-ink ring-1 ring-hairline" aria-hidden="true">3</span><span><span class="font-medium text-ink">Get your result</span> — instantly with units.</span></li>
+              </ol>
+            </div>
+            <a href="/calculators/" class="inline-flex h-9 shrink-0 items-center justify-center rounded-full bg-ink px-5 font-mono text-[11px] font-medium tracking-wide text-white transition hover:bg-ink/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-white dark:text-black">Explore all calculators</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Final CTA -->
-    <section class="border-y border-hairline bg-canvas-soft py-12 sm:py-16 dark:bg-canvas-soft" aria-labelledby="cta-heading">
+    <!-- Final CTA — restrained -->
+    <section class="border-y border-hairline bg-[#fcfcfc] py-14 sm:py-16 dark:bg-canvas-soft" aria-labelledby="cta-heading">
       <div class="mx-auto max-w-[1400px] px-6 text-center max-md:px-4">
-        <h2 id="cta-heading" class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Find the right calculator for your project</h2>
-        <p class="mx-auto mt-2 max-w-[560px] text-sm leading-5 text-body">Search all calculators and find the tool you need — concrete, roofing, flooring, framing and more.</p>
-        <a href="/calculators/" class="mt-6 inline-flex h-11 items-center justify-center rounded-pill bg-primary px-8 text-sm font-medium text-on-primary shadow-card hover:bg-[#242424] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Find a calculator</a>
+        <h2 id="cta-heading" class="text-[20px] font-semibold tracking-[-0.02em] text-ink sm:text-[22px]">Find the right calculator for your project</h2>
+        <p class="mx-auto mt-2 max-w-[520px] text-[13.5px] leading-5 text-body">Search the full library — concrete, roofing, flooring, framing and more.</p>
+        <a href="/calculators/" class="group mt-6 inline-flex items-center gap-1.5 font-mono text-[11px] font-medium tracking-wide text-ink transition hover:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Browse all calculators <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span></a>
       </div>
     </section>
   </main>
@@ -162,15 +201,18 @@ const actualPopular = popular.length ? popular : hubCalculators.slice(0,12);
     }));
     function render(q) {
       if (!q || !box) return;
-      const hits = idx.filter(x => x.hay.includes(q.toLowerCase())).slice(0,8);
+      const hits = idx.filter(x => x.hay.includes(q.toLowerCase())).slice(0,6);
       if (!hits.length) { box.classList.add("hidden"); box.innerHTML=""; return; }
-      box.innerHTML = hits.map(h => `<a href="${h.url}" class="flex items-center justify-between gap-3 px-4 py-3 hover:bg-canvas-soft border-b last:border-0 border-hairline" role="option"><div><p class="text-sm font-semibold text-ink">${h.h1}</p><p class="text-xs text-body line-clamp-1">${h.desc.slice(0,80)} · ${h.cat}</p></div><span class="text-xs font-medium text-link">Open →</span></a>`).join("");
+      box.innerHTML = hits.map(h => `<a href="${h.url}" class="group flex items-center gap-3 px-4 py-3.5 border-b last:border-0 border-hairline transition hover:bg-[#fcfcfc] dark:hover:bg-white/[0.04]" role="option"><span class="hidden h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-hairline bg-[#fcfcfc] text-mute group-hover:text-ink sm:inline-flex" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M11.2 11.2L13.8 13.8M12.3 7.3a4.95 4.95 0 1 1-9.9 0 4.95 4.95 0 0 1 9.9 0Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg></span><div class="min-w-0 flex-1"><p class="truncate text-[13.5px] font-medium tracking-[-0.01em] text-ink">${h.h1}</p><p class="mt-0.5 flex items-center gap-1.5 truncate font-mono text-[11px]"><span class="rounded bg-canvas-soft px-1.5 py-0.5 ring-1 ring-hairline text-mute">${h.cat}</span><span class="truncate text-body hidden sm:inline">${h.desc.slice(0,62)}</span></p></div><span class="shrink-0 font-mono text-[11px] text-mute transition group-hover:text-ink">→</span></a>`).join("") + `<a href="/calculators/?q=${encodeURIComponent(q)}" class="flex items-center justify-center gap-1.5 bg-[#fcfcfc] px-4 py-2.5 font-mono text-[11px] tracking-wide text-mute hover:text-ink dark:bg-white/[0.03]">View all results for “${q.slice(0,24)}” <span aria-hidden="true">→</span></a>`;
       box.classList.remove("hidden");
     }
     if (input) {
+      const wrap = input.closest(".group");
+      input.addEventListener("focus", () => { if (wrap) wrap.classList.add("is-focused"); if (input.value.trim()) render(input.value.trim()); });
+      input.addEventListener("blur", () => { if (wrap) wrap.classList.remove("is-focused"); });
       input.addEventListener("input", () => render(input.value.trim()));
-      input.addEventListener("keydown", (e) => { if(e.key==="Escape"){ box?.classList.add("hidden"); }});
-      document.addEventListener("click", (e) => { if (!e.target.closest("#hero-search") && !e.target.closest("#hero-search-results")) box?.classList.add("hidden"); });
+      input.addEventListener("keydown", (e) => { if(e.key==="Escape"){ box?.classList.add("hidden"); input.blur(); }});
+      document.addEventListener("click", (e) => { const t = e.target; if (!t.closest || (!t.closest("#hero-search") && !t.closest("#hero-search-results"))) box?.classList.add("hidden"); });
     }
   </script>
 </Layout>
