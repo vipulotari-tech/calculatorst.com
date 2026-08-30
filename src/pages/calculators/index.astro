@@ -3,73 +3,183 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { hubCalculators, hubCategories } from "../../data/hubCalculators";
+import { clusterGroups } from "../../data/subcategories";
 import { calculators } from "../../data/calculators";
-import { hubCalculators } from "../../data/hubCalculators";
-const allCalculators = [...calculators];
-const existing = new Set(calculators.map(c=>c.slug));
-for (const h of hubCalculators) if (!existing.has(h.slug)) allCalculators.push(h as any);
+
+// Merge for directory count (204 unique)
+const extra = calculators.filter(c => !hubCalculators.some(h => h.slug === c.slug));
+const allCalculators = [...hubCalculators, ...extra];
+const allCount = allCalculators.length;
+
+// Build groups for display: per hubCategory, resolve subgroups
+const categoryData = hubCategories.map(cat => {
+  const groups = clusterGroups[cat.slug] || [];
+  // Build subgroups with actual calc objects
+  const subGroups = groups.map(g => ({
+    name: g.name,
+    calcs: g.slugs.map(s => allCalculators.find(c => c.slug === s)).filter(Boolean) as typeof allCalculators
+  }));
+  // Find ungrouped within this category
+  const groupedSlugs = new Set(groups.flatMap(g => g.slugs));
+  const ungrouped = allCalculators.filter(c => c.cluster === cat.slug && !groupedSlugs.has(c.slug));
+  if (ungrouped.length) subGroups.push({ name: "Other", calcs: ungrouped });
+  // Also handle extra legacy like pea-gravel which has cluster gravel but not in hub — already captured as ungrouped via c.cluster
+  return { cat, subGroups };
+});
+
+const filterCategories = hubCategories;
 ---
 
-<Layout title="All Calculators — Calculator Street" description="All Calculator Street construction calculators — concrete, gravel, rebar, roofing, flooring, decking & more. Fast, US-focused & free.">
+<Layout title="All Calculators — Calculator Street" description="Browse the complete Calculator Street library — 204 construction calculators organized by category and project group. Concrete, gravel, roofing, flooring, decking, fencing and more.">
   <Header />
   <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "All Calculators" }]} />
-    <div class="mx-auto max-w-[900px] pt-4">
-      <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">All Calculators</h1>
-      <p class="mt-2 text-sm leading-6 text-body">Construction calculators — US-focused, static, private and mobile-first. Every tool runs 100% in your browser.</p>
-      <div class="mt-6">
-        <input id="calc-search" type="search" placeholder="Search calculators… try concrete slab, roof pitch, gravel..." class="h-11 w-full rounded-sm border border-hairline bg-canvas px-4 text-sm placeholder:text-mute focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" />
+    <div class="mx-auto max-w-[1100px] pt-4">
+      <div class="mx-auto max-w-[720px] text-center">
+        <p class="font-mono text-[11px] font-medium tracking-[0.14em] uppercase text-mute">Library</p>
+        <h1 class="mt-2 text-[28px] font-semibold tracking-[-0.03em] text-ink sm:text-[32px]">All calculators</h1>
+        <p class="mx-auto mt-2 max-w-[600px] text-[13.5px] leading-6 text-body">The complete library — organized by category and project group. Every calculator is a standalone tool with its own formula, example and diagram.</p>
+        <p class="mt-1 font-mono text-xs text-mute">{allCount} calculators · {hubCategories.length} categories · Search or filter to find your tool</p>
       </div>
-      <div class="mt-4 flex flex-wrap gap-2" role="group" aria-label="Filter by category">
-        <button type="button" data-filter="" class="filter-btn rounded-full bg-primary px-3 py-1.5 text-xs font-medium text-on-primary">All</button>
-        <button type="button" data-filter="concrete" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Concrete</button>
-        <button type="button" data-filter="gravel" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Gravel & Aggregate</button>
-        <button type="button" data-filter="rebar" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Rebar</button>
-        <button type="button" data-filter="roofing" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Roofing</button>
-        <button type="button" data-filter="flooring" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Flooring & Tile</button>
-        <button type="button" data-filter="framing" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Framing & Lumber</button>
-        <button type="button" data-filter="deck-fence" class="filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft">Deck & Fence</button>
+
+      <div class="mx-auto mt-8 max-w-[640px]">
+        <label for="calc-search" class="sr-only">Search calculators</label>
+        <div class="relative">
+          <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-mute" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.2 11.2L13.8 13.8M12.3 7.3a4.95 4.95 0 1 1-9.9 0 4.95 4.95 0 0 1 9.9 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg></span>
+          <input id="calc-search" type="search" placeholder="Search the library… try concrete slab, roof pitch, fence posts" class="h-[52px] w-full rounded-full border border-hairline bg-white pl-11 pr-4 text-[14px] shadow-sm placeholder:text-mute focus:border-link/20 focus:shadow-search-focus focus:outline-none dark:bg-[#171717] dark:border-white/10" autocomplete="off" spellcheck="false" />
+        </div>
+        <div class="mt-3 flex flex-wrap justify-center gap-2" role="group" aria-label="Filter by category">
+          <button type="button" data-filter="" class="filter-btn rounded-full bg-ink px-3.5 py-1.5 font-mono text-[11px] font-medium tracking-wide text-white dark:bg-white dark:text-black">All</button>
+          {filterCategories.map(cat => (
+            <button type="button" data-filter={cat.slug} class="filter-btn rounded-full border border-hairline bg-white px-3 py-1.5 font-mono text-[11px] font-medium tracking-wide text-mute hover:text-ink hover:border-hairline-strong/40 dark:bg-canvas dark:border-white/10">{cat.name.replace(" Calculators","")}</button>
+          ))}
+        </div>
+        <p id="result-count" class="mt-3 text-center font-mono text-xs text-mute" aria-live="polite"></p>
       </div>
-      <ul id="calc-list" class="mt-6 grid gap-4 sm:grid-cols-2" role="list">
-        {allCalculators.map(c => (
-          <li data-title={c.title.toLowerCase()} data-desc={c.description.toLowerCase()} data-category={c.category.toLowerCase()} data-cluster={c.cluster.toLowerCase()}>
-            <a href={`/${c.slug}/`} class="flex h-full flex-col rounded-md border border-hairline bg-canvas p-5 shadow-card transition hover:shadow-card-hover dark:bg-canvas">
-              <h2 class="text-sm font-semibold text-ink">{c.title.split(" —")[0]}</h2>
-              <p class="mt-1 line-clamp-2 text-sm leading-5 text-body">{c.description}</p>
-              <span class="mt-3 text-xs font-mono tracking-wide text-mute">{c.category.toUpperCase()}</span>
-            </a>
-          </li>
+
+      <div id="directory" class="mt-10 space-y-10">
+        {categoryData.map(({cat, subGroups}) => (
+          <section data-category={cat.slug} data-cluster={cat.slug} class="category-section scroll-mt-20" aria-labelledby={`cat-${cat.slug}`}>
+            <div class="flex items-baseline justify-between gap-4 border-b border-hairline pb-3">
+              <div>
+                <h2 id={`cat-${cat.slug}`} class="text-[16px] font-semibold tracking-[-0.02em] text-ink">{cat.name}</h2>
+                <p class="mt-1 max-w-[640px] text-xs leading-4 text-body">{cat.desc} · {cat.count} calculators</p>
+              </div>
+              <a href={`/construction/${cat.slug}/`} class="hidden shrink-0 font-mono text-[11px] tracking-wide text-mute hover:text-ink sm:inline-flex">View category →</a>
+            </div>
+            <div class="mt-5 space-y-6">
+              {subGroups.map(group => (
+                <div class="subgroup" data-subgroup={group.name.toLowerCase()}>
+                  <h3 class="font-mono text-[11px] font-medium tracking-[0.08em] uppercase text-mute">{group.name}</h3>
+                  <ul class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+                    {group.calcs.map(c => (
+                      <li data-title={(c.h1 + " " + c.title).toLowerCase()} data-desc={c.description.toLowerCase()} data-category={c.category.toLowerCase()} data-cluster={c.cluster.toLowerCase()} data-slug={c.slug}>
+                        <a href={`/${c.slug}/`} class="group flex h-full flex-col rounded-xl border border-hairline bg-white p-4 shadow-card transition hover:border-hairline-strong/30 hover:shadow-card-hover hover:-translate-y-[1px] dark:bg-canvas dark:border-white/10">
+                          <h3 class="line-clamp-1 text-[13.5px] font-semibold tracking-[-0.01em] text-ink">{c.h1}</h3>
+                          <p class="mt-1 line-clamp-2 flex-1 text-xs leading-5 text-body">{c.description.slice(0,120)}</p>
+                          <span class="mt-3 inline-flex items-center gap-1 font-mono text-[11px] tracking-wide text-mute group-hover:text-ink">{c.category} <span aria-hidden="true">→</span></span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
         ))}
-      </ul>
+      </div>
     </div>
   </main>
   <Footer />
   <script is:inline>
     const input = document.getElementById("calc-search");
-    const list = document.getElementById("calc-list");
+    const directory = document.getElementById("directory");
     const filterBtns = document.querySelectorAll(".filter-btn");
+    const countEl = document.getElementById("result-count");
     let activeFilter = "";
-    function applyFilter() {
-      const q = (input?.value || "").toLowerCase().trim();
-      const items = list ? Array.from(list.children) : [];
-      items.forEach(li => {
-        const title = li.getAttribute("data-title") || "";
-        const desc = li.getAttribute("data-desc") || "";
-        const cat = li.getAttribute("data-category") || "";
-        const cluster = li.getAttribute("data-cluster") || "";
-        const matchesSearch = !q || title.includes(q) || desc.includes(q);
-        const matchesFilter = !activeFilter || cat.includes(activeFilter) || cluster.includes(activeFilter);
-        li.style.display = (matchesSearch && matchesFilter) ? "" : "none";
-      });
+    // hydrate from ?q=
+    const params = new URLSearchParams(location.search);
+    const initialQ = params.get("q");
+    if(initialQ && input) input.value = initialQ;
+
+    function score(q, hay){
+      const terms = q.toLowerCase().trim().split(/\s+/).filter(Boolean);
+      if(!terms.length) return 0;
+      let ok = terms.every(t => hay.includes(t));
+      if(!ok) return -1;
+      let s=0;
+      for(const t of terms){ if(hay.includes(" "+t+" ")||hay.startsWith(t)) s+=2; else s+=1; }
+      return s;
     }
-    if (input && list) {
+
+    function applyFilter() {
+      const q = (input?.value || "").trim();
+      const qLower = q.toLowerCase();
+      const sections = directory ? Array.from(directory.querySelectorAll(".category-section")) : [];
+      let totalVisible = 0;
+      sections.forEach(section => {
+        const cat = section.getAttribute("data-category") || "";
+        const cluster = section.getAttribute("data-cluster") || "";
+        const matchesFilter = !activeFilter || cat.includes(activeFilter) || cluster.includes(activeFilter);
+        let sectionVisible = false;
+        const subgroups = Array.from(section.querySelectorAll(".subgroup"));
+        subgroups.forEach(sg => {
+          const items = Array.from(sg.querySelectorAll("li"));
+          let sgVisible = false;
+          items.forEach(li => {
+            const title = li.getAttribute("data-title") || "";
+            const desc = li.getAttribute("data-desc") || "";
+            const hay = title + " " + desc + " " + li.getAttribute("data-slug");
+            let matchesSearch = !qLower;
+            if(qLower){
+              const sc = score(qLower, hay);
+              matchesSearch = sc >=0;
+              li.dataset.score = String(sc);
+            }
+            const cat2 = li.getAttribute("data-category") || "";
+            const cl2 = li.getAttribute("data-cluster") || "";
+            const matchesFilterItem = !activeFilter || cat2.includes(activeFilter) || cl2.includes(activeFilter);
+            const show = matchesSearch && matchesFilterItem && matchesFilter;
+            li.style.display = show ? "" : "none";
+            if(show){ sgVisible = true; totalVisible++; }
+          });
+          sg.style.display = sgVisible ? "" : "none";
+          if(sgVisible) sectionVisible = true;
+        });
+        // Also handle case where section itself filtered but contains visible subgroups due to search
+        section.style.display = (!matchesFilter && !qLower) ? "none" : (sectionVisible || !qLower && matchesFilter ? "" : (sectionVisible ? "" : "none"));
+        if(!qLower && matchesFilter) sectionVisible = true;
+        if(!sectionVisible && !qLower) section.style.display = matchesFilter ? "" : "none";
+      });
+      if(countEl){
+        if(qLower || activeFilter) countEl.textContent = totalVisible + " calculators found";
+        else countEl.textContent = "";
+      }
+      // sort visible items by score when searching
+      if(qLower){
+        sections.forEach(sec=>{
+          sec.querySelectorAll(".subgroup").forEach(sg=>{
+            const ul = sg.querySelector("ul");
+            if(!ul) return;
+            const visible = Array.from(ul.children).filter(li=>li.style.display!=="none");
+            visible.sort((a,b)=> parseInt(b.dataset.score||0)-parseInt(a.dataset.score||0));
+            visible.forEach(li=>ul.appendChild(li));
+          });
+        });
+      }
+    }
+
+    if (input && directory) {
       input.addEventListener("input", applyFilter);
+      // initial
+      applyFilter();
       filterBtns.forEach(btn => {
         btn.addEventListener("click", () => {
           activeFilter = btn.getAttribute("data-filter") || "";
           filterBtns.forEach(b => {
             const isActive = b.getAttribute("data-filter") === activeFilter;
-            b.className = isActive ? "filter-btn rounded-full bg-primary px-3 py-1.5 text-xs font-medium text-on-primary" : "filter-btn rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body hover:bg-canvas-soft";
+            b.className = isActive ? "filter-btn rounded-full bg-ink px-3.5 py-1.5 font-mono text-[11px] font-medium tracking-wide text-white dark:bg-white dark:text-black" : "filter-btn rounded-full border border-hairline bg-white px-3 py-1.5 font-mono text-[11px] font-medium tracking-wide text-mute hover:text-ink hover:border-hairline-strong/40 dark:bg-canvas dark:border-white/10";
           });
           applyFilter();
         });

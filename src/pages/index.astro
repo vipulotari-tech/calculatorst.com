@@ -3,10 +3,11 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { hubCalculators, hubCategories } from "../data/hubCalculators";
+import { clusterGroups, projectGroups } from "../data/subcategories";
 
-const totalCount = hubCalculators.length;
 const popular = hubCalculators.filter(c => ["concrete-slab-calculator","gravel-calculator","rebar-calculator","brick-wall-calculator","roof-pitch-calculator","fence-cost-calculator","tile-calculator","paint-calculator","deck-calculator","paver-calculator","concrete-calculator","excavation-calculator"].includes(c.slug)).slice(0,12);
 const actualPopular = popular.length ? popular : hubCalculators.slice(0,12);
+const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.slug === s)).filter(Boolean) as typeof hubCalculators;
 ---
 
 <Layout
@@ -130,7 +131,7 @@ const actualPopular = popular.length ? popular : hubCalculators.slice(0,12);
         <div class="mx-auto max-w-[600px] text-center">
           <p class="font-mono text-[11px] font-medium tracking-[0.14em] uppercase text-mute">Library</p>
           <h2 id="cat-heading" class="mt-2 text-[22px] font-semibold tracking-[-0.03em] text-ink sm:text-[26px] [text-wrap:balance]">Browse by category</h2>
-          <p class="mx-auto mt-2 max-w-[520px] text-[13.5px] leading-5 text-body">Eighteen focused groups — every category has live calculators, no placeholders.</p>
+          <p class="mx-auto mt-2 max-w-[520px] text-[13.5px] leading-5 text-body">Sixteen focused groups — every category has live calculators, no placeholders.</p>
         </div>
         <div class="mt-10 grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {hubCategories.map((cat) => (
@@ -143,6 +144,34 @@ const actualPopular = popular.length ? popular : hubCalculators.slice(0,12);
               <span class="mt-4 inline-flex items-center gap-1 font-mono text-[11px] font-medium tracking-wide text-mute transition group-hover:text-ink">View <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span></span>
             </a>
           ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Groups — intent-based discovery -->
+    <section class="bg-white py-16 sm:py-20 lg:py-24 dark:bg-canvas" aria-labelledby="groups-heading">
+      <div class="mx-auto max-w-[1400px] px-6 max-md:px-4">
+        <div class="mx-auto max-w-[600px] text-center">
+          <p class="font-mono text-[11px] font-medium tracking-[0.14em] uppercase text-mute">Project groups</p>
+          <h2 id="groups-heading" class="mt-2 text-[22px] font-semibold tracking-[-0.03em] text-ink sm:text-[26px] [text-wrap:balance]">Popular project calculator groups</h2>
+          <p class="mx-auto mt-2 max-w-[520px] text-[13.5px] leading-5 text-body">Jump straight to the tools your project needs — grouped by real jobs, not just categories.</p>
+        </div>
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {projectGroups.map((group) => {
+            const calcs = getCalcs(group.slugs);
+            return (
+              <div class="rounded-xl border border-hairline bg-[#fcfcfc] p-5 dark:bg-white/[0.03]">
+                <h3 class="text-[13px] font-semibold tracking-[-0.01em] text-ink">{group.name}</h3>
+                <p class="mt-1 text-xs leading-4 text-body line-clamp-1">{group.desc}</p>
+                <ul class="mt-3 space-y-1.5" role="list">
+                  {calcs.slice(0,4).map(c => (
+                    <li><a href={`/${c.slug}/`} class="flex items-center gap-1.5 text-[13px] leading-5 text-ink hover:text-link"><span class="h-1 w-1 rounded-full bg-hairline-strong/40"></span>{c.h1}</a></li>
+                  ))}
+                </ul>
+                <a href={`/construction/${group.cluster}/`} class="mt-3 inline-flex items-center gap-1 font-mono text-[11px] font-medium tracking-wide text-mute hover:text-ink">View {group.name} <span aria-hidden="true">→</span></a>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -197,12 +226,28 @@ const actualPopular = popular.length ? popular : hubCalculators.slice(0,12);
       title: c.title,
       desc: c.description,
       cat: c.category,
+      cluster: c.cluster,
+      keywords: (c.keywords || []).join(" "),
       url: `/${c.slug}/`,
-      hay: `${c.h1} ${c.title} ${c.description} ${c.category} ${c.slug}`.toLowerCase()
+      hay: `${c.h1} ${c.title} ${c.description} ${c.category} ${c.cluster} ${c.slug} ${(c.keywords||[]).join(" ")}`.toLowerCase()
     }));
+    function score(query, hay){
+      const terms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
+      // intent: all terms must be present somewhere in hay (AND), with bonus for h1/slug
+      let ok = terms.every(t => hay.includes(t));
+      if(!ok) return -1;
+      let s=0;
+      for(const t of terms){
+        if(hay.includes(" "+t+" ")) s+=2;
+        else s+=1;
+      }
+      // boost exact h1 match
+      if(hay.includes(query.toLowerCase())) s+=3;
+      return s;
+    }
     function render(q) {
       if (!q || !box) return;
-      const hits = idx.filter(x => x.hay.includes(q.toLowerCase())).slice(0,6);
+      const hits = idx.map(x => ({...x, _s: score(q, x.hay)})).filter(x=>x._s>=0).sort((a,b)=>b._s-a._s).slice(0,6);
       if (!hits.length) { box.classList.add("hidden"); box.innerHTML=""; return; }
       box.innerHTML = hits.map(h => `<a href="${h.url}" class="group flex items-center gap-3 px-4 py-3.5 border-b last:border-0 border-hairline transition hover:bg-[#fcfcfc] dark:hover:bg-white/[0.04]" role="option"><span class="hidden h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-hairline bg-[#fcfcfc] text-mute group-hover:text-ink sm:inline-flex" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M11.2 11.2L13.8 13.8M12.3 7.3a4.95 4.95 0 1 1-9.9 0 4.95 4.95 0 0 1 9.9 0Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg></span><div class="min-w-0 flex-1"><p class="truncate text-[13.5px] font-medium tracking-[-0.01em] text-ink">${h.h1}</p><p class="mt-0.5 flex items-center gap-1.5 truncate font-mono text-[11px]"><span class="rounded bg-canvas-soft px-1.5 py-0.5 ring-1 ring-hairline text-mute">${h.cat}</span><span class="truncate text-body hidden sm:inline">${h.desc.slice(0,62)}</span></p></div><span class="shrink-0 font-mono text-[11px] text-mute transition group-hover:text-ink">→</span></a>`).join("") + `<a href="/calculators/?q=${encodeURIComponent(q)}" class="flex items-center justify-center gap-1.5 bg-[#fcfcfc] px-4 py-2.5 font-mono text-[11px] tracking-wide text-mute hover:text-ink dark:bg-white/[0.03]">View all results for “${q.slice(0,24)}” <span aria-hidden="true">→</span></a>`;
       box.classList.remove("hidden");
