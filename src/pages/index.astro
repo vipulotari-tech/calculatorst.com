@@ -5,8 +5,22 @@ import Footer from "../components/Footer.astro";
 import { hubCalculators, hubCategories } from "../data/hubCalculators";
 import { clusterGroups, projectGroups } from "../data/subcategories";
 
-const popular = hubCalculators.filter(c => c.featured).slice(0,12);
-const actualPopular = popular.length ? popular : hubCalculators.slice(0,12);
+const curatedPopularSlugs = [
+  "fence-calculator",
+  "concrete-calculator",
+  "roof-pitch-calculator",
+  "gravel-calculator",
+  "deck-calculator",
+  "brick-calculator",
+  "rebar-calculator",
+  "flooring-calculator",
+  "paint-calculator",
+  "excavation-calculator",
+  "mortar-calculator",
+  "asphalt-calculator",
+];
+const popular = curatedPopularSlugs.map(s => hubCalculators.find(c => c.slug === s)).filter(Boolean) as typeof hubCalculators;
+const actualPopular = popular.length ? popular : hubCalculators.filter(c => c.featured).slice(0,12);
 const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.slug === s)).filter(Boolean) as typeof hubCalculators;
 ---
 

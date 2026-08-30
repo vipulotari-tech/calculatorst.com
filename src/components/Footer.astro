@@ -1,6 +1,12 @@
 ---
 import { hubCalculators, hubCategories } from "../data/hubCalculators";
-const popular = hubCalculators.filter(c => c.featured).slice(0,7);
+const popular = [
+  "fence-calculator",
+  "concrete-calculator",
+  "roof-pitch-calculator",
+  "gravel-calculator",
+  "deck-calculator",
+].map(s => hubCalculators.find(c => c.slug === s)).filter(Boolean) as typeof hubCalculators;
 ---
 
 <footer class="border-t border-hairline bg-white dark:bg-canvas" aria-labelledby="footer-heading">
