@@ -280,21 +280,21 @@ html.dark .shadow-search-focus {
   }
 }
 
-/* Dark mode — premium tonal hierarchy */
+/* Dark mode — premium tonal hierarchy — deep neutral with subtle cool undertone, not pure black */
 html.dark {
   color-scheme: dark;
-  --color-primary: #fafafa;
+  --color-primary: #f5f5f7;
   --color-on-primary: #0a0a0a;
-  --color-ink: #f2f2f2;
-  --color-body: #a3a3a3;
-  --color-mute: #888888;
-  --color-hairline: #262626;
-  --color-hairline-strong: #333333;
-  --color-canvas: #171717;       /* cards / surfaces */
-  --color-canvas-soft: #0f0f0f;  /* page — deep charcoal, not pure black */
-  --color-canvas-soft-2: #1f1f1f;/* elevated — dropdowns, modals */
-  --color-link: #3b82f6;
-  --color-link-deep: #60a5fa;
+  --color-ink: #f2f2f4;
+  --color-body: #b4b4b8;
+  --color-mute: #8a8a8e;
+  --color-hairline: #252529;
+  --color-hairline-strong: #2e2e32;
+  --color-canvas: #17171b;       /* cards / surfaces — slightly elevated, warm neutral */
+  --color-canvas-soft: #0f0f11;  /* page — deep charcoal with cool undertone */
+  --color-canvas-soft-2: #1e1e22;/* elevated — dropdowns, modals, search */
+  --color-link: #60a5fa;
+  --color-link-deep: #93c5fd;
   --color-link-bg-soft: #0f1a2e;
   --color-error-soft: #2a0f0f;
   --color-warning-soft: #2a1f0a;
@@ -312,38 +312,39 @@ html.dark ::selection {
   color: var(--color-on-primary);
 }
 
-/* Dark shadows — lighter ring */
+/* Dark shadows — refined, premium */
 html.dark .shadow-card {
   box-shadow:
-    0 0 0 1px rgba(255,255,255,0.08),
-    0 1px 1px rgba(0,0,0,0.2),
-    0 2px 2px rgba(0,0,0,0.2);
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 1px 2px rgba(0,0,0,0.14),
+    0 4px 12px rgba(0,0,0,0.10);
 }
 html.dark .shadow-card-hover {
   box-shadow:
-    0 0 0 1px rgba(255,255,255,0.1),
-    0 2px 2px rgba(0,0,0,0.2),
-    0 8px 8px -8px rgba(0,0,0,0.3);
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 2px 6px rgba(0,0,0,0.16),
+    0 12px 24px -8px rgba(0,0,0,0.20);
 }
 html.dark .shadow-float {
   box-shadow:
-    0 0 0 1px rgba(255,255,255,0.08),
-    0 2px 2px rgba(0,0,0,0.3),
-    0 8px 16px -4px rgba(0,0,0,0.4);
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 4px 12px rgba(0,0,0,0.18),
+    0 16px 32px -12px rgba(0,0,0,0.28);
 }
 html.dark .mesh-gradient {
   background:
-    radial-gradient(ellipse 900px 500px at 50% -10%, rgba(255,255,255,0.04), transparent 62%),
-    radial-gradient(ellipse 700px 420px at 92% 18%, rgba(0,112,243,0.06), transparent 60%),
-    radial-gradient(ellipse 800px 520px at 12% 88%, rgba(255,255,255,0.02), transparent 65%);
+    radial-gradient(ellipse 900px 500px at 50% -10%, rgba(255,255,255,0.03), transparent 62%),
+    radial-gradient(ellipse 700px 420px at 92% 18%, rgba(59,130,246,0.05), transparent 60%),
+    radial-gradient(ellipse 800px 520px at 12% 88%, rgba(255,255,255,0.015), transparent 65%);
 }
 html.dark .hero-premium {
-  background-color: #0f0f0f;
+  background-color: #08080a;
   background-image:
-    radial-gradient(ellipse 1200px 600px at 50% 0%, rgba(255,255,255,0.04), transparent 55%),
-    radial-gradient(ellipse 600px 400px at 88% 12%, rgba(0,112,243,0.06), transparent 60%),
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    radial-gradient(ellipse 1200px 600px at 50% -15%, rgba(59,130,246,0.045), transparent 68%),
+    radial-gradient(ellipse 900px 500px at 85% 18%, rgba(99,102,241,0.035), transparent 62%),
+    radial-gradient(ellipse 700px 450px at 15% 85%, rgba(16,185,129,0.02), transparent 65%),
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
 }
 
 /* Theme transition — instant but smooth */

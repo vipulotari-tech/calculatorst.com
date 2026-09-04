@@ -32,7 +32,7 @@ const popular = [
         <h3 class="flex items-center gap-2 font-mono text-[11px] font-medium tracking-[0.16em] uppercase text-mute"><span class="h-px w-6 bg-hairline"></span> Popular</h3>
         <ul class="mt-4 space-y-2.5 text-[13.5px]" role="list">
           {popular.map((c) => <li><a href={`/${c.slug}/`} class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">{c.h1}</a></li>)}
-          <li><a href="/calculators/" class="rounded-full px-3 py-1.5 text-[13px] font-[450] tracking-[-0.01em] text-body transition-colors hover:bg-[#fcfcfc] hover:text-ink dark:hover:bg-white/[0.06] dark:hover:text-ink">View all calculators â†'</a></li>
+          <li><a href="/calculators/" class="rounded-full px-3 py-1.5 text-[13px] font-[450] tracking-[-0.01em] text-body transition-colors hover:bg-[#fcfcfc] hover:text-ink dark:hover:bg-white/[0.06] dark:hover:text-ink">View all calculators →</a></li>
         </ul>
       </div>
 
@@ -40,7 +40,7 @@ const popular = [
         <h3 class="flex items-center gap-2 font-mono text-[11px] font-medium tracking-[0.16em] uppercase text-mute"><span class="h-px w-6 bg-hairline"></span> Categories</h3>
         <ul class="mt-4 space-y-2 text-[13.5px]" role="list">
           {hubCategories.map((cat) => <li><a href={`/construction/${cat.slug}/`} class="text-body transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">{cat.name} <span class="font-mono text-xs text-mute">({cat.count})</span></a></li>)}
-          <li><a href="/construction/" class="rounded-full px-3 py-1.5 text-[13px] font-[450] tracking-[-0.01em] text-body transition-colors hover:bg-[#fcfcfc] hover:text-ink dark:hover:bg-white/[0.06] dark:hover:text-ink">All categories â†'</a></li>
+          <li><a href="/construction/" class="rounded-full px-3 py-1.5 text-[13px] font-[450] tracking-[-0.01em] text-body transition-colors hover:bg-[#fcfcfc] hover:text-ink dark:hover:bg-white/[0.06] dark:hover:text-ink">All categories →</a></li>
         </ul>
       </div>
 
@@ -59,7 +59,7 @@ const popular = [
     <div class="mt-12 border-t border-hairline pt-8">
       <div class="flex flex-col items-center gap-5">
         <div class="flex items-center gap-3" aria-hidden="true"><span class="h-px w-10 bg-gradient-to-r from-transparent to-hairline sm:w-16"></span><span class="flex h-6 w-6 items-center justify-center rounded-full border border-hairline bg-canvas-soft text-[10px] text-mute">✦</span><span class="h-px w-10 bg-gradient-to-l from-transparent to-hairline sm:w-16"></span></div>
-        <div class="text-center"><p class="font-mono text-[11px] tracking-[0.16em] uppercase text-mute">Â© 2026 Calculator Street</p><p class="mt-1.5 font-mono text-[11px] leading-5 text-mute">Built with <span class="font-medium text-ink">Astro</span> & <span class="font-medium text-ink">Tailwind CSS v4</span> <span class="mx-1.5 text-hairline">·</span> Private by design <span class="mx-1.5 text-hairline">·</span> <a href="/privacy/" class="underline hover:text-ink">Google may use cookies for ads</a></p></div>
+        <div class="text-center"><p class="font-mono text-[11px] tracking-[0.16em] uppercase text-mute">© 2026 Calculator Street</p><p class="mt-1.5 font-mono text-[11px] leading-5 text-mute">Built with <span class="font-medium text-ink">Astro</span> & <span class="font-medium text-ink">Tailwind CSS v4</span> <span class="mx-1.5 text-hairline">·</span> Private by design <span class="mx-1.5 text-hairline">·</span> <a href="/privacy/" class="underline hover:text-ink">Google may use cookies for ads</a></p></div>
         <p class="font-mono text-[10px] tracking-[0.14em] uppercase text-mute/60">Precision · Speed · Privacy</p>
       </div>
     </div>
