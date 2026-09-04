@@ -52,6 +52,12 @@ const { id = "theme-toggle", class: className = "" } = Astro.props;
 
     syncState();
 
+    // Default to light mode on first visit if no preference stored
+    if (!localStorage.getItem("theme")) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+
     const observer = new MutationObserver(syncState);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 
