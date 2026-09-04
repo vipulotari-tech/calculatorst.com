@@ -13,91 +13,91 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete calculator",
-      "concrete calculator"
+      "concrete calculator estimator"
     ],
     "featured": true
   },
   {
     "slug": "concrete-volume-calculator",
-    "title": "Concrete Volume Calculator — Material, Quantity & Cost",
+    "title": "Concrete Volume Calculator — Cubic Yards & Cubic Feet",
     "h1": "Concrete Volume Calculator",
-    "description": "Free concrete volume calculator for US construction — estimate concrete volume quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete volume in cubic yards and cubic feet for slabs, footings and walls — with waste factor.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete volume calculator",
-      "concrete volume calculator"
+      "concrete cubic yards calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "concrete-cost-calculator",
-    "title": "Concrete Cost Calculator — Material, Quantity & Cost",
+    "title": "Concrete Cost Calculator — Cost per Yard & Per Bag",
     "h1": "Concrete Cost Calculator",
-    "description": "Free concrete cost calculator for US construction — estimate concrete cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate concrete cost per cubic yard and per bag — compare ready-mix vs bags with waste and delivery.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete cost calculator",
-      "concrete cost calculator"
+      "concrete price calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "concrete-pour-calculator",
-    "title": "Concrete Pour Calculator — Material, Quantity & Cost",
+    "title": "Concrete Pour Calculator — Yards & Truck Loads",
     "h1": "Concrete Pour Calculator",
-    "description": "Free concrete pour calculator for US construction — estimate concrete pour quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete pour for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete pour calculator",
-      "concrete pour calculator"
+      "concrete pour calculator estimator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "concrete-mix-calculator",
     "title": "Concrete Mix Calculator — Material, Quantity & Cost",
     "h1": "Concrete Mix Calculator",
-    "description": "Free concrete mix calculator for US construction — estimate concrete mix quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete mix for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete mix calculator",
-      "concrete mix calculator"
+      "concrete mix calculator estimator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "concrete-weight-calculator",
-    "title": "Concrete Weight Calculator — Material, Quantity & Cost",
+    "title": "Concrete Weight Calculator — Pounds & Tons",
     "h1": "Concrete Weight Calculator",
-    "description": "Free concrete weight calculator for US construction — estimate concrete weight quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete weight in pounds and tons from volume — for transport and load planning.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete weight calculator",
-      "concrete weight calculator"
+      "concrete weight tons calculator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "concrete-slab-calculator",
-    "title": "Concrete Slab Calculator — Material, Quantity & Cost",
+    "title": "Concrete Slab Calculator — Yards, Bags & Cost",
     "h1": "Concrete Slab Calculator",
-    "description": "Free concrete slab calculator for US construction — estimate concrete slab quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete slab for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete slab calculator",
-      "concrete slab calculator"
+      "concrete yard calculator"
     ],
     "featured": true
   },
@@ -105,55 +105,55 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-footing-calculator",
     "title": "Concrete Footing Calculator — Material, Quantity & Cost",
     "h1": "Concrete Footing Calculator",
-    "description": "Free concrete footing calculator for US construction — estimate concrete footing quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete footing for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete footing calculator",
-      "concrete footing calculator"
+      "concrete footing calculator estimator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "concrete-foundation-calculator",
     "title": "Concrete Foundation Calculator — Material, Quantity & Cost",
     "h1": "Concrete Foundation Calculator",
-    "description": "Free concrete foundation calculator for US construction — estimate concrete foundation quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete foundation for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete foundation calculator",
-      "concrete foundation calculator"
+      "concrete foundation calculator estimator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "concrete-wall-calculator",
     "title": "Concrete Wall Calculator — Material, Quantity & Cost",
     "h1": "Concrete Wall Calculator",
-    "description": "Free concrete wall calculator for US construction — estimate concrete wall quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete wall for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete wall calculator",
-      "concrete wall calculator"
+      "concrete wall calculator estimator"
     ],
-    "featured": false
+    "featured": true
   },
   {
     "slug": "concrete-column-calculator",
     "title": "Concrete Column Calculator — Material, Quantity & Cost",
     "h1": "Concrete Column Calculator",
-    "description": "Free concrete column calculator for US construction — estimate concrete column quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete column for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete column calculator",
-      "concrete column calculator"
+      "concrete column calculator estimator"
     ],
     "featured": false
   },
@@ -161,13 +161,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-curb-calculator",
     "title": "Concrete Curb Calculator — Material, Quantity & Cost",
     "h1": "Concrete Curb Calculator",
-    "description": "Free concrete curb calculator for US construction — estimate concrete curb quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete curb for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete curb calculator",
-      "concrete curb calculator"
+      "concrete curb calculator estimator"
     ],
     "featured": false
   },
@@ -175,13 +175,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-stair-calculator",
     "title": "Concrete Stair Calculator — Material, Quantity & Cost",
     "h1": "Concrete Stair Calculator",
-    "description": "Free concrete stair calculator for US construction — estimate concrete stair quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete stair for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete stair calculator",
-      "concrete stair calculator"
+      "concrete stair calculator estimator"
     ],
     "featured": false
   },
@@ -189,13 +189,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-ramp-calculator",
     "title": "Concrete Ramp Calculator — Material, Quantity & Cost",
     "h1": "Concrete Ramp Calculator",
-    "description": "Free concrete ramp calculator for US construction — estimate concrete ramp quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete ramp for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete ramp calculator",
-      "concrete ramp calculator"
+      "concrete ramp calculator estimator"
     ],
     "featured": false
   },
@@ -203,13 +203,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-waste-calculator",
     "title": "Concrete Waste Calculator — Material, Quantity & Cost",
     "h1": "Concrete Waste Calculator",
-    "description": "Free concrete waste calculator for US construction — estimate concrete waste quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete waste for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete waste calculator",
-      "concrete waste calculator"
+      "concrete waste calculator estimator"
     ],
     "featured": false
   },
@@ -217,27 +217,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "slab-thickness-calculator",
     "title": "Slab Thickness Calculator — Material, Quantity & Cost",
     "h1": "Slab Thickness Calculator",
-    "description": "Free slab thickness calculator for US construction — estimate slab thickness quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate slab thickness thickness and volume — for slabs, base and coverage with waste.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "slab thickness calculator",
-      "slab thickness calculator"
+      "slab thickness calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "slab-cost-calculator",
-    "title": "Slab Cost Calculator — Material, Quantity & Cost",
+    "title": "Slab Cost Calculator — Price & Quantity",
     "h1": "Slab Cost Calculator",
-    "description": "Free slab cost calculator for US construction — estimate slab cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate slab cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "slab cost calculator",
-      "slab cost calculator"
+      "slab price calculator"
     ],
     "featured": false
   },
@@ -245,13 +245,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "slab-reinforcement-calculator",
     "title": "Slab Reinforcement Calculator — Material, Quantity & Cost",
     "h1": "Slab Reinforcement Calculator",
-    "description": "Free slab reinforcement calculator for US construction — estimate slab reinforcement quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate slab reinforcement for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "slab reinforcement calculator",
-      "slab reinforcement calculator"
+      "slab reinforcement calculator estimator"
     ],
     "featured": false
   },
@@ -259,27 +259,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "patio-concrete-calculator",
     "title": "Patio Concrete Calculator — Material, Quantity & Cost",
     "h1": "Patio Concrete Calculator",
-    "description": "Free patio concrete calculator for US construction — estimate patio concrete quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate patio concrete for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "patio concrete calculator",
-      "patio concrete calculator"
+      "patio concrete calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "patio-cost-calculator",
-    "title": "Patio Cost Calculator — Material, Quantity & Cost",
+    "title": "Patio Cost Calculator — Price & Quantity",
     "h1": "Patio Cost Calculator",
-    "description": "Free patio cost calculator for US construction — estimate patio cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate patio cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "patio cost calculator",
-      "patio cost calculator"
+      "patio price calculator"
     ],
     "featured": false
   },
@@ -287,27 +287,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "driveway-concrete-calculator",
     "title": "Driveway Concrete Calculator — Material, Quantity & Cost",
     "h1": "Driveway Concrete Calculator",
-    "description": "Free driveway concrete calculator for US construction — estimate driveway concrete quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate driveway concrete for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "driveway concrete calculator",
-      "driveway concrete calculator"
+      "driveway concrete calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "driveway-cost-calculator",
-    "title": "Driveway Cost Calculator — Material, Quantity & Cost",
+    "title": "Driveway Cost Calculator — Price & Quantity",
     "h1": "Driveway Cost Calculator",
-    "description": "Free driveway cost calculator for US construction — estimate driveway cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate driveway cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "driveway cost calculator",
-      "driveway cost calculator"
+      "driveway price calculator"
     ],
     "featured": false
   },
@@ -315,13 +315,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "driveway-thickness-calculator",
     "title": "Driveway Thickness Calculator — Material, Quantity & Cost",
     "h1": "Driveway Thickness Calculator",
-    "description": "Free driveway thickness calculator for US construction — estimate driveway thickness quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate driveway thickness thickness and volume — for slabs, base and coverage with waste.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "driveway thickness calculator",
-      "driveway thickness calculator"
+      "driveway thickness calculator estimator"
     ],
     "featured": false
   },
@@ -329,13 +329,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "garage-slab-calculator",
     "title": "Garage Slab Calculator — Material, Quantity & Cost",
     "h1": "Garage Slab Calculator",
-    "description": "Free garage slab calculator for US construction — estimate garage slab quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate garage slab for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "garage slab calculator",
-      "garage slab calculator"
+      "garage slab calculator estimator"
     ],
     "featured": false
   },
@@ -343,41 +343,41 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "shed-foundation-calculator",
     "title": "Shed Foundation Calculator — Material, Quantity & Cost",
     "h1": "Shed Foundation Calculator",
-    "description": "Free shed foundation calculator for US construction — estimate shed foundation quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate shed foundation for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "shed foundation calculator",
-      "shed foundation calculator"
+      "shed foundation calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "foundation-cost-calculator",
-    "title": "Foundation Cost Calculator — Material, Quantity & Cost",
+    "title": "Foundation Cost Calculator — Price & Quantity",
     "h1": "Foundation Cost Calculator",
-    "description": "Free foundation cost calculator for US construction — estimate foundation cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate foundation cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "foundation cost calculator",
-      "foundation cost calculator"
+      "foundation price calculator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "foundation-excavation-calculator",
     "title": "Foundation Excavation Calculator — Material, Quantity & Cost",
     "h1": "Foundation Excavation Calculator",
-    "description": "Free foundation excavation calculator for US construction — estimate foundation excavation quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate foundation excavation for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "foundation excavation calculator",
-      "foundation excavation calculator"
+      "foundation excavation calculator estimator"
     ],
     "featured": false
   },
@@ -385,13 +385,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "strip-footing-calculator",
     "title": "Strip Footing Calculator — Material, Quantity & Cost",
     "h1": "Strip Footing Calculator",
-    "description": "Free strip footing calculator for US construction — estimate strip footing quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate strip footing for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "strip footing calculator",
-      "strip footing calculator"
+      "strip footing calculator estimator"
     ],
     "featured": false
   },
@@ -399,13 +399,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "pad-footing-calculator",
     "title": "Pad Footing Calculator — Material, Quantity & Cost",
     "h1": "Pad Footing Calculator",
-    "description": "Free pad footing calculator for US construction — estimate pad footing quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate pad footing for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "pad footing calculator",
-      "pad footing calculator"
+      "pad footing calculator estimator"
     ],
     "featured": false
   },
@@ -413,27 +413,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "pier-footing-calculator",
     "title": "Pier Footing Calculator — Material, Quantity & Cost",
     "h1": "Pier Footing Calculator",
-    "description": "Free pier footing calculator for US construction — estimate pier footing quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate pier footing for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "pier footing calculator",
-      "pier footing calculator"
+      "pier footing calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "footing-volume-calculator",
-    "title": "Footing Volume Calculator — Material, Quantity & Cost",
+    "title": "Footing Volume Calculator — Cubic Yards",
     "h1": "Footing Volume Calculator",
-    "description": "Free footing volume calculator for US construction — estimate footing volume quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate footing volume volume in cubic yards and cubic feet — enter dimensions, get yards with waste.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "footing volume calculator",
-      "footing volume calculator"
+      "footing cubic yards calculator"
     ],
     "featured": false
   },
@@ -441,13 +441,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "footing-concrete-calculator",
     "title": "Footing Concrete Calculator — Material, Quantity & Cost",
     "h1": "Footing Concrete Calculator",
-    "description": "Free footing concrete calculator for US construction — estimate footing concrete quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate footing concrete for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "footing concrete calculator",
-      "footing concrete calculator"
+      "footing concrete calculator estimator"
     ],
     "featured": false
   },
@@ -455,13 +455,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "foundation-wall-calculator",
     "title": "Foundation Wall Calculator — Material, Quantity & Cost",
     "h1": "Foundation Wall Calculator",
-    "description": "Free foundation wall calculator for US construction — estimate foundation wall quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate foundation wall for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "foundation wall calculator",
-      "foundation wall calculator"
+      "foundation wall calculator estimator"
     ],
     "featured": false
   },
@@ -469,13 +469,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "basement-wall-calculator",
     "title": "Basement Wall Calculator — Material, Quantity & Cost",
     "h1": "Basement Wall Calculator",
-    "description": "Free basement wall calculator for US construction — estimate basement wall quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate basement wall for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "basement wall calculator",
-      "basement wall calculator"
+      "basement wall calculator estimator"
     ],
     "featured": false
   },
@@ -483,13 +483,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "crawl-space-calculator",
     "title": "Crawl Space Calculator — Material, Quantity & Cost",
     "h1": "Crawl Space Calculator",
-    "description": "Free crawl space calculator for US construction — estimate crawl space quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate crawl space for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "crawl space calculator",
-      "crawl space calculator"
+      "crawl space calculator estimator"
     ],
     "featured": false
   },
@@ -497,27 +497,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rebar-calculator",
     "title": "Rebar Calculator — Quantity, Weight & Cost",
     "h1": "Rebar Calculator",
-    "description": "Free rebar calculator for US construction — estimate rebar quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate rebar for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar calculator",
-      "rebar calculator"
+      "rebar calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "rebar-weight-calculator",
-    "title": "Rebar Weight Calculator — Material, Quantity & Cost",
+    "title": "Rebar Weight Calculator — Pounds per Foot & Tons",
     "h1": "Rebar Weight Calculator",
-    "description": "Free rebar weight calculator for US construction — estimate rebar weight quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate rebar weight per foot and total tons from length, size and spacing — for ordering.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar weight calculator",
-      "rebar weight calculator"
+      "rebar weight tons calculator"
     ],
     "featured": false
   },
@@ -525,13 +525,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rebar-spacing-calculator",
     "title": "Rebar Spacing Calculator — Material, Quantity & Cost",
     "h1": "Rebar Spacing Calculator",
-    "description": "Free rebar spacing calculator for US construction — estimate rebar spacing quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate rebar spacing for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar spacing calculator",
-      "rebar spacing calculator"
+      "rebar spacing calculator estimator"
     ],
     "featured": false
   },
@@ -539,41 +539,41 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rebar-length-calculator",
     "title": "Rebar Length Calculator — Material, Quantity & Cost",
     "h1": "Rebar Length Calculator",
-    "description": "Free rebar length calculator for US construction — estimate rebar length quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate rebar length for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar length calculator",
-      "rebar length calculator"
+      "rebar length calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "rebar-quantity-calculator",
-    "title": "Rebar Quantity Calculator — Material, Quantity & Cost",
+    "title": "Rebar Quantity Calculator — Count & Waste",
     "h1": "Rebar Quantity Calculator",
-    "description": "Free rebar quantity calculator for US construction — estimate rebar quantity quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate rebar quantity quantity — how many units, bags or pieces you need with waste factor.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar quantity calculator",
-      "rebar quantity calculator"
+      "rebar how many calculator"
     ],
     "featured": false
   },
   {
     "slug": "rebar-cost-calculator",
-    "title": "Rebar Cost Calculator — Material, Quantity & Cost",
+    "title": "Rebar Cost Calculator — Price & Quantity",
     "h1": "Rebar Cost Calculator",
-    "description": "Free rebar cost calculator for US construction — estimate rebar cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate rebar cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar cost calculator",
-      "rebar cost calculator"
+      "rebar price calculator"
     ],
     "featured": false
   },
@@ -581,13 +581,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rebar-grid-calculator",
     "title": "Rebar Grid Calculator — Material, Quantity & Cost",
     "h1": "Rebar Grid Calculator",
-    "description": "Free rebar grid calculator for US construction — estimate rebar grid quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate rebar grid for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar grid calculator",
-      "rebar grid calculator"
+      "rebar grid calculator estimator"
     ],
     "featured": false
   },
@@ -595,13 +595,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rebar-lap-length-calculator",
     "title": "Rebar Lap Length Calculator — Material, Quantity & Cost",
     "h1": "Rebar Lap Length Calculator",
-    "description": "Free rebar lap length calculator for US construction — estimate rebar lap length quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate rebar lap length for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar lap length calculator",
-      "rebar lap length calculator"
+      "rebar lap length calculator estimator"
     ],
     "featured": false
   },
@@ -609,13 +609,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "reinforcement-mesh-calculator",
     "title": "Reinforcement Mesh Calculator — Material, Quantity & Cost",
     "h1": "Reinforcement Mesh Calculator",
-    "description": "Free reinforcement mesh calculator for US construction — estimate reinforcement mesh quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate reinforcement mesh for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "reinforcement mesh calculator",
-      "reinforcement mesh calculator"
+      "reinforcement mesh calculator estimator"
     ],
     "featured": false
   },
@@ -623,13 +623,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rebar-chair-calculator",
     "title": "Rebar Chair Calculator — Material, Quantity & Cost",
     "h1": "Rebar Chair Calculator",
-    "description": "Free rebar chair calculator for US construction — estimate rebar chair quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate rebar chair for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar chair calculator",
-      "rebar chair calculator"
+      "rebar chair calculator estimator"
     ],
     "featured": false
   },
@@ -637,55 +637,55 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "brick-calculator",
     "title": "Brick Calculator — Quantity, Mortar & Cost",
     "h1": "Brick Calculator",
-    "description": "Free brick calculator for US construction — estimate brick quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate brick for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick calculator",
-      "brick calculator"
+      "brick calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "brick-wall-calculator",
     "title": "Brick Wall Calculator — Material, Quantity & Cost",
     "h1": "Brick Wall Calculator",
-    "description": "Free brick wall calculator for US construction — estimate brick wall quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate brick wall for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick wall calculator",
-      "brick wall calculator"
+      "brick wall calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "brick-quantity-calculator",
-    "title": "Brick Quantity Calculator — Material, Quantity & Cost",
+    "title": "Brick Quantity Calculator — Bricks per Wall Area",
     "h1": "Brick Quantity Calculator",
-    "description": "Free brick quantity calculator for US construction — estimate brick quantity quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate bricks needed per wall area — account for brick size, mortar joint and waste.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick quantity calculator",
-      "brick quantity calculator"
+      "brick how many calculator"
     ],
     "featured": false
   },
   {
     "slug": "brick-cost-calculator",
-    "title": "Brick Cost Calculator — Material, Quantity & Cost",
+    "title": "Brick Cost Calculator — Price & Quantity",
     "h1": "Brick Cost Calculator",
-    "description": "Free brick cost calculator for US construction — estimate brick cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate brick cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick cost calculator",
-      "brick cost calculator"
+      "brick price calculator"
     ],
     "featured": false
   },
@@ -693,13 +693,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "brick-mortar-calculator",
     "title": "Brick Mortar Calculator — Material, Quantity & Cost",
     "h1": "Brick Mortar Calculator",
-    "description": "Free brick mortar calculator for US construction — estimate brick mortar quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate brick mortar for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick mortar calculator",
-      "brick mortar calculator"
+      "brick mortar calculator estimator"
     ],
     "featured": false
   },
@@ -707,13 +707,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "brick-veneer-calculator",
     "title": "Brick Veneer Calculator — Material, Quantity & Cost",
     "h1": "Brick Veneer Calculator",
-    "description": "Free brick veneer calculator for US construction — estimate brick veneer quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate brick veneer for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick veneer calculator",
-      "brick veneer calculator"
+      "brick veneer calculator estimator"
     ],
     "featured": false
   },
@@ -721,13 +721,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "brick-patio-calculator",
     "title": "Brick Patio Calculator — Material, Quantity & Cost",
     "h1": "Brick Patio Calculator",
-    "description": "Free brick patio calculator for US construction — estimate brick patio quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate brick patio for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick patio calculator",
-      "brick patio calculator"
+      "brick patio calculator estimator"
     ],
     "featured": false
   },
@@ -735,13 +735,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "brick-paver-calculator",
     "title": "Brick Paver Calculator — Material, Quantity & Cost",
     "h1": "Brick Paver Calculator",
-    "description": "Free brick paver calculator for US construction — estimate brick paver quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate brick paver for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick paver calculator",
-      "brick paver calculator"
+      "brick paver calculator estimator"
     ],
     "featured": false
   },
@@ -749,13 +749,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "masonry-calculator",
     "title": "Masonry Calculator — Material, Quantity & Cost",
     "h1": "Masonry Calculator",
-    "description": "Free masonry calculator for US construction — estimate masonry quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate masonry for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "masonry calculator",
-      "masonry calculator"
+      "masonry calculator estimator"
     ],
     "featured": false
   },
@@ -763,27 +763,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "masonry-wall-calculator",
     "title": "Masonry Wall Calculator — Material, Quantity & Cost",
     "h1": "Masonry Wall Calculator",
-    "description": "Free masonry wall calculator for US construction — estimate masonry wall quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate masonry wall for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "masonry wall calculator",
-      "masonry wall calculator"
+      "masonry wall calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "masonry-cost-calculator",
-    "title": "Masonry Cost Calculator — Material, Quantity & Cost",
+    "title": "Masonry Cost Calculator — Price & Quantity",
     "h1": "Masonry Cost Calculator",
-    "description": "Free masonry cost calculator for US construction — estimate masonry cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate masonry cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "masonry cost calculator",
-      "masonry cost calculator"
+      "masonry price calculator"
     ],
     "featured": false
   },
@@ -791,27 +791,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "masonry-block-calculator",
     "title": "Masonry Block Calculator — Material, Quantity & Cost",
     "h1": "Masonry Block Calculator",
-    "description": "Free masonry block calculator for US construction — estimate masonry block quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate masonry block for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "masonry block calculator",
-      "masonry block calculator"
+      "masonry block calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "brick-weight-calculator",
-    "title": "Brick Weight Calculator — Material, Quantity & Cost",
+    "title": "Brick Weight Calculator — Weight & Tons",
     "h1": "Brick Weight Calculator",
-    "description": "Free brick weight calculator for US construction — estimate brick weight quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate brick weight weight — volume to pounds and tons with density. For ordering and truck loads.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick weight calculator",
-      "brick weight calculator"
+      "brick weight tons calculator"
     ],
     "featured": false
   },
@@ -819,13 +819,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "brick-waste-calculator",
     "title": "Brick Waste Calculator — Material, Quantity & Cost",
     "h1": "Brick Waste Calculator",
-    "description": "Free brick waste calculator for US construction — estimate brick waste quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate brick waste for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick waste calculator",
-      "brick waste calculator"
+      "brick waste calculator estimator"
     ],
     "featured": false
   },
@@ -833,13 +833,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "brick-joint-calculator",
     "title": "Brick Joint Calculator — Material, Quantity & Cost",
     "h1": "Brick Joint Calculator",
-    "description": "Free brick joint calculator for US construction — estimate brick joint quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate brick joint for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick joint calculator",
-      "brick joint calculator"
+      "brick joint calculator estimator"
     ],
     "featured": false
   },
@@ -847,13 +847,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-block-calculator",
     "title": "Concrete Block Calculator — Material, Quantity & Cost",
     "h1": "Concrete Block Calculator",
-    "description": "Free concrete block calculator for US construction — estimate concrete block quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete block for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete block calculator",
-      "concrete block calculator"
+      "concrete block calculator estimator"
     ],
     "featured": false
   },
@@ -861,55 +861,55 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cmu-calculator",
     "title": "CMU Calculator — Material, Quantity & Cost",
     "h1": "CMU Calculator",
-    "description": "Free cmu calculator for US construction — estimate cmu quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate cmu for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cmu calculator",
-      "cmu calculator"
+      "cmu calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "cmu-wall-calculator",
     "title": "CMU Wall Calculator — Material, Quantity & Cost",
     "h1": "CMU Wall Calculator",
-    "description": "Free cmu wall calculator for US construction — estimate cmu wall quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate cmu wall for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cmu wall calculator",
-      "cmu wall calculator"
+      "cmu wall calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "cmu-quantity-calculator",
-    "title": "CMU Quantity Calculator — Material, Quantity & Cost",
+    "title": "CMU Quantity Calculator — Count & Waste",
     "h1": "CMU Quantity Calculator",
-    "description": "Free cmu quantity calculator for US construction — estimate cmu quantity quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate cmu quantity quantity — how many units, bags or pieces you need with waste factor.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cmu quantity calculator",
-      "cmu quantity calculator"
+      "cmu how many calculator"
     ],
     "featured": false
   },
   {
     "slug": "cmu-cost-calculator",
-    "title": "CMU Cost Calculator — Material, Quantity & Cost",
+    "title": "CMU Cost Calculator — Price & Quantity",
     "h1": "CMU Cost Calculator",
-    "description": "Free cmu cost calculator for US construction — estimate cmu cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate cmu cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cmu cost calculator",
-      "cmu cost calculator"
+      "cmu price calculator"
     ],
     "featured": false
   },
@@ -917,27 +917,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-block-wall-calculator",
     "title": "Concrete Block Wall Calculator — Material, Quantity & Cost",
     "h1": "Concrete Block Wall Calculator",
-    "description": "Free concrete block wall calculator for US construction — estimate concrete block wall quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete block wall for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete block wall calculator",
-      "concrete block wall calculator"
+      "concrete block wall calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "concrete-block-weight-calculator",
-    "title": "Concrete Block Weight Calculator — Material, Quantity & Cost",
+    "title": "Concrete Block Weight Calculator — Weight & Tons",
     "h1": "Concrete Block Weight Calculator",
-    "description": "Free concrete block weight calculator for US construction — estimate concrete block weight quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete block weight weight — volume to pounds and tons with density. For ordering and truck loads.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete block weight calculator",
-      "concrete block weight calculator"
+      "concrete block weight tons calculator"
     ],
     "featured": false
   },
@@ -945,13 +945,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-block-mortar-calculator",
     "title": "Concrete Block Mortar Calculator — Material, Quantity & Cost",
     "h1": "Concrete Block Mortar Calculator",
-    "description": "Free concrete block mortar calculator for US construction — estimate concrete block mortar quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate concrete block mortar for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete block mortar calculator",
-      "concrete block mortar calculator"
+      "concrete block mortar calculator estimator"
     ],
     "featured": false
   },
@@ -959,13 +959,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cmu-grout-calculator",
     "title": "CMU Grout Calculator — Material, Quantity & Cost",
     "h1": "CMU Grout Calculator",
-    "description": "Free cmu grout calculator for US construction — estimate cmu grout quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate cmu grout for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cmu grout calculator",
-      "cmu grout calculator"
+      "cmu grout calculator estimator"
     ],
     "featured": false
   },
@@ -973,13 +973,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cmu-reinforcement-calculator",
     "title": "CMU Reinforcement Calculator — Material, Quantity & Cost",
     "h1": "CMU Reinforcement Calculator",
-    "description": "Free cmu reinforcement calculator for US construction — estimate cmu reinforcement quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate cmu reinforcement for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cmu reinforcement calculator",
-      "cmu reinforcement calculator"
+      "cmu reinforcement calculator estimator"
     ],
     "featured": false
   },
@@ -987,55 +987,55 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "mortar-calculator",
     "title": "Mortar Calculator — Material, Quantity & Cost",
     "h1": "Mortar Calculator",
-    "description": "Free mortar calculator for US construction — estimate mortar quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate mortar for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "mortar calculator",
-      "mortar calculator"
+      "mortar calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "mortar-mix-calculator",
-    "title": "Mortar Mix Calculator — Material, Quantity & Cost",
+    "title": "Mortar Mix Calculator — Ratio, Bags & Volume",
     "h1": "Mortar Mix Calculator",
-    "description": "Free mortar mix calculator for US construction — estimate mortar mix quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate mortar mix ratio, cement, sand and bags for brick, block and stone work.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "mortar mix calculator",
-      "mortar mix calculator"
+      "mortar mix calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "mortar-quantity-calculator",
-    "title": "Mortar Quantity Calculator — Material, Quantity & Cost",
+    "title": "Mortar Quantity Calculator — Count & Waste",
     "h1": "Mortar Quantity Calculator",
-    "description": "Free mortar quantity calculator for US construction — estimate mortar quantity quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate mortar quantity quantity — how many units, bags or pieces you need with waste factor.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "mortar quantity calculator",
-      "mortar quantity calculator"
+      "mortar how many calculator"
     ],
     "featured": false
   },
   {
     "slug": "mortar-cost-calculator",
-    "title": "Mortar Cost Calculator — Material, Quantity & Cost",
+    "title": "Mortar Cost Calculator — Price & Quantity",
     "h1": "Mortar Cost Calculator",
-    "description": "Free mortar cost calculator for US construction — estimate mortar cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate mortar cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "mortar cost calculator",
-      "mortar cost calculator"
+      "mortar price calculator"
     ],
     "featured": false
   },
@@ -1043,41 +1043,41 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "grout-calculator",
     "title": "Grout Calculator — Material, Quantity & Cost",
     "h1": "Grout Calculator",
-    "description": "Free grout calculator for US construction — estimate grout quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate grout for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "grout calculator",
-      "grout calculator"
+      "grout calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "grout-quantity-calculator",
-    "title": "Grout Quantity Calculator — Material, Quantity & Cost",
+    "title": "Grout Quantity Calculator — Count & Waste",
     "h1": "Grout Quantity Calculator",
-    "description": "Free grout quantity calculator for US construction — estimate grout quantity quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate grout quantity quantity — how many units, bags or pieces you need with waste factor.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "grout quantity calculator",
-      "grout quantity calculator"
+      "grout how many calculator"
     ],
     "featured": false
   },
   {
     "slug": "grout-cost-calculator",
-    "title": "Grout Cost Calculator — Material, Quantity & Cost",
+    "title": "Grout Cost Calculator — Price & Quantity",
     "h1": "Grout Cost Calculator",
-    "description": "Free grout cost calculator for US construction — estimate grout cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate grout cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "grout cost calculator",
-      "grout cost calculator"
+      "grout price calculator"
     ],
     "featured": false
   },
@@ -1085,13 +1085,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cement-calculator",
     "title": "Cement Calculator — Material, Quantity & Cost",
     "h1": "Cement Calculator",
-    "description": "Free cement calculator for US construction — estimate cement quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate cement for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cement calculator",
-      "cement calculator"
+      "cement calculator estimator"
     ],
     "featured": false
   },
@@ -1099,13 +1099,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cement-bag-calculator",
     "title": "Cement Bag Calculator — Material, Quantity & Cost",
     "h1": "Cement Bag Calculator",
-    "description": "Free cement bag calculator for US construction — estimate cement bag quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate cement bag for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cement bag calculator",
-      "cement bag calculator"
+      "cement bag calculator estimator"
     ],
     "featured": false
   },
@@ -1113,13 +1113,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cement-sand-ratio-calculator",
     "title": "Cement Sand Ratio Calculator — Material, Quantity & Cost",
     "h1": "Cement Sand Ratio Calculator",
-    "description": "Free cement sand ratio calculator for US construction — estimate cement sand ratio quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate cement sand ratio for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cement sand ratio calculator",
-      "cement sand ratio calculator"
+      "cement sand ratio calculator estimator"
     ],
     "featured": false
   },
@@ -1133,49 +1133,49 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "gravel calculator",
-      "gravel calculator"
+      "gravel calculator yards tons"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "gravel-cost-calculator",
-    "title": "Gravel Cost Calculator — Material, Quantity & Cost",
+    "title": "Gravel Cost Calculator — Price & Quantity",
     "h1": "Gravel Cost Calculator",
-    "description": "Free gravel cost calculator for US construction — estimate gravel cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate gravel cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "gravel cost calculator",
-      "gravel cost calculator"
+      "gravel price calculator"
     ],
     "featured": false
   },
   {
     "slug": "gravel-weight-calculator",
-    "title": "Gravel Weight Calculator — Material, Quantity & Cost",
+    "title": "Gravel Weight Calculator — Tons & Pounds",
     "h1": "Gravel Weight Calculator",
-    "description": "Free gravel weight calculator for US construction — estimate gravel weight quantity, material and cost with waste, US customary and metric units.",
+    "description": "Convert gravel cubic yards to tons and pounds — for ordering by weight.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "gravel weight calculator",
-      "gravel weight calculator"
+      "gravel weight tons calculator"
     ],
     "featured": false
   },
   {
     "slug": "gravel-depth-calculator",
-    "title": "Gravel Depth Calculator — Material, Quantity & Cost",
+    "title": "Gravel Depth Calculator — Depth & Coverage",
     "h1": "Gravel Depth Calculator",
-    "description": "Free gravel depth calculator for US construction — estimate gravel depth quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate gravel depth thickness and volume — for slabs, base and coverage with waste.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "gravel depth calculator",
-      "gravel depth calculator"
+      "gravel depth calculator yards tons"
     ],
     "featured": false
   },
@@ -1183,27 +1183,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "crushed-stone-calculator",
     "title": "Crushed Stone Calculator — Material, Quantity & Cost",
     "h1": "Crushed Stone Calculator",
-    "description": "Free crushed stone calculator for US construction — estimate crushed stone quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate crushed stone for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "crushed stone calculator",
-      "crushed stone calculator"
+      "crushed stone calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "crushed-stone-cost-calculator",
-    "title": "Crushed Stone Cost Calculator — Material, Quantity & Cost",
+    "title": "Crushed Stone Cost Calculator — Price & Quantity",
     "h1": "Crushed Stone Cost Calculator",
-    "description": "Free crushed stone cost calculator for US construction — estimate crushed stone cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate crushed stone cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "crushed stone cost calculator",
-      "crushed stone cost calculator"
+      "crushed stone price calculator"
     ],
     "featured": false
   },
@@ -1211,27 +1211,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "aggregate-calculator",
     "title": "Aggregate Calculator — Material, Quantity & Cost",
     "h1": "Aggregate Calculator",
-    "description": "Free aggregate calculator for US construction — estimate aggregate quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate aggregate for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "aggregate calculator",
-      "aggregate calculator"
+      "aggregate calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "aggregate-weight-calculator",
-    "title": "Aggregate Weight Calculator — Material, Quantity & Cost",
+    "title": "Aggregate Weight Calculator — Weight & Tons",
     "h1": "Aggregate Weight Calculator",
-    "description": "Free aggregate weight calculator for US construction — estimate aggregate weight quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate aggregate weight weight — volume to pounds and tons with density. For ordering and truck loads.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "aggregate weight calculator",
-      "aggregate weight calculator"
+      "aggregate weight tons calculator"
     ],
     "featured": false
   },
@@ -1239,41 +1239,41 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "sand-calculator",
     "title": "Sand Calculator — Material, Quantity & Cost",
     "h1": "Sand Calculator",
-    "description": "Free sand calculator for US construction — estimate sand quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate sand for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "sand calculator",
-      "sand calculator"
+      "sand calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "sand-weight-calculator",
-    "title": "Sand Weight Calculator — Material, Quantity & Cost",
+    "title": "Sand Weight Calculator — Weight & Tons",
     "h1": "Sand Weight Calculator",
-    "description": "Free sand weight calculator for US construction — estimate sand weight quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate sand weight weight — volume to pounds and tons with density. For ordering and truck loads.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "sand weight calculator",
-      "sand weight calculator"
+      "sand weight tons calculator"
     ],
     "featured": false
   },
   {
     "slug": "sand-cost-calculator",
-    "title": "Sand Cost Calculator — Material, Quantity & Cost",
+    "title": "Sand Cost Calculator — Price & Quantity",
     "h1": "Sand Cost Calculator",
-    "description": "Free sand cost calculator for US construction — estimate sand cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate sand cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "sand cost calculator",
-      "sand cost calculator"
+      "sand price calculator"
     ],
     "featured": false
   },
@@ -1281,27 +1281,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fill-dirt-calculator",
     "title": "Fill Dirt Calculator — Material, Quantity & Cost",
     "h1": "Fill Dirt Calculator",
-    "description": "Free fill dirt calculator for US construction — estimate fill dirt quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate fill dirt for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "fill dirt calculator",
-      "fill dirt calculator"
+      "fill dirt calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "fill-dirt-cost-calculator",
-    "title": "Fill Dirt Cost Calculator — Material, Quantity & Cost",
+    "title": "Fill Dirt Cost Calculator — Price & Quantity",
     "h1": "Fill Dirt Cost Calculator",
-    "description": "Free fill dirt cost calculator for US construction — estimate fill dirt cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate fill dirt cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "fill dirt cost calculator",
-      "fill dirt cost calculator"
+      "fill dirt price calculator"
     ],
     "featured": false
   },
@@ -1309,27 +1309,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "topsoil-calculator",
     "title": "Topsoil Calculator — Material, Quantity & Cost",
     "h1": "Topsoil Calculator",
-    "description": "Free topsoil calculator for US construction — estimate topsoil quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate topsoil for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "topsoil calculator",
-      "topsoil calculator"
+      "topsoil calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "topsoil-cost-calculator",
-    "title": "Topsoil Cost Calculator — Material, Quantity & Cost",
+    "title": "Topsoil Cost Calculator — Price & Quantity",
     "h1": "Topsoil Cost Calculator",
-    "description": "Free topsoil cost calculator for US construction — estimate topsoil cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate topsoil cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "topsoil cost calculator",
-      "topsoil cost calculator"
+      "topsoil price calculator"
     ],
     "featured": false
   },
@@ -1337,27 +1337,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "excavation-calculator",
     "title": "Excavation Calculator — Material, Quantity & Cost",
     "h1": "Excavation Calculator",
-    "description": "Free excavation calculator for US construction — estimate excavation quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate excavation for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "excavation calculator",
-      "excavation calculator"
+      "excavation calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "excavation-cost-calculator",
-    "title": "Excavation Cost Calculator — Material, Quantity & Cost",
+    "title": "Excavation Cost Calculator — Price & Quantity",
     "h1": "Excavation Cost Calculator",
-    "description": "Free excavation cost calculator for US construction — estimate excavation cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate excavation cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "excavation cost calculator",
-      "excavation cost calculator"
+      "excavation price calculator"
     ],
     "featured": false
   },
@@ -1365,27 +1365,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "trench-calculator",
     "title": "Trench Calculator — Material, Quantity & Cost",
     "h1": "Trench Calculator",
-    "description": "Free trench calculator for US construction — estimate trench quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate trench for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "trench calculator",
-      "trench calculator"
+      "trench calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "trench-volume-calculator",
-    "title": "Trench Volume Calculator — Material, Quantity & Cost",
+    "title": "Trench Volume Calculator — Cubic Yards",
     "h1": "Trench Volume Calculator",
-    "description": "Free trench volume calculator for US construction — estimate trench volume quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate trench volume volume in cubic yards and cubic feet — enter dimensions, get yards with waste.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "trench volume calculator",
-      "trench volume calculator"
+      "trench cubic yards calculator"
     ],
     "featured": false
   },
@@ -1393,13 +1393,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "trench-backfill-calculator",
     "title": "Trench Backfill Calculator — Material, Quantity & Cost",
     "h1": "Trench Backfill Calculator",
-    "description": "Free trench backfill calculator for US construction — estimate trench backfill quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate trench backfill for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "trench backfill calculator",
-      "trench backfill calculator"
+      "trench backfill calculator estimator"
     ],
     "featured": false
   },
@@ -1407,13 +1407,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "earthwork-calculator",
     "title": "Earthwork Calculator — Material, Quantity & Cost",
     "h1": "Earthwork Calculator",
-    "description": "Free earthwork calculator for US construction — estimate earthwork quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate earthwork for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "earthwork calculator",
-      "earthwork calculator"
+      "earthwork calculator estimator"
     ],
     "featured": false
   },
@@ -1421,13 +1421,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cut-and-fill-calculator",
     "title": "Cut and Fill Calculator — Material, Quantity & Cost",
     "h1": "Cut and Fill Calculator",
-    "description": "Free cut and fill calculator for US construction — estimate cut and fill quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate cut and fill for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cut and fill calculator",
-      "cut and fill calculator"
+      "cut and fill calculator estimator"
     ],
     "featured": false
   },
@@ -1435,41 +1435,41 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "dirt-removal-calculator",
     "title": "Dirt Removal Calculator — Material, Quantity & Cost",
     "h1": "Dirt Removal Calculator",
-    "description": "Free dirt removal calculator for US construction — estimate dirt removal quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate dirt removal for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "dirt removal calculator",
-      "dirt removal calculator"
+      "dirt removal calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "soil-volume-calculator",
-    "title": "Soil Volume Calculator — Material, Quantity & Cost",
+    "title": "Soil Volume Calculator — Cubic Yards",
     "h1": "Soil Volume Calculator",
-    "description": "Free soil volume calculator for US construction — estimate soil volume quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate soil volume volume in cubic yards and cubic feet — enter dimensions, get yards with waste.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "soil volume calculator",
-      "soil volume calculator"
+      "soil cubic yards calculator"
     ],
     "featured": false
   },
   {
     "slug": "soil-weight-calculator",
-    "title": "Soil Weight Calculator — Material, Quantity & Cost",
+    "title": "Soil Weight Calculator — Weight & Tons",
     "h1": "Soil Weight Calculator",
-    "description": "Free soil weight calculator for US construction — estimate soil weight quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate soil weight weight — volume to pounds and tons with density. For ordering and truck loads.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "soil weight calculator",
-      "soil weight calculator"
+      "soil weight tons calculator"
     ],
     "featured": false
   },
@@ -1477,27 +1477,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "framing-calculator",
     "title": "Framing Calculator — Material, Quantity & Cost",
     "h1": "Framing Calculator",
-    "description": "Free framing calculator for US construction — estimate framing quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate framing for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "framing calculator",
-      "framing calculator"
+      "framing calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "wall-framing-calculator",
     "title": "Wall Framing Calculator — Material, Quantity & Cost",
     "h1": "Wall Framing Calculator",
-    "description": "Free wall framing calculator for US construction — estimate wall framing quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate wall framing for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "wall framing calculator",
-      "wall framing calculator"
+      "wall framing calculator estimator"
     ],
     "featured": false
   },
@@ -1505,13 +1505,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "stud-calculator",
     "title": "Stud Calculator — Material, Quantity & Cost",
     "h1": "Stud Calculator",
-    "description": "Free stud calculator for US construction — estimate stud quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate stud for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "stud calculator",
-      "stud calculator"
+      "stud calculator estimator"
     ],
     "featured": false
   },
@@ -1519,13 +1519,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "stud-spacing-calculator",
     "title": "Stud Spacing Calculator — Material, Quantity & Cost",
     "h1": "Stud Spacing Calculator",
-    "description": "Free stud spacing calculator for US construction — estimate stud spacing quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate stud spacing for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "stud spacing calculator",
-      "stud spacing calculator"
+      "stud spacing calculator estimator"
     ],
     "featured": false
   },
@@ -1533,27 +1533,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "lumber-calculator",
     "title": "Lumber Calculator — Material, Quantity & Cost",
     "h1": "Lumber Calculator",
-    "description": "Free lumber calculator for US construction — estimate lumber quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate lumber for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "lumber calculator",
-      "lumber calculator"
+      "lumber calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "lumber-cost-calculator",
-    "title": "Lumber Cost Calculator — Material, Quantity & Cost",
+    "title": "Lumber Cost Calculator — Price & Quantity",
     "h1": "Lumber Cost Calculator",
-    "description": "Free lumber cost calculator for US construction — estimate lumber cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate lumber cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "lumber cost calculator",
-      "lumber cost calculator"
+      "lumber price calculator"
     ],
     "featured": false
   },
@@ -1561,27 +1561,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "board-foot-calculator",
     "title": "Board Foot Calculator — Material, Quantity & Cost",
     "h1": "Board Foot Calculator",
-    "description": "Free board foot calculator for US construction — estimate board foot quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate board foot for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "board foot calculator",
-      "board foot calculator"
+      "board foot calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "board-foot-cost-calculator",
-    "title": "Board Foot Cost Calculator — Material, Quantity & Cost",
+    "title": "Board Foot Cost Calculator — Price & Quantity",
     "h1": "Board Foot Cost Calculator",
-    "description": "Free board foot cost calculator for US construction — estimate board foot cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate board foot cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "board foot cost calculator",
-      "board foot cost calculator"
+      "board foot price calculator"
     ],
     "featured": false
   },
@@ -1589,13 +1589,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "joist-calculator",
     "title": "Joist Calculator — Material, Quantity & Cost",
     "h1": "Joist Calculator",
-    "description": "Free joist calculator for US construction — estimate joist quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate joist for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "joist calculator",
-      "joist calculator"
+      "joist calculator estimator"
     ],
     "featured": false
   },
@@ -1603,13 +1603,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "joist-spacing-calculator",
     "title": "Joist Spacing Calculator — Material, Quantity & Cost",
     "h1": "Joist Spacing Calculator",
-    "description": "Free joist spacing calculator for US construction — estimate joist spacing quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate joist spacing for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "joist spacing calculator",
-      "joist spacing calculator"
+      "joist spacing calculator estimator"
     ],
     "featured": false
   },
@@ -1617,13 +1617,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "floor-joist-calculator",
     "title": "Floor Joist Calculator — Material, Quantity & Cost",
     "h1": "Floor Joist Calculator",
-    "description": "Free floor joist calculator for US construction — estimate floor joist quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate floor joist for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "floor joist calculator",
-      "floor joist calculator"
+      "floor joist calculator estimator"
     ],
     "featured": false
   },
@@ -1631,13 +1631,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "ceiling-joist-calculator",
     "title": "Ceiling Joist Calculator — Material, Quantity & Cost",
     "h1": "Ceiling Joist Calculator",
-    "description": "Free ceiling joist calculator for US construction — estimate ceiling joist quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate ceiling joist for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "ceiling joist calculator",
-      "ceiling joist calculator"
+      "ceiling joist calculator estimator"
     ],
     "featured": false
   },
@@ -1645,13 +1645,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "header-size-calculator",
     "title": "Header Size Calculator — Material, Quantity & Cost",
     "h1": "Header Size Calculator",
-    "description": "Free header size calculator for US construction — estimate header size quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate header size for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "header size calculator",
-      "header size calculator"
+      "header size calculator estimator"
     ],
     "featured": false
   },
@@ -1659,13 +1659,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "beam-calculator",
     "title": "Beam Calculator — Material, Quantity & Cost",
     "h1": "Beam Calculator",
-    "description": "Free beam calculator for US construction — estimate beam quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate beam for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "beam calculator",
-      "beam calculator"
+      "beam calculator estimator"
     ],
     "featured": false
   },
@@ -1673,13 +1673,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "beam-load-calculator",
     "title": "Beam Load Calculator — Material, Quantity & Cost",
     "h1": "Beam Load Calculator",
-    "description": "Free beam load calculator for US construction — estimate beam load quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate beam load for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "beam load calculator",
-      "beam load calculator"
+      "beam load calculator estimator"
     ],
     "featured": false
   },
@@ -1687,55 +1687,55 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roofing-calculator",
     "title": "Roofing Calculator — Material, Quantity & Cost",
     "h1": "Roofing Calculator",
-    "description": "Free roofing calculator for US construction — estimate roofing quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate roofing for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roofing calculator",
-      "roofing calculator"
+      "roofinging calculator"
     ],
     "featured": false
   },
   {
     "slug": "roof-area-calculator",
-    "title": "Roof Area Calculator — Material, Quantity & Cost",
+    "title": "Roof Area Calculator — Square Feet & Squares",
     "h1": "Roof Area Calculator",
-    "description": "Free roof area calculator for US construction — estimate roof area quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate roof area for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roof area calculator",
-      "roof area calculator"
+      "roofing area calculator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "roof-pitch-calculator",
-    "title": "Roof Pitch Calculator — Material, Quantity & Cost",
+    "title": "Roof Pitch Calculator — Ratio, Angle & Slope",
     "h1": "Roof Pitch Calculator",
-    "description": "Free roof pitch calculator for US construction — estimate roof pitch quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate roof pitch ratio, angle in degrees and slope from rise and run — for rafters and code.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roof pitch calculator",
-      "roof pitch calculator"
+      "roofing pitch calculator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "roof-slope-calculator",
     "title": "Roof Slope Calculator — Material, Quantity & Cost",
     "h1": "Roof Slope Calculator",
-    "description": "Free roof slope calculator for US construction — estimate roof slope quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate roof slope for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roof slope calculator",
-      "roof slope calculator"
+      "roofing slope calculator"
     ],
     "featured": false
   },
@@ -1743,41 +1743,41 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roofing-shingle-calculator",
     "title": "Roofing Shingle Calculator — Material, Quantity & Cost",
     "h1": "Roofing Shingle Calculator",
-    "description": "Free roofing shingle calculator for US construction — estimate roofing shingle quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate roofing shingle for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roofing shingle calculator",
-      "roofing shingle calculator"
+      "roofinging shingle calculator"
     ],
     "featured": false
   },
   {
     "slug": "shingle-quantity-calculator",
-    "title": "Shingle Quantity Calculator — Material, Quantity & Cost",
+    "title": "Shingle Quantity Calculator — Count & Waste",
     "h1": "Shingle Quantity Calculator",
-    "description": "Free shingle quantity calculator for US construction — estimate shingle quantity quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate shingle quantity quantity — how many units, bags or pieces you need with waste factor.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "shingle quantity calculator",
-      "shingle quantity calculator"
+      "shingle how many calculator"
     ],
     "featured": false
   },
   {
     "slug": "shingle-cost-calculator",
-    "title": "Shingle Cost Calculator — Material, Quantity & Cost",
+    "title": "Shingle Cost Calculator — Price & Quantity",
     "h1": "Shingle Cost Calculator",
-    "description": "Free shingle cost calculator for US construction — estimate shingle cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate shingle cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "shingle cost calculator",
-      "shingle cost calculator"
+      "shingle price calculator"
     ],
     "featured": false
   },
@@ -1785,13 +1785,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roofing-material-calculator",
     "title": "Roofing Material Calculator — Material, Quantity & Cost",
     "h1": "Roofing Material Calculator",
-    "description": "Free roofing material calculator for US construction — estimate roofing material quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate roofing material for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roofing material calculator",
-      "roofing material calculator"
+      "roofinging material calculator"
     ],
     "featured": false
   },
@@ -1799,13 +1799,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roofing-underlayment-calculator",
     "title": "Roofing Underlayment Calculator — Material, Quantity & Cost",
     "h1": "Roofing Underlayment Calculator",
-    "description": "Free roofing underlayment calculator for US construction — estimate roofing underlayment quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate roofing underlayment for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roofing underlayment calculator",
-      "roofing underlayment calculator"
+      "roofinging underlayment calculator"
     ],
     "featured": false
   },
@@ -1813,13 +1813,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roof-sheathing-calculator",
     "title": "Roof Sheathing Calculator — Material, Quantity & Cost",
     "h1": "Roof Sheathing Calculator",
-    "description": "Free roof sheathing calculator for US construction — estimate roof sheathing quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate roof sheathing for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roof sheathing calculator",
-      "roof sheathing calculator"
+      "roofing sheathing calculator"
     ],
     "featured": false
   },
@@ -1827,13 +1827,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roof-rafter-calculator",
     "title": "Roof Rafter Calculator — Material, Quantity & Cost",
     "h1": "Roof Rafter Calculator",
-    "description": "Free roof rafter calculator for US construction — estimate roof rafter quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate roof rafter for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roof rafter calculator",
-      "roof rafter calculator"
+      "roofing rafter calculator"
     ],
     "featured": false
   },
@@ -1841,13 +1841,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rafter-length-calculator",
     "title": "Rafter Length Calculator — Material, Quantity & Cost",
     "h1": "Rafter Length Calculator",
-    "description": "Free rafter length calculator for US construction — estimate rafter length quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate rafter length for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rafter length calculator",
-      "rafter length calculator"
+      "rafter length calculator estimator"
     ],
     "featured": false
   },
@@ -1855,13 +1855,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roof-truss-calculator",
     "title": "Roof Truss Calculator — Material, Quantity & Cost",
     "h1": "Roof Truss Calculator",
-    "description": "Free roof truss calculator for US construction — estimate roof truss quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate roof truss for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roof truss calculator",
-      "roof truss calculator"
+      "roofing truss calculator"
     ],
     "featured": false
   },
@@ -1869,13 +1869,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roof-flashing-calculator",
     "title": "Roof Flashing Calculator — Material, Quantity & Cost",
     "h1": "Roof Flashing Calculator",
-    "description": "Free roof flashing calculator for US construction — estimate roof flashing quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate roof flashing for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roof flashing calculator",
-      "roof flashing calculator"
+      "roofing flashing calculator"
     ],
     "featured": false
   },
@@ -1883,13 +1883,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roof-waste-calculator",
     "title": "Roof Waste Calculator — Material, Quantity & Cost",
     "h1": "Roof Waste Calculator",
-    "description": "Free roof waste calculator for US construction — estimate roof waste quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate roof waste for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roof waste calculator",
-      "roof waste calculator"
+      "roofing waste calculator"
     ],
     "featured": false
   },
@@ -1897,27 +1897,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "flooring-calculator",
     "title": "Flooring Calculator — Material, Quantity & Cost",
     "h1": "Flooring Calculator",
-    "description": "Free flooring calculator for US construction — estimate flooring quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate flooring for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "flooring calculator",
-      "flooring calculator"
+      "flooring calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "flooring-cost-calculator",
-    "title": "Flooring Cost Calculator — Material, Quantity & Cost",
+    "title": "Flooring Cost Calculator — Price & Quantity",
     "h1": "Flooring Cost Calculator",
-    "description": "Free flooring cost calculator for US construction — estimate flooring cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate flooring cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "flooring cost calculator",
-      "flooring cost calculator"
+      "flooring price calculator"
     ],
     "featured": false
   },
@@ -1925,27 +1925,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "hardwood-flooring-calculator",
     "title": "Hardwood Flooring Calculator — Material, Quantity & Cost",
     "h1": "Hardwood Flooring Calculator",
-    "description": "Free hardwood flooring calculator for US construction — estimate hardwood flooring quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate hardwood flooring for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "hardwood flooring calculator",
-      "hardwood flooring calculator"
+      "hardwood flooring calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "hardwood-flooring-cost-calculator",
-    "title": "Hardwood Flooring Cost Calculator — Material, Quantity & Cost",
+    "title": "Hardwood Flooring Cost Calculator — Price & Quantity",
     "h1": "Hardwood Flooring Cost Calculator",
-    "description": "Free hardwood flooring cost calculator for US construction — estimate hardwood flooring cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate hardwood flooring cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "hardwood flooring cost calculator",
-      "hardwood flooring cost calculator"
+      "hardwood flooring price calculator"
     ],
     "featured": false
   },
@@ -1953,13 +1953,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "laminate-flooring-calculator",
     "title": "Laminate Flooring Calculator — Material, Quantity & Cost",
     "h1": "Laminate Flooring Calculator",
-    "description": "Free laminate flooring calculator for US construction — estimate laminate flooring quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate laminate flooring for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "laminate flooring calculator",
-      "laminate flooring calculator"
+      "laminate flooring calculator estimator"
     ],
     "featured": false
   },
@@ -1967,13 +1967,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "vinyl-flooring-calculator",
     "title": "Vinyl Flooring Calculator — Material, Quantity & Cost",
     "h1": "Vinyl Flooring Calculator",
-    "description": "Free vinyl flooring calculator for US construction — estimate vinyl flooring quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate vinyl flooring for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "vinyl flooring calculator",
-      "vinyl flooring calculator"
+      "vinyl flooring calculator estimator"
     ],
     "featured": false
   },
@@ -1981,27 +1981,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "carpet-calculator",
     "title": "Carpet Calculator — Material, Quantity & Cost",
     "h1": "Carpet Calculator",
-    "description": "Free carpet calculator for US construction — estimate carpet quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate carpet for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "carpet calculator",
-      "carpet calculator"
+      "carpet calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "carpet-cost-calculator",
-    "title": "Carpet Cost Calculator — Material, Quantity & Cost",
+    "title": "Carpet Cost Calculator — Price & Quantity",
     "h1": "Carpet Cost Calculator",
-    "description": "Free carpet cost calculator for US construction — estimate carpet cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate carpet cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "carpet cost calculator",
-      "carpet cost calculator"
+      "carpet price calculator"
     ],
     "featured": false
   },
@@ -2009,41 +2009,41 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "tile-calculator",
     "title": "Tile Calculator — Material, Quantity & Cost",
     "h1": "Tile Calculator",
-    "description": "Free tile calculator for US construction — estimate tile quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate tile for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "tile calculator",
-      "tile calculator"
+      "tile calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "tile-quantity-calculator",
-    "title": "Tile Quantity Calculator — Material, Quantity & Cost",
+    "title": "Tile Quantity Calculator — Count & Waste",
     "h1": "Tile Quantity Calculator",
-    "description": "Free tile quantity calculator for US construction — estimate tile quantity quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate tile quantity quantity — how many units, bags or pieces you need with waste factor.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "tile quantity calculator",
-      "tile quantity calculator"
+      "tile how many calculator"
     ],
     "featured": false
   },
   {
     "slug": "tile-cost-calculator",
-    "title": "Tile Cost Calculator — Material, Quantity & Cost",
+    "title": "Tile Cost Calculator — Price & Quantity",
     "h1": "Tile Cost Calculator",
-    "description": "Free tile cost calculator for US construction — estimate tile cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate tile cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "tile cost calculator",
-      "tile cost calculator"
+      "tile price calculator"
     ],
     "featured": false
   },
@@ -2051,13 +2051,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "tile-grout-calculator",
     "title": "Tile Grout Calculator — Material, Quantity & Cost",
     "h1": "Tile Grout Calculator",
-    "description": "Free tile grout calculator for US construction — estimate tile grout quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate tile grout for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "tile grout calculator",
-      "tile grout calculator"
+      "tile grout calculator estimator"
     ],
     "featured": false
   },
@@ -2065,13 +2065,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "tile-adhesive-calculator",
     "title": "Tile Adhesive Calculator — Material, Quantity & Cost",
     "h1": "Tile Adhesive Calculator",
-    "description": "Free tile adhesive calculator for US construction — estimate tile adhesive quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate tile adhesive for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "tile adhesive calculator",
-      "tile adhesive calculator"
+      "tile adhesive calculator estimator"
     ],
     "featured": false
   },
@@ -2079,13 +2079,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "flooring-waste-calculator",
     "title": "Flooring Waste Calculator — Material, Quantity & Cost",
     "h1": "Flooring Waste Calculator",
-    "description": "Free flooring waste calculator for US construction — estimate flooring waste quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate flooring waste for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "flooring waste calculator",
-      "flooring waste calculator"
+      "flooring waste calculator estimator"
     ],
     "featured": false
   },
@@ -2093,13 +2093,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "underlayment-calculator",
     "title": "Underlayment Calculator — Material, Quantity & Cost",
     "h1": "Underlayment Calculator",
-    "description": "Free underlayment calculator for US construction — estimate underlayment quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate underlayment for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "underlayment calculator",
-      "underlayment calculator"
+      "underlayment calculator estimator"
     ],
     "featured": false
   },
@@ -2107,41 +2107,41 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "drywall-calculator",
     "title": "Drywall Calculator — Material, Quantity & Cost",
     "h1": "Drywall Calculator",
-    "description": "Free drywall calculator for US construction — estimate drywall quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate drywall for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "drywall calculator",
-      "drywall calculator"
+      "drywall calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "drywall-sheet-calculator",
     "title": "Drywall Sheet Calculator — Material, Quantity & Cost",
     "h1": "Drywall Sheet Calculator",
-    "description": "Free drywall sheet calculator for US construction — estimate drywall sheet quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate drywall sheet for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "drywall sheet calculator",
-      "drywall sheet calculator"
+      "drywall sheet calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "drywall-cost-calculator",
-    "title": "Drywall Cost Calculator — Material, Quantity & Cost",
+    "title": "Drywall Cost Calculator — Price & Quantity",
     "h1": "Drywall Cost Calculator",
-    "description": "Free drywall cost calculator for US construction — estimate drywall cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate drywall cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "drywall cost calculator",
-      "drywall cost calculator"
+      "drywall price calculator"
     ],
     "featured": false
   },
@@ -2149,13 +2149,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "drywall-joint-compound-calculator",
     "title": "Drywall Joint Compound Calculator — Material, Quantity & Cost",
     "h1": "Drywall Joint Compound Calculator",
-    "description": "Free drywall joint compound calculator for US construction — estimate drywall joint compound quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate drywall joint compound for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "drywall joint compound calculator",
-      "drywall joint compound calculator"
+      "drywall joint compound calculator estimator"
     ],
     "featured": false
   },
@@ -2163,13 +2163,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "drywall-screw-calculator",
     "title": "Drywall Screw Calculator — Material, Quantity & Cost",
     "h1": "Drywall Screw Calculator",
-    "description": "Free drywall screw calculator for US construction — estimate drywall screw quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate drywall screw for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "drywall screw calculator",
-      "drywall screw calculator"
+      "drywall screw calculator estimator"
     ],
     "featured": false
   },
@@ -2177,13 +2177,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "drywall-tape-calculator",
     "title": "Drywall Tape Calculator — Material, Quantity & Cost",
     "h1": "Drywall Tape Calculator",
-    "description": "Free drywall tape calculator for US construction — estimate drywall tape quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate drywall tape for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "drywall tape calculator",
-      "drywall tape calculator"
+      "drywall tape calculator estimator"
     ],
     "featured": false
   },
@@ -2191,41 +2191,41 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "paint-calculator",
     "title": "Paint Calculator — Material, Quantity & Cost",
     "h1": "Paint Calculator",
-    "description": "Free paint calculator for US construction — estimate paint quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate paint for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "paint calculator",
-      "paint calculator"
+      "paint calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "paint-coverage-calculator",
-    "title": "Paint Coverage Calculator — Material, Quantity & Cost",
+    "title": "Paint Coverage Calculator — Gallons & Coverage",
     "h1": "Paint Coverage Calculator",
-    "description": "Free paint coverage calculator for US construction — estimate paint coverage quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate paint coverage for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "paint coverage calculator",
-      "paint coverage calculator"
+      "paint coverage calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "paint-cost-calculator",
-    "title": "Paint Cost Calculator — Material, Quantity & Cost",
+    "title": "Paint Cost Calculator — Price & Quantity",
     "h1": "Paint Cost Calculator",
-    "description": "Free paint cost calculator for US construction — estimate paint cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate paint cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "paint cost calculator",
-      "paint cost calculator"
+      "paint price calculator"
     ],
     "featured": false
   },
@@ -2233,13 +2233,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "primer-calculator",
     "title": "Primer Calculator — Material, Quantity & Cost",
     "h1": "Primer Calculator",
-    "description": "Free primer calculator for US construction — estimate primer quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate primer for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "primer calculator",
-      "primer calculator"
+      "primer calculator estimator"
     ],
     "featured": false
   },
@@ -2247,13 +2247,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "ceiling-paint-calculator",
     "title": "Ceiling Paint Calculator — Material, Quantity & Cost",
     "h1": "Ceiling Paint Calculator",
-    "description": "Free ceiling paint calculator for US construction — estimate ceiling paint quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate ceiling paint for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "ceiling paint calculator",
-      "ceiling paint calculator"
+      "ceiling paint calculator estimator"
     ],
     "featured": false
   },
@@ -2261,13 +2261,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "wall-paint-calculator",
     "title": "Wall Paint Calculator — Material, Quantity & Cost",
     "h1": "Wall Paint Calculator",
-    "description": "Free wall paint calculator for US construction — estimate wall paint quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate wall paint for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "wall paint calculator",
-      "wall paint calculator"
+      "wall paint calculator estimator"
     ],
     "featured": false
   },
@@ -2275,27 +2275,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "insulation-calculator",
     "title": "Insulation Calculator — Material, Quantity & Cost",
     "h1": "Insulation Calculator",
-    "description": "Free insulation calculator for US construction — estimate insulation quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate insulation for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "insulation calculator",
-      "insulation calculator"
+      "insulation calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "insulation-cost-calculator",
-    "title": "Insulation Cost Calculator — Material, Quantity & Cost",
+    "title": "Insulation Cost Calculator — Price & Quantity",
     "h1": "Insulation Cost Calculator",
-    "description": "Free insulation cost calculator for US construction — estimate insulation cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate insulation cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "insulation cost calculator",
-      "insulation cost calculator"
+      "insulation price calculator"
     ],
     "featured": false
   },
@@ -2303,13 +2303,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "spray-foam-calculator",
     "title": "Spray Foam Calculator — Material, Quantity & Cost",
     "h1": "Spray Foam Calculator",
-    "description": "Free spray foam calculator for US construction — estimate spray foam quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate spray foam for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "spray foam calculator",
-      "spray foam calculator"
+      "spray foam calculator estimator"
     ],
     "featured": false
   },
@@ -2317,41 +2317,41 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "deck-calculator",
     "title": "Deck Calculator — Material, Quantity & Cost",
     "h1": "Deck Calculator",
-    "description": "Free deck calculator for US construction — estimate deck quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate deck for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "deck calculator",
-      "deck calculator"
+      "deck calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "deck-cost-calculator",
-    "title": "Deck Cost Calculator — Material, Quantity & Cost",
+    "title": "Deck Cost Calculator — Price & Quantity",
     "h1": "Deck Cost Calculator",
-    "description": "Free deck cost calculator for US construction — estimate deck cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate deck cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "deck cost calculator",
-      "deck cost calculator"
+      "deck price calculator"
     ],
     "featured": false
   },
   {
     "slug": "deck-board-calculator",
-    "title": "Deck Board Calculator — Material, Quantity & Cost",
+    "title": "Deck Board Calculator — Boards, Joists & Cost",
     "h1": "Deck Board Calculator",
-    "description": "Free deck board calculator for US construction — estimate deck board quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate deck board for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "deck board calculator",
-      "deck board calculator"
+      "deck board calculator estimator"
     ],
     "featured": false
   },
@@ -2359,13 +2359,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "deck-joist-calculator",
     "title": "Deck Joist Calculator — Material, Quantity & Cost",
     "h1": "Deck Joist Calculator",
-    "description": "Free deck joist calculator for US construction — estimate deck joist quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate deck joist for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "deck joist calculator",
-      "deck joist calculator"
+      "deck joist calculator estimator"
     ],
     "featured": false
   },
@@ -2373,13 +2373,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "deck-footing-calculator",
     "title": "Deck Footing Calculator — Material, Quantity & Cost",
     "h1": "Deck Footing Calculator",
-    "description": "Free deck footing calculator for US construction — estimate deck footing quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate deck footing for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "deck footing calculator",
-      "deck footing calculator"
+      "deck footing calculator estimator"
     ],
     "featured": false
   },
@@ -2387,13 +2387,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "deck-stair-calculator",
     "title": "Deck Stair Calculator — Material, Quantity & Cost",
     "h1": "Deck Stair Calculator",
-    "description": "Free deck stair calculator for US construction — estimate deck stair quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate deck stair for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "deck stair calculator",
-      "deck stair calculator"
+      "deck stair calculator estimator"
     ],
     "featured": false
   },
@@ -2401,13 +2401,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "deck-railing-calculator",
     "title": "Deck Railing Calculator — Material, Quantity & Cost",
     "h1": "Deck Railing Calculator",
-    "description": "Free deck railing calculator for US construction — estimate deck railing quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate deck railing for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "deck railing calculator",
-      "deck railing calculator"
+      "deck railing calculator estimator"
     ],
     "featured": false
   },
@@ -2415,27 +2415,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fence-calculator",
     "title": "Fence Calculator — Material, Quantity & Cost",
     "h1": "Fence Calculator",
-    "description": "Free fence calculator for US construction — estimate fence quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate fence for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "fence calculator",
-      "fence calculator"
+      "fence calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "fence-cost-calculator",
-    "title": "Fence Cost Calculator — Material, Quantity & Cost",
+    "title": "Fence Cost Calculator — Posts, Panels & Gates",
     "h1": "Fence Cost Calculator",
-    "description": "Free fence cost calculator for US construction — estimate fence cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate fence cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "fence cost calculator",
-      "fence cost calculator"
+      "fence price calculator"
     ],
     "featured": false
   },
@@ -2443,13 +2443,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fence-post-calculator",
     "title": "Fence Post Calculator — Material, Quantity & Cost",
     "h1": "Fence Post Calculator",
-    "description": "Free fence post calculator for US construction — estimate fence post quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate fence post for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "fence post calculator",
-      "fence post calculator"
+      "fence post calculator estimator"
     ],
     "featured": false
   },
@@ -2457,13 +2457,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fence-panel-calculator",
     "title": "Fence Panel Calculator — Material, Quantity & Cost",
     "h1": "Fence Panel Calculator",
-    "description": "Free fence panel calculator for US construction — estimate fence panel quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate fence panel for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "fence panel calculator",
-      "fence panel calculator"
+      "fence panel calculator estimator"
     ],
     "featured": false
   },
@@ -2471,13 +2471,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fence-picket-calculator",
     "title": "Fence Picket Calculator — Material, Quantity & Cost",
     "h1": "Fence Picket Calculator",
-    "description": "Free fence picket calculator for US construction — estimate fence picket quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate fence picket for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "fence picket calculator",
-      "fence picket calculator"
+      "fence picket calculator estimator"
     ],
     "featured": false
   },
@@ -2485,13 +2485,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fence-concrete-calculator",
     "title": "Fence Concrete Calculator — Material, Quantity & Cost",
     "h1": "Fence Concrete Calculator",
-    "description": "Free fence concrete calculator for US construction — estimate fence concrete quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate fence concrete for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "fence concrete calculator",
-      "fence concrete calculator"
+      "fence concrete calculator estimator"
     ],
     "featured": false
   },
@@ -2499,55 +2499,55 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "gate-calculator",
     "title": "Gate Calculator — Material, Quantity & Cost",
     "h1": "Gate Calculator",
-    "description": "Free gate calculator for US construction — estimate gate quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate gate for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "gate calculator",
-      "gate calculator"
+      "gate calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "gate-cost-calculator",
-    "title": "Gate Cost Calculator — Material, Quantity & Cost",
+    "title": "Gate Cost Calculator — Price & Quantity",
     "h1": "Gate Cost Calculator",
-    "description": "Free gate cost calculator for US construction — estimate gate cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate gate cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "gate cost calculator",
-      "gate cost calculator"
+      "gate price calculator"
     ],
     "featured": false
   },
   {
     "slug": "paver-calculator",
-    "title": "Paver Calculator — Material, Quantity & Cost",
+    "title": "Paver Calculator — Pavers, Base & Sand",
     "h1": "Paver Calculator",
-    "description": "Free paver calculator for US construction — estimate paver quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate paver for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Paver & Landscaping",
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "paver calculator",
-      "paver calculator"
+      "paver calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "paver-cost-calculator",
-    "title": "Paver Cost Calculator — Material, Quantity & Cost",
+    "title": "Paver Cost Calculator — Price & Quantity",
     "h1": "Paver Cost Calculator",
-    "description": "Free paver cost calculator for US construction — estimate paver cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate paver cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Paver & Landscaping",
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "paver cost calculator",
-      "paver cost calculator"
+      "paver price calculator"
     ],
     "featured": false
   },
@@ -2555,13 +2555,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "paver-sand-calculator",
     "title": "Paver Sand Calculator — Material, Quantity & Cost",
     "h1": "Paver Sand Calculator",
-    "description": "Free paver sand calculator for US construction — estimate paver sand quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate paver sand for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Paver & Landscaping",
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "paver sand calculator",
-      "paver sand calculator"
+      "paver sand calculator estimator"
     ],
     "featured": false
   },
@@ -2569,13 +2569,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "paver-base-calculator",
     "title": "Paver Base Calculator — Material, Quantity & Cost",
     "h1": "Paver Base Calculator",
-    "description": "Free paver base calculator for US construction — estimate paver base quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate paver base for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Paver & Landscaping",
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "paver base calculator",
-      "paver base calculator"
+      "paver base calculator estimator"
     ],
     "featured": false
   },
@@ -2583,13 +2583,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "paver-joint-sand-calculator",
     "title": "Paver Joint Sand Calculator — Material, Quantity & Cost",
     "h1": "Paver Joint Sand Calculator",
-    "description": "Free paver joint sand calculator for US construction — estimate paver joint sand quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate paver joint sand for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Paver & Landscaping",
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "paver joint sand calculator",
-      "paver joint sand calculator"
+      "paver joint sand calculator estimator"
     ],
     "featured": false
   },
@@ -2597,27 +2597,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "landscaping-calculator",
     "title": "Landscaping Calculator — Material, Quantity & Cost",
     "h1": "Landscaping Calculator",
-    "description": "Free landscaping calculator for US construction — estimate landscaping quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate landscaping for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Paver & Landscaping",
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "landscaping calculator",
-      "landscaping calculator"
+      "landscaping calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "landscaping-cost-calculator",
-    "title": "Landscaping Cost Calculator — Material, Quantity & Cost",
+    "title": "Landscaping Cost Calculator — Price & Quantity",
     "h1": "Landscaping Cost Calculator",
-    "description": "Free landscaping cost calculator for US construction — estimate landscaping cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate landscaping cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Paver & Landscaping",
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "landscaping cost calculator",
-      "landscaping cost calculator"
+      "landscaping price calculator"
     ],
     "featured": false
   },
@@ -2625,27 +2625,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "mulch-calculator",
     "title": "Mulch Calculator — Material, Quantity & Cost",
     "h1": "Mulch Calculator",
-    "description": "Free mulch calculator for US construction — estimate mulch quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate mulch for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Paver & Landscaping",
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "mulch calculator",
-      "mulch calculator"
+      "mulch calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "mulch-cost-calculator",
-    "title": "Mulch Cost Calculator — Material, Quantity & Cost",
+    "title": "Mulch Cost Calculator — Price & Quantity",
     "h1": "Mulch Cost Calculator",
-    "description": "Free mulch cost calculator for US construction — estimate mulch cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate mulch cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Paver & Landscaping",
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "mulch cost calculator",
-      "mulch cost calculator"
+      "mulch price calculator"
     ],
     "featured": false
   },
@@ -2653,13 +2653,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "retaining-wall-calculator",
     "title": "Retaining Wall Calculator — Material, Quantity & Cost",
     "h1": "Retaining Wall Calculator",
-    "description": "Free retaining wall calculator for US construction — estimate retaining wall quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate retaining wall for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Paver & Landscaping",
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "retaining wall calculator",
-      "retaining wall calculator"
+      "retaining wall calculator estimator"
     ],
     "featured": false
   },
@@ -2667,27 +2667,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "asphalt-calculator",
     "title": "Asphalt Calculator — Material, Quantity & Cost",
     "h1": "Asphalt Calculator",
-    "description": "Free asphalt calculator for US construction — estimate asphalt quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate asphalt for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "asphalt calculator",
-      "asphalt calculator"
+      "asphalt calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "asphalt-cost-calculator",
-    "title": "Asphalt Cost Calculator — Material, Quantity & Cost",
+    "title": "Asphalt Cost Calculator — Price & Quantity",
     "h1": "Asphalt Cost Calculator",
-    "description": "Free asphalt cost calculator for US construction — estimate asphalt cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate asphalt cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "asphalt cost calculator",
-      "asphalt cost calculator"
+      "asphalt price calculator"
     ],
     "featured": false
   },
@@ -2695,27 +2695,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "asphalt-driveway-calculator",
     "title": "Asphalt Driveway Calculator — Material, Quantity & Cost",
     "h1": "Asphalt Driveway Calculator",
-    "description": "Free asphalt driveway calculator for US construction — estimate asphalt driveway quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate asphalt driveway for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "asphalt driveway calculator",
-      "asphalt driveway calculator"
+      "asphalt driveway calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "asphalt-weight-calculator",
-    "title": "Asphalt Weight Calculator — Material, Quantity & Cost",
+    "title": "Asphalt Weight Calculator — Weight & Tons",
     "h1": "Asphalt Weight Calculator",
-    "description": "Free asphalt weight calculator for US construction — estimate asphalt weight quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate asphalt weight weight — volume to pounds and tons with density. For ordering and truck loads.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "asphalt weight calculator",
-      "asphalt weight calculator"
+      "asphalt weight tons calculator"
     ],
     "featured": false
   },
@@ -2723,13 +2723,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "asphalt-thickness-calculator",
     "title": "Asphalt Thickness Calculator — Material, Quantity & Cost",
     "h1": "Asphalt Thickness Calculator",
-    "description": "Free asphalt thickness calculator for US construction — estimate asphalt thickness quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate asphalt thickness thickness and volume — for slabs, base and coverage with waste.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "asphalt thickness calculator",
-      "asphalt thickness calculator"
+      "asphalt thickness calculator estimator"
     ],
     "featured": false
   },
@@ -2737,27 +2737,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "parking-lot-calculator",
     "title": "Parking Lot Calculator — Material, Quantity & Cost",
     "h1": "Parking Lot Calculator",
-    "description": "Free parking lot calculator for US construction — estimate parking lot quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate parking lot for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "parking lot calculator",
-      "parking lot calculator"
+      "parking lot calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "parking-lot-cost-calculator",
-    "title": "Parking Lot Cost Calculator — Material, Quantity & Cost",
+    "title": "Parking Lot Cost Calculator — Price & Quantity",
     "h1": "Parking Lot Cost Calculator",
-    "description": "Free parking lot cost calculator for US construction — estimate parking lot cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate parking lot cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "parking lot cost calculator",
-      "parking lot cost calculator"
+      "parking lot price calculator"
     ],
     "featured": false
   },
@@ -2765,13 +2765,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "road-base-calculator",
     "title": "Road Base Calculator — Material, Quantity & Cost",
     "h1": "Road Base Calculator",
-    "description": "Free road base calculator for US construction — estimate road base quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate road base for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "road base calculator",
-      "road base calculator"
+      "road base calculator estimator"
     ],
     "featured": false
   },
@@ -2779,74 +2779,29 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "surface-area-calculator",
     "title": "Surface Area Calculator — Material, Quantity & Cost",
     "h1": "Surface Area Calculator",
-    "description": "Free surface area calculator for US construction — estimate surface area quantity, material and cost with waste, US customary and metric units.",
+    "description": "Calculate surface area for US construction — quantity, material and cost with waste, in US customary and metric units.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "surface area calculator",
-      "surface area calculator"
+      "surface area calculator estimator"
     ],
     "featured": false
   },
   {
     "slug": "construction-material-cost-calculator",
-    "title": "Construction Material Cost Calculator — Material, Quantity & Cost",
+    "title": "Construction Material Cost Calculator — Price & Quantity",
     "h1": "Construction Material Cost Calculator",
-    "description": "Free construction material cost calculator for US construction — estimate construction material cost quantity, material and cost with waste, US customary and metric units.",
+    "description": "Estimate construction material cost cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "construction material cost calculator",
-      "construction material cost calculator"
+      "construction material price calculator"
     ],
     "featured": false
-  }
-,
-  {
-    "slug": "pea-gravel-calculator",
-    "title": "Pea Gravel Calculator — Yards, Tons & Cost",
-    "h1": "Pea Gravel Calculator",
-    "description": "Dedicated pea gravel calculator for patios, paths and landscaping. Get cubic yards, tons and estimated cost with waste.",
-    "category": "Gravel & Aggregate",
-    "cluster": "gravel",
-    "iconPath": "M8 3.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM8 9.5v3M6.5 12.5h3",
-    "keywords": ["pea gravel calculator"],
-    "featured": true
-  },
-  {
-    "slug": "driveway-gravel-calculator",
-    "title": "Driveway Gravel Calculator — Volume & Cost",
-    "h1": "Driveway Gravel Calculator",
-    "description": "Estimate gravel for driveways by length, width, depth and layers. Results in cubic yards, tons and cost.",
-    "category": "Gravel & Aggregate",
-    "cluster": "gravel",
-    "iconPath": "M3.5 12.5h9M5 9l1.5-3h3L11 9M5 9h6M8 6v3",
-    "keywords": ["driveway gravel calculator"],
-    "featured": true
-  },
-  {
-    "slug": "roof-square-footage-calculator",
-    "title": "Roof Square Footage Calculator — Area & Squares",
-    "h1": "Roof Square Footage Calculator",
-    "description": "Calculate roof square footage and roofing squares from building size, pitch and overhang with waste.",
-    "category": "Roofing",
-    "cluster": "roofing",
-    "iconPath": "M4 9l4-5 4 5M4 9h8v3H4z",
-    "keywords": ["roof square footage calculator"],
-    "featured": true
-  },
-  {
-    "slug": "deck-material-calculator",
-    "title": "Deck Material Calculator — Boards, Joists & Cost",
-    "h1": "Deck Material Calculator",
-    "description": "Estimate deck boards, joists, fasteners and cost from deck size, board size and spacing with waste.",
-    "category": "Deck, Fence & Outdoor",
-    "cluster": "deck-fence",
-    "iconPath": "M3 8c2-2 4-2 5 0s3 2 5 0M3 11c2-2 4-2 5 0s3 2 5 0",
-    "keywords": ["deck material calculator","deck board calculator"],
-    "featured": true
   }
 ];
 
@@ -2858,13 +2813,13 @@ export const hubCategories = [
   { name: "Brick & Masonry", slug: "brick-masonry", desc: "Quantity, mortar, veneer and joint", count: 15 },
   { name: "Concrete Block & CMU", slug: "concrete-block", desc: "CMU walls, grout and reinforcement", count: 10 },
   { name: "Mortar, Grout & Cement", slug: "mortar-grout-cement", desc: "Mix ratios, bags and sand ratios", count: 10 },
-  { name: "Gravel, Aggregate & Dirt", slug: "gravel", desc: "Gravel, crushed stone, sand, topsoil and fill dirt", count: 17 },
+  { name: "Gravel, Aggregate & Dirt", slug: "gravel", desc: "Gravel, crushed stone, sand, topsoil and fill dirt", count: 15 },
   { name: "Excavation & Earthwork", slug: "excavation", desc: "Trenches, cut/fill and soil volume", count: 10 },
   { name: "Framing & Lumber", slug: "framing", desc: "Studs, joists, beams and board feet", count: 15 },
-  { name: "Roofing Calculators", slug: "roofing", desc: "Area, pitch, shingles, rafters and sheathing", count: 16 },
+  { name: "Roofing Calculators", slug: "roofing", desc: "Area, pitch, shingles, rafters and sheathing", count: 15 },
   { name: "Flooring & Tile", slug: "flooring", desc: "Hardwood, laminate, vinyl, carpet and tile", count: 15 },
   { name: "Drywall, Paint & Insulation", slug: "drywall-paint", desc: "Sheets, screws, paint coverage and spray foam", count: 15 },
-  { name: "Deck, Fence & Outdoor", slug: "deck-fence", desc: "Boards, joists, posts, panels and gates", count: 16 },
+  { name: "Deck, Fence & Outdoor", slug: "deck-fence", desc: "Boards, joists, posts, panels and gates", count: 15 },
   { name: "Paver & Landscaping", slug: "landscaping", desc: "Pavers, base, sand and retaining walls", count: 10 },
   { name: "Asphalt & Surface", slug: "asphalt", desc: "Driveways, parking lots, road base and surface area", count: 10 },
 ];

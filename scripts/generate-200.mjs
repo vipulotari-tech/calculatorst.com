@@ -64,10 +64,25 @@ function genDescription(name) {
   const map = {
     "Concrete Calculator": "Calculate concrete volume, weight and cost for any slab, footing or wall. Supports cubic yards, bags and ready-mix.",
     "Gravel Calculator": "Calculate gravel in cubic yards, tons and cost for any rectangular area. Supports pea gravel, crushed stone and more with US & metric units.",
+    "Concrete Volume Calculator": "Calculate concrete volume in cubic yards and cubic feet for slabs, footings and walls — with waste factor.",
+    "Concrete Cost Calculator": "Estimate concrete cost per cubic yard and per bag — compare ready-mix vs bags with waste and delivery.",
+    "Concrete Weight Calculator": "Calculate concrete weight in pounds and tons from volume — for transport and load planning.",
+    "Rebar Weight Calculator": "Calculate rebar weight per foot and total tons from length, size and spacing — for ordering.",
+    "Brick Quantity Calculator": "Calculate bricks needed per wall area — account for brick size, mortar joint and waste.",
+    "Gravel Weight Calculator": "Convert gravel cubic yards to tons and pounds — for ordering by weight.",
+    "Mortar Mix Calculator": "Calculate mortar mix ratio, cement, sand and bags for brick, block and stone work.",
+    "Roof Pitch Calculator": "Calculate roof pitch ratio, angle in degrees and slope from rise and run — for rafters and code.",
   };
   if (map[name]) return map[name];
   const base = name.replace(' Calculator','');
-  return `Free ${name.toLowerCase()} for US construction — estimate ${base.toLowerCase()} quantity, material and cost with waste, US customary and metric units.`;
+  const lower = base.toLowerCase();
+  // More unique per-type descriptions
+  if (name.includes("Cost")) return `Estimate ${lower} cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.`;
+  if (name.includes("Weight")) return `Calculate ${lower} weight — volume to pounds and tons with density. For ordering and truck loads.`;
+  if (name.includes("Volume") || name.includes("Yards")) return `Calculate ${lower} volume in cubic yards and cubic feet — enter dimensions, get yards with waste.`;
+  if (name.includes("Quantity") || name.includes("Amount")) return `Calculate ${lower} quantity — how many units, bags or pieces you need with waste factor.`;
+  if (name.includes("Thickness") || name.includes("Depth")) return `Calculate ${lower} thickness and volume — for slabs, base and coverage with waste.`;
+  return `Calculate ${lower} for US construction — quantity, material and cost with waste, in US customary and metric units.`;
 }
 
 function genTitle(name) {
@@ -76,9 +91,47 @@ function genTitle(name) {
     "Gravel Calculator": "Cubic Yards, Tons & Cost",
     "Rebar Calculator": "Quantity, Weight & Cost",
     "Brick Calculator": "Quantity, Mortar & Cost",
+    "Concrete Volume Calculator": "Cubic Yards & Cubic Feet",
+    "Concrete Cost Calculator": "Cost per Yard & Per Bag",
+    "Concrete Weight Calculator": "Pounds & Tons",
+    "Concrete Slab Calculator": "Yards, Bags & Cost",
+    "Concrete Pour Calculator": "Yards & Truck Loads",
+    "Rebar Weight Calculator": "Pounds per Foot & Tons",
+    "Brick Quantity Calculator": "Bricks per Wall Area",
+    "Gravel Weight Calculator": "Tons & Pounds",
+    "Gravel Depth Calculator": "Depth & Coverage",
+    "Mortar Mix Calculator": "Ratio, Bags & Volume",
+    "Roof Pitch Calculator": "Ratio, Angle & Slope",
+    "Roof Area Calculator": "Square Feet & Squares",
+    "Paint Coverage Calculator": "Gallons & Coverage",
+    "Fence Cost Calculator": "Posts, Panels & Gates",
+    "Deck Board Calculator": "Boards, Joists & Cost",
+    "Paver Calculator": "Pavers, Base & Sand",
   };
   if (suffixes[name]) return `${name} — ${suffixes[name]}`;
+  // More specific per suffix
+  if (name.includes("Cost")) return `${name} — Price & Quantity`;
+  if (name.includes("Weight")) return `${name} — Weight & Tons`;
+  if (name.includes("Volume")) return `${name} — Cubic Yards`;
+  if (name.includes("Quantity")) return `${name} — Count & Waste`;
   return `${name} — Material, Quantity & Cost`;
+}
+
+function genKeywords(name, slug) {
+  const base = name.toLowerCase();
+  const slugSpaced = slug.replace(/-/g,' ');
+  // If base already equals slugSpaced, make second more specific with modifier
+  if (base === slugSpaced) {
+    if (base.includes("cost")) return [base, base.replace("cost", "price")];
+    if (base.includes("weight")) return [base, base.replace("weight", "weight tons")];
+    if (base.includes("volume")) return [base, base.replace("volume", "cubic yards")];
+    if (base.includes("quantity")) return [base, base.replace("quantity", "how many")];
+    if (base.includes("concrete slab")) return [base, "concrete yard calculator"];
+    if (base.includes("gravel")) return [base, base + " yards tons"];
+    if (base.includes("roof")) return [base, base.replace("roof", "roofing")];
+    return [base, slugSpaced + " estimator"];
+  }
+  return [base, slugSpaced];
 }
 
 const out = calculators200.map((name, i) => {
@@ -92,7 +145,7 @@ const out = calculators200.map((name, i) => {
     category: cat.category,
     cluster: cat.cluster,
     iconPath: "M4 10l4-6 4 6H4ZM8 4v8",
-    keywords: [name.toLowerCase(), slug.replace(/-/g,' ')],
+    keywords: genKeywords(name, slug),
     featured: i < 10,
   };
 });
