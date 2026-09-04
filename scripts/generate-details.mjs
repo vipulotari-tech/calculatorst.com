@@ -253,6 +253,34 @@ for(const c of hub){
       {label:"With waste",value:"30.4 yd3"},
     ];
     construction="<p class='text-sm'>8 in walls typical for 8 ft height. Add rebar and grout per code.</p>";
+  } else if(name.includes("Gravel Weight")||name.includes("Sand Weight")||name.includes("Aggregate Weight")){
+    formula="Weight = Volume (yd3) * Density (tons/yd3)";
+    vars=[{symbol:"Volume",meaning:"Cubic yards with waste"},{symbol:"Density",meaning:"Pea 1.35, Crushed 1.40, Limestone 1.60 t/yd3"}];
+    exampleInputs="Yard 2.47 yd3 pea gravel 1.35 t/yd3";
+    exampleSteps=[
+      {label:"Volume",value:"2.47 yd3"},
+      {label:"Weight",value:"2.47*1.35 = 3.33 tons = 6,670 lb"},
+      {label:"With waste",value:"3.67 tons"},
+    ];
+    construction="<p class='text-sm'>Pea 1.35, crushed 1.40, limestone 1.60, granite 1.42 t/yd3. Moisture +10%.</p>";
+  } else if(name.includes("Gravel Cost")||name.includes("Sand Cost")||name.includes("Topsoil Cost")){
+    formula="Cost = Weight or Volume * Price + Delivery";
+    vars=[{symbol:"Qty",meaning:"Tons or yd3 with waste"},{symbol:"Price",meaning:"$ per ton or per yd3"}];
+    exampleInputs="3.67 tons @ $45/ton + $75 delivery";
+    exampleSteps=[
+      {label:"Material",value:"3.67*45 = $165.15"},
+      {label:"Total",value:"$165.15+75 = $240.15"},
+    ];
+    construction="<p class='text-sm'>Bulk $25-60/ton or $40-75/yd3 + $50-150 delivery. Bags 5x cost.</p>";
+  } else if(name.includes("Gravel Depth")||name.includes("Crushed Stone Depth")){
+    formula="Depth = Volume / Area";
+    vars=[{symbol:"Volume",meaning:"Cubic yards *27"},{symbol:"Area",meaning:"Length * Width ft2"}];
+    exampleInputs="Area 200 ft2, 2.47 yd3 ordered";
+    exampleSteps=[
+      {label:"Volume ft3",value:"2.47*27 = 66.69 ft3"},
+      {label:"Depth",value:"66.69/200 = 0.333 ft = 4.0 in"},
+    ];
+    construction="<p class='text-sm'>Depth check — add compaction 1.10x for open-graded, 1.20x for crusher run.</p>";
   } else if(name.includes("Rebar Weight")){
     formula="Weight = Count * Length * Weight per foot";
     vars=[{symbol:"Count",meaning:"Rebar count"},{symbol:"Length",meaning:"Length per bar"},{symbol:"lb/ft",meaning:"0.376 #3, 0.668 #4, 1.043 #5"}];

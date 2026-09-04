@@ -6328,48 +6328,36 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure 3.67 tons @ $45/ton + $75 delivery — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Cost = Weight or Volume * Price + Delivery",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Qty",
+        "meaning": "Tons or yd3 with waste"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Price",
+        "meaning": "$ per ton or per yd3"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "3.67 tons @ $45/ton + $75 delivery",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Material",
+          "value": "3.67*45 = $165.15"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
-        },
-        {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "Total",
+          "value": "$165.15+75 = $240.15"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.</p><p class='text-sm'>Bulk $25-60/ton or $40-75/yd3 + $50-150 delivery. Bags 5x cost.</p>",
     "materialInfo": "Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.",
     "wasteInfo": "Open-graded stone settles ~8% (×1.10), crusher run compacts 15–25% (×1.20). Add after volume.",
     "tips": [
@@ -6388,7 +6376,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for gravel cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure 3.67 tons @ $45/ton + $75 delivery on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -6409,48 +6397,40 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Yard 2.47 yd3 pea gravel 1.35 t/yd3 — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Weight = Volume (yd3) * Density (tons/yd3)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with waste"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Density",
+        "meaning": "Pea 1.35, Crushed 1.40, Limestone 1.60 t/yd3"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Yard 2.47 yd3 pea gravel 1.35 t/yd3",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "2.47 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Weight",
+          "value": "2.47*1.35 = 3.33 tons = 6,670 lb"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "3.67 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.</p><p class='text-sm'>Pea 1.35, crushed 1.40, limestone 1.60, granite 1.42 t/yd3. Moisture +10%.</p>",
     "materialInfo": "Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.",
     "wasteInfo": "Open-graded stone settles ~8% (×1.10), crusher run compacts 15–25% (×1.20). Add after volume.",
     "tips": [
@@ -6469,7 +6449,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for gravel weight?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure yard 2.47 yd3 pea gravel 1.35 t/yd3 on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -6490,48 +6470,36 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Area 200 ft2, 2.47 yd3 ordered — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Depth = Volume / Area",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards *27"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Area",
+        "meaning": "Length * Width ft2"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Area 200 ft2, 2.47 yd3 ordered",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume ft3",
+          "value": "2.47*27 = 66.69 ft3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
-        },
-        {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "Depth",
+          "value": "66.69/200 = 0.333 ft = 4.0 in"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.</p><p class='text-sm'>Depth check — add compaction 1.10x for open-graded, 1.20x for crusher run.</p>",
     "materialInfo": "Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.",
     "wasteInfo": "Open-graded stone settles ~8% (×1.10), crusher run compacts 15–25% (×1.20). Add after volume.",
     "tips": [
@@ -6550,7 +6518,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for gravel depth?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure area 200 ft2, 2.47 yd3 ordered on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -6814,48 +6782,40 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Yard 2.47 yd3 pea gravel 1.35 t/yd3 — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Weight = Volume (yd3) * Density (tons/yd3)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with waste"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Density",
+        "meaning": "Pea 1.35, Crushed 1.40, Limestone 1.60 t/yd3"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Yard 2.47 yd3 pea gravel 1.35 t/yd3",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "2.47 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Weight",
+          "value": "2.47*1.35 = 3.33 tons = 6,670 lb"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "3.67 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.</p><p class='text-sm'>Pea 1.35, crushed 1.40, limestone 1.60, granite 1.42 t/yd3. Moisture +10%.</p>",
     "materialInfo": "Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.",
     "wasteInfo": "Open-graded stone settles ~8% (×1.10), crusher run compacts 15–25% (×1.20). Add after volume.",
     "tips": [
@@ -6874,7 +6834,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for aggregate weight?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure yard 2.47 yd3 pea gravel 1.35 t/yd3 on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -6976,48 +6936,40 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Yard 2.47 yd3 pea gravel 1.35 t/yd3 — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Weight = Volume (yd3) * Density (tons/yd3)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with waste"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Density",
+        "meaning": "Pea 1.35, Crushed 1.40, Limestone 1.60 t/yd3"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Yard 2.47 yd3 pea gravel 1.35 t/yd3",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "2.47 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Weight",
+          "value": "2.47*1.35 = 3.33 tons = 6,670 lb"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "3.67 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.</p><p class='text-sm'>Pea 1.35, crushed 1.40, limestone 1.60, granite 1.42 t/yd3. Moisture +10%.</p>",
     "materialInfo": "Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.",
     "wasteInfo": "Open-graded stone settles ~8% (×1.10), crusher run compacts 15–25% (×1.20). Add after volume.",
     "tips": [
@@ -7036,7 +6988,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for sand weight?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure yard 2.47 yd3 pea gravel 1.35 t/yd3 on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -7057,48 +7009,36 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure 3.67 tons @ $45/ton + $75 delivery — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Cost = Weight or Volume * Price + Delivery",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Qty",
+        "meaning": "Tons or yd3 with waste"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Price",
+        "meaning": "$ per ton or per yd3"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "3.67 tons @ $45/ton + $75 delivery",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Material",
+          "value": "3.67*45 = $165.15"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
-        },
-        {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "Total",
+          "value": "$165.15+75 = $240.15"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.</p><p class='text-sm'>Bulk $25-60/ton or $40-75/yd3 + $50-150 delivery. Bags 5x cost.</p>",
     "materialInfo": "Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.",
     "wasteInfo": "Open-graded stone settles ~8% (×1.10), crusher run compacts 15–25% (×1.20). Add after volume.",
     "tips": [
@@ -7117,7 +7057,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for sand cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure 3.67 tons @ $45/ton + $75 delivery on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -7381,48 +7321,36 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure 3.67 tons @ $45/ton + $75 delivery — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Cost = Weight or Volume * Price + Delivery",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Qty",
+        "meaning": "Tons or yd3 with waste"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Price",
+        "meaning": "$ per ton or per yd3"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "3.67 tons @ $45/ton + $75 delivery",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Material",
+          "value": "3.67*45 = $165.15"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
-        },
-        {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "Total",
+          "value": "$165.15+75 = $240.15"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.</p><p class='text-sm'>Bulk $25-60/ton or $40-75/yd3 + $50-150 delivery. Bags 5x cost.</p>",
     "materialInfo": "Pea gravel 1.35 t/yd³, crushed stone 1.40, river rock 1.33, limestone 1.60, sand 1.30. Confirm with scale ticket — moisture adds 10%.",
     "wasteInfo": "Open-graded stone settles ~8% (×1.10), crusher run compacts 15–25% (×1.20). Add after volume.",
     "tips": [
@@ -7441,7 +7369,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for topsoil cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure 3.67 tons @ $45/ton + $75 delivery on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
