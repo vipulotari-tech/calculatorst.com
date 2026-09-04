@@ -123,13 +123,13 @@ const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.
                 </div>
                 <h3 class="mt-3 line-clamp-1 text-[15.5px] font-semibold tracking-[-0.02em] text-ink">{c.h1}</h3>
                 <p class="mt-1 line-clamp-2 flex-1 text-[13.5px] leading-[20px] text-body">{c.description}</p>
-                <span class="mt-4 inline-flex items-center gap-1 font-mono text-[11px] font-medium tracking-wide text-mute transition group-hover:text-ink">Calculate <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span></span>
+                <span class="mt-3 inline-flex items-center gap-1 font-mono text-[11px] font-medium tracking-wide text-[#71717a] dark:text-[#a1a1aa] group-hover:text-[#18181b] dark:group-hover:text-white transition-colors">Calculate <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span></span>
               </a>
             </li>
           ))}
         </ul>
         <div class="mt-6 flex justify-center sm:hidden">
-          <a href="/calculators/" class="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-white px-4 py-2 font-mono text-[11px] font-medium tracking-wide text-ink shadow-sm">Browse all calculators →</a>
+          <a href="/calculators/" class="inline-flex items-center gap-1.5 rounded-full border border-[#e4e4e7] dark:border-white/[0.06] bg-white dark:bg-[#1e1e22] px-4 py-2 font-mono text-[11px] font-medium tracking-wide text-[#18181b] dark:text-[#e5e7eb] shadow-sm dark:shadow-none hover:bg-[#fafafa] dark:hover:bg-[#23232a] hover:border-[#d4d4d8] dark:hover:border-white/[0.08] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Browse all calculators <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
