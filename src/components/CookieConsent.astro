@@ -1,34 +1,33 @@
 ---
-// Cookie Consent — EU User Consent Policy compliant, lightweight, no dependencies
 ---
 
 <div
   id="cookie-consent"
-  class="fixed inset-x-0 bottom-0 z-[100] hidden border-t border-hairline bg-canvas/95 px-4 py-4 backdrop-blur-[12px] shadow-float dark:bg-canvas/95"
+  class="fixed inset-x-0 bottom-0 z-[100] hidden border-t border-border bg-background/95 px-4 py-4 backdrop-blur-xl shadow-float"
   role="dialog"
   aria-modal="true"
   aria-labelledby="cookie-title"
   aria-describedby="cookie-desc"
 >
-  <div class="mx-auto flex max-w-[1400px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
     <div class="flex-1">
-      <p id="cookie-title" class="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-ink">Cookie Notice</p>
-      <p id="cookie-desc" class="mt-1 max-w-[640px] text-sm leading-5 text-body [text-wrap:pretty]">
-        We use cookies for analytics and ads (Google AdSense). Calculators run 100% in your browser — no tracking by us. See <a href="/privacy/" class="underline hover:text-ink">Privacy</a>.
+      <p id="cookie-title" class="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-foreground">Cookie Notice</p>
+      <p id="cookie-desc" class="mt-1 max-w-[640px] text-[13px] leading-5 text-muted-foreground [text-wrap:pretty]">
+        We use cookies for analytics and ads (Google AdSense). Calculators run 100% in your browser — no tracking by us. See <a href="/privacy/" class="underline underline-offset-2 decoration-border hover:decoration-foreground/40 transition-colors">Privacy</a>.
       </p>
     </div>
     <div class="flex shrink-0 items-center gap-2">
       <button
         id="cookie-decline"
         type="button"
-        class="inline-flex h-9 items-center justify-center rounded-full border border-hairline bg-canvas px-4 text-sm font-medium text-ink transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+        class="inline-flex h-9 items-center justify-center rounded-lg border border-border bg-muted px-4 text-[13px] font-medium text-foreground transition-colors hover:bg-muted/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         Decline
       </button>
       <button
         id="cookie-accept"
         type="button"
-        class="inline-flex h-9 items-center justify-center rounded-full bg-ink px-5 text-sm font-medium text-white transition hover:bg-ink/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-white dark:text-black"
+        class="inline-flex h-9 items-center justify-center rounded-lg bg-foreground px-5 text-[13px] font-medium text-background transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         Accept
       </button>
@@ -75,7 +74,6 @@
       } else if (consent === "declined") {
         // do not load ads
       } else {
-        // no choice yet — show banner
         showBanner();
       }
     } catch {}
@@ -84,7 +82,6 @@
       try { localStorage.setItem(CONSENT_KEY, "accepted"); } catch {}
       loadAds();
       hideBanner();
-      // push consent to dataLayer for gtag if needed
       window.dataLayer = window.dataLayer || [];
       window.gtag?.("consent", "update", { ad_storage: "granted", analytics_storage: "granted" });
     });

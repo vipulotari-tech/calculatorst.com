@@ -12,31 +12,27 @@ const { id = "theme-toggle", class: className = "" } = Astro.props;
   role="switch"
   aria-checked="false"
   aria-label="Toggle dark mode"
-  class={`group relative inline-flex h-10 items-center justify-center rounded-full p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2 focus-visible:ring-offset-canvas ${className}`}
+  class={`group relative inline-flex h-9 items-center justify-center rounded-lg p-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${className}`}
 >
   <!-- Track -->
   <span
-    class="relative flex h-5 w-10 sm:h-6 sm:w-11 items-center rounded-full border border-hairline bg-canvas-soft px-0.5 shadow-inner transition-colors duration-200 dark:bg-[#1e1e1e] dark:border-white/10"
+    class="relative flex h-[22px] w-9 items-center rounded-full border border-border bg-muted px-0.5 transition-colors duration-200"
     aria-hidden="true"
   >
-    <!-- Track icons — faint -->
-    <span class="absolute left-[3px] sm:left-[4px] flex h-4 w-4 items-center justify-center rounded-full text-[11px] leading-none opacity-60 transition-opacity duration-200 dark:opacity-20">
-      <!-- Sun -->
-      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" class="text-amber-500"><circle cx="8" cy="8" r="2.8" fill="currentColor"/><path d="M8 1.2v1M8 13.8v1M1.2 8H2.2M13.8 8H14.8M3.1 3.1l0.7 0.7M12.2 12.2l0.7 0.7M12.9 3.1l-0.7 0.7M3.1 12.9l0.7-0.7" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/></svg>
+    <!-- Track icons -->
+    <span class="absolute left-[3px] flex h-4 w-4 items-center justify-center rounded-full text-[11px] leading-none opacity-60 transition-opacity duration-200 dark:opacity-30">
+      <svg width="11" height="11" viewBox="0 0 16 16" fill="none" class="text-amber-500"><circle cx="8" cy="8" r="2.8" fill="currentColor"/><path d="M8 1.2v1M8 13.8v1M1.2 8H2.2M13.8 8H14.8M3.1 3.1l0.7 0.7M12.2 12.2l0.7 0.7M12.9 3.1l-0.7 0.7M3.1 12.9l0.7-0.7" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/></svg>
     </span>
-    <span class="absolute right-[3px] sm:right-[4px] flex h-4 w-4 items-center justify-center rounded-full text-[11px] leading-none opacity-20 transition-opacity duration-200 dark:opacity-60">
-      <!-- Moon -->
-      <svg width="10" height="10" viewBox="0 0 16 16" fill="none" class="text-slate-300"><path d="M11.2 11.5A5.2 5.2 0 0 1 5 5.3a5.2 5.2 0 0 0 6.2 6.2Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg>
+    <span class="absolute right-[3px] flex h-4 w-4 items-center justify-center rounded-full text-[11px] leading-none opacity-30 transition-opacity duration-200 dark:opacity-60">
+      <svg width="10" height="10" viewBox="0 0 16 16" fill="none" class="text-slate-400"><path d="M11.2 11.5A5.2 5.2 0 0 1 5 5.3a5.2 5.2 0 0 0 6.2 6.2Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg>
     </span>
 
     <!-- Thumb -->
     <span
-      class="thumb absolute left-0.5 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-white shadow-md ring-1 ring-black/5 transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] translate-x-0 dark:translate-x-[16px] sm:dark:translate-x-[20px] dark:bg-white"
+      class="thumb absolute left-0.5 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-background shadow-sm ring-1 ring-black/5 transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] translate-x-0 dark:translate-x-[14px]"
     >
-      <!-- Sun icon inside thumb — visible in light -->
-      <svg class="sun-icon absolute h-[12px] w-[12px] text-amber-500 transition-all duration-200 opacity-100 rotate-0 scale-100 dark:opacity-0 dark:rotate-90 dark:scale-0" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="2.8" fill="currentColor"/><path d="M8 1.2v1M8 13.8v1M1.2 8H2.2M13.8 8H14.8M3.1 3.1l0.7 0.7M12.2 12.2l0.7 0.7M12.9 3.1l-0.7 0.7M3.1 12.9l0.7-0.7" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/></svg>
-      <!-- Moon icon inside thumb — visible in dark -->
-      <svg class="moon-icon absolute h-[10px] w-[10px] text-slate-700 transition-all duration-200 opacity-0 rotate-90 scale-0 dark:opacity-100 dark:rotate-0 dark:scale-100" width="10" height="10" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M11.2 11.5A5.2 5.2 0 0 1 5 5.3a5.2 5.2 0 0 0 6.2 6.2Z" fill="currentColor"/></svg>
+      <svg class="sun-icon absolute h-[11px] w-[11px] text-amber-500 transition-all duration-200 opacity-100 rotate-0 scale-100 dark:opacity-0 dark:rotate-90 dark:scale-0" width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="2.8" fill="currentColor"/><path d="M8 1.2v1M8 13.8v1M1.2 8H2.2M13.8 8H14.8M3.1 3.1l0.7 0.7M12.2 12.2l0.7 0.7M12.9 3.1l-0.7 0.7M3.1 12.9l0.7-0.7" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/></svg>
+      <svg class="moon-icon absolute h-[9px] w-[9px] text-slate-700 transition-all duration-200 opacity-0 rotate-90 scale-0 dark:opacity-100 dark:rotate-0 dark:scale-100" width="9" height="9" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M11.2 11.5A5.2 5.2 0 0 1 5 5.3a5.2 5.2 0 0 0 6.2 6.2Z" fill="currentColor"/></svg>
     </span>
   </span>
 </button>
@@ -54,10 +50,8 @@ const { id = "theme-toggle", class: className = "" } = Astro.props;
       btn.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
     }
 
-    // Initial sync
     syncState();
 
-    // Observe class changes for external toggles (e.g., other ThemeToggle instance)
     const observer = new MutationObserver(syncState);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 
@@ -69,13 +63,10 @@ const { id = "theme-toggle", class: className = "" } = Astro.props;
         document.documentElement.classList.toggle("dark", next === "dark");
         try { localStorage.setItem("theme", next); } catch {}
       }
-      // sync happens via observer, but also immediate for snappiness
       syncState();
-      // Haptic feedback on supported devices
       if (navigator.vibrate) try { navigator.vibrate(10); } catch {}
     });
 
-    // Keyboard: Space/Enter already handled by button, but ensure
     btn.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
@@ -83,7 +74,6 @@ const { id = "theme-toggle", class: className = "" } = Astro.props;
       }
     });
 
-    // Respect reduced motion
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       const track = btn.querySelector("span");
       const thumbEl = btn.querySelector(".thumb");
@@ -94,6 +84,5 @@ const { id = "theme-toggle", class: className = "" } = Astro.props;
 </script>
 
 <style>
-  /* Ensure no layout shift — fixed dimensions */
   button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 </style>

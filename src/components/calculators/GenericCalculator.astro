@@ -24,12 +24,12 @@ const formId = `${id}-form`;
 const resultsId = `${id}-results`;
 ---
 
-<div id={id} class="rounded-lg border border-hairline bg-canvas p-5 shadow-card dark:bg-canvas sm:p-6">
+<div id={id} class="rounded-xl border border-border bg-card p-5 shadow-card sm:p-6">
   <form id={formId} novalidate class="space-y-5">
     <div class="grid gap-4 sm:grid-cols-3">
       {inputs.map((inp) => (
         <label class="block">
-          <span class="text-sm font-medium text-ink">{inp.label}</span>
+          <span class="text-[13px] font-medium text-foreground">{inp.label}</span>
           <div class="mt-1.5 flex">
             <input
               id={`${id}-${inp.id}`}
@@ -42,36 +42,36 @@ const resultsId = `${id}-results`;
               value={inp.defaultValue}
               required={inp.required}
               aria-describedby={`${id}-${inp.id}-error`}
-              class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20"
+              class="h-11 w-full rounded-l-lg border border-border bg-muted/50 px-3 text-[14px] text-foreground placeholder:text-muted-foreground/50 focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20 transition-colors"
             />
             {inp.units ? (
-              <select id={`${id}-${inp.id}-unit`} class="h-11 shrink-0 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm">
+              <select id={`${id}-${inp.id}-unit`} class="h-11 shrink-0 rounded-r-lg border border-l-0 border-border bg-muted px-2.5 text-[13px] text-foreground focus:outline-none focus:ring-2 focus:ring-ring/20">
                 {inp.units.map((u) => <option value={u} selected={u===inp.unit}>{u}</option>)}
               </select>
             ) : inp.unit ? (
-              <span class="flex h-11 items-center rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">{inp.unit}</span>
+              <span class="flex h-11 items-center rounded-r-lg border border-l-0 border-border bg-muted px-3 text-[13px] text-muted-foreground">{inp.unit}</span>
             ) : null}
           </div>
-          <span id={`${id}-${inp.id}-error`} class="mt-1 hidden text-xs text-error" role="alert"></span>
+          <span id={`${id}-${inp.id}-error`} class="mt-1 hidden text-xs text-destructive" role="alert"></span>
         </label>
       ))}
     </div>
 
     <div class="grid gap-4 sm:grid-cols-3">
       <label class="block">
-        <span class="text-sm font-medium text-ink">Waste / Overage</span>
+        <span class="text-[13px] font-medium text-foreground">Waste / Overage</span>
         <div class="mt-1.5 flex">
-          <input id={`${id}-waste`} type="number" inputmode="decimal" min="0" max="50" step="1" value={wasteDefault} class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" />
-          <span class="flex h-11 items-center rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">%</span>
+          <input id={`${id}-waste`} type="number" inputmode="decimal" min="0" max="50" step="1" value={wasteDefault} class="h-11 w-full rounded-l-lg border border-border bg-muted/50 px-3 text-[14px] text-foreground focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20 transition-colors" />
+          <span class="flex h-11 items-center rounded-r-lg border border-l-0 border-border bg-muted px-3 text-[13px] text-muted-foreground">%</span>
         </div>
       </label>
       {priceDefault && (
         <label class="block">
-          <span class="text-sm font-medium text-ink">Price (optional)</span>
+          <span class="text-[13px] font-medium text-foreground">Price (optional)</span>
           <div class="mt-1.5 flex">
-            <span class="flex h-11 items-center rounded-l-sm border border-hairline bg-canvas-soft px-2 text-sm text-mute">$</span>
-            <input id={`${id}-price`} type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 45" class="h-11 w-full border-y border-hairline bg-canvas px-3 text-sm focus:outline-none" />
-            <select id={`${id}-price-unit`} class="h-11 shrink-0 rounded-r-sm border border-hairline bg-canvas-soft px-2 text-xs">
+            <span class="flex h-11 items-center rounded-l-lg border border-border bg-muted px-2.5 text-[13px] text-muted-foreground">$</span>
+            <input id={`${id}-price`} type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 45" class="h-11 w-full border-y border-border bg-muted/50 px-3 text-[14px] text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-ring/20 transition-colors" />
+            <select id={`${id}-price-unit`} class="h-11 shrink-0 rounded-r-lg border border-l-0 border-border bg-muted px-2 text-[12px] text-foreground focus:outline-none focus:ring-2 focus:ring-ring/20">
               <option value="unit">/ unit</option>
               <option value="yd">/ yd³</option>
               <option value="ton">/ ton</option>
@@ -79,24 +79,24 @@ const resultsId = `${id}-results`;
           </div>
         </label>
       )}
-      <div class="flex items-end"><p class="font-mono text-[11px] leading-4 text-mute">US units default — metric where useful. Waste included in totals.</p></div>
+      <div class="flex items-end"><p class="font-mono text-[11px] leading-4 text-muted-foreground">US units default — metric where useful. Waste included in totals.</p></div>
     </div>
 
     <div class="flex flex-wrap gap-2">
-      <button type="submit" class="inline-flex h-11 items-center justify-center rounded-sm bg-primary px-6 text-sm font-medium text-on-primary transition hover:bg-[#242424] dark:hover:bg-white dark:hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Calculate</button>
-      <button type="reset" id={`${id}-reset`} class="inline-flex h-11 items-center justify-center rounded-sm border border-hairline bg-canvas px-6 text-sm font-medium text-ink transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Reset</button>
-      <span class="inline-flex items-center font-mono text-xs text-mute">Enter dimensions → Calculate.</span>
+      <button type="submit" class="inline-flex h-11 items-center justify-center rounded-lg bg-foreground px-6 text-[13px] font-medium text-background transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Calculate</button>
+      <button type="reset" id={`${id}-reset`} class="inline-flex h-11 items-center justify-center rounded-lg border border-border bg-muted px-6 text-[13px] font-medium text-foreground transition-colors hover:bg-muted/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Reset</button>
+      <span class="inline-flex items-center font-mono text-[11px] text-muted-foreground">Enter dimensions → Calculate.</span>
     </div>
   </form>
 
   <div id={resultsId} class="mt-6 hidden" aria-live="polite">
-    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5 dark:bg-white/[0.04]">
-      <p class="font-mono text-[11px] tracking-widest text-mute">{resultTitle}</p>
-      <div id={`${id}-primary`} class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-ink tabular-nums">—</div>
-      <div id={`${id}-secondary`} class="mt-1 font-mono text-xs tabular-nums text-body">—</div>
-      <div id={`${id}-breakdown`} class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 dark:bg-canvas sm:grid-cols-3 text-sm"></div>
-      <p id={`${id}-cost`} class="mt-3 text-sm font-semibold text-ink">—</p>
-      <p class="mt-2 font-mono text-[11px] leading-4 text-mute">Estimate only — verify with supplier, plans or professional for final order.</p>
+    <div class="rounded-xl border border-border bg-muted/30 p-5">
+      <p class="font-mono text-[11px] font-medium tracking-[0.1em] uppercase text-muted-foreground">{resultTitle}</p>
+      <div id={`${id}-primary`} class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-foreground tabular-nums">—</div>
+      <div id={`${id}-secondary`} class="mt-1 font-mono text-[12px] tabular-nums text-muted-foreground">—</div>
+      <div id={`${id}-breakdown`} class="mt-4 grid gap-3 rounded-lg border border-border bg-muted/50 p-3 sm:grid-cols-3 text-[13px]"></div>
+      <p id={`${id}-cost`} class="mt-3 text-[13px] font-semibold text-foreground">—</p>
+      <p class="mt-2 font-mono text-[11px] leading-4 text-muted-foreground">Estimate only — verify with supplier, plans or professional for final order.</p>
     </div>
   </div>
 </div>
@@ -157,7 +157,6 @@ const resultsId = `${id}-results`;
     let primary = "—", secondary = "—", breakdown = "", costText = "—";
 
     try {
-      // Collect all inputs converted to feet using their actual unit selectors
       const converted = inputs.map(inp => {
         const v = vals[inp.id];
         const unitSel = $(`${id}-${inp.id}-unit`);
@@ -172,7 +171,7 @@ const resultsId = `${id}-results`;
         const cuFtW = cuFt * wasteF;
         primary = `${fmt(cuYdW)} yd³`;
         secondary = `${fmt(cuFtW)} ft³ with ${waste}% waste`;
-        breakdown = `<div><p class="font-mono text-[11px] text-mute">Cubic yards</p><p class="font-semibold tabular-nums">${fmt(cuYd)} → ${fmt(cuYdW)} w/ waste</p></div><div><p class="font-mono text-[11px] text-mute">Cubic feet</p><p class="font-semibold tabular-nums">${fmt(cuFt)} → ${fmt(cuFtW)}</p></div><div><p class="font-mono text-[11px] text-mute">Waste</p><p class="font-semibold">${waste}%</p></div>`;
+        breakdown = `<div><p class="font-mono text-[11px] text-muted-foreground">Cubic yards</p><p class="font-semibold tabular-nums">${fmt(cuYd)} → ${fmt(cuYdW)} w/ waste</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Cubic feet</p><p class="font-semibold tabular-nums">${fmt(cuFt)} → ${fmt(cuFtW)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Waste</p><p class="font-semibold">${waste}%</p></div>`;
         if (isFinite(price) && price>0) {
           let c;
           let unitLabel = "/yd³";
@@ -193,7 +192,7 @@ const resultsId = `${id}-results`;
         const areaW = area * wasteF;
         primary = `${fmt(areaW,1)} ft²`;
         secondary = `${fmt(area,1)} ft² + ${waste}% waste`;
-        breakdown = `<div><p class="font-mono text-[11px] text-mute">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-mute">With waste</p><p class="font-semibold">${fmt(areaW,1)} ft²</p></div>`;
+        breakdown = `<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With waste</p><p class="font-semibold">${fmt(areaW,1)} ft²</p></div>`;
         if (isFinite(price) && price>0) {
           const unitLabel = priceUnit === "ton" ? "/ton" : priceUnit === "yd" ? "/yd³" : "/ft²";
           costText = fmtCurrency(areaW*price) + ` at ${fmt(price)}${unitLabel}`;
@@ -204,7 +203,7 @@ const resultsId = `${id}-results`;
         const qty = Math.ceil(areaW);
         primary = `${fmt(qty,0)} units`;
         secondary = `${fmt(area,1)} ft² + ${waste}% waste ≈ ${fmt(qty,0)} units`;
-        breakdown = `<div><p class="font-mono text-[11px] text-mute">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-mute">With waste</p><p class="font-semibold">${fmt(areaW,1)} ft²</p></div><div><p class="font-mono text-[11px] text-mute">Quantity</p><p class="font-semibold">${qty}</p></div>`;
+        breakdown = `<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With waste</p><p class="font-semibold">${fmt(areaW,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Quantity</p><p class="font-semibold">${qty}</p></div>`;
         if (isFinite(price) && price>0) {
           costText = fmtCurrency(qty*price) + ` at ${fmt(price)}/unit`;
         }
@@ -212,7 +211,7 @@ const resultsId = `${id}-results`;
         const product = converted.reduce((a,b)=>a*b,1);
         primary = `${fmt(product*wasteF)} units`;
         secondary = `Generic estimate with ${waste}% waste`;
-        breakdown = `<div><p class="font-mono text-[11px] text-mute">Raw</p><p class="font-semibold">${fmt(product)}</p></div><div><p class="font-mono text-[11px] text-mute">With waste</p><p class="font-semibold">${fmt(product*wasteF)}</p></div>`;
+        breakdown = `<div><p class="font-mono text-[11px] text-muted-foreground">Raw</p><p class="font-semibold">${fmt(product)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With waste</p><p class="font-semibold">${fmt(product*wasteF)}</p></div>`;
         if (isFinite(price) && price>0) costText = fmtCurrency(product*wasteF*price) + ` at ${fmt(price)}/unit`;
       }
     } catch (err) {

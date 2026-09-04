@@ -7,8 +7,8 @@
       <label class="block">
         <span class="text-sm font-medium text-ink">Length</span>
         <div class="mt-1.5 flex">
-          <input id="g-length" name="length" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 20" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="g-length-error" />
-          <select id="g-length-unit" class="h-11 shrink-0 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none">
+          <input id="g-length" name="length" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 20" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="g-length-error" />
+          <select id="g-length-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none">
             <option value="ft">ft</option>
             <option value="in">in</option>
             <option value="yd">yd</option>
@@ -20,8 +20,8 @@
       <label class="block">
         <span class="text-sm font-medium text-ink">Width</span>
         <div class="mt-1.5 flex">
-          <input id="g-width" name="width" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="g-width-error" />
-          <select id="g-width-unit" class="h-11 shrink-0 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm">
+          <input id="g-width" name="width" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="g-width-error" />
+          <select id="g-width-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm">
             <option value="ft">ft</option>
             <option value="in">in</option>
             <option value="yd">yd</option>
@@ -33,8 +33,8 @@
       <label class="block">
         <span class="text-sm font-medium text-ink">Depth / Thickness</span>
         <div class="mt-1.5 flex">
-          <input id="g-depth" name="depth" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 4" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="g-depth-error" />
-          <select id="g-depth-unit" class="h-11 shrink-0 rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-2 text-sm">
+          <input id="g-depth" name="depth" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 4" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="g-depth-error" />
+          <select id="g-depth-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm">
             <option value="in" selected>in</option>
             <option value="ft">ft</option>
             <option value="cm">cm</option>
@@ -48,7 +48,7 @@
     <div class="grid gap-4 sm:grid-cols-3">
       <label class="block">
         <span class="text-sm font-medium text-ink">Material</span>
-        <select id="g-material" class="mt-1.5 h-11 w-full rounded-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20">
+        <select id="g-material" class="mt-1.5 h-11 w-full rounded-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20">
           <option value="pea">Pea Gravel — 1.35 tons/yd³</option>
           <option value="crushed">Crushed Stone — 1.40 tons/yd³</option>
           <option value="river">River Rock — 1.33 tons/yd³</option>
@@ -60,16 +60,16 @@
       <label class="block">
         <span class="text-sm font-medium text-ink">Waste / Overage</span>
         <div class="mt-1.5 flex">
-          <input id="g-waste" type="number" inputmode="decimal" min="0" max="50" step="1" value="10" class="h-11 w-full rounded-l-sm border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" />
-          <span class="flex h-11 items-center rounded-r-sm border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">%</span>
+          <input id="g-waste" type="number" inputmode="decimal" min="0" max="50" step="1" value="10" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" />
+          <span class="flex h-11 items-center rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">%</span>
         </div>
       </label>
       <label class="block">
         <span class="text-sm font-medium text-ink">Price (optional)</span>
         <div class="mt-1.5 flex">
-          <span class="flex h-11 items-center rounded-l-sm border border-hairline bg-canvas-soft px-2 text-sm text-mute">$</span>
+          <span class="flex h-11 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-sm text-mute">$</span>
           <input id="g-price" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 45" class="h-11 w-full border-y border-hairline bg-canvas px-3 text-sm focus:outline-none" />
-          <select id="g-price-unit" class="h-11 shrink-0 rounded-r-sm border border-hairline bg-canvas-soft px-2 text-[12px]">
+          <select id="g-price-unit" class="h-11 shrink-0 rounded-r-lg border border-hairline bg-canvas-soft px-2 text-[12px]">
             <option value="yd">/ yd³</option>
             <option value="ton">/ ton</option>
           </select>
@@ -78,15 +78,15 @@
     </div>
 
     <div class="flex flex-wrap gap-2">
-      <button type="submit" class="inline-flex h-11 items-center justify-center rounded-sm bg-primary px-6 text-sm font-medium text-on-primary transition hover:bg-[#242424] dark:hover:bg-white dark:hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-primary">Calculate</button>
-      <button type="reset" id="g-reset" class="inline-flex h-11 items-center justify-center rounded-sm border border-hairline bg-canvas px-6 text-sm font-medium text-ink transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Reset</button>
+      <button type="submit" class="inline-flex h-11 items-center justify-center rounded-lg bg-primary px-6 text-sm font-medium text-on-primary transition hover:bg-primary dark:hover:bg-muted dark:hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-primary">Calculate</button>
+      <button type="reset" id="g-reset" class="inline-flex h-11 items-center justify-center rounded-lg border border-hairline bg-canvas px-6 text-sm font-medium text-ink transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Reset</button>
       <span class="inline-flex items-center font-mono text-xs text-mute">Enter dimensions → Calculate. Waste included in totals.</span>
     </div>
   </form>
 
   <!-- Results -->
   <div id="g-results" class="mt-6 hidden" aria-live="polite">
-    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5 dark:bg-white/[0.04]">
+    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5 dark:bg-muted">
       <p class="font-mono text-[11px] font-medium tracking-widest text-mute">YOUR GRAVEL ESTIMATE</p>
       <div class="mt-2 flex flex-wrap items-baseline gap-2">
         <p class="text-3xl font-semibold tracking-[-0.03em] text-ink"><span id="g-yd3" class="tabular-nums">—</span> <span class="text-lg font-medium text-body">yd³</span></p>

@@ -7,12 +7,12 @@ interface Props {
 }
 const { src, poster, alt, caption } = Astro.props;
 ---
-<div class="overflow-hidden rounded-lg border border-hairline bg-canvas shadow-card">
-  <div class="bg-canvas-soft-2 px-4 py-2 border-b border-hairline flex items-center justify-between">
-    <span class="font-mono text-[11px] tracking-widest text-mute">3D MODEL — INTERACTIVE</span>
-    <span class="font-mono text-[11px] text-mute">Drag to rotate · Scroll to zoom</span>
+<div class="overflow-hidden rounded-lg border border-border bg-card shadow-card">
+  <div class="bg-muted px-4 py-2 border-b border-border flex items-center justify-between">
+    <span class="font-mono text-[11px] tracking-widest text-muted-foreground">3D MODEL — INTERACTIVE</span>
+    <span class="font-mono text-[11px] text-muted-foreground">Drag to rotate · Scroll to zoom</span>
   </div>
-  <div class="relative bg-[#fafafa] dark:bg-[#0a0a0a]">
+  <div class="relative bg-background dark:bg-muted">
     <model-viewer
       src={src}
       poster={poster}
@@ -27,16 +27,16 @@ const { src, poster, alt, caption } = Astro.props;
       environment-image="neutral"
       loading="lazy"
       reveal="interaction"
-      style="width:100%; height:320px; background:var(--color-canvas-soft);"
+      style="width:100%; height:320px; background:var(--color-background);"
     >
-      <div slot="poster" class="flex h-full w-full items-center justify-center bg-canvas-soft p-4">
-        <img src={poster} alt={alt} class="h-full w-full object-cover rounded-md border border-hairline" loading="lazy" />
+      <div slot="poster" class="flex h-full w-full items-center justify-center bg-background p-4">
+        <img src={poster} alt={alt} class="h-full w-full object-cover rounded-md border border-border" loading="lazy" />
       </div>
       <button slot="ar-button" class="absolute bottom-3 right-3 rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-on-primary shadow-card">View in AR</button>
     </model-viewer>
-    <div class="absolute top-3 left-3 rounded-full bg-canvas px-3 py-1 text-[11px] font-mono tracking-wide text-mute shadow-card border border-hairline">3D · Real scale</div>
+    <div class="absolute top-3 left-3 rounded-full bg-card px-3 py-1 text-[11px] font-mono tracking-wide text-muted-foreground shadow-card border border-border">3D · Real scale</div>
   </div>
-  {caption && <div class="px-4 py-2 bg-canvas-soft border-t border-hairline font-mono text-[11px] leading-4 text-mute">{caption}</div>}
+  {caption && <div class="px-4 py-2 bg-background border-t border-border font-mono text-[11px] leading-4 text-muted-foreground">{caption}</div>}
 </div>
 
 <script is:inline type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>

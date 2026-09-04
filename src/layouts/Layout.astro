@@ -31,7 +31,6 @@ const canonicalUrl = canonicalProp
   ? new URL(canonicalProp, site).href
   : new URL(Astro.url.pathname, site).href;
 
-// OG image — per-page 1200×630 PNG for CTR; fallback to global og.png
 const ogImage = new URL(ogImageProp ?? "/og.png", site).href;
 const ogImageAlt = ogImageAltProp ?? "Calculator Street — Construction & Home Improvement Calculators";
 
@@ -62,7 +61,6 @@ const organizationSchema: any = {
   ],
 };
 
-// WebPage schema for richer results + E-E-A-T dates
 const webPageSchema: any = (!noindex && canonicalUrl) ? {
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -85,8 +83,8 @@ const webPageSchema: any = (!noindex && canonicalUrl) ? {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0c0c0e" media="(prefers-color-scheme: dark)" />
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="generator" content={Astro.generator} />
@@ -114,7 +112,6 @@ const webPageSchema: any = (!noindex && canonicalUrl) ? {
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      // EU User Consent — default denied until user accepts via banner
       gtag('consent', 'default', { ad_storage: 'denied', analytics_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', wait_for_update: 500 });
       gtag('js', new Date());
       gtag('config', 'G-7RX7TP3LKB');
@@ -138,7 +135,7 @@ const webPageSchema: any = (!noindex && canonicalUrl) ? {
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={ogImageAlt} />
 
-    <!-- Structured Data: WebSite + Organization + WebPage -->
+    <!-- Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} is:inline />
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} is:inline />
     {webPageSchema && <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} is:inline />}
@@ -155,10 +152,10 @@ const webPageSchema: any = (!noindex && canonicalUrl) ? {
       })();
     </script>
   </head>
-  <body class="min-h-screen bg-canvas-soft text-ink antialiased selection:bg-primary selection:text-on-primary dark:bg-canvas-soft dark:text-ink">
+  <body class="min-h-screen bg-background text-foreground antialiased selection:bg-foreground selection:text-background">
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-primary focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-on-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-link"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-foreground focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
       Skip to content
     </a>
@@ -166,16 +163,13 @@ const webPageSchema: any = (!noindex && canonicalUrl) ? {
     <BackToTop />
     <CookieConsent />
 
-    <!-- Theme persistence helper -->
     <script is:inline>
-      // Expose helper for toggle buttons
       window.__setTheme = function (mode) {
         try {
           localStorage.setItem("theme", mode);
           document.documentElement.classList.toggle("dark", mode === "dark");
         } catch {}
       };
-      // Listen for system changes when no explicit preference
       try {
         const mq = window.matchMedia("(prefers-color-scheme: dark)");
         mq.addEventListener("change", (e) => {

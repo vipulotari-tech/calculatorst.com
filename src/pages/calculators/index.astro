@@ -7,24 +7,19 @@ import { hubCalculators, hubCategories } from "../../data/hubCalculators";
 import { clusterGroups } from "../../data/subcategories";
 import { calculators } from "../../data/calculators";
 
-// Merge for directory count (204 unique)
 const extra = calculators.filter(c => !hubCalculators.some(h => h.slug === c.slug));
 const allCalculators = [...hubCalculators, ...extra];
 const allCount = allCalculators.length;
 
-// Build groups for display: per hubCategory, resolve subgroups
 const categoryData = hubCategories.map(cat => {
   const groups = clusterGroups[cat.slug] || [];
-  // Build subgroups with actual calc objects
   const subGroups = groups.map(g => ({
     name: g.name,
     calcs: g.slugs.map(s => allCalculators.find(c => c.slug === s)).filter(Boolean) as typeof allCalculators
   }));
-  // Find ungrouped within this category
   const groupedSlugs = new Set(groups.flatMap(g => g.slugs));
   const ungrouped = allCalculators.filter(c => c.cluster === cat.slug && !groupedSlugs.has(c.slug));
   if (ungrouped.length) subGroups.push({ name: "Other", calcs: ungrouped });
-  // Also handle extra legacy like pea-gravel which has cluster gravel but not in hub — already captured as ungrouped via c.cluster
   return { cat, subGroups };
 });
 
@@ -33,52 +28,52 @@ const filterCategories = hubCategories;
 
 <Layout title="All Calculators — Calculator Street" description="Browse the complete Calculator Street library — 204 construction calculators organized by category and project group. Concrete, gravel, roofing, flooring, decking, fencing and more." canonical="/calculators/">
   <Header />
-  <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
+  <main id="main" tabindex="-1" class="mx-auto max-w-[1200px] px-4 sm:px-6 py-6">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "All Calculators" }]} />
-    <div class="mx-auto max-w-[1100px] pt-4">
-      <div class="mx-auto max-w-[720px] text-center">
-        <p class="font-mono text-[11px] font-medium tracking-[0.14em] uppercase text-mute">Library</p>
-        <h1 class="mt-2 text-[28px] font-semibold tracking-[-0.03em] text-ink sm:text-[32px]">All calculators</h1>
-        <p class="mx-auto mt-2 max-w-[600px] text-[13.5px] leading-6 text-body">The complete library — organized by category and project group. Every calculator is a standalone tool with its own formula, example and diagram.</p>
-        <p class="mt-1 font-mono text-xs text-mute">{allCount} calculators · {hubCategories.length} categories · Search or filter to find your tool</p>
+    <div class="mx-auto max-w-[1080px] pt-4">
+      <div class="mx-auto max-w-[680px] text-center">
+        <p class="font-mono text-[11px] font-medium tracking-[0.14em] uppercase text-muted-foreground">Library</p>
+        <h1 class="mt-2 text-[28px] font-semibold tracking-[-0.03em] text-foreground sm:text-[32px]">All calculators</h1>
+        <p class="mx-auto mt-2 max-w-[580px] text-[13px] leading-5 text-muted-foreground">The complete library — organized by category and project group. Every calculator is a standalone tool with its own formula, example and diagram.</p>
+        <p class="mt-1 font-mono text-[11px] text-muted-foreground">{allCount} calculators · {hubCategories.length} categories · Search or filter to find your tool</p>
       </div>
 
-      <div class="mx-auto mt-8 max-w-[640px]">
+      <div class="mx-auto mt-8 max-w-[580px]">
         <label for="calc-search" class="sr-only">Search calculators</label>
         <div class="relative">
-          <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-mute" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.2 11.2L13.8 13.8M12.3 7.3a4.95 4.95 0 1 1-9.9 0 4.95 4.95 0 0 1 9.9 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg></span>
-          <input id="calc-search" type="search" placeholder="Search the library… try concrete slab, roof pitch, fence posts" class="h-[52px] w-full rounded-full border border-hairline bg-white pl-11 pr-4 text-[14px] shadow-sm placeholder:text-mute focus:border-link/20 focus:shadow-search-focus focus:outline-none dark:bg-[#171717] dark:border-white/10" autocomplete="off" spellcheck="false" />
+          <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/50" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.2 11.2L13.8 13.8M12.3 7.3a4.95 4.95 0 1 1-9.9 0 4.95 4.95 0 0 1 9.9 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg></span>
+          <input id="calc-search" type="search" placeholder="Search the library… try concrete slab, roof pitch, fence posts" class="h-[48px] w-full rounded-xl border border-border bg-card pl-11 pr-4 text-[14px] shadow-sm placeholder:text-muted-foreground/50 focus:border-ring focus:shadow-[0_0_0_3px_rgba(100,140,255,0.08)] focus:outline-none transition-[border-color,box-shadow] duration-150" autocomplete="off" spellcheck="false" />
         </div>
-        <div class="mt-3 flex flex-wrap justify-center gap-2" role="group" aria-label="Filter by category">
-          <button type="button" data-filter="" class="filter-btn rounded-full border border-hairline bg-white px-3.5 py-1.5 font-mono text-[11px] font-medium tracking-wide text-mute hover:text-ink hover:border-hairline-strong/40 dark:bg-canvas dark:border-white/10">All</button>
+        <div class="mt-3 flex flex-wrap justify-center gap-1.5" role="group" aria-label="Filter by category">
+          <button type="button" data-filter="" class="filter-btn rounded-lg border border-border bg-card px-3 py-1.5 font-mono text-[11px] font-medium tracking-wide text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">All</button>
           {filterCategories.map(cat => (
-            <button type="button" data-filter={cat.slug} class="filter-btn rounded-full border border-hairline bg-white px-3 py-1.5 font-mono text-[11px] font-medium tracking-wide text-mute hover:text-ink hover:border-hairline-strong/40 dark:bg-canvas dark:border-white/10">{cat.name.replace(" Calculators","")}</button>
+            <button type="button" data-filter={cat.slug} class="filter-btn rounded-lg border border-border bg-card px-2.5 py-1.5 font-mono text-[11px] font-medium tracking-wide text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">{cat.name.replace(" Calculators","")}</button>
           ))}
         </div>
-        <p id="result-count" class="mt-3 text-center font-mono text-xs text-mute" aria-live="polite"></p>
+        <p id="result-count" class="mt-3 text-center font-mono text-[11px] text-muted-foreground" aria-live="polite"></p>
       </div>
 
       <div id="directory" class="mt-10 space-y-10">
         {categoryData.map(({cat, subGroups}) => (
           <section data-category={cat.slug} data-cluster={cat.slug} class="category-section scroll-mt-20" aria-labelledby={`cat-${cat.slug}`}>
-            <div class="flex items-baseline justify-between gap-4 border-b border-hairline pb-3">
+            <div class="flex items-baseline justify-between gap-4 border-b border-border pb-3">
               <div>
-                <h2 id={`cat-${cat.slug}`} class="text-[16px] font-semibold tracking-[-0.02em] text-ink">{cat.name}</h2>
-                <p class="mt-1 max-w-[640px] text-xs leading-4 text-body">{cat.desc} · {cat.count} calculators</p>
+                <h2 id={`cat-${cat.slug}`} class="text-[16px] font-semibold tracking-[-0.02em] text-foreground">{cat.name}</h2>
+                <p class="mt-1 max-w-[580px] text-[12px] leading-4 text-muted-foreground">{cat.desc} · {cat.count} calculators</p>
               </div>
-              <a href={`/construction/${cat.slug}/`} class="hidden shrink-0 font-mono text-[11px] tracking-wide text-mute hover:text-ink sm:inline-flex">View category →</a>
+              <a href={`/construction/${cat.slug}/`} class="hidden shrink-0 font-mono text-[11px] tracking-wide text-muted-foreground hover:text-foreground transition-colors sm:inline-flex">View category →</a>
             </div>
             <div class="mt-5 space-y-6">
               {subGroups.map(group => (
                 <div class="subgroup" data-subgroup={group.name.toLowerCase()}>
-                  <h3 class="font-mono text-[11px] font-medium tracking-[0.08em] uppercase text-mute">{group.name}</h3>
-                  <ul class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+                  <h3 class="font-mono text-[11px] font-medium tracking-[0.08em] uppercase text-muted-foreground">{group.name}</h3>
+                  <ul class="mt-3 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3" role="list">
                     {group.calcs.map(c => (
                       <li data-title={(c.h1 + " " + c.title).toLowerCase()} data-desc={c.description.toLowerCase()} data-category={c.category.toLowerCase()} data-cluster={c.cluster.toLowerCase()} data-slug={c.slug}>
-                        <a href={`/${c.slug}/`} class="group flex h-full flex-col rounded-xl border border-hairline bg-white p-4 shadow-card transition hover:border-hairline-strong/30 hover:shadow-card-hover hover:-translate-y-[1px] dark:bg-canvas dark:border-white/10">
-                          <h3 class="line-clamp-1 text-[13.5px] font-semibold tracking-[-0.01em] text-ink">{c.h1}</h3>
-                          <p class="mt-1 line-clamp-2 flex-1 text-xs leading-5 text-body">{c.description.slice(0,120)}</p>
-                          <span class="mt-3 inline-flex items-center gap-1 font-mono text-[11px] tracking-wide text-mute group-hover:text-ink">{c.category} <span aria-hidden="true">→</span></span>
+                        <a href={`/${c.slug}/`} class="group flex h-full flex-col rounded-xl border border-border bg-card p-4 shadow-card transition-all duration-150 hover:border-border/80 hover:shadow-card-hover hover:-translate-y-0.5">
+                          <h3 class="line-clamp-1 text-[13px] font-semibold tracking-[-0.01em] text-foreground">{c.h1}</h3>
+                          <p class="mt-1 line-clamp-2 flex-1 text-[12px] leading-5 text-muted-foreground">{c.description.slice(0,120)}</p>
+                          <span class="mt-3 inline-flex items-center gap-1 font-mono text-[11px] tracking-wide text-muted-foreground group-hover:text-foreground transition-colors">{c.category} <span aria-hidden="true">→</span></span>
                         </a>
                       </li>
                     ))}
@@ -98,7 +93,6 @@ const filterCategories = hubCategories;
     const filterBtns = document.querySelectorAll(".filter-btn");
     const countEl = document.getElementById("result-count");
     let activeFilter = "";
-    // hydrate from ?q=
     const params = new URLSearchParams(location.search);
     const initialQ = params.get("q");
     if(initialQ && input) input.value = initialQ;
@@ -147,7 +141,6 @@ const filterCategories = hubCategories;
           sg.style.display = sgVisible ? "" : "none";
           if(sgVisible) sectionVisible = true;
         });
-        // Also handle case where section itself filtered but contains visible subgroups due to search
         section.style.display = (!matchesFilter && !qLower) ? "none" : (sectionVisible || !qLower && matchesFilter ? "" : (sectionVisible ? "" : "none"));
         if(!qLower && matchesFilter) sectionVisible = true;
         if(!sectionVisible && !qLower) section.style.display = matchesFilter ? "" : "none";
@@ -156,7 +149,6 @@ const filterCategories = hubCategories;
         if(qLower || activeFilter) countEl.textContent = totalVisible + " calculators found";
         else countEl.textContent = "";
       }
-      // sort visible items by score when searching
       if(qLower){
         sections.forEach(sec=>{
           sec.querySelectorAll(".subgroup").forEach(sg=>{
@@ -172,14 +164,15 @@ const filterCategories = hubCategories;
 
     if (input && directory) {
       input.addEventListener("input", applyFilter);
-      // initial
       applyFilter();
       filterBtns.forEach(btn => {
         btn.addEventListener("click", () => {
           activeFilter = btn.getAttribute("data-filter") || "";
           filterBtns.forEach(b => {
             const isActive = b.getAttribute("data-filter") === activeFilter;
-            b.className = isActive ? "filter-btn rounded-full bg-ink px-3.5 py-1.5 font-mono text-[11px] font-medium tracking-wide text-white dark:bg-white dark:text-black" : "filter-btn rounded-full border border-hairline bg-white px-3 py-1.5 font-mono text-[11px] font-medium tracking-wide text-mute hover:text-ink hover:border-hairline-strong/40 dark:bg-canvas dark:border-white/10";
+            b.className = isActive
+              ? "filter-btn rounded-lg bg-foreground px-3 py-1.5 font-mono text-[11px] font-medium tracking-wide text-background transition-colors"
+              : "filter-btn rounded-lg border border-border bg-card px-2.5 py-1.5 font-mono text-[11px] font-medium tracking-wide text-muted-foreground hover:text-foreground hover:bg-muted transition-colors";
           });
           applyFilter();
         });

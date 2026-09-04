@@ -21,21 +21,21 @@ const breadcrumbData = {
 ---
 
 <nav aria-label="Breadcrumb" class="w-full">
-  <ol class="flex flex-wrap items-center gap-1.5 text-sm" role="list">
+  <ol class="flex flex-wrap items-center gap-1.5 text-[13px]" role="list">
     {
       items.map((item, idx) => (
         <li class="flex items-center gap-1.5">
           {idx > 0 && (
-            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="text-mute">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="text-muted-foreground/50">
               <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
             </svg>
           )}
           {item.href ? (
-            <a href={item.href} class="rounded-sm px-1 py-0.5 font-medium text-body transition-colors hover:text-ink hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">
+            <a href={item.href} class="rounded-md px-1 py-0.5 font-medium text-muted-foreground transition-colors hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
               {item.label}
             </a>
           ) : (
-            <span aria-current="page" class="px-1 py-0.5 font-medium text-ink">
+            <span aria-current="page" class="px-1 py-0.5 font-medium text-foreground">
               {item.label}
             </span>
           )}

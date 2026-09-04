@@ -7,12 +7,12 @@ const { label = "Advertisement", height = "h-[280px]" } = Astro.props;
 ---
 
 <div
-  class={`flex w-full items-center justify-center rounded-lg border border-dashed border-hairline bg-canvas-soft-2 dark:bg-white/[0.02] ${height}`}
+  class={`flex w-full items-center justify-center rounded-lg border border-dashed border-border bg-background dark:bg-muted ${height}`}
   role="complementary"
   aria-label={label}
 >
   <div class="text-center">
-    <p class="font-mono text-caption tracking-widest text-mute">{label}</p>
-    <p class="mt-1 font-mono text-[11px] leading-4 text-mute">Reserved for AdSense — no layout shift.</p>
+    <p class="font-mono text-caption tracking-widest text-muted-foreground">{label}</p>
+    <p class="mt-1 font-mono text-[11px] leading-4 text-muted-foreground">Reserved for AdSense — no layout shift.</p>
   </div>
 </div>

@@ -4,7 +4,7 @@
 <button
   id="back-to-top"
   type="button"
-  class="fixed bottom-4 right-4 z-50 hidden h-11 w-11 items-center justify-center rounded-full border border-hairline bg-canvas text-ink shadow-float transition duration-200 hover:bg-canvas-soft hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-canvas dark:text-ink dark:border-hairline sm:bottom-6 sm:right-6"
+  class="fixed bottom-4 right-4 z-50 hidden h-11 w-11 items-center justify-center rounded-lg border border-border bg-card text-foreground shadow-float transition duration-200 hover:bg-muted hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:bottom-6 sm:right-6"
   style="bottom: max(1rem, env(safe-area-inset-bottom)); right: max(1rem, env(safe-area-inset-right));"
   aria-label="Back to top"
   title="Back to top"
@@ -43,9 +43,7 @@
       }
     }
 
-    // Passive scroll for performance
     window.addEventListener("scroll", onScroll, { passive: true });
-    // Initial check
     updateVisibility();
 
     btn.addEventListener("click", () => {
@@ -53,12 +51,9 @@
         top: 0,
         behavior: prefersReduced ? "auto" : "smooth",
       });
-      // Move focus to top for accessibility
       const main = document.getElementById("main");
       if (main) main.focus({ preventScroll: true });
     });
-
-    // Keyboard: also allow Escape to hide? Not needed
   })();
 </script>
 
