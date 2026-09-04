@@ -182,7 +182,38 @@ for(const c of hub){
   ];
   let construction=`<ul class="list-disc pl-5 space-y-1"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>`;
   
-  if(name.includes("Rebar")){
+  if(name.includes("Concrete Column")){
+    formula="Volume = pi * (Diameter/2)^2 * Height";
+    vars=[{symbol:"D",meaning:"Diameter in feet"},{symbol:"H",meaning:"Height in feet"}];
+    exampleInputs="Column 12 in diameter x 8 ft tall";
+    exampleSteps=[
+      {label:"Radius",value:"12 in /2 = 6 in = 0.5 ft"},
+      {label:"Area",value:"pi*0.5^2 = 0.785 ft2"},
+      {label:"Volume",value:"0.785*8 = 6.28 ft3 = 0.23 yd3"},
+      {label:"With 5% waste",value:"0.24 yd3 (11 bags 80lb)"},
+    ];
+    construction="<p class='text-sm'>Sonotube columns need 5% waste for over-pour. Vibrate to eliminate voids.</p>";
+  } else if(name.includes("Concrete Curb")){
+    formula="Volume = Length * (Curb Width * Curb Height + Gutter Width * Thickness)";
+    vars=[{symbol:"Length",meaning:"Curb length in feet"},{symbol:"Curb",meaning:"Width x Height"}];
+    exampleInputs="Curb 20 ft, 6x6 in curb + 18x6 in gutter";
+    exampleSteps=[
+      {label:"Curb area",value:"0.5*0.5 = 0.25 ft2"},
+      {label:"Gutter area",value:"1.5*0.5 = 0.75 ft2"},
+      {label:"Volume",value:"20*1.0 = 20 ft3 = 0.74 yd3"},
+    ];
+    construction="<p class='text-sm'>Curb and gutter combined — include gutter thickness. Add 10% for curves.</p>";
+  } else if(name.includes("Concrete Stair")){
+    formula="Volume = Sum (Tread Depth * Riser Height * Width) per step";
+    vars=[{symbol:"Run",meaning:"Tread depth in feet"},{symbol:"Rise",meaning:"Riser height in feet"},{symbol:"Width",meaning:"Stair width"}];
+    exampleInputs="Stair 4 ft wide, 7 in rise, 11 in run, 4 steps";
+    exampleSteps=[
+      {label:"Per step",value:"0.917*0.583*4 = 2.14 ft3"},
+      {label:"Total",value:"2.14*4 = 8.56 ft3 = 0.32 yd3"},
+      {label:"With waste",value:"0.35 yd3"},
+    ];
+    construction="<p class='text-sm'>Stairs need formwork bracing — add 10% for over-excavation.</p>";
+  } else if(name.includes("Rebar")){
     formula="Rebar count = ceil(Length / Spacing) + 1";
     vars=[{symbol:"Length",meaning:"Total length in feet"},{symbol:"Spacing",meaning:"On-center spacing in inches"}];
     exampleInputs="Wall 20 ft, spacing 16 in";

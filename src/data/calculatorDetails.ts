@@ -828,48 +828,44 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Column 12 in diameter x 8 ft tall — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = pi * (Diameter/2)^2 * Height",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
-      },
-      {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Diameter in feet"
+      },
+      {
+        "symbol": "H",
+        "meaning": "Height in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Column 12 in diameter x 8 ft tall",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Radius",
+          "value": "12 in /2 = 6 in = 0.5 ft"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Area",
+          "value": "pi*0.5^2 = 0.785 ft2"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
+          "label": "Volume",
+          "value": "0.785*8 = 6.28 ft3 = 0.23 yd3"
         },
         {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With 5% waste",
+          "value": "0.24 yd3 (11 bags 80lb)"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Concrete — 4000 psi typical for driveways, 3000 psi for patios. Ordered by cubic yard (27 ft³) or bags (0.60 ft³ per 80-lb). Keep slump 4 in for slabs.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Concrete — 4000 psi typical for driveways, 3000 psi for patios. Ordered by cubic yard (27 ft³) or bags (0.60 ft³ per 80-lb). Keep slump 4 in for slabs.</p><p class='text-sm'>Sonotube columns need 5% waste for over-pour. Vibrate to eliminate voids.</p>",
     "materialInfo": "Concrete — 4000 psi typical for driveways, 3000 psi for patios. Ordered by cubic yard (27 ft³) or bags (0.60 ft³ per 80-lb). Keep slump 4 in for slabs.",
     "wasteInfo": "Add 5–10% for spillage and uneven subgrade — 10% is safe for hand-screeded forms.",
     "tips": [
@@ -889,7 +885,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete column?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure column 12 in diameter x 8 ft tall on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -910,48 +906,40 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Curb 20 ft, 6x6 in curb + 18x6 in gutter — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length * (Curb Width * Curb Height + Gutter Width * Thickness)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Curb length in feet"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Curb",
+        "meaning": "Width x Height"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Curb 20 ft, 6x6 in curb + 18x6 in gutter",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Curb area",
+          "value": "0.5*0.5 = 0.25 ft2"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Gutter area",
+          "value": "1.5*0.5 = 0.75 ft2"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "Volume",
+          "value": "20*1.0 = 20 ft3 = 0.74 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Concrete — 4000 psi typical for driveways, 3000 psi for patios. Ordered by cubic yard (27 ft³) or bags (0.60 ft³ per 80-lb). Keep slump 4 in for slabs.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Concrete — 4000 psi typical for driveways, 3000 psi for patios. Ordered by cubic yard (27 ft³) or bags (0.60 ft³ per 80-lb). Keep slump 4 in for slabs.</p><p class='text-sm'>Curb and gutter combined — include gutter thickness. Add 10% for curves.</p>",
     "materialInfo": "Concrete — 4000 psi typical for driveways, 3000 psi for patios. Ordered by cubic yard (27 ft³) or bags (0.60 ft³ per 80-lb). Keep slump 4 in for slabs.",
     "wasteInfo": "Add 5–10% for spillage and uneven subgrade — 10% is safe for hand-screeded forms.",
     "tips": [
@@ -971,7 +959,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete curb?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure curb 20 ft, 6x6 in curb + 18x6 in gutter on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -992,48 +980,44 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Stair 4 ft wide, 7 in rise, 11 in run, 4 steps — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Sum (Tread Depth * Riser Height * Width) per step",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Run",
+        "meaning": "Tread depth in feet"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
+        "symbol": "Rise",
+        "meaning": "Riser height in feet"
       },
       {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Width",
+        "meaning": "Stair width"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Stair 4 ft wide, 7 in rise, 11 in run, 4 steps",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Per step",
+          "value": "0.917*0.583*4 = 2.14 ft3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Total",
+          "value": "2.14*4 = 8.56 ft3 = 0.32 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "0.35 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Concrete — 4000 psi typical for driveways, 3000 psi for patios. Ordered by cubic yard (27 ft³) or bags (0.60 ft³ per 80-lb). Keep slump 4 in for slabs.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Concrete — 4000 psi typical for driveways, 3000 psi for patios. Ordered by cubic yard (27 ft³) or bags (0.60 ft³ per 80-lb). Keep slump 4 in for slabs.</p><p class='text-sm'>Stairs need formwork bracing — add 10% for over-excavation.</p>",
     "materialInfo": "Concrete — 4000 psi typical for driveways, 3000 psi for patios. Ordered by cubic yard (27 ft³) or bags (0.60 ft³ per 80-lb). Keep slump 4 in for slabs.",
     "wasteInfo": "Add 5–10% for spillage and uneven subgrade — 10% is safe for hand-screeded forms.",
     "tips": [
@@ -1053,7 +1037,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete stair?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure stair 4 ft wide, 7 in rise, 11 in run, 4 steps on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
