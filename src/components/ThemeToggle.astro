@@ -14,22 +14,22 @@ const { id = "theme-toggle", class: className = "" } = Astro.props;
   aria-label="Toggle dark mode"
   class={`group relative inline-flex h-9 items-center justify-center rounded-lg p-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${className}`}
 >
-  <!-- Track — clearly visible with high contrast -->
+  <!-- Track — clean premium, responsive, no shadow -->
   <span
-    class="relative flex h-[26px] w-11 items-center rounded-full border-2 border-foreground/15 bg-card shadow-md ring-1 ring-black/5 dark:border-white/15 dark:bg-white/[0.08] dark:shadow-[0_2px_8px_rgba(0,0,0,0.3)] px-0.5 transition-colors duration-200"
+    class="relative flex h-[22px] w-9 sm:h-[24px] sm:w-11 items-center rounded-full border border-border bg-muted dark:bg-white/[0.05] dark:border-white/10 px-0.5 transition-colors duration-200"
     aria-hidden="true"
   >
-    <!-- Track icons — more vibrant -->
-    <span class="absolute left-[4px] flex h-5 w-5 items-center justify-center rounded-full text-[12px] leading-none opacity-70 transition-opacity duration-200 dark:opacity-30">
-      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" class="text-amber-500 drop-shadow-sm"><circle cx="8" cy="8" r="2.8" fill="currentColor"/><path d="M8 1.2v1M8 13.8v1M1.2 8H2.2M13.8 8H14.8M3.1 3.1l0.7 0.7M12.2 12.2l0.7 0.7M12.9 3.1l-0.7 0.7M3.1 12.9l0.7-0.7" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/></svg>
+    <!-- Track icons — subtle -->
+    <span class="absolute left-[3px] flex h-4 w-4 items-center justify-center rounded-full text-[10px] leading-none opacity-60 transition-opacity duration-200 dark:opacity-25">
+      <svg width="10" height="10" viewBox="0 0 16 16" fill="none" class="text-amber-500"><circle cx="8" cy="8" r="2.8" fill="currentColor"/><path d="M8 1.2v1M8 13.8v1M1.2 8H2.2M13.8 8H14.8M3.1 3.1l0.7 0.7M12.2 12.2l0.7 0.7M12.9 3.1l-0.7 0.7M3.1 12.9l0.7-0.7" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/></svg>
     </span>
-    <span class="absolute right-[4px] flex h-5 w-5 items-center justify-center rounded-full text-[12px] leading-none opacity-30 transition-opacity duration-200 dark:opacity-80">
-      <svg width="11" height="11" viewBox="0 0 16 16" fill="none" class="text-indigo-400 dark:text-indigo-300 drop-shadow-sm"><path d="M11.2 11.5A5.2 5.2 0 0 1 5 5.3a5.2 5.2 0 0 0 6.2 6.2Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg>
+    <span class="absolute right-[3px] flex h-4 w-4 items-center justify-center rounded-full text-[10px] leading-none opacity-25 transition-opacity duration-200 dark:opacity-60">
+      <svg width="9" height="9" viewBox="0 0 16 16" fill="none" class="text-muted-foreground dark:text-white/60"><path d="M11.2 11.5A5.2 5.2 0 0 1 5 5.3a5.2 5.2 0 0 0 6.2 6.2Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg>
     </span>
 
-    <!-- Thumb — premium, highly visible -->
+    <!-- Thumb — clean, no heavy shadow, responsive -->
     <span
-      class="thumb absolute left-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-white dark:bg-white shadow-md ring-1 ring-black/10 dark:ring-white/20 transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] translate-x-0 dark:translate-x-[18px]"
+      class="thumb absolute left-0.5 flex h-[18px] w-[18px] sm:h-[20px] sm:w-[20px] items-center justify-center rounded-full bg-white dark:bg-white shadow-sm ring-1 ring-black/5 dark:ring-white/10 transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] translate-x-0 dark:translate-x-[14px] sm:dark:translate-x-[20px]"
     >
       <svg class="sun-icon absolute h-[11px] w-[11px] text-amber-500 transition-all duration-200 opacity-100 rotate-0 scale-100 dark:opacity-0 dark:rotate-90 dark:scale-0" width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="2.8" fill="currentColor"/><path d="M8 1.2v1M8 13.8v1M1.2 8H2.2M13.8 8H14.8M3.1 3.1l0.7 0.7M12.2 12.2l0.7 0.7M12.9 3.1l-0.7 0.7M3.1 12.9l0.7-0.7" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/></svg>
       <svg class="moon-icon absolute h-[9px] w-[9px] text-slate-700 transition-all duration-200 opacity-0 rotate-90 scale-0 dark:opacity-100 dark:rotate-0 dark:scale-100" width="9" height="9" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M11.2 11.5A5.2 5.2 0 0 1 5 5.3a5.2 5.2 0 0 0 6.2 6.2Z" fill="currentColor"/></svg>
