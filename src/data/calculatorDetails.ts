@@ -10648,36 +10648,36 @@ export const calculatorDetails: Record<string, any> = {
       "Grout and adhesive"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure Room 12x10 ft =120 ft2, coverage 20 ft2/box — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Boxes = ceil(Area / Coverage per box)",
     "variables": [
       {
         "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "meaning": "Floor area ft2"
+      },
+      {
+        "symbol": "Coverage",
+        "meaning": "20-30 ft2 per box"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "Room 12x10 ft =120 ft2, coverage 20 ft2/box",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "label": "Boxes",
+          "value": "120/20 = 6"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
-        },
-        {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "With 10% waste",
+          "value": "7 boxes"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><p class='text-sm'>Acclimate wood 72h. Stagger joints 6 in, waste 10% straight, 15% diagonal.</p>",
     "materialInfo": "Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.",
     "wasteInfo": "Add 10% for straight, 15% for diagonal or large tile. Pattern adds 20%.",
     "tips": [
@@ -10696,7 +10696,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for hardwood flooring?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure room 12x10 ft =120 ft2, coverage 20 ft2/box on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -10717,36 +10717,36 @@ export const calculatorDetails: Record<string, any> = {
       "Grout and adhesive"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure Room 12x10 ft =120 ft2, coverage 20 ft2/box — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Boxes = ceil(Area / Coverage per box)",
     "variables": [
       {
         "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "meaning": "Floor area ft2"
+      },
+      {
+        "symbol": "Coverage",
+        "meaning": "20-30 ft2 per box"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "Room 12x10 ft =120 ft2, coverage 20 ft2/box",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "label": "Boxes",
+          "value": "120/20 = 6"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
-        },
-        {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "With 10% waste",
+          "value": "7 boxes"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><p class='text-sm'>Acclimate wood 72h. Stagger joints 6 in, waste 10% straight, 15% diagonal.</p>",
     "materialInfo": "Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.",
     "wasteInfo": "Add 10% for straight, 15% for diagonal or large tile. Pattern adds 20%.",
     "tips": [
@@ -10765,7 +10765,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for hardwood flooring cost?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure room 12x10 ft =120 ft2, coverage 20 ft2/box on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -10786,36 +10786,36 @@ export const calculatorDetails: Record<string, any> = {
       "Grout and adhesive"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure Room 12x10 ft =120 ft2, coverage 20 ft2/box — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Boxes = ceil(Area / Coverage per box)",
     "variables": [
       {
         "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "meaning": "Floor area ft2"
+      },
+      {
+        "symbol": "Coverage",
+        "meaning": "20-30 ft2 per box"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "Room 12x10 ft =120 ft2, coverage 20 ft2/box",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "label": "Boxes",
+          "value": "120/20 = 6"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
-        },
-        {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "With 10% waste",
+          "value": "7 boxes"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><p class='text-sm'>Acclimate wood 72h. Stagger joints 6 in, waste 10% straight, 15% diagonal.</p>",
     "materialInfo": "Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.",
     "wasteInfo": "Add 10% for straight, 15% for diagonal or large tile. Pattern adds 20%.",
     "tips": [
@@ -10834,7 +10834,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for laminate flooring?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure room 12x10 ft =120 ft2, coverage 20 ft2/box on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -10855,36 +10855,36 @@ export const calculatorDetails: Record<string, any> = {
       "Grout and adhesive"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure Room 12x10 ft =120 ft2, coverage 20 ft2/box — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Boxes = ceil(Area / Coverage per box)",
     "variables": [
       {
         "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "meaning": "Floor area ft2"
+      },
+      {
+        "symbol": "Coverage",
+        "meaning": "20-30 ft2 per box"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "Room 12x10 ft =120 ft2, coverage 20 ft2/box",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "label": "Boxes",
+          "value": "120/20 = 6"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
-        },
-        {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "With 10% waste",
+          "value": "7 boxes"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><p class='text-sm'>Acclimate wood 72h. Stagger joints 6 in, waste 10% straight, 15% diagonal.</p>",
     "materialInfo": "Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.",
     "wasteInfo": "Add 10% for straight, 15% for diagonal or large tile. Pattern adds 20%.",
     "tips": [
@@ -10903,7 +10903,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for vinyl flooring?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure room 12x10 ft =120 ft2, coverage 20 ft2/box on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -10924,36 +10924,40 @@ export const calculatorDetails: Record<string, any> = {
       "Grout and adhesive"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure Room 12x10 ft, 12 ft roll — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Carpet = ceil(Area / Roll width) * Length",
     "variables": [
       {
         "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "meaning": "Length*Width"
+      },
+      {
+        "symbol": "Roll",
+        "meaning": "12 ft wide standard"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "Room 12x10 ft, 12 ft roll",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "label": "Strips",
+          "value": "10 ft width /12 ft roll = 1 strip"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
+          "label": "Length",
+          "value": "12 ft *1 = 12 ft = 4 yd"
         },
         {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "With waste",
+          "value": "4.4 yd"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><p class='text-sm'>Carpet rolls 12 ft wide, seam in middle for >12 ft. Add 10% pattern waste.</p>",
     "materialInfo": "Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.",
     "wasteInfo": "Add 10% for straight, 15% for diagonal or large tile. Pattern adds 20%.",
     "tips": [
@@ -10972,7 +10976,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for carpet?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure room 12x10 ft, 12 ft roll on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -10993,36 +10997,40 @@ export const calculatorDetails: Record<string, any> = {
       "Grout and adhesive"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure Room 12x10 ft, 12 ft roll — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Carpet = ceil(Area / Roll width) * Length",
     "variables": [
       {
         "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "meaning": "Length*Width"
+      },
+      {
+        "symbol": "Roll",
+        "meaning": "12 ft wide standard"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "Room 12x10 ft, 12 ft roll",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "label": "Strips",
+          "value": "10 ft width /12 ft roll = 1 strip"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
+          "label": "Length",
+          "value": "12 ft *1 = 12 ft = 4 yd"
         },
         {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "With waste",
+          "value": "4.4 yd"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><p class='text-sm'>Carpet rolls 12 ft wide, seam in middle for >12 ft. Add 10% pattern waste.</p>",
     "materialInfo": "Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.",
     "wasteInfo": "Add 10% for straight, 15% for diagonal or large tile. Pattern adds 20%.",
     "tips": [
@@ -11041,7 +11049,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for carpet cost?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure room 12x10 ft, 12 ft roll on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -11131,36 +11139,40 @@ export const calculatorDetails: Record<string, any> = {
       "Grout and adhesive"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure Room 12x10 ft, tile 12x12 in, grout 1/8 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Tiles = ceil(Area / Tile area) + Waste",
     "variables": [
       {
         "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "meaning": "Floor area ft2"
+      },
+      {
+        "symbol": "Tile area",
+        "meaning": "(W*H)/144 ft2"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "Room 12x10 ft, tile 12x12 in, grout 1/8 in",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "label": "Tile + grout",
+          "value": "12.125*12.125 = 147 in2 = 1.02 ft2"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
+          "label": "Tiles",
+          "value": "120/1.02 = 117.6 -> 118"
         },
         {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "With 10% waste",
+          "value": "130 tiles"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><p class='text-sm'>12x12 tile ~1 ft2, 6x6 ~0.25 ft2. Add 15% for diagonal.</p>",
     "materialInfo": "Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.",
     "wasteInfo": "Add 10% for straight, 15% for diagonal or large tile. Pattern adds 20%.",
     "tips": [
@@ -11179,7 +11191,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for tile quantity?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure room 12x10 ft, tile 12x12 in, grout 1/8 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -11200,36 +11212,40 @@ export const calculatorDetails: Record<string, any> = {
       "Grout and adhesive"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure Room 12x10 ft, tile 12x12 in, grout 1/8 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Tiles = ceil(Area / Tile area) + Waste",
     "variables": [
       {
         "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "meaning": "Floor area ft2"
+      },
+      {
+        "symbol": "Tile area",
+        "meaning": "(W*H)/144 ft2"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "Room 12x10 ft, tile 12x12 in, grout 1/8 in",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "label": "Tile + grout",
+          "value": "12.125*12.125 = 147 in2 = 1.02 ft2"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
+          "label": "Tiles",
+          "value": "120/1.02 = 117.6 -> 118"
         },
         {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "With 10% waste",
+          "value": "130 tiles"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><p class='text-sm'>12x12 tile ~1 ft2, 6x6 ~0.25 ft2. Add 15% for diagonal.</p>",
     "materialInfo": "Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.",
     "wasteInfo": "Add 10% for straight, 15% for diagonal or large tile. Pattern adds 20%.",
     "tips": [
@@ -11248,7 +11264,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for tile cost?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure room 12x10 ft, tile 12x12 in, grout 1/8 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -11269,36 +11285,40 @@ export const calculatorDetails: Record<string, any> = {
       "Grout and adhesive"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure Room 12x10 ft, tile 12x12 in, grout 1/8 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Tiles = ceil(Area / Tile area) + Waste",
     "variables": [
       {
         "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "meaning": "Floor area ft2"
+      },
+      {
+        "symbol": "Tile area",
+        "meaning": "(W*H)/144 ft2"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "Room 12x10 ft, tile 12x12 in, grout 1/8 in",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "label": "Tile + grout",
+          "value": "12.125*12.125 = 147 in2 = 1.02 ft2"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
+          "label": "Tiles",
+          "value": "120/1.02 = 117.6 -> 118"
         },
         {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "With 10% waste",
+          "value": "130 tiles"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.</p><p class='text-sm'>12x12 tile ~1 ft2, 6x6 ~0.25 ft2. Add 15% for diagonal.</p>",
     "materialInfo": "Tile 12x12 in = 1 ft2, 6.8 per ft2 with grout. Hardwood 20 ft2 per box. Carpet 12 ft wide rolls.",
     "wasteInfo": "Add 10% for straight, 15% for diagonal or large tile. Pattern adds 20%.",
     "tips": [
@@ -11317,7 +11337,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for tile grout?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure room 12x10 ft, tile 12x12 in, grout 1/8 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -11626,36 +11646,40 @@ export const calculatorDetails: Record<string, any> = {
       "Insulation batts with waste"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure Room 12x10 ft, 8 ft high, door 21 ft2 — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Sheets = ceil(Wall area / 32 ft2) + Waste",
     "variables": [
       {
-        "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "symbol": "Wall area",
+        "meaning": "Perimeter*Height - openings"
+      },
+      {
+        "symbol": "Sheet",
+        "meaning": "4x8 =32 ft2"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "Room 12x10 ft, 8 ft high, door 21 ft2",
       "steps": [
         {
           "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "value": "352-21 =331 ft2"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
+          "label": "Sheets",
+          "value": "331/32 =10.34 ->11"
         },
         {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "With 10% waste",
+          "value": "12 sheets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.</p><p class='text-sm'>4x8 sheets 32 ft2, 4x12 is 48 ft2. Screws 28 per sheet, tape 500 ft/roll.</p>",
     "materialInfo": "Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.",
     "wasteInfo": "Add 10% for cuts and openings — 15% for vaulted ceilings.",
     "tips": [
@@ -11674,7 +11698,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for drywall sheet?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure room 12x10 ft, 8 ft high, door 21 ft2 on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -11695,36 +11719,40 @@ export const calculatorDetails: Record<string, any> = {
       "Insulation batts with waste"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure Room 12x10 ft, 8 ft high, door 21 ft2 — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Sheets = ceil(Wall area / 32 ft2) + Waste",
     "variables": [
       {
-        "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "symbol": "Wall area",
+        "meaning": "Perimeter*Height - openings"
+      },
+      {
+        "symbol": "Sheet",
+        "meaning": "4x8 =32 ft2"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "Room 12x10 ft, 8 ft high, door 21 ft2",
       "steps": [
         {
           "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "value": "352-21 =331 ft2"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
+          "label": "Sheets",
+          "value": "331/32 =10.34 ->11"
         },
         {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "With 10% waste",
+          "value": "12 sheets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.</p><p class='text-sm'>4x8 sheets 32 ft2, 4x12 is 48 ft2. Screws 28 per sheet, tape 500 ft/roll.</p>",
     "materialInfo": "Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.",
     "wasteInfo": "Add 10% for cuts and openings — 15% for vaulted ceilings.",
     "tips": [
@@ -11743,7 +11771,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for drywall cost?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure room 12x10 ft, 8 ft high, door 21 ft2 on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -12040,36 +12068,36 @@ export const calculatorDetails: Record<string, any> = {
       "Insulation batts with waste"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure 331 ft2 walls, 350 ft2/gal — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Gallons = ceil(Area / Coverage per gallon)",
     "variables": [
       {
         "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "meaning": "Wall area ft2"
+      },
+      {
+        "symbol": "Coverage",
+        "meaning": "350 ft2/gal paint, 300 primer"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "331 ft2 walls, 350 ft2/gal",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "label": "Coats",
+          "value": "331*2 coats =662 ft2"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
-        },
-        {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "Gallons",
+          "value": "662/350 =1.89 ->2 gal"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.</p><p class='text-sm'>Paint 350 ft2/gal, primer 300. Two coats always, dark colors may need 3.</p>",
     "materialInfo": "Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.",
     "wasteInfo": "Add 10% for cuts and openings — 15% for vaulted ceilings.",
     "tips": [
@@ -12088,7 +12116,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for paint coverage?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure 331 ft2 walls, 350 ft2/gal on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -12109,36 +12137,36 @@ export const calculatorDetails: Record<string, any> = {
       "Insulation batts with waste"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure 331 ft2 walls, 350 ft2/gal — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Gallons = ceil(Area / Coverage per gallon)",
     "variables": [
       {
         "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "meaning": "Wall area ft2"
+      },
+      {
+        "symbol": "Coverage",
+        "meaning": "350 ft2/gal paint, 300 primer"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "331 ft2 walls, 350 ft2/gal",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "label": "Coats",
+          "value": "331*2 coats =662 ft2"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
-        },
-        {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "Gallons",
+          "value": "662/350 =1.89 ->2 gal"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.</p><p class='text-sm'>Paint 350 ft2/gal, primer 300. Two coats always, dark colors may need 3.</p>",
     "materialInfo": "Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.",
     "wasteInfo": "Add 10% for cuts and openings — 15% for vaulted ceilings.",
     "tips": [
@@ -12157,7 +12185,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for paint cost?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure 331 ft2 walls, 350 ft2/gal on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -12178,48 +12206,36 @@ export const calculatorDetails: Record<string, any> = {
       "Insulation batts with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure 331 ft2 walls, 350 ft2/gal — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Gallons = ceil(Area / Coverage per gallon)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Area",
+        "meaning": "Wall area ft2"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Coverage",
+        "meaning": "350 ft2/gal paint, 300 primer"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "331 ft2 walls, 350 ft2/gal",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Coats",
+          "value": "331*2 coats =662 ft2"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
-        },
-        {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "Gallons",
+          "value": "662/350 =1.89 ->2 gal"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.</p><p class='text-sm'>Paint 350 ft2/gal, primer 300. Two coats always, dark colors may need 3.</p>",
     "materialInfo": "Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.",
     "wasteInfo": "Add 10% for cuts and openings — 15% for vaulted ceilings.",
     "tips": [
@@ -12238,7 +12254,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for primer?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure 331 ft2 walls, 350 ft2/gal on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -12397,36 +12413,36 @@ export const calculatorDetails: Record<string, any> = {
       "Insulation batts with waste"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure Attic 1000 ft2, R30, 25 ft2/bag — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Bags = ceil(Area / Coverage per bag)",
     "variables": [
       {
         "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "meaning": "Attic area ft2"
+      },
+      {
+        "symbol": "Coverage",
+        "meaning": "R-value dependent, e.g., R30 25 ft2/bag"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "Attic 1000 ft2, R30, 25 ft2/bag",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "label": "Bags",
+          "value": "1000/25 =40"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
-        },
-        {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "With waste",
+          "value": "44 bags"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.</p><p class='text-sm'>R13 40 ft2/bag, R19 30 ft2/bag, R30 25 ft2/bag. Blown-in settles 10%.</p>",
     "materialInfo": "Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.",
     "wasteInfo": "Add 10% for cuts and openings — 15% for vaulted ceilings.",
     "tips": [
@@ -12445,7 +12461,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for insulation?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure attic 1000 ft2, r30, 25 ft2/bag on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -12466,36 +12482,36 @@ export const calculatorDetails: Record<string, any> = {
       "Insulation batts with waste"
     ],
     "howToUse": [
-      "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
+      "Measure Attic 1000 ft2, R30, 25 ft2/bag — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Quantity = Area / Coverage per unit",
+    "formula": "Bags = ceil(Area / Coverage per bag)",
     "variables": [
       {
         "symbol": "Area",
-        "meaning": "Length x Width in ft2"
+        "meaning": "Attic area ft2"
+      },
+      {
+        "symbol": "Coverage",
+        "meaning": "R-value dependent, e.g., R30 25 ft2/bag"
       }
     ],
     "example": {
-      "inputs": "Room 12x10 ft, height 8 ft",
+      "inputs": "Attic 1000 ft2, R30, 25 ft2/bag",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "2x(12x8)+2x(10x8)=352 ft2"
+          "label": "Bags",
+          "value": "1000/25 =40"
         },
         {
-          "label": "Less openings",
-          "value": "-21 ft2 door =331 ft2"
-        },
-        {
-          "label": "Gallons @350 ft2/gal",
-          "value": "ceil(331/350)=1"
+          "label": "With waste",
+          "value": "44 bags"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.</p><p class='text-sm'>R13 40 ft2/bag, R19 30 ft2/bag, R30 25 ft2/bag. Blown-in settles 10%.</p>",
     "materialInfo": "Drywall 4x8, screws 28 per sheet, tape 500 ft per roll. Paint 350 ft2/gal, primer 300. Spray foam 1 in = R6.",
     "wasteInfo": "Add 10% for cuts and openings — 15% for vaulted ceilings.",
     "tips": [
@@ -12514,7 +12530,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for insulation cost?",
-        "a": "Measure room 12x10 ft, height 8 ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure attic 1000 ft2, r30, 25 ft2/bag on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",

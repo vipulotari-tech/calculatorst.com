@@ -348,6 +348,63 @@ for(const c of hub){
       {label:"Roof area",value:"1,419x1.118 = 1,586 ft2"},
       {label:"Squares",value:"15.86 sq"},
     ];
+  } else if(name.includes("Tile Quantity")||name.includes("Tile Cost")||name.includes("Tile Grout")){
+    formula="Tiles = ceil(Area / Tile area) + Waste";
+    vars=[{symbol:"Area",meaning:"Floor area ft2"},{symbol:"Tile area",meaning:"(W*H)/144 ft2"}];
+    exampleInputs="Room 12x10 ft, tile 12x12 in, grout 1/8 in";
+    exampleSteps=[
+      {label:"Tile + grout",value:"12.125*12.125 = 147 in2 = 1.02 ft2"},
+      {label:"Tiles",value:"120/1.02 = 117.6 -> 118"},
+      {label:"With 10% waste",value:"130 tiles"},
+    ];
+    construction="<p class='text-sm'>12x12 tile ~1 ft2, 6x6 ~0.25 ft2. Add 15% for diagonal.</p>";
+  } else if(name.includes("Hardwood")||name.includes("Laminate")||name.includes("Vinyl")){
+    formula="Boxes = ceil(Area / Coverage per box)";
+    vars=[{symbol:"Area",meaning:"Floor area ft2"},{symbol:"Coverage",meaning:"20-30 ft2 per box"}];
+    exampleInputs="Room 12x10 ft =120 ft2, coverage 20 ft2/box";
+    exampleSteps=[
+      {label:"Boxes",value:"120/20 = 6"},
+      {label:"With 10% waste",value:"7 boxes"},
+    ];
+    construction="<p class='text-sm'>Acclimate wood 72h. Stagger joints 6 in, waste 10% straight, 15% diagonal.</p>";
+  } else if(name.includes("Carpet Cost")||name.includes("Carpet")){
+    formula="Carpet = ceil(Area / Roll width) * Length";
+    vars=[{symbol:"Area",meaning:"Length*Width"},{symbol:"Roll",meaning:"12 ft wide standard"}];
+    exampleInputs="Room 12x10 ft, 12 ft roll";
+    exampleSteps=[
+      {label:"Strips",value:"10 ft width /12 ft roll = 1 strip"},
+      {label:"Length",value:"12 ft *1 = 12 ft = 4 yd"},
+      {label:"With waste",value:"4.4 yd"},
+    ];
+    construction="<p class='text-sm'>Carpet rolls 12 ft wide, seam in middle for >12 ft. Add 10% pattern waste.</p>";
+  } else if(name.includes("Drywall Sheet")||name.includes("Drywall Cost")){
+    formula="Sheets = ceil(Wall area / 32 ft2) + Waste";
+    vars=[{symbol:"Wall area",meaning:"Perimeter*Height - openings"},{symbol:"Sheet",meaning:"4x8 =32 ft2"}];
+    exampleInputs="Room 12x10 ft, 8 ft high, door 21 ft2";
+    exampleSteps=[
+      {label:"Wall area",value:"352-21 =331 ft2"},
+      {label:"Sheets",value:"331/32 =10.34 ->11"},
+      {label:"With 10% waste",value:"12 sheets"},
+    ];
+    construction="<p class='text-sm'>4x8 sheets 32 ft2, 4x12 is 48 ft2. Screws 28 per sheet, tape 500 ft/roll.</p>";
+  } else if(name.includes("Paint Coverage")||name.includes("Paint Cost")||name.includes("Primer")){
+    formula="Gallons = ceil(Area / Coverage per gallon)";
+    vars=[{symbol:"Area",meaning:"Wall area ft2"},{symbol:"Coverage",meaning:"350 ft2/gal paint, 300 primer"}];
+    exampleInputs="331 ft2 walls, 350 ft2/gal";
+    exampleSteps=[
+      {label:"Coats",value:"331*2 coats =662 ft2"},
+      {label:"Gallons",value:"662/350 =1.89 ->2 gal"},
+    ];
+    construction="<p class='text-sm'>Paint 350 ft2/gal, primer 300. Two coats always, dark colors may need 3.</p>";
+  } else if(name.includes("Insulation Cost")||name.includes("Insulation")){
+    formula="Bags = ceil(Area / Coverage per bag)";
+    vars=[{symbol:"Area",meaning:"Attic area ft2"},{symbol:"Coverage",meaning:"R-value dependent, e.g., R30 25 ft2/bag"}];
+    exampleInputs="Attic 1000 ft2, R30, 25 ft2/bag";
+    exampleSteps=[
+      {label:"Bags",value:"1000/25 =40"},
+      {label:"With waste",value:"44 bags"},
+    ];
+    construction="<p class='text-sm'>R13 40 ft2/bag, R19 30 ft2/bag, R30 25 ft2/bag. Blown-in settles 10%.</p>";
   } else if(name.includes("Paint")||name.includes("Drywall")||name.includes("Flooring")||name.includes("Tile")||name.includes("Carpet")||name.includes("Insulation")){
     formula="Quantity = Area / Coverage per unit";
     vars=[{symbol:"Area",meaning:"Length x Width in ft2"}];
