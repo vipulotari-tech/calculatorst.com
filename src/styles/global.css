@@ -430,11 +430,46 @@ html.dark .mesh-gradient {
 html.dark .hero-premium {
   background-color: #0c0c0e;
   background-image:
-    radial-gradient(ellipse 1200px 600px at 50% -15%, rgba(100,140,255,0.04), transparent 68%),
-    radial-gradient(ellipse 900px 500px at 85% 18%, rgba(140,100,240,0.025), transparent 62%),
-    radial-gradient(ellipse 700px 450px at 15% 85%, rgba(60,180,120,0.015), transparent 65%),
+    radial-gradient(ellipse 1400px 700px at 20% -10%, rgba(253,186,116,0.07), transparent 60%),
+    radial-gradient(ellipse 1000px 500px at 90% -5%, rgba(251,146,60,0.055), transparent 58%),
+    radial-gradient(ellipse 1200px 600px at 50% -15%, rgba(100,140,255,0.035), transparent 68%),
+    radial-gradient(ellipse 900px 500px at 85% 18%, rgba(140,100,240,0.022), transparent 62%),
+    radial-gradient(ellipse 700px 450px at 15% 85%, rgba(60,180,120,0.012), transparent 65%),
     linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+}
+
+/* Premium dark sunlight — warm golden hour glow for luxury feel */
+html.dark body {
+  position: relative;
+}
+html.dark body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 1100px 750px at 12% -8%, rgba(253,186,116,0.09), transparent 58%),
+    radial-gradient(ellipse 900px 600px at 88% -6%, rgba(251,146,60,0.07), transparent 56%),
+    radial-gradient(ellipse 700px 500px at 50% 105%, rgba(251,191,36,0.045), transparent 65%),
+    radial-gradient(ellipse 600px 400px at 50% 50%, rgba(253,186,116,0.015), transparent 70%);
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.dark body::before {
+    animation: sunlightShift 22s ease-in-out infinite alternate;
+  }
+  @keyframes sunlightShift {
+    0% { opacity: 0.85; transform: translateY(0px) scale(1); }
+    100% { opacity: 1; transform: translateY(4px) scale(1.015); }
+  }
+}
+/* Luxury header sunlight reflection in dark */
+html.dark #site-header {
+  background: linear-gradient(180deg, rgba(253,186,116,0.06) 0%, transparent 100%), rgba(12,12,14,0.82);
+  border-color: rgba(255,255,255,0.06);
+  box-shadow: 0 1px 0 rgba(253,186,116,0.04), 0 4px 20px rgba(0,0,0,0.35);
 }
 
 /* Theme transition */
