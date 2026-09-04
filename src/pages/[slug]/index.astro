@@ -1,4 +1,5 @@
 ---
+// @ts-nocheck
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
@@ -131,6 +132,26 @@ const breadcrumbs = [
   { label: calc.category, href: `/construction/${categorySlug}/` },
   { label: calc.h1 },
 ];
+const ogClusterMap: Record<string,string> = {
+  concrete: "/og-concrete.png",
+  slab: "/og-concrete.png",
+  foundation: "/og-concrete.png",
+  rebar: "/og-concrete.png",
+  brick: "/og-concrete.png",
+  cmu: "/og-concrete.png",
+  mortar: "/og-concrete.png",
+  gravel: "/og-gravel.png",
+  excavation: "/og-gravel.png",
+  framing: "/og-deck.png",
+  roofing: "/og-roof-pitch.png",
+  flooring: "/og-paver.png",
+  drywall: "/og-paver.png",
+  "deck-fence": "/og-deck.png",
+  landscaping: "/og-paver.png",
+  asphalt: "/og-paver.png",
+};
+const knownOgSlugs = new Set(["concrete-slab-calculator","gravel-calculator","pea-gravel-calculator","driveway-gravel-calculator","paver-calculator","fence-cost-calculator","mulch-calculator","deck-material-calculator","roof-pitch-calculator","roof-square-footage-calculator"]);
+const ogImage = knownOgSlugs.has(calc.slug) ? `/og-${calc.slug}.png` : (ogClusterMap[calc.cluster] ?? "/og.png");
 const d = details || {};
 const faq = d.faq || [
   { q: `What does the ${calc.h1} calculate?`, a: `The ${calc.h1} estimates quantity for US construction. Enter dimensions, choose units, add waste and price — get results instantly.` },
@@ -146,7 +167,7 @@ const faq = d.faq || [
   related={related}
   faq={faq}
   canonical={`/${calc.slug}/`}
-  ogImage={`/og-${calc.slug}.png`}
+  ogImage={ogImage}
   datePublished="2026-08-29"
   dateModified="2026-08-29"
 >

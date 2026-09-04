@@ -32,10 +32,10 @@ const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.
   <Header />
   <main id="main" tabindex="-1">
 <!-- Hero — premium, calm, editorial -->
-    <section class="relative isolate overflow-hidden min-h-[620px] bg-[var(--bg-premium)] dark:bg-[var(--bg-premium-dark)]" aria-labelledby="hero-heading">
+    <section class="relative isolate overflow-hidden min-h-[620px] bg-[#fcfcfc] dark:bg-[#0f0f0f]" aria-labelledby="hero-heading">
       <!-- Subtle architectural grid pattern -->
       <div class="pointer-events-none absolute inset-0 opacity-[0.02] dark:opacity-[0.04]" style="background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 64px 64px;" aria-hidden="true"></div>
-      <div class="pointer-events-none absolute inset-0" style="background: linear-gradient(180deg, var(--bg-gradient-top) 0%, var(--bg-gradient-center) 50%, var(--bg-gradient-bottom) 100%);" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute inset-0" style="background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, #f5f0ec 100%);" aria-hidden="true"></div>
       <!-- Soft radial accents -->
       <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse 800px 400px at 30% 20%, rgba(255,255,240,0.08) 0%, transparent 50%);" aria-hidden="true"></div>
       <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse 800px 400px at 90% 30%, rgba(245,245,255,0.07) 0%, transparent 50%);" aria-hidden="true"></div>
@@ -43,13 +43,13 @@ const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.
       <div class="relative mx-auto max-w-[1400px] px-6 py-[56px] sm:py-[72px] lg:py-[88px] max-md:px-4">
         <div class="mx-auto max-w-[720px] text-center">
           <!-- Eyebrow -->
-          <p class="inline-flex items-center justify-center gap-2 font-mono text-[11px] font-medium tracking-[0.14em] uppercase text-mite sm:text-[12px]">
+          <p class="inline-flex items-center justify-center gap-2 font-mono text-[11px] font-medium tracking-[0.14em] uppercase text-mute sm:text-[12px]">
             <span class="hidden h-px w-6 bg-hairline sm:inline-block" aria-hidden="true"></span>
             Construction & Home Improvement
             <span class="hidden h-px w-6 bg-hairline sm:inline-block" aria-hidden="true"></span>
           </p>
           <!-- Headline — editorial, not oversized -->
-          <h1 id="hero-heading" class="mx-auto mt-4 max-w-[640px] text-[32px] font-[600] leading-[1.05] tracking-[-0.02em] text-[var(--text-primary)] [text-wrap:balance] sm:text-[40px] sm:leading-[1.1] lg:text-[44px]">
+          <h1 id="hero-heading" class="mx-auto mt-4 max-w-[640px] text-[32px] font-[600] leading-[1.05] tracking-[-0.02em] text-ink [text-wrap:balance] sm:text-[40px] sm:leading-[1.1] lg:text-[44px]">
             Construction & Home<br class="hidden sm:block" /> Improvement Calculators
           </h1>
           <p class="mx-auto mt-4 max-w-[520px] text-[15px] leading-6 text-body [text-wrap:pretty] sm:text-[15.5px] sm:leading-[26px]">
@@ -70,30 +70,29 @@ const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.
                 autocomplete="off"
                 spellcheck="false"
                 name="q"
-                class="h-[52px] w-full rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] py-0 pl-[52px] pr-5 text-[14px] font-[450] tracking-[-0.01em] text-[var(--text-primary)] shadow-inset placeholder:text-mute/60 placeholder:font-normal focus:border-[var(--border-focus)] focus:shadow-inset-focus focus:outline-none focus-visible:outline-none sm:h-[56px] sm:pl-[54px] sm:text-[15px] dark:bg-[var(--input-bg-dark)] dark:border-[var(--border-color-dark)] dark:placeholder:text-mute dark:focus:border-[var(--border-focus-dark)]"
-                style="--bg-premium: linear-gradient(180deg, #faf6f0 0%, #f5f0ec 100%); --bg-gradient-top: rgba(255,255,255,0.8) 0%, rgba(250,246,240,0.6) 100%; --bg-gradient-center: #ffffff 0%, #f5f0ec 100%; --bg-gradient-bottom: #fcfcfc 0%, #f5f0ec 100%; --bg-premium-dark: linear-gradient(180deg, #0d0d0d 0%, #141414 100%); --bg-gradient-top-dark: rgba(15,15,15,0.8) 0%, rgba(18,18,18,0.6) 100%; --bg-gradient-center-dark: #0a0a0a 0%, #121212 100%; --bg-gradient-bottom-dark: #111111 0%, #141414 100%; --border-color: #c9c8c5; --border-color-dark: #3f3f3f; --border-focus: rgba(59,130,246,0.25); --border-focus-dark: rgba(59,130,246,0.4); --text-primary: #0f0f0f; --text-secondary: #3f3f3f; --text-mute: #6b6b6b; --input-bg: #ffffff; --input-bg-dark: #171717; --inset: 0 1px 2px rgba(0,0,0,0.04); --inset-dark: 0 1px 3px rgba(0,0,0,0.3);"
+                class="h-[52px] w-full rounded-lg border border-hairline bg-white py-0 pl-[52px] pr-5 text-[14px] font-[450] tracking-[-0.01em] text-ink shadow-sm placeholder:text-mute/60 placeholder:font-normal focus:border-link/20 focus:outline-none focus-visible:outline-none sm:h-[56px] sm:pl-[54px] sm:text-[15px] dark:bg-[#171717] dark:border-white/10 dark:placeholder:text-mute dark:focus:border-white/20"
               />
             </div>
             <!-- Premium command results -->
-            <div id="hero-search-results" class="mt-3 hidden overflow-hidden rounded-lg border border-border-background bg-[var(--result-bg)] text-left shadow-sm dark:bg-[var(--result-bg-dark)]" role="listbox" aria-label="Search results"></div>
+            <div id="hero-search-results" class="mt-3 hidden overflow-hidden rounded-lg border border-hairline bg-white text-left shadow-sm dark:bg-[#1f1f1f] dark:border-white/10" role="listbox" aria-label="Search results"></div>
 
             <!-- Subtle suggestions -->
             <div class="mt-3 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1.5">
-              <span class="font-mono text-[10px] tracking-wide text-mite">Try —</span>
-              <a href="/concrete-slab-calculator/" class="inline-flex items-center rounded border border-border-background bg-chip hover:bg-chip-hover text-[10px] font-medium tracking-wide text-[var(--text-mute)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:hover:bg-[var(--chip-hover-dark)] dark:text-[var(--text-dark)]">Concrete Slab</a>
+              <span class="font-mono text-[10px] tracking-wide text-mute">Try —</span>
+              <a href="/concrete-slab-calculator/" class="inline-flex items-center rounded-full border border-hairline bg-white px-2.5 py-1 text-[10px] font-medium tracking-wide text-mute hover:bg-canvas-soft hover:text-ink transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-white/[0.06] dark:border-white/10 dark:text-mute dark:hover:bg-white/[0.10]">Concrete Slab</a>
               <span class="text-hairline" aria-hidden="true">·</span>
-              <a href="/roof-pitch-calculator/" class="inline-flex items-center rounded border border-border-background bg-chip hover:bg-chip-hover text-[10px] font-medium tracking-wide text-[var(--text-mute)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:hover:bg-[var(--chip-hover-dark)] dark:text-[var(--text-dark)]">Roof Pitch</a>
+              <a href="/roof-pitch-calculator/" class="inline-flex items-center rounded-full border border-hairline bg-white px-2.5 py-1 text-[10px] font-medium tracking-wide text-mute hover:bg-canvas-soft hover:text-ink transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-white/[0.06] dark:border-white/10 dark:text-mute dark:hover:bg-white/[0.10]">Roof Pitch</a>
               <span class="text-hairline" aria-hidden="true">·</span>
-              <a href="/gravel-calculator/" class="inline-flex items-center rounded border border-border-background bg-chip hover:bg-chip-hover text-[10px] font-medium tracking-wide text-[var(--text-mute)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:hover:bg-[var(--chip-hover-dark)] dark:text-[var(--text-dark)]">Gravel</a>
+              <a href="/gravel-calculator/" class="inline-flex items-center rounded-full border border-hairline bg-white px-2.5 py-1 text-[10px] font-medium tracking-wide text-mute hover:bg-canvas-soft hover:text-ink transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-white/[0.06] dark:border-white/10 dark:text-mute dark:hover:bg-white/[0.10]">Gravel</a>
               <span class="text-hairline" aria-hidden="true">·</span>
-              <a href="/fence-calculator/" class="inline-flex items-center rounded border border-border-background bg-chip hover:bg-chip-hover text-[10px] font-medium tracking-wide text-[var(--text-mute)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:hover:bg-[var(--chip-hover-dark)] dark:text-[var(--text-dark)]">Fence</a>
+              <a href="/fence-calculator/" class="inline-flex items-center rounded-full border border-hairline bg-white px-2.5 py-1 text-[10px] font-medium tracking-wide text-mute hover:bg-canvas-soft hover:text-ink transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-white/[0.06] dark:border-white/10 dark:text-mute dark:hover:bg-white/[0.10]">Fence</a>
               <span class="text-hairline" aria-hidden="true">·</span>
-              <a href="/deck-calculator/" class="inline-flex items-center rounded border border-border-background bg-chip hover:bg-chip-hover text-[10px] font-medium tracking-wide text-[var(--text-mute)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:hover:bg-[var(--chip-hover-dark)] dark:text-[var(--text-dark)]">Deck</a>
+              <a href="/deck-calculator/" class="inline-flex items-center rounded-full border border-hairline bg-white px-2.5 py-1 text-[10px] font-medium tracking-wide text-mute hover:bg-canvas-soft hover:text-ink transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-white/[0.06] dark:border-white/10 dark:text-mute dark:hover:bg-white/[0.10]">Deck</a>
             </div>
 
             <!-- Single secondary action -->
             <div class="mt-5 flex justify-center">
-              <a href="/calculators/" class="group inline-flex items-center gap-1.5 font-mono text-[10px] font-medium tracking-wide text-[var(--text-mute)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">
+              <a href="/calculators/" class="group inline-flex items-center gap-1.5 font-mono text-[10px] font-medium tracking-wide text-mute hover:text-ink transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">
                 Browse all calculators
                 <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span>
               </a>
@@ -101,7 +100,7 @@ const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.
           </div>
 
           <!-- Quiet proof line — not cards -->
-          <p class="mt-6 font-mono text-[10px] tracking-wide text-mite/60">
+          <p class="mt-6 font-mono text-[10px] tracking-wide text-mute/60">
             Free · No sign-up · US units · Works offline
           </p>
         </div>
@@ -248,6 +247,9 @@ const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.
       url: `/${c.slug}/`,
       hay: `${c.h1} ${c.title} ${c.description} ${c.category} ${c.cluster} ${c.slug} ${(c.keywords||[]).join(" ")}`.toLowerCase()
     }));
+    function escapeHtml(str){
+      return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+    }
     function score(query, hay){
       const terms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
       // intent: all terms must be present somewhere in hay (AND), with bonus for h1/slug
@@ -266,7 +268,7 @@ const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.
       if (!q || !box) return;
       const hits = idx.map(x => ({...x, _s: score(q, x.hay)})).filter(x=>x._s>=0).sort((a,b)=>b._s-a._s).slice(0,6);
       if (!hits.length) { box.classList.add("hidden"); box.innerHTML=""; return; }
-      box.innerHTML = hits.map(h => `<a href="${h.url}" class="group flex items-center gap-3 px-4 py-3.5 border-b last:border-0 border-hairline transition hover:bg-[#fcfcfc] dark:hover:bg-white/[0.04]" role="option"><span class="hidden h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-hairline bg-[#fcfcfc] text-mute group-hover:text-ink sm:inline-flex" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M11.2 11.2L13.8 13.8M12.3 7.3a4.95 4.95 0 1 1-9.9 0 4.95 4.95 0 0 1 9.9 0Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg></span><div class="min-w-0 flex-1"><p class="truncate text-[13.5px] font-medium tracking-[-0.01em] text-ink">${h.h1}</p><p class="mt-0.5 flex items-center gap-1.5 truncate font-mono text-[11px]"><span class="rounded bg-canvas-soft px-1.5 py-0.5 ring-1 ring-hairline text-mute">${h.cat}</span><span class="truncate text-body hidden sm:inline">${h.desc.slice(0,62)}</span></p></div><span class="shrink-0 font-mono text-[11px] text-mute transition group-hover:text-ink">→</span></a>`).join("") + `<a href="/calculators/?q=${encodeURIComponent(q)}" class="flex items-center justify-center gap-1.5 bg-[#fcfcfc] px-4 py-2.5 font-mono text-[11px] tracking-wide text-mute hover:text-ink dark:bg-white/[0.03]">View all results for “${q.slice(0,24)}” <span aria-hidden="true">→</span></a>`;
+      box.innerHTML = hits.map(h => `<a href="${h.url}" class="group flex items-center gap-3 px-4 py-3.5 border-b last:border-0 border-hairline transition hover:bg-[#fcfcfc] dark:hover:bg-white/[0.04]" role="option"><span class="hidden h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-hairline bg-[#fcfcfc] text-mute group-hover:text-ink sm:inline-flex" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M11.2 11.2L13.8 13.8M12.3 7.3a4.95 4.95 0 1 1-9.9 0 4.95 4.95 0 0 1 9.9 0Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg></span><div class="min-w-0 flex-1"><p class="truncate text-[13.5px] font-medium tracking-[-0.01em] text-ink">${escapeHtml(h.h1)}</p><p class="mt-0.5 flex items-center gap-1.5 truncate font-mono text-[11px]"><span class="rounded bg-canvas-soft px-1.5 py-0.5 ring-1 ring-hairline text-mute">${escapeHtml(h.cat)}</span><span class="truncate text-body hidden sm:inline">${escapeHtml(h.desc.slice(0,62))}</span></p></div><span class="shrink-0 font-mono text-[11px] text-mute transition group-hover:text-ink">→</span></a>`).join("") + `<a href="/calculators/?q=${encodeURIComponent(q)}" class="flex items-center justify-center gap-1.5 bg-[#fcfcfc] px-4 py-2.5 font-mono text-[11px] tracking-wide text-mute hover:text-ink dark:bg-white/[0.03]">View all results for “${escapeHtml(q.slice(0,24))}” <span aria-hidden="true">→</span></a>`;
       box.classList.remove("hidden");
     }
     if (input) {

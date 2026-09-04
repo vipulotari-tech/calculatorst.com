@@ -1,5 +1,7 @@
 import type { APIRoute } from "astro";
 
+export const prerender = true;
+
 const site = "https://calculatorst.com";
 
 export const GET: APIRoute = () => {

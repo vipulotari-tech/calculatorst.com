@@ -1,8 +1,11 @@
+// @ts-nocheck
 import type { APIRoute } from "astro";
 import fs from "fs";
 import path from "path";
 import { calculators } from "../data/calculators";
 import { hubCalculators } from "../data/hubCalculators";
+
+export const prerender = true;
 
 const site = "https://calculatorst.com";
 

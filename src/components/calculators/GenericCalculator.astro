@@ -157,54 +157,63 @@ const resultsId = `${id}-results`;
     let primary = "—", secondary = "—", breakdown = "", costText = "—";
 
     try {
-      // Generic dispatcher — covers the calculator library
+      // Collect all inputs converted to feet using their actual unit selectors
+      const converted = inputs.map(inp => {
+        const v = vals[inp.id];
+        const unitSel = $(`${id}-${inp.id}-unit`);
+        const unit = unitSel ? unitSel.value : (inp.unit || "ft");
+        return toFeet(v, unit);
+      }).filter(v => isFinite(v) && v>0);
+
       if (formulaKey === "volume") {
-        // expects inputs: length, width, depth/thickness
-        const L = toFeet(vals.length ?? vals.length1 ?? vals.l ?? 0, $(`${id}-length-unit`)?.value || "ft");
-        const W = toFeet(vals.width ?? vals.width1 ?? vals.w ?? 0, $(`${id}-width-unit`)?.value || "ft");
-        const D = toFeet(vals.depth ?? vals.thickness ?? vals.height ?? vals.depth1 ?? 0, $(`${id}-depth-unit`)?.value || $(`${id}-thickness-unit`)?.value || $(`${id}-height-unit`)?.value || "in");
-        // Handle alternative IDs like slab thickness
-        const lenVal = vals.length ?? vals.length1 ?? vals.wall_length ?? vals.slab_length ?? Object.values(vals)[0];
-        const widVal = vals.width ?? vals.width1 ?? vals.wall_height ?? vals.slab_width ?? Object.values(vals)[1] ?? 10;
-        const depVal = vals.depth ?? vals.thickness ?? vals.height ?? vals.depth1 ?? vals.slab_thickness ?? Object.values(vals)[2] ?? 4;
-        // Fallback to toFeet with first 3 inputs if specific not found
-        const Lf = toFeet(lenVal, $(`${id}-${Object.keys(vals)[0]}-unit`)?.value || "ft");
-        const Wf = toFeet(widVal, $(`${id}-${Object.keys(vals)[1]}-unit`)?.value || "ft");
-        const Df = toFeet(depVal, $(`${id}-${Object.keys(vals)[2]}-unit`)?.value || "in");
-        const cuFt = Lf * Wf * Df;
+        const cuFt = converted.reduce((a,b)=>a*b,1);
         const cuYd = cuFt / 27;
         const cuYdW = cuYd * wasteF;
+        const cuFtW = cuFt * wasteF;
         primary = `${fmt(cuYdW)} yd³`;
-        secondary = `${fmt(cuFt*wasteF)} ft³ with ${waste}% waste`;
-        breakdown = `<div><p class="font-mono text-[11px] text-mute">Cubic yards</p><p class="font-semibold tabular-nums">${fmt(cuYd)} → ${fmt(cuYdW)} w/ waste</p></div><div><p class="font-mono text-[11px] text-mute">Cubic feet</p><p class="font-semibold tabular-nums">${fmt(cuFt)} → ${fmt(cuFt*wasteF)}</p></div><div><p class="font-mono text-[11px] text-mute">Waste</p><p class="font-semibold">${waste}%</p></div>`;
+        secondary = `${fmt(cuFtW)} ft³ with ${waste}% waste`;
+        breakdown = `<div><p class="font-mono text-[11px] text-mute">Cubic yards</p><p class="font-semibold tabular-nums">${fmt(cuYd)} → ${fmt(cuYdW)} w/ waste</p></div><div><p class="font-mono text-[11px] text-mute">Cubic feet</p><p class="font-semibold tabular-nums">${fmt(cuFt)} → ${fmt(cuFtW)}</p></div><div><p class="font-mono text-[11px] text-mute">Waste</p><p class="font-semibold">${waste}%</p></div>`;
         if (isFinite(price) && price>0) {
-          const c = cuYdW * price;
-          costText = new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(c) + ` at ${fmt(price)}/yd³ incl. waste`;
+          let c;
+          let unitLabel = "/yd³";
+          if (priceUnit === "ton") {
+            c = cuYdW * 1.4 * price;
+            unitLabel = "/ton";
+          } else if (priceUnit === "unit") {
+            c = cuYdW * price;
+            unitLabel = "/yd³";
+          } else {
+            c = cuYdW * price;
+            unitLabel = priceUnit === "yd" ? "/yd³" : `/${priceUnit}`;
+          }
+          costText = new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(c) + ` at ${fmt(price)}${unitLabel} incl. waste`;
         }
       } else if (formulaKey === "area") {
-        const L = toFeet(vals.length ?? vals.wall_length ?? Object.values(vals)[0], $(`${id}-${Object.keys(vals)[0]}-unit`)?.value || "ft");
-        const W = toFeet(vals.width ?? vals.wall_height ?? Object.values(vals)[1], $(`${id}-${Object.keys(vals)[1]}-unit`)?.value || "ft");
-        const area = L * W;
+        const area = converted.slice(0,2).reduce((a,b)=>a*b,1);
         const areaW = area * wasteF;
         primary = `${fmt(areaW,1)} ft²`;
         secondary = `${fmt(area,1)} ft² + ${waste}% waste`;
         breakdown = `<div><p class="font-mono text-[11px] text-mute">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-mute">With waste</p><p class="font-semibold">${fmt(areaW,1)} ft²</p></div>`;
-        if (isFinite(price) && price>0) costText = fmtCurrency(areaW*price) + ` at ${fmt(price)}/ft²`;
+        if (isFinite(price) && price>0) {
+          const unitLabel = priceUnit === "ton" ? "/ton" : priceUnit === "yd" ? "/yd³" : "/ft²";
+          costText = fmtCurrency(areaW*price) + ` at ${fmt(price)}${unitLabel}`;
+        }
       } else if (formulaKey === "quantity") {
-        const areaVal = vals.area ?? vals.wall_area ?? Object.values(vals)[0];
-        const unitArea = 1; // placeholder
-        const qty = Math.ceil((areaVal * wasteF) / unitArea);
+        const area = converted.slice(0,2).reduce((a,b)=>a*b,1);
+        const areaW = area * wasteF;
+        const qty = Math.ceil(areaW);
         primary = `${fmt(qty,0)} units`;
-        secondary = `with ${waste}% waste`;
-        breakdown = `<div><p class="font-mono text-[11px] text-mute">Quantity</p><p class="font-semibold">${qty}</p></div>`;
+        secondary = `${fmt(area,1)} ft² + ${waste}% waste ≈ ${fmt(qty,0)} units`;
+        breakdown = `<div><p class="font-mono text-[11px] text-mute">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-mute">With waste</p><p class="font-semibold">${fmt(areaW,1)} ft²</p></div><div><p class="font-mono text-[11px] text-mute">Quantity</p><p class="font-semibold">${qty}</p></div>`;
+        if (isFinite(price) && price>0) {
+          costText = fmtCurrency(qty*price) + ` at ${fmt(price)}/unit`;
+        }
       } else {
-        // Fallback generic volume
-        const valsArr = Object.values(vals).filter(v=>isFinite(v) && v>0);
-        const product = valsArr.reduce((a,b)=>a*b,1);
-        const cuFt = product; // assume first 3 are L*W*D already in feet after toFeet approx
+        const product = converted.reduce((a,b)=>a*b,1);
         primary = `${fmt(product*wasteF)} units`;
         secondary = `Generic estimate with ${waste}% waste`;
         breakdown = `<div><p class="font-mono text-[11px] text-mute">Raw</p><p class="font-semibold">${fmt(product)}</p></div><div><p class="font-mono text-[11px] text-mute">With waste</p><p class="font-semibold">${fmt(product*wasteF)}</p></div>`;
+        if (isFinite(price) && price>0) costText = fmtCurrency(product*wasteF*price) + ` at ${fmt(price)}/unit`;
       }
     } catch (err) {
       primary = "Error — check inputs";
