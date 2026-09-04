@@ -2855,40 +2855,44 @@ export const calculatorDetails: Record<string, any> = {
       "Laps and chairs with waste"
     ],
     "howToUse": [
-      "Measure Wall 20 ft, spacing 16 in — use feet for length/width and inches for thickness where typical.",
+      "Measure 16 bars #4 x 20 ft, 0.668 lb/ft — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Rebar count = ceil(Length / Spacing) + 1",
+    "formula": "Weight = Count * Length * Weight per foot",
     "variables": [
       {
-        "symbol": "Length",
-        "meaning": "Total length in feet"
+        "symbol": "Count",
+        "meaning": "Rebar count"
       },
       {
-        "symbol": "Spacing",
-        "meaning": "On-center spacing in inches"
+        "symbol": "Length",
+        "meaning": "Length per bar"
+      },
+      {
+        "symbol": "lb/ft",
+        "meaning": "0.376 #3, 0.668 #4, 1.043 #5"
       }
     ],
     "example": {
-      "inputs": "Wall 20 ft, spacing 16 in",
+      "inputs": "16 bars #4 x 20 ft, 0.668 lb/ft",
       "steps": [
         {
-          "label": "Convert spacing",
-          "value": "16 in = 1.333 ft"
+          "label": "Total length",
+          "value": "16*20 = 320 ft"
         },
         {
-          "label": "Count",
-          "value": "ceil(20 /1.333)+1 = 16"
+          "label": "Weight",
+          "value": "320*0.668 = 213.8 lb = 0.107 tons"
         },
         {
-          "label": "With 10% waste",
-          "value": "18"
+          "label": "With waste",
+          "value": "0.118 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Rebar #3 (0.376 lb/ft), #4 (0.668), #5 (1.043). Epoxy-coated for corrosive soils. Laps 40x diameter per ACI 318.</p><p class='text-sm'>Rebar laps 40x diameter per ACI 318. Chairs every 4 ft hold cover.</p>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Rebar #3 (0.376 lb/ft), #4 (0.668), #5 (1.043). Epoxy-coated for corrosive soils. Laps 40x diameter per ACI 318.</p><p class='text-sm'>#4 rebar 0.668 lb/ft, #5 1.043 lb/ft. Add 5% for laps.</p>",
     "materialInfo": "Rebar #3 (0.376 lb/ft), #4 (0.668), #5 (1.043). Epoxy-coated for corrosive soils. Laps 40x diameter per ACI 318.",
     "wasteInfo": "Add 5% for cuts and laps — 10% for complex grids. Chairs every 4 ft.",
     "tips": [
@@ -2907,7 +2911,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for rebar weight?",
-        "a": "Measure wall 20 ft, spacing 16 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure 16 bars #4 x 20 ft, 0.668 lb/ft on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -3147,40 +3151,36 @@ export const calculatorDetails: Record<string, any> = {
       "Laps and chairs with waste"
     ],
     "howToUse": [
-      "Measure Wall 20 ft, spacing 16 in — use feet for length/width and inches for thickness where typical.",
+      "Measure 0.12 tons @ $1200/ton — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Rebar count = ceil(Length / Spacing) + 1",
+    "formula": "Cost = Weight (tons) * Price per ton",
     "variables": [
       {
-        "symbol": "Length",
-        "meaning": "Total length in feet"
+        "symbol": "Weight",
+        "meaning": "Tons with waste"
       },
       {
-        "symbol": "Spacing",
-        "meaning": "On-center spacing in inches"
+        "symbol": "Price",
+        "meaning": "$ per ton"
       }
     ],
     "example": {
-      "inputs": "Wall 20 ft, spacing 16 in",
+      "inputs": "0.12 tons @ $1200/ton",
       "steps": [
         {
-          "label": "Convert spacing",
-          "value": "16 in = 1.333 ft"
+          "label": "Weight",
+          "value": "0.107 tons +10% = 0.118 tons"
         },
         {
-          "label": "Count",
-          "value": "ceil(20 /1.333)+1 = 16"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "18"
+          "label": "Cost",
+          "value": "0.118*1200 = $141.60"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Rebar #3 (0.376 lb/ft), #4 (0.668), #5 (1.043). Epoxy-coated for corrosive soils. Laps 40x diameter per ACI 318.</p><p class='text-sm'>Rebar laps 40x diameter per ACI 318. Chairs every 4 ft hold cover.</p>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Rebar #3 (0.376 lb/ft), #4 (0.668), #5 (1.043). Epoxy-coated for corrosive soils. Laps 40x diameter per ACI 318.</p><p class='text-sm'>Rebar $900-1500/ton in 2026. Epoxy coated +15%.</p>",
     "materialInfo": "Rebar #3 (0.376 lb/ft), #4 (0.668), #5 (1.043). Epoxy-coated for corrosive soils. Laps 40x diameter per ACI 318.",
     "wasteInfo": "Add 5% for cuts and laps — 10% for complex grids. Chairs every 4 ft.",
     "tips": [
@@ -3199,7 +3199,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for rebar cost?",
-        "a": "Measure wall 20 ft, spacing 16 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure 0.12 tons @ $1200/ton on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -3751,44 +3751,36 @@ export const calculatorDetails: Record<string, any> = {
       "Waste-adjusted count and cost"
     ],
     "howToUse": [
-      "Measure Wall 20 ft x 8 ft, brick 7.5x2.25 in, joint 0.375 in — use feet for length/width and inches for thickness where typical.",
+      "Measure 1,193 bricks @ $0.65 each — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Bricks = Wall area / Brick area (including mortar joint)",
+    "formula": "Cost = Quantity * Price per unit",
     "variables": [
       {
-        "symbol": "Wall area",
-        "meaning": "Length x Height in ft2"
+        "symbol": "Qty",
+        "meaning": "Units with waste"
       },
       {
-        "symbol": "Brick area",
-        "meaning": "(Brick L + joint) x (Brick H + joint)"
+        "symbol": "Price",
+        "meaning": "$ per brick/block"
       }
     ],
     "example": {
-      "inputs": "Wall 20 ft x 8 ft, brick 7.5x2.25 in, joint 0.375 in",
+      "inputs": "1,193 bricks @ $0.65 each",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "160 ft2 = 23,040 in2"
+          "label": "Material",
+          "value": "1,193*0.65 = $775.45"
         },
         {
-          "label": "Brick + joint",
-          "value": "7.875x2.625 = 20.67 in2"
-        },
-        {
-          "label": "Bricks",
-          "value": "ceil(23,040/20.67)=1,115"
-        },
-        {
-          "label": "With 7% waste",
-          "value": "1,193"
+          "label": "With waste",
+          "value": "$814.22"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Standard brick 7.5x2.25 in, 6.8 per ft2 with 3/8 in joint. Mortar Type S 1:3, Type N 1:4. CMU 16x8 in face (1.125 per ft2).</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Standard brick 7.5x2.25 in, 6.8 per ft2 with 3/8 in joint. Mortar Type S 1:3, Type N 1:4. CMU 16x8 in face (1.125 per ft2).</p><p class='text-sm'>Brick $0.50-1.20, CMU $1.20-2.50 in 2026. Mortar extra $8-12/bag.</p>",
     "materialInfo": "Standard brick 7.5x2.25 in, 6.8 per ft2 with 3/8 in joint. Mortar Type S 1:3, Type N 1:4. CMU 16x8 in face (1.125 per ft2).",
     "wasteInfo": "Add 7% for cuts and breakage — 10% for arches or curves.",
     "tips": [
@@ -3807,7 +3799,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for brick cost?",
-        "a": "Measure wall 20 ft x 8 ft, brick 7.5x2.25 in, joint 0.375 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure 1,193 bricks @ $0.65 each on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -4290,44 +4282,36 @@ export const calculatorDetails: Record<string, any> = {
       "Waste-adjusted count and cost"
     ],
     "howToUse": [
-      "Measure Wall 20 ft x 8 ft, brick 7.5x2.25 in, joint 0.375 in — use feet for length/width and inches for thickness where typical.",
+      "Measure 1,193 bricks @ $0.65 each — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Bricks = Wall area / Brick area (including mortar joint)",
+    "formula": "Cost = Quantity * Price per unit",
     "variables": [
       {
-        "symbol": "Wall area",
-        "meaning": "Length x Height in ft2"
+        "symbol": "Qty",
+        "meaning": "Units with waste"
       },
       {
-        "symbol": "Brick area",
-        "meaning": "(Brick L + joint) x (Brick H + joint)"
+        "symbol": "Price",
+        "meaning": "$ per brick/block"
       }
     ],
     "example": {
-      "inputs": "Wall 20 ft x 8 ft, brick 7.5x2.25 in, joint 0.375 in",
+      "inputs": "1,193 bricks @ $0.65 each",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "160 ft2 = 23,040 in2"
+          "label": "Material",
+          "value": "1,193*0.65 = $775.45"
         },
         {
-          "label": "Brick + joint",
-          "value": "7.875x2.625 = 20.67 in2"
-        },
-        {
-          "label": "Bricks",
-          "value": "ceil(23,040/20.67)=1,115"
-        },
-        {
-          "label": "With 7% waste",
-          "value": "1,193"
+          "label": "With waste",
+          "value": "$814.22"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Standard brick 7.5x2.25 in, 6.8 per ft2 with 3/8 in joint. Mortar Type S 1:3, Type N 1:4. CMU 16x8 in face (1.125 per ft2).</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Standard brick 7.5x2.25 in, 6.8 per ft2 with 3/8 in joint. Mortar Type S 1:3, Type N 1:4. CMU 16x8 in face (1.125 per ft2).</p><p class='text-sm'>Brick $0.50-1.20, CMU $1.20-2.50 in 2026. Mortar extra $8-12/bag.</p>",
     "materialInfo": "Standard brick 7.5x2.25 in, 6.8 per ft2 with 3/8 in joint. Mortar Type S 1:3, Type N 1:4. CMU 16x8 in face (1.125 per ft2).",
     "wasteInfo": "Add 7% for cuts and breakage — 10% for arches or curves.",
     "tips": [
@@ -4346,7 +4330,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for masonry cost?",
-        "a": "Measure wall 20 ft x 8 ft, brick 7.5x2.25 in, joint 0.375 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure 1,193 bricks @ $0.65 each on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -4444,44 +4428,36 @@ export const calculatorDetails: Record<string, any> = {
       "Waste-adjusted count and cost"
     ],
     "howToUse": [
-      "Measure Wall 20 ft x 8 ft, brick 7.5x2.25 in, joint 0.375 in — use feet for length/width and inches for thickness where typical.",
+      "Measure 1,193 bricks x 4.3 lb — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Bricks = Wall area / Brick area (including mortar joint)",
+    "formula": "Weight = Quantity * Weight per unit",
     "variables": [
       {
-        "symbol": "Wall area",
-        "meaning": "Length x Height in ft2"
+        "symbol": "Qty",
+        "meaning": "Bricks/blocks with waste"
       },
       {
-        "symbol": "Brick area",
-        "meaning": "(Brick L + joint) x (Brick H + joint)"
+        "symbol": "Unit wt",
+        "meaning": "Brick 4.3 lb, CMU 28-43 lb"
       }
     ],
     "example": {
-      "inputs": "Wall 20 ft x 8 ft, brick 7.5x2.25 in, joint 0.375 in",
+      "inputs": "1,193 bricks x 4.3 lb",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "160 ft2 = 23,040 in2"
+          "label": "Weight",
+          "value": "1,193*4.3 = 5,130 lb = 2.57 tons"
         },
         {
-          "label": "Brick + joint",
-          "value": "7.875x2.625 = 20.67 in2"
-        },
-        {
-          "label": "Bricks",
-          "value": "ceil(23,040/20.67)=1,115"
-        },
-        {
-          "label": "With 7% waste",
-          "value": "1,193"
+          "label": "With waste",
+          "value": "2.70 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Standard brick 7.5x2.25 in, 6.8 per ft2 with 3/8 in joint. Mortar Type S 1:3, Type N 1:4. CMU 16x8 in face (1.125 per ft2).</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Standard brick 7.5x2.25 in, 6.8 per ft2 with 3/8 in joint. Mortar Type S 1:3, Type N 1:4. CMU 16x8 in face (1.125 per ft2).</p><p class='text-sm'>Standard brick 4.3 lb, queen 5.7 lb. CMU 28 lb (8in) to 43 lb (12in).</p>",
     "materialInfo": "Standard brick 7.5x2.25 in, 6.8 per ft2 with 3/8 in joint. Mortar Type S 1:3, Type N 1:4. CMU 16x8 in face (1.125 per ft2).",
     "wasteInfo": "Add 7% for cuts and breakage — 10% for arches or curves.",
     "tips": [
@@ -4500,7 +4476,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for brick weight?",
-        "a": "Measure wall 20 ft x 8 ft, brick 7.5x2.25 in, joint 0.375 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure 1,193 bricks x 4.3 lb on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -5153,44 +5129,36 @@ export const calculatorDetails: Record<string, any> = {
       "Reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Wall 20 ft x 8 ft, brick 7.5x2.25 in, joint 0.375 in — use feet for length/width and inches for thickness where typical.",
+      "Measure 1,193 bricks x 4.3 lb — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Bricks = Wall area / Brick area (including mortar joint)",
+    "formula": "Weight = Quantity * Weight per unit",
     "variables": [
       {
-        "symbol": "Wall area",
-        "meaning": "Length x Height in ft2"
+        "symbol": "Qty",
+        "meaning": "Bricks/blocks with waste"
       },
       {
-        "symbol": "Brick area",
-        "meaning": "(Brick L + joint) x (Brick H + joint)"
+        "symbol": "Unit wt",
+        "meaning": "Brick 4.3 lb, CMU 28-43 lb"
       }
     ],
     "example": {
-      "inputs": "Wall 20 ft x 8 ft, brick 7.5x2.25 in, joint 0.375 in",
+      "inputs": "1,193 bricks x 4.3 lb",
       "steps": [
         {
-          "label": "Wall area",
-          "value": "160 ft2 = 23,040 in2"
+          "label": "Weight",
+          "value": "1,193*4.3 = 5,130 lb = 2.57 tons"
         },
         {
-          "label": "Brick + joint",
-          "value": "7.875x2.625 = 20.67 in2"
-        },
-        {
-          "label": "Bricks",
-          "value": "ceil(23,040/20.67)=1,115"
-        },
-        {
-          "label": "With 7% waste",
-          "value": "1,193"
+          "label": "With waste",
+          "value": "2.70 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> CMU 16x8 in face, 8 in thick. Grout 0.5 ft3 per core. Mortar 0.02 yd3 per 100 blocks.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> CMU 16x8 in face, 8 in thick. Grout 0.5 ft3 per core. Mortar 0.02 yd3 per 100 blocks.</p><p class='text-sm'>Standard brick 4.3 lb, queen 5.7 lb. CMU 28 lb (8in) to 43 lb (12in).</p>",
     "materialInfo": "CMU 16x8 in face, 8 in thick. Grout 0.5 ft3 per core. Mortar 0.02 yd3 per 100 blocks.",
     "wasteInfo": "Add 5% for cuts and breakage — 7% for pilasters.",
     "tips": [
@@ -5209,7 +5177,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete block weight?",
-        "a": "Measure wall 20 ft x 8 ft, brick 7.5x2.25 in, joint 0.375 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure 1,193 bricks x 4.3 lb on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",

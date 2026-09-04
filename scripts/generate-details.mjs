@@ -253,6 +253,25 @@ for(const c of hub){
       {label:"With waste",value:"30.4 yd3"},
     ];
     construction="<p class='text-sm'>8 in walls typical for 8 ft height. Add rebar and grout per code.</p>";
+  } else if(name.includes("Rebar Weight")){
+    formula="Weight = Count * Length * Weight per foot";
+    vars=[{symbol:"Count",meaning:"Rebar count"},{symbol:"Length",meaning:"Length per bar"},{symbol:"lb/ft",meaning:"0.376 #3, 0.668 #4, 1.043 #5"}];
+    exampleInputs="16 bars #4 x 20 ft, 0.668 lb/ft";
+    exampleSteps=[
+      {label:"Total length",value:"16*20 = 320 ft"},
+      {label:"Weight",value:"320*0.668 = 213.8 lb = 0.107 tons"},
+      {label:"With waste",value:"0.118 tons"},
+    ];
+    construction="<p class='text-sm'>#4 rebar 0.668 lb/ft, #5 1.043 lb/ft. Add 5% for laps.</p>";
+  } else if(name.includes("Rebar Cost")){
+    formula="Cost = Weight (tons) * Price per ton";
+    vars=[{symbol:"Weight",meaning:"Tons with waste"},{symbol:"Price",meaning:"$ per ton"}];
+    exampleInputs="0.12 tons @ $1200/ton";
+    exampleSteps=[
+      {label:"Weight",value:"0.107 tons +10% = 0.118 tons"},
+      {label:"Cost",value:"0.118*1200 = $141.60"},
+    ];
+    construction="<p class='text-sm'>Rebar $900-1500/ton in 2026. Epoxy coated +15%.</p>";
   } else if(name.includes("Rebar")){
     formula="Rebar count = ceil(Length / Spacing) + 1";
     vars=[{symbol:"Length",meaning:"Total length in feet"},{symbol:"Spacing",meaning:"On-center spacing in inches"}];
@@ -263,6 +282,24 @@ for(const c of hub){
       {label:"With 10% waste",value:"18"},
     ];
     construction="<p class='text-sm'>Rebar laps 40x diameter per ACI 318. Chairs every 4 ft hold cover.</p>";
+  } else if(name.includes("Brick Weight")||name.includes("Block Weight")){
+    formula="Weight = Quantity * Weight per unit";
+    vars=[{symbol:"Qty",meaning:"Bricks/blocks with waste"},{symbol:"Unit wt",meaning:"Brick 4.3 lb, CMU 28-43 lb"}];
+    exampleInputs="1,193 bricks x 4.3 lb";
+    exampleSteps=[
+      {label:"Weight",value:"1,193*4.3 = 5,130 lb = 2.57 tons"},
+      {label:"With waste",value:"2.70 tons"},
+    ];
+    construction="<p class='text-sm'>Standard brick 4.3 lb, queen 5.7 lb. CMU 28 lb (8in) to 43 lb (12in).</p>";
+  } else if(name.includes("Brick Cost")||name.includes("Block Cost")||name.includes("Masonry Cost")){
+    formula="Cost = Quantity * Price per unit";
+    vars=[{symbol:"Qty",meaning:"Units with waste"},{symbol:"Price",meaning:"$ per brick/block"}];
+    exampleInputs="1,193 bricks @ $0.65 each";
+    exampleSteps=[
+      {label:"Material",value:"1,193*0.65 = $775.45"},
+      {label:"With waste",value:"$814.22"},
+    ];
+    construction="<p class='text-sm'>Brick $0.50-1.20, CMU $1.20-2.50 in 2026. Mortar extra $8-12/bag.</p>";
   } else if(name.includes("Brick")||name.includes("Masonry")||name.includes("CMU")||name.includes("Block")){
     formula="Bricks = Wall area / Brick area (including mortar joint)";
     vars=[{symbol:"Wall area",meaning:"Length x Height in ft2"},{symbol:"Brick area",meaning:"(Brick L + joint) x (Brick H + joint)"}];
