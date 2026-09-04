@@ -30,9 +30,10 @@ interface Props {
   ogImage?: string;
   datePublished?: string;
   dateModified?: string;
+  noindex?: boolean;
 }
 
-const { title, description, h1, intro, breadcrumbs, related = [], faq = [], canonical, ogImage, datePublished, dateModified } = Astro.props;
+const { title, description, h1, intro, breadcrumbs, related = [], faq = [], canonical, ogImage, datePublished, dateModified, noindex } = Astro.props;
 
 const site = Astro.site?.toString() ?? "https://calculatorst.com";
 const siteNoSlash = site.replace(/\/$/, "");
@@ -70,7 +71,7 @@ const howToSchema: any = {
 };
 ---
 
-<Layout title={title} description={description} canonical={canonical} ogImage={ogImage} datePublished={datePublished} dateModified={dateModified}>
+<Layout title={title} description={description} canonical={canonical} ogImage={ogImage} datePublished={datePublished} dateModified={dateModified} noindex={noindex}>
   <slot name="header" />
   <main id="main" tabindex="-1" class="w-full">
     <div class="mx-auto max-w-[1200px] px-4 sm:px-6 py-4">

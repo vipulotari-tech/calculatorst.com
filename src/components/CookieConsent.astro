@@ -83,14 +83,14 @@
       loadAds();
       hideBanner();
       window.dataLayer = window.dataLayer || [];
-      window.gtag?.("consent", "update", { ad_storage: "granted", analytics_storage: "granted" });
+      window.gtag?.("consent", "update", { ad_storage: "granted", analytics_storage: "granted", ad_user_data: "granted", ad_personalization: "granted" });
     });
 
     declineBtn?.addEventListener("click", () => {
       try { localStorage.setItem(CONSENT_KEY, "declined"); } catch {}
       hideBanner();
       window.dataLayer = window.dataLayer || [];
-      window.gtag?.("consent", "update", { ad_storage: "denied", analytics_storage: "denied" });
+      window.gtag?.("consent", "update", { ad_storage: "denied", analytics_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
     });
   })();
 </script>

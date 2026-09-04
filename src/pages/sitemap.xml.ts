@@ -25,13 +25,13 @@ const staticPages = [
   "/terms/",
   "/disclaimer/",
 ];
-// Merge 10 existing + 190 new (avoid duplicates)
-const allCalcs = [...calculators];
-const existingSlugs = new Set(calculators.map(c=>c.slug));
-for (const h of hubCalculators) {
-  if (!existingSlugs.has(h.slug)) allCalcs.push(h as any);
-}
-const calculatorPages = allCalcs.map((c) => `/${c.slug}/`);
+// Only indexable calculators — 10 hand-built with 600+ unique words.
+// 190 hubCalculators are currently noindex due to auto-generated thin content (90% duplicate, ~500 words) — excluded for AdSense "insufficient content" compliance.
+// They remain accessible via /[slug]/ but with noindex until manually enriched with unique 800+ words, correct formulas, and tables.
+// const allCalcs = [...calculators];
+// const existingSlugs = new Set(calculators.map(c=>c.slug));
+// for (const h of hubCalculators) { if (!existingSlugs.has(h.slug)) allCalcs.push(h as any); }
+const calculatorPages = calculators.map((c) => `/${c.slug}/`);
 const calcIdx = staticPages.indexOf("/calculators/");
 const pages = [...staticPages.slice(0, calcIdx + 1), ...calculatorPages, ...staticPages.slice(calcIdx + 1)];
 

@@ -5,16 +5,57 @@ import Footer from "../../components/Footer.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 ---
 
-<Layout title="Terms — Calculator Street" description="Terms of use for Calculator Street calculators.">
+<Layout title="Terms — Calculator Street" description="Terms of use for Calculator Street calculators: eligibility, IP, warranties, liability, and governing details.">
   <Header />
   <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Terms" }]} />
     <div class="mx-auto max-w-[720px] pt-6">
-      <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Terms</h1>
-      <div class="mt-6 space-y-4 rounded-lg border border-hairline bg-canvas p-6 text-sm leading-6 text-body dark:bg-canvas">
-        <p>By using Calculator Street, you agree that calculations are estimates based on the inputs you provide. Actual material needs, costs and structural requirements vary by supplier, region, site conditions and code.</p>
-        <p>Verify critical measurements and orders with a qualified professional or supplier. We are not responsible for over- or under-ordering.</p>
-        <p>Content is provided as-is without warranty. You may share links and cite our calculators with attribution.</p>
+      <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Terms of Service</h1>
+      <p class="mt-1 font-mono text-xs text-mute">Last updated: September 4, 2026</p>
+      <div class="mt-6 space-y-6 rounded-lg border border-hairline bg-canvas p-6 text-sm leading-6 text-body dark:bg-canvas">
+        <h2 class="font-semibold text-ink">1. Acceptance</h2>
+        <p>By accessing or using Calculator Street (CalculatorSt.com), you agree to these Terms. If you do not agree, do not use the site. We may update Terms by posting a new date above; continued use means acceptance.</p>
+
+        <h2 class="font-semibold text-ink">2. Eligibility</h2>
+        <p>You must be able to form a binding contract to use the site. The site is not intended for children under 13. No login or account is required.</p>
+
+        <h2 class="font-semibold text-ink">3. Estimates only — not professional advice</h2>
+        <p>All calculations are estimates based on the inputs you provide. Actual material needs, costs, labor, waste, and structural requirements vary by supplier, region, product, site conditions, and code. Verify critical measurements and orders with a qualified professional or supplier. See our <a href="/disclaimer/" class="text-link underline">Disclaimer</a> for full details. Nothing on this site is professional construction, engineering, or financial advice.</p>
+
+        <h2 class="font-semibold text-ink">4. Intellectual property</h2>
+        <p>We own the site’s design, text, calculators, diagrams, and code (unless attributed). You may share links and cite our calculators with attribution. You may not copy, scrape, or republish large portions of our content, formulas, or examples without permission. Calculator outputs you generate are yours to use.</p>
+
+        <h2 class="font-semibold text-ink">5. Prohibited uses</h2>
+        <ul class="list-disc pl-5 space-y-1">
+          <li>No automated scraping, spamming, or circumventing rate limits or security.</li>
+          <li>No uploading malware or attempting to disrupt Cloudflare/Workers hosting.</li>
+          <li>No using calculators to facilitate code violations or unsafe construction.</li>
+          <li>No removing copyright, trademark, or attribution notices.</li>
+        </ul>
+
+        <h2 class="font-semibold text-ink">6. Disclaimer of warranties</h2>
+        <p>Content and calculators are provided "as-is" and "as-available" without warranty of any kind, express or implied, including merchantability, fitness for a particular purpose, accuracy, or non-infringement. We do not warrant that formulas suit every project or jurisdiction.</p>
+
+        <h2 class="font-semibold text-ink">7. Limitation of liability</h2>
+        <p>To the fullest extent permitted by law, Calculator Street and its owner are not liable for any indirect, incidental, special, consequential, or punitive damages, or for over- or under-ordering, cost overruns, rework, delays, or structural issues arising from use of estimates. Your sole remedy is to stop using the site. Some jurisdictions do not allow certain limitations, so these limits may not apply to you.</p>
+
+        <h2 class="font-semibold text-ink">8. Indemnification</h2>
+        <p>You agree to indemnify and hold harmless Calculator Street from claims arising from your misuse of the site or violation of these Terms or law.</p>
+
+        <h2 class="font-semibold text-ink">9. External links</h2>
+        <p>Links to TxDOT, CPSC, or other sources are for citation. We do not control third-party sites and are not responsible for their content or policies.</p>
+
+        <h2 class="font-semibold text-ink">10. Changes and termination</h2>
+        <p>We may modify or discontinue any calculator or the site at any time without notice. We may suspend access if you violate Terms.</p>
+
+        <h2 class="font-semibold text-ink">11. DMCA / Copyright</h2>
+        <p>If you believe content infringes your copyright, contact <a href="mailto:hello@calculatorst.com" class="text-link underline">hello@calculatorst.com</a> with: (a) your contact, (b) description of the work, (c) URL, (d) good-faith statement, (e) perjury statement, (f) signature. We respond per DMCA.</p>
+
+        <h2 class="font-semibold text-ink">12. Governing law</h2>
+        <p>These Terms are governed by applicable law without regard to conflict principles. Any dispute shall be brought in the courts with jurisdiction over the site operator’s location, unless law requires otherwise.</p>
+
+        <h2 class="font-semibold text-ink">13. Contact</h2>
+        <p>Questions about Terms: <a href="mailto:hello@calculatorst.com" class="text-link underline">hello@calculatorst.com</a> — see also <a href="/contact/" class="text-link underline">Contact</a> and <a href="/privacy/" class="text-link underline">Privacy</a>.</p>
       </div>
     </div>
   </main>
