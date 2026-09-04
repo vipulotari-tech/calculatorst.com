@@ -213,6 +213,46 @@ for(const c of hub){
       {label:"With waste",value:"0.35 yd3"},
     ];
     construction="<p class='text-sm'>Stairs need formwork bracing — add 10% for over-excavation.</p>";
+  } else if(name.includes("Slab Thickness")){
+    formula="Thickness = Volume / Area";
+    vars=[{symbol:"Area",meaning:"Length x Width in ft2"},{symbol:"Volume",meaning:"Cubic yards x 27"}];
+    exampleInputs="Slab 12x10 ft, 1.5 yd3 ordered";
+    exampleSteps=[
+      {label:"Area",value:"12*10 = 120 ft2"},
+      {label:"Volume ft3",value:"1.5*27 = 40.5 ft3"},
+      {label:"Thickness",value:"40.5/120 = 0.337 ft = 4.05 in"},
+    ];
+    construction="<p class='text-sm'>Check thickness with string line — add 10% for uneven subgrade.</p>";
+  } else if(name.includes("Patio Cost")||name.includes("Driveway Cost")||name.includes("Garage Slab")||name.includes("Shed Foundation")){
+    formula="Cost = Volume * Price per yard + Delivery";
+    vars=[{symbol:"Volume",meaning:"Cubic yards with waste"},{symbol:"Price",meaning:"$ per yd3"}];
+    exampleInputs="Patio 12x10 ft x 4 in, $150/yd3 + $100 delivery";
+    exampleSteps=[
+      {label:"Volume",value:"1.48 yd3 +10% = 1.63 yd3"},
+      {label:"Material",value:"1.63*150 = $244.50"},
+      {label:"Total",value:"$244.50+100 = $344.50"},
+    ];
+    construction="<p class='text-sm'>Cost varies $140-180/yd3 + delivery. Bags vs truck break-even ~1 yd3.</p>";
+  } else if(name.includes("Strip Footing")||name.includes("Pad Footing")||name.includes("Pier Footing")){
+    formula="Volume = Length * Width * Depth (per footing)";
+    vars=[{symbol:"L",meaning:"Footing length"},{symbol:"W",meaning:"Width"},{symbol:"D",meaning:"Depth"}];
+    exampleInputs="Strip footing 40 ft x 16 in wide x 8 in deep";
+    exampleSteps=[
+      {label:"Convert",value:"16 in=1.333 ft, 8 in=0.667 ft"},
+      {label:"Volume",value:"40*1.333*0.667 = 35.56 ft3 = 1.32 yd3"},
+      {label:"With waste",value:"1.45 yd3"},
+    ];
+    construction="<p class='text-sm'>Footings below frost line per code. Call 811 before dig.</p>";
+  } else if(name.includes("Foundation Wall")||name.includes("Basement Wall")){
+    formula="Volume = Wall Length * Wall Height * Wall Thickness";
+    vars=[{symbol:"Length",meaning:"Total wall length"},{symbol:"Height",meaning:"Wall height"},{symbol:"Thickness",meaning:"Wall thickness"}];
+    exampleInputs="Foundation 40x30 ft perimeter 140 ft x 8 ft high x 8 in thick";
+    exampleSteps=[
+      {label:"Thickness ft",value:"8/12 = 0.667 ft"},
+      {label:"Volume",value:"140*8*0.667 = 746.7 ft3 = 27.66 yd3"},
+      {label:"With waste",value:"30.4 yd3"},
+    ];
+    construction="<p class='text-sm'>8 in walls typical for 8 ft height. Add rebar and grout per code.</p>";
   } else if(name.includes("Rebar")){
     formula="Rebar count = ceil(Length / Spacing) + 1";
     vars=[{symbol:"Length",meaning:"Total length in feet"},{symbol:"Spacing",meaning:"On-center spacing in inches"}];

@@ -1222,48 +1222,40 @@ export const calculatorDetails: Record<string, any> = {
       "Bags and reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Slab 12x10 ft, 1.5 yd3 ordered — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Thickness = Volume / Area",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Area",
+        "meaning": "Length x Width in ft2"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards x 27"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Slab 12x10 ft, 1.5 yd3 ordered",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Area",
+          "value": "12*10 = 120 ft2"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Volume ft3",
+          "value": "1.5*27 = 40.5 ft3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "Thickness",
+          "value": "40.5/120 = 0.337 ft = 4.05 in"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.</p><p class='text-sm'>Check thickness with string line — add 10% for uneven subgrade.</p>",
     "materialInfo": "Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.",
     "wasteInfo": "Add 5–10% for spillage and thickness variation — 10% safe for hand-screeded patios.",
     "tips": [
@@ -1282,7 +1274,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for slab thickness?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure slab 12x10 ft, 1.5 yd3 ordered on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -1546,48 +1538,40 @@ export const calculatorDetails: Record<string, any> = {
       "Bags and reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Patio 12x10 ft x 4 in, $150/yd3 + $100 delivery — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Cost = Volume * Price per yard + Delivery",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with waste"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Price",
+        "meaning": "$ per yd3"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Patio 12x10 ft x 4 in, $150/yd3 + $100 delivery",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "1.48 yd3 +10% = 1.63 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Material",
+          "value": "1.63*150 = $244.50"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "Total",
+          "value": "$244.50+100 = $344.50"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.</p><p class='text-sm'>Cost varies $140-180/yd3 + delivery. Bags vs truck break-even ~1 yd3.</p>",
     "materialInfo": "Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.",
     "wasteInfo": "Add 5–10% for spillage and thickness variation — 10% safe for hand-screeded patios.",
     "tips": [
@@ -1606,7 +1590,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for patio cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure patio 12x10 ft x 4 in, $150/yd3 + $100 delivery on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -1708,48 +1692,40 @@ export const calculatorDetails: Record<string, any> = {
       "Bags and reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Patio 12x10 ft x 4 in, $150/yd3 + $100 delivery — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Cost = Volume * Price per yard + Delivery",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with waste"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Price",
+        "meaning": "$ per yd3"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Patio 12x10 ft x 4 in, $150/yd3 + $100 delivery",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "1.48 yd3 +10% = 1.63 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Material",
+          "value": "1.63*150 = $244.50"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "Total",
+          "value": "$244.50+100 = $344.50"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.</p><p class='text-sm'>Cost varies $140-180/yd3 + delivery. Bags vs truck break-even ~1 yd3.</p>",
     "materialInfo": "Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.",
     "wasteInfo": "Add 5–10% for spillage and thickness variation — 10% safe for hand-screeded patios.",
     "tips": [
@@ -1768,7 +1744,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for driveway cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure patio 12x10 ft x 4 in, $150/yd3 + $100 delivery on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -1870,48 +1846,40 @@ export const calculatorDetails: Record<string, any> = {
       "Bags and reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Patio 12x10 ft x 4 in, $150/yd3 + $100 delivery — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Cost = Volume * Price per yard + Delivery",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with waste"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Price",
+        "meaning": "$ per yd3"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Patio 12x10 ft x 4 in, $150/yd3 + $100 delivery",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "1.48 yd3 +10% = 1.63 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Material",
+          "value": "1.63*150 = $244.50"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "Total",
+          "value": "$244.50+100 = $344.50"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.</p><p class='text-sm'>Cost varies $140-180/yd3 + delivery. Bags vs truck break-even ~1 yd3.</p>",
     "materialInfo": "Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.",
     "wasteInfo": "Add 5–10% for spillage and thickness variation — 10% safe for hand-screeded patios.",
     "tips": [
@@ -1930,7 +1898,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for garage slab?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure patio 12x10 ft x 4 in, $150/yd3 + $100 delivery on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -1951,48 +1919,40 @@ export const calculatorDetails: Record<string, any> = {
       "Bags and reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Patio 12x10 ft x 4 in, $150/yd3 + $100 delivery — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Cost = Volume * Price per yard + Delivery",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with waste"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Price",
+        "meaning": "$ per yd3"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Patio 12x10 ft x 4 in, $150/yd3 + $100 delivery",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "1.48 yd3 +10% = 1.63 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Material",
+          "value": "1.63*150 = $244.50"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "Total",
+          "value": "$244.50+100 = $344.50"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.</p><p class='text-sm'>Cost varies $140-180/yd3 + delivery. Bags vs truck break-even ~1 yd3.</p>",
     "materialInfo": "Patio slabs 3.5–4 in thick, 3000–3500 psi. Base 4 in compacted gravel. Use welded wire mesh or rebar for crack control.",
     "wasteInfo": "Add 5–10% for spillage and thickness variation — 10% safe for hand-screeded patios.",
     "tips": [
@@ -2011,7 +1971,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for shed foundation?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure patio 12x10 ft x 4 in, $150/yd3 + $100 delivery on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -2194,48 +2154,44 @@ export const calculatorDetails: Record<string, any> = {
       "Excavation volume with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Strip footing 40 ft x 16 in wide x 8 in deep — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length * Width * Depth (per footing)",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Footing length"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Strip footing 40 ft x 16 in wide x 8 in deep",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Convert",
+          "value": "16 in=1.333 ft, 8 in=0.667 ft"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Volume",
+          "value": "40*1.333*0.667 = 35.56 ft3 = 1.32 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "1.45 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.</p><p class='text-sm'>Footings below frost line per code. Call 811 before dig.</p>",
     "materialInfo": "Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.",
     "wasteInfo": "Add 10% for over-excavation and slough — trench sides cave.",
     "tips": [
@@ -2254,7 +2210,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for strip footing?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure strip footing 40 ft x 16 in wide x 8 in deep on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -2275,48 +2231,44 @@ export const calculatorDetails: Record<string, any> = {
       "Excavation volume with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Strip footing 40 ft x 16 in wide x 8 in deep — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length * Width * Depth (per footing)",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Footing length"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Strip footing 40 ft x 16 in wide x 8 in deep",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Convert",
+          "value": "16 in=1.333 ft, 8 in=0.667 ft"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Volume",
+          "value": "40*1.333*0.667 = 35.56 ft3 = 1.32 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "1.45 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.</p><p class='text-sm'>Footings below frost line per code. Call 811 before dig.</p>",
     "materialInfo": "Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.",
     "wasteInfo": "Add 10% for over-excavation and slough — trench sides cave.",
     "tips": [
@@ -2335,7 +2287,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for pad footing?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure strip footing 40 ft x 16 in wide x 8 in deep on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -2356,48 +2308,44 @@ export const calculatorDetails: Record<string, any> = {
       "Excavation volume with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Strip footing 40 ft x 16 in wide x 8 in deep — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length * Width * Depth (per footing)",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Footing length"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Strip footing 40 ft x 16 in wide x 8 in deep",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Convert",
+          "value": "16 in=1.333 ft, 8 in=0.667 ft"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Volume",
+          "value": "40*1.333*0.667 = 35.56 ft3 = 1.32 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "1.45 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.</p><p class='text-sm'>Footings below frost line per code. Call 811 before dig.</p>",
     "materialInfo": "Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.",
     "wasteInfo": "Add 10% for over-excavation and slough — trench sides cave.",
     "tips": [
@@ -2416,7 +2364,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for pier footing?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure strip footing 40 ft x 16 in wide x 8 in deep on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -2599,48 +2547,44 @@ export const calculatorDetails: Record<string, any> = {
       "Excavation volume with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Foundation 40x30 ft perimeter 140 ft x 8 ft high x 8 in thick — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Wall Length * Wall Height * Wall Thickness",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Total wall length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
+        "symbol": "Height",
+        "meaning": "Wall height"
       },
       {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Thickness",
+        "meaning": "Wall thickness"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Foundation 40x30 ft perimeter 140 ft x 8 ft high x 8 in thick",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Thickness ft",
+          "value": "8/12 = 0.667 ft"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Volume",
+          "value": "140*8*0.667 = 746.7 ft3 = 27.66 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "30.4 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.</p><p class='text-sm'>8 in walls typical for 8 ft height. Add rebar and grout per code.</p>",
     "materialInfo": "Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.",
     "wasteInfo": "Add 10% for over-excavation and slough — trench sides cave.",
     "tips": [
@@ -2659,7 +2603,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for foundation wall?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure foundation 40x30 ft perimeter 140 ft x 8 ft high x 8 in thick on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -2680,48 +2624,44 @@ export const calculatorDetails: Record<string, any> = {
       "Excavation volume with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Foundation 40x30 ft perimeter 140 ft x 8 ft high x 8 in thick — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Wall Length * Wall Height * Wall Thickness",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Total wall length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
+        "symbol": "Height",
+        "meaning": "Wall height"
       },
       {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Thickness",
+        "meaning": "Wall thickness"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Foundation 40x30 ft perimeter 140 ft x 8 ft high x 8 in thick",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Thickness ft",
+          "value": "8/12 = 0.667 ft"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Volume",
+          "value": "140*8*0.667 = 746.7 ft3 = 27.66 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "30.4 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.</p><p class='text-sm'>8 in walls typical for 8 ft height. Add rebar and grout per code.</p>",
     "materialInfo": "Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.",
     "wasteInfo": "Add 10% for over-excavation and slough — trench sides cave.",
     "tips": [
@@ -2740,7 +2680,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for basement wall?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure foundation 40x30 ft perimeter 140 ft x 8 ft high x 8 in thick on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
