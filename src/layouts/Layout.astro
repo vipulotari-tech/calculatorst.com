@@ -70,7 +70,7 @@ const webPageSchema: any = (!noindex && canonicalUrl) ? {
   isPartOf: { "@id": siteNoSlash + "/#website" },
   inLanguage: "en-US",
   ...(datePublished ? { datePublished } : {}),
-  ...(dateModified ? { dateModified } : { dateModified: new Date().toISOString().split("T")[0] }),
+  ...(dateModified ? { dateModified } : {}),
   author: { "@type": "Person", name: "Vipul Otari", url: siteNoSlash + "/about/" },
   publisher: { "@type": "Organization", name: "Calculator Street", logo: { "@type": "ImageObject", url: new URL("/favicon.svg", site).href } },
   breadcrumb: { "@id": canonicalUrl + "#breadcrumb" },
@@ -92,14 +92,9 @@ const webPageSchema: any = (!noindex && canonicalUrl) ? {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
 
-    <!-- Fonts -->
+    <!-- Fonts - optimized, no duplicate preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap"
-    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap"

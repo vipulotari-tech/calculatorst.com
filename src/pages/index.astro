@@ -51,7 +51,7 @@ const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.
           </p>
 
           <!-- Search -->
-          <div class="mx-auto mt-6 max-w-[480px]">
+          <div class="mx-auto mt-6 max-w-[480px] relative">
             <label for="hero-search" class="sr-only">Search calculators</label>
             <div class="group relative">
               <span class="pointer-events-none absolute left-[14px] top-1/2 -translate-y-1/2 text-muted-foreground/50 transition-colors group-focus-within:text-foreground" aria-hidden="true">
@@ -67,7 +67,7 @@ const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.
                 class="h-[42px] sm:h-[44px] w-full rounded-xl border border-border bg-card py-0 pl-[42px] sm:pl-[44px] pr-4 text-[14px] font-[450] tracking-[-0.01em] text-foreground shadow-sm placeholder:text-muted-foreground/50 focus:border-ring focus:shadow-[0_0_0_3px_rgba(100,140,255,0.08)] focus:outline-none focus-visible:outline-none transition-[border-color,box-shadow] duration-150"
               />
             </div>
-            <div id="hero-search-results" class="mt-2 hidden overflow-hidden rounded-xl border border-border bg-card text-left shadow-float" role="listbox" aria-label="Search results"></div>
+            <div id="hero-search-results" class="absolute left-0 right-0 top-full z-20 mt-2 hidden max-h-[60vh] overflow-auto overflow-hidden rounded-xl border border-border bg-card text-left shadow-float" role="listbox" aria-label="Search results"></div>
 
             <!-- Suggestions -->
             <div class="mt-4 flex flex-wrap items-center justify-center gap-1.5">

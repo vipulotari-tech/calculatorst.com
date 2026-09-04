@@ -3,16 +3,16 @@ import ThemeToggle from "./ThemeToggle.astro";
 import { hubCategories, hubCalculators } from "../data/hubCalculators";
 ---
 
-<header id="site-header" class="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70 transition-[padding,background,border-color,box-shadow] duration-200" role="banner" style="padding-left: max(0px, env(safe-area-inset-left)); padding-right: max(0px, env(safe-area-inset-right));">
-  <div class="mx-auto grid w-full max-w-[1200px] grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 sm:px-6 py-2.5">
-    <div class="flex items-center gap-2 min-w-0 justify-self-start">
-      <a href="/" class="flex min-w-0 items-center gap-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="Calculator Street — home">
-        <span class="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-foreground shadow-sm" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" class="h-8 w-8"><rect width="32" height="32" rx="8" fill="currentColor" class="text-foreground"/><g transform="translate(6 6) rotate(-6 16 12)"><rect x="0" y="0" width="20" height="20" rx="3" fill="currentColor" class="text-background"/><rect x="2.5" y="2.5" width="15" height="4.5" rx="1" fill="currentColor" class="text-primary/20"/><g fill="currentColor" class="text-foreground"><rect x="2.5" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="14.1" width="3.2" height="2.2" rx="0.6"/></g></g></svg>
+<header id="site-header" class="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70 transition-[background,border-color,box-shadow] duration-200" role="banner" style="padding-left: max(0px, env(safe-area-inset-left)); padding-right: max(0px, env(safe-area-inset-right));">
+  <div class="mx-auto grid w-full max-w-[1200px] grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2.5">
+    <div class="flex items-center gap-1.5 sm:gap-2 min-w-0 justify-self-start">
+      <a href="/" class="flex min-w-0 items-center gap-1.5 sm:gap-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="Calculator Street — home">
+        <span class="flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-foreground shadow-sm" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" class="h-7 w-7 sm:h-8 sm:w-8"><rect width="32" height="32" rx="8" fill="currentColor" class="text-foreground"/><g transform="translate(6 6) rotate(-6 16 12)"><rect x="0" y="0" width="20" height="20" rx="3" fill="currentColor" class="text-background"/><rect x="2.5" y="2.5" width="15" height="4.5" rx="1" fill="currentColor" class="text-primary/20"/><g fill="currentColor" class="text-foreground"><rect x="2.5" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="8.5" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="11.3" width="3.2" height="2.2" rx="0.6"/><rect x="2.5" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="6.7" y="14.1" width="3.2" height="2.2" rx="0.6"/><rect x="10.9" y="14.1" width="3.2" height="2.2" rx="0.6"/></g></g></svg>
         </span>
-        <span class="inline whitespace-nowrap shrink-0 text-[15px] sm:text-[16px] font-semibold tracking-[-0.03em] text-foreground leading-none">Calculator Street</span>
-        <span class="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted px-2 py-1 font-mono text-[11px] font-semibold leading-none tracking-[0.08em] text-muted-foreground shrink-0 shadow-sm" aria-label="US-focused" title="US-focused">
-          <svg width="18" height="12" viewBox="0 0 16 11" fill="none" aria-hidden="true" class="shrink-0 overflow-hidden rounded-[2px] ring-1 ring-black/10"><rect width="16" height="11" rx="1.2" fill="#B22234"/><g stroke="white" stroke-width="0.75"><path d="M0 1.7H16"/><path d="M0 3.4H16"/><path d="M0 5.1H16"/><path d="M0 6.85H16"/><path d="M0 8.55H16"/><path d="M0 10.25H16"/></g><rect width="6.2" height="5.86" rx="0.8" fill="#0B2A5B"/><g fill="white"><circle cx="1" cy="1" r="0.5"/><circle cx="2.4" cy="1" r="0.5"/><circle cx="3.8" cy="1" r="0.5"/><circle cx="5.2" cy="1" r="0.5"/><circle cx="1.7" cy="2.1" r="0.5"/><circle cx="3.1" cy="2.1" r="0.5"/><circle cx="4.5" cy="2.1" r="0.5"/><circle cx="1" cy="3.2" r="0.5"/><circle cx="2.4" cy="3.2" r="0.5"/><circle cx="3.8" cy="3.2" r="0.5"/><circle cx="5.2" cy="3.2" r="0.5"/><circle cx="1.7" cy="4.3" r="0.5"/><circle cx="3.1" cy="4.3" r="0.5"/><circle cx="4.5" cy="4.3" r="0.5"/></g></svg>
+        <span class="inline whitespace-nowrap shrink-0 text-[14px] min-[360px]:text-[15px] sm:text-[16px] font-semibold tracking-[-0.03em] text-foreground leading-none">Calculator Street</span>
+        <span class="inline-flex items-center gap-1 sm:gap-1.5 rounded-full border border-border bg-muted px-1.5 py-0.5 min-[360px]:px-2 min-[360px]:py-1 font-mono text-[10px] min-[360px]:text-[11px] font-semibold leading-none tracking-[0.08em] text-muted-foreground shrink-0 shadow-sm" aria-label="US-focused" title="US-focused">
+          <svg width="14" height="10" viewBox="0 0 16 11" fill="none" aria-hidden="true" class="shrink-0 overflow-hidden rounded-[1.5px] min-[360px]:rounded-[2px] ring-1 ring-black/10 w-[14px] h-[10px] min-[360px]:w-[18px] min-[360px]:h-[12px]"><rect width="16" height="11" rx="1.2" fill="#B22234"/><g stroke="white" stroke-width="0.75"><path d="M0 1.7H16"/><path d="M0 3.4H16"/><path d="M0 5.1H16"/><path d="M0 6.85H16"/><path d="M0 8.55H16"/><path d="M0 10.25H16"/></g><rect width="6.2" height="5.86" rx="0.8" fill="#0B2A5B"/><g fill="white"><circle cx="1" cy="1" r="0.5"/><circle cx="2.4" cy="1" r="0.5"/><circle cx="3.8" cy="1" r="0.5"/><circle cx="5.2" cy="1" r="0.5"/><circle cx="1.7" cy="2.1" r="0.5"/><circle cx="3.1" cy="2.1" r="0.5"/><circle cx="4.5" cy="2.1" r="0.5"/><circle cx="1" cy="3.2" r="0.5"/><circle cx="2.4" cy="3.2" r="0.5"/><circle cx="3.8" cy="3.2" r="0.5"/><circle cx="5.2" cy="3.2" r="0.5"/><circle cx="1.7" cy="4.3" r="0.5"/><circle cx="3.1" cy="4.3" r="0.5"/><circle cx="4.5" cy="4.3" r="0.5"/></g></svg>
           <span>US</span>
         </span>
       </a>
@@ -20,11 +20,11 @@ import { hubCategories, hubCalculators } from "../data/hubCalculators";
 
     <nav class="hidden lg:flex items-center justify-center gap-0.5 justify-self-center" aria-label="Primary">
       <div class="relative group">
-        <button type="button" class="inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-expanded="false" aria-haspopup="true">
+        <button id="mega-menu-btn" type="button" class="inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-expanded="false" aria-haspopup="menu" aria-controls="mega-calculators">
           Calculators
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="text-muted-foreground/60 transition-transform duration-200 group-hover:rotate-180"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="text-muted-foreground/60 transition-transform duration-200 group-hover:rotate-180 group-aria-expanded:rotate-180"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
         </button>
-        <div class="absolute left-1/2 top-full hidden -translate-x-1/2 pt-3 group-hover:block group-focus-within:block">
+        <div id="mega-calculators" class="absolute left-1/2 top-full hidden -translate-x-1/2 pt-3 group-hover:block group-focus-within:block group-aria-expanded:block">
           <div class="max-h-[70vh] w-[680px] overflow-auto rounded-xl border border-border bg-card p-4 shadow-float">
             <div class="grid grid-cols-3 gap-2.5">
               {hubCategories.map((cat) => (
@@ -134,18 +134,38 @@ import { hubCategories, hubCalculators } from "../data/hubCalculators";
         requestAnimationFrame(() => {
           if (window.scrollY > 12) {
             header.classList.add("shadow-sm");
-            header.classList.remove("py-2.5");
-            header.classList.add("py-2");
           } else {
             header.classList.remove("shadow-sm");
-            header.classList.remove("py-2");
-            header.classList.add("py-2.5");
           }
           ticking = false;
         });
         ticking = true;
       }
     }, { passive: true });
+  }
+  // Mega menu accessibility
+  const megaBtn = document.getElementById("mega-menu-btn");
+  const megaMenu = document.getElementById("mega-calculators");
+  if (megaBtn && megaMenu) {
+    megaBtn.addEventListener("click", () => {
+      const isOpen = megaBtn.getAttribute("aria-expanded") === "true";
+      megaBtn.setAttribute("aria-expanded", String(!isOpen));
+      megaMenu.classList.toggle("hidden", isOpen);
+      if (!isOpen) megaMenu.querySelector("a")?.focus();
+    });
+    document.addEventListener("click", (e) => {
+      if (!megaBtn.contains(e.target) && !megaMenu.contains(e.target)) {
+        megaBtn.setAttribute("aria-expanded", "false");
+        megaMenu.classList.add("hidden");
+      }
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && megaBtn.getAttribute("aria-expanded") === "true") {
+        megaBtn.setAttribute("aria-expanded", "false");
+        megaMenu.classList.add("hidden");
+        megaBtn.focus();
+      }
+    });
   }
   const headerPanel = document.getElementById("header-search");
   const headerInput = document.getElementById("header-search-input");
