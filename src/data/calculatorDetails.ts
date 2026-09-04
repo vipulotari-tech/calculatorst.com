@@ -8,28 +8,28 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Concrete 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Concrete",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Concrete in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Concrete in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Concrete in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Concrete 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -69,7 +69,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure concrete 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -90,28 +90,28 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Concrete Volume 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Concrete Volume",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Concrete Volume in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Concrete Volume in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Concrete Volume in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Concrete Volume 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -151,7 +151,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete volume?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure concrete volume 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -172,28 +172,28 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Concrete Cost 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Concrete Cost",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Concrete Cost in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Concrete Cost in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Concrete Cost in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Concrete Cost 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -233,7 +233,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure concrete cost 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -254,28 +254,28 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Concrete Pour 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Concrete Pour",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Concrete Pour in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Concrete Pour in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Concrete Pour in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Concrete Pour 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -315,7 +315,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete pour?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure concrete pour 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -336,28 +336,28 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Concrete Mix 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Concrete Mix",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Concrete Mix in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Concrete Mix in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Concrete Mix in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Concrete Mix 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -397,7 +397,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete mix?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure concrete mix 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -418,28 +418,28 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Concrete Weight 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Concrete Weight",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Concrete Weight in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Concrete Weight in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Concrete Weight in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Concrete Weight 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -479,7 +479,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete weight?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure concrete weight 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -500,28 +500,28 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Concrete Slab 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Concrete Slab",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Concrete Slab in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Concrete Slab in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Concrete Slab in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Concrete Slab 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -561,7 +561,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete slab?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure concrete slab 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -582,28 +582,28 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Concrete Footing 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Concrete Footing",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Concrete Footing in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Concrete Footing in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Concrete Footing in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Concrete Footing 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -643,7 +643,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete footing?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure concrete footing 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -664,28 +664,28 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Concrete Foundation 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Concrete Foundation",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Concrete Foundation in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Concrete Foundation in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Concrete Foundation in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Concrete Foundation 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -725,7 +725,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete foundation?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure concrete foundation 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -746,28 +746,28 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Concrete Wall 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Concrete Wall",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Concrete Wall in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Concrete Wall in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Concrete Wall in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Concrete Wall 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -807,7 +807,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete wall?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure concrete wall 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -1058,28 +1058,28 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Concrete Ramp 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Concrete Ramp",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Concrete Ramp in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Concrete Ramp in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Concrete Ramp in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Concrete Ramp 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -1119,7 +1119,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete ramp?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure concrete ramp 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -1140,28 +1140,28 @@ export const calculatorDetails: Record<string, any> = {
       "Weight and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Concrete Waste 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Concrete Waste",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Concrete Waste in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Concrete Waste in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Concrete Waste in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Concrete Waste 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -1201,7 +1201,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for concrete waste?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure concrete waste 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -1295,28 +1295,28 @@ export const calculatorDetails: Record<string, any> = {
       "Bags and reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Slab Cost 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Slab Cost",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Slab Cost in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Slab Cost in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Slab Cost in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Slab Cost 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -1355,7 +1355,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for slab cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure slab cost 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -1376,28 +1376,28 @@ export const calculatorDetails: Record<string, any> = {
       "Bags and reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Slab Reinforcement 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Slab Reinforcement",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Slab Reinforcement in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Slab Reinforcement in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Slab Reinforcement in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Slab Reinforcement 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -1436,7 +1436,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for slab reinforcement?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure slab reinforcement 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -1457,28 +1457,28 @@ export const calculatorDetails: Record<string, any> = {
       "Bags and reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Patio Concrete 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Patio Concrete",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Patio Concrete in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Patio Concrete in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Patio Concrete in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Patio Concrete 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -1517,7 +1517,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for patio concrete?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure patio concrete 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -1611,28 +1611,28 @@ export const calculatorDetails: Record<string, any> = {
       "Bags and reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Driveway Concrete 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Driveway Concrete",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Driveway Concrete in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Driveway Concrete in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Driveway Concrete in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Driveway Concrete 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -1671,7 +1671,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for driveway concrete?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure driveway concrete 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -1765,28 +1765,28 @@ export const calculatorDetails: Record<string, any> = {
       "Bags and reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Driveway Thickness 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Driveway Thickness",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Driveway Thickness in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Driveway Thickness in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Driveway Thickness in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Driveway Thickness 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -1825,7 +1825,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for driveway thickness?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure driveway thickness 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -1992,28 +1992,28 @@ export const calculatorDetails: Record<string, any> = {
       "Excavation volume with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Foundation Cost 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Foundation Cost",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Foundation Cost in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Foundation Cost in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Foundation Cost in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Foundation Cost 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -2052,7 +2052,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for foundation cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure foundation cost 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -2073,48 +2073,40 @@ export const calculatorDetails: Record<string, any> = {
       "Excavation volume with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Trench 20 ft x 2 ft x 4 ft deep — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length * Width * Depth * Swell factor",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with swell 1.2x"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Depth",
+        "meaning": "Feet or inches"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Trench 20 ft x 2 ft x 4 ft deep",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume ft3",
+          "value": "20*2*4 =160 ft3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Yards",
+          "value": "160/27 =5.93 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With swell 1.2x",
+          "value": "7.11 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.</p><p class='text-sm'>Soil swells 15-25% when dug (1.2x). Clay 1.6 t/yd3, call 811.</p>",
     "materialInfo": "Footings 8–12 in thick, walls 8 in. Concrete 3000–4000 psi. Footing below frost line per local code.",
     "wasteInfo": "Add 10% for over-excavation and slough — trench sides cave.",
     "tips": [
@@ -2133,7 +2125,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for foundation excavation?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure trench 20 ft x 2 ft x 4 ft deep on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -2385,28 +2377,28 @@ export const calculatorDetails: Record<string, any> = {
       "Excavation volume with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Footing Volume 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Footing Volume",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Footing Volume in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Footing Volume in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Footing Volume in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Footing Volume 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -2445,7 +2437,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for footing volume?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure footing volume 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -2466,28 +2458,28 @@ export const calculatorDetails: Record<string, any> = {
       "Excavation volume with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Footing Concrete 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Footing Concrete",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Footing Concrete in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Footing Concrete in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Footing Concrete in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Footing Concrete 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -2526,7 +2518,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for footing concrete?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure footing concrete 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -2701,28 +2693,28 @@ export const calculatorDetails: Record<string, any> = {
       "Excavation volume with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Crawl Space 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Crawl Space",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Crawl Space in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Crawl Space in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Crawl Space in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Crawl Space 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -2761,7 +2753,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for crawl space?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure crawl space 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -3366,28 +3358,28 @@ export const calculatorDetails: Record<string, any> = {
       "Laps and chairs with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Reinforcement Mesh 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Reinforcement Mesh",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Reinforcement Mesh in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Reinforcement Mesh in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Reinforcement Mesh in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Reinforcement Mesh 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -3426,7 +3418,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for reinforcement mesh?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure reinforcement mesh 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -4728,28 +4720,28 @@ export const calculatorDetails: Record<string, any> = {
       "Reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Cmu 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Cmu",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Cmu in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Cmu in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Cmu in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Cmu 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -4788,7 +4780,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for cmu?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure cmu 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -4809,28 +4801,28 @@ export const calculatorDetails: Record<string, any> = {
       "Reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Cmu Wall 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Cmu Wall",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Cmu Wall in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Cmu Wall in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Cmu Wall in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Cmu Wall 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -4869,7 +4861,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for cmu wall?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure cmu wall 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -4890,28 +4882,28 @@ export const calculatorDetails: Record<string, any> = {
       "Reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Cmu Quantity 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Cmu Quantity",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Cmu Quantity in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Cmu Quantity in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Cmu Quantity in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Cmu Quantity 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -4950,7 +4942,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for cmu quantity?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure cmu quantity 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -4971,28 +4963,28 @@ export const calculatorDetails: Record<string, any> = {
       "Reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Cmu Cost 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Cmu Cost",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Cmu Cost in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Cmu Cost in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Cmu Cost in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Cmu Cost 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -5031,7 +5023,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for cmu cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure cmu cost 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -5275,28 +5267,28 @@ export const calculatorDetails: Record<string, any> = {
       "Reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Cmu Grout 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Cmu Grout",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Cmu Grout in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Cmu Grout in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Cmu Grout in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Cmu Grout 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -5335,7 +5327,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for cmu grout?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure cmu grout 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -5356,28 +5348,28 @@ export const calculatorDetails: Record<string, any> = {
       "Reinforcement with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Cmu Reinforcement 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Cmu Reinforcement",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Cmu Reinforcement in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Cmu Reinforcement in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Cmu Reinforcement in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Cmu Reinforcement 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -5416,7 +5408,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for cmu reinforcement?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure cmu reinforcement 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -5437,28 +5429,28 @@ export const calculatorDetails: Record<string, any> = {
       "Water and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Mortar 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Mortar",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Mortar in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Mortar in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Mortar in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Mortar 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -5497,7 +5489,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for mortar?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure mortar 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -5518,28 +5510,28 @@ export const calculatorDetails: Record<string, any> = {
       "Water and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Mortar Mix 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Mortar Mix",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Mortar Mix in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Mortar Mix in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Mortar Mix in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Mortar Mix 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -5578,7 +5570,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for mortar mix?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure mortar mix 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -5599,28 +5591,28 @@ export const calculatorDetails: Record<string, any> = {
       "Water and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Mortar Quantity 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Mortar Quantity",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Mortar Quantity in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Mortar Quantity in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Mortar Quantity in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Mortar Quantity 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -5659,7 +5651,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for mortar quantity?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure mortar quantity 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -5680,28 +5672,28 @@ export const calculatorDetails: Record<string, any> = {
       "Water and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Mortar Cost 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Mortar Cost",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Mortar Cost in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Mortar Cost in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Mortar Cost in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Mortar Cost 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -5740,7 +5732,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for mortar cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure mortar cost 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -5761,28 +5753,28 @@ export const calculatorDetails: Record<string, any> = {
       "Water and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Grout 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Grout",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Grout in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Grout in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Grout in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Grout 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -5821,7 +5813,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for grout?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure grout 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -5842,28 +5834,28 @@ export const calculatorDetails: Record<string, any> = {
       "Water and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Grout Quantity 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Grout Quantity",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Grout Quantity in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Grout Quantity in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Grout Quantity in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Grout Quantity 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -5902,7 +5894,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for grout quantity?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure grout quantity 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -5923,28 +5915,28 @@ export const calculatorDetails: Record<string, any> = {
       "Water and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Grout Cost 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Grout Cost",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Grout Cost in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Grout Cost in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Grout Cost in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Grout Cost 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -5983,7 +5975,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for grout cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure grout cost 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -6004,28 +5996,28 @@ export const calculatorDetails: Record<string, any> = {
       "Water and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Cement 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Cement",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Cement in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Cement in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Cement in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Cement 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -6064,7 +6056,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for cement?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure cement 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -6085,28 +6077,28 @@ export const calculatorDetails: Record<string, any> = {
       "Water and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Cement Bag 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Cement Bag",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Cement Bag in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Cement Bag in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Cement Bag in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Cement Bag 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -6145,7 +6137,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for cement bag?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure cement bag 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -6166,28 +6158,28 @@ export const calculatorDetails: Record<string, any> = {
       "Water and cost with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Cement Sand Ratio 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Cement Sand Ratio",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Cement Sand Ratio in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Cement Sand Ratio in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Cement Sand Ratio in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Cement Sand Ratio 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -6226,7 +6218,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for cement sand ratio?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure cement sand ratio 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -6247,28 +6239,28 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Gravel 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Gravel",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Gravel in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Gravel in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Gravel in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Gravel 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -6307,7 +6299,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for gravel?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure gravel 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -6539,28 +6531,28 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Crushed Stone 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Crushed Stone",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Crushed Stone in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Crushed Stone in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Crushed Stone in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Crushed Stone 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -6599,7 +6591,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for crushed stone?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure crushed stone 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -6620,28 +6612,28 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Crushed Stone Cost 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Crushed Stone Cost",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Crushed Stone Cost in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Crushed Stone Cost in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Crushed Stone Cost in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Crushed Stone Cost 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -6680,7 +6672,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for crushed stone cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure crushed stone cost 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -6701,28 +6693,28 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Aggregate 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Aggregate",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Aggregate in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Aggregate in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Aggregate in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Aggregate 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -6761,7 +6753,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for aggregate?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure aggregate 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -6855,28 +6847,28 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Sand 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Sand",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Sand in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Sand in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Sand in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Sand 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -6915,7 +6907,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for sand?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure sand 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -7078,28 +7070,28 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fill Dirt 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Fill Dirt",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Fill Dirt in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Fill Dirt in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Fill Dirt in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fill Dirt 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -7138,7 +7130,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for fill dirt?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fill dirt 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -7159,28 +7151,28 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fill Dirt Cost 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Fill Dirt Cost",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Fill Dirt Cost in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Fill Dirt Cost in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Fill Dirt Cost in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fill Dirt Cost 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -7219,7 +7211,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for fill dirt cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fill dirt cost 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -7240,28 +7232,28 @@ export const calculatorDetails: Record<string, any> = {
       "Cost per ton or per yard with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Topsoil 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Topsoil",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Topsoil in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Topsoil in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Topsoil in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Topsoil 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -7300,7 +7292,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for topsoil?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure topsoil 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -7390,48 +7382,40 @@ export const calculatorDetails: Record<string, any> = {
       "Soil weight in tons with swell"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Trench 20 ft x 2 ft x 4 ft deep — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length * Width * Depth * Swell factor",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with swell 1.2x"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Depth",
+        "meaning": "Feet or inches"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Trench 20 ft x 2 ft x 4 ft deep",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume ft3",
+          "value": "20*2*4 =160 ft3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Yards",
+          "value": "160/27 =5.93 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With swell 1.2x",
+          "value": "7.11 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><p class='text-sm'>Soil swells 15-25% when dug (1.2x). Clay 1.6 t/yd3, call 811.</p>",
     "materialInfo": "Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.",
     "wasteInfo": "Trench sides slough — add 10% for over-excavation. Shrinkage 10% on backfill.",
     "tips": [
@@ -7450,7 +7434,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for excavation?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure trench 20 ft x 2 ft x 4 ft deep on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -7471,48 +7455,40 @@ export const calculatorDetails: Record<string, any> = {
       "Soil weight in tons with swell"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Trench 20 ft x 2 ft x 4 ft deep — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length * Width * Depth * Swell factor",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with swell 1.2x"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Depth",
+        "meaning": "Feet or inches"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Trench 20 ft x 2 ft x 4 ft deep",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume ft3",
+          "value": "20*2*4 =160 ft3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Yards",
+          "value": "160/27 =5.93 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With swell 1.2x",
+          "value": "7.11 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><p class='text-sm'>Soil swells 15-25% when dug (1.2x). Clay 1.6 t/yd3, call 811.</p>",
     "materialInfo": "Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.",
     "wasteInfo": "Trench sides slough — add 10% for over-excavation. Shrinkage 10% on backfill.",
     "tips": [
@@ -7531,7 +7507,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for excavation cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure trench 20 ft x 2 ft x 4 ft deep on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -7552,48 +7528,40 @@ export const calculatorDetails: Record<string, any> = {
       "Soil weight in tons with swell"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Trench 20 ft x 2 ft x 4 ft deep — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length * Width * Depth * Swell factor",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with swell 1.2x"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Depth",
+        "meaning": "Feet or inches"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Trench 20 ft x 2 ft x 4 ft deep",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume ft3",
+          "value": "20*2*4 =160 ft3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Yards",
+          "value": "160/27 =5.93 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With swell 1.2x",
+          "value": "7.11 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><p class='text-sm'>Soil swells 15-25% when dug (1.2x). Clay 1.6 t/yd3, call 811.</p>",
     "materialInfo": "Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.",
     "wasteInfo": "Trench sides slough — add 10% for over-excavation. Shrinkage 10% on backfill.",
     "tips": [
@@ -7612,7 +7580,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for trench?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure trench 20 ft x 2 ft x 4 ft deep on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -7633,48 +7601,40 @@ export const calculatorDetails: Record<string, any> = {
       "Soil weight in tons with swell"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Trench 20 ft x 2 ft x 4 ft deep — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length * Width * Depth * Swell factor",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with swell 1.2x"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Depth",
+        "meaning": "Feet or inches"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Trench 20 ft x 2 ft x 4 ft deep",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume ft3",
+          "value": "20*2*4 =160 ft3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Yards",
+          "value": "160/27 =5.93 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With swell 1.2x",
+          "value": "7.11 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><p class='text-sm'>Soil swells 15-25% when dug (1.2x). Clay 1.6 t/yd3, call 811.</p>",
     "materialInfo": "Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.",
     "wasteInfo": "Trench sides slough — add 10% for over-excavation. Shrinkage 10% on backfill.",
     "tips": [
@@ -7693,7 +7653,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for trench volume?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure trench 20 ft x 2 ft x 4 ft deep on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -7714,48 +7674,40 @@ export const calculatorDetails: Record<string, any> = {
       "Soil weight in tons with swell"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Trench 20 ft x 2 ft x 4 ft deep — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length * Width * Depth * Swell factor",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with swell 1.2x"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Depth",
+        "meaning": "Feet or inches"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Trench 20 ft x 2 ft x 4 ft deep",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume ft3",
+          "value": "20*2*4 =160 ft3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Yards",
+          "value": "160/27 =5.93 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With swell 1.2x",
+          "value": "7.11 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><p class='text-sm'>Soil swells 15-25% when dug (1.2x). Clay 1.6 t/yd3, call 811.</p>",
     "materialInfo": "Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.",
     "wasteInfo": "Trench sides slough — add 10% for over-excavation. Shrinkage 10% on backfill.",
     "tips": [
@@ -7774,7 +7726,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for trench backfill?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure trench 20 ft x 2 ft x 4 ft deep on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -7795,48 +7747,40 @@ export const calculatorDetails: Record<string, any> = {
       "Soil weight in tons with swell"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Trench 20 ft x 2 ft x 4 ft deep — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length * Width * Depth * Swell factor",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with swell 1.2x"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Depth",
+        "meaning": "Feet or inches"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Trench 20 ft x 2 ft x 4 ft deep",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume ft3",
+          "value": "20*2*4 =160 ft3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Yards",
+          "value": "160/27 =5.93 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With swell 1.2x",
+          "value": "7.11 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><p class='text-sm'>Soil swells 15-25% when dug (1.2x). Clay 1.6 t/yd3, call 811.</p>",
     "materialInfo": "Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.",
     "wasteInfo": "Trench sides slough — add 10% for over-excavation. Shrinkage 10% on backfill.",
     "tips": [
@@ -7855,7 +7799,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for earthwork?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure trench 20 ft x 2 ft x 4 ft deep on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -7876,28 +7820,28 @@ export const calculatorDetails: Record<string, any> = {
       "Soil weight in tons with swell"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Cut And Fill 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Cut And Fill",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Cut And Fill in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Cut And Fill in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Cut And Fill in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Cut And Fill 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -7936,7 +7880,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for cut and fill?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure cut and fill 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -7957,48 +7901,40 @@ export const calculatorDetails: Record<string, any> = {
       "Soil weight in tons with swell"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Trench 20 ft x 2 ft x 4 ft deep — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length * Width * Depth * Swell factor",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with swell 1.2x"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Depth",
+        "meaning": "Feet or inches"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Trench 20 ft x 2 ft x 4 ft deep",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume ft3",
+          "value": "20*2*4 =160 ft3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Yards",
+          "value": "160/27 =5.93 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With swell 1.2x",
+          "value": "7.11 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><p class='text-sm'>Soil swells 15-25% when dug (1.2x). Clay 1.6 t/yd3, call 811.</p>",
     "materialInfo": "Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.",
     "wasteInfo": "Trench sides slough — add 10% for over-excavation. Shrinkage 10% on backfill.",
     "tips": [
@@ -8017,7 +7953,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for dirt removal?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure trench 20 ft x 2 ft x 4 ft deep on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -8038,48 +7974,40 @@ export const calculatorDetails: Record<string, any> = {
       "Soil weight in tons with swell"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Trench 20 ft x 2 ft x 4 ft deep — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length * Width * Depth * Swell factor",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Cubic yards with swell 1.2x"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Depth",
+        "meaning": "Feet or inches"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Trench 20 ft x 2 ft x 4 ft deep",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume ft3",
+          "value": "20*2*4 =160 ft3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Yards",
+          "value": "160/27 =5.93 yd3"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With swell 1.2x",
+          "value": "7.11 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.</p><p class='text-sm'>Soil swells 15-25% when dug (1.2x). Clay 1.6 t/yd3, call 811.</p>",
     "materialInfo": "Soil swells 15–25% when dug (1.2x). Clay 1.6 t/yd3, sand 1.5, topsoil 1.2. Call 811 before dig.",
     "wasteInfo": "Trench sides slough — add 10% for over-excavation. Shrinkage 10% on backfill.",
     "tips": [
@@ -8098,7 +8026,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for soil volume?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure trench 20 ft x 2 ft x 4 ft deep on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -8119,28 +8047,28 @@ export const calculatorDetails: Record<string, any> = {
       "Soil weight in tons with swell"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Soil Weight 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Soil Weight",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Soil Weight in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Soil Weight in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Soil Weight in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Soil Weight 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -8179,7 +8107,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for soil weight?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure soil weight 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -8200,48 +8128,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -8260,7 +8180,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for framing?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -8281,48 +8201,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -8341,7 +8253,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for wall framing?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -8362,48 +8274,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -8422,7 +8326,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for stud?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -8443,48 +8347,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -8503,7 +8399,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for stud spacing?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -8524,48 +8420,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -8584,7 +8472,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for lumber?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -8605,48 +8493,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -8665,7 +8545,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for lumber cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -8686,48 +8566,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -8746,7 +8618,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for board foot?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -8767,48 +8639,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -8827,7 +8691,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for board foot cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -8848,48 +8712,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -8908,7 +8764,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for joist?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -8929,48 +8785,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -8989,7 +8837,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for joist spacing?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -9010,48 +8858,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -9070,7 +8910,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for floor joist?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -9091,48 +8931,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -9151,7 +8983,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for ceiling joist?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -9172,48 +9004,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -9232,7 +9056,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for header size?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -9253,48 +9077,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -9313,7 +9129,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for beam?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -9334,48 +9150,40 @@ export const calculatorDetails: Record<string, any> = {
       "Joist/beam loads with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Studs 2x4/2x6, 16 in o.c. typical. SPF #2, 1.5x3.5 in actual. Board foot = 1x12x12 in.",
     "wasteInfo": "Add 10% for cuts and cripples — 15% for gable walls.",
     "tips": [
@@ -9394,7 +9202,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for beam load?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -11496,28 +11304,28 @@ export const calculatorDetails: Record<string, any> = {
       "Grout and adhesive"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Underlayment 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Underlayment",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Underlayment in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Underlayment in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Underlayment in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Underlayment 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -11556,7 +11364,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for underlayment?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure underlayment 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -12551,28 +12359,28 @@ export const calculatorDetails: Record<string, any> = {
       "Insulation batts with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Spray Foam 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Spray Foam",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Spray Foam in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Spray Foam in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Spray Foam in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Spray Foam 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -12611,7 +12419,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for spray foam?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure spray foam 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -12632,48 +12440,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Fence/deck length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Spacing",
+        "meaning": "8 ft post, picket gap 0-0.5 in"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Posts",
+          "value": "ceil(100/8)+1 =14"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Pickets",
+          "value": "1200 in /5.5 =218"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "236 pickets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -12692,7 +12492,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for deck?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -12713,48 +12513,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Fence/deck length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Spacing",
+        "meaning": "8 ft post, picket gap 0-0.5 in"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Posts",
+          "value": "ceil(100/8)+1 =14"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Pickets",
+          "value": "1200 in /5.5 =218"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "236 pickets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -12773,7 +12565,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for deck cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -12794,48 +12586,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Fence/deck length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Spacing",
+        "meaning": "8 ft post, picket gap 0-0.5 in"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Posts",
+          "value": "ceil(100/8)+1 =14"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Pickets",
+          "value": "1200 in /5.5 =218"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "236 pickets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -12854,7 +12638,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for deck board?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -12875,48 +12659,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Wall 20 ft, studs 16 in OC — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Spacing",
+        "meaning": "16 or 24 in on-center"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Board",
+        "meaning": "Thickness*Width*Length/12"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Wall 20 ft, studs 16 in OC",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Studs",
+          "value": "ceil(20*12/16)+1 =16"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Board feet 2x4x8",
+          "value": "1.5*3.5*96/144 =3.5 bf"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "18 studs"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -12935,7 +12711,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for deck joist?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure wall 20 ft, studs 16 in oc on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -12956,48 +12732,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Fence/deck length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Spacing",
+        "meaning": "8 ft post, picket gap 0-0.5 in"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Posts",
+          "value": "ceil(100/8)+1 =14"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Pickets",
+          "value": "1200 in /5.5 =218"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "236 pickets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -13016,7 +12784,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for deck footing?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -13037,48 +12805,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Fence/deck length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Spacing",
+        "meaning": "8 ft post, picket gap 0-0.5 in"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Posts",
+          "value": "ceil(100/8)+1 =14"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Pickets",
+          "value": "1200 in /5.5 =218"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "236 pickets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -13097,7 +12857,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for deck stair?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -13118,48 +12878,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Fence/deck length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Spacing",
+        "meaning": "8 ft post, picket gap 0-0.5 in"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Posts",
+          "value": "ceil(100/8)+1 =14"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Pickets",
+          "value": "1200 in /5.5 =218"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "236 pickets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -13178,7 +12930,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for deck railing?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -13199,48 +12951,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Fence/deck length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Spacing",
+        "meaning": "8 ft post, picket gap 0-0.5 in"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Posts",
+          "value": "ceil(100/8)+1 =14"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Pickets",
+          "value": "1200 in /5.5 =218"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "236 pickets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -13259,7 +13003,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for fence?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -13280,48 +13024,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Fence/deck length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Spacing",
+        "meaning": "8 ft post, picket gap 0-0.5 in"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Posts",
+          "value": "ceil(100/8)+1 =14"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Pickets",
+          "value": "1200 in /5.5 =218"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "236 pickets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -13340,7 +13076,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for fence cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -13361,48 +13097,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Fence/deck length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Spacing",
+        "meaning": "8 ft post, picket gap 0-0.5 in"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Posts",
+          "value": "ceil(100/8)+1 =14"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Pickets",
+          "value": "1200 in /5.5 =218"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "236 pickets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -13421,7 +13149,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for fence post?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -13442,48 +13170,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Fence/deck length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Spacing",
+        "meaning": "8 ft post, picket gap 0-0.5 in"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Posts",
+          "value": "ceil(100/8)+1 =14"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Pickets",
+          "value": "1200 in /5.5 =218"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "236 pickets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -13502,7 +13222,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for fence panel?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -13523,48 +13243,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Fence/deck length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Spacing",
+        "meaning": "8 ft post, picket gap 0-0.5 in"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Posts",
+          "value": "ceil(100/8)+1 =14"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Pickets",
+          "value": "1200 in /5.5 =218"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "236 pickets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -13583,7 +13295,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for fence picket?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -13604,48 +13316,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Fence/deck length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Spacing",
+        "meaning": "8 ft post, picket gap 0-0.5 in"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Posts",
+          "value": "ceil(100/8)+1 =14"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Pickets",
+          "value": "1200 in /5.5 =218"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "236 pickets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -13664,7 +13368,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for fence concrete?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -13685,48 +13389,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Fence/deck length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Spacing",
+        "meaning": "8 ft post, picket gap 0-0.5 in"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Posts",
+          "value": "ceil(100/8)+1 =14"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Pickets",
+          "value": "1200 in /5.5 =218"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "236 pickets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -13745,7 +13441,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for gate?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -13766,48 +13462,40 @@ export const calculatorDetails: Record<string, any> = {
       "Concrete bags per post"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Length",
+        "meaning": "Fence/deck length"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Spacing",
+        "meaning": "8 ft post, picket gap 0-0.5 in"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Posts",
+          "value": "ceil(100/8)+1 =14"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Pickets",
+          "value": "1200 in /5.5 =218"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "236 pickets"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.</p><p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>",
     "materialInfo": "Deck boards 5.5 in + 1/8 in gap, joists 16 in o.c. Fence posts 8 ft spacing, 2.5 ft deep, 0.5 bag 50-lb per post.",
     "wasteInfo": "Add 10% for cuts and angles — 15% for curves.",
     "tips": [
@@ -13826,7 +13514,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for gate cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -13847,48 +13535,40 @@ export const calculatorDetails: Record<string, any> = {
       "Mulch yards vs bags"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Patio 12x10 ft =120 ft2, paver 12x12 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Pavers = ceil(Area / Paver area) + Waste, Base = Area*Depth/27",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Area",
+        "meaning": "Length*Width ft2"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Paver area",
+        "meaning": "12x12=1 ft2, 4x8=0.222 ft2"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Patio 12x10 ft =120 ft2, paver 12x12 in",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
-        },
-        {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
-        },
-        {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
+          "label": "Pavers",
+          "value": "120/1 =120"
         },
         {
           "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "value": "132 pavers"
+        },
+        {
+          "label": "Base 4 in",
+          "value": "120*0.333/27 =1.48 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><p class='text-sm'>Base 4 in patio, 6-8 in driveway. Sand 1 in screeded. Waste 10% rect, 15% curve.</p>",
     "materialInfo": "Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.",
     "wasteInfo": "Add 10% for cuts and curves — 15% for radial patterns.",
     "tips": [
@@ -13907,7 +13587,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for paver?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure patio 12x10 ft =120 ft2, paver 12x12 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -13928,48 +13608,40 @@ export const calculatorDetails: Record<string, any> = {
       "Mulch yards vs bags"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Patio 12x10 ft =120 ft2, paver 12x12 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Pavers = ceil(Area / Paver area) + Waste, Base = Area*Depth/27",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Area",
+        "meaning": "Length*Width ft2"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Paver area",
+        "meaning": "12x12=1 ft2, 4x8=0.222 ft2"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Patio 12x10 ft =120 ft2, paver 12x12 in",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
-        },
-        {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
-        },
-        {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
+          "label": "Pavers",
+          "value": "120/1 =120"
         },
         {
           "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "value": "132 pavers"
+        },
+        {
+          "label": "Base 4 in",
+          "value": "120*0.333/27 =1.48 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><p class='text-sm'>Base 4 in patio, 6-8 in driveway. Sand 1 in screeded. Waste 10% rect, 15% curve.</p>",
     "materialInfo": "Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.",
     "wasteInfo": "Add 10% for cuts and curves — 15% for radial patterns.",
     "tips": [
@@ -13988,7 +13660,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for paver cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure patio 12x10 ft =120 ft2, paver 12x12 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -14009,48 +13681,40 @@ export const calculatorDetails: Record<string, any> = {
       "Mulch yards vs bags"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Patio 12x10 ft =120 ft2, paver 12x12 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Pavers = ceil(Area / Paver area) + Waste, Base = Area*Depth/27",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Area",
+        "meaning": "Length*Width ft2"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Paver area",
+        "meaning": "12x12=1 ft2, 4x8=0.222 ft2"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Patio 12x10 ft =120 ft2, paver 12x12 in",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
-        },
-        {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
-        },
-        {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
+          "label": "Pavers",
+          "value": "120/1 =120"
         },
         {
           "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "value": "132 pavers"
+        },
+        {
+          "label": "Base 4 in",
+          "value": "120*0.333/27 =1.48 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><p class='text-sm'>Base 4 in patio, 6-8 in driveway. Sand 1 in screeded. Waste 10% rect, 15% curve.</p>",
     "materialInfo": "Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.",
     "wasteInfo": "Add 10% for cuts and curves — 15% for radial patterns.",
     "tips": [
@@ -14069,7 +13733,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for paver sand?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure patio 12x10 ft =120 ft2, paver 12x12 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -14090,48 +13754,40 @@ export const calculatorDetails: Record<string, any> = {
       "Mulch yards vs bags"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Patio 12x10 ft =120 ft2, paver 12x12 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Pavers = ceil(Area / Paver area) + Waste, Base = Area*Depth/27",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Area",
+        "meaning": "Length*Width ft2"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Paver area",
+        "meaning": "12x12=1 ft2, 4x8=0.222 ft2"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Patio 12x10 ft =120 ft2, paver 12x12 in",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
-        },
-        {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
-        },
-        {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
+          "label": "Pavers",
+          "value": "120/1 =120"
         },
         {
           "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "value": "132 pavers"
+        },
+        {
+          "label": "Base 4 in",
+          "value": "120*0.333/27 =1.48 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><p class='text-sm'>Base 4 in patio, 6-8 in driveway. Sand 1 in screeded. Waste 10% rect, 15% curve.</p>",
     "materialInfo": "Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.",
     "wasteInfo": "Add 10% for cuts and curves — 15% for radial patterns.",
     "tips": [
@@ -14150,7 +13806,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for paver base?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure patio 12x10 ft =120 ft2, paver 12x12 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -14171,48 +13827,40 @@ export const calculatorDetails: Record<string, any> = {
       "Mulch yards vs bags"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Patio 12x10 ft =120 ft2, paver 12x12 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Pavers = ceil(Area / Paver area) + Waste, Base = Area*Depth/27",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Area",
+        "meaning": "Length*Width ft2"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Paver area",
+        "meaning": "12x12=1 ft2, 4x8=0.222 ft2"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Patio 12x10 ft =120 ft2, paver 12x12 in",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
-        },
-        {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
-        },
-        {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
+          "label": "Pavers",
+          "value": "120/1 =120"
         },
         {
           "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "value": "132 pavers"
+        },
+        {
+          "label": "Base 4 in",
+          "value": "120*0.333/27 =1.48 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><p class='text-sm'>Base 4 in patio, 6-8 in driveway. Sand 1 in screeded. Waste 10% rect, 15% curve.</p>",
     "materialInfo": "Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.",
     "wasteInfo": "Add 10% for cuts and curves — 15% for radial patterns.",
     "tips": [
@@ -14231,7 +13879,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for paver joint sand?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure patio 12x10 ft =120 ft2, paver 12x12 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -14252,48 +13900,40 @@ export const calculatorDetails: Record<string, any> = {
       "Mulch yards vs bags"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Patio 12x10 ft =120 ft2, paver 12x12 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Pavers = ceil(Area / Paver area) + Waste, Base = Area*Depth/27",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Area",
+        "meaning": "Length*Width ft2"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Paver area",
+        "meaning": "12x12=1 ft2, 4x8=0.222 ft2"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Patio 12x10 ft =120 ft2, paver 12x12 in",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
-        },
-        {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
-        },
-        {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
+          "label": "Pavers",
+          "value": "120/1 =120"
         },
         {
           "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "value": "132 pavers"
+        },
+        {
+          "label": "Base 4 in",
+          "value": "120*0.333/27 =1.48 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><p class='text-sm'>Base 4 in patio, 6-8 in driveway. Sand 1 in screeded. Waste 10% rect, 15% curve.</p>",
     "materialInfo": "Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.",
     "wasteInfo": "Add 10% for cuts and curves — 15% for radial patterns.",
     "tips": [
@@ -14312,7 +13952,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for landscaping?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure patio 12x10 ft =120 ft2, paver 12x12 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -14333,48 +13973,40 @@ export const calculatorDetails: Record<string, any> = {
       "Mulch yards vs bags"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Patio 12x10 ft =120 ft2, paver 12x12 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Pavers = ceil(Area / Paver area) + Waste, Base = Area*Depth/27",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Area",
+        "meaning": "Length*Width ft2"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Paver area",
+        "meaning": "12x12=1 ft2, 4x8=0.222 ft2"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Patio 12x10 ft =120 ft2, paver 12x12 in",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
-        },
-        {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
-        },
-        {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
+          "label": "Pavers",
+          "value": "120/1 =120"
         },
         {
           "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "value": "132 pavers"
+        },
+        {
+          "label": "Base 4 in",
+          "value": "120*0.333/27 =1.48 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><p class='text-sm'>Base 4 in patio, 6-8 in driveway. Sand 1 in screeded. Waste 10% rect, 15% curve.</p>",
     "materialInfo": "Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.",
     "wasteInfo": "Add 10% for cuts and curves — 15% for radial patterns.",
     "tips": [
@@ -14393,7 +14025,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for landscaping cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure patio 12x10 ft =120 ft2, paver 12x12 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -14414,28 +14046,28 @@ export const calculatorDetails: Record<string, any> = {
       "Mulch yards vs bags"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Mulch 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Mulch",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Mulch in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Mulch in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Mulch in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Mulch 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -14474,7 +14106,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for mulch?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure mulch 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -14495,28 +14127,28 @@ export const calculatorDetails: Record<string, any> = {
       "Mulch yards vs bags"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Mulch Cost 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Mulch Cost",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Mulch Cost in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Mulch Cost in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Mulch Cost in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Mulch Cost 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -14555,7 +14187,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for mulch cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure mulch cost 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -14576,48 +14208,40 @@ export const calculatorDetails: Record<string, any> = {
       "Mulch yards vs bags"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Patio 12x10 ft =120 ft2, paver 12x12 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Pavers = ceil(Area / Paver area) + Waste, Base = Area*Depth/27",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Area",
+        "meaning": "Length*Width ft2"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Paver area",
+        "meaning": "12x12=1 ft2, 4x8=0.222 ft2"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Patio 12x10 ft =120 ft2, paver 12x12 in",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
-        },
-        {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
-        },
-        {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
+          "label": "Pavers",
+          "value": "120/1 =120"
         },
         {
           "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "value": "132 pavers"
+        },
+        {
+          "label": "Base 4 in",
+          "value": "120*0.333/27 =1.48 yd3"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.</p><p class='text-sm'>Base 4 in patio, 6-8 in driveway. Sand 1 in screeded. Waste 10% rect, 15% curve.</p>",
     "materialInfo": "Pavers 12x12 in =1 ft2, base 4 in gravel, 1 in sand. Mulch 2 ft3 bag =8 ft2 at 3 in.",
     "wasteInfo": "Add 10% for cuts and curves — 15% for radial patterns.",
     "tips": [
@@ -14636,7 +14260,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for retaining wall?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure patio 12x10 ft =120 ft2, paver 12x12 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -14657,48 +14281,40 @@ export const calculatorDetails: Record<string, any> = {
       "Parking spaces with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Driveway 40x12 ft x 3 in asphalt — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Weight = Volume * 2.025 tons/yd3 (145 lb/ft3)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Area*Thickness/27 yd3"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Density",
+        "meaning": "2.025 t/yd3 asphalt"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Driveway 40x12 ft x 3 in asphalt",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "40*12*0.25=120 ft3=4.44 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Weight",
+          "value": "4.44*2.025=9.0 tons"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "9.9 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><p class='text-sm'>Asphalt 145 lb/ft3 = 2.025 t/yd3. Drive 2-3 in, parking 4 in. Tack 0.05 gal/ft2.</p>",
     "materialInfo": "Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.",
     "wasteInfo": "Add 5% for screed loss — 10% for hand work.",
     "tips": [
@@ -14717,7 +14333,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for asphalt?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure driveway 40x12 ft x 3 in asphalt on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -14738,48 +14354,40 @@ export const calculatorDetails: Record<string, any> = {
       "Parking spaces with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Driveway 40x12 ft x 3 in asphalt — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Weight = Volume * 2.025 tons/yd3 (145 lb/ft3)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Area*Thickness/27 yd3"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Density",
+        "meaning": "2.025 t/yd3 asphalt"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Driveway 40x12 ft x 3 in asphalt",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "40*12*0.25=120 ft3=4.44 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Weight",
+          "value": "4.44*2.025=9.0 tons"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "9.9 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><p class='text-sm'>Asphalt 145 lb/ft3 = 2.025 t/yd3. Drive 2-3 in, parking 4 in. Tack 0.05 gal/ft2.</p>",
     "materialInfo": "Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.",
     "wasteInfo": "Add 5% for screed loss — 10% for hand work.",
     "tips": [
@@ -14798,7 +14406,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for asphalt cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure driveway 40x12 ft x 3 in asphalt on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -14819,48 +14427,40 @@ export const calculatorDetails: Record<string, any> = {
       "Parking spaces with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Driveway 40x12 ft x 3 in asphalt — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Weight = Volume * 2.025 tons/yd3 (145 lb/ft3)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Area*Thickness/27 yd3"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Density",
+        "meaning": "2.025 t/yd3 asphalt"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Driveway 40x12 ft x 3 in asphalt",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "40*12*0.25=120 ft3=4.44 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Weight",
+          "value": "4.44*2.025=9.0 tons"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "9.9 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><p class='text-sm'>Asphalt 145 lb/ft3 = 2.025 t/yd3. Drive 2-3 in, parking 4 in. Tack 0.05 gal/ft2.</p>",
     "materialInfo": "Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.",
     "wasteInfo": "Add 5% for screed loss — 10% for hand work.",
     "tips": [
@@ -14879,7 +14479,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for asphalt driveway?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure driveway 40x12 ft x 3 in asphalt on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -14900,48 +14500,40 @@ export const calculatorDetails: Record<string, any> = {
       "Parking spaces with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Driveway 40x12 ft x 3 in asphalt — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Weight = Volume * 2.025 tons/yd3 (145 lb/ft3)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Area*Thickness/27 yd3"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Density",
+        "meaning": "2.025 t/yd3 asphalt"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Driveway 40x12 ft x 3 in asphalt",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "40*12*0.25=120 ft3=4.44 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Weight",
+          "value": "4.44*2.025=9.0 tons"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "9.9 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><p class='text-sm'>Asphalt 145 lb/ft3 = 2.025 t/yd3. Drive 2-3 in, parking 4 in. Tack 0.05 gal/ft2.</p>",
     "materialInfo": "Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.",
     "wasteInfo": "Add 5% for screed loss — 10% for hand work.",
     "tips": [
@@ -14960,7 +14552,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for asphalt weight?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure driveway 40x12 ft x 3 in asphalt on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -14981,48 +14573,40 @@ export const calculatorDetails: Record<string, any> = {
       "Parking spaces with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Driveway 40x12 ft x 3 in asphalt — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Weight = Volume * 2.025 tons/yd3 (145 lb/ft3)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Area*Thickness/27 yd3"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Density",
+        "meaning": "2.025 t/yd3 asphalt"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Driveway 40x12 ft x 3 in asphalt",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "40*12*0.25=120 ft3=4.44 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Weight",
+          "value": "4.44*2.025=9.0 tons"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "9.9 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><p class='text-sm'>Asphalt 145 lb/ft3 = 2.025 t/yd3. Drive 2-3 in, parking 4 in. Tack 0.05 gal/ft2.</p>",
     "materialInfo": "Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.",
     "wasteInfo": "Add 5% for screed loss — 10% for hand work.",
     "tips": [
@@ -15041,7 +14625,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for asphalt thickness?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure driveway 40x12 ft x 3 in asphalt on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -15062,48 +14646,40 @@ export const calculatorDetails: Record<string, any> = {
       "Parking spaces with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Driveway 40x12 ft x 3 in asphalt — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Weight = Volume * 2.025 tons/yd3 (145 lb/ft3)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Area*Thickness/27 yd3"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Density",
+        "meaning": "2.025 t/yd3 asphalt"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Driveway 40x12 ft x 3 in asphalt",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "40*12*0.25=120 ft3=4.44 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Weight",
+          "value": "4.44*2.025=9.0 tons"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "9.9 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><p class='text-sm'>Asphalt 145 lb/ft3 = 2.025 t/yd3. Drive 2-3 in, parking 4 in. Tack 0.05 gal/ft2.</p>",
     "materialInfo": "Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.",
     "wasteInfo": "Add 5% for screed loss — 10% for hand work.",
     "tips": [
@@ -15122,7 +14698,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for parking lot?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure driveway 40x12 ft x 3 in asphalt on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -15143,48 +14719,40 @@ export const calculatorDetails: Record<string, any> = {
       "Parking spaces with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Driveway 40x12 ft x 3 in asphalt — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Weight = Volume * 2.025 tons/yd3 (145 lb/ft3)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Area*Thickness/27 yd3"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Density",
+        "meaning": "2.025 t/yd3 asphalt"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Driveway 40x12 ft x 3 in asphalt",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "40*12*0.25=120 ft3=4.44 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Weight",
+          "value": "4.44*2.025=9.0 tons"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "9.9 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><p class='text-sm'>Asphalt 145 lb/ft3 = 2.025 t/yd3. Drive 2-3 in, parking 4 in. Tack 0.05 gal/ft2.</p>",
     "materialInfo": "Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.",
     "wasteInfo": "Add 5% for screed loss — 10% for hand work.",
     "tips": [
@@ -15203,7 +14771,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for parking lot cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure driveway 40x12 ft x 3 in asphalt on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -15224,48 +14792,40 @@ export const calculatorDetails: Record<string, any> = {
       "Parking spaces with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Driveway 40x12 ft x 3 in asphalt — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Weight = Volume * 2.025 tons/yd3 (145 lb/ft3)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Area*Thickness/27 yd3"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Density",
+        "meaning": "2.025 t/yd3 asphalt"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Driveway 40x12 ft x 3 in asphalt",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "40*12*0.25=120 ft3=4.44 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Weight",
+          "value": "4.44*2.025=9.0 tons"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "9.9 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><p class='text-sm'>Asphalt 145 lb/ft3 = 2.025 t/yd3. Drive 2-3 in, parking 4 in. Tack 0.05 gal/ft2.</p>",
     "materialInfo": "Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.",
     "wasteInfo": "Add 5% for screed loss — 10% for hand work.",
     "tips": [
@@ -15284,7 +14844,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for road base?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure driveway 40x12 ft x 3 in asphalt on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -15305,48 +14865,40 @@ export const calculatorDetails: Record<string, any> = {
       "Parking spaces with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Driveway 40x12 ft x 3 in asphalt — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Weight = Volume * 2.025 tons/yd3 (145 lb/ft3)",
     "variables": [
       {
-        "symbol": "L",
-        "meaning": "Length in feet"
+        "symbol": "Volume",
+        "meaning": "Area*Thickness/27 yd3"
       },
       {
-        "symbol": "W",
-        "meaning": "Width in feet"
-      },
-      {
-        "symbol": "D",
-        "meaning": "Depth in feet"
+        "symbol": "Density",
+        "meaning": "2.025 t/yd3 asphalt"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Driveway 40x12 ft x 3 in asphalt",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Volume",
+          "value": "40*12*0.25=120 ft3=4.44 yd3"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Weight",
+          "value": "4.44*2.025=9.0 tons"
         },
         {
-          "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
-        },
-        {
-          "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "label": "With waste",
+          "value": "9.9 tons"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.</p><p class='text-sm'>Asphalt 145 lb/ft3 = 2.025 t/yd3. Drive 2-3 in, parking 4 in. Tack 0.05 gal/ft2.</p>",
     "materialInfo": "Asphalt 145 lb/ft3 (2.025 t/yd3), 2–3 in driveways, 4 in commercial. Tack coat 0.05 gal/ft2.",
     "wasteInfo": "Add 5% for screed loss — 10% for hand work.",
     "tips": [
@@ -15365,7 +14917,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for surface area?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure driveway 40x12 ft x 3 in asphalt on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",
@@ -15386,28 +14938,28 @@ export const calculatorDetails: Record<string, any> = {
       "Parking spaces with waste"
     ],
     "howToUse": [
-      "Measure Length 20 ft x Width 10 ft x Depth 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Construction Material Cost 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth",
+    "formula": "Volume = Length x Width x Depth for Construction Material Cost",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length in feet"
+        "meaning": "Length for Construction Material Cost in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width in feet"
+        "meaning": "Width for Construction Material Cost in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth in feet"
+        "meaning": "Depth for Construction Material Cost in feet"
       }
     ],
     "example": {
-      "inputs": "Length 20 ft x Width 10 ft x Depth 4 in",
+      "inputs": "Construction Material Cost 20 ft x 10 ft x 4 in",
       "steps": [
         {
           "label": "Convert depth",
@@ -15446,7 +14998,7 @@ export const calculatorDetails: Record<string, any> = {
       },
       {
         "q": "How do I measure for construction material cost?",
-        "a": "Measure length 20 ft x width 10 ft x depth 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "a": "Measure construction material cost 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
       },
       {
         "q": "How much waste should I add?",

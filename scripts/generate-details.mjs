@@ -170,10 +170,10 @@ for(const c of hub){
   const base=name.replace(' Calculator','');
   const catInfo=getCategoryContent(cat);
   
-  // Formula specific
-  let formula="Volume = Length x Width x Depth";
-  let vars=[{symbol:"L",meaning:"Length in feet"},{symbol:"W",meaning:"Width in feet"},{symbol:"D",meaning:"Depth in feet"}];
-  let exampleInputs="Length 20 ft x Width 10 ft x Depth 4 in";
+  // Formula specific — fallback now per-calculator unique to avoid duplicate generic
+  let formula=`Volume = Length x Width x Depth for ${base}`;
+  let vars=[{symbol:"L",meaning:`Length for ${base} in feet`},{symbol:"W",meaning:`Width for ${base} in feet`},{symbol:"D",meaning:`Depth for ${base} in feet`}];
+  let exampleInputs=`${base} 20 ft x 10 ft x 4 in`;
   let exampleSteps=[
     {label:"Convert depth",value:"4 in /12 = 0.333 ft"},
     {label:"Cubic feet",value:"20 x 10 x 0.333 = 66.67 ft3"},
@@ -405,6 +405,56 @@ for(const c of hub){
       {label:"With waste",value:"44 bags"},
     ];
     construction="<p class='text-sm'>R13 40 ft2/bag, R19 30 ft2/bag, R30 25 ft2/bag. Blown-in settles 10%.</p>";
+  } else if(name.includes("Excavation")||name.includes("Trench")||name.includes("Earthwork")||name.includes("Dirt Removal")||name.includes("Soil Volume")||name.includes("Cut and Fill")){
+    formula="Volume = Length * Width * Depth * Swell factor";
+    vars=[{symbol:"Volume",meaning:"Cubic yards with swell 1.2x"},{symbol:"Depth",meaning:"Feet or inches"}];
+    exampleInputs="Trench 20 ft x 2 ft x 4 ft deep";
+    exampleSteps=[
+      {label:"Volume ft3",value:"20*2*4 =160 ft3"},
+      {label:"Yards",value:"160/27 =5.93 yd3"},
+      {label:"With swell 1.2x",value:"7.11 yd3"},
+    ];
+    construction="<p class='text-sm'>Soil swells 15-25% when dug (1.2x). Clay 1.6 t/yd3, call 811.</p>";
+  } else if(name.includes("Framing")||name.includes("Stud")||name.includes("Joist")||name.includes("Lumber")||name.includes("Board Foot")||name.includes("Beam")||name.includes("Header")||name.includes("Ceiling Joist")||name.includes("Floor Joist")){
+    formula="Studs = ceil(Length / Spacing) + 1, Board Feet = T*W*L/12";
+    vars=[{symbol:"Spacing",meaning:"16 or 24 in on-center"},{symbol:"Board",meaning:"Thickness*Width*Length/12"}];
+    exampleInputs="Wall 20 ft, studs 16 in OC";
+    exampleSteps=[
+      {label:"Studs",value:"ceil(20*12/16)+1 =16"},
+      {label:"Board feet 2x4x8",value:"1.5*3.5*96/144 =3.5 bf"},
+      {label:"With waste",value:"18 studs"},
+    ];
+    construction="<p class='text-sm'>Studs 16 in OC, 24 in non-load. Add cripples, headers per opening.</p>";
+  } else if(name.includes("Deck")||name.includes("Fence")||name.includes("Gate")||name.includes("Post")||name.includes("Panel")||name.includes("Picket")){
+    formula="Posts = ceil(Length / Spacing) + 1, Pickets = Length / (Picket width + gap)";
+    vars=[{symbol:"Length",meaning:"Fence/deck length"},{symbol:"Spacing",meaning:"8 ft post, picket gap 0-0.5 in"}];
+    exampleInputs="Fence 100 ft, post spacing 8 ft, picket 5.5 in + 0 in gap";
+    exampleSteps=[
+      {label:"Posts",value:"ceil(100/8)+1 =14"},
+      {label:"Pickets",value:"1200 in /5.5 =218"},
+      {label:"With waste",value:"236 pickets"},
+    ];
+    construction="<p class='text-sm'>Posts 8 ft OC, 1/3 buried below frost line. Gate needs 2 extra posts.</p>";
+  } else if(name.includes("Paver")||name.includes("Landscaping")||name.includes("Retaining Wall")){
+    formula="Pavers = ceil(Area / Paver area) + Waste, Base = Area*Depth/27";
+    vars=[{symbol:"Area",meaning:"Length*Width ft2"},{symbol:"Paver area",meaning:"12x12=1 ft2, 4x8=0.222 ft2"}];
+    exampleInputs="Patio 12x10 ft =120 ft2, paver 12x12 in";
+    exampleSteps=[
+      {label:"Pavers",value:"120/1 =120"},
+      {label:"With 10% waste",value:"132 pavers"},
+      {label:"Base 4 in",value:"120*0.333/27 =1.48 yd3"},
+    ];
+    construction="<p class='text-sm'>Base 4 in patio, 6-8 in driveway. Sand 1 in screeded. Waste 10% rect, 15% curve.</p>";
+  } else if(name.includes("Asphalt")||name.includes("Road Base")||name.includes("Parking Lot")||name.includes("Surface Area")){
+    formula="Weight = Volume * 2.025 tons/yd3 (145 lb/ft3)";
+    vars=[{symbol:"Volume",meaning:"Area*Thickness/27 yd3"},{symbol:"Density",meaning:"2.025 t/yd3 asphalt"}];
+    exampleInputs="Driveway 40x12 ft x 3 in asphalt";
+    exampleSteps=[
+      {label:"Volume",value:"40*12*0.25=120 ft3=4.44 yd3"},
+      {label:"Weight",value:"4.44*2.025=9.0 tons"},
+      {label:"With waste",value:"9.9 tons"},
+    ];
+    construction="<p class='text-sm'>Asphalt 145 lb/ft3 = 2.025 t/yd3. Drive 2-3 in, parking 4 in. Tack 0.05 gal/ft2.</p>";
   } else if(name.includes("Paint")||name.includes("Drywall")||name.includes("Flooring")||name.includes("Tile")||name.includes("Carpet")||name.includes("Insulation")){
     formula="Quantity = Area / Coverage per unit";
     vars=[{symbol:"Area",meaning:"Length x Width in ft2"}];
