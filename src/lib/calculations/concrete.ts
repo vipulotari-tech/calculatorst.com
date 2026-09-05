@@ -33,15 +33,40 @@ export function columnVolume(opts: {
   diameter: number; diameterUnit: string;
   height: number; heightUnit: string;
   wastePercent: number;
+  quantity?: number;
 }) {
   const Df = toFeet(opts.diameter, opts.diameterUnit);
   const Hf = toFeet(opts.height, opts.heightUnit);
+  const qty = opts.quantity ?? 1;
   const radius = Df / 2;
   const area = Math.PI * radius * radius;
-  const cuFt = area * Hf;
+  const cuFt = area * Hf * qty;
   const cuYd = cuFt / 27;
   const w = wasteFactor(opts.wastePercent);
-  return { area, cuFt, cuYd, cuFtW: cuFt * w, cuYdW: cuYd * w, wasteF: w };
+  return { area, cuFt, cuYd, cuFtW: cuFt * w, cuYdW: cuYd * w, wasteF: w, quantity: qty };
+}
+
+// Tube / Circular Slab (hollow cylinder): pi*((Do/2)^2 - (Di/2)^2)*H*Qty — matches calculator.net Circular Slab or Tube
+export function tubeVolume(opts: {
+  outerDiameter: number; outerDiameterUnit: string;
+  innerDiameter: number; innerDiameterUnit: string;
+  height: number; heightUnit: string;
+  wastePercent: number;
+  quantity?: number;
+}) {
+  const Do = toFeet(opts.outerDiameter, opts.outerDiameterUnit);
+  const Di = toFeet(opts.innerDiameter ?? 0, opts.innerDiameterUnit ?? "in");
+  const Hf = toFeet(opts.height, opts.heightUnit);
+  const qty = opts.quantity ?? 1;
+  const Ro = Do / 2;
+  const Ri = Di / 2;
+  const outerArea = Math.PI * Ro * Ro;
+  const innerArea = Di > 0 ? Math.PI * Ri * Ri : 0;
+  const area = Math.max(0, outerArea - innerArea);
+  const cuFt = area * Hf * qty;
+  const cuYd = cuFt / 27;
+  const w = wasteFactor(opts.wastePercent);
+  return { outerArea, innerArea, area, cuFt, cuYd, cuFtW: cuFt * w, cuYdW: cuYd * w, wasteF: w, quantity: qty };
 }
 
 // Curb + gutter combined: Length * (curbArea + gutterArea)
@@ -67,22 +92,27 @@ export function curbVolume(opts: {
   return { curbArea, gutterArea, totalArea, cuFt, cuYd, cuFtW: cuFt * w, cuYdW: cuYd * w, wasteF: w };
 }
 
-// Stair: per step volume * steps
+// Stair: per step volume * steps + optional platform (landing) — platformDepth extra slab on top, matches calculator.net Platform Depth
 export function stairVolume(opts: {
   width: number; widthUnit: string; // stair width
   rise: number; riseUnit: string; // riser height
   run: number; runUnit: string; // tread depth
   steps: number;
   wastePercent: number;
+  platformDepth?: number;
+  platformDepthUnit?: string;
 }) {
   const Wf = toFeet(opts.width, opts.widthUnit);
   const Rise = toFeet(opts.rise, opts.riseUnit);
   const Run = toFeet(opts.run, opts.runUnit);
   const perStep = Run * Rise * Wf;
-  const cuFt = perStep * opts.steps;
+  const stepsCuFt = perStep * opts.steps;
+  const PlatDf = opts.platformDepth ? toFeet(opts.platformDepth, opts.platformDepthUnit ?? "in") : 0;
+  const platformCuFt = PlatDf > 0 ? PlatDf * Wf * Run : 0; // platform is run-depth slab
+  const cuFt = stepsCuFt + platformCuFt;
   const cuYd = cuFt / 27;
   const w = wasteFactor(opts.wastePercent);
-  return { perStep, cuFt, cuYd, cuFtW: cuFt * w, cuYdW: cuYd * w, wasteF: w };
+  return { perStep, stepsCuFt, platformCuFt, cuFt, cuYd, cuFtW: cuFt * w, cuYdW: cuYd * w, wasteF: w };
 }
 
 // Ramp / wedge: L*W*H /2  (triangular prism) + optional flat

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { rectVolume, columnVolume, curbVolume, stairVolume, rampVolume, concreteWeight } from "../concrete";
+import { rectVolume, columnVolume, curbVolume, stairVolume, rampVolume, tubeVolume, concreteWeight } from "../concrete";
 
 describe("Concrete - rectVolume (generic concrete calculators)", () => {
   it("normal case: 20ft x 10ft x 4in with 10% waste", () => {
@@ -51,6 +51,11 @@ describe("Concrete - columnVolume", () => {
     expect(r.cuYd).toBeCloseTo(6.283/27,3); // 0.233
     expect(r.cuYdW).toBeCloseTo(0.233*1.05,3);
   });
+  it("quantity: 3 columns", () => {
+    const r = columnVolume({ diameter:12, diameterUnit:"in", height:8, heightUnit:"ft", wastePercent:5, quantity:3 });
+    expect(r.cuFt).toBeCloseTo(Math.PI*0.5*0.5*8*3,2);
+    expect(r.quantity).toBe(3);
+  });
   it("metric: 300mm diameter x 2m height", () => {
     const r = columnVolume({ diameter:300, diameterUnit:"mm", height:2, heightUnit:"m", wastePercent:0 });
     expect(r.cuFt).toBeGreaterThan(0);
@@ -80,6 +85,18 @@ describe("Concrete - stairVolume", () => {
     expect(r.cuFt).toBeCloseTo(per*4,2); // 8.55
     expect(r.cuYdW).toBeCloseTo(8.555/27*1.1,3);
   });
+  it("with platform depth 12in", () => {
+    const r = stairVolume({ width:4, widthUnit:"ft", rise:7, riseUnit:"in", run:11, runUnit:"in", steps:4, wastePercent:10, platformDepth:12, platformDepthUnit:"in" });
+    const per = (11/12)*(7/12)*4;
+    const platform = (12/12)*4*(11/12); // 1*4*0.917=3.666
+    expect(r.platformCuFt).toBeCloseTo(3.666,2);
+    expect(r.cuFt).toBeCloseTo(per*4 + 3.666,2);
+  });
+  it("platform 0 gives same as before (backward compat)", () => {
+    const a = stairVolume({ width:4, widthUnit:"ft", rise:7, riseUnit:"in", run:11, runUnit:"in", steps:4, wastePercent:10 });
+    const b = stairVolume({ width:4, widthUnit:"ft", rise:7, riseUnit:"in", run:11, runUnit:"in", steps:4, wastePercent:10, platformDepth:0, platformDepthUnit:"in" });
+    expect(b.cuFt).toBeCloseTo(a.cuFt,5);
+  });
 });
 
 describe("Concrete - rampVolume", () => {
@@ -87,6 +104,29 @@ describe("Concrete - rampVolume", () => {
     const r = rampVolume({ length:10, lengthUnit:"ft", width:4, widthUnit:"ft", height:6, heightUnit:"in", wastePercent:10 });
     expect(r.cuFt).toBeCloseTo(10*4*0.5/2,2); // 10
     expect(r.cuYdW).toBeCloseTo(10/27*1.1,3);
+  });
+});
+
+describe("Concrete - tubeVolume (circular slab / hollow) — matches calculator.net", () => {
+  it("hollow tube Outer 12in Inner 8in Height 8ft", () => {
+    const r = tubeVolume({ outerDiameter:12, outerDiameterUnit:"in", innerDiameter:8, innerDiameterUnit:"in", height:8, heightUnit:"ft", wastePercent:5 });
+    const outer = Math.PI*0.5*0.5;
+    const inner = Math.PI*(8/12/2)*(8/12/2);
+    const area = outer - inner;
+    expect(r.area).toBeCloseTo(area,3);
+    expect(r.cuFt).toBeCloseTo(area*8,2);
+    expect(r.cuYd).toBeCloseTo(area*8/27,3);
+    expect(r.cuYdW).toBeCloseTo(area*8/27*1.05,3);
+  });
+  it("solid when inner 0 — same as column", () => {
+    const tube = tubeVolume({ outerDiameter:12, outerDiameterUnit:"in", innerDiameter:0, innerDiameterUnit:"in", height:8, heightUnit:"ft", wastePercent:5 });
+    const col = columnVolume({ diameter:12, diameterUnit:"in", height:8, heightUnit:"ft", wastePercent:5 });
+    expect(tube.cuFt).toBeCloseTo(col.cuFt,3);
+  });
+  it("quantity 2 tubes", () => {
+    const r = tubeVolume({ outerDiameter:12, outerDiameterUnit:"in", innerDiameter:8, innerDiameterUnit:"in", height:8, heightUnit:"ft", wastePercent:5, quantity:2 });
+    const area = Math.PI*0.5*0.5 - Math.PI*(8/12/2)*(8/12/2);
+    expect(r.cuFt).toBeCloseTo(area*8*2,2);
   });
 });
 

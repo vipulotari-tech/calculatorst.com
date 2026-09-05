@@ -19,6 +19,8 @@ export const wasteDefaults: WasteDefaults = {
   "concrete-curb-calculator": 10,
   "concrete-stair-calculator": 10,
   "concrete-ramp-calculator": 10,
+  "concrete-tube-calculator": 5,
+  "circular-slab-tube-calculator": 5,
   "concrete-waste-calculator": 10,
   // Slab/Patio/Driveway
   "slab-thickness-calculator": 0,
@@ -233,6 +235,7 @@ export type CalcCategory =
   | "concrete-curb"
   | "concrete-stair"
   | "concrete-ramp"
+  | "concrete-tube"
   | "brick"
   | "cmu"
   | "mortar"
@@ -265,6 +268,7 @@ export type CalcCategory =
 
 export function getCalcCategory(slug: string): CalcCategory {
   if (slug === "concrete-column-calculator") return "concrete-column";
+  if (slug === "concrete-tube-calculator" || slug === "circular-slab-tube-calculator") return "concrete-tube";
   if (slug === "concrete-curb-calculator") return "concrete-curb";
   if (slug === "concrete-stair-calculator") return "concrete-stair";
   if (slug === "concrete-ramp-calculator") return "concrete-ramp";

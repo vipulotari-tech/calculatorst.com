@@ -6,7 +6,7 @@ export const clusterGroups: Record<string, { name: string; slugs: string[] }[]> 
     { name: "General & Volume", slugs: ["concrete-calculator","concrete-volume-calculator","concrete-weight-calculator"] },
     { name: "Cost & Mix", slugs: ["concrete-cost-calculator","concrete-mix-calculator","concrete-pour-calculator"] },
     { name: "Footings & Foundations", slugs: ["concrete-footing-calculator","concrete-foundation-calculator","concrete-slab-calculator"] },
-    { name: "Walls & Structures", slugs: ["concrete-wall-calculator","concrete-column-calculator","concrete-curb-calculator","concrete-stair-calculator","concrete-ramp-calculator"] },
+    { name: "Walls & Structures", slugs: ["concrete-wall-calculator","concrete-column-calculator","concrete-curb-calculator","concrete-stair-calculator","concrete-ramp-calculator","concrete-tube-calculator"] },
     { name: "Waste", slugs: ["concrete-waste-calculator"] },
   ],
   slab: [

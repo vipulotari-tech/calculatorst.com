@@ -215,12 +215,15 @@ const resultsId = `${id}-results`;
 
       // ===== CONCRETE STAIR =====
       } else if (eq("concrete-stair-calculator")) {
-        const W=vals["width"], Wu=getUnit("width"), rise=vals["rise"], ru=getUnit("rise"), run=vals["run"], runu=getUnit("run"), steps=vals["steps"]||1;
+        const W=vals["width"], Wu=getUnit("width"), rise=vals["rise"], ru=getUnit("rise"), run=vals["run"], runu=getUnit("run"), steps=vals["steps"]||1, plat=vals["platform_depth"]||0, platu=getUnit("platform_depth");
         const Wf=toFeet(W,Wu), Rise=toFeet(rise,ru), Run=toFeet(run,runu);
-        const per=Run*Rise*Wf, cuFt=per*(steps||1), cuYd=cuFt/27, cuFtW=cuFt*wasteF, cuYdW=cuYd*wasteF;
+        const per=Run*Rise*Wf, stepsCuFt=per*(steps||1);
+        const platDf=plat?toFeet(plat,platu):0;
+        const platformCuFt=platDf>0?platDf*Wf*Run:0;
+        const cuFt=stepsCuFt+platformCuFt, cuYd=cuFt/27, cuFtW=cuFt*wasteF, cuYdW=cuYd*wasteF;
         primary=`${fmt(cuYdW)} yd³`;
-        secondary=`${fmt(cuFtW)} ft³ • ${fmt(per,3)} ft³ per step × ${steps}`;
-        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Per step</p><p class="font-semibold">${fmt(per,3)} ft³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Total</p><p class="font-semibold">${fmt(cuYd)} yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With ${waste}%</p><p class="font-semibold">${fmt(cuYdW)} yd³</p></div>`;
+        secondary=`${fmt(cuFtW)} ft³ • ${fmt(per,3)} ft³ per step × ${steps}${platformCuFt>0?` + platform ${fmt(platformCuFt,2)} ft³`:""}`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Per step</p><p class="font-semibold">${fmt(per,3)} ft³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Steps</p><p class="font-semibold">${fmt(stepsCuFt,2)} ft³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Platform</p><p class="font-semibold">${fmt(platformCuFt,2)} ft³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Total w/ ${waste}%</p><p class="font-semibold">${fmt(cuYdW)} yd³</p></div>`;
         if(isFinite(price)&&price>0) costText=`${fmtCurrency(cuYdW*price)} at ${fmt(price)}/yd³`;
 
       // ===== CONCRETE RAMP (triangular prism) =====
@@ -232,6 +235,26 @@ const resultsId = `${id}-results`;
         secondary=`${fmt(cuFt*wasteF)} ft³ • wedge ${(fmt(Lf*Wf*Hf,2))} ft³ /2`;
         breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Raw</p><p class="font-semibold">${fmt(cuYd)} yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With ${waste}%</p><p class="font-semibold">${fmt(cuYdW)} yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Formula</p><p class="font-semibold">L×W×H/2</p></div>`;
         if(isFinite(price)&&price>0) costText=`${fmtCurrency(cuYdW*price)} at ${fmt(price)}/yd³`;
+
+      // ===== CONCRETE TUBE / CIRCULAR SLAB (hollow cylinder) =====
+      } else if (eq("concrete-tube-calculator") || eq("circular-slab-tube-calculator")) {
+        const od=vals["outer_diameter"], odu=getUnit("outer_diameter"), idv=vals["inner_diameter"]||0, idu=getUnit("inner_diameter"), h=vals["height"], hu=getUnit("height"), qty=vals["quantity"]||1;
+        const Do=toFeet(od,odu), Di=toFeet(idv,idu), Hf=toFeet(h,hu);
+        const Ro=Do/2, Ri=Di/2;
+        const outerArea=Math.PI*Ro*Ro, innerArea=Di>0?Math.PI*Ri*Ri:0, area=Math.max(0,outerArea-innerArea);
+        const cuFt=area*Hf*(qty||1), cuYd=cuFt/27, cuFtW=cuFt*wasteF, cuYdW=cuYd*wasteF;
+        const isHollow = Di>0 && innerArea>0;
+        primary=`${fmt(cuYdW)} yd³`;
+        secondary=`${fmt(cuFtW)} ft³ • ${isHollow?`hollow ${fmt(area,3)} ft² (outer ${fmt(outerArea,3)} - inner ${fmt(innerArea,3)})`:`solid ${fmt(area,3)} ft²`} × ${fmt(Hf,2)} ft${qty>1?` × ${qty}`:""}`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Outer area</p><p class="font-semibold">${fmt(outerArea,3)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">${isHollow?"Inner area":"Solid"}</p><p class="font-semibold">${isHollow?fmt(innerArea,3)+" ft²":"—"}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Volume w/ ${waste}%</p><p class="font-semibold">${fmt(cuYdW)} yd³</p></div>`;
+        if(isFinite(price)&&price>0){
+          const c=priceUnit==="ton"?cuYdW*2.025*price:cuYdW*price;
+          const lbl=priceUnit==="ton"?"/ton":"/yd³";
+          costText=`${fmtCurrency(c)} at ${fmt(price)}${lbl}`;
+        } else {
+          const b80=Math.ceil(cuFtW/0.60);
+          costText=`${b80} × 80lb bags (0.60 ft³ ea)`;
+        }
 
       // ===== SLAB / GRAVEL / ASPHALT THICKNESS (Volume / Area) =====
       } else if (eq("slab-thickness-calculator") || eq("gravel-depth-calculator") || eq("asphalt-thickness-calculator")) {

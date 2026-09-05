@@ -1051,51 +1051,51 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "concrete"
   },
   "concrete-ramp-calculator": {
-    "whatIs": "The <strong>Concrete Ramp Calculator</strong> — Estimates concrete volume, weight and ready-mix versus bag count for US slabs, footings and walls.",
+    "whatIs": "The <strong>Concrete Ramp Calculator</strong> — Estimates concrete volume for wedge-shaped ramps (triangular prism) with waste and cost.",
     "whatCalculates": [
-      "Concrete volume in cubic yards and cubic feet",
-      "Ready-mix loads vs 40/60/80-lb bags",
-      "Weight and cost with waste"
+      "Ramp concrete volume in cubic yards and cubic feet (wedge)",
+      "Weight and cost with waste",
+      "Bags estimate vs ready-mix"
     ],
     "howToUse": [
-      "Measure Concrete Ramp 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
+      "Measure Ramp Length 10 ft x Width 4 ft x Max Thickness 6 in — wedge from 0 to max.",
       "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
       "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
       "Use Reset to clear and try another size."
     ],
-    "formula": "Volume = Length x Width x Depth for Concrete Ramp",
+    "formula": "Volume = Length × Width × Height / 2 (triangular prism)",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length for Concrete Ramp in feet"
+        "meaning": "Ramp length in feet"
       },
       {
         "symbol": "W",
-        "meaning": "Width for Concrete Ramp in feet"
+        "meaning": "Ramp width in feet"
       },
       {
-        "symbol": "D",
-        "meaning": "Depth for Concrete Ramp in feet"
+        "symbol": "H",
+        "meaning": "Max thickness in feet (0 at low end)"
       }
     ],
     "example": {
-      "inputs": "Concrete Ramp 20 ft x 10 ft x 4 in",
+      "inputs": "Ramp 10 ft x 4 ft x 6 in max",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
+          "label": "Convert height",
+          "value": "6 in /12 = 0.5 ft"
         },
         {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Volume",
+          "value": "10 x 4 x 0.5 /2 = 10 ft3"
         },
         {
           "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
+          "value": "10 /27 = 0.37 yd3"
         },
         {
           "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "value": "0.41 yd3"
         }
       ]
     },
@@ -1128,6 +1128,88 @@ export const calculatorDetails: Record<string, any> = {
       {
         "q": "How accurate is this concrete ramp estimate?",
         "a": "Math is exact for your inputs. Actual needs vary by site, material and installation. Add 5–10% waste for rectangular, 10–15% for irregular."
+      }
+    ],
+    "visualVariant": "concrete"
+  },
+  "concrete-tube-calculator": {
+    "whatIs": "The <strong>Concrete Tube Calculator</strong> — Estimates concrete volume for hollow circular slabs and tubes (annular cylinder) — matches calculator.net Circular Slab or Tube.",
+    "whatCalculates": [
+      "Hollow tube volume in cubic yards and cubic feet",
+      "Solid slab volume when inner diameter is 0",
+      "Weight and cost with waste"
+    ],
+    "howToUse": [
+      "Measure Outer Diameter 12 in, Inner Diameter 8 in, Height 8 ft — use 0 for solid.",
+      "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
+      "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
+      "Use Reset to clear and try another size."
+    ],
+    "formula": "Volume = π × ((Do/2)² - (Di/2)²) × Height × Quantity",
+    "variables": [
+      {
+        "symbol": "Do",
+        "meaning": "Outer diameter in feet"
+      },
+      {
+        "symbol": "Di",
+        "meaning": "Inner diameter in feet (0 for solid)"
+      },
+      {
+        "symbol": "H",
+        "meaning": "Height / length in feet"
+      }
+    ],
+    "example": {
+      "inputs": "Tube Outer 12 in, Inner 8 in, Height 8 ft",
+      "steps": [
+        {
+          "label": "Radii",
+          "value": "Outer 0.5 ft, Inner 0.333 ft"
+        },
+        {
+          "label": "Area",
+          "value": "π*(0.25 - 0.111) = 0.436 ft²"
+        },
+        {
+          "label": "Volume",
+          "value": "0.436*8 = 3.49 ft³ = 0.129 yd³"
+        },
+        {
+          "label": "With 5% waste",
+          "value": "0.136 yd³ (6 bags 80lb)"
+        }
+      ]
+    },
+    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Concrete — 4000 psi typical for tubes, piers and columns. Ordered by cubic yard (27 ft³) or bags (0.60 ft³ per 80-lb). Hollow tubes save concrete and reduce weight.</p><ul class=\"list-disc pl-5 space-y-1\"><li>For hollow tubes, inner diameter is void — use 0 for solid slab.</li><li>Quantity multiplies volume for multiple tubes.</li><li>For structural sizing verify with a professional per local code.</li></ul>",
+    "materialInfo": "Concrete — 4000 psi typical for tubes. Hollow tubes save 30-50% concrete vs solid.",
+    "wasteInfo": "Add 5% for hollow tubes — 10% for solid slabs. Hollow reduces spillage.",
+    "tips": [
+      "Use solid (Inner 0) for circular slabs",
+      "Hollow tubes reduce weight for piers",
+      "Add one extra bag per 10 as buffer"
+    ],
+    "mistakes": [
+      "Forgetting inner is diameter not radius (Di/2)",
+      "Ordering solid when hollow intended — waste 30%"
+    ],
+    "assumptions": "This calculator provides an estimate based on your inputs. Actual requirements vary by site, material and installation. For code-regulated or load-bearing work, consult a qualified professional.",
+    "faq": [
+      {
+        "q": "What does the Concrete Tube Calculator calculate?",
+        "a": "The Concrete Tube Calculator estimates hollow tube concrete volume — Outer and inner diameter with height and quantity. Use 0 inner for solid slab."
+      },
+      {
+        "q": "How do I measure for concrete tube?",
+        "a": "Measure outer diameter, inner diameter (0 for solid), and height. Use unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math."
+      },
+      {
+        "q": "How much waste should I add?",
+        "a": "Add 5% for hollow tubes, 10% for solid — hollow reduces over-pour."
+      },
+      {
+        "q": "How accurate is this tube estimate?",
+        "a": "Math is exact for your inputs. Area = π*((Do/2)²-(Di/2)²). Hollow saves concrete vs solid."
       }
     ],
     "visualVariant": "concrete"

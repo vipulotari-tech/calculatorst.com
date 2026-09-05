@@ -200,6 +200,20 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "featured": false
   },
   {
+    "slug": "concrete-tube-calculator",
+    "title": "Concrete Tube Calculator — Hollow Cylinder & Pipe Volume",
+    "h1": "Concrete Tube Calculator",
+    "description": "Calculate concrete volume for circular slabs and hollow tubes — outer and inner diameter with quantity and waste.",
+    "category": "Concrete",
+    "cluster": "concrete",
+    "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
+    "keywords": [
+      "concrete tube calculator",
+      "circular slab calculator"
+    ],
+    "featured": false
+  },
+  {
     "slug": "concrete-waste-calculator",
     "title": "Concrete Waste Calculator — Material, Quantity & Cost",
     "h1": "Concrete Waste Calculator",
@@ -2806,7 +2820,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
 ];
 
 export const hubCategories = [
-  { name: "Concrete Calculators", slug: "concrete", desc: "Slabs, footings, walls, columns and waste", count: 15 },
+  { name: "Concrete Calculators", slug: "concrete", desc: "Slabs, footings, walls, columns, tubes and waste", count: 16 },
   { name: "Slab, Patio & Driveway", slug: "slab-patio-driveway", desc: "Thickness, cost, reinforcement and garage/shed pads", count: 10 },
   { name: "Foundation & Footing", slug: "foundation", desc: "Strip, pad, pier, excavation and basement walls", count: 10 },
   { name: "Rebar & Reinforcement", slug: "rebar", desc: "Weight, spacing, laps, grids and chairs", count: 10 },

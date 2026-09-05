@@ -48,6 +48,7 @@ function getInputsForCalc(calc) {
       { id: "rise", label: "Riser Height", placeholder: "7", required: true, units: ["in","cm"], unit: "in" },
       { id: "run", label: "Tread Depth", placeholder: "11", required: true, units: ["in","cm"], unit: "in" },
       { id: "steps", label: "Number of steps", placeholder: "4", required: true, units: undefined, unit: undefined },
+      { id: "platform_depth", label: "Platform Depth (optional)", placeholder: "0", required: false, units: ["in","ft","cm"], unit: "in" },
     ];
   }
   if (slug === "concrete-ramp-calculator") {
@@ -55,6 +56,14 @@ function getInputsForCalc(calc) {
       { id: "length", label: "Ramp Length", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
       { id: "width", label: "Ramp Width", placeholder: "4", required: true, units: ["ft","m"], unit: "ft" },
       { id: "height", label: "Max Thickness", placeholder: "6", required: true, units: ["in","ft","cm"], unit: "in" },
+    ];
+  }
+  if (slug === "concrete-tube-calculator" || slug === "circular-slab-tube-calculator") {
+    return [
+      { id: "outer_diameter", label: "Outer Diameter (d1)", placeholder: "12", required: true, units: ["in","ft","cm","mm"], unit: "in" },
+      { id: "inner_diameter", label: "Inner Diameter (d2) — 0 for solid", placeholder: "0", required: false, units: ["in","ft","cm","mm"], unit: "in" },
+      { id: "height", label: "Length or Height (h)", placeholder: "8", required: true, units: ["ft","m","in","yd"], unit: "ft" },
+      { id: "quantity", label: "Quantity", placeholder: "1", required: false, units: undefined, unit: undefined },
     ];
   }
   if (slug === "slab-thickness-calculator") {
