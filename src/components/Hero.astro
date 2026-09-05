@@ -1,157 +1,118 @@
 ---
+// Luxury AI / Premium Tech Hero — Construction & Home Improvement
+// Tailwind CSS v4 — sleek light + premium dark, glassmorphism search
 ---
 
 <section
-  class="relative isolate overflow-hidden border-b border-border bg-background"
+  class="relative isolate overflow-hidden border-b border-hairline bg-[#FCFCF9] dark:bg-[#0A0A0B]"
   aria-labelledby="hero-heading"
 >
-  <div class="pointer-events-none absolute inset-0 mesh-gradient opacity-[0.9]" aria-hidden="true"></div>
-  <div
-    class="pointer-events-none absolute inset-0 opacity-[0.02] dark:opacity-[0.03]"
-    style="background-image: linear-gradient(rgba(128,128,128,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(128,128,128,0.08) 1px, transparent 1px); background-size: 32px 32px;"
-    aria-hidden="true"
-  ></div>
+  <!-- Premium ambient gradients -->
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div class="absolute inset-0 bg-[radial-gradient(60%_80%_at_20%_0%,rgba(120,119,198,0.08),transparent_60%),radial-gradient(50%_60%_at_80%_20%,rgba(255,119,98,0.06),transparent_60%)] dark:bg-[radial-gradient(60%_80%_at_20%_0%,rgba(120,119,198,0.15),transparent_60%),radial-gradient(50%_60%_at_80%_20%,rgba(255,119,98,0.08),transparent_60%)]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.04)_1px,transparent_1px)] bg-[size:32px_32px] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
+    <!-- subtle aurora mesh -->
+    <div class="absolute -top-24 left-1/2 h-[600px] w-[1200px] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(120,119,198,0.10),transparent_70%)] blur-[40px] dark:bg-[radial-gradient(ellipse_at_center,rgba(120,119,198,0.18),transparent_70%)]"></div>
+  </div>
 
-  <div class="relative mx-auto max-w-[1200px] px-4 sm:px-6 py-16 sm:py-20 lg:py-24">
-    <div class="mb-6 flex justify-center">
-      <a
-        href="#calculators"
-        class="inline-flex items-center gap-2 rounded-lg border border-border bg-muted px-3 py-1 text-[13px] text-muted-foreground shadow-card transition-colors hover:bg-card hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-      >
-        <span class="inline-flex items-center gap-1.5">
-          <span class="h-2 w-2 animate-pulse rounded-full bg-emerald-500" aria-hidden="true"></span>
-          <span class="font-mono text-[11px] font-medium tracking-wide text-muted-foreground">NEW</span>
-        </span>
-        <span class="hidden h-3 w-px bg-border sm:block" aria-hidden="true"></span>
-        <span class="text-[13px]">12 new calculators added this month…</span>
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="text-muted-foreground">
-          <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
-        </svg>
-      </a>
+  <div class="relative mx-auto max-w-[1120px] px-4 sm:px-6 py-[56px] sm:py-[72px] lg:py-[88px]">
+    <!-- Eyebrow -->
+    <div class="flex justify-center">
+      <p class="inline-flex items-center gap-2.5 font-mono text-[11px] font-medium tracking-[0.22em] text-zinc-500 dark:text-zinc-400">
+        <span class="h-px w-6 bg-zinc-300 dark:bg-zinc-700" aria-hidden="true"></span>
+        CONSTRUCTION & HOME IMPROVEMENT
+        <span class="h-px w-6 bg-zinc-300 dark:bg-zinc-700" aria-hidden="true"></span>
+      </p>
     </div>
 
-    <div class="mx-auto max-w-[680px] text-center">
-      <h1 id="hero-heading" class="text-display-xl font-semibold tracking-[-0.05em] text-foreground [text-wrap:balance]">
-        Fast, accurate calculators for everything.
+    <!-- Headline -->
+    <div class="mx-auto mt-6 max-w-[820px] text-center">
+      <h1
+        id="hero-heading"
+        class="text-[32px] font-[620] leading-[0.95] tracking-[-0.04em] sm:text-[48px] lg:text-[56px] [text-wrap:balance]"
+      >
+        <span class="bg-gradient-to-b from-zinc-900 to-zinc-600 bg-clip-text text-transparent dark:from-white dark:to-zinc-400">Construction &amp; Home</span><br />
+        <span class="bg-gradient-to-b from-zinc-900 to-zinc-600 bg-clip-text text-transparent dark:from-white dark:to-zinc-400">Improvement Calculators</span>
       </h1>
-      <p class="mx-auto mt-4 max-w-[520px] text-body-lg leading-7 text-muted-foreground [text-wrap:pretty]">
-        A minimal, privacy-friendly collection — finance, health, math &amp; conversions. No ads, no tracking, just instant answers.
+
+      <!-- Expanded Premium Subheadline -->
+      <p class="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.7] font-[450] tracking-[-0.01em] text-zinc-600 dark:text-zinc-400 [text-wrap:pretty] sm:text-[17px] sm:leading-[1.7]">
+        Precision-engineered intelligence for the built environment.<br class="hidden sm:block" />
+        <span class="text-zinc-900 dark:text-zinc-200">204 professional-grade calculators</span> unifying material takeoffs, dimensional analysis, and cost forecasting
+        — with <span class="font-medium text-zinc-900 dark:text-zinc-100">live, unit-aware computation</span>, waste optimization, and verified construction formulas for decisions you can build on.
       </p>
-
-      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-        <a
-          href="#calculators"
-          class="inline-flex h-11 items-center justify-center gap-1.5 rounded-lg bg-foreground px-6 text-[13px] font-medium text-background shadow-card transition duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-        >
-          Explore calculators
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
-          </svg>
-        </a>
-        <a
-          href="#categories"
-          class="inline-flex h-11 items-center justify-center rounded-lg border border-border bg-card px-6 text-[13px] font-medium text-foreground shadow-card transition duration-200 hover:bg-muted hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-        >
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M2 5h12M2 8h12M2 11h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
-          </svg>
-          Browse categories
-        </a>
-      </div>
-
-      <p class="mt-4 font-mono text-caption tracking-wide text-muted-foreground/60">
-        Free &middot; No sign-up &middot; Works offline &middot; <span translate="no">GDPR</span> friendly
+      <p class="mx-auto mt-3 hidden max-w-[680px] text-[13px] leading-5 text-zinc-500 dark:text-zinc-500 sm:block">
+        Concrete &bull; Roofing &bull; Framing &bull; Gravel &bull; Excavation &bull; Flooring &bull; Decking &bull; Asphalt — every result validated for US customary &amp; metric.
       </p>
     </div>
 
-    <div class="mx-auto mt-12 max-w-[860px] sm:mt-16">
-      <div
-        class="overflow-hidden rounded-xl border border-border bg-card shadow-float"
-        role="region"
-        aria-label="Example calculation preview"
-      >
-        <div class="flex items-center justify-between border-b border-border bg-muted/50 px-4 py-2.5">
-          <div class="flex items-center gap-1.5" aria-hidden="true">
-            <span class="h-3 w-3 rounded-full bg-border"></span>
-            <span class="h-3 w-3 rounded-full bg-border"></span>
-            <span class="h-3 w-3 rounded-full bg-border"></span>
-          </div>
-          <span class="font-mono text-[11px] tracking-wide text-muted-foreground">mortgage — live</span>
-          <span class="hidden font-mono text-[11px] text-muted-foreground/60 sm:inline">⌘K to search</span>
+    <!-- Glassmorphism Search -->
+    <div class="mx-auto mt-9 max-w-[640px]">
+      <form role="search" aria-label="Search calculators" class="group relative" onsubmit="return false">
+        <div class="pointer-events-none absolute -inset-[1px] rounded-[16px] bg-gradient-to-b from-zinc-200 to-zinc-100 opacity-80 blur-[1px] group-focus-within:from-violet-200 group-focus-within:to-indigo-200 dark:from-zinc-800 dark:to-zinc-900 dark:group-focus-within:from-violet-900/40 dark:group-focus-within:to-indigo-900/40" aria-hidden="true"></div>
+        <div class="relative flex items-center gap-3 rounded-[14px] border border-zinc-200/70 bg-white/80 px-4 py-3 shadow-[0_2px_16px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04)] backdrop-blur-xl transition-all group-focus-within:border-violet-300 group-focus-within:bg-white group-focus-within:shadow-[0_8px_32px_rgba(99,102,241,0.12)] dark:border-zinc-800 dark:bg-zinc-900/70 dark:group-focus-within:border-violet-800 dark:group-focus-within:bg-zinc-900">
+          <!-- search icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="shrink-0 text-zinc-400 dark:text-zinc-500">
+            <path d="M21 21l-4.3-4.3m1.8-5.2a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+          <input
+            id="hero-search"
+            type="search"
+            placeholder="Search for a calculator..."
+            autocomplete="off"
+            class="h-7 w-full bg-transparent text-[15px] font-[450] tracking-[-0.01em] text-zinc-900 placeholder:text-zinc-400 focus:outline-none dark:text-white dark:placeholder:text-zinc-600"
+            aria-label="Search for a calculator"
+          />
+          <span class="hidden shrink-0 items-center gap-1 rounded-md border border-zinc-200 bg-zinc-50 px-1.5 py-1 font-mono text-[11px] font-medium leading-none tracking-wide text-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 sm:inline-flex" aria-hidden="true">
+            <span class="text-[10px]">⌘</span>K
+          </span>
         </div>
+      </form>
 
-        <div class="grid gap-0 md:grid-cols-[1.15fr_0.85fr]">
-          <div class="border-border p-5 sm:p-6 md:border-r">
-            <p class="font-mono text-[11px] tracking-widest text-muted-foreground/60">INPUTS</p>
-            <div class="mt-4 grid gap-3.5">
-              <label class="block">
-                <span class="font-mono text-[12px] text-muted-foreground/70">Loan amount</span>
-                <div class="mt-1.5 flex items-center gap-2 rounded-lg border border-border bg-muted/50 px-3 py-2.5">
-                  <span class="font-mono text-[12px] text-muted-foreground/60">$</span>
-                  <span class="tabular-nums font-mono text-[14px] text-foreground">425,000</span>
-                  <span class="ml-auto font-mono text-[11px] text-muted-foreground/40">USD</span>
-                </div>
-              </label>
-              <div class="grid grid-cols-2 gap-3">
-                <label class="block">
-                  <span class="font-mono text-[12px] text-muted-foreground/70">Interest</span>
-                  <div class="mt-1.5 flex items-center gap-2 rounded-lg border border-border bg-muted/50 px-3 py-2.5">
-                    <span class="font-mono text-[14px] tabular-nums text-foreground">6.5</span>
-                    <span class="font-mono text-[12px] text-muted-foreground/60">%</span>
-                  </div>
-                </label>
-                <label class="block">
-                  <span class="font-mono text-[12px] text-muted-foreground/70">Term</span>
-                  <div class="mt-1.5 flex items-center gap-2 rounded-lg border border-border bg-muted/50 px-3 py-2.5">
-                    <span class="font-mono text-[14px] tabular-nums text-foreground">30</span>
-                    <span class="font-mono text-[12px] text-muted-foreground/60">years</span>
-                  </div>
-                </label>
-              </div>
-              <div class="mt-1 flex items-center gap-2 font-mono text-[11px] text-muted-foreground/60">
-                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true"></span>
-                Updated instantly — no page reload.
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-muted/30 p-5 sm:p-6">
-            <p class="font-mono text-[11px] tracking-widest text-muted-foreground/60">MONTHLY PAYMENT</p>
-            <p class="mt-3 font-semibold tabular-nums tracking-[-0.03em] text-foreground">
-              <span class="text-3xl sm:text-[36px]">$2,686</span>
-              <span class="text-lg font-medium text-muted-foreground/60">.54</span>
-            </p>
-            <p class="mt-1 font-mono text-[12px] tabular-nums text-muted-foreground/60">
-              $967,394 total &middot; 2.28× principal
-            </p>
-
-            <div class="mt-5 space-y-2 rounded-lg border border-border bg-muted/50 p-3">
-              <div class="flex justify-between font-mono text-[12px]">
-                <span class="text-muted-foreground/60">Principal</span>
-                <span class="tabular-nums text-foreground">$1,520 / mo</span>
-              </div>
-              <div class="flex justify-between font-mono text-[12px]">
-                <span class="text-muted-foreground/60">Interest</span>
-                <span class="tabular-nums text-foreground">$1,166 / mo</span>
-              </div>
-              <div class="h-px bg-border" aria-hidden="true"></div>
-              <div class="flex justify-between font-mono text-[12px]">
-                <span class="text-muted-foreground/60">Payoff</span>
-                <span class="tabular-nums text-foreground">May 2056</span>
-              </div>
-            </div>
-
-            <div class="mt-4 flex gap-2">
-              <span class="inline-flex items-center rounded-full bg-foreground px-2.5 py-1 font-mono text-[11px] font-medium text-background">Copied link</span>
-              <span class="inline-flex items-center font-mono text-[11px] text-muted-foreground/60">Share &middot; Embed &middot; Print</span>
-            </div>
-          </div>
-        </div>
+      <!-- Tags -->
+      <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+        <span class="font-mono text-[11px] tracking-wide text-zinc-500 dark:text-zinc-500">Try —</span>
+        <a href="/concrete-slab-calculator/" class="inline-flex items-center rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-[13px] font-[500] tracking-[-0.01em] text-zinc-700 shadow-sm transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-white">Concrete Slab</a>
+        <a href="/roof-pitch-calculator/" class="inline-flex items-center rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-[13px] font-[500] tracking-[-0.01em] text-zinc-700 shadow-sm transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-white">Roof Pitch</a>
+        <a href="/gravel-calculator/" class="inline-flex items-center rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-[13px] font-[500] tracking-[-0.01em] text-zinc-700 shadow-sm transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-white">Gravel</a>
+        <a href="/fence-cost-calculator/" class="inline-flex items-center rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-[13px] font-[500] tracking-[-0.01em] text-zinc-700 shadow-sm transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-white">Fence</a>
+        <a href="/deck-material-calculator/" class="inline-flex items-center rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-[13px] font-[500] tracking-[-0.01em] text-zinc-700 shadow-sm transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-white">Deck</a>
       </div>
+    </div>
 
-      <p class="mt-3 text-center font-mono text-caption text-muted-foreground/60">
-        Every calculator follows the same minimal interaction — type, see result, copy.
+    <!-- Bottom trust bar -->
+    <div class="mt-7 flex justify-center">
+      <p class="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full border border-zinc-200/60 bg-white/60 px-4 py-2 font-mono text-[11px] tracking-wide text-zinc-500 shadow-sm backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-400">
+        <span class="inline-flex items-center gap-1.5"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true"></span> Free</span>
+        <span class="h-3 w-px bg-zinc-200 dark:bg-zinc-700" aria-hidden="true"></span>
+        <span>No sign-up</span>
+        <span class="h-3 w-px bg-zinc-200 dark:bg-zinc-700" aria-hidden="true"></span>
+        <span>US units</span>
+        <span class="h-3 w-px bg-zinc-200 dark:bg-zinc-700" aria-hidden="true"></span>
+        <span class="inline-flex items-center gap-1">Works offline <span class="h-1 w-1 rounded-full bg-zinc-300 dark:bg-zinc-600" aria-hidden="true"></span> 204 tools</span>
       </p>
     </div>
   </div>
 </section>
+
+<script is:inline>
+  (() => {
+    const input = document.getElementById('hero-search');
+    if (!input) return;
+    // Focus with ⌘K / Ctrl+K — matches existing site search pattern
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        input.focus();
+      }
+    });
+    // Minimal client search — redirect to /calculators/?q= or filter if present
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const q = input.value.trim();
+        if (!q) return;
+        window.location.href = `/calculators/?q=${encodeURIComponent(q)}`;
+      }
+    });
+  })();
+</script>
