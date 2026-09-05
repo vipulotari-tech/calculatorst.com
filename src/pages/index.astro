@@ -31,68 +31,90 @@ const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.
 >
   <Header />
   <main id="main" tabindex="-1">
-    <!-- Hero — premium mesh gradient -->
-    <section class="relative isolate overflow-hidden bg-background dark:bg-[#0a0a0f]" aria-labelledby="hero-heading">
-      <div class="pointer-events-none absolute inset-0 opacity-[0.03] dark:opacity-[0.04]" style="background-image: linear-gradient(rgba(128,128,128,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(128,128,128,0.08) 1px, transparent 1px); background-size: 48px 48px;" aria-hidden="true"></div>
-      <!-- Light: soft colorful mesh -->
-      <div class="pointer-events-none absolute inset-0 dark:hidden" style="background: radial-gradient(ellipse 900px 500px at 15% 0%, rgba(251,146,60,0.08), transparent 60%), radial-gradient(ellipse 800px 450px at 85% 10%, rgba(139,92,246,0.07), transparent 60%), radial-gradient(ellipse 600px 350px at 50% 100%, rgba(14,165,233,0.05), transparent 65%);" aria-hidden="true"></div>
-      <!-- Dark: luxury aurora mesh — vibrant for hero -->
-      <div class="pointer-events-none absolute inset-0 hidden dark:block" style="background: radial-gradient(ellipse 1000px 600px at 12% -10%, rgba(253,186,116,0.18), transparent 60%), radial-gradient(ellipse 900px 550px at 88% 5%, rgba(139,92,246,0.14), transparent 58%), radial-gradient(ellipse 700px 400px at 50% 0%, rgba(14,165,233,0.08), transparent 60%), radial-gradient(ellipse 800px 500px at 50% 100%, rgba(236,72,153,0.06), transparent 65%), radial-gradient(ellipse 600px 350px at 80% 85%, rgba(251,191,36,0.05), transparent 65%);" aria-hidden="true"></div>
-      <!-- Dark: subtle bottom fade for depth -->
-      <div class="pointer-events-none absolute inset-x-0 bottom-0 h-[1px] hidden dark:block bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" aria-hidden="true"></div>
-      <div class="relative mx-auto max-w-[1200px] px-4 sm:px-6 py-8 sm:py-10 lg:py-14">
-        <div class="mx-auto max-w-[580px] text-center">
-          <p class="inline-flex items-center justify-center gap-2 font-mono text-[10px] font-medium tracking-[0.14em] uppercase text-muted-foreground">
-            <span class="hidden h-px w-5 bg-border sm:inline-block" aria-hidden="true"></span>
-            Construction & Home Improvement
-            <span class="hidden h-px w-5 bg-border sm:inline-block" aria-hidden="true"></span>
-          </p>
-          <h1 id="hero-heading" class="mx-auto mt-4 max-w-[520px] text-[22px] font-[650] leading-[1.15] tracking-[-0.02em] text-foreground [text-wrap:balance] xs:text-[24px] sm:text-[26px] sm:leading-[1.12] lg:text-[30px] lg:tracking-[-0.025em]">
-            Construction & Home Improvement Calculators
-          </h1>
-          <p class="mx-auto mt-3 max-w-[460px] text-[13px] leading-[20px] text-muted-foreground [text-wrap:pretty] sm:text-[13.5px] sm:leading-[21px]">
-            Calculate materials, quantities, dimensions, costs, and project requirements with clear, practical tools.
-          </p>
+    <!-- Hero — Luxury AI / Premium Tech -->
+    <section class="relative isolate overflow-hidden border-b border-hairline bg-[#FCFCF9] dark:bg-[#0A0A0B]" aria-labelledby="hero-heading">
+      <!-- Premium ambient -->
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div class="absolute inset-0 bg-[radial-gradient(60%_80%_at_20%_0%,rgba(120,119,198,0.08),transparent_60%),radial-gradient(50%_60%_at_80%_20%,rgba(255,119,98,0.06),transparent_60%)] dark:bg-[radial-gradient(60%_80%_at_20%_0%,rgba(120,119,198,0.15),transparent_60%),radial-gradient(50%_60%_at_80%_20%,rgba(255,119,98,0.08),transparent_60%)]"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.04)_1px,transparent_1px)] bg-[size:32px_32px] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
+        <div class="absolute -top-24 left-1/2 h-[600px] w-[1200px] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(120,119,198,0.10),transparent_70%)] blur-[40px] dark:bg-[radial-gradient(ellipse_at_center,rgba(120,119,198,0.18),transparent_70%)]"></div>
+      </div>
 
-          <!-- Search -->
-          <div class="mx-auto mt-6 max-w-[480px] relative">
-            <label for="hero-search" class="sr-only">Search calculators</label>
-            <div class="group relative">
-              <span class="pointer-events-none absolute left-[14px] top-1/2 -translate-y-1/2 text-muted-foreground/50 transition-colors group-focus-within:text-foreground" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.2 11.2L13.8 13.8M12.3 7.3a4.95 4.95 0 1 1-9.9 0 4.95 4.95 0 0 1 9.9 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>
+      <div class="relative mx-auto max-w-[1120px] px-4 sm:px-6 py-[56px] sm:py-[72px] lg:py-[88px]">
+        <!-- Eyebrow -->
+        <div class="flex justify-center">
+          <p class="inline-flex items-center gap-2.5 font-mono text-[11px] font-medium tracking-[0.22em] text-zinc-500 dark:text-zinc-400">
+            <span class="h-px w-6 bg-zinc-300 dark:bg-zinc-700" aria-hidden="true"></span>
+            CONSTRUCTION & HOME IMPROVEMENT
+            <span class="h-px w-6 bg-zinc-300 dark:bg-zinc-700" aria-hidden="true"></span>
+          </p>
+        </div>
+
+        <!-- Headline + Expanded Premium Subheadline -->
+        <div class="mx-auto mt-6 max-w-[820px] text-center">
+          <h1 id="hero-heading" class="text-[32px] font-[620] leading-[0.95] tracking-[-0.04em] sm:text-[48px] lg:text-[56px] [text-wrap:balance]">
+            <span class="bg-gradient-to-b from-zinc-900 to-zinc-600 bg-clip-text text-transparent dark:from-white dark:to-zinc-400">Construction &amp; Home</span><br />
+            <span class="bg-gradient-to-b from-zinc-900 to-zinc-600 bg-clip-text text-transparent dark:from-white dark:to-zinc-400">Improvement Calculators</span>
+          </h1>
+          <p class="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.7] font-[450] tracking-[-0.01em] text-zinc-600 dark:text-zinc-400 [text-wrap:pretty] sm:text-[17px] sm:leading-[1.7]">
+            Precision-engineered intelligence for the built environment.<br class="hidden sm:block" />
+            <span class="text-zinc-900 dark:text-zinc-200">204 professional-grade calculators</span> unifying material takeoffs, dimensional analysis, and cost forecasting
+            — with <span class="font-medium text-zinc-900 dark:text-zinc-100">live, unit-aware computation</span>, waste optimization, and verified construction formulas for decisions you can build on.
+          </p>
+          <p class="mx-auto mt-3 hidden max-w-[680px] text-[13px] leading-5 text-zinc-500 dark:text-zinc-500 sm:block">
+            Concrete &bull; Roofing &bull; Framing &bull; Gravel &bull; Excavation &bull; Flooring &bull; Decking &bull; Asphalt — every result validated for US customary &amp; metric.
+          </p>
+        </div>
+
+        <!-- Glassmorphism Search (preserves existing search logic) -->
+        <div class="mx-auto mt-9 max-w-[640px] relative">
+          <label for="hero-search" class="sr-only">Search calculators</label>
+          <form role="search" aria-label="Search calculators" class="group relative" onsubmit="return false">
+            <div class="pointer-events-none absolute -inset-[1px] rounded-[16px] bg-gradient-to-b from-zinc-200 to-zinc-100 opacity-80 blur-[1px] group-focus-within:from-violet-200 group-focus-within:to-indigo-200 dark:from-zinc-800 dark:to-zinc-900 dark:group-focus-within:from-violet-900/40 dark:group-focus-within:to-indigo-900/40" aria-hidden="true"></div>
+            <div class="relative flex items-center gap-3 rounded-[14px] border border-zinc-200/70 bg-white/80 px-4 py-3 shadow-[0_2px_16px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04)] backdrop-blur-xl transition-all group-focus-within:border-violet-300 group-focus-within:bg-white group-focus-within:shadow-[0_8px_32px_rgba(99,102,241,0.12)] dark:border-zinc-800 dark:bg-zinc-900/70 dark:group-focus-within:border-violet-800 dark:group-focus-within:bg-zinc-900">
+              <span class="pointer-events-none shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.3-4.3m1.8-5.2a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
               </span>
               <input
                 id="hero-search"
                 type="search"
-                placeholder="Search for a calculator…"
+                placeholder="Search for a calculator..."
                 autocomplete="off"
                 spellcheck="false"
                 name="q"
-                class="h-[42px] sm:h-[44px] w-full rounded-xl border border-border bg-card py-0 pl-[42px] sm:pl-[44px] pr-4 text-[14px] font-[450] tracking-[-0.01em] text-foreground shadow-sm placeholder:text-muted-foreground/50 focus:border-ring focus:shadow-[0_0_0_3px_rgba(100,140,255,0.08)] focus:outline-none focus-visible:outline-none transition-[border-color,box-shadow] duration-150"
+                class="h-7 w-full bg-transparent text-[15px] font-[450] tracking-[-0.01em] text-zinc-900 placeholder:text-zinc-400 focus:outline-none dark:text-white dark:placeholder:text-zinc-600"
+                aria-label="Search for a calculator"
               />
+              <span class="hidden shrink-0 items-center gap-1 rounded-md border border-zinc-200 bg-zinc-50 px-1.5 py-1 font-mono text-[11px] font-medium leading-none tracking-wide text-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 sm:inline-flex" aria-hidden="true"><span class="text-[10px]">⌘</span>K</span>
             </div>
-            <div id="hero-search-results" class="absolute left-0 right-0 top-full z-20 mt-2 hidden max-h-[60vh] overflow-auto overflow-hidden rounded-xl border border-border bg-card text-left shadow-float" role="listbox" aria-label="Search results"></div>
+          </form>
+          <div id="hero-search-results" class="absolute left-0 right-0 top-full z-20 mt-2 hidden max-h-[60vh] overflow-auto overflow-hidden rounded-xl border border-zinc-200 bg-white text-left shadow-[0_16px_40px_rgba(0,0,0,0.10)] dark:border-zinc-800 dark:bg-zinc-900" role="listbox" aria-label="Search results"></div>
 
-            <!-- Suggestions -->
-            <div class="mt-4 flex flex-wrap items-center justify-center gap-1.5">
-              <span class="font-mono text-[10px] tracking-wide text-muted-foreground/70">Try —</span>
-              <a href="/concrete-slab-calculator/" class="inline-flex items-center rounded-lg border border-border bg-card px-2.5 py-1 text-[11px] font-[450] tracking-wide text-muted-foreground hover:bg-muted hover:text-foreground hover:border-border/80 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Concrete Slab</a>
-              <a href="/roof-pitch-calculator/" class="inline-flex items-center rounded-lg border border-border bg-card px-2.5 py-1 text-[11px] font-[450] tracking-wide text-muted-foreground hover:bg-muted hover:text-foreground hover:border-border/80 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Roof Pitch</a>
-              <a href="/gravel-calculator/" class="inline-flex items-center rounded-lg border border-border bg-card px-2.5 py-1 text-[11px] font-[450] tracking-wide text-muted-foreground hover:bg-muted hover:text-foreground hover:border-border/80 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Gravel</a>
-              <a href="/fence-calculator/" class="inline-flex items-center rounded-lg border border-border bg-card px-2.5 py-1 text-[11px] font-[450] tracking-wide text-muted-foreground hover:bg-muted hover:text-foreground hover:border-border/80 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Fence</a>
-              <a href="/deck-calculator/" class="inline-flex items-center rounded-lg border border-border bg-card px-2.5 py-1 text-[11px] font-[450] tracking-wide text-muted-foreground hover:bg-muted hover:text-foreground hover:border-border/80 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Deck</a>
-            </div>
-
-            <div class="mt-4 flex justify-center">
-              <a href="/calculators/" class="group inline-flex items-center gap-1 font-mono text-[11px] font-medium tracking-wide text-muted-foreground hover:text-foreground transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm px-1">
-                Browse all calculators
-                <span class="transition-transform duration-150 group-hover:translate-x-0.5" aria-hidden="true">→</span>
-              </a>
-            </div>
+          <!-- Tags -->
+          <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+            <span class="font-mono text-[11px] tracking-wide text-zinc-500 dark:text-zinc-500">Try —</span>
+            <a href="/concrete-slab-calculator/" class="inline-flex items-center rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-[13px] font-[500] tracking-[-0.01em] text-zinc-700 shadow-sm transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-white">Concrete Slab</a>
+            <a href="/roof-pitch-calculator/" class="inline-flex items-center rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-[13px] font-[500] tracking-[-0.01em] text-zinc-700 shadow-sm transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-white">Roof Pitch</a>
+            <a href="/gravel-calculator/" class="inline-flex items-center rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-[13px] font-[500] tracking-[-0.01em] text-zinc-700 shadow-sm transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-white">Gravel</a>
+            <a href="/fence-cost-calculator/" class="inline-flex items-center rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-[13px] font-[500] tracking-[-0.01em] text-zinc-700 shadow-sm transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-white">Fence</a>
+            <a href="/deck-material-calculator/" class="inline-flex items-center rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-[13px] font-[500] tracking-[-0.01em] text-zinc-700 shadow-sm transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-white">Deck</a>
           </div>
 
-          <p class="mt-4 font-mono text-[10px] tracking-wide text-muted-foreground/60">
-            Free <span class="text-border mx-1" aria-hidden="true">·</span> No sign-up <span class="text-border mx-1" aria-hidden="true">·</span> US units <span class="text-border mx-1" aria-hidden="true">·</span> Works offline
+          <div class="mt-4 flex justify-center">
+            <a href="/calculators/" class="group inline-flex items-center gap-1 font-mono text-[11px] font-medium tracking-wide text-zinc-500 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-300 transition-colors">Browse all calculators <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
+        <!-- Bottom trust bar -->
+        <div class="mt-7 flex justify-center">
+          <p class="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full border border-zinc-200/60 bg-white/60 px-4 py-2 font-mono text-[11px] tracking-wide text-zinc-500 shadow-sm backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-400">
+            <span class="inline-flex items-center gap-1.5"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true"></span> Free</span>
+            <span class="h-3 w-px bg-zinc-200 dark:bg-zinc-700" aria-hidden="true"></span>
+            <span>No sign-up</span>
+            <span class="h-3 w-px bg-zinc-200 dark:bg-zinc-700" aria-hidden="true"></span>
+            <span>US units</span>
+            <span class="h-3 w-px bg-zinc-200 dark:bg-zinc-700" aria-hidden="true"></span>
+            <span class="inline-flex items-center gap-1">Works offline <span class="h-1 w-1 rounded-full bg-zinc-300 dark:bg-zinc-600" aria-hidden="true"></span> 204 tools</span>
           </p>
         </div>
       </div>
