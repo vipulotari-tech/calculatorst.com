@@ -8,6 +8,7 @@ import CalculatorDiagram from "../../components/CalculatorDiagram.astro";
 import { hubCalculators } from "../../data/hubCalculators";
 import { calculatorDetails } from "../../data/calculatorDetails";
 import { calculators } from "../../data/calculators";
+import { getWasteDefault, getCalcCategory } from "../../lib/registry";
 
 export async function getStaticPaths() {
   const existingSlugs = new Set(calculators.map(c => c.slug));
@@ -22,43 +23,364 @@ const { calc } = Astro.props;
 const details = calculatorDetails[calc.slug] || {};
 
 function getInputsForCalc(calc) {
+  const slug = calc.slug;
   const name = calc.h1.toLowerCase();
-  if (name.includes("rebar") || name.includes("reinforcement")) {
+  // Concrete specials
+  if (slug === "concrete-column-calculator") {
+    return [
+      { id: "diameter", label: "Diameter", placeholder: "12", required: true, units: ["in","ft","cm","mm"], unit: "in" },
+      { id: "height", label: "Height", placeholder: "8", required: true, units: ["ft","m","in","yd"], unit: "ft" },
+      { id: "count", label: "Number of columns", placeholder: "1", required: false, units: undefined, unit: undefined },
+    ];
+  }
+  if (slug === "concrete-curb-calculator") {
+    return [
+      { id: "length", label: "Curb Length", placeholder: "20", required: true, units: ["ft","m","yd"], unit: "ft" },
+      { id: "curb_width", label: "Curb Width", placeholder: "6", required: true, units: ["in","ft","cm"], unit: "in" },
+      { id: "curb_height", label: "Curb Height", placeholder: "6", required: true, units: ["in","ft","cm"], unit: "in" },
+      { id: "gutter_width", label: "Gutter Width", placeholder: "18", required: true, units: ["in","ft","cm"], unit: "in" },
+      { id: "gutter_thickness", label: "Gutter Thickness", placeholder: "6", required: true, units: ["in","ft","cm"], unit: "in" },
+    ];
+  }
+  if (slug === "concrete-stair-calculator") {
+    return [
+      { id: "width", label: "Stair Width", placeholder: "4", required: true, units: ["ft","m"], unit: "ft" },
+      { id: "rise", label: "Riser Height", placeholder: "7", required: true, units: ["in","cm"], unit: "in" },
+      { id: "run", label: "Tread Depth", placeholder: "11", required: true, units: ["in","cm"], unit: "in" },
+      { id: "steps", label: "Number of steps", placeholder: "4", required: true, units: undefined, unit: undefined },
+    ];
+  }
+  if (slug === "concrete-ramp-calculator") {
+    return [
+      { id: "length", label: "Ramp Length", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+      { id: "width", label: "Ramp Width", placeholder: "4", required: true, units: ["ft","m"], unit: "ft" },
+      { id: "height", label: "Max Thickness", placeholder: "6", required: true, units: ["in","ft","cm"], unit: "in" },
+    ];
+  }
+  if (slug === "slab-thickness-calculator") {
+    return [
+      { id: "length", label: "Slab Length", placeholder: "12", required: true, units: ["ft","m"], unit: "ft" },
+      { id: "width", label: "Slab Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+      { id: "volume", label: "Concrete Volume", placeholder: "1.5", required: true, units: ["yd3","ft3","m3"], unit: "yd3" },
+    ];
+  }
+  if (slug === "gravel-depth-calculator" || slug === "crushed-stone-calculator" ) {
+    // Keep for depth-calc variant - reuse slab-thickness logic but for gravel
+    if (slug === "gravel-depth-calculator") {
+      return [
+        { id: "length", label: "Area Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "width", label: "Area Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "volume", label: "Gravel Volume", placeholder: "2.47", required: true, units: ["yd3","ft3","m3"], unit: "yd3" },
+      ];
+    }
+  }
+  if (slug === "asphalt-thickness-calculator") {
+    return [
+      { id: "length", label: "Area Length", placeholder: "40", required: true, units: ["ft","m"], unit: "ft" },
+      { id: "width", label: "Area Width", placeholder: "12", required: true, units: ["ft","m"], unit: "ft" },
+      { id: "volume", label: "Asphalt Volume", placeholder: "4.44", required: true, units: ["yd3","ft3","ton"], unit: "yd3" },
+    ];
+  }
+  if (slug === "surface-area-calculator") {
+    return [
+      { id: "length", label: "Length", placeholder: "40", required: true, units: ["ft","m"], unit: "ft" },
+      { id: "width", label: "Width", placeholder: "12", required: true, units: ["ft","m"], unit: "ft" },
+    ];
+  }
+  if (slug === "cut-and-fill-calculator") {
+    return [
+      { id: "cut", label: "Cut Volume", placeholder: "10", required: true, units: ["yd3","ft3","m3"], unit: "yd3" },
+      { id: "fill", label: "Fill Volume", placeholder: "8", required: true, units: ["yd3","ft3","m3"], unit: "yd3" },
+    ];
+  }
+  if (slug === "trench-backfill-calculator") {
+    return [
+      { id: "length", label: "Trench Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
+      { id: "width", label: "Trench Width", placeholder: "2", required: true, units: ["ft","in","m"], unit: "ft" },
+      { id: "depth", label: "Trench Depth", placeholder: "4", required: true, units: ["ft","in","m"], unit: "ft" },
+      { id: "pipe_diameter", label: "Pipe Diameter", placeholder: "12", required: true, units: ["in","ft","cm"], unit: "in" },
+    ];
+  }
+  if (slug.includes("rebar") || slug.includes("reinforcement")) {
+    if (slug === "rebar-spacing-calculator" || slug === "rebar-lap-length-calculator") {
+      return [
+        { id: "length", label: slug.includes("lap") ? "Bar size (#3-#11)" : "Length", placeholder: slug.includes("lap") ? "4" : "20", required: true, units: slug.includes("lap") ? undefined : ["ft","m"], unit: slug.includes("lap") ? undefined : "ft" },
+        { id: "spacing", label: slug.includes("lap") ? "Number of laps" : "Spacing", placeholder: slug.includes("lap") ? "2" : "16", required: true, units: slug.includes("lap") ? undefined : ["in","ft","cm"], unit: slug.includes("lap") ? undefined : "in" },
+      ];
+    }
+    if (slug === "rebar-weight-calculator") {
+      return [
+        { id: "count", label: "Number of bars", placeholder: "16", required: true, units: undefined, unit: undefined },
+        { id: "length", label: "Length per bar", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "size", label: "Rebar size (#3-#11)", placeholder: "4", required: true, units: undefined, unit: undefined },
+      ];
+    }
+    if (slug === "rebar-grid-calculator") {
+      return [
+        { id: "length", label: "Slab Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "width", label: "Slab Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "spacing", label: "Spacing (o.c.)", placeholder: "16", required: true, units: ["in","ft"], unit: "in" },
+      ];
+    }
+    if (slug === "rebar-chair-calculator") {
+      return [
+        { id: "length", label: "Slab Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "width", label: "Slab Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "spacing", label: "Chair spacing", placeholder: "4", required: true, units: ["ft"], unit: "ft" },
+      ];
+    }
     return [
       { id: "length", label: "Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
-      { id: "width", label: "Width / Spacing", placeholder: "12", required: true, units: ["in","ft","cm"], unit: "in" },
-      { id: "depth", label: "Depth / Diameter", placeholder: "0.5", units: ["in","mm"], unit: "in" },
+      { id: "spacing", label: "Spacing", placeholder: "16", required: true, units: ["in","ft","cm"], unit: "in" },
     ];
   }
   if (name.includes("brick") || name.includes("masonry") || name.includes("cmu") || name.includes("block")) {
+    // For weight/cost, use wall area + unit weight/price
+    if (name.includes("weight")) {
+      return [
+        { id: "wall_length", label: "Wall Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "wall_height", label: "Wall Height", placeholder: "8", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "unit_weight", label: "Weight per unit (lb)", placeholder: "4.3", required: false, units: undefined, unit: undefined },
+      ];
+    }
+    if (name.includes("cost")) {
+      return [
+        { id: "wall_length", label: "Wall Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "wall_height", label: "Wall Height", placeholder: "8", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "unit_price", label: "Price per unit ($)", placeholder: "0.65", required: false, units: undefined, unit: undefined },
+      ];
+    }
+    if (name.includes("mortar") || name.includes("grout")) {
+      return [
+        { id: "wall_length", label: "Wall Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "wall_height", label: "Wall Height", placeholder: "8", required: true, units: ["ft","m"], unit: "ft" },
+      ];
+    }
+    // Main quantity calculators
     return [
       { id: "wall_length", label: "Wall Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
       { id: "wall_height", label: "Wall Height", placeholder: "8", required: true, units: ["ft","m"], unit: "ft" },
-      { id: "brick_length", label: "Brick Length", placeholder: "7.5", units: ["in","cm"], unit: "in" },
+      { id: "brick_length", label: "Brick/Block Length", placeholder: "7.5", units: ["in","cm"], unit: "in" },
+      { id: "brick_height", label: "Brick/Block Height", placeholder: "2.25", units: ["in","cm"], unit: "in" },
+      { id: "joint", label: "Mortar Joint", placeholder: "0.375", units: ["in","mm"], unit: "in" },
+    ];
+  }
+  if (name.includes("mortar") || name.includes("grout") || name.includes("cement")) {
+    if (name.includes("ratio") || name.includes("mix")) {
+      return [
+        { id: "volume", label: "Mortar Volume", placeholder: "10", required: true, units: ["ft3","yd3","m3"], unit: "ft3" },
+        { id: "ratio", label: "Cement:Sand ratio (e.g., 1:3 = 4 parts)", placeholder: "4", required: false, units: undefined, unit: undefined },
+      ];
+    }
+    return [
+      { id: "length", label: "Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
+      { id: "width", label: "Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+      { id: "depth", label: "Depth / Thickness", placeholder: "0.5", required: true, units: ["in","ft","cm"], unit: "in" },
     ];
   }
   if (name.includes("roof") || name.includes("rafter") || name.includes("truss") || name.includes("shingle") || name.includes("pitch") || name.includes("slope")) {
+    if (slug === "roof-pitch-calculator" || slug === "roof-slope-calculator") {
+      return [
+        { id: "rise", label: "Rise", placeholder: "6", required: true, units: ["in","ft","cm"], unit: "in" },
+        { id: "run", label: "Run (horizontal)", placeholder: "12", required: true, units: ["in","ft","cm"], unit: "in" },
+      ];
+    }
+    if (slug === "rafter-length-calculator") {
+      return [
+        { id: "span", label: "Building Span (width)", placeholder: "30", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "pitch", label: "Pitch (rise/12)", placeholder: "6", required: true, units: undefined, unit: undefined },
+        { id: "overhang", label: "Overhang each side", placeholder: "1.5", required: false, units: ["ft","in"], unit: "ft" },
+      ];
+    }
+    if (slug.includes("shingle") || slug.includes("roof-waste") || slug.includes("roofing-material") || slug.includes("underlayment") || slug.includes("sheathing") || slug.includes("flashing")) {
+      return [
+        { id: "length", label: "Roof Length", placeholder: "40", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "width", label: "Roof Width", placeholder: "30", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "pitch", label: "Pitch (rise/12)", placeholder: "6", required: false, units: undefined, unit: undefined },
+      ];
+    }
     return [
       { id: "length", label: "Roof Length", placeholder: "40", required: true, units: ["ft","m"], unit: "ft" },
       { id: "width", label: "Roof Width", placeholder: "30", required: true, units: ["ft","m"], unit: "ft" },
-      { id: "pitch", label: "Pitch (rise/12)", placeholder: "6", units: ["in"], unit: "in" },
+      { id: "pitch", label: "Pitch (rise/12)", placeholder: "6", units: undefined, unit: undefined },
+      { id: "overhang", label: "Overhang each side", placeholder: "1.5", required: false, units: ["ft","in"], unit: "ft" },
     ];
   }
-  if (name.includes("paint") || name.includes("drywall") || name.includes("flooring") || name.includes("tile") || name.includes("carpet") || name.includes("insulation")) {
+  if (name.includes("paint") || name.includes("drywall") || name.includes("flooring") || name.includes("tile") || name.includes("carpet") || name.includes("insulation") || name.includes("spray-foam") || name.includes("primer") || name.includes("ceiling")) {
+    if (slug.includes("paint-coverage") || slug.includes("paint-cost") || slug.includes("primer") || slug.includes("paint-calculator")) {
+      return [
+        { id: "length", label: "Wall Length", placeholder: "12", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "width", label: "Wall Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "height", label: "Wall Height", placeholder: "8", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "coats", label: "Number of coats", placeholder: "2", required: false, units: undefined, unit: undefined },
+        { id: "coverage", label: "Coverage per gallon (ft²)", placeholder: "350", required: false, units: undefined, unit: undefined },
+      ];
+    }
+    if (slug.includes("drywall")) {
+      return [
+        { id: "length", label: "Room Length", placeholder: "12", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "width", label: "Room Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "height", label: "Wall Height", placeholder: "8", required: true, units: ["ft","m"], unit: "ft" },
+      ];
+    }
+    if (slug.includes("insulation") || slug.includes("spray-foam")) {
+      return [
+        { id: "length", label: "Area Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "width", label: "Area Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "coverage", label: "Coverage per bag (ft²)", placeholder: "25", required: false, units: undefined, unit: undefined },
+      ];
+    }
+    if (slug.includes("tile")) {
+      return [
+        { id: "length", label: "Floor Length", placeholder: "12", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "width", label: "Floor Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "tile_length", label: "Tile Length", placeholder: "12", required: true, units: ["in","cm"], unit: "in" },
+        { id: "tile_width", label: "Tile Width", placeholder: "12", required: true, units: ["in","cm"], unit: "in" },
+        { id: "grout", label: "Grout Joint", placeholder: "0.125", required: false, units: ["in","mm"], unit: "in" },
+      ];
+    }
     return [
       { id: "length", label: "Room Length", placeholder: "12", required: true, units: ["ft","m"], unit: "ft" },
       { id: "width", label: "Room Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
-      { id: "height", label: "Height / Coverage", placeholder: "8", units: ["ft","sqft"], unit: "ft" },
+    ];
+  }
+  if (name.includes("framing") || name.includes("stud") || name.includes("lumber") || name.includes("board-foot") || name.includes("joist") || name.includes("beam") || name.includes("header") || name.includes("ceiling-joist") || name.includes("floor-joist")) {
+    if (slug.includes("stud") || slug.includes("wall-framing")) {
+      return [
+        { id: "length", label: "Wall Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "spacing", label: "Stud spacing", placeholder: "16", required: true, units: ["in"], unit: "in" },
+      ];
+    }
+    if (slug.includes("board-foot")) {
+      return [
+        { id: "thickness", label: "Thickness (in)", placeholder: "1.5", required: true, units: ["in"], unit: "in" },
+        { id: "width", label: "Width (in)", placeholder: "3.5", required: true, units: ["in"], unit: "in" },
+        { id: "length", label: "Length", placeholder: "8", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "quantity", label: "Quantity", placeholder: "10", required: false, units: undefined, unit: undefined },
+      ];
+    }
+    if (slug.includes("joist")) {
+      return [
+        { id: "length", label: "Span Length", placeholder: "12", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "spacing", label: "Spacing", placeholder: "16", required: true, units: ["in"], unit: "in" },
+      ];
+    }
+    return [
+      { id: "length", label: "Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
+      { id: "spacing", label: "Spacing", placeholder: "16", required: true, units: ["in"], unit: "in" },
     ];
   }
   if (name.includes("trench") || name.includes("excavation") || name.includes("earthwork") || name.includes("soil") || name.includes("dirt") || name.includes("gravel") || name.includes("sand") || name.includes("topsoil") || name.includes("aggregate")) {
+    if (slug.includes("weight")) {
+      return [
+        { id: "length", label: "Length", placeholder: "20", required: true, units: ["ft","m","yd"], unit: "ft" },
+        { id: "width", label: "Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "depth", label: "Depth", placeholder: "4", required: true, units: ["in","ft","cm"], unit: "in" },
+        { id: "density", label: "Density (tons/yd³)", placeholder: "1.40", required: false, units: undefined, unit: undefined },
+      ];
+    }
+    if (slug.includes("depth")) {
+      return [
+        { id: "length", label: "Area Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "width", label: "Area Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "volume", label: "Volume", placeholder: "2.47", required: true, units: ["yd3","ft3","m3"], unit: "yd3" },
+      ];
+    }
     return [
       { id: "length", label: "Length", placeholder: "20", required: true, units: ["ft","m","yd"], unit: "ft" },
       { id: "width", label: "Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
       { id: "depth", label: "Depth", placeholder: "4", required: true, units: ["in","ft","cm"], unit: "in" },
     ];
   }
-  if (name.includes("fence") || name.includes("gate") || name.includes("deck") || name.includes("paver") || name.includes("asphalt") || name.includes("parking") || name.includes("road")) {
+  if (name.includes("fence") || name.includes("gate") || name.includes("deck") || name.includes("paver") || name.includes("asphalt") || name.includes("parking") || name.includes("road") || name.includes("mulch") || name.includes("retaining-wall") || name.includes("landscaping")) {
+    if (slug.includes("paver")) {
+      if (slug.includes("base") || slug.includes("sand")) {
+        return [
+          { id: "length", label: "Area Length", placeholder: "12", required: true, units: ["ft","m"], unit: "ft" },
+          { id: "width", label: "Area Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+          { id: "depth", label: slug.includes("sand") ? "Sand Depth" : "Base Depth", placeholder: slug.includes("sand") ? "1" : "4", required: true, units: ["in","cm"], unit: "in" },
+        ];
+      }
+      return [
+        { id: "length", label: "Area Length", placeholder: "12", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "width", label: "Area Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "paver_length", label: "Paver Length", placeholder: "12", required: true, units: ["in","cm"], unit: "in" },
+        { id: "paver_width", label: "Paver Width", placeholder: "12", required: true, units: ["in","cm"], unit: "in" },
+      ];
+    }
+    if (slug.includes("fence") || slug.includes("gate")) {
+      if (slug.includes("post")) {
+        return [
+          { id: "length", label: "Fence Length", placeholder: "100", required: true, units: ["ft","m"], unit: "ft" },
+          { id: "spacing", label: "Post Spacing", placeholder: "8", required: true, units: ["ft"], unit: "ft" },
+        ];
+      }
+      if (slug.includes("picket")) {
+        return [
+          { id: "length", label: "Fence Length", placeholder: "100", required: true, units: ["ft","m"], unit: "ft" },
+          { id: "picket_width", label: "Picket Width", placeholder: "5.5", required: true, units: ["in"], unit: "in" },
+          { id: "gap", label: "Gap", placeholder: "0", required: false, units: ["in"], unit: "in" },
+        ];
+      }
+      if (slug.includes("concrete")) {
+        return [
+          { id: "posts", label: "Number of posts", placeholder: "14", required: true, units: undefined, unit: undefined },
+          { id: "bags_per_post", label: "Bags per post (50lb)", placeholder: "0.5", required: false, units: undefined, unit: undefined },
+        ];
+      }
+      return [
+        { id: "length", label: "Fence Length", placeholder: "100", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "spacing", label: "Post Spacing", placeholder: "8", required: true, units: ["ft"], unit: "ft" },
+      ];
+    }
+    if (slug.includes("deck")) {
+      if (slug.includes("joist")) {
+        return [
+          { id: "length", label: "Deck Length", placeholder: "16", required: true, units: ["ft","m"], unit: "ft" },
+          { id: "spacing", label: "Joist Spacing", placeholder: "16", required: true, units: ["in"], unit: "in" },
+        ];
+      }
+      if (slug.includes("board")) {
+        return [
+          { id: "length", label: "Deck Length", placeholder: "16", required: true, units: ["ft","m"], unit: "ft" },
+          { id: "width", label: "Deck Width", placeholder: "12", required: true, units: ["ft","m"], unit: "ft" },
+          { id: "board_width", label: "Board Width", placeholder: "5.5", required: true, units: ["in","cm"], unit: "in" },
+          { id: "board_length", label: "Board Length", placeholder: "16", required: false, units: ["ft","m"], unit: "ft" },
+        ];
+      }
+      if (slug.includes("footing")) {
+        return [
+          { id: "count", label: "Number of footings", placeholder: "6", required: true, units: undefined, unit: undefined },
+          { id: "diameter", label: "Footing Diameter", placeholder: "12", required: true, units: ["in","ft"], unit: "in" },
+          { id: "depth", label: "Footing Depth", placeholder: "36", required: true, units: ["in","ft"], unit: "in" },
+        ];
+      }
+      return [
+        { id: "length", label: "Deck Length", placeholder: "16", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "width", label: "Deck Width", placeholder: "12", required: true, units: ["ft","m"], unit: "ft" },
+      ];
+    }
+    if (slug.includes("asphalt")) {
+      if (slug.includes("weight")) {
+        return [
+          { id: "length", label: "Length", placeholder: "40", required: true, units: ["ft","m"], unit: "ft" },
+          { id: "width", label: "Width", placeholder: "12", required: true, units: ["ft","m"], unit: "ft" },
+          { id: "thickness", label: "Thickness", placeholder: "3", required: true, units: ["in","cm"], unit: "in" },
+        ];
+      }
+      return [
+        { id: "length", label: "Length", placeholder: "40", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "width", label: "Width", placeholder: "12", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "depth", label: "Depth / Thickness", placeholder: "3", required: true, units: ["in","ft","cm"], unit: "in" },
+      ];
+    }
+    if (slug.includes("mulch")) {
+      return [
+        { id: "length", label: "Bed Length", placeholder: "20", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "width", label: "Bed Width", placeholder: "10", required: true, units: ["ft","m"], unit: "ft" },
+        { id: "depth", label: "Mulch Depth", placeholder: "3", required: true, units: ["in","cm"], unit: "in" },
+      ];
+    }
     return [
       { id: "length", label: "Length", placeholder: "100", required: true, units: ["ft","m"], unit: "ft" },
       { id: "width", label: "Width / Spacing", placeholder: "8", required: true, units: ["ft","m","in"], unit: "ft" },
@@ -72,11 +394,11 @@ function getInputsForCalc(calc) {
   ];
 }
 function getFormulaKey(calc) {
-  const n = calc.h1.toLowerCase();
-  if (n.includes("cost")) return "volume";
-  if (n.includes("weight")) return "volume";
-  if (n.includes("quantity") || n.includes("amount") || n.includes("number")) return "quantity";
-  if (n.includes("area") || n.includes("square")) return "area";
+  // Now delegated to registry category; keep for backward compat fallback
+  const cat = getCalcCategory(calc.slug);
+  if (cat === "generic-quantity") return "quantity";
+  if (cat === "generic-area") return "area";
+  if (cat === "concrete-column" || cat === "concrete-curb" || cat === "concrete-stair" || cat === "brick" || cat === "roof-pitch" || cat === "framing" || cat === "paver" || cat === "deck" || cat === "fence") return cat;
   return "volume";
 }
 function getVisualVariant(calc) {
@@ -102,6 +424,7 @@ function getVisualVariant(calc) {
 const inputs = getInputsForCalc(calc);
 const formulaKey = getFormulaKey(calc);
 const visualVariant = getVisualVariant(calc);
+const wasteDefault = getWasteDefault(calc.slug);
 const clusterToSlug: Record<string,string> = {
   concrete: "concrete",
   slab: "slab-patio-driveway",
@@ -173,7 +496,7 @@ const faq = d.faq || [
   noindex={true}
 >
   <Header slot="header" />
-  <GenericCalculator slot="calculator" id={calc.slug} inputs={inputs} formulaKey={formulaKey} resultTitle={`${calc.h1.toUpperCase()} ESTIMATE`} />
+  <GenericCalculator slot="calculator" id={calc.slug} inputs={inputs} formulaKey={formulaKey} wasteDefault={wasteDefault} resultTitle={`${calc.h1.toUpperCase()} ESTIMATE`} />
   <section class="space-y-6">
     <CalculatorDiagram slug={calc.slug} cluster={calc.cluster} h1={calc.h1} inputs={inputs} formula={d.formula} />
 

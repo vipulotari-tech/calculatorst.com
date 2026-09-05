@@ -3545,7 +3545,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },
@@ -3622,7 +3622,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },
@@ -3699,7 +3699,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },
@@ -3845,7 +3845,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },
@@ -3922,7 +3922,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },
@@ -3999,7 +3999,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },
@@ -4076,7 +4076,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },
@@ -4153,7 +4153,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },
@@ -4230,7 +4230,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },
@@ -4376,7 +4376,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },
@@ -4522,7 +4522,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },
@@ -4599,7 +4599,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },
@@ -4676,7 +4676,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },
@@ -5077,7 +5077,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },
@@ -5223,7 +5223,7 @@ export const calculatorDetails: Record<string, any> = {
         },
         {
           "label": "With 7% waste",
-          "value": "1,193"
+          "value": "1,194"
         }
       ]
     },

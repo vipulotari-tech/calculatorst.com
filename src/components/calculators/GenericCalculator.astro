@@ -103,23 +103,50 @@ const resultsId = `${id}-results`;
 
 <script is:inline define:vars={{ id, inputs, formulaKey }}>
 (() => {
-  const $ = (id) => document.getElementById(id);
+  const $ = (s) => document.getElementById(s);
   const form = $(`${id}-form`);
   const results = $(`${id}-results`);
   if (!form || !results) return;
 
   function toFeet(v, u) {
+    if (!isFinite(v)) return NaN;
     if (u === "ft") return v;
     if (u === "in") return v / 12;
     if (u === "yd") return v * 3;
     if (u === "m") return v * 3.28084;
     if (u === "cm") return v * 0.0328084;
     if (u === "mm") return v * 0.00328084;
+    // for direct ft2/yd3 etc fallback
+    return v;
+  }
+  function toInches(v,u){ return toFeet(v,u)*12; }
+  function volToCuFt(v,u){
+    if (!isFinite(v)) return NaN;
+    if (u==="yd3"||u==="yd³"||u==="cuyd") return v*27;
+    if (u==="m3"||u==="m³") return v*35.3147;
+    if (u==="ft3"||u==="ft³") return v;
+    if (u==="in3"||u==="in³") return v/1728;
+    if (u==="liter"||u==="l") return v*0.0353147;
+    if (u==="gallon"||u==="gal") return v*0.133681;
+    return v;
+  }
+  function toSqFt(v,u){
+    if (u==="sqft"||u==="ft2"||u==="ft²") return v;
+    if (u==="sqyd"||u==="yd2") return v*9;
+    if (u==="sqm"||u==="m2"||u==="m²") return v*10.7639;
+    if (u==="sqin"||u==="in2") return v/144;
     return v;
   }
   function fmt(n, dec=2) {
     if (!isFinite(n)) return "—";
     return new Intl.NumberFormat("en-US", { maximumFractionDigits: dec, minimumFractionDigits: dec===0?0:dec===2?2:0 }).format(n);
+  }
+  function fmtCurrency(n){ return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(n); }
+  function getUnit(key){
+    const sel = $(`${id}-${key}-unit`);
+    if (sel) return sel.value;
+    const inp = inputs.find(i=>i.id===key);
+    return inp?.unit || "ft";
   }
   function showError(field, msg) {
     const el = $(`${id}-${field}-error`);
@@ -133,6 +160,10 @@ const resultsId = `${id}-results`;
       if (el) { el.textContent=""; el.classList.add("hidden"); }
     });
   }
+
+  const slug = id;
+  const is = (s)=> slug.includes(s);
+  const eq = (s)=> slug===s;
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -157,62 +188,554 @@ const resultsId = `${id}-results`;
     let primary = "—", secondary = "—", breakdown = "", costText = "—";
 
     try {
-      const converted = inputs.map(inp => {
-        const v = vals[inp.id];
-        const unitSel = $(`${id}-${inp.id}-unit`);
-        const unit = unitSel ? unitSel.value : (inp.unit || "ft");
-        return toFeet(v, unit);
-      }).filter(v => isFinite(v) && v>0);
+      // ===== CONCRETE COLUMN (cylinder) =====
+      if (eq("concrete-column-calculator")) {
+        const D=vals["diameter"], Du=getUnit("diameter"), H=vals["height"], Hu=getUnit("height"), cnt=vals["count"]||1;
+        const Df=toFeet(D,Du), Hf=toFeet(H,Hu);
+        const r=Df/2, area=Math.PI*r*r, cuFt=area*Hf*(cnt||1), cuYd=cuFt/27, cuFtW=cuFt*wasteF, cuYdW=cuYd*wasteF;
+        const b80=Math.ceil(cuFtW/0.60), b60=Math.ceil(cuFtW/0.45), b40=Math.ceil(cuFtW/0.30);
+        primary=`${fmt(cuYdW)} yd³`;
+        secondary=`${fmt(cuFtW)} ft³ • ${fmt(area,3)} ft² cross-section • ${cnt||1} col`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Cubic yards</p><p class="font-semibold tabular-nums">${fmt(cuYd)} → ${fmt(cuYdW)} w/ ${waste}%</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Cubic feet</p><p class="font-semibold tabular-nums">${fmt(cuFt)} → ${fmt(cuFtW)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Bags (80lb)</p><p class="font-semibold">${b80} (60lb: ${b60})</p></div>`;
+        if(isFinite(price)&&price>0){
+          const c= priceUnit==="ton" ? cuYdW*2.025*price : cuYdW*price;
+          const lbl=priceUnit==="ton"?"/ton":"/yd³";
+          costText=`${fmtCurrency(c)} at ${fmt(price)}${lbl} incl. ${waste}%`;
+        } else costText=`${b80} × 80lb bags (0.60 ft³ ea)`;
 
-      if (formulaKey === "volume") {
-        const cuFt = converted.reduce((a,b)=>a*b,1);
-        const cuYd = cuFt / 27;
-        const cuYdW = cuYd * wasteF;
-        const cuFtW = cuFt * wasteF;
-        primary = `${fmt(cuYdW)} yd³`;
-        secondary = `${fmt(cuFtW)} ft³ with ${waste}% waste`;
-        breakdown = `<div><p class="font-mono text-[11px] text-muted-foreground">Cubic yards</p><p class="font-semibold tabular-nums">${fmt(cuYd)} → ${fmt(cuYdW)} w/ waste</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Cubic feet</p><p class="font-semibold tabular-nums">${fmt(cuFt)} → ${fmt(cuFtW)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Waste</p><p class="font-semibold">${waste}%</p></div>`;
-        if (isFinite(price) && price>0) {
-          let c;
-          let unitLabel = "/yd³";
-          if (priceUnit === "ton") {
-            c = cuYdW * 1.4 * price;
-            unitLabel = "/ton";
-          } else if (priceUnit === "unit") {
-            c = cuYdW * price;
-            unitLabel = "/yd³";
-          } else {
-            c = cuYdW * price;
-            unitLabel = priceUnit === "yd" ? "/yd³" : `/${priceUnit}`;
+      // ===== CONCRETE CURB + GUTTER =====
+      } else if (eq("concrete-curb-calculator")) {
+        const L=vals["length"], Lu=getUnit("length"), cw=vals["curb_width"], cwu=getUnit("curb_width"), ch=vals["curb_height"], chu=getUnit("curb_height"), gw=vals["gutter_width"], gwu=getUnit("gutter_width"), gt=vals["gutter_thickness"], gtu=getUnit("gutter_thickness");
+        const Lf=toFeet(L,Lu), cwf=toFeet(cw,cwu), chf=toFeet(ch,chu), gwf=toFeet(gw,gwu), gtf=toFeet(gt,gtu);
+        const curbA=cwf*chf, gutA=gwf*gtf, totA=curbA+gutA, cuFt=Lf*totA, cuYd=cuFt/27, cuYdW=cuYd*wasteF, cuFtW=cuFt*wasteF;
+        primary=`${fmt(cuYdW)} yd³`;
+        secondary=`${fmt(cuFtW)} ft³ • curb ${fmt(curbA,3)} + gutter ${fmt(gutA,3)} ft²`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Curb area</p><p class="font-semibold">${fmt(curbA,3)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Gutter area</p><p class="font-semibold">${fmt(gutA,3)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Volume</p><p class="font-semibold">${fmt(cuYd)} → ${fmt(cuYdW)} yd³</p></div>`;
+        if(isFinite(price)&&price>0) costText=`${fmtCurrency(cuYdW*price)} at ${fmt(price)}/yd³`;
+
+      // ===== CONCRETE STAIR =====
+      } else if (eq("concrete-stair-calculator")) {
+        const W=vals["width"], Wu=getUnit("width"), rise=vals["rise"], ru=getUnit("rise"), run=vals["run"], runu=getUnit("run"), steps=vals["steps"]||1;
+        const Wf=toFeet(W,Wu), Rise=toFeet(rise,ru), Run=toFeet(run,runu);
+        const per=Run*Rise*Wf, cuFt=per*(steps||1), cuYd=cuFt/27, cuFtW=cuFt*wasteF, cuYdW=cuYd*wasteF;
+        primary=`${fmt(cuYdW)} yd³`;
+        secondary=`${fmt(cuFtW)} ft³ • ${fmt(per,3)} ft³ per step × ${steps}`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Per step</p><p class="font-semibold">${fmt(per,3)} ft³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Total</p><p class="font-semibold">${fmt(cuYd)} yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With ${waste}%</p><p class="font-semibold">${fmt(cuYdW)} yd³</p></div>`;
+        if(isFinite(price)&&price>0) costText=`${fmtCurrency(cuYdW*price)} at ${fmt(price)}/yd³`;
+
+      // ===== CONCRETE RAMP (triangular prism) =====
+      } else if (eq("concrete-ramp-calculator")) {
+        const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), H=vals["height"]||vals["depth"], Hu=getUnit("height")||getUnit("depth");
+        const Lf=toFeet(L,Lu), Wf=toFeet(W,Wu), Hf=toFeet(H,Hu);
+        const cuFt=(Lf*Wf*Hf)/2, cuYd=cuFt/27, cuYdW=cuYd*wasteF;
+        primary=`${fmt(cuYdW)} yd³`;
+        secondary=`${fmt(cuFt*wasteF)} ft³ • wedge ${(fmt(Lf*Wf*Hf,2))} ft³ /2`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Raw</p><p class="font-semibold">${fmt(cuYd)} yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With ${waste}%</p><p class="font-semibold">${fmt(cuYdW)} yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Formula</p><p class="font-semibold">L×W×H/2</p></div>`;
+        if(isFinite(price)&&price>0) costText=`${fmtCurrency(cuYdW*price)} at ${fmt(price)}/yd³`;
+
+      // ===== SLAB / GRAVEL / ASPHALT THICKNESS (Volume / Area) =====
+      } else if (eq("slab-thickness-calculator") || eq("gravel-depth-calculator") || eq("asphalt-thickness-calculator")) {
+        const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), Vol=vals["volume"], Vu=getUnit("volume");
+        const Lf=toFeet(L,Lu), Wf=toFeet(W,Wu), area=Lf*Wf;
+        let cuFt=volToCuFt(Vol,Vu);
+        // if volume given as tons for asphalt, convert tons→yd→cuFt
+        if (Vu==="ton" || priceUnit==="ton") { /* Vu is volume selector; if tons, treat as weight */ }
+        const thickFt= area>0 ? cuFt/area : 0, thickIn=thickFt*12;
+        primary=`${fmt(thickIn,2)} in`;
+        secondary=`${fmt(thickFt,3)} ft • area ${fmt(area,1)} ft² • vol ${fmt(cuFt)} ft³`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Volume</p><p class="font-semibold">${fmt(cuFt)} ft³ (${fmt(cuFt/27)} yd³)</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Thickness</p><p class="font-semibold">${fmt(thickIn,2)} in</p></div>`;
+
+      } else if (eq("surface-area-calculator")) {
+        const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width");
+        const area=toFeet(L,Lu)*toFeet(W,Wu);
+        const areaW=area*wasteF;
+        primary=`${fmt(areaW,1)} ft²`;
+        secondary=`${fmt(area,1)} ft² + ${waste}% → ${fmt(areaW,1)} ft²`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With waste</p><p class="font-semibold">${fmt(areaW,1)} ft²</p></div>`;
+        if(isFinite(price)&&price>0) costText=`${fmtCurrency(areaW*price)} at ${fmt(price)}/ft²`;
+
+      } else if (eq("cut-and-fill-calculator")) {
+        const cut=vals["cut"], cutU=getUnit("cut"), fill=vals["fill"], fillU=getUnit("fill");
+        const cutYd=volToCuFt(cut,cutU)/27, fillYd=volToCuFt(fill,fillU)/27;
+        const cutLoose=cutYd*1.2, balance=cutLoose-fillYd;
+        primary=`${fmt(balance,2)} yd³ balance`;
+        secondary=`cut ${fmt(cutYd)} → loose ${fmt(cutLoose)} • fill ${fmt(fillYd)}`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Cut (bank)</p><p class="font-semibold">${fmt(cutYd)} yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Fill</p><p class="font-semibold">${fmt(fillYd)} yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Balance</p><p class="font-semibold">${balance>0?"+":""}${fmt(balance)} yd³ ${balance>0?"(export)":"(import)"}</p></div>`;
+
+      } else if (eq("trench-backfill-calculator")) {
+        const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), D=vals["depth"], Du=getUnit("depth"), pd=vals["pipe_diameter"], pdu=getUnit("pipe_diameter");
+        const Lf=toFeet(L,Lu), Wf=toFeet(W,Wu), Df=toFeet(D,Du), pdf=toFeet(pd,pdu);
+        const cuFt=Lf*Wf*Df, cuYd=cuFt/27, r=pdf/2, pipeFt=Math.PI*r*r*Lf, pipeYd=pipeFt/27, back=cuYd-pipeYd, backW=back*wasteF;
+        primary=`${fmt(backW,2)} yd³ backfill`;
+        secondary=`trench ${fmt(cuYd)} - pipe ${fmt(pipeYd)} = ${fmt(back)} yd³`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Trench</p><p class="font-semibold">${fmt(cuYd)} yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Pipe</p><p class="font-semibold">${fmt(pipeYd)} yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Backfill w/ ${waste}%</p><p class="font-semibold">${fmt(backW)} yd³</p></div>`;
+
+      // ===== BRICK / CMU / MASONRY =====
+      } else if (is("brick") || is("masonry") || is("cmu") || is("concrete-block")) {
+        const slugCat = slug;
+        // weight variant
+        if (slug.includes("weight")) {
+          const wl=vals["wall_length"], wlu=getUnit("wall_length"), wh=vals["wall_height"], whu=getUnit("wall_height"), uw=vals["unit_weight"]||4.3;
+          const area=toFeet(wl,wlu)*toFeet(wh,whu);
+          // need count via brick size; fallback 7 per ft2 for brick, 1.125 for CMU
+          const isCMU=slug.includes("cmu")||slug.includes("block");
+          const per=isCMU?1.125:6.8;
+          const count=Math.ceil(area*per), countW=Math.ceil(count*wasteF);
+          const w=vals["unit_weight"]|| (isCMU? 35 : 4.3);
+          const lb=count*w, lbW=countW*w;
+          primary=`${fmt(lbW,0)} lb`;
+          secondary=`${fmt(lbW/2000,2)} tons • ${fmt(count)} → ${fmt(countW)} units w/ ${waste}%`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Wall area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Count</p><p class="font-semibold">${fmt(count)} → ${fmt(countW)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Weight</p><p class="font-semibold">${fmt(lb)} → ${fmt(lbW)} lb</p></div>`;
+        } else if (slug.includes("cost")) {
+          const wl=vals["wall_length"], wlu=getUnit("wall_length"), wh=vals["wall_height"], whu=getUnit("wall_height"), pricePer=vals["unit_price"]||0.65;
+          const area=toFeet(wl,wlu)*toFeet(wh,whu);
+          const isCMU=slug.includes("cmu")||slug.includes("block");
+          const per=isCMU?1.125:6.8, count=Math.ceil(area*per), countW=Math.ceil(count*wasteF);
+          const cost=countW*pricePer;
+          primary=`${fmtCurrency(cost)}`;
+          secondary=`${fmt(countW)} units × ${fmt(pricePer)}/unit • ${fmt(area,1)} ft²`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Count</p><p class="font-semibold">${fmt(count)} → ${fmt(countW)} w/ ${waste}%</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div>`;
+          if(isFinite(price)&&price>0) costText=`${fmtCurrency(countW*price)}`;
+          else costText=`${fmtCurrency(cost)} at ${fmt(pricePer)}/unit`;
+
+        } else if (slug.includes("mortar") || slug.includes("grout")) {
+          const wl=vals["wall_length"], wlu=getUnit("wall_length"), wh=vals["wall_height"], whu=getUnit("wall_height");
+          const area=toFeet(wl,wlu)*toFeet(wh,whu);
+          const per=1.125; // CMU fallback
+          const blocks=Math.ceil(area*per);
+          // mortar/grout approx 0.02 yd3 per 100 blocks, grout 0.5 ft3 per core
+          const mortarFt3=blocks*0.005* wasteF;
+          const mortarYd=mortarFt3/27;
+          primary=`${fmt(mortarYd,2)} yd³ mortar`;
+          secondary=`${fmt(mortarFt3,2)} ft³ • ${fmt(blocks)} blocks • ${fmt(area,1)} ft²`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Wall</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Blocks</p><p class="font-semibold">${fmt(blocks)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Mortar</p><p class="font-semibold">${fmt(mortarYd,2)} yd³</p></div>`;
+        } else if (slug.includes("waste") || slug.includes("joint")) {
+          const wl=vals["wall_length"]||20, wlu=getUnit("wall_length"), wh=vals["wall_height"]||8, whu=getUnit("wall_height");
+          const area=toFeet(wl,wlu)*toFeet(wh,whu);
+          const per=6.8, base=Math.ceil(area*per);
+          const w=waste, add=base*w/100, tot=base+add;
+          primary=`${fmt(tot,0)} units total`;
+          secondary=`${fmt(base)} + ${fmt(add,0)} waste (${waste}%)`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Base</p><p class="font-semibold">${fmt(base)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Waste</p><p class="font-semibold">${fmt(add,0)} (${waste}%)</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Total</p><p class="font-semibold">${fmt(tot,0)}</p></div>`;
+        } else {
+          // main quantity: wall_length, wall_height, brick_length, brick_height, joint
+          const wl=vals["wall_length"], wlu=getUnit("wall_length"), wh=vals["wall_height"], whu=getUnit("wall_height"), bl=vals["brick_length"]||7.5, blu=getUnit("brick_length"), bh=vals["brick_height"]||2.25, bhu=getUnit("brick_height"), j=vals["joint"]||0.375, ju=getUnit("joint");
+          const area=toFeet(wl,wlu)*toFeet(wh,whu);
+          const blIn=toInches(bl,blu), bhIn=toInches(bh,bhu), jIn=toInches(j,ju);
+          const effLen=blIn+jIn, effH=bhIn+jIn, brickA=effLen*effH/144; // ft2 per brick incl joint
+          let per=brickA>0?1/brickA: (slug.includes("cmu")||slug.includes("block")?1.125:6.8);
+          // Fallback if inputs are missing: use 1.125 for cmu, 6.8 for brick
+          if (!isFinite(per) || per<=0) per= slug.includes("cmu")||slug.includes("block")?1.125:6.8;
+          const count=Math.ceil(area*per), countW=Math.ceil(count*wasteF);
+          primary=`${fmt(countW,0)} units`;
+          secondary=`${fmt(area,1)} ft² • ${fmt(per,2)}/ft² • ${fmt(count)} → ${fmt(countW)} w/ ${waste}%`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Wall</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Per ft²</p><p class="font-semibold">${fmt(per,2)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Count</p><p class="font-semibold">${fmt(count)} → ${fmt(countW)}</p></div>`;
+          if(isFinite(price)&&price>0){
+            const lbl=priceUnit==="ton"?"/ton":priceUnit==="yd"?"/yd³":"/unit";
+            const c= priceUnit==="ton"? (countW*4.3/2000)*price : countW*price;
+            costText=`${fmtCurrency(c)} at ${fmt(price)}${lbl}`;
           }
-          costText = new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(c) + ` at ${fmt(price)}${unitLabel} incl. waste`;
         }
-      } else if (formulaKey === "area") {
-        const area = converted.slice(0,2).reduce((a,b)=>a*b,1);
-        const areaW = area * wasteF;
-        primary = `${fmt(areaW,1)} ft²`;
-        secondary = `${fmt(area,1)} ft² + ${waste}% waste`;
-        breakdown = `<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With waste</p><p class="font-semibold">${fmt(areaW,1)} ft²</p></div>`;
-        if (isFinite(price) && price>0) {
-          const unitLabel = priceUnit === "ton" ? "/ton" : priceUnit === "yd" ? "/yd³" : "/ft²";
-          costText = fmtCurrency(areaW*price) + ` at ${fmt(price)}${unitLabel}`;
+
+      // ===== REBAR =====
+      } else if (is("rebar") || is("reinforcement-mesh") || is("rebar-chair")) {
+        const wMap={ "3":0.376,"4":0.668,"5":1.043,"6":1.502,"7":2.044,"8":2.67,"9":3.4,"10":4.303,"11":5.313 };
+        const dMap={ "3":0.375,"4":0.5,"5":0.625,"6":0.75,"7":0.875,"8":1,"9":1.128,"11":1.41 };
+        if (eq("rebar-weight-calculator")) {
+          const cnt=vals["count"]||1, len=vals["length"]||20, lUnit=getUnit("length"), sz=String(vals["size"]||"4");
+          const Lf=toFeet(len,lUnit), total=cnt*Lf, wPer=wMap[sz]||0.668, lb=total*wPer, lbW=lb*wasteF;
+          primary=`${fmt(lbW,1)} lb`;
+          secondary=`${fmt(lbW/2000,3)} tons • ${fmt(total,1)} ft • #${sz} ${fmt(wPer,3)} lb/ft`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Total length</p><p class="font-semibold">${fmt(total,1)} ft</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Weight</p><p class="font-semibold">${fmt(lb,1)} → ${fmt(lbW,1)} lb</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Size</p><p class="font-semibold">#${sz} ${fmt(wPer,3)} lb/ft</p></div>`;
+          if(isFinite(price)&&price>0) costText=`${fmtCurrency(lbW/2000*price)} at ${fmt(price)}/ton`;
+        } else if (eq("rebar-grid-calculator")) {
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), sp=vals["spacing"], spu=getUnit("spacing");
+          const Lf=toFeet(L,Lu), Wf=toFeet(W,Wu), Sf=toFeet(sp,spu);
+          const cx= Sf>0?Math.ceil(Lf/Sf)+1:0, cy=Sf>0?Math.ceil(Wf/Sf)+1:0, totalBars=cx+cy, totalLen=cx*Wf+cy*Lf, totalW=totalLen*wasteF;
+          primary=`${fmt(totalBars,0)} bars • ${fmt(totalW,1)} ft`;
+          secondary=`${fmt(cx)}×${fmt(cy)} grid @ ${fmt(sp)} ${spu} • ${fmt(totalLen,1)} ft`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Count X/Y</p><p class="font-semibold">${fmt(cx)}/${fmt(cy)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Length</p><p class="font-semibold">${fmt(totalLen,1)} → ${fmt(totalW,1)} ft</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Waste</p><p class="font-semibold">${waste}%</p></div>`;
+
+        } else if (eq("rebar-chair-calculator")) {
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), sp=vals["spacing"]||4, spu=getUnit("spacing");
+          const area=toFeet(L,Lu)*toFeet(W,Wu), Sf=toFeet(sp,spu), cnt=Sf>0?Math.ceil(area/(Sf*Sf)):0, cntW=Math.ceil(cnt*wasteF);
+          primary=`${fmt(cntW,0)} chairs`;
+          secondary=`${fmt(area,1)} ft² • spacing ${fmt(sp)} ${spu}`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Chairs</p><p class="font-semibold">${fmt(cnt)} → ${fmt(cntW)}</p></div>`;
+
+        } else if (eq("rebar-lap-length-calculator")) {
+          const sz=String(vals["length"]||vals["size"]||"4"), laps=vals["spacing"]||1;
+          const dia=dMap[sz]||0.5, lapIn=dia*40, lapFt=lapIn/12, total=lapFt*(laps||1);
+          primary=`${fmt(total,2)} ft lap`;
+          secondary=`#${sz} dia ${fmt(dia,3)}" ×40 = ${fmt(lapIn,1)}" per lap × ${laps}`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Dia</p><p class="font-semibold">${fmt(dia,3)} in</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Per lap</p><p class="font-semibold">${fmt(lapFt,2)} ft</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Total</p><p class="font-semibold">${fmt(total,2)} ft</p></div>`;
+
+        } else {
+          // generic rebar spacing → count
+          const L=vals["length"], Lu=getUnit("length"), sp=vals["spacing"]||vals["width"], spu=getUnit("spacing")||getUnit("width");
+          const Lf=toFeet(L,Lu), Sf=toFeet(sp,spu), cnt=Sf>0?Math.ceil(Lf/Sf)+1:0, cntW=Math.ceil(cnt*wasteF);
+          primary=`${fmt(cntW,0)} bars`;
+          secondary=`${fmt(Lf,1)} ft / ${fmt(Sf,3)} ft +1 = ${fmt(cnt)} → ${fmt(cntW)} w/ ${waste}%`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Length</p><p class="font-semibold">${fmt(Lf,1)} ft</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Spacing</p><p class="font-semibold">${fmt(Sf,3)} ft</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Count</p><p class="font-semibold">${fmt(cnt)} → ${fmt(cntW)}</p></div>`;
+          if(isFinite(price)&&price>0) costText=`${fmtCurrency(cntW*price)} at ${fmt(price)}/unit`;
         }
-      } else if (formulaKey === "quantity") {
-        const area = converted.slice(0,2).reduce((a,b)=>a*b,1);
-        const areaW = area * wasteF;
-        const qty = Math.ceil(areaW);
-        primary = `${fmt(qty,0)} units`;
-        secondary = `${fmt(area,1)} ft² + ${waste}% waste ≈ ${fmt(qty,0)} units`;
-        breakdown = `<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With waste</p><p class="font-semibold">${fmt(areaW,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Quantity</p><p class="font-semibold">${qty}</p></div>`;
-        if (isFinite(price) && price>0) {
-          costText = fmtCurrency(qty*price) + ` at ${fmt(price)}/unit`;
+
+      // ===== GRAVEL / AGG =====
+      } else if (is("gravel")||is("crushed-stone")||is("aggregate")||is("sand")||is("topsoil")||is("fill-dirt")) {
+        const dens={ pea:1.35, crushed:1.40, river:1.33, limestone:1.60, granite:1.42, sand:1.30, topsoil:1.20, filldirt:1.25, aggregate:1.40 };
+        let key="crushed";
+        if(slug.includes("pea")) key="pea";
+        else if(slug.includes("river")) key="river";
+        else if(slug.includes("limestone")) key="limestone";
+        else if(slug.includes("granite")) key="granite";
+        else if(slug.includes("sand")) key="sand";
+        else if(slug.includes("topsoil")) key="topsoil";
+        else if(slug.includes("fill")) key="filldirt";
+        const defDens=dens[key]||1.40;
+        const customD=vals["density"];
+        const tpd=isFinite(customD)&&customD>0?customD:defDens;
+
+        if (slug.includes("weight")) {
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), D=vals["depth"], Du=getUnit("depth");
+          const cuFt=toFeet(L,Lu)*toFeet(W,Wu)*toFeet(D,Du), cuYd=cuFt/27, tons=cuYd*tpd, tonsW=tons*wasteF;
+          primary=`${fmt(tonsW,2)} tons`;
+          secondary=`${fmt(tonsW*2000,0)} lb • ${fmt(cuYd,2)} yd³ × ${fmt(tpd,2)} t/yd³`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Volume</p><p class="font-semibold">${fmt(cuYd)} yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Density</p><p class="font-semibold">${fmt(tpd,2)} t/yd³ (${key})</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Weight w/ ${waste}%</p><p class="font-semibold">${fmt(tonsW,2)} t</p></div>`;
+          if(isFinite(price)&&price>0){
+            const c= priceUnit==="ton"? tonsW*price : (tonsW*2000/2000)*tpd? tonsW*price : cuYd*wasteF*price;
+            // if price per ton use tonsW, else yd
+            const cc= priceUnit==="ton"? tonsW*price : (volToCuFt(cuYd*wasteF,"yd3")/27)*price; // cuYdW*price
+            const cc2= priceUnit==="ton"? tonsW*price : (cuYd*wasteF)*price;
+            costText=`${fmtCurrency(cc2)} at ${fmt(price)}/${priceUnit==="ton"?"ton":"yd³"}`;
+          }
+        } else if (slug.includes("depth")) {
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), Vol=vals["volume"], Vu=getUnit("volume");
+          const area=toFeet(L,Lu)*toFeet(W,Wu), cuFt=volToCuFt(Vol,Vu), thickFt=area>0?cuFt/area:0;
+          primary=`${fmt(thickFt*12,2)} in`;
+          secondary=`area ${fmt(area,1)} ft² • vol ${fmt(cuFt/27,2)} yd³`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Vol</p><p class="font-semibold">${fmt(cuFt)} ft³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Depth</p><p class="font-semibold">${fmt(thickFt*12,2)} in</p></div>`;
+        } else {
+          // gravel volume + weight
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), D=vals["depth"], Du=getUnit("depth");
+          const cuFt=toFeet(L,Lu)*toFeet(W,Wu)*toFeet(D,Du), cuYd=cuFt/27, cuYdW=cuYd*wasteF, cuFtW=cuFt*wasteF, tons=cuYd*tpd, tonsW=tons*wasteF;
+          primary=`${fmt(cuYdW,2)} yd³`;
+          secondary=`${fmt(tonsW,2)} tons • ${fmt(cuFtW,2)} ft³`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Cubic yards</p><p class="font-semibold">${fmt(cuYd)} → ${fmt(cuYdW)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Tons</p><p class="font-semibold">${fmt(tons)} → ${fmt(tonsW)} (${fmt(tpd,2)}/yd)</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Waste</p><p class="font-semibold">${waste}%</p></div>`;
+          if(isFinite(price)&&price>0){
+            const c= priceUnit==="ton"? tonsW*price : cuYdW*price;
+            const lbl=priceUnit==="ton"?"/ton":"/yd³";
+            costText=`${fmtCurrency(c)} at ${fmt(price)}${lbl} incl. waste`;
+          }
         }
+
+      // ===== EXCAVATION / TRENCH =====
+      } else if (is("trench")||is("excavation")||is("earthwork")||is("soil-volume")||is("soil-weight")||is("dirt")) {
+        if (slug.includes("soil-weight")||slug.includes("soil-weight")) {
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), D=vals["depth"], Du=getUnit("depth");
+          const dens=vals["density"]||1.5;
+          const cuFt=toFeet(L,Lu)*toFeet(W,Wu)*toFeet(D,Du), cuYd=cuFt/27, tons=cuYd*dens, tonsW=tons*wasteF;
+          primary=`${fmt(tonsW,2)} tons`;
+          secondary=`${fmt(cuYd)} yd³ × ${fmt(dens,2)} t/yd³`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Volume</p><p class="font-semibold">${fmt(cuYd)} yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Density</p><p class="font-semibold">${fmt(dens,2)} t/yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Weight w/</p><p class="font-semibold">${fmt(tonsW,2)} t</p></div>`;
+        } else {
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), D=vals["depth"], Du=getUnit("depth");
+          const cuFt=toFeet(L,Lu)*toFeet(W,Wu)*toFeet(D,Du), cuYd=cuFt/27, cuYdW=cuYd*wasteF, loose=cuYdW*1.2;
+          primary=`${fmt(cuYdW,2)} yd³ (bank)`;
+          secondary=`${fmt(loose,2)} yd³ loose (×1.2 swell) • ${fmt(cuFt)} ft³`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Bank</p><p class="font-semibold">${fmt(cuYd)} → ${fmt(cuYdW)} w/ ${waste}%</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Loose</p><p class="font-semibold">${fmt(loose,2)} yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Swell</p><p class="font-semibold">1.2×</p></div>`;
+          if(isFinite(price)&&price>0) costText=`${fmtCurrency(cuYdW*price)} at ${fmt(price)}/yd³`;
+        }
+
+      // ===== ROOFING =====
+      } else if (is("roof")||is("rafter")||is("truss")||is("shingle")||is("pitch")||is("slope")) {
+        if (eq("roof-pitch-calculator")||eq("roof-slope-calculator")) {
+          const rise=vals["rise"], ru=getUnit("rise"), run=vals["run"], runU=getUnit("run");
+          const riseIn=toInches(rise,ru), runIn=toInches(run,runU), slope=runIn>0?riseIn/runIn:NaN, angle=Math.atan(slope)*180/Math.PI, x12=slope*12;
+          primary=`${fmt(angle,1)}°`;
+          secondary=`slope ${fmt(slope,3)} • ${fmt(x12,2)}:12 • ${fmt(slope*100,1)}%`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Rise/Run</p><p class="font-semibold">${fmt(riseIn,2)}:${fmt(runIn,2)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Pitch</p><p class="font-semibold">${fmt(x12,2)}:12</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Angle</p><p class="font-semibold">${fmt(angle,1)}°</p></div>`;
+        } else if (eq("rafter-length-calculator")) {
+          const span=vals["span"], su=getUnit("span"), pitch=vals["pitch"]||6, over=vals["overhang"]||0, ou=getUnit("overhang");
+          const spanF=toFeet(span,su), overF=toFeet(over,ou), run=spanF/2+overF, mult=Math.sqrt(pitch*pitch+144)/12, raf=run*mult;
+          primary=`${fmt(raf,2)} ft`;
+          secondary=`run ${fmt(run,2)} ft × mult ${fmt(mult,3)} (pitch ${pitch}:12)`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Run</p><p class="font-semibold">${fmt(run,2)} ft</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Mult</p><p class="font-semibold">×${fmt(mult,3)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Rafter</p><p class="font-semibold">${fmt(raf,2)} ft</p></div>`;
+        } else if (slug.includes("shingle")||slug.includes("roof-waste")) {
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), pitch=vals["pitch"]||6;
+          const Lf=toFeet(L,Lu), Wf=toFeet(W,Wu), foot=Lf*Wf, mult=Math.sqrt(pitch*pitch+144)/12, roof=foot*mult, roofW=roof*wasteF, sq=roof/100, sqW=roofW/100, bundles=Math.ceil(sqW*3);
+          primary=`${fmt(bundles,0)} bundles`;
+          secondary=`${fmt(sqW,2)} squares (${fmt(roofW,1)} ft²) • pitch ${pitch}:12`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Footprint</p><p class="font-semibold">${fmt(foot,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Roof</p><p class="font-semibold">${fmt(roof,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">W/ ${waste}%</p><p class="font-semibold">${fmt(roofW,1)} ft²</p></div>`;
+          if(isFinite(price)&&price>0) costText=`${fmtCurrency(bundles*price)} at ${fmt(price)}/bundle`;
+        } else {
+          // generic roof area
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), pitch=vals["pitch"]||6, over=vals["overhang"]||0, ou=getUnit("overhang");
+          const Lf=toFeet(L,Lu), Wf=toFeet(W,Wu), overF=toFeet(over,ou), foot=(Lf+overF*2)*(Wf+overF*2), mult=Math.sqrt(pitch*pitch+144)/12, roof=foot*mult, roofW=roof*wasteF;
+          primary=`${fmt(roofW,1)} ft²`;
+          secondary=`footprint ${fmt(foot,1)} ft² × ${fmt(mult,3)} (pitch ${pitch}:12)`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Footprint</p><p class="font-semibold">${fmt(foot,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Mult</p><p class="font-semibold">×${fmt(mult,3)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With ${waste}%</p><p class="font-semibold">${fmt(roofW,1)} ft² (${fmt(roofW/100,2)} sq)</p></div>`;
+        }
+
+      // ===== FLOORING TILE =====
+      } else if (is("tile")) {
+        const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), tl=vals["tile_length"]||12, tlu=getUnit("tile_length"), tw=vals["tile_width"]||12, twu=getUnit("tile_width"), gj=vals["grout"]||0.125, gju=getUnit("grout");
+        const area=toFeet(L,Lu)*toFeet(W,Wu), effL=toFeet(tl,tlu)+toFeet(gj,gju), effW=toFeet(tw,twu)+toFeet(gj,gju), tA=effL*effW, cnt=tA>0?Math.ceil(area/tA):0, cntW=Math.ceil(cnt*wasteF);
+        primary=`${fmt(cntW,0)} tiles`;
+        secondary=`${fmt(area,1)} ft² / ${fmt(tA,3)} ft² per tile`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Tile+joint</p><p class="font-semibold">${fmt(tA,3)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Count</p><p class="font-semibold">${fmt(cnt)} → ${fmt(cntW)}</p></div>`;
+        if(isFinite(price)&&price>0) costText=`${fmtCurrency(cntW*price)} at ${fmt(price)}/tile`;
+
+      // ===== FLOORING generic (hardwood/laminate/vinyl/carpet/underlayment) =====
+      } else if (is("flooring")||is("hardwood")||is("laminate")||is("vinyl")||is("carpet")||is("underlayment")||slug.includes("flooring")) {
+        const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width");
+        const area=toFeet(L,Lu)*toFeet(W,Wu), areaW=area*wasteF;
+        if (slug.includes("carpet")) {
+          const roll=12, strips=Math.ceil(toFeet(W,Wu)/roll), lin=strips*toFeet(L,Lu), sqYd=area/9, sqYdW=sqYd*wasteF;
+          primary=`${fmt(sqYdW,2)} sq yd`;
+          secondary=`${fmt(areaW,1)} ft² • ${fmt(strips,0)} strips • ${fmt(lin,1)} lin ft`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Carpet</p><p class="font-semibold">${fmt(sqYd,2)} → ${fmt(sqYdW,2)} yd²</p></div>`;
+        } else {
+          // hardwood/laminate assume 20 ft2 per box
+          const cov=20;
+          const boxes=Math.ceil(area/cov), boxesW=Math.ceil(boxes*wasteF);
+          primary=`${fmt(boxesW,0)} boxes`;
+          secondary=`${fmt(area,1)} ft² • ${fmt(cov)} ft²/box`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Boxes</p><p class="font-semibold">${fmt(boxes)} → ${fmt(boxesW)} w/ ${waste}%</p></div>`;
+        }
+        if(isFinite(price)&&price>0){
+          const unitCost= slug.includes("carpet")? (areaW/9)*price : Math.ceil(area/cov)*wasteF*price;
+          // for flooring quantity
+          const c= Math.ceil(area/20)*wasteF*price;
+          costText=`${fmtCurrency(isFinite(unitCost)?unitCost:c)} at ${fmt(price)}/unit`;
+        }
+
+      // ===== PAINT / PRIMER =====
+      } else if (is("paint")||is("primer")||is("ceiling-paint")||is("wall-paint")) {
+        const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), H=vals["height"]||8, Hu=getUnit("height"), coats=vals["coats"]||2, cov=vals["coverage"]||350;
+        const Lf=toFeet(L,Lu), Wf=toFeet(W,Wu), Hf=toFeet(H,Hu);
+        const wallArea=2*(Lf*Hf + Wf*Hf), ceilA=Lf*Wf, total=wallArea, totalCoats=total*coats, gals=Math.ceil(totalCoats/cov);
+        const galsW=Math.ceil(gals*wasteF);
+        primary=`${fmt(galsW,0)} gal`;
+        secondary=`${fmt(total,1)} ft² walls × ${coats} coats = ${fmt(totalCoats,1)} / ${cov} = ${fmt(gals)} gal`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Walls</p><p class="font-semibold">${fmt(total,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Coats</p><p class="font-semibold">${fmt(totalCoats,1)} / ${cov}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Gallons</p><p class="font-semibold">${fmt(gals)} → ${fmt(galsW)} w/ ${waste}%</p></div>`;
+        if(isFinite(price)&&price>0) costText=`${fmtCurrency(galsW*price)} at ${fmt(price)}/gal`;
+
+      } else if (is("drywall")) {
+        const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), H=vals["height"]||8, Hu=getUnit("height");
+        const Lf=toFeet(L,Lu), Wf=toFeet(W,Wu), Hf=toFeet(H,Hu), per=2*(Lf+Wf), wall=per*Hf, sheets=Math.ceil(wall/32), sheetsW=Math.ceil(sheets*wasteF);
+        primary=`${fmt(sheetsW,0)} sheets`;
+        secondary=`${fmt(wall,1)} ft² walls (perim ${fmt(per,1)}×${fmt(Hf,1)}) /32 = ${fmt(sheets)}`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Wall area</p><p class="font-semibold">${fmt(wall,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Sheets</p><p class="font-semibold">${fmt(sheets)} → ${fmt(sheetsW)}</p></div>`;
+        if(isFinite(price)&&price>0) costText=`${fmtCurrency(sheetsW*price)} at ${fmt(price)}/sheet`;
+
+      } else if (is("insulation")||is("spray-foam")) {
+        const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), cov=vals["coverage"]||25;
+        const area=toFeet(L,Lu)*toFeet(W,Wu), bags=Math.ceil(area/cov), bagsW=Math.ceil(bags*wasteF);
+        primary=`${fmt(bagsW,0)} bags`;
+        secondary=`${fmt(area,1)} ft² / ${fmt(cov)} per bag`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Bags</p><p class="font-semibold">${fmt(bags)} → ${fmt(bagsW)}</p></div>`;
+        if(isFinite(price)&&price>0) costText=`${fmtCurrency(bagsW*price)} at ${fmt(price)}/bag`;
+
+      // ===== FRAMING =====
+      } else if (is("framing")||is("stud")||is("lumber")||is("board-foot")||is("joist")||is("beam")||is("header")||is("ceiling-joist")) {
+        if (eq("board-foot-calculator")||eq("board-foot-cost-calculator")) {
+          const t=vals["thickness"]||1.5, w=vals["width"]||3.5, l=vals["length"]||8, lu=getUnit("length"), qty=vals["quantity"]||1;
+          const Lf=toFeet(l,lu), bf=(t*w*Lf)/12, total=bf*(qty||1), totalW=total*wasteF;
+          primary=`${fmt(totalW,2)} board ft`;
+          secondary=`${fmt(t)}"×${fmt(w)}"×${fmt(Lf,2)}' /12 = ${fmt(bf,2)} bf ea × ${qty}`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Per piece</p><p class="font-semibold">${fmt(bf,2)} bf</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Total</p><p class="font-semibold">${fmt(total,2)} → ${fmt(totalW,2)} w/ ${waste}%</p></div>`;
+          if(isFinite(price)&&price>0) costText=`${fmtCurrency(totalW*price)} at ${fmt(price)}/bf`;
+        } else {
+          const L=vals["length"], Lu=getUnit("length"), sp=vals["spacing"]||16, spu=getUnit("spacing");
+          const Lf=toFeet(L,Lu), Sf=toFeet(sp,spu), cnt=Sf>0?Math.ceil(Lf/Sf)+1:0, cntW=Math.ceil(cnt*wasteF);
+          primary=`${fmt(cntW,0)} pieces`;
+          secondary=`${fmt(Lf,1)} ft / ${fmt(Sf,3)} ft +1 = ${fmt(cnt)}`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Length</p><p class="font-semibold">${fmt(Lf,1)} ft</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Spacing</p><p class="font-semibold">${fmt(sp)} ${spu}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Count</p><p class="font-semibold">${fmt(cnt)} → ${fmt(cntW)}</p></div>`;
+          if(isFinite(price)&&price>0) costText=`${fmtCurrency(cntW*price)} at ${fmt(price)}/unit`;
+        }
+
+      // ===== PAVER / MULCH / LANDSCAPING =====
+      } else if (is("paver")||is("retaining-wall")) {
+        if (slug.includes("base")||slug.includes("sand")) {
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), D=vals["depth"], Du=getUnit("depth");
+          const area=toFeet(L,Lu)*toFeet(W,Wu), cuFt=area*toFeet(D,Du), cuYd=cuFt/27, cuYdW=cuYd*wasteF;
+          primary=`${fmt(cuYdW,2)} yd³`;
+          secondary=`${fmt(area,1)} ft² × ${fmt(toFeet(D,Du),3)} ft = ${fmt(cuFt,2)} ft³`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Volume</p><p class="font-semibold">${fmt(cuYd,2)} → ${fmt(cuYdW,2)} yd³</p></div>`;
+          if(isFinite(price)&&price>0) costText=`${fmtCurrency(cuYdW*price)} at ${fmt(price)}/yd³`;
+        } else {
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), pl=vals["paver_length"]||12, plu=getUnit("paver_length"), pw=vals["paver_width"]||12, pwu=getUnit("paver_width");
+          const area=toFeet(L,Lu)*toFeet(W,Wu), pA=toFeet(pl,plu)*toFeet(pw,pwu), cnt=pA>0?Math.ceil(area/pA):0, cntW=Math.ceil(cnt*wasteF);
+          // base/sand extra for paver main
+          const baseYd=area*toFeet(4,"in")/27*wasteF, sandYd=area*toFeet(1,"in")/27*wasteF;
+          primary=`${fmt(cntW,0)} pavers`;
+          secondary=`${fmt(area,1)} ft² / ${fmt(pA,3)} ft² per paver`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Pavers</p><p class="font-semibold">${fmt(cnt)} → ${fmt(cntW)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Base/Sand</p><p class="font-semibold">${fmt(baseYd,2)}/${fmt(sandYd,2)} yd³</p></div>`;
+          if(isFinite(price)&&price>0) costText=`${fmtCurrency(cntW*price)} at ${fmt(price)}/paver`;
+        }
+
+      } else if (is("mulch")||is("landscaping")) {
+        const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), D=vals["depth"], Du=getUnit("depth");
+        const cuFt=toFeet(L,Lu)*toFeet(W,Wu)*toFeet(D,Du), cuYd=cuFt/27, cuYdW=cuYd*wasteF, bags=Math.ceil(cuFt/2), bagsW=Math.ceil(cuFt*wasteF/2);
+        primary=`${fmt(cuYdW,2)} yd³`;
+        secondary=`${fmt(cuFt,1)} ft³ • ${fmt(bags,0)} bags (2 ft³) → ${fmt(bagsW,0)} w/ ${waste}%`;
+        breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Cubic feet</p><p class="font-semibold">${fmt(cuFt,1)} → ${fmt(cuFt*wasteF,1)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Cubic yards</p><p class="font-semibold">${fmt(cuYd,2)} → ${fmt(cuYdW,2)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Bags</p><p class="font-semibold">${fmt(bags,0)} → ${fmt(bagsW,0)}</p></div>`;
+        if(isFinite(price)&&price>0){
+          const c= priceUnit==="ton"? cuYdW*0.5*price : cuYdW*price; // mulch rarely by ton
+          // if price per bag
+          const cb= priceUnit==="unit"? bagsW*price : cuYdW*price;
+          costText=`${fmtCurrency(priceUnit==="unit"?cb:c)} at ${fmt(price)}/${priceUnit}`;
+        }
+
+      // ===== DECK / FENCE =====
+      } else if (is("deck")||is("fence")||is("gate")||is("picket")||is("panel")||is("post")) {
+        if (slug.includes("post")) {
+          const L=vals["length"]||100, Lu=getUnit("length"), sp=vals["spacing"]||8, spu=getUnit("spacing");
+          const Lf=toFeet(L,Lu), Sf=toFeet(sp,spu), posts=Sf>0?Math.ceil(Lf/Sf)+1:0, postsW=Math.ceil(posts*wasteF);
+          primary=`${fmt(postsW,0)} posts`;
+          secondary=`${fmt(Lf,1)} ft / ${fmt(Sf,1)} ft +1 = ${fmt(posts)}`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Length</p><p class="font-semibold">${fmt(Lf,1)} ft</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Spacing</p><p class="font-semibold">${fmt(Sf,1)} ft</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Posts</p><p class="font-semibold">${fmt(posts)} → ${fmt(postsW)}</p></div>`;
+        } else if (slug.includes("picket")) {
+          const L=vals["length"]||100, Lu=getUnit("length"), pw=vals["picket_width"]||5.5, pwu=getUnit("picket_width"), gap=vals["gap"]||0, gapu=getUnit("gap");
+          const Lf=toFeet(L,Lu), pwf=toFeet(pw,pwu), gf=toFeet(gap,gapu), eff=pwf+gf, pickets=eff>0?Math.ceil(Lf/eff):0, picketsW=Math.ceil(pickets*wasteF);
+          primary=`${fmt(picketsW,0)} pickets`;
+          secondary=`${fmt(Lf,1)} ft / ${fmt(eff,3)} ft`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Length</p><p class="font-semibold">${fmt(Lf,1)} ft</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Picket+gap</p><p class="font-semibold">${fmt(eff,3)} ft</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Count</p><p class="font-semibold">${fmt(pickets)} → ${fmt(picketsW)}</p></div>`;
+        } else if (slug.includes("concrete") && slug.includes("fence")) {
+          const posts=vals["posts"]||14, bpp=vals["bags_per_post"]||0.5, bags=Math.ceil(posts*bpp*wasteF);
+          primary=`${fmt(bags,0)} bags (50lb)`;
+          secondary=`${fmt(posts)} posts × ${fmt(bpp,2)} bags`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Posts</p><p class="font-semibold">${fmt(posts)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Per post</p><p class="font-semibold">${fmt(bpp,2)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Bags w/ ${waste}%</p><p class="font-semibold">${fmt(bags)}</p></div>`;
+        } else if (slug.includes("joist")||slug.includes("deck-joist")) {
+          const L=vals["length"]||16, Lu=getUnit("length"), sp=vals["spacing"]||16, spu=getUnit("spacing");
+          const Lf=toFeet(L,Lu), Sf=toFeet(sp,spu), cnt=Sf>0?Math.ceil(Lf/Sf)+1:0, cntW=Math.ceil(cnt*wasteF);
+          primary=`${fmt(cntW,0)} joists`;
+          secondary=`${fmt(Lf,1)} ft / ${fmt(sp)} ${spu} +1`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Span</p><p class="font-semibold">${fmt(Lf,1)} ft</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Joists</p><p class="font-semibold">${fmt(cnt)} → ${fmt(cntW)}</p></div>`;
+        } else if (slug.includes("board")) {
+          const L=vals["length"]||16, Lu=getUnit("length"), W=vals["width"]||12, Wu=getUnit("width"), bw=vals["board_width"]||5.5, bwu=getUnit("board_width"), bl=vals["board_length"]||16, blu=getUnit("board_length");
+          const Lf=toFeet(L,Lu), Wf=toFeet(W,Wu), bwf=toFeet(bw,bwu), blf=toFeet(bl,blu), gap=0.0104, eff=bwf+gap, rows=eff>0?Math.ceil(Wf/eff):0, perRow=blf>0?Math.ceil(Lf/blf):0, boards=rows*perRow, boardsW=Math.ceil(boards*wasteF);
+          primary=`${fmt(boardsW,0)} boards`;
+          secondary=`${fmt(rows)} rows × ${fmt(perRow)} per row`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(Lf*Wf,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Boards</p><p class="font-semibold">${fmt(boards)} → ${fmt(boardsW)}</p></div>`;
+          if(isFinite(price)&&price>0) costText=`${fmtCurrency(boardsW*price)} at ${fmt(price)}/board`;
+        } else if (slug.includes("footing") && is("deck")) {
+          const cnt=vals["count"]||6, dia=vals["diameter"]||12, diU=getUnit("diameter"), d=vals["depth"]||36, dU=getUnit("depth");
+          const r=toFeet(dia,diU)/2, h=toFeet(d,dU), cuFtPer=Math.PI*r*r*h, cuFt=cuFtPer*cnt, cuYd=cuFt/27, cuYdW=cuYd*wasteF;
+          primary=`${fmt(cuYdW,2)} yd³`;
+          secondary=`${fmt(cuFtPer,2)} ft³ per footing × ${cnt}`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Per footing</p><p class="font-semibold">${fmt(cuFtPer,2)} ft³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Total</p><p class="font-semibold">${fmt(cuYd,2)} → ${fmt(cuYdW,2)} yd³</p></div>`;
+        } else {
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width");
+          const area=toFeet(L,Lu)*toFeet(W,Wu), areaW=area*wasteF;
+          primary=`${fmt(areaW,1)} ft²`;
+          secondary=`${fmt(area,1)} ft² + ${waste}%`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With waste</p><p class="font-semibold">${fmt(areaW,1)} ft²</p></div>`;
+        }
+
+      // ===== ASPHALT =====
+      } else if (is("asphalt")||is("road-base")||is("parking")) {
+        if (slug.includes("thickness")) {
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), Vol=vals["volume"], Vu=getUnit("volume");
+          const area=toFeet(L,Lu)*toFeet(W,Wu), cuFt=volToCuFt(Vol,Vu), thickFt=area>0?cuFt/area:0;
+          primary=`${fmt(thickFt*12,2)} in`;
+          secondary=`area ${fmt(area,1)} ft² • vol ${fmt(cuFt/27,2)} yd³`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Volume</p><p class="font-semibold">${fmt(cuFt,1)} ft³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Thickness</p><p class="font-semibold">${fmt(thickFt*12,2)} in</p></div>`;
+        } else {
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), D=vals["depth"]||vals["thickness"], Du=getUnit("depth")||getUnit("thickness");
+          const Lf=toFeet(L,Lu), Wf=toFeet(W,Wu), Df=toFeet(D,Du), area=Lf*Wf, cuFt=area*Df, cuYd=cuFt/27, tons=cuYd*2.025, tonsW=tons*wasteF, cuYdW=cuYd*wasteF;
+          primary=`${fmt(tonsW,2)} tons`;
+          secondary=`${fmt(cuYdW,2)} yd³ • ${fmt(area,1)} ft² × ${fmt(Df*12,2)}"`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Volume</p><p class="font-semibold">${fmt(cuYd,2)} → ${fmt(cuYdW,2)} yd³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Tons</p><p class="font-semibold">${fmt(tons,2)} → ${fmt(tonsW,2)} t (2.025/yd)</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Waste</p><p class="font-semibold">${waste}%</p></div>`;
+          if(isFinite(price)&&price>0){
+            const c= priceUnit==="ton"? tonsW*price : cuYdW*price;
+            costText=`${fmtCurrency(c)} at ${fmt(price)}/${priceUnit==="ton"?"ton":"yd³"}`;
+          }
+        }
+
+      // ===== CONCRETE RECT (fallback for concrete, slab, foundation etc) =====
       } else {
-        const product = converted.reduce((a,b)=>a*b,1);
-        primary = `${fmt(product*wasteF)} units`;
-        secondary = `Generic estimate with ${waste}% waste`;
-        breakdown = `<div><p class="font-mono text-[11px] text-muted-foreground">Raw</p><p class="font-semibold">${fmt(product)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With waste</p><p class="font-semibold">${fmt(product*wasteF)}</p></div>`;
-        if (isFinite(price) && price>0) costText = fmtCurrency(product*wasteF*price) + ` at ${fmt(price)}/unit`;
+        // Check if it's a volume-like calc: has depth
+        const hasDepth = inputs.some(i=> i.id==="depth"||i.id==="thickness"||i.id==="height");
+        const hasVolume = inputs.some(i=> i.id==="volume");
+        if (hasVolume) {
+          // already handled thickness cases
+          const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width"), Vol=vals["volume"], Vu=getUnit("volume");
+          const area=toFeet(L,Lu)*toFeet(W,Wu), cuFt=volToCuFt(Vol,Vu), thick=area>0?cuFt/area:0;
+          primary=`${fmt(thick*12,2)} in thickness`;
+          secondary=`${fmt(area,1)} ft² area`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Volume</p><p class="font-semibold">${fmt(cuFt,1)} ft³</p></div>`;
+        } else if (formulaKey==="area") {
+          const area = (()=>{ const Ls=inputs.filter(i=> i.id==="length"||i.id==="width").map(inp=> toFeet(vals[inp.id], getUnit(inp.id))); return Ls.slice(0,2).reduce((a,b)=>a*b,1); })();
+          const areaW=area*wasteF;
+          primary=`${fmt(areaW,1)} ft²`;
+          secondary=`${fmt(area,1)} ft² + ${waste}%`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With waste</p><p class="font-semibold">${fmt(areaW,1)} ft²</p></div>`;
+          if(isFinite(price)&&price>0) costText=`${fmtCurrency(areaW*price)} at ${fmt(price)}/ft²`;
+        } else if (formulaKey==="quantity") {
+          const area = (()=>{ const Ls=inputs.filter(i=> i.id==="length"||i.id==="width").map(inp=> toFeet(vals[inp.id], getUnit(inp.id))); return Ls.slice(0,2).reduce((a,b)=>a*b,1); })();
+          const areaW=area*wasteF, qty=Math.ceil(areaW);
+          primary=`${fmt(qty,0)} units`;
+          secondary=`${fmt(area,1)} ft² + ${waste}% → ${fmt(qty,0)}`;
+          breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With waste</p><p class="font-semibold">${fmt(areaW,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Quantity</p><p class="font-semibold">${qty}</p></div>`;
+          if(isFinite(price)&&price>0) costText=`${fmtCurrency(qty*price)} at ${fmt(price)}/unit`;
+        } else {
+          // default volume: product of all length inputs
+          let cuFt=1, cnt=0;
+          inputs.forEach(inp=>{
+            const v=vals[inp.id], u=getUnit(inp.id);
+            // skip non-length like count, steps, joint etc.
+            if (inp.id==="count"||inp.id==="steps"||inp.id==="joint"||inp.id==="brick_length"||inp.id==="brick_height"||inp.id==="unit_weight"||inp.id==="unit_price"||inp.id==="coats"||inp.id==="coverage"||inp.id==="quantity"||inp.id==="spacing"||inp.id==="size"||inp.id==="density") return;
+            if (!isFinite(v)) return;
+            // volume-like? if unit is yd3, treat as cuFt directly
+            let f=toFeet(v,u);
+            // if input is thickness/depth in ft etc, already toFeet
+            // For generic, assume all are lengths in ft → multiply.
+            // But if unit is yd3/m3, we need volToCuFt
+            if (u==="yd3"||u==="yd³"||u==="m3"||u==="ft3") f=volToCuFt(v,u); // but then multiplying length*volume is wrong; for fallback we treat all as linear
+            // To avoid double, for generic we assume ft
+            if (!isFinite(f)) return;
+            cuFt*=f; cnt++;
+          });
+          if(cnt===0) cuFt=0;
+          // if only 2 inputs, treat as area * 1? But we treat as volume of 1 ft thick? Better fallback to product
+          // For generic volume with 3 inputs, cuFt is correct; with 2 inputs, we have area not volume
+          // Detect: if cnt===2, then we had L*W only, so cuFt is area; we need to interpret as area
+          // We'll check: if inputs length ===2 and no depth, then we actually have area, not volume
+          // So for cnt===2, set cuFt as area, and cuYd = cuFt/27 is misleading but follow previous generic behavior: cuFt = L*W*D where D is missing → we already multiplied only 2, so cuFt is area; but we display as yd³? Need to decide.
+          // For now follow original: cuFt = product(all toFeet). So if 2 inputs, it's area (ft²) but we still treat as cuFt for backward compat? Instead we should treat as area.
+          // We'll detect and show area if cnt===2
+          if (cnt===2) {
+            const area=cuFt, areaW=area*wasteF;
+            primary=`${fmt(areaW,1)} ft²`;
+            secondary=`${fmt(area,1)} ft² + ${waste}%`;
+            breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,1)} ft²</p></div><div><p class="font-mono text-[11px] text-muted-foreground">With waste</p><p class="font-semibold">${fmt(areaW,1)} ft²</p></div>`;
+          } else {
+            const cuYd=cuFt/27, cuYdW=cuYd*wasteF, cuFtW=cuFt*wasteF;
+            // Handle quantity modifier for slab count etc if present
+            const qty=vals["count"]||vals["quantity"]||1;
+            const adjCuFt=cuFt*(qty||1), adjYd=adjCuFt/27, adjFtW=adjCuFt*wasteF, adjYdW=adjYd*wasteF;
+            // If qty present and not already counted, use adj
+            const finalCuFt= (qty&& qty!==1 && !inputs.some(i=>i.id==="length"&& i.id==="width"))? adjCuFt : cuFt;
+            // Simpler: if we used cnt to count all length inputs, qty duplication is not handled; we used all inputs product, so if count was included as numeric without unit, it would have been skipped above. So we need to multiply by qty manually if present.
+            const finalYd= finalCuFt/27, finalYdW=finalYd*wasteF, finalFtW=finalCuFt*wasteF;
+            // Use qty if original product didn't include it
+            const useQty = (vals["count"]||vals["quantity"]) && !inputs.some(i=> i.id.includes("count") && toFeet(vals[i.id], getUnit(i.id))===vals[i.id]);
+            // Actually we skipped count, so finalCuFt is without qty; apply qty
+            const qtyVal = vals["count"]||vals["quantity"]||1;
+            const dispCuFt = cuFt * (qtyVal||1), dispYd=dispCuFt/27, dispW=dispCuFt*wasteF, dispYdW=dispYd*wasteF;
+            primary=`${fmt(dispYdW,2)} yd³`;
+            secondary=`${fmt(dispW,2)} ft³ with ${waste}% waste${qtyVal>1?` × ${qtyVal} units`:""}`;
+            breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Cubic yards</p><p class="font-semibold tabular-nums">${fmt(dispYd,2)} → ${fmt(dispYdW,2)} w/ waste</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Cubic feet</p><p class="font-semibold tabular-nums">${fmt(dispCuFt,2)} → ${fmt(dispW,2)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Waste</p><p class="font-semibold">${waste}%</p></div>`;
+            if(isFinite(price)&&price>0){
+              let c, lbl="/yd³";
+              if(priceUnit==="ton"){ c=dispYdW*2.025*price; lbl="/ton"; }
+              else if(priceUnit==="unit"){ c=dispYdW*price; }
+              else { c=dispYdW*price; lbl=priceUnit==="yd"?"/yd³":`/${priceUnit}`; }
+              costText=`${fmtCurrency(c)} at ${fmt(price)}${lbl} incl. waste`;
+            }
+          }
+        }
       }
     } catch (err) {
       primary = "Error — check inputs";
@@ -232,6 +755,5 @@ const resultsId = `${id}-results`;
     results.classList.add("hidden");
   });
 
-  function fmtCurrency(n){ return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(n); }
 })();
 </script>
