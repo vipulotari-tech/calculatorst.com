@@ -50,7 +50,8 @@ function fmt(n, d = 0) { if (!isFinite(n)) return "—"; return new Intl.NumberF
 f.addEventListener("submit",e=>{e.preventDefault();const L=parseFloat($("f-len").value);let ok=true;const err=$("f-len-error");err.textContent="";err.classList.add("hidden");if(!(L>0)){err.textContent="Please enter a valid fence length.";err.classList.remove("hidden");ok=false;}if(!ok)return;
 const Lf=toFeet(L,$("f-len-unit").value),Hf=toFeet(parseFloat($("f-height").value)||6,$("f-height-unit").value),spacing=toFeet(parseFloat($("f-spacing").value)||8,$("f-spacing-unit").value),gates=parseInt($("f-gates").value)||0,gateW=toFeet(parseFloat($("f-gatew").value)||0,$("f-gatew-unit").value),rails=parseInt($("f-rails").value)||0,waste=parseFloat($("f-waste").value)||0,price=parseFloat($("f-price").value);
 const effectiveLen=Math.max(0,Lf - gates*gateW);
-const posts=Math.ceil(effectiveLen/spacing)+1+gates*2; // gates need 2 posts each
+const safeSpacing = spacing>0 ? spacing : 8;
+const posts=Math.ceil(effectiveLen/safeSpacing)+1+gates*2; // gates need 2 posts each
 const panels=Math.ceil(effectiveLen/8); // 8ft panels avg
 const linearRails=effectiveLen*rails;
 const area=Lf*Hf;
@@ -58,7 +59,7 @@ const concreteBags=Math.ceil(posts*0.5); // ~0.5 bag 50lb per post ~ 0.5ft³
 const wasteF=1+waste/100;
 const postsW=Math.ceil(posts*wasteF),panelsW=Math.ceil(panels*wasteF);
 $("f-posts").textContent=String(postsW);$("f-panels").textContent=String(panelsW);$("f-rails-res").textContent=fmt(linearRails*wasteF,1);$("f-area").textContent=fmt(area,1)+" ft²";$("f-concrete").textContent=String(Math.ceil(concreteBags*wasteF));
-let cost="—";if(isFinite(price)&&price>0){const unit=$("f-price-unit").value;let base=0;if(unit==="ft") base=Lf*price;else if(unit==="panel") base=panelsW*price;else base=posts*price;cost=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(base*wasteF);}
+let cost="—";if(isFinite(price)&&price>0){const unit=$("f-price-unit").value;let base=0;if(unit==="ft") base=effectiveLen*wasteF*price;else if(unit==="panel") base=panelsW*price;else base=postsW*price;cost=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(base);}
 $("f-cost").textContent=cost;r.classList.remove("hidden");r.scrollIntoView({behavior:"smooth",block:"nearest"});
 });$("f-reset").addEventListener("click",()=>{r.classList.add("hidden");const e=$("f-len-error");e.textContent="";e.classList.add("hidden");});})();
 </script>

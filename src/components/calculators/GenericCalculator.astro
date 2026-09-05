@@ -648,6 +648,27 @@ const resultsId = `${id}-results`;
           primary=`${fmt(cuYdW,2)} yd³`;
           secondary=`${fmt(cuFtPer,2)} ft³ per footing × ${cnt}`;
           breakdown=`<div><p class="font-mono text-[11px] text-muted-foreground">Per footing</p><p class="font-semibold">${fmt(cuFtPer,2)} ft³</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Total</p><p class="font-semibold">${fmt(cuYd,2)} → ${fmt(cuYdW,2)} yd³</p></div>`;
+        } else if (is("fence") || is("gate") || slug.includes("panel")) {
+          // Generic fence/gate/panel — length + spacing → posts & panels (fixes fence-calculator, fence-panel-calculator, gate-calculator)
+          const Lraw = vals["length"] ?? vals["fence_length"] ?? vals["width"] ?? 100;
+          const Lunit = getUnit("length") || getUnit("fence_length") || getUnit("width") || "ft";
+          const SpRaw = vals["spacing"] ?? vals["width"] ?? vals["post_spacing"] ?? 8;
+          const SpUnit = getUnit("spacing") || getUnit("width") || getUnit("post_spacing") || "ft";
+          const Lf = toFeet(Lraw, Lunit), Sf = toFeet(SpRaw, SpUnit);
+          const posts = Sf>0 ? Math.ceil(Lf/Sf)+1 : 0, postsW = Math.ceil(posts*wasteF);
+          const panels = Math.ceil(Lf/8), panelsW = Math.ceil(panels*wasteF);
+          const areaHf = vals["height"] ? toFeet(vals["height"], getUnit("height")) : (vals["depth"] ? toFeet(vals["depth"], getUnit("depth")) : 6);
+          const area = Lf * (isFinite(areaHf) && areaHf>0 ? areaHf : 6);
+          primary = `${fmt(postsW,0)} posts • ${fmt(panelsW,0)} panels`;
+          secondary = `${fmt(Lf,1)} ft / ${fmt(Sf,1)} ft +1 • ${fmt(area,0)} ft²`;
+          breakdown = `<div><p class="font-mono text-[11px] text-muted-foreground">Posts</p><p class="font-semibold">${fmt(posts)} → ${fmt(postsW)} w/ ${waste}%</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Panels (8 ft)</p><p class="font-semibold">${fmt(panels)} → ${fmt(panelsW)}</p></div><div><p class="font-mono text-[11px] text-muted-foreground">Area</p><p class="font-semibold">${fmt(area,0)} ft²</p></div>`;
+          if(isFinite(price)&&price>0){
+            let c=0, lbl="/ft";
+            if(priceUnit==="panel"){ c=panelsW*price; lbl="/panel"; }
+            else if(priceUnit==="post"){ c=postsW*price; lbl="/post"; }
+            else { c=Lf*price*wasteF; lbl="/ft"; }
+            costText=`${fmtCurrency(c)} at ${fmt(price)}${lbl}`;
+          }
         } else {
           const L=vals["length"], Lu=getUnit("length"), W=vals["width"], Wu=getUnit("width");
           const area=toFeet(L,Lu)*toFeet(W,Wu), areaW=area*wasteF;
