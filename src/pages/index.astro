@@ -3,7 +3,11 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { hubCalculators, hubCategories } from "../data/hubCalculators";
+import { calculators } from "../data/calculators";
 import { clusterGroups, projectGroups } from "../data/subcategories";
+
+const extra = calculators.filter(c => !hubCalculators.some(h => h.slug === c.slug));
+const allCalculators = [...hubCalculators, ...extra];
 
 const curatedPopularSlugs = [
   "fence-calculator",
@@ -246,10 +250,10 @@ const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.
   </main>
   <Footer />
 
-  <script is:inline define:vars={{ hubCalculators }}>
+  <script is:inline define:vars={{ allCalculators }}>
     const input = document.getElementById("hero-search");
     const box = document.getElementById("hero-search-results");
-    const idx = hubCalculators.map(c => ({
+    const idx = allCalculators.map(c => ({
       slug: c.slug,
       h1: c.h1,
       title: c.title,
