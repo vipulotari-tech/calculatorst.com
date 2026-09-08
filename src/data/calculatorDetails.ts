@@ -411,83 +411,117 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "concrete"
   },
   "concrete-weight-calculator": {
-    "whatIs": "The <strong>Concrete Weight Calculator</strong> — Estimates concrete volume, weight and ready-mix versus bag count for US slabs, footings and walls.",
+    "whatIs": "The <strong>Concrete Weight Calculator</strong> converts concrete volume to weight for transport, crane and structural planning. Unlike a volume calculator which answers <em>how many yards</em>, this tool answers <em>how many pounds and tons</em> — critical when you must stay under truck legal limits (80,000 lb GVW), check floor or soil bearing, or order by weight from the batch plant. It uses normal-weight density <strong>150 lb/ft³ (4050 lb/yd³)</strong> by default and adjusts for lightweight mixes.",
     "whatCalculates": [
-      "Concrete volume in cubic yards and cubic feet",
-      "Ready-mix loads vs 40/60/80-lb bags",
-      "Weight and cost with waste"
+      "Weight in pounds (lb) from cubic feet × density (default 150 lb/ft³)",
+      "Short tons (2000 lb), metric tonnes (2204.6 lb) and kilograms",
+      "Weight per square foot for slabs — e.g., 4-in slab ≈ 50 lb/ft², 6-in ≈ 75 lb/ft²",
+      "Total cubic yards + total weight with waste — for ready-mix tickets vs bag count (80-lb = 0.60 ft³)",
+      "Truck loads — weight and yards per load (typically 9–11 yd³ or 10–12 tons per truck)"
     ],
     "howToUse": [
-      "Measure Concrete Weight 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
-      "Enter values and select units. The calculator converts to feet before calculating (inches /12, yards x3).",
-      "Adjust waste % and optional price, then click Calculate. Results show with waste included.",
-      "Use Reset to clear and try another size."
+      "Measure length, width and thickness on site — use feet for length/width and inches for slab depth (e.g., 10 ft × 12 ft × 6 in). For footings or walls use feet for all three.",
+      "Enter values, pick units. The tool converts everything to feet first (inches ÷12, yards ×3, cm ÷30.48) before any math.",
+      "Keep density at 150 lb/ft³ for normal-weight (4000 psi) or change to 115 lb/ft³ for lightweight / 90 lb/ft³ for cellular if your mix specifies. Add waste % (5–10% rectangle, 10–15% irregular) — waste is applied to weight last: ×(1+waste%).",
+      "Click Calculate — read lb, tons, tonnes and per-ft², then use Reset to try another pour. Copy button saves all three units."
     ],
-    "formula": "Volume = Length x Width x Depth for Concrete Weight",
+    "formula": "Cubic Feet = L(ft) × W(ft) × D(ft)  —  Pounds = Cubic Feet × Density (lb/ft³)  —  Short Tons = Pounds ÷ 2000  —  Metric Tonnes = Pounds ÷ 2204.62  —  yd³ = ft³ ÷ 27",
     "variables": [
       {
         "symbol": "L",
-        "meaning": "Length for Concrete Weight in feet"
+        "meaning": "Length in feet (after unit conversion)"
       },
       {
         "symbol": "W",
-        "meaning": "Width for Concrete Weight in feet"
+        "meaning": "Width in feet"
       },
       {
         "symbol": "D",
-        "meaning": "Depth for Concrete Weight in feet"
+        "meaning": "Thickness / depth in feet (e.g., 6 in = 0.50 ft)"
+      },
+      {
+        "symbol": "ρ (rho)",
+        "meaning": "Concrete density in lb per cubic foot — normal-weight 145–150, lightweight 90–120, reinforced ≈157 (includes ~7 lb/ft³ rebar). Default 150"
+      },
+      {
+        "symbol": "w",
+        "meaning": "Waste factor as decimal — 0.10 = 10%"
       }
     ],
     "example": {
-      "inputs": "Concrete Weight 20 ft x 10 ft x 4 in",
+      "inputs": "Slab 10 ft × 12 ft × 6 in (0.50 ft), density 150 lb/ft³, 10% waste",
       "steps": [
         {
-          "label": "Convert depth",
-          "value": "4 in /12 = 0.333 ft"
-        },
-        {
-          "label": "Cubic feet",
-          "value": "20 x 10 x 0.333 = 66.67 ft3"
+          "label": "Volume",
+          "value": "10 × 12 × 0.50 = 60.00 ft³"
         },
         {
           "label": "Cubic yards",
-          "value": "66.67 /27 = 2.47 yd3"
+          "value": "60.00 ÷ 27 = 2.222 yd³"
+        },
+        {
+          "label": "Weight (no waste)",
+          "value": "60.00 × 150 = 9,000 lb"
+        },
+        {
+          "label": "Tons / Tonnes",
+          "value": "9,000 ÷ 2000 = 4.50 short tons · 9,000 ÷ 2204.6 = 4.08 tonnes"
+        },
+        {
+          "label": "Per sq ft",
+          "value": "0.50 × 150 = 75.0 lb/ft²"
         },
         {
           "label": "With 10% waste",
-          "value": "2.72 yd3"
+          "value": "9,900 lb · 4.95 tons · 2.444 yd³"
+        },
+        {
+          "label": "Trucks (10 yd³ / 24 tons max)",
+          "value": "1 load (2.44 yd³ < 10) — weight 4.95 tons well under limit"
         }
       ]
     },
-    "constructionInfo": "<p class=\"text-sm\"><strong>Material:</strong> Concrete — 4000 psi typical for driveways, 3000 psi for patios. Ordered by cubic yard (27 ft³) or bags (0.60 ft³ per 80-lb). Keep slump 4 in for slabs.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest x widest; split L-shapes into two rectangles and add.</li><li>Compact subgrade — soft spots add thickness.</li><li>For structural sizing (beams, headers, rebar) verify with a professional per local code.</li></ul>",
-    "materialInfo": "Concrete — 4000 psi typical for driveways, 3000 psi for patios. Ordered by cubic yard (27 ft³) or bags (0.60 ft³ per 80-lb). Keep slump 4 in for slabs.",
-    "wasteInfo": "Add 5–10% for spillage and uneven subgrade — 10% is safe for hand-screeded forms.",
+    "constructionInfo": "<p class=\"text-sm\"><strong>Transport & structural:</strong> Normal-weight concrete is ~150 lb/ft³ (4050 lb/yd³) — one cubic yard weighs about as much as a small car. Lightweight structural is 110–120 pcf, cellular 90 pcf. Rebar adds ~6–8 pcf. A fully loaded ready-mix truck is 9–11 yd³ (≈35,000–44,000 lb of concrete alone) — stay under the federal 80,000 lb GVW; many states limit to 10 yd³ on residential streets. For elevated slabs, check that the floor can carry 75 lb/ft² (6-in) plus live load — verify with engineer.</p><ul class=\"list-disc pl-5 space-y-1\"><li>Measure longest × widest; split L-shapes into two rectangles and add. Use the same tool for footings: enter footing length × width × depth.</li><li>Confirm density with your batch ticket — lightweight mixes save 20–25% weight but cost more per yard.</li><li>For load-bearing or suspended slabs, do not rely solely on this estimate — verify with a structural engineer per local code.</li></ul>",
+    "materialInfo": "Typical densities (verify ticket): Normal 145–150 lb/ft³ (4050 lb/yd³) | Lightweight 110–120 | Cellular 80–90 | Reinforced +7. Conversions: lb → short ton ÷2000, lb → tonne ÷2204.62, lb → kg ×0.4536. One 80-lb bag = 0.60 ft³ ≈ 90 lb of concrete.",
+    "wasteInfo": "Weight waste = volume waste. Add 5–10% for rectangular hand-screeded slabs, 10–15% for irregular, slopes or thickened edges. Waste is multiplied after density: <span class=\"font-mono text-xs\">Weight_waste = Weight × (1+w)</span>. Weight does not compact — unlike gravel, concrete stays 150 pcf.",
     "tips": [
-      "Order ready-mix over ~1 yd³ (45 bags) — faster and cheaper",
-      "Keep subgrade compacted and forms braced",
-      "Add one extra bag per 10 as buffer"
+      "One yard is 4050 lb — divide total lb by 4050 to sanity-check yards. If they disagree, recheck thickness (6 in = 0.50 ft, not 6 ft).",
+      "4-in slab = 50 lb/ft², 5-in = 62.5, 6-in = 75 — use per-ft² to check floor or soil bearing (typical soil 1500–2000 psf).",
+      "Truck math: yards = lb ÷ 4050, but also check weight — even if yards fit, 12 tons on a small trailer may overload.",
+      "Batch plant sells by yard, not ton — show your dispatcher both. Ask if they bill lightweight by yard or ton.",
+      "Add one extra 80-lb bag per 10 as job-site buffer — cheaper than a second truck fee ($150–$300)."
     ],
     "mistakes": [
-      "Forgetting to convert inches to feet (4 in = 0.333 ft)",
-      "Ordering the theoretical minimum — second trip costs more than 10% waste"
+      "Mixing tons and tonnes — US short ton is 2000 lb, metric tonne is 2204.6 lb (10% difference). This tool shows both.",
+      "Using 6 for 6 inches — 6 in = 0.50 ft. Entering 6 ft gives 12× the weight (108,000 lb instead of 9,000).",
+      "Forgetting rebar weight — heavy mats add ~1 ton per 30 ft of footing; add 5% if mat-heavy.",
+      "Ordering exact theoretical weight — second trip costs more than 10% waste. Always add waste before converting to bags/trucks."
     ],
-    "assumptions": "This calculator provides an estimate based on your inputs. Actual requirements vary by site, material and installation. For code-regulated or load-bearing work, consult a qualified professional.",
+    "assumptions": "Estimate uses your dimensions and density (default 150 lb/ft³ for normal-weight, non-air-entrained). Actual weight varies with aggregate (limestone vs granite), air content (5–7% reduces ~5 lb/ft³), moisture, and rebar. For suspended or structural pours, verify with engineer. Calculations run 100% in your browser.",
     "faq": [
       {
-        "q": "What does the Concrete Weight Calculator calculate?",
-        "a": "The Concrete Weight Calculator estimates concrete weight quantity for US jobs — Concrete volume in cubic yards and cubic feet, Ready-mix loads vs 40/60/80-lb bags, Weight and cost with waste. Enter dimensions, choose units, add waste and price to get instant results."
+        "q": "How much does one cubic yard of concrete weigh?",
+        "a": "Normal-weight concrete is about <strong>4050 lb per cubic yard</strong> (150 lb/ft³ × 27). That's 2.025 short tons or 1.84 metric tonnes. Lightweight is ~2970 lb/yd³ (110 pcf) and cellular ~2430 lb/yd³ (90 pcf). Use 4050 for quick checks: tons = yards × 2.025."
       },
       {
-        "q": "How do I measure for concrete weight?",
-        "a": "Measure concrete weight 20 ft x 10 ft x 4 in on site. Use the unit selectors — the tool converts inches→feet (÷12) and yards→feet (×3) before math. For non-rectangular, split into rectangles and add."
+        "q": "How much does a 4-inch, 5-inch or 6-inch slab weigh per square foot?",
+        "a": "Multiply thickness (ft) × 150. So 4 in (0.333 ft) = <strong>50 lb/ft²</strong>, 5 in (0.417 ft) = 62.5 lb/ft², 6 in (0.50 ft) = 75 lb/ft². A 10×12 ft slab 6 in thick is 120 ft² × 75 = 9,000 lb (4.5 tons) — see the worked example on this page. Add rebar ~3–5 lb/ft² for heavy mats."
       },
       {
-        "q": "How much waste should I add?",
-        "a": "Add 5–10% for spillage and uneven subgrade — 10% is safe for hand-screeded forms."
+        "q": "How do I convert cubic yards to tons (or tons back to yards)?",
+        "a": "Tons = Yards × 2.025 (short tons) or Yards × 1.837 (tonnes). Example: 2.22 yd³ × 2.025 = 4.50 tons. Reverse: Yards = Tons ÷ 2.025. Quick rule: 1 ton ≈ 0.493 yd³ of normal concrete. The calculator shows all three at once."
       },
       {
-        "q": "How accurate is this concrete weight estimate?",
-        "a": "Math is exact for your inputs. Actual needs vary by site, material and installation. Add 5–10% waste for rectangular, 10–15% for irregular."
+        "q": "How many concrete trucks do I need by weight?",
+        "a": "By yards: trucks = ceil(yards ÷ 10) — most mixers carry 9–11 yd³. By weight: stay under ~24 tons of concrete per truck plus truck weight to stay under 80,000 lb GVW. A 2.44 yd³, 4.95-ton pour like the example fits in <strong>one truck</strong> either way."
+      },
+      {
+        "q": "Does rebar change the weight?",
+        "a": "A little. Heavy rebar adds ~6–8 lb per cubic foot of concrete (≈4–5%). For a footing with #5 @12 in o.c., add 5% to be safe. Light wire mesh is negligible. If your engineer calls out #6 mats, set waste to 15% to cover it."
+      },
+      {
+        "q": "Why does the calculator ask for density?",
+        "a": "Different mixes weigh different amounts. Normal 4000-psi is 150 pcf; lightweight structural (for decks or roof) is 110–120 pcf and costs more per yard but saves dead load. Always use the density on your mix design — if unsure, keep 150."
       }
     ],
     "visualVariant": "concrete"

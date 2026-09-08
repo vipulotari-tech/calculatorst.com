@@ -75,15 +75,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "concrete-weight-calculator",
-    "title": "Concrete Weight Calculator — Pounds & Tons",
+    "title": "Concrete Weight Calculator — Pounds, Tons & Yards (150 lb/ft³)",
     "h1": "Concrete Weight Calculator",
-    "description": "Calculate concrete weight in pounds and tons from volume — for transport and load planning.",
+    "description": "Calculate concrete weight in pounds, short tons and metric tonnes from length, width and depth. Normal-weight 150 lb/ft³ (4050 lb/yd³) — see weight per sq ft, total weight and truck loads with waste.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete weight calculator",
-      "concrete weight tons calculator"
+      "concrete weight per cubic yard",
+      "how much does concrete weigh",
+      "concrete tons calculator"
     ],
     "featured": true
   },

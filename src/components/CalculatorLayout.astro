@@ -69,6 +69,27 @@ const howToSchema: any = {
   totalTime: "PT2M",
   tool: { "@type": "HowToTool", name: h1 },
 };
+
+const breadcrumbSchema: any = breadcrumbs.length ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: breadcrumbs.map((b, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: b.label,
+    ...(b.href ? { item: new URL(b.href, site).href } : { item: canonicalUrl }),
+  })),
+} : null;
+
+const faqSchema: any = faq.length ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().slice(0, 500) },
+  })),
+} : null;
 ---
 
 <Layout title={title} description={description} canonical={canonical} ogImage={ogImage} datePublished={datePublished} dateModified={dateModified} noindex={noindex}>
@@ -103,11 +124,13 @@ const howToSchema: any = {
 
         <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} is:inline />
         <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} is:inline />
+        {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />}
+        {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />}
 
         <div class="rounded-xl border border-border bg-card p-5">
           <p class="font-mono text-[11px] font-medium tracking-[0.1em] uppercase text-muted-foreground">About Calculator Street</p>
           <p class="mt-2 text-[13px] leading-5 text-muted-foreground [text-wrap:pretty]">
-            Built by <a href="/about/" class="font-medium text-foreground underline underline-offset-2 decoration-border hover:decoration-foreground/40 transition-colors">Vipul Otari</a> for US homeowners &amp; contractors. Every tool runs 100% in your browser — no backend, no tracking, no data leaving your device. Verified against <a href="https://www.txdot.gov/manuals/brg/offpeo5.html" target="_blank" rel="noopener" class="text-foreground underline underline-offset-2 decoration-border hover:decoration-foreground/40 transition-colors">TxDOT</a> &amp; <a href="https://www.cpsc.gov/safety-education/safety-guides/playgrounds" target="_blank" rel="noopener" class="text-foreground underline underline-offset-2 decoration-border hover:decoration-foreground/40 transition-colors">CPSC</a> specs. Last updated: {dateModified ?? "2026-08-28"}.
+            Built by <a href="/author/vipul-otari/" class="font-medium text-foreground underline underline-offset-2 decoration-border hover:decoration-foreground/40 transition-colors">Vipul Otari</a> for US homeowners &amp; contractors. Every tool runs 100% in your browser — no backend, no tracking, no data leaving your device. Verified against <a href="https://www.txdot.gov/manuals/brg/offpeo5.html" target="_blank" rel="noopener" class="text-foreground underline underline-offset-2 decoration-border hover:decoration-foreground/40 transition-colors">TxDOT</a> &amp; <a href="https://www.cpsc.gov/safety-education/safety-guides/playgrounds" target="_blank" rel="noopener" class="text-foreground underline underline-offset-2 decoration-border hover:decoration-foreground/40 transition-colors">CPSC</a> specs. <span class="font-mono text-[11px]">Reviewed by Vipul Otari</span> · Last updated: {dateModified ?? "2026-08-28"}.
           </p>
           <div class="mt-3 flex flex-wrap gap-2 font-mono text-[11px] text-muted-foreground">
             <span>Free</span><span class="text-border">·</span><span>Fast</span><span class="text-border">·</span><span>Mobile-friendly</span><span class="text-border">·</span><span>US units</span><span class="text-border">·</span><span>Reviewed</span>

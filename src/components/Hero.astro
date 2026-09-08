@@ -111,7 +111,7 @@
       if (e.key === 'Enter') {
         const q = input.value.trim();
         if (!q) return;
-        window.location.href = `/calculators/?q=${encodeURIComponent(q)}`;
+        window.location.href = "/calculators/?q=" + encodeURIComponent(q);
       }
     });
   })();

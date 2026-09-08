@@ -13,11 +13,9 @@ const site = "https://calculatorst.com";
 import { hubCategories } from "../data/hubCalculators";
 const staticPages = [
   "/",
+  "/author/vipul-otari/",
   "/construction/",
   ...hubCategories.map(c => `/construction/${c.slug}/`),
-  // Legacy aliases — keep for indexed URLs, not primary
-  "/construction/fencing/",
-  "/construction/decking/",
   "/calculators/",
   "/about/",
   "/contact/",
@@ -28,10 +26,10 @@ const staticPages = [
 // Only indexable calculators — 10 hand-built with 600+ unique words.
 // 190 hubCalculators are currently noindex due to auto-generated thin content (90% duplicate, ~500 words) — excluded for AdSense "insufficient content" compliance.
 // They remain accessible via /[slug]/ but with noindex until manually enriched with unique 800+ words, correct formulas, and tables.
-// const allCalcs = [...calculators];
-// const existingSlugs = new Set(calculators.map(c=>c.slug));
-// for (const h of hubCalculators) { if (!existingSlugs.has(h.slug)) allCalcs.push(h as any); }
-const calculatorPages = calculators.map((c) => `/${c.slug}/`);
+// Pilot: concrete-weight-calculator enriched 2026-09-08 — now indexable (unique 1150+ words, weight-specific). Keep remaining 189 noindex per safe strategy.
+const enrichedHubSlugs = ["concrete-weight-calculator"];
+const enrichedHubPages = enrichedHubSlugs.map((s) => `/${s}/`);
+const calculatorPages = [...calculators.map((c) => `/${c.slug}/`), ...enrichedHubPages];
 const calcIdx = staticPages.indexOf("/calculators/");
 const pages = [...staticPages.slice(0, calcIdx + 1), ...calculatorPages, ...staticPages.slice(calcIdx + 1)];
 

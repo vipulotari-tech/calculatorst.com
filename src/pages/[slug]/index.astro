@@ -501,8 +501,8 @@ const faq = d.faq || [
   canonical={`/${calc.slug}/`}
   ogImage={ogImage}
   datePublished="2026-08-29"
-  dateModified="2026-08-29"
-  noindex={true}
+  dateModified="2026-09-08"
+  noindex={calc.slug === "concrete-weight-calculator" ? false : true}
 >
   <Header slot="header" />
   <GenericCalculator slot="calculator" id={calc.slug} inputs={inputs} formulaKey={formulaKey} wasteDefault={wasteDefault} resultTitle={`${calc.h1.toUpperCase()} ESTIMATE`} />

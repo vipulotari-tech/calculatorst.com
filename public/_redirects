@@ -1,6 +1,5 @@
-# Workers Assets — relative redirects only (absolute www→apex handled via Cloudflare Dashboard Redirect Rule, not _redirects)
+# Workers Assets — relative redirects only (www→apex also handled via src/middleware.ts for 121 Alternate fix)
 # Enforce trailing slash (matches sitemap/canonical & astro.config trailingSlash: always)
-# www redirect must be configured in Cloudflare Dashboard → Rules → Redirect Rules: https://www.calculatorst.com/* → https://calculatorst.com/:splat 301
 /about /about/ 301
 /aggregate-calculator /aggregate-calculator/ 301
 /aggregate-weight-calculator /aggregate-weight-calculator/ 301
@@ -65,10 +64,14 @@
 /construction/concrete /construction/concrete/ 301
 /construction/concrete-block /construction/concrete-block/ 301
 /construction/deck-fence /construction/deck-fence/ 301
-/construction/decking /construction/decking/ 301
+/construction/decking /construction/deck-fence/ 301
+/construction/decking/ /construction/deck-fence/ 301
+/construction/drywall /construction/drywall-paint/ 301
+/construction/drywall/ /construction/drywall-paint/ 301
 /construction/drywall-paint /construction/drywall-paint/ 301
 /construction/excavation /construction/excavation/ 301
-/construction/fencing /construction/fencing/ 301
+/construction/fencing /construction/deck-fence/ 301
+/construction/fencing/ /construction/deck-fence/ 301
 /construction/flooring /construction/flooring/ 301
 /construction/foundation /construction/foundation/ 301
 /construction/framing /construction/framing/ 301
@@ -230,3 +233,11 @@
 /vinyl-flooring-calculator /vinyl-flooring-calculator/ 301
 /wall-framing-calculator /wall-framing-calculator/ 301
 /wall-paint-calculator /wall-paint-calculator/ 301
+
+# Fix 404s from GSC Drilldown (8) — /ton, /ft², /yd³ are garbage units parsed as URLs
+/ton /gravel-calculator/ 301
+/ton/ /gravel-calculator/ 301
+/ft² /gravel-calculator/ 301
+/ft%C2%B2 /gravel-calculator/ 301
+/yd³ /gravel-calculator/ 301
+/yd%C2%B3 /gravel-calculator/ 301
