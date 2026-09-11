@@ -28,6 +28,12 @@ pnpm-debug.log*
 # wrangler
 .wrangler/
 
+# AI / local tooling (not required for build)
+calc.txt
+.opencode/
+.claude/
+.agents/
+
 # Local browser evidence (structured audit reports remain tracked)
 audit/**/*.html
 audit/**/*.png

@@ -13,7 +13,7 @@
     <div class="flex-1">
       <p id="cookie-title" class="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-foreground">Cookie Notice</p>
       <p id="cookie-desc" class="mt-1 max-w-[640px] text-[13px] leading-5 text-muted-foreground [text-wrap:pretty]">
-        We use cookies for anonymous traffic analytics and Google AdSense ads. Calculator inputs run 100% locally in your browser. See our <a href="/privacy/" class="underline underline-offset-2 decoration-border hover:decoration-foreground/40 transition-colors">Privacy Policy</a>.
+        We use cookies for anonymous traffic analytics and Google AdSense ads. Calculator inputs run 100% locally in your browser. Analytics runs by default; ads require your consent. See our <a href="/privacy/" class="underline underline-offset-2 decoration-border hover:decoration-foreground/40 transition-colors">Privacy Policy</a>.
       </p>
     </div>
     <div class="flex shrink-0 items-center gap-2">
@@ -79,7 +79,13 @@
         });
         loadAds();
       } else if (consent === "declined") {
-        // do not load ads
+        window.dataLayer = window.dataLayer || [];
+        window.gtag?.("consent", "update", {
+          ad_storage: "denied",
+          analytics_storage: "granted",
+          ad_user_data: "denied",
+          ad_personalization: "denied"
+        });
       } else {
         showBanner();
       }
@@ -95,8 +101,6 @@
         ad_user_data: "granted",
         ad_personalization: "granted"
       });
-      // Send page_view after consent is granted (default page_view was sent with denied consent)
-      try { window.gtag?.("event", "page_view", { send_to: "G-7RX7TP3LKB" }); } catch {}
       loadAds();
     });
 
@@ -106,7 +110,7 @@
       window.dataLayer = window.dataLayer || [];
       window.gtag?.("consent", "update", {
         ad_storage: "denied",
-        analytics_storage: "denied",
+        analytics_storage: "granted",
         ad_user_data: "denied",
         ad_personalization: "denied"
       });

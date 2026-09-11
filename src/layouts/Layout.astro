@@ -107,29 +107,18 @@ const webPageSchema: any = (!noindex && canonicalUrl) ? {
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      var hasConsent = false;
-      try {
-        hasConsent = localStorage.getItem('cookieConsent') === 'accepted';
-      } catch (e) {}
-
-      if (hasConsent) {
-        gtag('consent', 'default', {
-          ad_storage: 'granted',
-          analytics_storage: 'granted',
-          ad_user_data: 'granted',
-          ad_personalization: 'granted'
-        });
-      } else {
-        gtag('consent', 'default', {
-          ad_storage: 'denied',
-          analytics_storage: 'denied',
-          ad_user_data: 'denied',
-          ad_personalization: 'denied',
-          wait_for_update: 500
-        });
-      }
+      // Initialize with analytics_storage granted so GA4 tracks even before consent
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'granted',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      });
       gtag('js', new Date());
-      gtag('config', 'G-7RX7TP3LKB');
+      gtag('config', 'G-7RX7TP3LKB', {
+        anonymize_ip: true,
+        send_page_view: true
+      });
     </script>
 
     <!-- Open Graph -->

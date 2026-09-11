@@ -1,46 +1,46 @@
-# Astro Starter Kit: Basics
+# Calculator Street — calculatorst.com
+
+Construction & home improvement calculators — 200+ tools for concrete, gravel, roofing, fencing, pavers, mulch and more.
+
+**Stack:** Astro 7 · React 19 · Tailwind CSS 4 · Vite · Cloudflare Pages
+
+**Site:** https://calculatorst.com
+
+## Quick start
 
 ```sh
-npm create astro@latest -- --template basics
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # → dist/
+npm run preview
+npm test         # vitest
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Requires Node ≥ 22.12.
 
-## 🚀 Project Structure
+## Project structure
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```
+src/
+  pages/          # Astro routes + [slug]/ dynamic calculators
+  components/     # Astro + React UI (shadcn)
+  layouts/        # Layout.astro (SEO, GA4, OG, JSON-LD)
+  lib/            # calculator registry, models, math
+  data/           # hubCalculators, calculatorDetails
+  styles/         # global.css (Tailwind theme)
+  utils/          # units, format
+public/
+  favicon.svg, og.png, _headers, _redirects, ads.txt
+scripts/          # generate-200, audit-*
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Deployment
 
-## 🧞 Commands
+Cloudflare Pages via `wrangler.jsonc` (`pages_build_output_dir: ./dist`). Static output, trailing slashes enforced.
 
-All commands are run from the root of the project, from a terminal:
+## SEO / Ads / Analytics
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `src/pages/sitemap.xml.ts`, `robots.txt.ts`
+- GA4 `G-7RX7TP3LKB` in `Layout.astro` (Consent Mode v2)
+- `public/ads.txt` for AdSense
+- JSON-LD: WebSite, Organization, SoftwareApplication, HowTo, FAQPage, Breadcrumb
