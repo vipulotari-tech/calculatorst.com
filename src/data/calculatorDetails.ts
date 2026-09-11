@@ -1,4 +1,4 @@
-// Auto-generated detailed content — original per calculator (granular audit fix 2026-09-11)
+// Auto-generated detailed content — original per calculator (granular audit fix 2026-09-11 - remaining)
 export const calculatorDetails: Record<string, any> = {
   "concrete-calculator": {
     "whatIs": "The <strong>Concrete Calculator</strong> — Estimates concrete volume, weight and ready-mix versus bag count for US slabs, footings and walls.",
@@ -11793,11 +11793,12 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "drywall"
   },
   "paint-calculator": {
-    "whatIs": "The <strong>Paint Calculator</strong> — Covers US interiors — drywall sheets, screws, tape, paint and insulation.",
+    "whatIs": "The <strong>Paint Calculator</strong> — Estimates paint coverage for US interiors and exteriors — gallons, coats and containers from area and coverage.",
     "whatCalculates": [
-      "Sheets (4x8 =32 ft2)",
-      "Gallons at 350 ft2/gal",
-      "Insulation batts with waste"
+      "Net wall/ceiling area",
+      "Paint gallons with coats",
+      "Containers (ceil)",
+      "Cost with waste"
     ],
     "howToUse": [
       "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
@@ -11862,11 +11863,12 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "drywall"
   },
   "paint-coverage-calculator": {
-    "whatIs": "The <strong>Paint Coverage Calculator</strong> — Covers US interiors — drywall sheets, screws, tape, paint and insulation.",
+    "whatIs": "The <strong>Paint Coverage Calculator</strong> — Estimates paint coverage for US interiors and exteriors — gallons, coats and containers from area and coverage.",
     "whatCalculates": [
-      "Sheets (4x8 =32 ft2)",
-      "Gallons at 350 ft2/gal",
-      "Insulation batts with waste"
+      "Net wall/ceiling area",
+      "Paint gallons with coats",
+      "Containers (ceil)",
+      "Cost with waste"
     ],
     "howToUse": [
       "Measure 331 ft2 walls, 350 ft2/gal — use feet for length/width and inches for thickness where typical.",
@@ -11931,11 +11933,12 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "drywall"
   },
   "paint-cost-calculator": {
-    "whatIs": "The <strong>Paint Cost Calculator</strong> — Covers US interiors — drywall sheets, screws, tape, paint and insulation.",
+    "whatIs": "The <strong>Paint Cost Calculator</strong> — Estimates paint coverage for US interiors and exteriors — gallons, coats and containers from area and coverage.",
     "whatCalculates": [
-      "Sheets (4x8 =32 ft2)",
-      "Gallons at 350 ft2/gal",
-      "Insulation batts with waste"
+      "Net wall/ceiling area",
+      "Paint gallons with coats",
+      "Containers (ceil)",
+      "Cost with waste"
     ],
     "howToUse": [
       "Measure 331 ft2 walls, 350 ft2/gal — use feet for length/width and inches for thickness where typical.",
@@ -12000,11 +12003,12 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "drywall"
   },
   "primer-calculator": {
-    "whatIs": "The <strong>Primer Calculator</strong> — Covers US interiors — drywall sheets, screws, tape, paint and insulation.",
+    "whatIs": "The <strong>Primer Calculator</strong> — Estimates paint coverage for US interiors and exteriors — gallons, coats and containers from area and coverage.",
     "whatCalculates": [
-      "Sheets (4x8 =32 ft2)",
-      "Gallons at 350 ft2/gal",
-      "Insulation batts with waste"
+      "Net wall/ceiling area",
+      "Paint gallons with coats",
+      "Containers (ceil)",
+      "Cost with waste"
     ],
     "howToUse": [
       "Measure 331 ft2 walls, 350 ft2/gal — use feet for length/width and inches for thickness where typical.",
@@ -12069,11 +12073,12 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "drywall"
   },
   "ceiling-paint-calculator": {
-    "whatIs": "The <strong>Ceiling Paint Calculator</strong> — Covers US interiors — drywall sheets, screws, tape, paint and insulation.",
+    "whatIs": "The <strong>Ceiling Paint Calculator</strong> — Estimates paint coverage for US interiors and exteriors — gallons, coats and containers from area and coverage.",
     "whatCalculates": [
-      "Sheets (4x8 =32 ft2)",
-      "Gallons at 350 ft2/gal",
-      "Insulation batts with waste"
+      "Net wall/ceiling area",
+      "Paint gallons with coats",
+      "Containers (ceil)",
+      "Cost with waste"
     ],
     "howToUse": [
       "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
@@ -12138,11 +12143,12 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "drywall"
   },
   "wall-paint-calculator": {
-    "whatIs": "The <strong>Wall Paint Calculator</strong> — Covers US interiors — drywall sheets, screws, tape, paint and insulation.",
+    "whatIs": "The <strong>Wall Paint Calculator</strong> — Estimates paint coverage for US interiors and exteriors — gallons, coats and containers from area and coverage.",
     "whatCalculates": [
-      "Sheets (4x8 =32 ft2)",
-      "Gallons at 350 ft2/gal",
-      "Insulation batts with waste"
+      "Net wall/ceiling area",
+      "Paint gallons with coats",
+      "Containers (ceil)",
+      "Cost with waste"
     ],
     "howToUse": [
       "Measure Room 12x10 ft, height 8 ft — use feet for length/width and inches for thickness where typical.",
