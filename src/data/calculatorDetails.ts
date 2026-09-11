@@ -1,4 +1,4 @@
-// Auto-generated detailed content — original per calculator
+// Auto-generated detailed content — original per calculator (granular audit fix 2026-09-11)
 export const calculatorDetails: Record<string, any> = {
   "concrete-calculator": {
     "whatIs": "The <strong>Concrete Calculator</strong> — Estimates concrete volume, weight and ready-mix versus bag count for US slabs, footings and walls.",
@@ -332,8 +332,7 @@ export const calculatorDetails: Record<string, any> = {
     "whatIs": "The <strong>Concrete Mix Calculator</strong> — Estimates concrete volume, weight and ready-mix versus bag count for US slabs, footings and walls.",
     "whatCalculates": [
       "Concrete volume in cubic yards and cubic feet",
-      "Ready-mix loads vs 40/60/80-lb bags",
-      "Weight and cost with waste"
+      "Ready-mix loads vs 40/60/80-lb bags"
     ],
     "howToUse": [
       "Measure Concrete Mix 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
@@ -1136,8 +1135,7 @@ export const calculatorDetails: Record<string, any> = {
     "whatIs": "The <strong>Concrete Waste Calculator</strong> — Estimates concrete volume, weight and ready-mix versus bag count for US slabs, footings and walls.",
     "whatCalculates": [
       "Concrete volume in cubic yards and cubic feet",
-      "Ready-mix loads vs 40/60/80-lb bags",
-      "Weight and cost with waste"
+      "Ready-mix loads vs 40/60/80-lb bags"
     ],
     "howToUse": [
       "Measure Concrete Waste 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
@@ -2767,11 +2765,12 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "foundation"
   },
   "rebar-calculator": {
-    "whatIs": "The <strong>Rebar Calculator</strong> — Sizes rebar for US concrete — count, length, weight, spacing and cost with laps and chairs.",
+    "whatIs": "The <strong>Rebar Calculator</strong> — rebar grid — bar count from spacing, total length and weight.",
     "whatCalculates": [
-      "Rebar count from spacing",
-      "Total length and weight (lb/ft)",
-      "Laps and chairs with waste"
+      "Bars per direction",
+      "Total cut length",
+      "Order length & weight",
+      "Cost"
     ],
     "howToUse": [
       "Measure Wall 20 ft, spacing 16 in — use feet for length/width and inches for thickness where typical.",
@@ -2917,11 +2916,9 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "rebar"
   },
   "rebar-spacing-calculator": {
-    "whatIs": "The <strong>Rebar Spacing Calculator</strong> — Sizes rebar for US concrete — count, length, weight, spacing and cost with laps and chairs.",
+    "whatIs": "The <strong>Rebar Spacing Calculator</strong> — equal spacing from length and count.",
     "whatCalculates": [
-      "Rebar count from spacing",
-      "Total length and weight (lb/ft)",
-      "Laps and chairs with waste"
+      "Equal center spacing in/mm"
     ],
     "howToUse": [
       "Measure Wall 20 ft, spacing 16 in — use feet for length/width and inches for thickness where typical.",
@@ -3205,11 +3202,12 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "rebar"
   },
   "rebar-grid-calculator": {
-    "whatIs": "The <strong>Rebar Grid Calculator</strong> — Sizes rebar for US concrete — count, length, weight, spacing and cost with laps and chairs.",
+    "whatIs": "The <strong>Rebar Grid Calculator</strong> — rebar grid — bar count from spacing, total length and weight.",
     "whatCalculates": [
-      "Rebar count from spacing",
-      "Total length and weight (lb/ft)",
-      "Laps and chairs with waste"
+      "Bars per direction",
+      "Total cut length",
+      "Order length & weight",
+      "Cost"
     ],
     "howToUse": [
       "Measure Wall 20 ft, spacing 16 in — use feet for length/width and inches for thickness where typical.",
@@ -3351,11 +3349,11 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "rebar"
   },
   "reinforcement-mesh-calculator": {
-    "whatIs": "The <strong>Reinforcement Mesh Calculator</strong> — Sizes rebar for US concrete — count, length, weight, spacing and cost with laps and chairs.",
+    "whatIs": "The <strong>Reinforcement Mesh Calculator</strong> — reinforcement mesh sheets from area, sheet size and overlap.",
     "whatCalculates": [
-      "Rebar count from spacing",
-      "Total length and weight (lb/ft)",
-      "Laps and chairs with waste"
+      "Sheets (rows×cols)",
+      "Order with spares",
+      "Cost"
     ],
     "howToUse": [
       "Measure Reinforcement Mesh 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
@@ -3432,11 +3430,11 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "rebar"
   },
   "rebar-chair-calculator": {
-    "whatIs": "The <strong>Rebar Chair Calculator</strong> — Sizes rebar for US concrete — count, length, weight, spacing and cost with laps and chairs.",
+    "whatIs": "The <strong>Rebar Chair Calculator</strong> — support chairs from length, width and spacing.",
     "whatCalculates": [
-      "Rebar count from spacing",
-      "Total length and weight (lb/ft)",
-      "Laps and chairs with waste"
+      "Chairs in grid",
+      "Order with spares",
+      "Cost"
     ],
     "howToUse": [
       "Measure Wall 20 ft, spacing 16 in — use feet for length/width and inches for thickness where typical.",
@@ -4485,8 +4483,7 @@ export const calculatorDetails: Record<string, any> = {
     "whatIs": "The <strong>Brick Waste Calculator</strong> — Counts bricks and masonry units for US walls, patios and veneers — quantity, mortar and cost.",
     "whatCalculates": [
       "Bricks or blocks per wall area",
-      "Mortar volume with 3/8 in joint",
-      "Waste-adjusted count and cost"
+      "Mortar volume with 3/8 in joint"
     ],
     "howToUse": [
       "Measure Wall 20 ft x 8 ft, brick 7.5x2.25 in, joint 0.375 in — use feet for length/width and inches for thickness where typical.",
@@ -4562,8 +4559,7 @@ export const calculatorDetails: Record<string, any> = {
     "whatIs": "The <strong>Brick Joint Calculator</strong> — Counts bricks and masonry units for US walls, patios and veneers — quantity, mortar and cost.",
     "whatCalculates": [
       "Bricks or blocks per wall area",
-      "Mortar volume with 3/8 in joint",
-      "Waste-adjusted count and cost"
+      "Mortar volume with 3/8 in joint"
     ],
     "howToUse": [
       "Measure Wall 20 ft x 8 ft, brick 7.5x2.25 in, joint 0.375 in — use feet for length/width and inches for thickness where typical.",
@@ -5506,8 +5502,7 @@ export const calculatorDetails: Record<string, any> = {
     "whatIs": "The <strong>Mortar Mix Calculator</strong> — Mixes mortar, grout and cement for US masonry — volume, bags and sand ratios.",
     "whatCalculates": [
       "Mortar volume in cubic feet",
-      "Cement bags (94-lb) and sand",
-      "Water and cost with waste"
+      "Cement bags (94-lb) and sand"
     ],
     "howToUse": [
       "Measure Mortar Mix 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
@@ -6154,8 +6149,7 @@ export const calculatorDetails: Record<string, any> = {
     "whatIs": "The <strong>Cement Sand Ratio Calculator</strong> — Mixes mortar, grout and cement for US masonry — volume, bags and sand ratios.",
     "whatCalculates": [
       "Mortar volume in cubic feet",
-      "Cement bags (94-lb) and sand",
-      "Water and cost with waste"
+      "Cement bags (94-lb) and sand"
     ],
     "howToUse": [
       "Measure Cement Sand Ratio 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
@@ -6458,8 +6452,7 @@ export const calculatorDetails: Record<string, any> = {
     "whatIs": "The <strong>Gravel Depth Calculator</strong> — Sizes gravel and aggregate for driveways and patios — volume, weight and cost with density.",
     "whatCalculates": [
       "Cubic yards and cubic feet",
-      "Tons and pounds using 1.35–1.60 t/yd³",
-      "Cost per ton or per yard with waste"
+      "Tons and pounds using 1.35–1.60 t/yd³"
     ],
     "howToUse": [
       "Measure Area 200 ft2, 2.47 yd3 ordered — use feet for length/width and inches for thickness where typical.",
@@ -7813,11 +7806,11 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "excavation"
   },
   "cut-and-fill-calculator": {
-    "whatIs": "The <strong>Cut And Fill Calculator</strong> — Volumes earthwork for US trenches and grading — cut, fill, backfill and soil weight.",
+    "whatIs": "The <strong>Cut And Fill Calculator</strong> — cut and fill bank balance with shrink and swell.",
     "whatCalculates": [
-      "Trench volume in cubic yards",
-      "Backfill less pipe volume",
-      "Soil weight in tons with swell"
+      "Bank balance",
+      "Loose balance",
+      "Bank required"
     ],
     "howToUse": [
       "Measure Cut And Fill 20 ft x 10 ft x 4 in — use feet for length/width and inches for thickness where typical.",
@@ -14858,11 +14851,9 @@ export const calculatorDetails: Record<string, any> = {
     "visualVariant": "asphalt"
   },
   "surface-area-calculator": {
-    "whatIs": "The <strong>Surface Area Calculator</strong> — Paves US driveways and lots — asphalt weight, thickness and parking layout.",
+    "whatIs": "The <strong>Surface Area Calculator</strong> — rectangular net area minus openings.",
     "whatCalculates": [
-      "Asphalt tons from volume x 2.025 t/yd3",
-      "Thickness and area",
-      "Parking spaces with waste"
+      "Net area ft²/m²/yd²"
     ],
     "howToUse": [
       "Measure Driveway 40x12 ft x 3 in asphalt — use feet for length/width and inches for thickness where typical.",
