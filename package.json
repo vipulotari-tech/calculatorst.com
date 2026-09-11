@@ -10,8 +10,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "vitest run --exclude=e2e/**",
+    "test:watch": "vitest --exclude=e2e/**",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.5",
