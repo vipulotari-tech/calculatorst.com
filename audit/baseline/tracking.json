@@ -1,0 +1,134 @@
+{
+  "origin": "https://calculatorst.com",
+  "first": {
+    "consent": null,
+    "dataLayer": [
+      [
+        "consent",
+        "default",
+        {
+          "ad_storage": "denied",
+          "analytics_storage": "denied",
+          "ad_user_data": "denied",
+          "ad_personalization": "denied",
+          "wait_for_update": 500
+        }
+      ],
+      [
+        "config",
+        "G-7RX7TP3LKB"
+      ]
+    ],
+    "scripts": [
+      "https://www.googletagmanager.com/gtag/js?id=G-7RX7TP3LKB"
+    ]
+  },
+  "accepted": {
+    "consent": "accepted",
+    "dataLayer": [
+      [
+        "consent",
+        "default",
+        {
+          "ad_storage": "denied",
+          "analytics_storage": "denied",
+          "ad_user_data": "denied",
+          "ad_personalization": "denied",
+          "wait_for_update": 500
+        }
+      ],
+      [
+        "config",
+        "G-7RX7TP3LKB"
+      ],
+      [
+        "consent",
+        "update",
+        {
+          "ad_storage": "granted",
+          "analytics_storage": "granted",
+          "ad_user_data": "granted",
+          "ad_personalization": "granted"
+        }
+      ]
+    ],
+    "scripts": [
+      "https://www.googletagmanager.com/gtag/js?id=G-7RX7TP3LKB",
+      "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3234603610000879"
+    ]
+  },
+  "returning": {
+    "consent": "accepted",
+    "dataLayer": [
+      [
+        "consent",
+        "default",
+        {
+          "ad_storage": "denied",
+          "analytics_storage": "denied",
+          "ad_user_data": "denied",
+          "ad_personalization": "denied",
+          "wait_for_update": 500
+        }
+      ],
+      [
+        "config",
+        "G-7RX7TP3LKB"
+      ]
+    ],
+    "scripts": [
+      "https://www.googletagmanager.com/gtag/js?id=G-7RX7TP3LKB",
+      "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3234603610000879"
+    ]
+  },
+  "events": [
+    {
+      "phase": "new-visitor",
+      "host": "www.googletagmanager.com",
+      "path": "/gtag/js",
+      "measurementId": "G-7RX7TP3LKB",
+      "event": null,
+      "consent": null
+    },
+    {
+      "phase": "new-visitor",
+      "host": "www.google-analytics.com",
+      "path": "/g/collect",
+      "measurementId": "G-7RX7TP3LKB",
+      "event": "page_view",
+      "consent": "G100"
+    },
+    {
+      "phase": "new-visitor",
+      "failed": "www.google-analytics.com",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "returning-visitor",
+      "host": "www.googletagmanager.com",
+      "path": "/gtag/js",
+      "measurementId": "G-7RX7TP3LKB",
+      "event": null,
+      "consent": null
+    },
+    {
+      "phase": "returning-visitor",
+      "host": "www.google-analytics.com",
+      "path": "/g/collect",
+      "measurementId": "G-7RX7TP3LKB",
+      "event": "page_view",
+      "consent": "G100"
+    },
+    {
+      "phase": "returning-visitor",
+      "failed": "www.google-analytics.com",
+      "error": "net::ERR_ABORTED"
+    }
+  ],
+  "consoleErrors": [
+    "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495' violates the following Content Security Policy directive: \"script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://ajax.googleapis.com https://unpkg.com\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+    "Failed to load resource: net::ERR_FAILED",
+    "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495' violates the following Content Security Policy directive: \"script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://ajax.googleapis.com https://unpkg.com\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+    "Failed to load resource: net::ERR_FAILED"
+  ]
+}

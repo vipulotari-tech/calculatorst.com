@@ -10,9 +10,6 @@ Allow: /
 
 # Sitemap
 Sitemap: ${site}/sitemap.xml
-
-# Disallow no-value params
-Disallow: /*?*
 `;
 
   return new Response(body, {

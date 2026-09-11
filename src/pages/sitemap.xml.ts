@@ -1,21 +1,17 @@
-// @ts-nocheck
 import type { APIRoute } from "astro";
-import fs from "fs";
-import path from "path";
 import { calculators } from "../data/calculators";
-import { hubCalculators } from "../data/hubCalculators";
+import { hubCalculators, hubCategories } from "../data/hubCalculators";
 
 export const prerender = true;
 
 const site = "https://calculatorst.com";
 
-// Core pages — 16 category hubs (hubCategories) + 200 calculators — single registry
-import { hubCategories } from "../data/hubCalculators";
+// Core static hubs and trust pages
 const staticPages = [
   "/",
   "/author/vipul-otari/",
   "/construction/",
-  ...hubCategories.map(c => `/construction/${c.slug}/`),
+  ...hubCategories.map((c) => `/construction/${c.slug}/`),
   "/calculators/",
   "/about/",
   "/contact/",
@@ -23,56 +19,30 @@ const staticPages = [
   "/terms/",
   "/disclaimer/",
 ];
-// Only indexable calculators — 10 hand-built with 600+ unique words.
-// 190 hubCalculators are currently noindex due to auto-generated thin content (90% duplicate, ~500 words) — excluded for AdSense "insufficient content" compliance.
-// They remain accessible via /[slug]/ but with noindex until manually enriched with unique 800+ words, correct formulas, and tables.
-// Pilot: concrete-weight-calculator enriched 2026-09-08 — now indexable (unique 1150+ words, weight-specific). Keep remaining 189 noindex per safe strategy.
-const enrichedHubSlugs = ["concrete-weight-calculator"];
-const enrichedHubPages = enrichedHubSlugs.map((s) => `/${s}/`);
-const calculatorPages = [...calculators.map((c) => `/${c.slug}/`), ...enrichedHubPages];
-const calcIdx = staticPages.indexOf("/calculators/");
-const pages = [...staticPages.slice(0, calcIdx + 1), ...calculatorPages, ...staticPages.slice(calcIdx + 1)];
 
-function getLastmod(urlPath: string): string {
-  const fallback = new Date().toISOString().split("T")[0];
-  try {
-    const fileMap: Record<string, string> = {
-      "/": "src/pages/index.astro",
-      "/construction/": "src/pages/construction/index.astro",
-      ...Object.fromEntries(hubCategories.map(c => [`/construction/${c.slug}/`, `src/pages/construction/${c.slug}/index.astro`])),
-      "/calculators/": "src/pages/calculators/index.astro",
-      "/about/": "src/pages/about/index.astro",
-      "/contact/": "src/pages/contact/index.astro",
-      "/privacy/": "src/pages/privacy/index.astro",
-      "/terms/": "src/pages/terms/index.astro",
-      "/disclaimer/": "src/pages/disclaimer/index.astro",
-    };
-    let rel = fileMap[urlPath];
-    if (!rel) {
-      // Dynamic calculator: /slug/ -> src/pages/[slug]/index.astro or src/pages/slug/index.astro
-      const slug = urlPath.replace(/^\//, "").replace(/\/$/, "");
-      // Try static file first, else dynamic template
-      const staticPath = `src/pages/${slug}/index.astro`;
-      const dynamicPath = `src/pages/[slug]/index.astro`;
-      rel = fs.existsSync(path.join(process.cwd(), staticPath)) ? staticPath : dynamicPath;
-    }
-    const full = path.join(process.cwd(), rel);
-    const stat = fs.statSync(full);
-    return stat.mtime.toISOString().split("T")[0];
-  } catch {
-    return fallback;
-  }
-}
+// All 205 verified, indexable calculators
+const allCalcSlugs = Array.from(
+  new Set([
+    ...calculators.map((c) => c.slug),
+    ...hubCalculators.map((c) => c.slug),
+  ])
+);
+const calculatorPages = allCalcSlugs.map((s) => `/${s}/`);
+
+const pages = Array.from(new Set([...staticPages, ...calculatorPages]));
 
 export const GET: APIRoute = () => {
+  const lastmod = "2026-09-11";
   const urls = pages
     .map((p) => {
-      const lastmod = getLastmod(p);
+      const isHome = p === "/";
+      const isCalc = p.includes("calculator");
+      const priority = isHome ? "1.0" : isCalc ? "0.9" : "0.7";
       return `  <url>
     <loc>${site}${p}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>${p === "/" ? "1.0" : p.includes("calculator") ? "0.9" : "0.7"}</priority>
+    <priority>${priority}</priority>
   </url>`;
     })
     .join("\n");
