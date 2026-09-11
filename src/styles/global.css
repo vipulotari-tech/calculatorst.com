@@ -41,47 +41,47 @@
     --sidebar-ring: oklch(0.545 0.018 286);
   }
   html.dark {
-    /* Premium warm dark — orange+black+RGB, not pure black, responsive & beautiful */
-    --background: oklch(0.145 0.015 45);
-    --foreground: oklch(0.965 0.002 280);
-    --card: oklch(0.185 0.016 45);
-    --card-foreground: oklch(0.965 0.002 280);
-    --popover: oklch(0.18 0.014 45);
-    --popover-foreground: oklch(0.965 0.002 280);
-    --primary: oklch(0.965 0.002 280);
-    --primary-foreground: oklch(0.145 0.015 45);
-    --secondary: oklch(0.22 0.014 45);
-    --secondary-foreground: oklch(0.965 0.002 280);
-    --muted: oklch(0.22 0.012 45);
-    --muted-foreground: oklch(0.62 0.01 55);
-    --accent: oklch(0.22 0.012 45);
-    --accent-foreground: oklch(0.965 0.002 280);
-    --destructive: oklch(0.42 0.16 27);
-    --destructive-foreground: oklch(0.965 0.002 280);
-    --border: oklch(0.26 0.015 50);
-    --input: oklch(0.22 0.012 45);
-    --ring: oklch(0.70 0.15 45);
-    --chart-1: oklch(0.70 0.18 45);
+    /* Premium graphite — deep charcoal, restrained, Apple-like calm */
+    --background: oklch(0.145 0.006 286);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0.006 286);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0.006 286);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.985 0 0);
+    --primary-foreground: oklch(0.145 0.006 286);
+    --secondary: oklch(0.22 0.006 286);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.22 0.006 286);
+    --muted-foreground: oklch(0.65 0.012 286);
+    --accent: oklch(0.22 0.006 286);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.55 0.22 27);
+    --destructive-foreground: oklch(0.985 0 0);
+    --border: oklch(0.24 0.006 286);
+    --input: oklch(0.24 0.006 286);
+    --ring: oklch(0.62 0.15 255);
+    --chart-1: oklch(0.65 0.18 255);
     --chart-2: oklch(0.6 0.12 184);
     --chart-3: oklch(0.62 0.14 285);
     --chart-4: oklch(0.83 0.18 84);
     --chart-5: oklch(0.77 0.18 70);
-    --sidebar: oklch(0.17 0.012 45);
-    --sidebar-foreground: oklch(0.965 0.002 280);
-    --sidebar-primary: oklch(0.965 0.002 280);
-    --sidebar-primary-foreground: oklch(0.145 0.015 45);
-    --sidebar-accent: oklch(0.22 0.012 45);
-    --sidebar-accent-foreground: oklch(0.965 0.002 280);
-    --sidebar-border: oklch(0.26 0.015 50);
-    --sidebar-ring: oklch(0.70 0.15 45);
-    /* Dark semantic overrides — warm */
-    --color-link: oklch(0.72 0.14 50);
-    --color-link-deep: oklch(0.78 0.12 50);
-    --color-link-bg-soft: oklch(0.22 0.04 50);
-    --color-error-soft: oklch(0.20 0.04 27);
-    --color-warning-soft: oklch(0.22 0.05 75);
-    --color-violet-soft: oklch(0.22 0.04 300);
-    --color-cyan-soft: oklch(0.20 0.04 195);
+    --sidebar: oklch(0.205 0.006 286);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.985 0 0);
+    --sidebar-primary-foreground: oklch(0.145 0.006 286);
+    --sidebar-accent: oklch(0.22 0.006 286);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(0.24 0.006 286);
+    --sidebar-ring: oklch(0.62 0.15 255);
+    /* Semantic — restrained blue accent, not orange */
+    --color-link: oklch(0.68 0.14 255);
+    --color-link-deep: oklch(0.74 0.12 255);
+    --color-link-bg-soft: oklch(0.22 0.08 255);
+    --color-error-soft: oklch(0.22 0.06 27);
+    --color-warning-soft: oklch(0.24 0.06 75);
+    --color-violet-soft: oklch(0.24 0.05 300);
+    --color-cyan-soft: oklch(0.22 0.05 195);
   }
 }
 
@@ -378,129 +378,49 @@
   }
 }
 
-/* Dark mode body — warm charcoal + orange + RGB aurora (not pure black, responsive) */
+/* ── Dark mode — premium graphite, minimal, Apple restraint ── */
+html.dark { color-scheme: dark; }
 html.dark body {
-  position: relative;
-  background-color: #14120f;
-  background-image:
-    radial-gradient(ellipse 1400px 800px at 10% -10%, rgba(251,146,60,0.10), transparent 62%),
-    radial-gradient(ellipse 1000px 600px at 92% 0%, rgba(139,92,246,0.085), transparent 60%),
-    radial-gradient(ellipse 900px 500px at 50% 115%, rgba(14,165,233,0.055), transparent 65%),
-    radial-gradient(ellipse 700px 500px at 30% 70%, rgba(236,72,153,0.045), transparent 68%);
-  background-attachment: fixed;
-  color: var(--color-ink);
+  background: var(--background);
+  color: var(--foreground);
 }
-html.dark body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  background:
-    radial-gradient(ellipse 1200px 800px at 10% -10%, rgba(253,186,116,0.16), transparent 60%),
-    radial-gradient(ellipse 1000px 650px at 92% -8%, rgba(251,146,60,0.12), transparent 58%),
-    radial-gradient(ellipse 900px 600px at 78% 22%, rgba(139,92,246,0.10), transparent 58%),
-    radial-gradient(ellipse 800px 500px at 15% 88%, rgba(14,165,233,0.07), transparent 62%),
-    radial-gradient(ellipse 700px 450px at 55% 105%, rgba(251,191,36,0.06), transparent 60%),
-    radial-gradient(ellipse 650px 400px at 45% 45%, rgba(244,114,182,0.05), transparent 68%),
-    radial-gradient(ellipse 500px 300px at 30% 60%, rgba(99,102,241,0.035), transparent 70%);
-  opacity: 0.92;
-  filter: blur(0.5px) saturate(1.12);
-}
-@media (prefers-reduced-motion: no-preference) {
-  html.dark body::before {
-    animation: sunlightShift 22s ease-in-out infinite alternate;
-  }
-  @keyframes sunlightShift {
-    0% { opacity: 0.85; transform: translateY(0px) scale(1); }
-    100% { opacity: 1; transform: translateY(4px) scale(1.015); }
-  }
-}
-
 html.dark ::selection {
-  background: var(--color-primary);
-  color: var(--color-on-primary);
+  background: var(--primary);
+  color: var(--primary-foreground);
 }
 
-/* Dark shadows — premium layered, warm-tinted borders */
+/* Shadows — subtle, layered, no orange glow */
 html.dark .shadow-card {
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.06),
-    0 0 0 1px rgba(251,146,60,0.06) inset,
-    0 1px 3px rgba(0,0,0,0.25),
-    0 8px 24px rgba(0,0,0,0.20);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
 }
 html.dark .shadow-card-hover {
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.07),
-    0 0 0 1px rgba(251,146,60,0.08) inset,
-    0 4px 12px rgba(0,0,0,0.25),
-    0 16px 32px -12px rgba(0,0,0,0.35);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 4px 12px rgba(0,0,0,0.35), 0 16px 32px -12px rgba(0,0,0,0.45);
 }
 html.dark .shadow-float {
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.06),
-    0 4px 16px rgba(0,0,0,0.30),
-    0 20px 40px -12px rgba(0,0,0,0.42);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 4px 16px rgba(0,0,0,0.4), 0 20px 40px -16px rgba(0,0,0,0.5);
 }
 html.dark .shadow-search {
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.06),
-    0 4px 16px rgba(0,0,0,0.35),
-    0 16px 32px -12px rgba(0,0,0,0.45);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 4px 16px rgba(0,0,0,0.4), 0 16px 32px -12px rgba(0,0,0,0.5);
 }
 html.dark .shadow-search-focus {
-  box-shadow:
-    0 0 0 1px rgba(251,146,60,0.30),
-    0 0 0 4px rgba(251,146,60,0.12),
-    0 8px 24px -8px rgba(0,0,0,0.35),
-    0 20px 40px -16px rgba(0,0,0,0.45);
+  box-shadow: 0 0 0 1px rgba(59,130,246,0.4), 0 0 0 4px rgba(59,130,246,0.15), 0 8px 24px -8px rgba(0,0,0,0.4);
 }
 html.dark .mesh-gradient {
-  background:
-    radial-gradient(ellipse 900px 500px at 50% -10%, rgba(251,146,60,0.07), transparent 62%),
-    radial-gradient(ellipse 700px 420px at 92% 18%, rgba(139,92,246,0.065), transparent 60%),
-    radial-gradient(ellipse 800px 520px at 12% 88%, rgba(14,165,233,0.05), transparent 65%),
-    radial-gradient(ellipse 600px 400px at 30% 50%, rgba(244,114,182,0.04), transparent 65%);
+  background: radial-gradient(ellipse 900px 500px at 50% -10%, rgba(255,255,255,0.04), transparent 62%), radial-gradient(ellipse 700px 420px at 92% 18%, rgba(59,130,246,0.06), transparent 60%);
 }
 html.dark .hero-premium {
-  background-color: #15120f;
-  background-image:
-    radial-gradient(ellipse 1600px 800px at 15% -12%, rgba(253,186,116,0.16), transparent 62%),
-    radial-gradient(ellipse 1200px 600px at 88% -8%, rgba(251,146,60,0.12), transparent 58%),
-    radial-gradient(ellipse 900px 600px at 75% 20%, rgba(139,92,246,0.095), transparent 60%),
-    radial-gradient(ellipse 1000px 500px at 20% 85%, rgba(14,165,233,0.07), transparent 62%),
-    radial-gradient(ellipse 700px 400px at 60% 0%, rgba(244,114,182,0.06), transparent 65%),
-    radial-gradient(ellipse 600px 400px at 90% 90%, rgba(251,191,36,0.05), transparent 65%),
-    radial-gradient(ellipse 1200px 600px at 50% -15%, rgba(100,140,255,0.04), transparent 68%),
-    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background: var(--background);
 }
 
-/* ── Luxury header aurora reflection in dark — warm orange + RGB ── */
+/* Header — lightweight, backdrop blur, subtle border */
 html.dark #site-header {
-  background: linear-gradient(180deg, rgba(253,186,116,0.11) 0%, rgba(139,92,246,0.065) 35%, rgba(14,165,233,0.045) 70%, transparent 100%), rgba(20, 15, 12, 0.84);
+  background: rgba(18,18,20,0.8);
   border-color: rgba(255,255,255,0.08);
-  box-shadow: 0 1px 0 rgba(253,186,116,0.10), 0 1px 0 rgba(139,92,246,0.06) inset, 0 8px 32px rgba(0,0,0,0.45);
-  backdrop-filter: blur(20px) saturate(1.35);
-}
-html.dark #site-header::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  background: linear-gradient(90deg, transparent 0%, rgba(251,146,60,0.05) 20%, rgba(139,92,246,0.04) 50%, rgba(14,165,233,0.03) 80%, transparent 100%);
-  opacity: 0.65;
+  backdrop-filter: blur(16px) saturate(1.2);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 8px 32px rgba(0,0,0,0.4);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════
-   BEAUTIFUL DARK CALCULATOR — orange + black + RGB gradient
-   Every calculator hero: warm, not pure black, responsive, premium
-   Covers ALL: ConcreteSlab, Generic, Gravel, Fence, Mulch, Paver etc.
-   ═══════════════════════════════════════════════════════════════════════ */
-
-/* Calculator card shell — warm gradient + RGB mesh, thin orange border */
+/* Calculator card — elevated, subtle border, no orange glow */
 html.dark #concrete-calc,
 html.dark #gravel-calculator,
 html.dark #fence-calc,
@@ -508,28 +428,10 @@ html.dark [id$="-calculator"],
 html.dark [id$="-calc"],
 html.dark div[id].rounded-xl.border.bg-card,
 html.dark div[id].rounded-lg.border.bg-canvas {
-  position: relative;
-  overflow: hidden;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0) 22%),
-    radial-gradient(ellipse 680px 320px at 18% 0%, rgba(251,146,60,0.18), transparent 58%),
-    radial-gradient(ellipse 520px 360px at 92% 8%, rgba(139,92,246,0.13), transparent 60%),
-    radial-gradient(ellipse 600px 380px at 50% 100%, rgba(14,165,233,0.07), transparent 68%),
-    radial-gradient(ellipse 420px 280px at 60% 45%, rgba(244,114,182,0.055), transparent 70%),
-    linear-gradient(135deg, #1e1916 0%, #211c1a 22%, #1c1e24 55%, #171a1f 100%) !important;
-  border-color: rgba(251,146,60,0.16) !important;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.07),
-    0 0 0 1px rgba(251,146,60,0.09) inset,
-    0 1px 0 rgba(255,255,255,0.06) inset,
-    0 8px 24px rgba(0,0,0,0.38),
-    0 20px 48px -14px rgba(0,0,0,0.52),
-    0 0 36px rgba(251,146,60,0.06),
-    0 0 60px rgba(139,92,246,0.04) !important;
-  backdrop-filter: blur(0.5px);
+  background: var(--card) !important;
+  border-color: var(--border) !important;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 4px 16px rgba(0,0,0,0.3), 0 16px 32px -12px rgba(0,0,0,0.4) !important;
 }
-
-/* Subtle animated aurora shimmer inside calculator card */
 html.dark #concrete-calc::before,
 html.dark #gravel-calculator::before,
 html.dark #fence-calc::before,
@@ -537,164 +439,100 @@ html.dark [id$="-calculator"]::before,
 html.dark [id$="-calc"]::before,
 html.dark div[id].rounded-xl.border.bg-card::before,
 html.dark div[id].rounded-lg.border.bg-canvas::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  pointer-events: none;
-  z-index: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(251,146,60,0.07) 18%, rgba(253,186,116,0.09) 32%, rgba(139,92,246,0.06) 52%, rgba(14,165,233,0.05) 72%, transparent 100%);
-  opacity: 0.55;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  padding: 1px;
-}
-html.dark #concrete-calc > *,
-html.dark #gravel-calculator > *,
-html.dark #fence-calc > *,
-html.dark [id$="-calculator"] > *,
-html.dark [id$="-calc"] > *,
-html.dark div[id].rounded-xl.border.bg-card > *,
-html.dark div[id].rounded-lg.border.bg-canvas > * {
-  position: relative;
-  z-index: 1;
+  display: none;
 }
 
-/* Labels brighter in warm dark */
-html.dark #concrete-calc label > span,
-html.dark #gravel-calculator label > span,
-html.dark #fence-calc label > span,
-html.dark [id$="-calculator"] label > span,
-html.dark [id$="-calc"] label > span,
-html.dark div[id].rounded-xl.border.bg-card label > span,
-html.dark div[id].rounded-lg.border.bg-canvas label > span {
-  color: rgba(255,255,255,0.92) !important;
-}
-
-/* Inputs — warm glass, not pure black, orange focus glow */
+/* Inputs — premium, clearly distinguishable, restrained blue focus */
 html.dark input[type="number"],
 html.dark input[type="text"],
 html.dark input[type="search"],
 html.dark select,
 html.dark textarea {
-  background: linear-gradient(180deg, rgba(34,28,26,0.92) 0%, rgba(26,24,30,0.94) 100%) !important;
-  border-color: rgba(255,255,255,0.09) !important;
-  color: rgba(255,255,255,0.94) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 2px rgba(0,0,0,0.22) !important;
+  background: var(--input) !important;
+  border-color: var(--border) !important;
+  color: var(--foreground) !important;
 }
 html.dark input::placeholder {
-  color: rgba(255,255,255,0.32) !important;
+  color: var(--muted-foreground) !important;
+  opacity: 0.6;
 }
 html.dark input:focus,
 html.dark select:focus,
 html.dark textarea:focus {
-  border-color: rgba(251,146,60,0.55) !important;
-  box-shadow: 0 0 0 3px rgba(251,146,60,0.14), 0 0 20px rgba(251,146,60,0.10), inset 0 1px 0 rgba(255,255,255,0.06) !important;
+  border-color: var(--ring) !important;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15) !important;
   outline: none !important;
 }
-/* Unit pill / adornment — warm muted with subtle border */
 html.dark .bg-canvas-soft,
 html.dark .bg-muted {
-  background: linear-gradient(180deg, rgba(38,32,28,0.88) 0%, rgba(30,28,36,0.90) 100%) !important;
-  border-color: rgba(255,255,255,0.08) !important;
-  color: rgba(255,255,255,0.72) !important;
+  background: var(--muted) !important;
+  border-color: var(--border) !important;
+  color: var(--muted-foreground) !important;
 }
 html.dark .bg-canvas-soft-2 {
-  background: linear-gradient(135deg, rgba(251,146,60,0.07) 0%, rgba(139,92,246,0.05) 45%, rgba(30,26,24,0.92) 100%) !important;
-  border-color: rgba(251,146,60,0.12) !important;
+  background: var(--muted) !important;
+  border-color: var(--border) !important;
 }
 
-/* Result panels — premium gradient with orange top accent */
+/* Results — subtle elevated */
 html.dark [id$="-results"] > div,
 html.dark #c-results > div,
 html.dark #g-results > div,
 html.dark #f-results > div {
-  position: relative;
-  background:
-    linear-gradient(180deg, rgba(251,146,60,0.09) 0%, transparent 38%),
-    radial-gradient(ellipse 500px 240px at 85% 0%, rgba(139,92,246,0.08), transparent 60%),
-    radial-gradient(ellipse 400px 220px at 15% 100%, rgba(14,165,233,0.06), transparent 65%),
-    linear-gradient(180deg, rgba(32,26,24,0.96) 0%, rgba(24,24,30,0.96) 100%) !important;
-  border-color: rgba(251,146,60,0.16) !important;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.05) inset,
-    0 4px 20px rgba(0,0,0,0.30),
-    0 0 24px rgba(251,146,60,0.05) !important;
+  background: var(--card) !important;
+  border-color: var(--border) !important;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 4px 16px rgba(0,0,0,0.3) !important;
 }
 html.dark [id$="-results"] > div::before,
 html.dark #c-results > div::before,
 html.dark #g-results > div::before,
 html.dark #f-results > div::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 12px;
-  right: 12px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(251,146,60,0.55) 20%, rgba(253,186,116,0.7) 40%, rgba(139,92,246,0.45) 65%, rgba(14,165,233,0.3) 85%, transparent);
-  opacity: 0.9;
-}
-html.dark [id$="-results"] .bg-canvas,
-html.dark #c-results .bg-canvas,
-html.dark #g-results .bg-canvas,
-html.dark #f-results .bg-canvas {
-  background: linear-gradient(180deg, rgba(36,30,28,0.92) 0%, rgba(28,28,34,0.92) 100%) !important;
-  border-color: rgba(255,255,255,0.07) !important;
+  display: none;
 }
 
-/* Buttons — Calculate = warm orange gradient, Reset = glass */
+/* Buttons — primary refined light on dark, reset subtle glass */
 html.dark form button[type="submit"] {
-  background: linear-gradient(135deg, #ff7a1a 0%, #f97316 18%, #fb923c 38%, #f59e0b 68%, #ea580c 100%) !important;
-  color: white !important;
-  border: 1px solid rgba(255,255,255,0.14) !important;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.22) inset, 0 4px 12px rgba(249,115,22,0.35), 0 8px 24px rgba(234,88,12,0.22) !important;
-  transition: transform 150ms ease, box-shadow 150ms ease, filter 150ms ease !important;
+  background: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  border-color: var(--border) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.1) inset, 0 2px 8px rgba(0,0,0,0.2) !important;
 }
 html.dark form button[type="submit"]:hover {
-  filter: brightness(1.06) saturate(1.05);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.22) inset, 0 6px 16px rgba(249,115,22,0.42), 0 12px 32px rgba(234,88,12,0.28) !important;
-  transform: translateY(-1px);
+  background: oklch(0.92 0.005 286) !important;
 }
 html.dark form button[type="submit"]:active {
-  transform: translateY(0px) scale(0.99);
-  filter: brightness(0.98);
+  transform: translateY(0px) scale(0.98);
 }
 html.dark form button[type="reset"],
 html.dark form button[id$="-reset"] {
-  background: rgba(255,255,255,0.06) !important;
-  border-color: rgba(255,255,255,0.10) !important;
-  color: rgba(255,255,255,0.88) !important;
-  backdrop-filter: blur(8px);
+  background: transparent !important;
+  border-color: var(--border) !important;
+  color: var(--muted-foreground) !important;
 }
 html.dark form button[type="reset"]:hover,
 html.dark form button[id$="-reset"]:hover {
-  background: rgba(255,255,255,0.10) !important;
-  border-color: rgba(251,146,60,0.28) !important;
-  color: white !important;
+  background: var(--muted) !important;
+  color: var(--foreground) !important;
 }
-
-/* Select dropdown arrow visibility in warm dark */
 html.dark select {
   color-scheme: dark;
 }
-
-/* Theme transition */
 html {
   transition: background-color 150ms ease, color 150ms ease;
 }
 @media (prefers-reduced-motion: reduce) {
   html { transition: none; }
 }
-html.dark svg, html.dark input, html.dark button {
+html.dark svg,
+html.dark input,
+html.dark button {
   transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 @media (prefers-reduced-motion: reduce) {
   html.dark svg, html.dark input, html.dark button { transition: none; }
 }
-
-/* Dark mode model-viewer */
 html.dark model-viewer {
-  --poster-color: #1a1a1a;
+  --poster-color: #1a1a1e;
 }
 
 /* Safe areas */
