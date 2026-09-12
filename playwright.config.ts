@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import process from 'node:process';
 
 export default defineConfig({
   testDir: './e2e',
@@ -10,12 +11,12 @@ export default defineConfig({
   workers: 4,
   reporter: 'list',
   use: {
-    baseURL: 'http://localhost:4321',
+    baseURL: 'http://127.0.0.1:4321',
     trace: 'on-first-retry',
   },
   webServer: {
     command: 'npm run preview -- --host 127.0.0.1 --port 4321',
-    url: 'http://localhost:4321/',
+    url: 'http://127.0.0.1:4321/',
     reuseExistingServer: !process.env.CI,
     timeout: 60_000,
   },

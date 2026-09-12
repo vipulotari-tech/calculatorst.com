@@ -27,6 +27,7 @@ export function readInputs(fields:Field[],raw:Record<string,string|number>,units
       if(f.optional){values[f.id]=Number.NaN;continue;}
       throw new InputError(f.id,`Enter ${f.label.toLowerCase()}.`);
     }
+    requireCondition(typeof rawValue === 'number' || /^[+-]?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?$/i.test(rawValue.trim()),f.id,'Enter a decimal number, without commas or other characters.');
     const value=Number(rawValue);
     requireCondition(Number.isFinite(value),f.id,'Enter a finite number.');
     const lower=f.min??0;
@@ -41,7 +42,7 @@ export function readInputs(fields:Field[],raw:Record<string,string|number>,units
 }
 export const roundUp=(v:number)=>Math.ceil(v-Math.min(1e-9,Math.abs(v)*Number.EPSILON*4));
 export const row=(key:string,label:string,value:number,unit='',discrete=false):ResultRow=>({key,label,value,unit,discrete});
-export const fmt=(v:number)=>new Intl.NumberFormat('en-US',{maximumFractionDigits:4}).format(v);
+export const fmt=(v:number)=>new Intl.NumberFormat('en-US',v !== 0 && Math.abs(v) < 0.0001 ? {notation:'scientific',maximumSignificantDigits:5} : {maximumFractionDigits:4}).format(v);
 export function result(rows:ResultRow[],steps:string[],notes:string[]=[]):Calculation {
   for(const r of rows)requireCondition(Number.isFinite(r.value)&&Math.abs(r.value)<=Number.MAX_SAFE_INTEGER,'','The result is outside the supported range. Check units or split the project into smaller sections.');
   return {rows,steps,notes};

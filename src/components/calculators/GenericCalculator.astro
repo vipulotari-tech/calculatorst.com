@@ -53,6 +53,7 @@ const costs = fields.filter((f) => f.group === "Cost");
               {field.units && field.units.length > 1 ? (
                 <select
                   id={`${slug}-${field.id}-unit`}
+                  aria-label={`${field.label} unit`}
                   name={`${field.id}_unit`}
                   class="calc-unit-select h-11 shrink-0 rounded-r-lg border border-l-0 border-border bg-muted px-3 text-[13px] font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-ring/20 cursor-pointer"
                 >
@@ -107,6 +108,7 @@ const costs = fields.filter((f) => f.group === "Cost");
                 {field.units && field.units.length > 1 ? (
                   <select
                     id={`${slug}-${field.id}-unit`}
+                    aria-label={`${field.label} unit`}
                     name={`${field.id}_unit`}
                     class="calc-unit-select h-11 shrink-0 rounded-r-lg border border-l-0 border-border bg-muted px-3 text-[13px] font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-ring/20 cursor-pointer"
                   >
@@ -161,6 +163,7 @@ const costs = fields.filter((f) => f.group === "Cost");
                 {field.units && field.units.length > 1 ? (
                   <select
                     id={`${slug}-${field.id}-unit`}
+                    aria-label={`${field.label} unit`}
                     name={`${field.id}_unit`}
                     class="calc-unit-select h-11 shrink-0 rounded-r-lg border border-l-0 border-border bg-muted px-3 text-[13px] font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-ring/20 cursor-pointer"
                   >
@@ -190,7 +193,7 @@ const costs = fields.filter((f) => f.group === "Cost");
     <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-border">
       <div class="flex items-center gap-2">
         <button
-          type="button"
+          type="submit"
           class="calc-calc-btn inline-flex h-10 items-center justify-center rounded-lg bg-foreground px-5 text-[13px] font-medium text-background transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-ring cursor-pointer"
         >
           Calculate
@@ -208,14 +211,15 @@ const costs = fields.filter((f) => f.group === "Cost");
           class="calc-copy-btn inline-flex h-10 items-center justify-center rounded-lg border border-border bg-background px-3.5 text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors gap-1.5 cursor-pointer"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy shrink-0"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-          <span class="copy-status">Copy Result</span>
+          <span class="copy-status" role="status">Copy Result</span>
         </button>
       </div>
     </div>
   </form>
 
   <!-- Output Results Panel -->
-  <div class="calc-results-panel mt-6 space-y-5 rounded-xl border border-border/80 bg-muted/20 p-5 sm:p-6 transition-all">
+  <p class="calc-status mt-4 text-sm text-muted-foreground" role="status" aria-live="polite"></p>
+  <div class="calc-results-panel mt-6 space-y-5 rounded-xl border border-border/80 bg-muted/20 p-5 sm:p-6">
     <!-- Primary Output Hero Card -->
     <div class="rounded-xl border border-border bg-card p-5 shadow-xs">
       <span class="text-xs font-mono font-medium uppercase tracking-wider text-muted-foreground block result-hero-title">
@@ -248,6 +252,7 @@ const costs = fields.filter((f) => f.group === "Cost");
       <ol class="result-steps-list list-decimal pl-5 space-y-1 text-xs text-muted-foreground font-mono leading-relaxed">
         <li>Enter values to see step-by-step substitution.</li>
       </ol>
+      <ul class="result-notes-list list-disc pl-4 text-sm text-muted-foreground"></ul>
       {model.assumptions.length > 0 && (
         <div class="pt-2 border-t border-border/60 text-[11px] text-muted-foreground space-y-1">
           <p class="font-medium text-foreground">Engineering Assumptions:</p>
@@ -269,7 +274,8 @@ const costs = fields.filter((f) => f.group === "Cost");
 
     calcElements.forEach((root) => {
       const slug = root.dataset.calculatorSlug;
-      if (!slug) return;
+      if (!slug || root.dataset.initialized) return;
+      root.dataset.initialized = 'true';
 
       const model = getModelForSlug(slug);
       const form = root.querySelector<HTMLFormElement>(`#${slug}-form`);
@@ -281,14 +287,15 @@ const costs = fields.filter((f) => f.group === "Cost");
       const copyBtn = root.querySelector<HTMLButtonElement>(".calc-copy-btn");
       const copyStatus = root.querySelector<HTMLElement>(".copy-status");
       const resetBtn = root.querySelector<HTMLButtonElement>(".calc-reset-btn");
-      const calcBtn = root.querySelector<HTMLButtonElement>(".calc-calc-btn");
+      const status = root.querySelector<HTMLElement>('.calc-status');
+      const notesList = root.querySelector<HTMLElement>('.result-notes-list');
 
       if (!form || !primaryValEl || !rowsGridEl || !stepsListEl) return;
       const targetPrimaryValEl = primaryValEl;
       const targetRowsGridEl = rowsGridEl;
       const targetStepsListEl = stepsListEl;
 
-      function calculate() {
+      function calculate(focusError = false) {
         const rawInputs: Record<string, string> = {};
         const rawUnits: Record<string, string> = {};
 
@@ -297,6 +304,7 @@ const costs = fields.filter((f) => f.group === "Cost");
           el.classList.add("hidden");
           el.textContent = "";
         });
+        form?.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
 
         // Collect all inputs
         model.fields.forEach((field) => {
@@ -315,6 +323,15 @@ const costs = fields.filter((f) => f.group === "Cost");
         try {
           const parsed = readInputs(model.fields, rawInputs, rawUnits);
           const result = model.calculate(parsed, rawUnits);
+          if (status) status.textContent = 'Results updated.';
+          if (copyBtn) copyBtn.disabled = false;
+          if (notesList) {
+            notesList.replaceChildren(...result.notes.map(note => {
+              const li = document.createElement('li');
+              li.textContent = note;
+              return li;
+            }));
+          }
 
           if (!result.rows || result.rows.length === 0) return;
 
@@ -351,9 +368,21 @@ const costs = fields.filter((f) => f.group === "Cost");
           });
 
           // Store for copying
-          root.dataset.lastCalculated = `${primaryRow.label}: ${fmt(primaryRow.value)} ${primaryRow.unit}`;
+          root.dataset.lastCalculated = result.rows.map(r => `${r.label}: ${fmt(r.value)} ${unitLabels[r.unit] ?? r.unit}`).join('\n');
         } catch (err: any) {
+          delete root.dataset.lastCalculated;
+          if (copyBtn) copyBtn.disabled = true;
+          targetPrimaryValEl.textContent = '—';
+          if (primaryUnitEl) primaryUnitEl.textContent = '';
+          if (secondaryEl) secondaryEl.textContent = 'Check the inputs to calculate a new result.';
+          targetRowsGridEl.replaceChildren();
+          targetStepsListEl.replaceChildren();
+          notesList?.replaceChildren();
+          if (status) status.textContent = err.message || 'Unable to calculate. Check your inputs.';
           if (err.field) {
+            const input = form?.querySelector<HTMLInputElement>(`#${slug}-${err.field}`);
+            input?.setAttribute('aria-invalid', 'true');
+            if (focusError) input?.focus();
             const errEl = root.querySelector<HTMLElement>(`#${slug}-${err.field}-err`);
             if (errEl) {
               errEl.textContent = err.message;
@@ -364,9 +393,9 @@ const costs = fields.filter((f) => f.group === "Cost");
       }
 
       // Live calculation on input change
-      form.addEventListener("input", calculate);
-      form.addEventListener("change", calculate);
-      calcBtn?.addEventListener("click", calculate);
+      form.addEventListener("input", () => calculate());
+      form.addEventListener("change", () => calculate());
+      form.addEventListener('submit', event => { event.preventDefault(); calculate(true); });
 
       // Reset handler
       resetBtn?.addEventListener("click", () => {
@@ -384,17 +413,21 @@ const costs = fields.filter((f) => f.group === "Cost");
       });
 
       // Copy handler
-      copyBtn?.addEventListener("click", () => {
+      copyBtn?.addEventListener("click", async () => {
         const textToCopy = root.dataset.lastCalculated;
         if (!textToCopy) return;
-        navigator.clipboard.writeText(textToCopy).then(() => {
+        try {
+          await navigator.clipboard.writeText(textToCopy);
           if (copyStatus) {
             copyStatus.textContent = "Copied!";
             setTimeout(() => {
               copyStatus.textContent = "Copy Result";
             }, 2000);
           }
-        });
+        } catch {
+          if (copyStatus) copyStatus.textContent = 'Copy unavailable';
+          if (status) status.textContent = 'Clipboard access was unavailable. Select and copy the displayed results manually.';
+        }
       });
 
       // Run initial calculation immediately on page mount

@@ -63,22 +63,22 @@ const breadcrumbs = [
 ];
 
 const ogClusterMap: Record<string, string> = {
-  concrete: "/og.png",
-  slab: "/og.png",
-  foundation: "/og.png",
+  concrete: "/og-concrete.png",
+  slab: "/og-concrete.png",
+  foundation: "/og-concrete.png",
   rebar: "/og.png",
   brick: "/og.png",
   cmu: "/og.png",
   mortar: "/og.png",
-  gravel: "/og.png",
-  excavation: "/og.png",
-  framing: "/og.png",
-  roofing: "/og.png",
-  flooring: "/og.png",
-  drywall: "/og.png",
-  "deck-fence": "/og.png",
-  landscaping: "/og.png",
-  asphalt: "/og.png",
+  gravel: "/og-gravel.png",
+  excavation: "/og-gravel.png",
+  framing: "/og-deck.png",
+  roofing: "/og-roof-pitch.png",
+  flooring: "/og-paver.png",
+  drywall: "/og-paver.png",
+  "deck-fence": "/og-deck.png",
+  landscaping: "/og-paver.png",
+  asphalt: "/og-paver.png",
 };
 
 const ogImage = ogClusterMap[calc.cluster] ?? "/og.png";
@@ -92,7 +92,7 @@ const faq = d.faq || [
   title={calc.title}
   description={calc.description}
   h1={calc.h1}
-  intro={calc.description}
+  intro={`${calc.description} Enter dimensions, select units and add waste to get instant, supplier-ready numbers.`}
   breadcrumbs={breadcrumbs}
   related={related}
   faq={faq}

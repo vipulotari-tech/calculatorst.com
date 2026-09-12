@@ -1,4 +1,4 @@
-// Auto-generated detailed content — original per calculator (granular audit fix 2026-09-11 - remaining)
+// Auto-generated detailed content — original per calculator (P0 FAQ uniqueness fix 2026-09-11)
 export const calculatorDetails: Record<string, any> = {
   "concrete-calculator": {
     "whatIs": "The <strong>Concrete Calculator</strong> — Estimates concrete volume, weight and ready-mix versus bag count for US slabs, footings and walls.",

@@ -63,8 +63,8 @@ export const slugToModelKey: Record<string, string> = {
   "brick-cost-calculator": "material-cost",
   "brick-mortar-calculator": "brick-mortar",
   "brick-veneer-calculator": "masonry",
-  "brick-patio-calculator": "masonry",
-  "brick-paver-calculator": "masonry",
+  "brick-patio-calculator": "tile",
+  "brick-paver-calculator": "tile",
   "masonry-calculator": "masonry",
   "masonry-wall-calculator": "masonry",
   "masonry-cost-calculator": "material-cost",
@@ -156,7 +156,7 @@ export const slugToModelKey: Record<string, string> = {
   "roof-sheathing-calculator": "roofCover",
   "roof-rafter-calculator": "rafter",
   "rafter-length-calculator": "rafter",
-  "roof-truss-calculator": "roofCover",
+  "roof-truss-calculator": "spaced",
   "roof-flashing-calculator": "flashing",
   "roof-waste-calculator": "waste",
 
@@ -181,7 +181,7 @@ export const slugToModelKey: Record<string, string> = {
   "drywall-calculator": "drywall",
   "drywall-sheet-calculator": "drywall",
   "drywall-cost-calculator": "material-cost",
-  "drywall-joint-compound-calculator": "drywallTape",
+  "drywall-joint-compound-calculator": "coverage",
   "drywall-screw-calculator": "drywallScrews",
   "drywall-tape-calculator": "drywallTape",
   "paint-calculator": "paint",
@@ -246,10 +246,34 @@ export const slugToModelKey: Record<string, string> = {
 export function getModelForSlug(slug: string): Model {
   const key = slugToModelKey[slug];
   if (key && allModels[key]) {
-    return allModels[key];
+    const model = allModels[key];
+    const overrides: Record<string, Partial<Field>> = {};
+    // Shared geometry must retain the material and application of the page.
+    if (key === 'masonry' && /cmu|concrete-block|masonry-block/.test(slug)) {
+      overrides.unitLength = { value: 15.625 };
+      overrides.unitHeight = { value: 7.625 };
+      overrides.unitWeight = { value: 35, help: 'Example hollow 8-inch CMU weight. Use the actual manufacturer weight.' };
+    }
+    if (key === 'tile' && slug.startsWith('brick-')) {
+      overrides.tileLength = { value: 8 };
+      overrides.tileWidth = { value: 4 };
+    }
+    if (key === 'mix' && /mortar|cement-sand/.test(slug)) {
+      overrides.aggregate = { value: 0, label: 'Coarse aggregate parts (zero for mortar)' };
+      overrides.sand = { value: 3 };
+    }
+    if (slug === 'roof-truss-calculator') {
+      overrides.length = { label: 'Building length across trusses' };
+      overrides.spacing = { value: 24, label: 'Specified maximum truss spacing' };
+    }
+    if (slug === 'drywall-joint-compound-calculator') {
+      overrides.coverage = { value: undefined, label: 'Finished drywall coverage per container', help: 'Enter manufacturer coverage for your finish level and container size. This estimates compound containers, not tape.' };
+    }
+    if (slug === 'roof-sheathing-calculator') overrides.coverage = { value: 32, label: 'Effective coverage per sheathing sheet' };
+    if (slug === 'roofing-underlayment-calculator') overrides.coverage = { value: undefined, label: 'Net coverage per roll after overlaps' };
+    return { ...model, fields: model.fields.map(field => ({ ...field, ...overrides[field.id] })) };
   }
-  // Default fallback for any unlisted route
-  return allModels["concrete"];
+  throw new Error(`No calculator model registered for ${slug}`);
 }
 
 export function getFieldsForSlug(slug: string): Field[] {

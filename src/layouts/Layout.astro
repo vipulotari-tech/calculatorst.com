@@ -37,6 +37,7 @@ const ogImageAlt = ogImageAltProp ?? "Calculator Street — Construction & Home 
 const websiteSchema: any = {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": siteNoSlash + "/#website",
   name: "Calculator Street",
   alternateName: "CalculatorSt.com",
   url: siteNoSlash + "/",
@@ -83,8 +84,7 @@ const webPageSchema: any = (!noindex && canonicalUrl) ? {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0c0c0e" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafaf9" />
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="generator" content={Astro.generator} />
@@ -147,12 +147,23 @@ const webPageSchema: any = (!noindex && canonicalUrl) ? {
     <!-- Theme — no FOUC -->
     <script is:inline>
       (function () {
-        try {
-          const stored = localStorage.getItem("theme");
-          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-          const shouldDark = stored ? stored === "dark" : prefersDark;
-          document.documentElement.classList.toggle("dark", shouldDark);
-        } catch {}
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        let preference = null;
+        try { preference = localStorage.getItem('theme'); } catch {}
+        function applyTheme() {
+          const dark = preference === 'dark' || (preference !== 'light' && mq.matches);
+          document.documentElement.classList.toggle('dark', dark);
+          document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+          document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#151515' : '#fafaf9');
+        }
+        window.__setTheme = function(mode) {
+          preference = mode;
+          try { localStorage.setItem('theme', mode); } catch {}
+          applyTheme();
+        };
+        mq.addEventListener('change', applyTheme);
+        window.addEventListener('storage', event => { if (event.key === 'theme') { preference = event.newValue; applyTheme(); } });
+        applyTheme();
       })();
     </script>
   </head>
@@ -167,21 +178,5 @@ const webPageSchema: any = (!noindex && canonicalUrl) ? {
     <BackToTop />
     <CookieConsent />
 
-    <script is:inline>
-      window.__setTheme = function (mode) {
-        try {
-          localStorage.setItem("theme", mode);
-          document.documentElement.classList.toggle("dark", mode === "dark");
-        } catch {}
-      };
-      try {
-        const mq = window.matchMedia("(prefers-color-scheme: dark)");
-        mq.addEventListener("change", (e) => {
-          if (!localStorage.getItem("theme")) {
-            document.documentElement.classList.toggle("dark", e.matches);
-          }
-        });
-      } catch {}
-    </script>
   </body>
 </html>

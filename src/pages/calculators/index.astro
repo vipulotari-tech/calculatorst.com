@@ -1,6 +1,8 @@
 ---
-import { hubCalculators } from "../../data/hubCalculators";
+import { searchCatalog as hubCalculators } from "../../lib/search";
 import Layout from "../../layouts/Layout.astro";
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
 ---
 
 <Layout
@@ -8,7 +10,8 @@ import Layout from "../../layouts/Layout.astro";
   description="Browse the complete library of construction calculators — concrete, gravel, roofing, flooring, deck, fence and more. Every tool is free, private, and mobile-friendly."
   canonical="/calculators/"
 >
-  <div class="mx-auto max-w-[1200px] px-4 sm:px-6 py-6">
+  <Header />
+  <main id="main" tabindex="-1" class="mx-auto max-w-[1200px] px-4 sm:px-6 py-6">
     <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-foreground sm:text-display-xl">Calculators</h1>
     <p class="mt-2 text-body-md leading-6 text-muted-foreground">{hubCalculators.length} calculators across construction categories. Search or browse by category.</p>
 
@@ -22,9 +25,12 @@ import Layout from "../../layouts/Layout.astro";
       </div>
     </div>
 
+    <button id="calc-search-clear" type="button" class="mt-3 text-sm underline">Clear search</button>
+    <p id="search-count" role="status" class="mt-3 text-sm text-muted-foreground"></p>
+    <p id="search-empty" hidden class="mt-6">No calculators match. Try a material such as concrete, gravel, or lumber, or clear your search.</p>
     <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list" id="calculator-list">
       {hubCalculators.map((c) => (
-        <li>
+        <li data-slug={c.slug}>
           <a href={`/${c.slug}/`} class="group flex h-full flex-col rounded-xl border border-border bg-card p-6 shadow-card transition-all duration-150 hover:shadow-card-hover hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">
             <div class="flex items-start justify-between gap-3">
               <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-muted text-foreground transition-colors group-hover:bg-foreground group-hover:text-background" aria-hidden="true">
@@ -41,20 +47,31 @@ import Layout from "../../layouts/Layout.astro";
         </li>
       ))}
     </ul>
-  </div>
+  </main>
+  <Footer />
 </Layout>
 
-<script is:inline>
-  const input = document.getElementById("calc-search");
+<script>
+  import { searchCalculators } from '../../lib/search';
+  const input = document.querySelector<HTMLInputElement>("#calc-search");
   const list = document.getElementById("calculator-list");
   if (input && list) {
-    input.addEventListener("input", () => {
-      const q = input.value.toLowerCase().trim();
-      const items = list.querySelectorAll("li");
-      items.forEach(li => {
-        const text = li.textContent?.toLowerCase() || "";
-        li.style.display = q ? (text.includes(q) ? "" : "none") : "";
+    const render = () => {
+      const hits = searchCalculators(input.value);
+      const ranks = new Map(hits.map((c,i) => [c.slug,i]));
+      list.querySelectorAll<HTMLLIElement>('li').forEach(li => {
+        li.hidden = !ranks.has(li.dataset.slug!);
+        li.style.order = String(ranks.get(li.dataset.slug!) ?? 0);
       });
-    });
+      document.getElementById('search-count')!.textContent = `${hits.length} calculator${hits.length === 1 ? '' : 's'} found`;
+      document.getElementById('search-empty')!.hidden = hits.length > 0;
+      const url = new URL(location.href);
+      if (input.value) url.searchParams.set('q',input.value); else url.searchParams.delete('q');
+      history.replaceState(null,'',url);
+    };
+    input.value = new URL(location.href).searchParams.get('q') ?? '';
+    input.addEventListener('input',render);
+    document.getElementById('calc-search-clear')?.addEventListener('click', () => { input.value = ''; render(); input.focus(); });
+    render();
   }
 </script>

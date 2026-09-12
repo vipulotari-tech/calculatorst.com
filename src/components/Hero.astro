@@ -99,13 +99,6 @@
   (() => {
     const input = document.getElementById('hero-search');
     if (!input) return;
-    // Focus with ⌘K / Ctrl+K — matches existing site search pattern
-    document.addEventListener('keydown', (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        input.focus();
-      }
-    });
     // Minimal client search — redirect to /calculators/?q= or filter if present
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {

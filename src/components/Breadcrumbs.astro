@@ -11,6 +11,7 @@ const { items } = Astro.props;
 const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": new URL(Astro.url.pathname, Astro.site ?? "https://calculatorst.com").href + "#breadcrumb",
   itemListElement: items.map((item, i) => ({
     "@type": "ListItem",
     position: i + 1,
