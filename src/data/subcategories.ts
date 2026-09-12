@@ -1,4 +1,4 @@
-// Subcategories derived from actual 200 calculator inventory — single source of truth
+// Subcategories derived from actual 201 calculator inventory — single source of truth
 // Each cluster's calculators grouped into meaningful project groups
 
 export const clusterGroups: Record<string, { name: string; slugs: string[] }[]> = {
@@ -90,7 +90,7 @@ export const clusterGroups: Record<string, { name: string; slugs: string[] }[]> 
 // Popular project groups — cross-category, intent based
 export const projectGroups = [
   { name: "Concrete & Slabs", desc: "Volume, cost, walls and footings", slugs: ["concrete-calculator","concrete-slab-calculator","concrete-wall-calculator","garage-slab-calculator","patio-concrete-calculator"], cluster: "concrete" },
-  { name: "Gravel & Dirt", desc: "Driveway gravel, crushed stone, sand & topsoil", slugs: ["gravel-calculator","driveway-gravel-calculator","crushed-stone-calculator","sand-calculator","topsoil-calculator"], cluster: "gravel" },
+  { name: "Gravel & Dirt", desc: "Driveway gravel, crushed stone, sand & topsoil", slugs: ["gravel-calculator","crushed-stone-calculator","sand-calculator","topsoil-calculator"], cluster: "gravel" },
   { name: "Roofing", desc: "Pitch, area, shingles & rafters", slugs: ["roof-pitch-calculator","roof-area-calculator","roofing-shingle-calculator","rafter-length-calculator"], cluster: "roofing" },
   { name: "Fencing & Gates", desc: "Posts, panels, pickets & gates", slugs: ["fence-calculator","fence-post-calculator","fence-panel-calculator","gate-calculator"], cluster: "deck-fence" },
   { name: "Decking", desc: "Boards, joists, footings & stairs", slugs: ["deck-calculator","deck-board-calculator","deck-joist-calculator","deck-footing-calculator"], cluster: "deck-fence" },

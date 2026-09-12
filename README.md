@@ -1,6 +1,6 @@
 # Calculator Street — calculatorst.com
 
-Construction & home improvement calculators — 200+ tools for concrete, gravel, roofing, fencing, pavers, mulch and more.
+Construction & home improvement calculators — 201 tools for concrete, gravel, roofing, fencing, pavers, mulch and more.
 
 **Stack:** Astro 7 · React 19 · Tailwind CSS 4 · Vite · Cloudflare Pages
 

@@ -4,11 +4,11 @@ import { readInputs } from "../calculator-math.ts";
 import { hubCalculators } from "../../data/hubCalculators.ts";
 import { calculators } from "../../data/calculators.ts";
 
-describe("Complete 205 Calculator Logic Audit", () => {
+describe("Complete 201 Calculator Logic Audit", () => {
   const allSlugs = Array.from(new Set([...calculators.map(c => c.slug), ...hubCalculators.map(c => c.slug)]));
 
-  it("should have exactly 205 unique calculator slugs", () => {
-    expect(allSlugs.length).toBe(205);
+  it("should have exactly 201 unique calculator slugs", () => {
+    expect(allSlugs.length).toBe(201);
   });
 
   for (const slug of allSlugs) {

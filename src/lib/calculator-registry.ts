@@ -236,10 +236,6 @@ export const slugToModelKey: Record<string, string> = {
   "construction-material-cost-calculator": "material-cost",
 
   // Additional Dedicated Slugs
-  "pea-gravel-calculator": "bulk",
-  "driveway-gravel-calculator": "bulk",
-  "roof-square-footage-calculator": "roofArea",
-  "deck-material-calculator": "deck",
   "circular-slab-tube-calculator": "tube",
 };
 
