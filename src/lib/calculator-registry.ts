@@ -271,6 +271,62 @@ export function getModelForSlug(slug: string): Model {
     }
     if (slug === 'roof-sheathing-calculator') overrides.coverage = { value: 32, label: 'Effective coverage per sheathing sheet' };
     if (slug === 'roofing-underlayment-calculator') overrides.coverage = { value: undefined, label: 'Net coverage per roll after overlaps' };
+    // Concrete model overrides for better field labels
+    if (key === 'concrete') {
+      const concreteOverrides: Record<string, Record<string, Partial<Field>>> = {
+        'concrete-calculator': {
+          length: { label: 'Length' },
+          width: { label: 'Width' },
+          depth: { label: 'Depth or Thickness' },
+          quantity: { label: 'Number of identical sections' }
+        },
+        'concrete-volume-calculator': {
+          length: { label: 'Length' },
+          width: { label: 'Width' },
+          depth: { label: 'Depth' },
+          quantity: { label: 'Number of identical sections' }
+        },
+        'concrete-cost-calculator': {
+          length: { label: 'Length' },
+          width: { label: 'Width' },
+          depth: { label: 'Depth' },
+          quantity: { label: 'Number of identical sections' }
+        },
+        'concrete-pour-calculator': {
+          length: { label: 'Length' },
+          width: { label: 'Width' },
+          depth: { label: 'Depth' },
+          quantity: { label: 'Number of identical pours' }
+        },
+        'concrete-slab-calculator': {
+          length: { label: 'Length' },
+          width: { label: 'Width' },
+          depth: { label: 'Thickness' },
+          quantity: { label: 'Number of identical slabs', value: 1 }
+        },
+        'concrete-footing-calculator': {
+          length: { label: 'Length' },
+          width: { label: 'Width' },
+          depth: { label: 'Depth' },
+          quantity: { label: 'Number of footings' }
+        },
+        'concrete-foundation-calculator': {
+          length: { label: 'Length' },
+          width: { label: 'Width' },
+          depth: { label: 'Depth' },
+          quantity: { label: 'Number of identical foundations' }
+        },
+        'concrete-wall-calculator': {
+          length: { label: 'Wall Length' },
+          width: { label: 'Wall Height' },
+          depth: { label: 'Thickness' },
+          quantity: { label: 'Number of wall sections' }
+        }
+      };
+      if (concreteOverrides[slug]) {
+        Object.assign(overrides, concreteOverrides[slug]);
+      }
+    }
     return { ...model, fields: model.fields.map(field => ({ ...field, ...overrides[field.id] })) };
   }
   throw new Error(`No calculator model registered for ${slug}`);

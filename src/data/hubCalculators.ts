@@ -57,7 +57,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "concrete pour calculator",
       "concrete pour calculator estimator"
     ],
-    "featured": true
+    "featured": false
   },
   {
     "slug": "concrete-mix-calculator",
@@ -107,13 +107,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-footing-calculator",
     "title": "Concrete Footing Calculator — Quantity & Cost for US Construction",
     "h1": "Concrete Footing Calculator",
-    "description": "Calculate concrete footing volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete volume for spread footings, continuous footings, and spot footings. Includes options for square, rectangular, and circular footings with rebar considerations.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete footing calculator",
-      "concrete footing calculator estimator"
+      "footing concrete calculator",
+      "concrete footing volume calculator"
     ],
     "featured": true
   },
@@ -121,13 +122,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-foundation-calculator",
     "title": "Concrete Foundation Calculator — Concrete",
     "h1": "Concrete Foundation Calculator",
-    "description": "Calculate concrete foundation volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete volume for foundation walls, grade beams, and pier foundations. Supports rectangular and circular foundation elements with rebar and formwork considerations.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete foundation calculator",
-      "concrete foundation calculator estimator"
+      "foundation concrete calculator",
+      "concrete foundation volume calculator"
     ],
     "featured": true
   },
@@ -135,13 +137,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-wall-calculator",
     "title": "Concrete Wall Calculator — Area, Units & Waste",
     "h1": "Concrete Wall Calculator",
-    "description": "Calculate concrete wall volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete volume for foundation walls, retaining walls, and freestanding walls. Includes options for wall thickness, height, length, and opening deductions for doors/windows.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete wall calculator",
-      "concrete wall calculator estimator"
+      "wall concrete calculator",
+      "concrete wall volume calculator"
     ],
     "featured": true
   },
@@ -149,13 +152,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-column-calculator",
     "title": "Concrete Column Calculator — Quantity & Cost for US Construction",
     "h1": "Concrete Column Calculator",
-    "description": "Calculate concrete column volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete volume for square, rectangular, and circular columns. Includes options for tied columns, spiral columns, and column ties with rebar calculations.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete column calculator",
-      "concrete column calculator estimator"
+      "column concrete calculator",
+      "concrete column volume calculator"
     ],
     "featured": false
   },
@@ -163,13 +167,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-curb-calculator",
     "title": "Concrete Curb Calculator — Quantity & Cost for US Construction",
     "h1": "Concrete Curb Calculator",
-    "description": "Calculate concrete curb volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete volume for curb and gutter systems, including barrier curbs, mountable curbs, and slab curbs. Supports various curb dimensions and gutter widths.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete curb calculator",
-      "concrete curb calculator estimator"
+      "curb concrete calculator",
+      "concrete curb and gutter calculator"
     ],
     "featured": false
   },
@@ -177,13 +182,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-stair-calculator",
     "title": "Concrete Stair Calculator — Quantity & Cost for US Construction",
     "h1": "Concrete Stair Calculator",
-    "description": "Calculate concrete stair volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete volume for straight stairs, L-shaped stairs, and U-shaped stairs. Includes options for riser height, tread depth, stringer thickness, and landing calculations.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete stair calculator",
-      "concrete stair calculator estimator"
+      "stair concrete calculator",
+      "concrete stair volume calculator"
     ],
     "featured": false
   },
@@ -191,13 +197,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-ramp-calculator",
     "title": "Concrete Ramp Calculator — Quantity & Cost for US Construction",
     "h1": "Concrete Ramp Calculator",
-    "description": "Calculate concrete ramp volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete volume for wheelchair ramps, loading dock ramps, and sloped access ramps. Includes options for slope ratio, rise, run, and landing dimensions.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete ramp calculator",
-      "concrete ramp calculator estimator"
+      "ramp concrete calculator",
+      "concrete ramp volume calculator"
     ],
     "featured": false
   },
@@ -513,13 +520,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rebar-calculator",
     "title": "Rebar Calculator — Quantity, Weight & Cost",
     "h1": "Rebar Calculator",
-    "description": "Calculate rebar count and spacing — how many pieces and equalized centers with waste for US layouts.",
+    "description": "Calculate rebar quantity and spacing for concrete reinforcement. Determine how many bars you need with equal center spacing, total weight, and material cost for structural beams, slabs, and walls.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar calculator",
-      "rebar calculator estimator"
+      "rebar quantity calculator",
+      "rebar spacing calculator"
     ],
     "featured": false
   },
@@ -583,13 +591,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rebar-cost-calculator",
     "title": "Rebar Cost Calculator — Price & Quantity",
     "h1": "Rebar Cost Calculator",
-    "description": "Estimate rebar cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Calculate rebar project costs for reinforced concrete structures. Determine material quantity and detailed cost estimate for beams, slabs, columns, and foundations based on spacing and sizing.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar cost calculator",
-      "rebar price calculator"
+      "rebar price estimator",
+      "rebar material cost"
     ],
     "featured": false
   },
@@ -1157,13 +1166,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "gravel-cost-calculator",
     "title": "Gravel Cost Calculator — Price & Quantity",
     "h1": "Gravel Cost Calculator",
-    "description": "Estimate gravel cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate total gravel project costs including material, delivery, spreading, and labor. Enter quantity in yards or tons to get detailed cost breakdown for your specific gravel type.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "gravel cost calculator",
-      "gravel price calculator"
+      "gravel price estimator",
+      "gravel material cost calculator"
     ],
     "featured": false
   },
@@ -1213,13 +1223,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "crushed-stone-cost-calculator",
     "title": "Crushed Stone Cost Calculator — Price & Quantity",
     "h1": "Crushed Stone Cost Calculator",
-    "description": "Estimate crushed stone cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Calculate crushed stone project costs for driveways, foundations, and drainage. Enter area and depth to get material quantity and detailed cost estimate including delivery and installation.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "crushed stone cost calculator",
-      "crushed stone price calculator"
+      "crushed stone price estimator",
+      "crushed stone material cost"
     ],
     "featured": false
   },
@@ -1283,13 +1294,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "sand-cost-calculator",
     "title": "Sand Cost Calculator — Price & Quantity",
     "h1": "Sand Cost Calculator",
-    "description": "Estimate sand cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Calculate sand project costs for concrete mixing, masonry, and landscaping. Enter volume or area to get material quantity and detailed cost estimate including delivery and placement.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "sand cost calculator",
-      "sand price calculator"
+      "sand price estimator",
+      "sand material cost"
     ],
     "featured": false
   },
@@ -1311,13 +1323,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fill-dirt-cost-calculator",
     "title": "Fill Dirt Cost Calculator — Price & Quantity",
     "h1": "Fill Dirt Cost Calculator",
-    "description": "Estimate fill dirt cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Calculate fill dirt project costs for foundation backfilling, landscaping, and site grading. Enter volume or area to get material quantity and detailed cost estimate including delivery and placement.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "fill dirt cost calculator",
-      "fill dirt price calculator"
+      "fill dirt price estimator",
+      "fill dirt material cost"
     ],
     "featured": false
   },
@@ -1339,13 +1352,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "topsoil-cost-calculator",
     "title": "Topsoil Cost Calculator — Price & Quantity",
     "h1": "Topsoil Cost Calculator",
-    "description": "Estimate topsoil cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Calculate topsoil project costs for gardening, landscaping, and lawn installation. Enter area and depth to get material quantity and detailed cost estimate including delivery and spreading.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "topsoil cost calculator",
-      "topsoil price calculator"
+      "topsoil price estimator",
+      "topsoil material cost"
     ],
     "featured": false
   },
