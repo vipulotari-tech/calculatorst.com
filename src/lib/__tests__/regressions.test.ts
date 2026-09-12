@@ -56,6 +56,11 @@ describe('Every registered model: input contract and equivalent units', () => {
 });
 
 describe('Search intent', () => {
+  it('ranks related calculators for a short partial query', () => {
+    const hits = searchCalculators('con');
+    expect(hits.length).toBeGreaterThan(5);
+    expect(hits.slice(0, 5).every(c => /concrete/i.test(`${c.h1} ${c.category}`))).toBe(true);
+  });
   it.each(['concret','concerte','CONCRETE','concretes'])('finds concrete for %s', q => {
     expect(searchCalculators(q).some(c => c.slug === 'concrete-calculator')).toBe(true);
   });
