@@ -32,7 +32,6 @@ const aliases: Record<string, string> = {
   'stair': 'concrete stair', 'stairs': 'concrete stairs',
   'ramp': 'concrete ramp', 'ramps': 'concrete ramps',
   'curb': 'concrete curb', 'curbs': 'concrete curbs',
-  'tube': 'concrete tube', 'tubes': 'concrete tubes',
   'waste': 'concrete waste',
   'mix': 'concrete mix',
   'weight': 'concrete weight',

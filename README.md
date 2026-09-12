@@ -36,7 +36,7 @@ scripts/          # generate-200, audit-*
 
 ## Deployment
 
-Cloudflare Pages via `wrangler.jsonc` (`pages_build_output_dir: ./dist`). Static output, trailing slashes enforced.
+Cloudflare Workers static assets via `wrangler.jsonc` (`assets.directory: ./dist`). Static output, trailing slashes enforced.
 
 ## SEO / Ads / Analytics
 
