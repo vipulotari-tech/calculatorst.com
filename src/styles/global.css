@@ -74,6 +74,16 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(0.24 0.006 286);
     --sidebar-ring: oklch(0.62 0.15 255);
+    /* Calculator-specific design tokens */
+    --calc-input: oklch(0 0 0 / 0.05);
+    --calc-input-hover: oklch(0 0 0 / 0.08);
+    --calc-input-focus: oklch(0 0 0 / 0.12);
+    --calc-input-border: oklch(0.22 0.006 286 / 0.3);
+    --calc-input-ring: oklch(0.62 0.15 255 / 0.5);
+    --calc-output: oklch(0.205 0.006 286 / 0.6);
+    --calc-output-accent: oklch(0.145 0.006 286);
+    --calc-result: oklch(0.985 0 0 / 0.9);
+    --calc-result-hover: oklch(0.985 0 0 / 0.95);
     /* Semantic — restrained blue accent, not orange */
     --color-link: oklch(0.68 0.14 255);
     --color-link-deep: oklch(0.74 0.12 255);
