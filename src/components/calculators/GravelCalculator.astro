@@ -1,7 +1,7 @@
 ---
 ---
 
-<div id="gravel-calculator" class="rounded-lg border border-hairline bg-canvas p-5 shadow-card dark:bg-canvas sm:p-6">
+<div id="gravel-calculator" class="rounded-lg border border-hairline bg-canvas p-5 shadow-card sm:p-6">
   <form id="gravel-form" novalidate class="space-y-5">
     <div class="grid gap-4 sm:grid-cols-3">
       <label class="block">
@@ -87,7 +87,7 @@
     </div>
 
     <div class="flex flex-wrap gap-2">
-      <button type="submit" class="inline-flex h-11 items-center justify-center rounded-lg bg-primary px-6 text-sm font-medium text-on-primary transition hover:bg-primary dark:hover:bg-muted dark:hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link dark:bg-primary">Calculate</button>
+      <button type="submit" class="inline-flex h-11 items-center justify-center rounded-lg bg-primary px-6 text-sm font-medium text-on-primary transition hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link ">Calculate</button>
       <button type="reset" id="g-reset" class="inline-flex h-11 items-center justify-center rounded-lg border border-hairline bg-canvas px-6 text-sm font-medium text-ink transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Reset</button>
       <span class="inline-flex items-center font-mono text-xs text-mute">Enter dimensions → Calculate. Waste included in totals.</span>
     </div>
@@ -95,7 +95,7 @@
 
   <!-- Results -->
   <div id="g-results" class="mt-6 hidden" aria-live="polite">
-    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5 dark:bg-muted">
+    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5 ">
       <p class="font-mono text-[11px] font-medium tracking-widest text-mute">YOUR GRAVEL ESTIMATE</p>
       <div class="mt-2 flex flex-wrap items-baseline gap-2">
         <p class="text-3xl font-semibold tracking-[-0.03em] text-ink"><span id="g-yd3" class="tabular-nums">—</span> <span class="text-lg font-medium text-body">yd³</span></p>
@@ -105,7 +105,7 @@
       </div>
       <p class="mt-1 font-mono text-xs tabular-nums text-body"><span id="g-ft3">—</span> ft³ · <span id="g-lb">—</span> lb</p>
 
-      <div class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 dark:bg-canvas sm:grid-cols-3">
+      <div class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 sm:grid-cols-3">
         <div>
           <p class="font-mono text-[11px] tracking-wide text-mute">With waste</p>
           <p class="mt-0.5 text-sm font-semibold tabular-nums text-ink"><span id="g-yd3-w">—</span> yd³</p>

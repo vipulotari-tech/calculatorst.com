@@ -20,7 +20,7 @@ const categoryCount = hubCategories.length;
       <p class="mt-3 max-w-[640px] text-sm leading-6 text-body [text-wrap:pretty]">Construction calculators for concrete, gravel, rebar, brick, roofing, flooring, drywall, deck, fence and more. Every tool is static, private and US-focused with waste and cost.</p>
       <div class="mt-8 grid gap-4 sm:grid-cols-2">
         {hubCategories.map((c) => (
-          <a href={`/construction/${c.slug}/`} class="group rounded-lg border border-hairline bg-canvas p-6 shadow-card transition hover:shadow-card-hover dark:bg-canvas">
+          <a href={`/construction/${c.slug}/`} class="group rounded-lg border border-hairline bg-canvas p-6 shadow-card transition hover:shadow-card-hover ">
             <p class="font-mono text-[11px] tracking-widest text-mute">{c.count} CALCULATORS</p>
             <h2 class="mt-1 text-display-sm font-semibold tracking-[-0.03em] text-ink group-hover:text-link">{c.name}</h2>
             <p class="mt-1 text-sm leading-5 text-body">{c.desc}</p>
@@ -28,7 +28,7 @@ const categoryCount = hubCategories.length;
           </a>
         ))}
       </div>
-      <div class="mt-10 rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+      <div class="mt-10 rounded-lg border border-hairline bg-canvas p-6 ">
         <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Why Calculators Matter</h2>
         <p class="mt-2 text-sm leading-6 text-body">From a single slab to a full build, the right calculator saves time and resources. Our tools share one design system, one unit engine and one SEO architecture — so adding new tools is seamless. All pages are 100% in-browser.</p>
         <a href="/calculators/" class="mt-4 inline-flex text-sm font-medium text-link hover:text-link-deep">View all calculators →</a>

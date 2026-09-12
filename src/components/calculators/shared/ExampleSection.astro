@@ -6,7 +6,7 @@ interface Props {
 }
 const { title = "Worked Example", description, rows } = Astro.props;
 ---
-<div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+<div class="rounded-lg border border-hairline bg-canvas p-6 ">
   <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">{title}</h2>
   {description && <p class="mt-2 text-sm leading-6 text-body [text-wrap:pretty]">{description}</p>}
   <div class="mt-3 overflow-x-auto rounded-md border border-hairline">

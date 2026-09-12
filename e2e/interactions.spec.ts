@@ -159,24 +159,12 @@ test.describe('Navigation and UI', () => {
     await expect(menu).toBeHidden({ timeout: 2000 });
   });
 
-  test('Theme switch persists and contrast', async ({ page }) => {
-    await page.goto('/');
-    const toggle = page.locator('#theme-toggle, #theme-toggle-mobile').first();
-    if (await toggle.isVisible()) {
-      const html = page.locator('html');
-      const before = await html.getAttribute('class');
-      await toggle.click();
-      await page.waitForTimeout(300);
-      const after = await html.getAttribute('class');
-      // Should toggle dark
-      expect(before !== after || true).toBeTruthy(); // at least not throw
-      // Check inputs remain readable (not NaN check)
-      await page.goto('/gravel-calculator/');
-      const input = page.locator('input[type="number"]').first();
-      await expect(input).toBeVisible();
-      const bg = await input.evaluate(el => getComputedStyle(el).backgroundColor);
-      expect(bg).not.toBe('');
-    }
+  test('Inputs readability and contrast', async ({ page }) => {
+    await page.goto('/gravel-calculator/');
+    const input = page.locator('input[type="number"]').first();
+    await expect(input).toBeVisible();
+    const bg = await input.evaluate(el => getComputedStyle(el).backgroundColor);
+    expect(bg).not.toBe('');
   });
 
   test('Breadcrumbs and related links', async ({ page }) => {

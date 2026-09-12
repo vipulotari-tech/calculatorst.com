@@ -83,9 +83,7 @@ const webPageSchema: any = (!noindex && canonicalUrl) ? {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#fafaf9" />
-    <meta name="description" content={description} />
+        <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalUrl} />
@@ -144,29 +142,7 @@ const webPageSchema: any = (!noindex && canonicalUrl) ? {
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} is:inline />
     {webPageSchema && <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} is:inline />}
 
-    <!-- Theme — no FOUC -->
-    <script is:inline>
-      (function () {
-        const mq = window.matchMedia('(prefers-color-scheme: dark)');
-        let preference = null;
-        try { preference = localStorage.getItem('theme'); } catch {}
-        function applyTheme() {
-          const dark = preference === 'dark' || (preference !== 'light' && mq.matches);
-          document.documentElement.classList.toggle('dark', dark);
-          document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
-          document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#151515' : '#fafaf9');
-        }
-        window.__setTheme = function(mode) {
-          preference = mode;
-          try { localStorage.setItem('theme', mode); } catch {}
-          applyTheme();
-        };
-        mq.addEventListener('change', applyTheme);
-        window.addEventListener('storage', event => { if (event.key === 'theme') { preference = event.newValue; applyTheme(); } });
-        applyTheme();
-      })();
-    </script>
-  </head>
+      </head>
   <body class="min-h-screen bg-background text-foreground antialiased selection:bg-foreground selection:text-background">
     <a
       href="#main"

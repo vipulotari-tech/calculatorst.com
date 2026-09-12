@@ -107,28 +107,28 @@ const faq = d.faq || [
   <section class="space-y-6">
     <CalculatorDiagram slug={calc.slug} cluster={calc.cluster} h1={calc.h1} inputs={inputs} formula={model.formula || d.formula} />
 
-    <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+    <div class="rounded-lg border border-hairline bg-canvas p-6 ">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">What Is This Calculator?</h2>
       <p class="mt-2 text-sm leading-6 text-body [text-wrap:pretty]" set:html={d.whatIs || `The ${calc.h1} helps you estimate ${calc.h1.toLowerCase().replace(' calculator','')} for US construction.`}></p>
     </div>
 
-    <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+    <div class="rounded-lg border border-hairline bg-canvas p-6 ">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">What Does It Calculate?</h2>
       <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
         {(d.whatCalculates || ["Primary quantity in US units","Waste-adjusted total","Cost with waste"]).map((item) => <li>{item}</li>)}
       </ul>
     </div>
 
-    <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+    <div class="rounded-lg border border-hairline bg-canvas p-6 ">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How to Use the Calculator</h2>
       <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
         {(d.howToUse || ["Measure on site","Enter values and units","Adjust waste and price","Calculate and Reset"]).map((step) => <li>{step}</li>)}
       </ol>
     </div>
 
-    <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+    <div class="rounded-lg border border-hairline bg-canvas p-6 ">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Formula & Engineering Methodology</h2>
-      <div class="mt-3 rounded-md border border-hairline bg-canvas-soft-2 dark:bg-white/[0.04] p-4 font-mono text-sm leading-6 dark:bg-[#171717]">
+      <div class="mt-3 rounded-md border border-hairline bg-canvas-soft-2 p-4 font-mono text-sm leading-6 ">
         <p class="font-semibold text-ink">{model.formula || d.formula || "Quantity = Product of dimensions × (1 + waste%)"}</p>
         {d.variables && d.variables.length > 0 && (
           <ul class="mt-2 list-disc pl-5 text-xs text-body">
@@ -139,7 +139,7 @@ const faq = d.faq || [
       <p class="mt-3 text-sm leading-6 text-body">All units convert to exact standard engineering dimensions (NIST SP 811) before calculation to ensure consistency between US Customary and Metric measurements.</p>
     </div>
 
-    <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+    <div class="rounded-lg border border-hairline bg-canvas p-6 ">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Worked Example</h2>
       <p class="mt-2 text-sm leading-6 text-body">Example: {d.example?.inputs || "Length 20 ft × Width 10 ft × Depth 4 in, 10% waste"}</p>
       <div class="mt-3 overflow-x-auto rounded-md border border-hairline">
@@ -152,38 +152,38 @@ const faq = d.faq || [
       </div>
     </div>
 
-    <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+    <div class="rounded-lg border border-hairline bg-canvas p-6 ">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Construction Information</h2>
       <div class="mt-2 text-sm leading-6 text-body [text-wrap:pretty]" set:html={d.constructionInfo || "Measure longest × widest; split L-shapes and add. Verify structural sizing with a professional."}></div>
     </div>
 
     {d.materialInfo && (
-      <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+      <div class="rounded-lg border border-hairline bg-canvas p-6 ">
         <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Material Information</h2>
         <p class="mt-2 text-sm leading-6 text-body [text-wrap:pretty]" set:html={d.materialInfo}></p>
       </div>
     )}
 
-    <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+    <div class="rounded-lg border border-hairline bg-canvas p-6 ">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Waste & Overages</h2>
       <p class="mt-2 text-sm leading-6 text-body" set:html={d.wasteInfo || "Add 5–10% waste for rectangular, 10–15% for irregular. Waste is applied last: ×(1+waste%)."}></p>
     </div>
 
-    <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+    <div class="rounded-lg border border-hairline bg-canvas p-6 ">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Practical Tips</h2>
       <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
         {(d.tips || ["Double-check units","Order in supplier units","Photo your measurements"]).map((t) => <li>{t}</li>)}
       </ul>
     </div>
 
-    <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+    <div class="rounded-lg border border-hairline bg-canvas p-6 ">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Common Mistakes</h2>
       <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
         {(d.mistakes || ["Forgetting waste","Wrong density","Not converting metric"]).map((m) => <li>{m}</li>)}
       </ul>
     </div>
 
-    <div class="rounded-lg border border-hairline bg-canvas p-6 dark:bg-canvas">
+    <div class="rounded-lg border border-hairline bg-canvas p-6 ">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions & Engineering References</h2>
       {model.assumptions.length > 0 && (
         <ul class="list-disc pl-5 space-y-1 text-sm leading-6 text-body mt-2">
