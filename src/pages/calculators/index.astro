@@ -17,15 +17,15 @@ import Footer from '../../components/Footer.astro';
 
     <div class="mt-6">
       <label for="calc-search" class="sr-only">Search calculators</label>
-      <div class="relative max-w-md">
+      <div class="relative w-full max-w-[448px]">
         <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/50" aria-hidden="true">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.2 11.2L13.8 13.8M12.3 7.3a4.95 4.95 0 1 1-9.9 0 4.95 4.95 0 0 1 9.9 0Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>
         </span>
-        <input id="calc-search" type="search" placeholder="Search calculators…" class="h-[48px] w-full rounded-xl border border-border bg-card pl-11 pr-4 text-[14px] shadow-sm placeholder:text-muted-foreground/50 focus:border-ring focus:shadow-[0_0_0_3px_rgba(100,140,255,0.08)] focus:outline-none transition-[border-color,box-shadow] duration-150" autocomplete="off" spellcheck="false" />
+        <input id="calc-search" type="search" placeholder="Search calculators…" class="h-[48px] w-full rounded-xl border border-border bg-card pl-11 pr-24 text-[14px] shadow-sm placeholder:text-muted-foreground/50 focus:border-ring focus:shadow-[0_0_0_3px_rgba(100,140,255,0.08)] focus:outline-none transition-[border-color,box-shadow] duration-150" autocomplete="off" spellcheck="false" />
+        <button id="calc-search-clear" type="button" hidden class="absolute right-3 top-1/2 -translate-y-1/2 rounded-md px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Clear</button>
       </div>
     </div>
 
-    <button id="calc-search-clear" type="button" class="mt-3 text-sm underline">Clear search</button>
     <p id="search-count" role="status" class="mt-3 text-sm text-muted-foreground"></p>
     <p id="search-empty" hidden class="mt-6">No calculators match. Try a material such as concrete, gravel, or lumber, or clear your search.</p>
     <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list" id="calculator-list">
@@ -56,22 +56,27 @@ import Footer from '../../components/Footer.astro';
   const input = document.querySelector<HTMLInputElement>("#calc-search");
   const list = document.getElementById("calculator-list");
   if (input && list) {
+    const clearButton = document.getElementById('calc-search-clear');
+    const searchCount = document.getElementById('search-count');
+    const searchEmpty = document.getElementById('search-empty');
     const render = () => {
-      const hits = searchCalculators(input.value);
+      const query = input.value.trim();
+      const hits = searchCalculators(query);
       const ranks = new Map(hits.map((c,i) => [c.slug,i]));
       list.querySelectorAll<HTMLLIElement>('li').forEach(li => {
         li.hidden = !ranks.has(li.dataset.slug!);
         li.style.order = String(ranks.get(li.dataset.slug!) ?? 0);
       });
-      document.getElementById('search-count')!.textContent = `${hits.length} calculator${hits.length === 1 ? '' : 's'} found`;
-      document.getElementById('search-empty')!.hidden = hits.length > 0;
+      clearButton!.hidden = !query;
+      searchCount!.textContent = query ? `${hits.length} calculator${hits.length === 1 ? '' : 's'} found` : '';
+      searchEmpty!.hidden = !query || hits.length > 0;
       const url = new URL(location.href);
-      if (input.value) url.searchParams.set('q',input.value); else url.searchParams.delete('q');
+      if (query) url.searchParams.set('q',query); else url.searchParams.delete('q');
       history.replaceState(null,'',url);
     };
     input.value = new URL(location.href).searchParams.get('q') ?? '';
     input.addEventListener('input',render);
-    document.getElementById('calc-search-clear')?.addEventListener('click', () => { input.value = ''; render(); input.focus(); });
+    clearButton?.addEventListener('click', () => { input.value = ''; render(); input.focus(); });
     render();
   }
 </script>
