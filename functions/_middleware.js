@@ -18,6 +18,23 @@ export async function onRequest(context) {
     return Response.redirect(url.toString(), 301);
   }
 
+  // Junk search template leakage: /calculators/?q=<JS template> (GSC Blocked by robots.txt)
+  try {
+    const q = url.searchParams.get("q");
+    if (q !== null) {
+      const decodedQ = (() => { try { return decodeURIComponent(q); } catch { return q; }})();
+      const isJunk = decodedQ.includes("$" + "{") || decodedQ.includes("encodeURIComponent") || decodedQ.includes("{search_term_string}") || decodedQ.includes("%24%7B");
+      if (isJunk) {
+        url.searchParams.delete("q");
+        const cleanPath = url.pathname.startsWith("/calculators") ? url.pathname : "/calculators/";
+        const redirectUrl = new URL(cleanPath, "https://calculatorst.com");
+        redirectUrl.pathname = cleanPath.endsWith("/") ? cleanPath : cleanPath + "/";
+        for (const [k, v] of url.searchParams.entries()) redirectUrl.searchParams.set(k, v);
+        return Response.redirect(redirectUrl.toString(), 301);
+      }
+    }
+  } catch {}
+
   // Fallback for garbage units (in case _redirects not hit) + legacy drywall path
   try {
     const decoded = decodeURIComponent(url.pathname);
