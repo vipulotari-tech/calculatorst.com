@@ -1,0 +1,60 @@
+---
+import CalculatorLayout from "../../components/CalculatorLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import CalculatorDiagram from "../../components/CalculatorDiagram.astro";
+import DrivewayGravelCalculator from "../../components/calculators/DrivewayGravelCalculator.astro";
+
+const related = [
+  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "Yards, tons & cost" },
+  { title: "Pea Gravel Calculator", href: "/pea-gravel-calculator/", desc: "Pea gravel tons & yards" },
+  { title: "Crushed Stone Calculator", href: "/crushed-stone-calculator/", desc: "Crushed stone details" },
+  { title: "Driveway Concrete Calculator", href: "/driveway-concrete-calculator/", desc: "Concrete alternative" },
+];
+const faq = [
+  { q: "How much gravel do I need for a driveway?", a: "Volume = length × width × depth ÷ 27 for cubic yards. Example: 40×12 ft driveway at 4 in depth → 40×12×0.333=160 ft³ → 5.93 yd³ → 8.3 tons at 1.40 t/yd³. Add 10% waste → 6.5 yd³. The calculator handles layers, materials and metric units." },
+  { q: "How deep should driveway gravel be?", a: "4–6 inches total for residential: 2–3 in of compacted crusher run base + 1–2 in top course. Heavier vehicles or clay soil need 8–12 in. The calculator's depth is per layer — set layers to 2 for base + top." },
+  { q: "What type of gravel is best for driveways?", a: "Crusher run (crushed stone) 1.40 t/yd³ compacts well and is most common. Pea gravel 1.35 t/yd³ is decorative but shifts. Limestone 1.60 t/yd³ is heaviest and most stable. River rock is not recommended — it doesn't lock." },
+  { q: "Should I order by tons or cubic yards?", a: "Suppliers sell both. Use tons if they weigh loads, yards if they sell by bucket. The calculator shows both instantly so you can compare $ per yard vs $ per ton — multiply waste-adjusted quantity by your quoted price." },
+  { q: "How much does driveway gravel cost?", a: "In 2026 bulk gravel is $25–$60 per ton or $40–$75 per yard, delivered $100–$250 per load before spreading. A 40×12 ft driveway at 4 in is ~6.5 yd³/9 tons → $250–$540 material-only before delivery. The calculator gives material-only cost." },
+];
+---
+
+<CalculatorLayout
+  title="Driveway Gravel Calculator — Yards, Tons & Cost (2026)"
+  description="Calculate driveway gravel in cubic yards and tons. Enter length, width, depth, layers & material — get yards, tons, pounds & cost with waste."
+  h1="Driveway Gravel Calculator"
+  intro="Calculate driveway gravel — get cubic yards, tons & cost with waste. Choose crushed stone, pea gravel, river rock or limestone, add layers — instant results."
+  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Gravel", href: "/construction/gravel/" }, { label: "Driveway Gravel Calculator" }]}
+  related={related}
+  faq={faq}
+  canonical="/driveway-gravel-calculator/"
+  ogImage="/og-gravel.png"
+  datePublished="2026-08-27"
+  dateModified="2026-09-14"
+>
+  <Header slot="header" />
+  <DrivewayGravelCalculator slot="calculator" />
+  <section class="space-y-6">
+    <CalculatorDiagram slug="driveway-gravel-calculator" cluster="gravel" h1="Driveway Gravel Calculator" inputs={[{"id":"length","label":"Length","unit":"ft"},{"id":"width","label":"Width","unit":"ft"},{"id":"depth","label":"Depth","unit":"in"}]} />
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
+      <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
+        <li>Convert length, width, depth to feet (in ÷12, yd ×3, m ×3.28)</li>
+        <li>Cubic feet = L × W × D × layers</li>
+        <li>Cubic yards = ft³ ÷ 27, Tons = yd³ × density, Pounds = tons × 2000</li>
+        <li>Waste yards/tons = × (1 + waste%), Cost = × price per yd³ or ton</li>
+      </ol>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
+      <p class="mt-2 text-sm leading-6 text-body">Driveway 40×12 ft, 4 in depth, 1 layer, crushed stone 1.40 t/yd³, 10% waste:</p>
+      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">STEP</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">Depth ft</td><td class="px-3 py-2">4 ÷12 =0.333 ft</td></tr><tr><td class="px-3 py-2">Cubic yards</td><td class="px-3 py-2">5.93 yd³</td></tr><tr><td class="px-3 py-2">Tons</td><td class="px-3 py-2">8.30 tons</td></tr><tr><td class="px-3 py-2">With waste</td><td class="px-3 py-2">6.52 yd³ · 9.13 tons</td></tr></tbody></table></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Rectangular area, uniform depth per layer.</li><li>Density varies by quarry — confirm with supplier.</li><li>Compaction ~10% for crusher run after rolling.</li></ul>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</CalculatorLayout>

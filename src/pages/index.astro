@@ -254,9 +254,14 @@ const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.
     function escapeHtml(str){
       return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
     }
+    function isJunkQuery(q){
+      var tmpl = "$" + "{";
+      try { const d = decodeURIComponent(q); if (d.includes(tmpl) || d.includes("encodeURIComponent") || d.includes("{search_term_string}")) return true; } catch {}
+      return q.includes(tmpl) || q.includes("encodeURIComponent") || q.includes("{search_term_string}");
+    }
     function render(q) {
       if (!box) return;
-      if (!q) { box.classList.add('hidden'); box.replaceChildren(); return; }
+      if (!q || isJunkQuery(q)) { box.classList.add('hidden'); box.replaceChildren(); return; }
       const hits = searchCalculators(q).slice(0,6).map(c => ({...c, url:`/${c.slug}/`,cat:c.category,desc:c.description}));
       if (!hits.length) { box.classList.remove('hidden'); box.textContent='No matches. Try a material such as gravel, concrete, or lumber.'; return; }
       box.innerHTML = hits.map(h => `<a href="${h.url}" class="group flex items-center gap-3 px-4 py-3.5 border-b last:border-0 border-border transition-colors hover:bg-muted" role="option"><span class="hidden h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground group-hover:text-foreground sm:inline-flex" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M11.2 11.2L13.8 13.8M12.3 7.3a4.95 4.95 0 1 1-9.9 0 4.95 4.95 0 0 1 9.9 0Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg></span><div class="min-w-0 flex-1"><p class="truncate text-[13.5px] font-medium tracking-[-0.01em] text-foreground">${escapeHtml(h.h1)}</p><p class="mt-0.5 flex items-center gap-1.5 truncate font-mono text-[11px]"><span class="rounded bg-muted px-1.5 py-0.5 ring-1 ring-border text-muted-foreground">${escapeHtml(h.cat)}</span><span class="truncate text-muted-foreground hidden sm:inline">${escapeHtml(h.desc.slice(0,62))}</span></p></div><span class="shrink-0 font-mono text-[11px] text-muted-foreground transition-colors group-hover:text-foreground">→</span></a>`).join("") + '<a href="/calculators/?q=' + encodeURIComponent(q) + '" class="flex items-center justify-center gap-1.5 bg-muted px-4 py-2.5 font-mono text-[11px] tracking-wide text-muted-foreground hover:text-foreground transition-colors">View all results for "' + escapeHtml(q.slice(0,24)) + '" <span aria-hidden="true">→</span></a>';

@@ -112,8 +112,30 @@ import Footer from '../../components/Footer.astro';
       activeSuggestion = -1;
       setSuggestionsOpen(true);
     };
+    const isJunkQuery = (q: string) => {
+      const decoded = (() => { try { return decodeURIComponent(q); } catch { return q; }})();
+      return decoded.includes("$" + "{") || decoded.includes("encodeURIComponent") || decoded.includes("{search_term_string}");
+    };
+    const getSanitizedQuery = () => {
+      const raw = new URL(location.href).searchParams.get('q') ?? '';
+      if (isJunkQuery(raw)) {
+        // Clean URL immediately — don't show junk template to user or Google
+        const clean = new URL(location.href);
+        clean.searchParams.delete('q');
+        history.replaceState(null, '', clean);
+        return '';
+      }
+      return raw;
+    };
     const render = () => {
-      const query = input.value.trim();
+      const rawQuery = input.value.trim();
+      // If user typed/pasted junk template, ignore it for search and URL
+      const query = isJunkQuery(rawQuery) ? '' : rawQuery;
+      if (isJunkQuery(rawQuery) && rawQuery !== '') {
+        const clean = new URL(location.href);
+        clean.searchParams.delete('q');
+        history.replaceState(null, '', clean);
+      }
       const hits = searchCalculators(query);
       const ranks = new Map(hits.map((c,i) => [c.slug,i]));
       list.querySelectorAll<HTMLLIElement>('li').forEach(li => {
@@ -128,7 +150,7 @@ import Footer from '../../components/Footer.astro';
       if (query) url.searchParams.set('q',query); else url.searchParams.delete('q');
       history.replaceState(null,'',url);
     };
-    input.value = new URL(location.href).searchParams.get('q') ?? '';
+    input.value = getSanitizedQuery();
     input.addEventListener('input',render);
     input.addEventListener('focus', render);
     input.addEventListener('keydown', event => {

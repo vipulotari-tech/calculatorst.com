@@ -31,6 +31,22 @@ const canonicalUrl = canonicalProp
   ? new URL(canonicalProp, site).href
   : new URL(Astro.url.pathname, site).href;
 
+// Search result pages (?q=) are thin duplicates — noindex them so Google
+// doesn't waste crawl budget, but still allow crawl (don't block via robots.txt).
+// This prevents GSC "Blocked by robots.txt" for /calculators/?q=... while
+// keeping them out of the index. Also handles junk template leakage like
+// ?q=<JS template> which should never be indexed.
+const hasSearchQuery = Astro.url.searchParams.has("q");
+const isSearchResultPage = hasSearchQuery && (
+  Astro.url.pathname === "/calculators/" ||
+  Astro.url.pathname === "/calculators" ||
+  Astro.url.pathname === "/"
+);
+const junkTemplatePattern = /\$\{|\%24\%7B|\%7Bencode/i;
+const rawQ = Astro.url.searchParams.get("q") ?? "";
+const isJunkQ = junkTemplatePattern.test(rawQ) || rawQ.includes("{search_term_string}");
+const effectiveNoindex = noindex || isSearchResultPage || isJunkQ;
+
 const ogImage = new URL(ogImageProp ?? "/og.png", site).href;
 const ogImageAlt = ogImageAltProp ?? "Calculator Street — Construction & Home Improvement Calculators";
 
@@ -62,7 +78,7 @@ const organizationSchema: any = {
   ],
 };
 
-const webPageSchema: any = (!noindex && canonicalUrl) ? {
+const webPageSchema: any = (!effectiveNoindex && canonicalUrl) ? {
   "@context": "https://schema.org",
   "@type": "WebPage",
   name: title,
@@ -84,7 +100,38 @@ const webPageSchema: any = (!noindex && canonicalUrl) ? {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {effectiveNoindex && <meta name="robots" content="noindex, nofollow" />}
+    <!-- Fallback for static prerender: search result pages (?q) are served as static HTML.
+         This inline script ensures Googlebot sees noindex after JS execution even when
+         the prerendered HTML didn't include it. Also cleans junk template leakage. -->
+    <script is:inline>
+      (function(){
+        try {
+          var url = new URL(window.location.href);
+          var q = url.searchParams.get('q');
+          var hasQ = url.searchParams.has('q');
+          var isSearchPage = hasQ && (url.pathname === '/calculators/' || url.pathname === '/calculators' || url.pathname === '/');
+          // Detect junk template leakage: ?q=<JS template> etc.
+          var decodedQ = q ? (function(v){ try{ return decodeURIComponent(v); }catch(e){ return v; } })(q) : "";
+          var isJunk = decodedQ && (decodedQ.indexOf('$' + '{') !== -1 || decodedQ.indexOf('encodeURIComponent') !== -1 || decodedQ.indexOf('{search_term_string}') !== -1);
+          if (isJunk) {
+            // Clean URL: remove junk q and replace history before Google indexes it
+            url.searchParams.delete('q');
+            history.replaceState(null, '', url.toString());
+            hasQ = false; isSearchPage = false; q = null;
+          }
+          if ((hasQ && isSearchPage) || isJunk) {
+            if (!document.querySelector('meta[name="robots"][content*="noindex"]')) {
+              var m = document.createElement('meta');
+              m.name = 'robots';
+              m.content = 'noindex, nofollow';
+              document.head.appendChild(m);
+            }
+            // Also ensure canonical points to clean URL (already set server-side via pathname)
+          }
+        } catch(e){}
+      })();
+    </script>
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
