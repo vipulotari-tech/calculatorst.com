@@ -89,7 +89,6 @@ const webPageSchema: any = (!effectiveNoindex && canonicalUrl) ? {
   ...(dateModified ? { dateModified } : {}),
   author: { "@type": "Person", name: "Vipul Otari", url: siteNoSlash + "/about/" },
   publisher: { "@type": "Organization", name: "Calculator Street", logo: { "@type": "ImageObject", url: new URL("/favicon.svg", site).href } },
-  breadcrumb: { "@id": canonicalUrl + "#breadcrumb" },
 } : null;
 ---
 
