@@ -2,7 +2,6 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import CalculatorDiagram from "../../components/CalculatorDiagram.astro";
 import RoofSquareFootageCalculator from "../../components/calculators/RoofSquareFootageCalculator.astro";
 
 const related = [
@@ -12,11 +11,22 @@ const related = [
   { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "Ground works" },
 ];
 const faq = [
-  { q: "How do you calculate roof square footage?", a: "True area = footprint × pitch multiplier, where multiplier = √(pitch² +144)/12. Example: 40×30 ft building, 6:12 pitch → footprint 1,200 ft² ×1.118 =1,342 ft² plus overhang. Add 10% waste →1,476 ft². The calculator does this with overhang and sections." },
-  { q: "What is a roofing square?", a: "One square =100 ft² of roof area. Divide roof ft² by 100. A 1,342 ft² roof is 13.42 squares; order 15 squares with waste. Shingles are sold by the square (3 bundles ≈1 square for architectural)." },
-  { q: "How does pitch affect area?", a: "Steeper = more area vs footprint. Multipliers: 4:12=1.054, 6:12=1.118, 8:12=1.202, 12:12=1.414. A 12:12 roof is 41% larger than its footprint." },
-  { q: "Should I include overhang?", a: "Yes — eaves add 1–2 ft per side. A 40×30 ft building with 1.5 ft overhang each side → (43×33)=1,419 ft² footprint before pitch, not 1,200. The calculator adds 2× overhang to both length and width." },
-  { q: "How much waste for roofing?", a: "10% for simple gable, 15% for hips, valleys, dormers or cut-up roofs. Waste covers starter, ridge, hips and cuts." },
+  {
+    "q": "How is roof area calculated?",
+    "a": "Footprint = (length + 2 × overhang) × (width + 2 × overhang) × identical sections. Multiply by sqrt(1 + (pitch ÷ 12)²) for sloped area. Overhang is a horizontal distance."
+  },
+  {
+    "q": "What is a roofing square?",
+    "a": "One roofing square equals 100 ft². The calculator reports area and squares before and after the entered waste allowance; it does not round these into product bundles."
+  },
+  {
+    "q": "How should I enter a complex roof?",
+    "a": "The estimate assumes one pitch and rectangular, non-overlapping footprints. Calculate sections with different pitches or overhangs separately. Hips and valleys do not change the multiplier when pitch is unchanged."
+  },
+  {
+    "q": "What does waste include?",
+    "a": "Only an increase in area by the percentage you enter. Starter strips, ridge caps, flashing and other components need separate takeoffs; a percentage is not a complete materials list."
+  }
 ];
 ---
 
@@ -31,12 +41,11 @@ const faq = [
   canonical="/roof-square-footage-calculator/"
   ogImage="/og-roof-pitch.png"
   datePublished="2026-08-27"
-  dateModified="2026-09-14"
+  dateModified="2026-09-15"
 >
   <Header slot="header" />
   <RoofSquareFootageCalculator slot="calculator" />
   <section class="space-y-6">
-    <CalculatorDiagram slug="roof-square-footage-calculator" cluster="roofing" h1="Roof Square Footage Calculator" inputs={[{"id":"length","label":"Building Length","unit":"ft"},{"id":"width","label":"Building Width","unit":"ft"},{"id":"depth","label":"Pitch","unit":":12"}]} />
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
       <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
@@ -49,11 +58,11 @@ const faq = [
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
       <p class="mt-2 text-sm leading-6 text-body">Building 40×30 ft, 6:12 pitch, 1.5 ft overhang, 1 section, 10% waste:</p>
-      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">OUTPUT</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">Footprint</td><td class="px-3 py-2">1,419 ft²</td></tr><tr><td class="px-3 py-2">Multiplier</td><td class="px-3 py-2">1.118</td></tr><tr><td class="px-3 py-2">Roof area</td><td class="px-3 py-2">1,586 ft² (15.86 sq)</td></tr><tr><td class="px-3 py-2">With waste</td><td class="px-3 py-2">1,745 ft² (17.45 sq)</td></tr></tbody></table></div>
+      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">OUTPUT</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">Footprint</td><td class="px-3 py-2">1,419 ft²</td></tr><tr><td class="px-3 py-2">Multiplier</td><td class="px-3 py-2">1.118</td></tr><tr><td class="px-3 py-2">Roof area</td><td class="px-3 py-2">1,586.5 ft² (15.865 sq)</td></tr><tr><td class="px-3 py-2">With waste</td><td class="px-3 py-2">1,745.1 ft² (17.451 sq)</td></tr></tbody></table></div>
     </div>
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Gable roof with uniform pitch; hips/valleys change multiplier locally.</li><li>Overhang included on all sides; for gable ends adjust manually.</li><li>1 square =100 ft², waste applied last.</li></ul>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Uniform pitch over the measured footprint; different pitches require separate calculations.</li><li>Overhang included on all sides; for gable ends adjust manually.</li><li>1 square =100 ft², waste applied last.</li></ul>
     </div>
   </section>
   <Footer slot="footer" />

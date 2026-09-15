@@ -2,7 +2,6 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import CalculatorDiagram from "../../components/CalculatorDiagram.astro";
 import GravelCalculator from "../../components/calculators/GravelCalculator.astro";
 
 const related = [
@@ -13,13 +12,26 @@ const related = [
 ];
 
 const faq = [
-  { q: "How much gravel do I need for my project?", a: "Measure your area’s length and width, decide on depth, then use the calculator. For a rectangular patio, we convert everything to feet (inches ÷ 12, yards × 3), compute <span class=\"font-mono text-xs\">Length × Width × Depth</span>, divide by 27 for cubic yards, then multiply by the material’s density to get tons. Use the <a href=\"/crushed-stone-calculator/\" class=\"text-link underline hover:text-link-deep\">Crushed Stone Calculator</a> for crushed aggregate, or the <a href=\"/gravel-depth-calculator/\" class=\"text-link underline hover:text-link-deep\">Gravel Depth Calculator</a> to plan driveway depth." },
-  { q: "How many tons are in a cubic yard of gravel?", a: "It depends on the stone. Most washed gravel is 1.30–1.42 tons per cubic yard: pea gravel ~1.35 t/yd³, crushed stone ~1.40 t/yd³, limestone ~1.60 t/yd³ and granite ~1.42 t/yd³. One cubic yard of pea gravel is about 2,700 lb. Always confirm your yard’s scale weight — wet or dense-graded base can be 10–20% heavier." },
-  { q: "How deep should gravel be for a patio vs a driveway?", a: "Garden paths and patios do well at 2–3 inches (5–7.5 cm) of clean gravel over fabric and a firm base. Residential driveways need 4–6 inches total, usually as a compacted base plus a top course. Use the <a href=\"/gravel-depth-calculator/\" class=\"text-link underline hover:text-link-deep\">Gravel Depth Calculator</a> to size the required depth." },
-  { q: "How much area does one ton of gravel cover?", a: "At 3 inches deep, one ton covers roughly 65–80 sq ft depending on density: limestone ~67 ft², crushed stone ~77 ft², pea gravel ~80 ft², river rock ~81 ft² per ton. Coverage halves if you double depth to 6 inches. The reference table on this page shows tons/yd³ and lb/ft³ so you can plan coverage without re-measuring." },
-  { q: "How do I convert cubic yards of gravel to tons?", a: "Multiply cubic yards by the density in tons per yard. Example: 2.47 yd³ of pea gravel at 1.35 t/yd³ = 3.33 tons; at $48 per yd³ vs $65 per ton, you can compare quotes. Our calculator shows both units at once so you can order in whichever unit your supplier sells by — tons for bulk, yards for bag comparison." },
-  { q: "Should I add waste and does gravel compact?", a: "Yes. Add 5–10% waste for rectangular areas and 10–15% for curves, slopes or uneven subgrade. Clean open-graded stone (#57, pea gravel) settles about 8% (use 1.10×), while dense-graded crusher run can compact 15–25% (use 1.20× per TxDOT). Decorative rounded stone like pea and river rock does not compact — use 1.00×. The calculator’s waste control is separate from compaction." },
-  { q: "How much does gravel cost per ton or per yard?", a: "In 2026 most bulk gravel is $25–$60 per ton or $40–$75 per cubic yard before delivery, which is often $50–$150 per load or $10–$25 per ton. Price varies by material (limestone and granite cost more than #57) and by region. Enter your local price per yd³ or per ton — the calculator multiplies the waste-adjusted quantity to give a material-only estimate. Labor and delivery are extra." },
+  {
+    "q": "How is gravel quantity calculated?",
+    "a": "Length × width × depth gives cubic feet after unit conversion. Divide by 27 for cubic yards, then multiply by the selected density in US short tons per cubic yard. One short ton is 2,000 lb."
+  },
+  {
+    "q": "Which density should I use?",
+    "a": "The material choices are estimate presets: pea gravel 1.35, crushed stone 1.40, river rock 1.33, limestone 1.60 and granite 1.42 short tons/yd³. Choose Custom for a supplier-provided density; actual material can differ."
+  },
+  {
+    "q": "How is cost calculated?",
+    "a": "The calculator multiplies unrounded waste-adjusted yards or short tons by your entered price. Displayed volume is rounded, so multiplying the displayed figure may differ slightly. Delivery, tax and labor are separate."
+  },
+  {
+    "q": "How should I measure an irregular area?",
+    "a": "Split it into non-overlapping measured shapes and calculate their volumes separately. A bounding rectangle overestimates a curved area; increasing waste cannot correct that geometry."
+  },
+  {
+    "q": "Is compaction included?",
+    "a": "There is no separate compaction factor. The entered waste allowance increases the order quantity; ask your supplier how the loose material relates to your intended finished depth."
+  }
 ];
 ---
 
@@ -39,18 +51,17 @@ const faq = [
   canonical="/gravel-calculator/"
   ogImage="/og-gravel.png"
   datePublished="2026-08-27"
-  dateModified="2026-08-29"
+  dateModified="2026-09-15"
 >
   <Header slot="header" />
   <GravelCalculator slot="calculator" />
 
   <section class="space-y-6">
-    <CalculatorDiagram slug="gravel-calculator" cluster="gravel" h1="Gravel Calculator" inputs={[{"id":"length","label":"Length","unit":"ft"},{"id":"width","label":"Width","unit":"ft"},{"id":"depth","label":"Depth","unit":"in"}]} />
     <div class="rounded-lg border border-hairline bg-canvas p-6 ">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
       <p class="mt-2 text-sm leading-6 text-body [text-wrap:pretty]">We compute the rectangular volume and convert units to feet before any math. Then we convert to cubic yards and to weight using the material's density. Waste is applied last so you order enough.</p>
       <ol class="mt-4 list-decimal space-y-1 pl-5 text-sm leading-6 text-body" role="list">
-        <li>Convert length, width and depth to <span class="font-medium text-ink">feet</span> (inches ÷ 12, yards × 3, meters × 3.28084).</li>
+        <li>Convert length, width and depth to <span class="font-medium text-ink">feet</span> (inches ÷ 12, yards × 3, meters ÷ 0.3048).</li>
         <li><span class="font-mono text-xs">Cubic Feet = Length × Width × Depth</span></li>
         <li><span class="font-mono text-xs">Cubic Yards = Cubic Feet ÷ 27</span></li>
         <li><span class="font-mono text-xs">Weight = Cubic Yards × Tons per yd³ × 2000</span> (lb)</li>
@@ -66,7 +77,7 @@ const faq = [
         <p>Tons = Cubic Yards × Density (tons/yd³)</p>
         <p>Pounds = Tons × 2000</p>
       </div>
-      <p class="mt-3 text-sm leading-6 text-body">Densities used: Pea Gravel 1.35, Crushed Stone 1.40, River Rock 1.33, Limestone 1.60, Granite 1.42 tons/yd³. Ask your supplier — actual bulk density varies 10–20%.</p>
+      <p class="mt-3 text-sm leading-6 text-body">Densities used: Pea Gravel 1.35, Crushed Stone 1.40, River Rock 1.33, Limestone 1.60, Granite 1.42 tons/yd³. Ask your supplier — actual bulk density varies.</p>
     </div>
 
     <div class="rounded-lg border border-hairline bg-canvas p-6 ">
@@ -77,11 +88,11 @@ const faq = [
           <thead class="bg-canvas-soft font-mono text-[11px] tracking-widest text-mute"><tr><th class="px-3 py-2">STEP</th><th class="px-3 py-2">VALUE</th></tr></thead>
           <tbody class="divide-y divide-hairline">
             <tr><td class="px-3 py-2 text-body">Depth in feet</td><td class="px-3 py-2 font-mono tabular-nums text-ink">4 in ÷ 12 = 0.333 ft</td></tr>
-            <tr><td class="px-3 py-2 text-body">Cubic feet</td><td class="px-3 py-2 font-mono tabular-nums text-ink">20 × 10 × 0.333 = 66.67 ft³</td></tr>
+            <tr><td class="px-3 py-2 text-body">Cubic feet</td><td class="px-3 py-2 font-mono tabular-nums text-ink">20 × 10 × (4 ÷ 12) ≈ 66.67 ft³</td></tr>
             <tr><td class="px-3 py-2 text-body">Cubic yards</td><td class="px-3 py-2 font-mono tabular-nums text-ink">66.67 ÷ 27 = 2.47 yd³</td></tr>
             <tr><td class="px-3 py-2 text-body">Tons</td><td class="px-3 py-2 font-mono tabular-nums text-ink">2.47 × 1.35 = 3.33 tons</td></tr>
             <tr><td class="px-3 py-2 text-body">With 10% waste</td><td class="px-3 py-2 font-mono tabular-nums text-ink">2.72 yd³ · 3.67 tons</td></tr>
-            <tr><td class="px-3 py-2 text-body">Cost</td><td class="px-3 py-2 font-mono tabular-nums text-ink">2.72 × $48 = $130.56</td></tr>
+            <tr><td class="px-3 py-2 text-body">Cost</td><td class="px-3 py-2 font-mono tabular-nums text-ink">(66.666… ÷ 27 × 1.10) × $48 = $130.37</td></tr>
           </tbody>
         </table>
       </div>
@@ -107,7 +118,7 @@ const faq = [
     <div class="rounded-lg border border-hairline bg-canvas p-6 ">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions & limits</h2>
       <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
-        <li>Rectangular area — for curves, measure the bounding rectangle and trim with waste.</li>
+        <li>Rectangular area; calculate irregular shapes as separate measured sections.</li>
         <li>Uniform depth — add base layer separately if needed.</li>
         <li>No compaction factor — if heavily compacted, ask supplier for compacted vs loose density.</li>
         <li>US units default — metric converts to feet; final tons use short tons (2000 lb). For metric tonnes, multiply tons × 0.907.</li>

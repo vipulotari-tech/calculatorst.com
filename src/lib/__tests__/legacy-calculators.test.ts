@@ -67,9 +67,12 @@ describe('All ten dedicated production handlers',()=>{
   });
 });
 describe('Dedicated geometry and rounding fixes',()=>{
+  it('does not quote a zero bag cost when bulk mulch has no bag size',()=>{const p=load('MulchCalculator');p.set({'m-len':20,'m-wid':10,'m-depth':3,'m-bag':0,'m-price':4.5,'m-price-unit':'bag'});p.submit();expect(p.text('m-cost')).toBe('—');p.set({'m-price-unit':'yd','m-price':35,'m-waste':10});p.submit();expect(p.text('m-cost')).toBe('$71.30');});
+  it('prices the gravel worked example from unrounded volume',()=>{const p=load('GravelCalculator');p.set({'g-length':20,'g-width':10,'g-depth':4,'g-material':'pea','g-waste':10,'g-price':48,'g-price-unit':'yd'});p.submit();expect(p.text('g-cost')).toBe('$130.37');});
+
   it('accepts a flat roof',()=>{const p=load('RoofPitchCalculator');p.set({'rp-rise':0,'rp-run':12});p.submit();expect(p.text('rp-x12')).toBe('0 : 12');});
   it('preserves zero paver base/sand and rounds the unrounded takeoff only once',()=>{const p=load('PaverCalculator');p.set({'pv-len':1.1,'pv-wid':1,'pv-waste':10,'pv-base':0,'pv-sand':0});p.submit();expect(p.text('pv-countw')).toBe('2');expect(p.text('pv-gravel')).toBe('0');expect(p.text('pv-sandres')).toBe('0');});
-  it('counts decking fasteners by intersections and prices purchased boards in feet',()=>{const p=load('DeckMaterialCalculator');p.set({'dk-len':16,'dk-wid':11,'dk-gap':0,'dk-waste':10,'dk-price':1,'dk-price-unit':'ft'});p.submit();expect(p.text('dk-fast')).toBe('624');expect(p.text('dk-cost')).toBe('$432.00');});
+  it('counts decking fasteners by intersections and prices purchased boards in feet',()=>{const p=load('DeckMaterialCalculator');p.set({'dk-len':16,'dk-wid':11,'dk-gap':0,'dk-waste':10,'dk-price':1,'dk-price-unit':'lf'});p.submit();expect(p.text('dk-fast')).toBe('624');expect(p.text('dk-cost')).toBe('$432.00');});
   it('uses selected fence spacing and concrete hole geometry',()=>{const p=load('FenceCostCalculator');p.set({'f-len':80,'f-spacing':5,'f-gates':0,'f-waste':0,'f-postw':6,'f-yield':0.5});p.submit();expect(p.text('f-panels')).toBe('16');expect(p.text('f-posts')).toBe('17');expect(p.text('f-concrete')).toBe('37');});
   it('rejects gate openings larger than the fence',()=>{const p=load('FenceCostCalculator');p.set({'f-len':5,'f-gates':2,'f-gatew':4});p.submit();expect(p.result.classes.has('hidden')).toBe(true);});
   it('rejects fractional section counts',()=>{const p=load('ConcreteSlabCalculator');p.set({'c-len':10,'c-wid':10,'c-thick':4,'c-num':1.5});p.submit();expect(p.result.classes.has('hidden')).toBe(true);});

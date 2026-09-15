@@ -57,3 +57,15 @@ User authorized calculator fixes, commits, and deployment of verified batches. C
 2. Review the nine remaining dedicated explanatory pages against their actual inline handlers, then broaden only concrete uncovered edge cases.
 3. Once Cloudflare secret is configured, rerun the latest main deployment workflow and verify production inputs, errors, results, mobile layout and links. No repeated authorization needed for the approved fixes/commits/deployment scope.
 4. Work does not automatically resume after a quota/session stop; this committed checkpoint enables continuation on the next active turn.
+
+
+## Batch 3 — dedicated content review
+
+- Reviewed the nine remaining dedicated explanatory pages against their handlers. Replaced unsupported market-price/installation claims and unavailable feature descriptions with actual formulas, unit definitions, pricing scope and geometric assumptions.
+- Corrected gravel worked-example cost ($130.37 from unrounded volume), deck row/fastener descriptions, paver waste rounding, roof-area precision, and pea-gravel density (100 lb/ft³, not 22).
+- Removed unrelated example diagrams from these dedicated pages. Corrected bulk mulch with per-bag pricing so an unavailable bag count cannot produce a misleading $0 quote; added regression coverage.
+- All 205 route content records are now aligned to their model or dedicated handler. This is not exhaustive engineering certification or production browser verification.
+- Batch 2 is merged in PR #2 (f9326ca); deployment run 34952390882 failed. Existing missing Cloudflare secret remains the unresolved deployment blocker.
+- Next: after deployment access is restored, run the main workflow and verify production behavior/mobile layout. Continue targeted edge-case work only for concrete findings; do not redo completed content review.
+
+- Batch 3 validation: 977 tests pass; Astro check 0 errors/0 warnings (19 existing hints); build 233 pages. Live browser verification remains pending deployment.

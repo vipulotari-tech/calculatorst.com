@@ -2,7 +2,6 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import CalculatorDiagram from "../../components/CalculatorDiagram.astro";
 import DrivewayGravelCalculator from "../../components/calculators/DrivewayGravelCalculator.astro";
 
 const related = [
@@ -12,11 +11,22 @@ const related = [
   { title: "Driveway Concrete Calculator", href: "/driveway-concrete-calculator/", desc: "Concrete alternative" },
 ];
 const faq = [
-  { q: "How much gravel do I need for a driveway?", a: "Volume = length × width × depth ÷ 27 for cubic yards. Example: 40×12 ft driveway at 4 in depth → 40×12×0.333=160 ft³ → 5.93 yd³ → 8.3 tons at 1.40 t/yd³. Add 10% waste → 6.5 yd³. The calculator handles layers, materials and metric units." },
-  { q: "How deep should driveway gravel be?", a: "4–6 inches total for residential: 2–3 in of compacted crusher run base + 1–2 in top course. Heavier vehicles or clay soil need 8–12 in. The calculator's depth is per layer — set layers to 2 for base + top." },
-  { q: "What type of gravel is best for driveways?", a: "Crusher run (crushed stone) 1.40 t/yd³ compacts well and is most common. Pea gravel 1.35 t/yd³ is decorative but shifts. Limestone 1.60 t/yd³ is heaviest and most stable. River rock is not recommended — it doesn't lock." },
-  { q: "Should I order by tons or cubic yards?", a: "Suppliers sell both. Use tons if they weigh loads, yards if they sell by bucket. The calculator shows both instantly so you can compare $ per yard vs $ per ton — multiply waste-adjusted quantity by your quoted price." },
-  { q: "How much does driveway gravel cost?", a: "In 2026 bulk gravel is $25–$60 per ton or $40–$75 per yard, delivered $100–$250 per load before spreading. A 40×12 ft driveway at 4 in is ~6.5 yd³/9 tons → $250–$540 material-only before delivery. The calculator gives material-only cost." },
+  {
+    "q": "How are multiple layers handled?",
+    "a": "Volume = length × width × entered depth × number of layers. All layers share the same depth and selected material. Calculate different layer depths or materials separately."
+  },
+  {
+    "q": "How is weight calculated?",
+    "a": "Cubic yards are multiplied by a preset density in US short tons/yd³: pea 1.35, crushed 1.40, river 1.33 or limestone 1.60. One short ton is 2,000 lb. Confirm the actual density with your supplier."
+  },
+  {
+    "q": "Does this select driveway thickness?",
+    "a": "No. Enter your planned layer thickness. The calculator estimates quantity, without selecting a pavement design or applying a separate compaction factor."
+  },
+  {
+    "q": "What does the cost include?",
+    "a": "The selected gravel quantity including waste, multiplied by your per-yard or per-short-ton quote. Excavation, delivery and installation are separate."
+  }
 ];
 ---
 
@@ -31,16 +41,15 @@ const faq = [
   canonical="/driveway-gravel-calculator/"
   ogImage="/og-gravel.png"
   datePublished="2026-08-27"
-  dateModified="2026-09-14"
+  dateModified="2026-09-15"
 >
   <Header slot="header" />
   <DrivewayGravelCalculator slot="calculator" />
   <section class="space-y-6">
-    <CalculatorDiagram slug="driveway-gravel-calculator" cluster="gravel" h1="Driveway Gravel Calculator" inputs={[{"id":"length","label":"Length","unit":"ft"},{"id":"width","label":"Width","unit":"ft"},{"id":"depth","label":"Depth","unit":"in"}]} />
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
       <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
-        <li>Convert length, width, depth to feet (in ÷12, yd ×3, m ×3.28)</li>
+        <li>Convert length, width, depth to feet (in ÷12, yd ×3, m ÷0.3048)</li>
         <li>Cubic feet = L × W × D × layers</li>
         <li>Cubic yards = ft³ ÷ 27, Tons = yd³ × density, Pounds = tons × 2000</li>
         <li>Waste yards/tons = × (1 + waste%), Cost = × price per yd³ or ton</li>
@@ -53,7 +62,7 @@ const faq = [
     </div>
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Rectangular area, uniform depth per layer.</li><li>Density varies by quarry — confirm with supplier.</li><li>Compaction ~10% for crusher run after rolling.</li></ul>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Rectangular area, uniform depth per layer.</li><li>Density varies by quarry — confirm with supplier.</li><li>No separate compaction factor; confirm required loose quantity with the supplier.</li></ul>
     </div>
   </section>
   <Footer slot="footer" />
