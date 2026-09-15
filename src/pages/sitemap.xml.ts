@@ -68,8 +68,6 @@ const calculatorPages = allCalcSlugs.map((s) => {
 const pages = [...staticPages, ...calculatorPages];
 
 export const GET: APIRoute = () => {
-  // Use build date as lastmod - fixes 1970-01-01 epoch bug when dates were missing or defaulted to 0
-  const lastmod = new Date().toISOString().split("T")[0];
   const urls = pages
     .map((p) => {
       const pc = typeof p === "string" ? p : p.path;
@@ -77,7 +75,6 @@ export const GET: APIRoute = () => {
       const ch = typeof p === "string" ? "weekly" : p.changefreq;
       return `  <url>
     <loc>${site}${pc}</loc>
-    <lastmod>${lastmod}</lastmod>
     <changefreq>${ch}</changefreq>
     <priority>${pr}</priority>
   </url>`;

@@ -73,8 +73,7 @@ const organizationSchema: any = {
   url: siteNoSlash + "/",
   logo: new URL("/favicon.svg", site).href,
   sameAs: [
-    "https://github.com/calculatorst",
-    "https://x.com/calculatorst"
+    "https://github.com/vipulotari-tech/calculatorst.com"
   ],
 };
 
@@ -159,6 +158,19 @@ const webPageSchema: any = (!effectiveNoindex && canonicalUrl) ? {
         ad_user_data: 'denied',
         ad_personalization: 'denied'
       });
+      // Restore consent on subsequent navigations BEFORE config sends page_view
+      // This fixes the bug where returning users with accepted consent still sent denied page_views
+      try {
+        const saved = localStorage.getItem('cookieConsent');
+        if (saved === 'accepted') {
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            analytics_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted'
+          });
+        }
+      } catch {}
       gtag('js', new Date());
       gtag('config', 'G-7RX7TP3LKB', {
         anonymize_ip: true,
