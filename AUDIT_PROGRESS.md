@@ -69,3 +69,11 @@ User authorized calculator fixes, commits, and deployment of verified batches. C
 - Next: after deployment access is restored, run the main workflow and verify production behavior/mobile layout. Continue targeted edge-case work only for concrete findings; do not redo completed content review.
 
 - Batch 3 validation: 977 tests pass; Astro check 0 errors/0 warnings (19 existing hints); build 233 pages. Live browser verification remains pending deployment.
+
+## Batch 4 — production deployment and spot verification
+
+- Deployed current main locally with Wrangler after GitHub Actions remained blocked by missing `CLOUDFLARE_API_TOKEN`. Local deploy succeeded: Worker `calculatorst`, version ID `c1b0d1de-37c9-45d7-a417-4e5b2dc44d46`, 236 assets uploaded.
+- Production spot checks passed: dedicated `/fence-cost-calculator/` with 100 ft / 6 ft / 8 ft spacing / one 4 ft gate returned Posts 16, Sections/Panels 14, Rails 211.2 lin ft, Area 576 ft², Concrete 58 bags, cost blank without price, matching the worked example.
+- Shared `/concrete-calculator/` default 20×10 ft × 4 in with 10% allowance returned 2.716 yd³ order, 123 bags, 11,000 lb / 5.5 US tons. Blank Length correctly showed “Enter length”, cleared stale results, set `aria-invalid`, announced via live status, reset restored defaults, no console errors, canonical present, no robots meta, desktop overflow 0.
+- Remaining limits: only homepage plus these two production pages were browser-verified; full multi-width mobile/tablet sweep and all-route browser pass are still pending. Registry has 202 slugs; status file tracks 205 including dedicated routes but omits `circular-slab-tube-calculator`. GitHub Actions deployment still needs `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID`; local deploy is a workaround, not a pipeline fix.
+- Next: configure GitHub secrets and rerun main workflow, then continue targeted production spot checks for uncovered families and narrow viewports.
