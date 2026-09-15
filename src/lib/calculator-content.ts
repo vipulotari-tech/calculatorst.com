@@ -19,7 +19,27 @@ export function getCalculatorContent(title: string, model: Model) {
   }
   const calculation = model.calculate(readInputs(model.fields, raw, units), units);
   const outputs = calculation.rows.map(r => r.label);
-  const description = `${title}: estimate ${outputs.slice(0, 2).join(' and ').toLowerCase()} from your inputs. See the formula, worked example and assumptions.`;
+  const uniqueOutputs = [...new Set(outputs.map(o => o.toLowerCase()))].map(l => outputs.find(o => o.toLowerCase() === l)!);
+  const hasWaste = model.fields.some(f => f.id === 'waste');
+  const hasPrice = model.fields.some(f => f.id === 'price');
+  const primary = uniqueOutputs.slice(0, 2).join(' and ').toLowerCase();
+  const extra = uniqueOutputs.length > 2 ? ` plus ${uniqueOutputs.length - 2} more` : '';
+  // Rich, specific, 130-160 chars, model-accurate — no invented prices or unsupported features
+  const baseDesc = `${title} — calculate ${primary}${extra} from your measurements${hasWaste ? ' with waste allowance' : ''}. US customary & metric units supported${hasPrice ? ' with optional cost estimate' : ''}.`;
+  const tail = ' Formula, worked example & assumptions included.';
+  let description = baseDesc + tail;
+  // Ensure 130-160 chars: pad with field context if too short, truncate cleanly if too long
+  if (description.length < 130) {
+    const fieldHint = ` Enter ${model.fields.filter(f => !f.optional).slice(0, 3).map(f => f.label.toLowerCase()).join(', ')} to get instant results.`;
+    description = baseDesc + fieldHint + tail;
+  }
+  if (description.length > 160) {
+    // Truncate to 157 and end at word boundary
+    let cut = description.slice(0, 157);
+    const lastSpace = cut.lastIndexOf(' ');
+    if (lastSpace > 120) cut = cut.slice(0, lastSpace);
+    description = cut + '...';
+  }
   const fields = model.fields.filter(f => !f.optional);
   return {
     description,
