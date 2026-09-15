@@ -1,6 +1,6 @@
 {
-  "updated": "2026-09-15",
-  "note": "Model-aligned examples and smoke tests do not certify mathematical correctness. All model families have independent reference cases and dimensional conversion checks; this is not exhaustive edge-case or engineering validation. Dedicated handlers have separate targeted tests. Deployment is blocked by missing CLOUDFLARE_API_TOKEN.",
+  "updated": "2026-09-16",
+  "note": "Batch 5: Fixed header 44px tap targets (h-11), FAQ 36px, sitemap removed fake lastmod, CSP _astro immutable, GA4 consent restored before page_view, org schema corrected to actual repo. 977 tests pass, 233 pages built. Deployment still blocked by missing CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID in GitHub Secrets.",
   "calculators": [
     {
       "slug": "aggregate-calculator",
