@@ -152,8 +152,8 @@
       if (unit === "ft") return v;
       if (unit === "in") return v / 12;
       if (unit === "yd") return v * 3;
-      if (unit === "m") return v * 3.28084;
-      if (unit === "cm") return v * 0.0328084;
+      if (unit === "m") return v / 0.3048;
+      if (unit === "cm") return v / 30.48;
       return v;
     }
     function fmt(n, dec=2) {
@@ -200,6 +200,7 @@
           valid = false;
         }
       }
+      if (!valid) return;
       const tons = cuYd * tonsPerYd;
       const pounds = tons * 2000;
       const wasteF = 1 + waste/100;
@@ -219,7 +220,7 @@
       const priceUnit = $("g-price-unit").value;
       let costText = "—";
       let note = "Add price for cost";
-      if (isFinite(price) && price>0) {
+      if (isFinite(price) && price>=0) {
         const cost = priceUnit === "yd" ? cuYdW * price : tonsW * price;
         costText = new Intl.NumberFormat("en-US", { style:"currency", currency:"USD" }).format(cost);
         note = `at $${fmt(price)} per ${priceUnit === "yd" ? "yd³" : "ton"} incl. waste`;

@@ -36,15 +36,15 @@
   </div>
 </div>
 <script is:inline>
-(() => { const $ = (id) => document.getElementById(id); const f = $("dk-form"), r = $("dk-results"); if (!f || !r) return; function toFeet(v, u) { if (u === "ft") return v; if (u === "m") return v * 3.28084; if (u === "in") return v / 12; if (u === "cm") return v * 0.0328084; if (u === "mm") return v * 0.00328084; return v; }
+(() => { const $ = (id) => document.getElementById(id); const f = $("dk-form"), r = $("dk-results"); if (!f || !r) return; function toFeet(v, u) { if (u === "ft") return v; if (u === "m") return v / 0.3048; if (u === "in") return v / 12; if (u === "cm") return v / 30.48; if (u === "mm") return v / 304.8; return v; }
 function fmt(n, d = 1) { if (!isFinite(n)) return "—"; return new Intl.NumberFormat("en-US", { maximumFractionDigits: d }).format(n); }
 f.addEventListener("submit",e=>{e.preventDefault();const L=parseFloat($("dk-len").value),W=parseFloat($("dk-wid").value);const e1=$("dk-len-error"),e2=$("dk-wid-error");e1.textContent="";e1.classList.add("hidden");e2.textContent="";e2.classList.add("hidden");let ok=true;if(!(L>0)){e1.textContent="Please enter a valid length.";e1.classList.remove("hidden");ok=false;}if(!(W>0)){e2.textContent="Please enter a valid width.";e2.classList.remove("hidden");ok=false;}if(!ok)return;
-const Lf=toFeet(L,$("dk-len-unit").value),Wf=toFeet(W,$("dk-wid-unit").value),bw=toFeet(parseFloat($("dk-bw").value)||5.5,$("dk-bw-unit").value),bl=toFeet(parseFloat($("dk-bl").value)||16,$("dk-bl-unit").value),gap=toFeet(parseFloat($("dk-gap").value)||0.125,$("dk-gap-unit").value),joistIn=parseFloat($("dk-joist").value)||16,waste=parseFloat($("dk-waste").value)||0,price=parseFloat($("dk-price").value);
-const deckSqFt=Lf*Wf;const effBoardWidth=bw+gap;const rows=Math.ceil(Wf/effBoardWidth);const boardsPerRow=Math.ceil(Lf/bl);let boards=rows*boardsPerRow;
-const linearFt=boards*bl;const joistSpacingFt=joistIn/12;const joists=Math.ceil(Lf/joistSpacingFt)+1;const fasteners=boards*2*Math.ceil(joistSpacingFt?Lf/joistSpacingFt:0); // approx 2 per joist
+const Lf=toFeet(L,$("dk-len-unit").value),Wf=toFeet(W,$("dk-wid-unit").value),bw=toFeet(parseFloat($("dk-bw").value)||5.5,$("dk-bw-unit").value),bl=toFeet(parseFloat($("dk-bl").value)||16,$("dk-bl-unit").value),gap=toFeet(parseFloat($("dk-gap").value),$("dk-gap-unit").value),joistIn=parseFloat($("dk-joist").value)||16,waste=parseFloat($("dk-waste").value)||0,price=parseFloat($("dk-price").value);
+const deckSqFt=Lf*Wf;const effBoardWidth=bw+gap;const rows=Math.ceil((Wf+gap)/effBoardWidth - 1e-12);const boardsPerRow=Math.ceil(Lf/bl);let boards=rows*boardsPerRow;
+const linearFt=boards*bl;const joistSpacingFt=joistIn/12;const joists=Math.ceil(Lf/joistSpacingFt)+1;const fasteners=rows*2*(joists+boardsPerRow-1); // two fasteners per intersection; both butt-joint ends
 const w=1+waste/100;const boardsW=Math.ceil(boards*w);
 $("dk-sqft").textContent=fmt(deckSqFt,1);$("dk-boards").textContent=String(boards);$("dk-lf").textContent=fmt(linearFt,1)+" ft";$("dk-joists").textContent=String(joists);$("dk-fast").textContent=fmt(fasteners,0);$("dk-boards-w").textContent=String(boardsW)+" boards w/ waste";
-let cost="—";if(isFinite(price)&&price>0){const unit=$("dk-price-unit").value;const c=unit==="board"?boardsW*price:linearFt*w*price;cost=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(c);}
+let cost="—";if(isFinite(price)&&price>=0){const unit=$("dk-price-unit").value;const c=unit==="board"?boardsW*price:boardsW*bl*price;cost=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(c);}
 $("dk-cost").textContent=cost;r.classList.remove("hidden");r.scrollIntoView({behavior:"smooth",block:"nearest"});
 });$("dk-reset").addEventListener("click",()=>{r.classList.add("hidden");["dk-len-error","dk-wid-error"].forEach(id=>{const e=$(id);e.textContent="";e.classList.add("hidden");});});})();
 </script>

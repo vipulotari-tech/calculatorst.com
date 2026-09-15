@@ -39,4 +39,21 @@ User authorized calculator fixes, commits, and deployment of verified batches. C
 - npm test: 695 pass in 10 files. Astro check: 0 errors, 0 warnings, 19 pre-existing hints. Build: 233 pages. Built fence HTML checked for corrected results and absence of known stale claims.
 - Local browser preview rejected with ERR_BLOCKED_BY_CLIENT. Production browser verification pending deployment.
 - audit/calculator-status.json records all routes and pending maths/dedicated/browser work.
-- Next immediate action: commit/push verified batch; merge through existing main deployment pipeline; inspect Actions result and live fence page. Then audit dedicated inline calculators and remaining formula families.
+- Batch 1 merged in PR #1, main merge 3a66fdc. Workflow repair 64118b5 pins Wrangler 4.131.2 with explicit wrangler.jsonc. First deployment failed on old Wrangler; second passed tests/check/build but failed because CLOUDFLARE_API_TOKEN is missing. Live browser still showed old fence page.
+
+
+## Batch 2 checkpoint
+
+- Fixed validation and stale results across all 10 dedicated handlers, exact dimensional conversions, zero-price handling, flat roof pitch, zero deck gap, zero paver layers, paver order rounding, deck fasteners/stock pricing, and invalid gravel density.
+- Fence cost uses entered spacing, explicit equal-run gate layout, hole/post displacement and bag yield; no hardcoded bags per post. Corrected its explanatory page, example and selected-material cost scope.
+- Added independent reference cases for every shared model family, dimensional conversion checks for registry calculators, and actual inline-handler tests for all 10 dedicated implementations.
+- npm test: 975 passing in 12 files. Astro check: 0 errors, 0 warnings, 19 existing hints. Build: 233 pages.
+- audit/calculator-status.json records 205 routes. Family reference cases are not exhaustive certification. Nine dedicated explanatory pages still need content review; browser interaction and visual verification remain pending deployment.
+- Deployment blocker: GitHub Actions run 34951065496, missing CLOUDFLARE_API_TOKEN. User must configure a Cloudflare deployment token in repository Actions secrets (do not send secrets in chat). Also verify existing CLOUDFLARE_ACCOUNT_ID. No live deployment claimed.
+
+## Resume from here
+
+1. Inspect git status/log and this checkpoint before editing; preserve existing fixes.
+2. Review the nine remaining dedicated explanatory pages against their actual inline handlers, then broaden only concrete uncovered edge cases.
+3. Once Cloudflare secret is configured, rerun the latest main deployment workflow and verify production inputs, errors, results, mobile layout and links. No repeated authorization needed for the approved fixes/commits/deployment scope.
+4. Work does not automatically resume after a quota/session stop; this committed checkpoint enables continuation on the next active turn.

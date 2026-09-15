@@ -40,8 +40,8 @@
     if (u === "ft") return v;
     if (u === "in") return v / 12;
     if (u === "yd") return v * 3;
-    if (u === "m") return v * 3.28084;
-    if (u === "cm") return v * 0.0328084;
+    if (u === "m") return v / 0.3048;
+    if (u === "cm") return v / 30.48;
     return v;
   }
   function fmt(n, dec = 2) {
@@ -98,7 +98,7 @@
     $("c-b60").textContent = String(b60);
     $("c-b40").textContent = String(b40);
     let cost = "—";
-    if (isFinite(price) && price > 0) {
+    if (isFinite(price) && price >= 0) {
       const unit = $("c-price-unit").value;
       const c = unit === "yd" ? cuYdW * price : b80 * price;
       cost = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(c);
