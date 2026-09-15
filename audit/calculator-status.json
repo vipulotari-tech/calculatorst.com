@@ -398,7 +398,7 @@
       "slug": "concrete-slab-calculator",
       "implementation": "dedicated",
       "model": "concrete",
-      "content": "NEEDS_REVIEW",
+      "content": "ALIGNED_WITH_HANDLER",
       "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
@@ -534,7 +534,7 @@
       "slug": "deck-material-calculator",
       "implementation": "dedicated",
       "model": null,
-      "content": "NEEDS_REVIEW",
+      "content": "ALIGNED_WITH_HANDLER",
       "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
@@ -582,7 +582,7 @@
       "slug": "driveway-gravel-calculator",
       "implementation": "dedicated",
       "model": null,
-      "content": "NEEDS_REVIEW",
+      "content": "ALIGNED_WITH_HANDLER",
       "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
@@ -838,7 +838,7 @@
       "slug": "gravel-calculator",
       "implementation": "dedicated",
       "model": "bulk",
-      "content": "NEEDS_REVIEW",
+      "content": "ALIGNED_WITH_HANDLER",
       "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
@@ -1054,7 +1054,7 @@
       "slug": "mulch-calculator",
       "implementation": "dedicated",
       "model": "mulch",
-      "content": "NEEDS_REVIEW",
+      "content": "ALIGNED_WITH_HANDLER",
       "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
@@ -1142,7 +1142,7 @@
       "slug": "paver-calculator",
       "implementation": "dedicated",
       "model": "tile",
-      "content": "NEEDS_REVIEW",
+      "content": "ALIGNED_WITH_HANDLER",
       "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
@@ -1174,7 +1174,7 @@
       "slug": "pea-gravel-calculator",
       "implementation": "dedicated",
       "model": null,
-      "content": "NEEDS_REVIEW",
+      "content": "ALIGNED_WITH_HANDLER",
       "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
@@ -1318,7 +1318,7 @@
       "slug": "roof-pitch-calculator",
       "implementation": "dedicated",
       "model": "roof-pitch",
-      "content": "NEEDS_REVIEW",
+      "content": "ALIGNED_WITH_HANDLER",
       "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
@@ -1350,7 +1350,7 @@
       "slug": "roof-square-footage-calculator",
       "implementation": "dedicated",
       "model": null,
-      "content": "NEEDS_REVIEW",
+      "content": "ALIGNED_WITH_HANDLER",
       "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
