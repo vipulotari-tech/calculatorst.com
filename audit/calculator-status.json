@@ -1,0 +1,1646 @@
+{
+  "updated": "2026-09-15",
+  "note": "Model-aligned examples and smoke tests do not certify mathematical correctness. Dedicated pages may not execute their registry model.",
+  "calculators": [
+    {
+      "slug": "aggregate-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "aggregate-weight-calculator",
+      "implementation": "shared",
+      "model": "weight",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "asphalt-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "asphalt-cost-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "asphalt-driveway-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "asphalt-thickness-calculator",
+      "implementation": "shared",
+      "model": "asphalt-depth",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "asphalt-weight-calculator",
+      "implementation": "shared",
+      "model": "weight",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "basement-wall-calculator",
+      "implementation": "shared",
+      "model": "wall",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "beam-calculator",
+      "implementation": "shared",
+      "model": "beam",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "beam-load-calculator",
+      "implementation": "shared",
+      "model": "beam-load",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "board-foot-calculator",
+      "implementation": "shared",
+      "model": "boardFeet",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "board-foot-cost-calculator",
+      "implementation": "shared",
+      "model": "boardFeet",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "brick-calculator",
+      "implementation": "shared",
+      "model": "masonry",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "brick-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "brick-joint-calculator",
+      "implementation": "shared",
+      "model": "brick-joint",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "brick-mortar-calculator",
+      "implementation": "shared",
+      "model": "brick-mortar",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "brick-patio-calculator",
+      "implementation": "shared",
+      "model": "tile",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "brick-paver-calculator",
+      "implementation": "shared",
+      "model": "tile",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "brick-quantity-calculator",
+      "implementation": "shared",
+      "model": "masonry",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "brick-veneer-calculator",
+      "implementation": "shared",
+      "model": "masonry",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "brick-wall-calculator",
+      "implementation": "shared",
+      "model": "masonry",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "brick-waste-calculator",
+      "implementation": "shared",
+      "model": "waste",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "brick-weight-calculator",
+      "implementation": "shared",
+      "model": "weight",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "carpet-calculator",
+      "implementation": "shared",
+      "model": "carpet",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "carpet-cost-calculator",
+      "implementation": "shared",
+      "model": "carpet",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "ceiling-joist-calculator",
+      "implementation": "shared",
+      "model": "spaced",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "ceiling-paint-calculator",
+      "implementation": "shared",
+      "model": "ceilingPaint",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "cement-bag-calculator",
+      "implementation": "shared",
+      "model": "bags",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "cement-calculator",
+      "implementation": "shared",
+      "model": "bags",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "cement-sand-ratio-calculator",
+      "implementation": "shared",
+      "model": "mix",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "cmu-calculator",
+      "implementation": "shared",
+      "model": "masonry",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "cmu-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "cmu-grout-calculator",
+      "implementation": "shared",
+      "model": "cmu-grout",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "cmu-quantity-calculator",
+      "implementation": "shared",
+      "model": "masonry",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "cmu-reinforcement-calculator",
+      "implementation": "shared",
+      "model": "grid",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "cmu-wall-calculator",
+      "implementation": "shared",
+      "model": "masonry",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-block-calculator",
+      "implementation": "shared",
+      "model": "masonry",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-block-mortar-calculator",
+      "implementation": "shared",
+      "model": "cmu-mortar",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-block-wall-calculator",
+      "implementation": "shared",
+      "model": "masonry",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-block-weight-calculator",
+      "implementation": "shared",
+      "model": "weight",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-calculator",
+      "implementation": "shared",
+      "model": "concrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-column-calculator",
+      "implementation": "shared",
+      "model": "cylinder",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-cost-calculator",
+      "implementation": "shared",
+      "model": "concrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-curb-calculator",
+      "implementation": "shared",
+      "model": "curb",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-footing-calculator",
+      "implementation": "shared",
+      "model": "concrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-foundation-calculator",
+      "implementation": "shared",
+      "model": "concrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-mix-calculator",
+      "implementation": "shared",
+      "model": "mix",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-pour-calculator",
+      "implementation": "shared",
+      "model": "concrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-ramp-calculator",
+      "implementation": "shared",
+      "model": "ramp",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-slab-calculator",
+      "implementation": "dedicated",
+      "model": "concrete",
+      "content": "NEEDS_REVIEW",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-stair-calculator",
+      "implementation": "shared",
+      "model": "stairs",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-tube-calculator",
+      "implementation": "shared",
+      "model": "tube",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-volume-calculator",
+      "implementation": "shared",
+      "model": "concrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-wall-calculator",
+      "implementation": "shared",
+      "model": "wall",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-waste-calculator",
+      "implementation": "shared",
+      "model": "waste",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "concrete-weight-calculator",
+      "implementation": "shared",
+      "model": "weight",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "construction-material-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "crawl-space-calculator",
+      "implementation": "shared",
+      "model": "wall",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "crushed-stone-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "crushed-stone-cost-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "cut-and-fill-calculator",
+      "implementation": "shared",
+      "model": "cutFill",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "deck-board-calculator",
+      "implementation": "shared",
+      "model": "deck",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "deck-calculator",
+      "implementation": "shared",
+      "model": "deck",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "deck-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "deck-footing-calculator",
+      "implementation": "shared",
+      "model": "postConcrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "deck-joist-calculator",
+      "implementation": "shared",
+      "model": "spaced",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "deck-material-calculator",
+      "implementation": "dedicated",
+      "model": null,
+      "content": "NEEDS_REVIEW",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "deck-railing-calculator",
+      "implementation": "shared",
+      "model": "railing",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "deck-stair-calculator",
+      "implementation": "shared",
+      "model": "stairsLayout",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "dirt-removal-calculator",
+      "implementation": "shared",
+      "model": "excavation",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "driveway-concrete-calculator",
+      "implementation": "shared",
+      "model": "concrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "driveway-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "driveway-gravel-calculator",
+      "implementation": "dedicated",
+      "model": null,
+      "content": "NEEDS_REVIEW",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "driveway-thickness-calculator",
+      "implementation": "shared",
+      "model": "depth",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "drywall-calculator",
+      "implementation": "shared",
+      "model": "drywall",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "drywall-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "drywall-joint-compound-calculator",
+      "implementation": "shared",
+      "model": "coverage",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "drywall-screw-calculator",
+      "implementation": "shared",
+      "model": "drywallScrews",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "drywall-sheet-calculator",
+      "implementation": "shared",
+      "model": "drywall",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "drywall-tape-calculator",
+      "implementation": "shared",
+      "model": "drywallTape",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "earthwork-calculator",
+      "implementation": "shared",
+      "model": "excavation",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "excavation-calculator",
+      "implementation": "shared",
+      "model": "excavation",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "excavation-cost-calculator",
+      "implementation": "shared",
+      "model": "excavation",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "fence-calculator",
+      "implementation": "shared",
+      "model": "fence",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "TARGETED_CASES_PASS",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "fence-concrete-calculator",
+      "implementation": "shared",
+      "model": "postConcrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "TARGETED_CASES_PASS",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "fence-cost-calculator",
+      "implementation": "dedicated",
+      "model": "material-cost",
+      "content": "NEEDS_REVIEW",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "fence-panel-calculator",
+      "implementation": "shared",
+      "model": "fence",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "TARGETED_CASES_PASS",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "fence-picket-calculator",
+      "implementation": "shared",
+      "model": "pickets",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "TARGETED_CASES_PASS",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "fence-post-calculator",
+      "implementation": "shared",
+      "model": "fence",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "TARGETED_CASES_PASS",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "fill-dirt-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "fill-dirt-cost-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "floor-joist-calculator",
+      "implementation": "shared",
+      "model": "spaced",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "flooring-calculator",
+      "implementation": "shared",
+      "model": "coverage",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "flooring-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "flooring-waste-calculator",
+      "implementation": "shared",
+      "model": "waste",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "footing-concrete-calculator",
+      "implementation": "shared",
+      "model": "concrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "footing-volume-calculator",
+      "implementation": "shared",
+      "model": "concrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "foundation-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "foundation-excavation-calculator",
+      "implementation": "shared",
+      "model": "excavation",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "foundation-wall-calculator",
+      "implementation": "shared",
+      "model": "wall",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "framing-calculator",
+      "implementation": "shared",
+      "model": "spaced",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "garage-slab-calculator",
+      "implementation": "shared",
+      "model": "concrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "gate-calculator",
+      "implementation": "shared",
+      "model": "gate",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "TARGETED_CASES_PASS",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "gate-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "gravel-calculator",
+      "implementation": "dedicated",
+      "model": "bulk",
+      "content": "NEEDS_REVIEW",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "gravel-cost-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "gravel-depth-calculator",
+      "implementation": "shared",
+      "model": "depth",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "gravel-weight-calculator",
+      "implementation": "shared",
+      "model": "weight",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "grout-calculator",
+      "implementation": "shared",
+      "model": "bags",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "grout-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "grout-quantity-calculator",
+      "implementation": "shared",
+      "model": "bags",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "hardwood-flooring-calculator",
+      "implementation": "shared",
+      "model": "coverage",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "hardwood-flooring-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "header-size-calculator",
+      "implementation": "shared",
+      "model": "header",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "insulation-calculator",
+      "implementation": "shared",
+      "model": "coverage",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "insulation-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "joist-calculator",
+      "implementation": "shared",
+      "model": "spaced",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "joist-spacing-calculator",
+      "implementation": "shared",
+      "model": "spacing",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "laminate-flooring-calculator",
+      "implementation": "shared",
+      "model": "coverage",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "landscaping-calculator",
+      "implementation": "shared",
+      "model": "mulch",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "landscaping-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "lumber-calculator",
+      "implementation": "shared",
+      "model": "spaced",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "lumber-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "masonry-block-calculator",
+      "implementation": "shared",
+      "model": "masonry",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "masonry-calculator",
+      "implementation": "shared",
+      "model": "masonry",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "masonry-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "masonry-wall-calculator",
+      "implementation": "shared",
+      "model": "masonry",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "mortar-calculator",
+      "implementation": "shared",
+      "model": "bags",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "mortar-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "mortar-mix-calculator",
+      "implementation": "shared",
+      "model": "mix",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "mortar-quantity-calculator",
+      "implementation": "shared",
+      "model": "bags",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "mulch-calculator",
+      "implementation": "dedicated",
+      "model": "mulch",
+      "content": "NEEDS_REVIEW",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "mulch-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "pad-footing-calculator",
+      "implementation": "shared",
+      "model": "concrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "paint-calculator",
+      "implementation": "shared",
+      "model": "paint",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "paint-cost-calculator",
+      "implementation": "shared",
+      "model": "paint",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "paint-coverage-calculator",
+      "implementation": "shared",
+      "model": "paintCoverage",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "parking-lot-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "parking-lot-cost-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "patio-concrete-calculator",
+      "implementation": "shared",
+      "model": "concrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "patio-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "paver-base-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "paver-calculator",
+      "implementation": "dedicated",
+      "model": "tile",
+      "content": "NEEDS_REVIEW",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "paver-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "paver-joint-sand-calculator",
+      "implementation": "shared",
+      "model": "jointFill",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "paver-sand-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "pea-gravel-calculator",
+      "implementation": "dedicated",
+      "model": null,
+      "content": "NEEDS_REVIEW",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "pier-footing-calculator",
+      "implementation": "shared",
+      "model": "cylinder",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "primer-calculator",
+      "implementation": "shared",
+      "model": "paint",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "rafter-length-calculator",
+      "implementation": "shared",
+      "model": "rafter",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "rebar-calculator",
+      "implementation": "shared",
+      "model": "grid",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "rebar-chair-calculator",
+      "implementation": "shared",
+      "model": "chairs",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "rebar-cost-calculator",
+      "implementation": "shared",
+      "model": "bar-length",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "rebar-grid-calculator",
+      "implementation": "shared",
+      "model": "grid",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "rebar-lap-length-calculator",
+      "implementation": "shared",
+      "model": "lap",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "rebar-length-calculator",
+      "implementation": "shared",
+      "model": "bar-length",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "rebar-quantity-calculator",
+      "implementation": "shared",
+      "model": "bar-length",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "rebar-spacing-calculator",
+      "implementation": "shared",
+      "model": "spacing",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "rebar-weight-calculator",
+      "implementation": "shared",
+      "model": "bar-length",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "reinforcement-mesh-calculator",
+      "implementation": "shared",
+      "model": "mesh",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "retaining-wall-calculator",
+      "implementation": "shared",
+      "model": "masonry",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "road-base-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "roof-area-calculator",
+      "implementation": "shared",
+      "model": "roofArea",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "roof-flashing-calculator",
+      "implementation": "shared",
+      "model": "flashing",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "roof-pitch-calculator",
+      "implementation": "dedicated",
+      "model": "roof-pitch",
+      "content": "NEEDS_REVIEW",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "roof-rafter-calculator",
+      "implementation": "shared",
+      "model": "rafter",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "roof-sheathing-calculator",
+      "implementation": "shared",
+      "model": "roofCover",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "roof-slope-calculator",
+      "implementation": "shared",
+      "model": "roof-pitch",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "roof-square-footage-calculator",
+      "implementation": "dedicated",
+      "model": null,
+      "content": "NEEDS_REVIEW",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "roof-truss-calculator",
+      "implementation": "shared",
+      "model": "spaced",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "roof-waste-calculator",
+      "implementation": "shared",
+      "model": "waste",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "roofing-calculator",
+      "implementation": "shared",
+      "model": "roofArea",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "roofing-material-calculator",
+      "implementation": "shared",
+      "model": "roofCover",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "roofing-shingle-calculator",
+      "implementation": "shared",
+      "model": "roofCover",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "roofing-underlayment-calculator",
+      "implementation": "shared",
+      "model": "roofCover",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "sand-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "sand-cost-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "sand-weight-calculator",
+      "implementation": "shared",
+      "model": "weight",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "shed-foundation-calculator",
+      "implementation": "shared",
+      "model": "concrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "shingle-cost-calculator",
+      "implementation": "shared",
+      "model": "roofCover",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "shingle-quantity-calculator",
+      "implementation": "shared",
+      "model": "roofCover",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "slab-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "slab-reinforcement-calculator",
+      "implementation": "shared",
+      "model": "grid",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "slab-thickness-calculator",
+      "implementation": "shared",
+      "model": "depth",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "soil-volume-calculator",
+      "implementation": "shared",
+      "model": "excavation",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "soil-weight-calculator",
+      "implementation": "shared",
+      "model": "weight",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "spray-foam-calculator",
+      "implementation": "shared",
+      "model": "sprayFoam",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "strip-footing-calculator",
+      "implementation": "shared",
+      "model": "concrete",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "stud-calculator",
+      "implementation": "shared",
+      "model": "spaced",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "stud-spacing-calculator",
+      "implementation": "shared",
+      "model": "spacing",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "surface-area-calculator",
+      "implementation": "shared",
+      "model": "area",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "tile-adhesive-calculator",
+      "implementation": "shared",
+      "model": "coverage",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "tile-calculator",
+      "implementation": "shared",
+      "model": "tile",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "tile-cost-calculator",
+      "implementation": "shared",
+      "model": "material-cost",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "tile-grout-calculator",
+      "implementation": "shared",
+      "model": "jointFill",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "tile-quantity-calculator",
+      "implementation": "shared",
+      "model": "tile",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "topsoil-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "topsoil-cost-calculator",
+      "implementation": "shared",
+      "model": "bulk",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "trench-backfill-calculator",
+      "implementation": "shared",
+      "model": "backfill",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "trench-calculator",
+      "implementation": "shared",
+      "model": "excavation",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "trench-volume-calculator",
+      "implementation": "shared",
+      "model": "excavation",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "underlayment-calculator",
+      "implementation": "shared",
+      "model": "coverage",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "vinyl-flooring-calculator",
+      "implementation": "shared",
+      "model": "coverage",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "wall-framing-calculator",
+      "implementation": "shared",
+      "model": "spaced",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    },
+    {
+      "slug": "wall-paint-calculator",
+      "implementation": "shared",
+      "model": "paint",
+      "content": "ALIGNED_WITH_MODEL",
+      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "browser": "LIVE_RECHECK_PENDING"
+    }
+  ]
+}

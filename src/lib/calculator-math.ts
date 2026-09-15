@@ -10,7 +10,7 @@ export const factors: Record<Dimension, Record<string, number>> = {
   weight: {lb:1, kg:LB_PER_KG, ton:2000, tonne:LB_PER_KG*1000},
   number: {},
 };
-export const unitLabels: Record<string,string> = {ft2:'ft²',yd2:'yd²',m2:'m²',in2:'in²',ft3:'ft³',yd3:'yd³',m3:'m³',ton:'US ton',tonne:'metric tonne',L:'liters',gal:'US gal','USD/yd3':'$/yd³','USD/m3':'$/m³','USD/ft3':'$/ft³','USD/ton':'$/US ton','USD/bag':'$/bag','USD/unit':'$/unit','USD/ft2':'$/ft²','USD/m2':'$/m²','USD/ft':'$/ft','USD/board':'$/board'};
+export const unitLabels: Record<string,string> = {ft2:'ft²',yd2:'yd²',m2:'m²',in2:'in²',ft3:'ft³',yd3:'yd³',m3:'m³',ton:'US ton',tonne:'metric tonne',L:'liters',gal:'US gal','USD/yd3':'$/yd³','USD/m3':'$/m³','USD/ft3':'$/ft³','USD/ton':'$/US ton','USD/bag':'$/bag','USD/unit':'$/unit','USD/ft2':'$/ft²','USD/m2':'$/m²','USD/ft':'$/ft','USD/board':'$/board','USD/panel':'$/panel'};
 export class InputError extends Error { constructor(public field:string,message:string){super(message);this.name='InputError';} }
 export function requireCondition(ok:boolean,field:string,message:string):asserts ok {if(!ok)throw new InputError(field,message);}
 export function convert(value:number,unit:string,dimension:Dimension){
@@ -66,7 +66,7 @@ export const count=(id:string,label:string,value=1,min=1):Field=>({...number(id,
 export const area=(id:string,label:string,value=100,min?:number):Field=>({id,label,value,unit:'ft2',units:['ft2','m2','yd2'],dimension:'area',min});
 export const volume=(id='volume',label='Volume',value=1):Field=>({id,label,value,unit:'yd3',units:['yd3','ft3','m3'],dimension:'volume'});
 export const allowance:Field={...number('waste','Material allowance',10,0,'Added once to the measured quantity before rounding packages up. Change it for your project.'),max:100,group:'Material & assumptions',unit:'%'};
-export const price=(unit='USD/yd3',units=[unit]):Field=>({id:'price',label:'Material price (optional)',unit,units,min:0,optional:true,group:'Cost',help:'Use your supplier quote. Taxes, delivery and labor are excluded unless shown separately.'});
+export const price=(unit='USD/yd3',units=[unit]):Field=>({id:'price',label:'Material price',unit,units,min:0,optional:true,group:'Cost',help:'Use your supplier quote. Taxes, delivery and labor are excluded unless shown separately.'});
 export const rectangle=[length(),length('width','Width',10)];
 export const openings:Field={...area('openings','Openings / excluded area',0,0),help:'Subtract openings once; do not subtract them again from your dimensions.'};
 export const positiveOrZero=(field:Field):Field=>({...field,min:0});
