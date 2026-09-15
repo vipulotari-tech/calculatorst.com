@@ -138,13 +138,13 @@ const costs = fields.filter((f) => f.group === "Cost");
     {costs.length > 0 && (
       <div class="space-y-3 pt-2 border-t border-border/60">
         <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-muted-foreground">
-          3. Optional Material Cost
+          3. Material Cost
         </h3>
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {costs.map((field) => (
             <label class="block space-y-1.5" for={`${slug}-${field.id}`}>
               <span class="text-[13px] font-medium text-foreground flex items-center justify-between">
-                <span>{field.label} <span class="text-xs text-muted-foreground font-normal">(optional)</span></span>
+                <span>{field.label} {field.optional && <span class="text-xs text-muted-foreground font-normal">(optional)</span>}</span>
               </span>
               <div class="flex rounded-lg shadow-sm">
                 <input
@@ -157,6 +157,7 @@ const costs = fields.filter((f) => f.group === "Cost");
                   max={field.max}
                   value={field.value ?? ""}
                   placeholder="0.00"
+                  required={!field.optional}
                   aria-describedby={`${slug}-${field.id}-err`}
                   class="calc-input h-11 w-full rounded-l-lg border border-border bg-muted/40 px-3.5 text-[14px] text-foreground placeholder:text-muted-foreground/50 focus:border-ring focus:bg-background focus:outline-none focus:ring-2 focus:ring-ring/20 transition-all font-mono"
                 />
@@ -208,6 +209,7 @@ const costs = fields.filter((f) => f.group === "Cost");
       <div class="flex items-center gap-2">
         <button
           type="button"
+          aria-label="Copy Result"
           class="calc-copy-btn inline-flex h-10 items-center justify-center rounded-lg border border-border bg-background px-3.5 text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors gap-1.5 cursor-pointer"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy shrink-0"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
@@ -243,7 +245,7 @@ const costs = fields.filter((f) => f.group === "Cost");
 
     <!-- Step-by-Step Mathematical Derivation Card -->
     <div class="rounded-lg border border-border bg-card p-4 space-y-2.5">
-      <div class="flex items-center justify-between">
+      <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
         <span class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">
           Calculation Breakdown & Steps
         </span>
@@ -353,7 +355,7 @@ const costs = fields.filter((f) => f.group === "Cost");
             const card = document.createElement("div");
             card.className = "rounded-lg border border-border bg-card p-3 shadow-xs";
             card.innerHTML = `
-              <p class="text-[11px] font-mono text-muted-foreground truncate">${r.label}</p>
+              <p class="text-[11px] font-mono text-muted-foreground break-words">${r.label}</p>
               <p class="text-lg font-bold font-mono text-foreground mt-0.5">${fmt(r.value)} <span class="text-xs font-normal text-muted-foreground">${unitLabels[r.unit] ?? r.unit}</span></p>
             `;
             targetRowsGridEl.appendChild(card);

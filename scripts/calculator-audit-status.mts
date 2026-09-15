@@ -1,0 +1,10 @@
+import { writeFileSync, readdirSync } from 'node:fs';
+import { hubCalculators } from '../src/data/hubCalculators.ts';
+import { calculators } from '../src/data/calculators.ts';
+import { slugToModelKey } from '../src/lib/calculator-registry.ts';
+const dedicated = new Set(readdirSync('src/pages',{withFileTypes:true}).filter(d=>d.isDirectory() && d.name.endsWith('-calculator')).map(d=>d.name));
+const slugs = [...new Set([...hubCalculators.map(c=>c.slug),...calculators.map(c=>c.slug),...dedicated])].sort();
+const fenceVerified = new Set(['fence-calculator','fence-post-calculator','fence-panel-calculator','fence-picket-calculator','fence-concrete-calculator','gate-calculator']);
+const records = slugs.map(slug => ({slug, implementation:dedicated.has(slug)?'dedicated':'shared', model:slugToModelKey[slug]??null, content:dedicated.has(slug)?'NEEDS_REVIEW':'ALIGNED_WITH_MODEL', maths:fenceVerified.has(slug)?'TARGETED_CASES_PASS':'NEEDS_INDEPENDENT_REVIEW', browser:'LIVE_RECHECK_PENDING'}));
+writeFileSync('audit/calculator-status.json',JSON.stringify({updated:'2026-09-15',note:'Model-aligned examples and smoke tests do not certify mathematical correctness. Dedicated pages may not execute their registry model.',calculators:records},null,2)+'\n');
+console.log(JSON.stringify({total:records.length,shared:records.filter(r=>r.implementation==='shared').length,dedicated:dedicated.size,targetedMaths:records.filter(r=>r.maths==='TARGETED_CASES_PASS').length}));
