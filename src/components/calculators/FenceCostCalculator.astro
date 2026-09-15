@@ -7,7 +7,7 @@
       <label class="block"><span class="text-sm font-medium text-ink">Fence length</span>
         <div class="mt-1.5 flex"><input id="f-len" type="number" min="0" step="any" placeholder="100" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm" required/><select id="f-len-unit" class="h-11 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="m">m</option></select></div><span id="f-len-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
       <label class="block"><span class="text-sm font-medium text-ink">Fence height</span>
-        <div class="mt-1.5 flex"><input id="f-height" type="number" min="0" step="any" placeholder="6" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><select id="f-height-unit" class="h-11 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="in">in</option></select></div></label>
+        <div class="mt-1.5 flex"><input id="f-height" value="6" type="number" min="0" step="any" placeholder="6" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><select id="f-height-unit" class="h-11 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="in">in</option></select></div></label>
     </div>
     <div class="grid gap-4 sm:grid-cols-3">
       <label class="block"><span class="text-sm font-medium text-ink">Material</span><select id="f-mat" class="mt-1.5 h-11 w-full rounded-lg border border-hairline bg-canvas px-3 text-sm"><option value="wood">Wood</option><option value="vinyl">Vinyl</option><option value="chain">Chain Link</option></select></label>
@@ -20,8 +20,16 @@
         <div class="mt-1.5 flex"><input id="f-gatew" type="number" min="0" step="any" value="4" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><select id="f-gatew-unit" class="h-11 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="in">in</option></select></div></label>
       <label class="block"><span class="text-sm font-medium text-ink">Waste %</span><div class="mt-1.5 flex"><input id="f-waste" type="number" min="0" max="30" value="10" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><span class="flex h-11 items-center rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">%</span></div></label>
     </div>
+    <p class="text-sm text-mute">Layout assumption: gates divide the remaining fence into equal-length runs. For unequal runs, calculate each run separately with zero gates and count shared posts only once. Panel width must suit the entered maximum post spacing.</p>
     <div class="grid gap-4 sm:grid-cols-2">
-      <label class="block"><span class="text-sm font-medium text-ink">Material price (optional)</span><div class="mt-1.5 flex"><span class="flex h-11 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-sm text-mute">$</span><input id="f-price" type="number" min="0" step="any" placeholder="35" class="h-11 w-full border-y border-hairline bg-canvas px-3 text-sm"/><select id="f-price-unit" class="h-11 rounded-r-lg border border-hairline bg-canvas-soft px-2 text-xs"><option value="ft">/ ft</option><option value="panel">/ panel (8 ft)</option><option value="post">/ post</option></select></div>
+      <label class="block"><span class="text-sm font-medium text-ink">Round post-hole diameter (in)</span><input id="f-hole" type="number" min="0" step="any" value="12" class="mt-1.5 h-11 w-full rounded-lg border border-hairline bg-canvas px-3 text-sm" required/></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Concrete fill depth (in)</span><input id="f-fill" type="number" min="0" step="any" value="24" class="mt-1.5 h-11 w-full rounded-lg border border-hairline bg-canvas px-3 text-sm" required/></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Square post actual width (in)</span><input id="f-postw" type="number" min="0" step="any" value="3.5" class="mt-1.5 h-11 w-full rounded-lg border border-hairline bg-canvas px-3 text-sm" required/></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Concrete yield per bag (ft³)</span><input id="f-yield" type="number" min="0" step="any" value="0.375" class="mt-1.5 h-11 w-full rounded-lg border border-hairline bg-canvas px-3 text-sm" required/></label>
+    </div>
+    <p class="text-xs text-mute">Use hole dimensions from your plan and the yield printed on your concrete bag. Concrete is estimated for installed posts, not spare posts. These example dimensions do not specify a footing design. Cost covers only the selected priced material; gates, concrete and labor are separate.</p>
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label class="block"><span class="text-sm font-medium text-ink">Material price (optional)</span><div class="mt-1.5 flex"><span class="flex h-11 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-sm text-mute">$</span><input id="f-price" type="number" min="0" step="any" placeholder="35" class="h-11 w-full border-y border-hairline bg-canvas px-3 text-sm"/><select id="f-price-unit" class="h-11 rounded-r-lg border border-hairline bg-canvas-soft px-2 text-xs"><option value="ft">/ ft</option><option value="panel">/ panel</option><option value="post">/ post</option></select></div>
         <span class="font-mono text-[11px] text-mute">Labor varies — material estimate vs total project.</span></label>
       <div class="flex items-end"><p class="font-mono text-[11px] leading-4 text-mute">Chain link uses fabric + top rail; wood/vinyl uses pickets/panels. Posts include gates.</p></div>
     </div>
@@ -32,34 +40,38 @@
       <p class="font-mono text-[11px] tracking-widest text-mute">FENCE ESTIMATE</p>
       <div class="mt-3 grid gap-3 sm:grid-cols-3">
         <div class="rounded-md border border-hairline bg-canvas p-3 text-center"><p class="font-mono text-[11px] text-mute">Posts</p><p id="f-posts" class="mt-1 text-xl font-semibold tabular-nums text-ink">—</p></div>
-        <div class="rounded-md border border-hairline bg-canvas p-3 text-center"><p class="font-mono text-[11px] text-mute">Panels / Pickets</p><p id="f-panels" class="mt-1 text-xl font-semibold tabular-nums text-ink">—</p></div>
+        <div class="rounded-md border border-hairline bg-canvas p-3 text-center"><p class="font-mono text-[11px] text-mute">Sections / Panels</p><p id="f-panels" class="mt-1 text-xl font-semibold tabular-nums text-ink">—</p></div>
         <div class="rounded-md border border-hairline bg-canvas p-3 text-center"><p class="font-mono text-[11px] text-mute">Rails (linear ft)</p><p id="f-rails-res" class="mt-1 text-xl font-semibold tabular-nums text-ink">—</p></div>
       </div>
       <div class="mt-3 grid gap-3 rounded-md border border-hairline bg-canvas p-3 sm:grid-cols-3">
-        <div><p class="font-mono text-[11px] text-mute">Fence area</p><p id="f-area" class="text-sm font-semibold tabular-nums text-ink">—</p></div>
-        <div><p class="font-mono text-[11px] text-mute">Concrete (bags 50 lb)</p><p id="f-concrete" class="text-sm font-semibold tabular-nums text-ink">—</p></div>
-        <div><p class="font-mono text-[11px] text-mute">Est. material cost</p><p id="f-cost" class="text-sm font-semibold text-ink">—</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Fence area (excluding gates)</p><p id="f-area" class="text-sm font-semibold tabular-nums text-ink">—</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Concrete bags (entered yield)</p><p id="f-concrete" class="text-sm font-semibold tabular-nums text-ink">—</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Selected material cost</p><p id="f-cost" class="text-sm font-semibold text-ink">—</p></div>
       </div>
       <p class="mt-2 font-mono text-[11px] leading-4 text-mute">Excludes labor, permits, and terrain adjustments. Add waste for cuts.</p>
     </div>
   </div>
 </div>
 <script is:inline>
-(() => { const $ = (id) => document.getElementById(id); const f = $("f-form"), r = $("f-results"); if (!f || !r) return; function toFeet(v, u) { if (u === "ft") return v; if (u === "in") return v / 12; if (u === "m") return v * 3.28084; return v; }
+(() => { const $ = (id) => document.getElementById(id); const f = $("f-form"), r = $("f-results"); if (!f || !r) return; function toFeet(v, u) { if (u === "ft") return v; if (u === "in") return v / 12; if (u === "m") return v / 0.3048; return v; }
 function fmt(n, d = 0) { if (!isFinite(n)) return "—"; return new Intl.NumberFormat("en-US", { maximumFractionDigits: d }).format(n); }
 f.addEventListener("submit",e=>{e.preventDefault();const L=parseFloat($("f-len").value);let ok=true;const err=$("f-len-error");err.textContent="";err.classList.add("hidden");if(!(L>0)){err.textContent="Please enter a valid fence length.";err.classList.remove("hidden");ok=false;}if(!ok)return;
 const Lf=toFeet(L,$("f-len-unit").value),Hf=toFeet(parseFloat($("f-height").value)||6,$("f-height-unit").value),spacing=toFeet(parseFloat($("f-spacing").value)||8,$("f-spacing-unit").value),gates=parseInt($("f-gates").value)||0,gateW=toFeet(parseFloat($("f-gatew").value)||0,$("f-gatew-unit").value),rails=parseInt($("f-rails").value)||0,waste=parseFloat($("f-waste").value)||0,price=parseFloat($("f-price").value);
-const effectiveLen=Math.max(0,Lf - gates*gateW);
+const effectiveLen=Lf - gates*gateW;
+if(effectiveLen<0 || (gates>0 && gateW<=0)){err.textContent="Gate widths must be positive and their total cannot exceed the fence length.";err.classList.remove("hidden");r.classList.add("hidden");return;}
+const hole=parseFloat($("f-hole").value)/12,fill=parseFloat($("f-fill").value)/12,postW=parseFloat($("f-postw").value)/12,bagYield=parseFloat($("f-yield").value);
+if(!(hole>postW*Math.SQRT2 && fill>0 && bagYield>0)){err.textContent="The square post must fit inside the round hole; fill depth and bag yield must be positive.";err.classList.remove("hidden");r.classList.add("hidden");return;}
 const safeSpacing = spacing>0 ? spacing : 8;
-const posts=Math.ceil(effectiveLen/safeSpacing)+1+gates*2; // gates need 2 posts each
-const panels=Math.ceil(effectiveLen/8); // 8ft panels avg
-const linearRails=effectiveLen*rails;
-const area=Lf*Hf;
-const concreteBags=Math.ceil(posts*0.5); // ~0.5 bag 50lb per post ~ 0.5ft³
+const runs=gates+1;
+const panels=runs*Math.ceil(effectiveLen/runs/safeSpacing - 1e-12);
+const posts=panels+runs; // each open fence run includes its two gate/end posts
+const linearRails=effectiveLen*($("f-mat").value==="chain"?1:rails);
+const area=effectiveLen*Hf;
+const concreteVolume=posts*fill*(Math.PI*hole*hole/4-postW*postW);
 const wasteF=1+waste/100;
 const postsW=Math.ceil(posts*wasteF),panelsW=Math.ceil(panels*wasteF);
-$("f-posts").textContent=String(postsW);$("f-panels").textContent=String(panelsW);$("f-rails-res").textContent=fmt(linearRails*wasteF,1);$("f-area").textContent=fmt(area,1)+" ft²";$("f-concrete").textContent=String(Math.ceil(concreteBags*wasteF));
-let cost="—";if(isFinite(price)&&price>0){const unit=$("f-price-unit").value;let base=0;if(unit==="ft") base=effectiveLen*wasteF*price;else if(unit==="panel") base=panelsW*price;else base=postsW*price;cost=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(base);}
+$("f-posts").textContent=String(postsW);$("f-panels").textContent=$("f-mat").value==="chain"?"Fabric: "+fmt(effectiveLen*wasteF,1)+" ft":String(panelsW);$("f-rails-res").textContent=fmt(linearRails*wasteF,1);$("f-area").textContent=fmt(area,1)+" ft²";$("f-concrete").textContent=String(Math.ceil(concreteVolume*wasteF/bagYield - 1e-12));
+let cost="—";if(isFinite(price)&&price>=0){const unit=$("f-price-unit").value;let base=0;if(unit==="ft") base=effectiveLen*wasteF*price;else if(unit==="panel"){if($("f-mat").value==="chain"){err.textContent="Chain-link fabric is priced per foot, not per panel.";err.classList.remove("hidden");r.classList.add("hidden");return;}base=panelsW*price;}else base=postsW*price;cost=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(base);}
 $("f-cost").textContent=cost;r.classList.remove("hidden");r.scrollIntoView({behavior:"smooth",block:"nearest"});
 });$("f-reset").addEventListener("click",()=>{r.classList.add("hidden");const e=$("f-len-error");e.textContent="";e.classList.add("hidden");});})();
 </script>

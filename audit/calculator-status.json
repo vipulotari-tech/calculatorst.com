@@ -1,13 +1,13 @@
 {
   "updated": "2026-09-15",
-  "note": "Model-aligned examples and smoke tests do not certify mathematical correctness. Dedicated pages may not execute their registry model.",
+  "note": "Model-aligned examples and smoke tests do not certify mathematical correctness. All model families have independent reference cases and dimensional conversion checks; this is not exhaustive edge-case or engineering validation. Dedicated handlers have separate targeted tests. Deployment is blocked by missing CLOUDFLARE_API_TOKEN.",
   "calculators": [
     {
       "slug": "aggregate-calculator",
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -15,7 +15,7 @@
       "implementation": "shared",
       "model": "weight",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -23,7 +23,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -31,7 +31,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -39,7 +39,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -47,7 +47,7 @@
       "implementation": "shared",
       "model": "asphalt-depth",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -55,7 +55,7 @@
       "implementation": "shared",
       "model": "weight",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -63,7 +63,7 @@
       "implementation": "shared",
       "model": "wall",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -71,7 +71,7 @@
       "implementation": "shared",
       "model": "beam",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -79,7 +79,7 @@
       "implementation": "shared",
       "model": "beam-load",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -87,7 +87,7 @@
       "implementation": "shared",
       "model": "boardFeet",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -95,7 +95,7 @@
       "implementation": "shared",
       "model": "boardFeet",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -103,7 +103,7 @@
       "implementation": "shared",
       "model": "masonry",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -111,7 +111,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -119,7 +119,7 @@
       "implementation": "shared",
       "model": "brick-joint",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -127,7 +127,7 @@
       "implementation": "shared",
       "model": "brick-mortar",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -135,7 +135,7 @@
       "implementation": "shared",
       "model": "tile",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -143,7 +143,7 @@
       "implementation": "shared",
       "model": "tile",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -151,7 +151,7 @@
       "implementation": "shared",
       "model": "masonry",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -159,7 +159,7 @@
       "implementation": "shared",
       "model": "masonry",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -167,7 +167,7 @@
       "implementation": "shared",
       "model": "masonry",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -175,7 +175,7 @@
       "implementation": "shared",
       "model": "waste",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -183,7 +183,7 @@
       "implementation": "shared",
       "model": "weight",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -191,7 +191,7 @@
       "implementation": "shared",
       "model": "carpet",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -199,7 +199,7 @@
       "implementation": "shared",
       "model": "carpet",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -207,7 +207,7 @@
       "implementation": "shared",
       "model": "spaced",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -215,7 +215,7 @@
       "implementation": "shared",
       "model": "ceilingPaint",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -223,7 +223,7 @@
       "implementation": "shared",
       "model": "bags",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -231,7 +231,7 @@
       "implementation": "shared",
       "model": "bags",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -239,7 +239,7 @@
       "implementation": "shared",
       "model": "mix",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -247,7 +247,7 @@
       "implementation": "shared",
       "model": "masonry",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -255,7 +255,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -263,7 +263,7 @@
       "implementation": "shared",
       "model": "cmu-grout",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -271,7 +271,7 @@
       "implementation": "shared",
       "model": "masonry",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -279,7 +279,7 @@
       "implementation": "shared",
       "model": "grid",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -287,7 +287,7 @@
       "implementation": "shared",
       "model": "masonry",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -295,7 +295,7 @@
       "implementation": "shared",
       "model": "masonry",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -303,7 +303,7 @@
       "implementation": "shared",
       "model": "cmu-mortar",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -311,7 +311,7 @@
       "implementation": "shared",
       "model": "masonry",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -319,7 +319,7 @@
       "implementation": "shared",
       "model": "weight",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -327,7 +327,7 @@
       "implementation": "shared",
       "model": "concrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -335,7 +335,7 @@
       "implementation": "shared",
       "model": "cylinder",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -343,7 +343,7 @@
       "implementation": "shared",
       "model": "concrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -351,7 +351,7 @@
       "implementation": "shared",
       "model": "curb",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -359,7 +359,7 @@
       "implementation": "shared",
       "model": "concrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -367,7 +367,7 @@
       "implementation": "shared",
       "model": "concrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -375,7 +375,7 @@
       "implementation": "shared",
       "model": "mix",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -383,7 +383,7 @@
       "implementation": "shared",
       "model": "concrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -391,7 +391,7 @@
       "implementation": "shared",
       "model": "ramp",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -399,7 +399,7 @@
       "implementation": "dedicated",
       "model": "concrete",
       "content": "NEEDS_REVIEW",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -407,7 +407,7 @@
       "implementation": "shared",
       "model": "stairs",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -415,7 +415,7 @@
       "implementation": "shared",
       "model": "tube",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -423,7 +423,7 @@
       "implementation": "shared",
       "model": "concrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -431,7 +431,7 @@
       "implementation": "shared",
       "model": "wall",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -439,7 +439,7 @@
       "implementation": "shared",
       "model": "waste",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -447,7 +447,7 @@
       "implementation": "shared",
       "model": "weight",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -455,7 +455,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -463,7 +463,7 @@
       "implementation": "shared",
       "model": "wall",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -471,7 +471,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -479,7 +479,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -487,7 +487,7 @@
       "implementation": "shared",
       "model": "cutFill",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -495,7 +495,7 @@
       "implementation": "shared",
       "model": "deck",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -503,7 +503,7 @@
       "implementation": "shared",
       "model": "deck",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -511,7 +511,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -519,7 +519,7 @@
       "implementation": "shared",
       "model": "postConcrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -527,7 +527,7 @@
       "implementation": "shared",
       "model": "spaced",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -535,7 +535,7 @@
       "implementation": "dedicated",
       "model": null,
       "content": "NEEDS_REVIEW",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -543,7 +543,7 @@
       "implementation": "shared",
       "model": "railing",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -551,7 +551,7 @@
       "implementation": "shared",
       "model": "stairsLayout",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -559,7 +559,7 @@
       "implementation": "shared",
       "model": "excavation",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -567,7 +567,7 @@
       "implementation": "shared",
       "model": "concrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -575,7 +575,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -583,7 +583,7 @@
       "implementation": "dedicated",
       "model": null,
       "content": "NEEDS_REVIEW",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -591,7 +591,7 @@
       "implementation": "shared",
       "model": "depth",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -599,7 +599,7 @@
       "implementation": "shared",
       "model": "drywall",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -607,7 +607,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -615,7 +615,7 @@
       "implementation": "shared",
       "model": "coverage",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -623,7 +623,7 @@
       "implementation": "shared",
       "model": "drywallScrews",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -631,7 +631,7 @@
       "implementation": "shared",
       "model": "drywall",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -639,7 +639,7 @@
       "implementation": "shared",
       "model": "drywallTape",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -647,7 +647,7 @@
       "implementation": "shared",
       "model": "excavation",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -655,7 +655,7 @@
       "implementation": "shared",
       "model": "excavation",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -663,7 +663,7 @@
       "implementation": "shared",
       "model": "excavation",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -671,7 +671,7 @@
       "implementation": "shared",
       "model": "fence",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "TARGETED_CASES_PASS",
+      "maths": "TARGETED_AND_FAMILY_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -679,15 +679,15 @@
       "implementation": "shared",
       "model": "postConcrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "TARGETED_CASES_PASS",
+      "maths": "TARGETED_AND_FAMILY_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
       "slug": "fence-cost-calculator",
       "implementation": "dedicated",
       "model": "material-cost",
-      "content": "NEEDS_REVIEW",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "content": "ALIGNED_WITH_HANDLER",
+      "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -695,7 +695,7 @@
       "implementation": "shared",
       "model": "fence",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "TARGETED_CASES_PASS",
+      "maths": "TARGETED_AND_FAMILY_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -703,7 +703,7 @@
       "implementation": "shared",
       "model": "pickets",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "TARGETED_CASES_PASS",
+      "maths": "TARGETED_AND_FAMILY_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -711,7 +711,7 @@
       "implementation": "shared",
       "model": "fence",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "TARGETED_CASES_PASS",
+      "maths": "TARGETED_AND_FAMILY_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -719,7 +719,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -727,7 +727,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -735,7 +735,7 @@
       "implementation": "shared",
       "model": "spaced",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -743,7 +743,7 @@
       "implementation": "shared",
       "model": "coverage",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -751,7 +751,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -759,7 +759,7 @@
       "implementation": "shared",
       "model": "waste",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -767,7 +767,7 @@
       "implementation": "shared",
       "model": "concrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -775,7 +775,7 @@
       "implementation": "shared",
       "model": "concrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -783,7 +783,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -791,7 +791,7 @@
       "implementation": "shared",
       "model": "excavation",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -799,7 +799,7 @@
       "implementation": "shared",
       "model": "wall",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -807,7 +807,7 @@
       "implementation": "shared",
       "model": "spaced",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -815,7 +815,7 @@
       "implementation": "shared",
       "model": "concrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -823,7 +823,7 @@
       "implementation": "shared",
       "model": "gate",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "TARGETED_CASES_PASS",
+      "maths": "TARGETED_AND_FAMILY_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -831,7 +831,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -839,7 +839,7 @@
       "implementation": "dedicated",
       "model": "bulk",
       "content": "NEEDS_REVIEW",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -847,7 +847,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -855,7 +855,7 @@
       "implementation": "shared",
       "model": "depth",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -863,7 +863,7 @@
       "implementation": "shared",
       "model": "weight",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -871,7 +871,7 @@
       "implementation": "shared",
       "model": "bags",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -879,7 +879,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -887,7 +887,7 @@
       "implementation": "shared",
       "model": "bags",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -895,7 +895,7 @@
       "implementation": "shared",
       "model": "coverage",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -903,7 +903,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -911,7 +911,7 @@
       "implementation": "shared",
       "model": "header",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -919,7 +919,7 @@
       "implementation": "shared",
       "model": "coverage",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -927,7 +927,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -935,7 +935,7 @@
       "implementation": "shared",
       "model": "spaced",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -943,7 +943,7 @@
       "implementation": "shared",
       "model": "spacing",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -951,7 +951,7 @@
       "implementation": "shared",
       "model": "coverage",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -959,7 +959,7 @@
       "implementation": "shared",
       "model": "mulch",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -967,7 +967,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -975,7 +975,7 @@
       "implementation": "shared",
       "model": "spaced",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -983,7 +983,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -991,7 +991,7 @@
       "implementation": "shared",
       "model": "masonry",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -999,7 +999,7 @@
       "implementation": "shared",
       "model": "masonry",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1007,7 +1007,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1015,7 +1015,7 @@
       "implementation": "shared",
       "model": "masonry",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1023,7 +1023,7 @@
       "implementation": "shared",
       "model": "bags",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1031,7 +1031,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1039,7 +1039,7 @@
       "implementation": "shared",
       "model": "mix",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1047,7 +1047,7 @@
       "implementation": "shared",
       "model": "bags",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1055,7 +1055,7 @@
       "implementation": "dedicated",
       "model": "mulch",
       "content": "NEEDS_REVIEW",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1063,7 +1063,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1071,7 +1071,7 @@
       "implementation": "shared",
       "model": "concrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1079,7 +1079,7 @@
       "implementation": "shared",
       "model": "paint",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1087,7 +1087,7 @@
       "implementation": "shared",
       "model": "paint",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1095,7 +1095,7 @@
       "implementation": "shared",
       "model": "paintCoverage",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1103,7 +1103,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1111,7 +1111,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1119,7 +1119,7 @@
       "implementation": "shared",
       "model": "concrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1127,7 +1127,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1135,7 +1135,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1143,7 +1143,7 @@
       "implementation": "dedicated",
       "model": "tile",
       "content": "NEEDS_REVIEW",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1151,7 +1151,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1159,7 +1159,7 @@
       "implementation": "shared",
       "model": "jointFill",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1167,7 +1167,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1175,7 +1175,7 @@
       "implementation": "dedicated",
       "model": null,
       "content": "NEEDS_REVIEW",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1183,7 +1183,7 @@
       "implementation": "shared",
       "model": "cylinder",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1191,7 +1191,7 @@
       "implementation": "shared",
       "model": "paint",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1199,7 +1199,7 @@
       "implementation": "shared",
       "model": "rafter",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1207,7 +1207,7 @@
       "implementation": "shared",
       "model": "grid",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1215,7 +1215,7 @@
       "implementation": "shared",
       "model": "chairs",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1223,7 +1223,7 @@
       "implementation": "shared",
       "model": "bar-length",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1231,7 +1231,7 @@
       "implementation": "shared",
       "model": "grid",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1239,7 +1239,7 @@
       "implementation": "shared",
       "model": "lap",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1247,7 +1247,7 @@
       "implementation": "shared",
       "model": "bar-length",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1255,7 +1255,7 @@
       "implementation": "shared",
       "model": "bar-length",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1263,7 +1263,7 @@
       "implementation": "shared",
       "model": "spacing",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1271,7 +1271,7 @@
       "implementation": "shared",
       "model": "bar-length",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1279,7 +1279,7 @@
       "implementation": "shared",
       "model": "mesh",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1287,7 +1287,7 @@
       "implementation": "shared",
       "model": "masonry",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1295,7 +1295,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1303,7 +1303,7 @@
       "implementation": "shared",
       "model": "roofArea",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1311,7 +1311,7 @@
       "implementation": "shared",
       "model": "flashing",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1319,7 +1319,7 @@
       "implementation": "dedicated",
       "model": "roof-pitch",
       "content": "NEEDS_REVIEW",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1327,7 +1327,7 @@
       "implementation": "shared",
       "model": "rafter",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1335,7 +1335,7 @@
       "implementation": "shared",
       "model": "roofCover",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1343,7 +1343,7 @@
       "implementation": "shared",
       "model": "roof-pitch",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1351,7 +1351,7 @@
       "implementation": "dedicated",
       "model": null,
       "content": "NEEDS_REVIEW",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "HANDLER_TARGETED_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1359,7 +1359,7 @@
       "implementation": "shared",
       "model": "spaced",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1367,7 +1367,7 @@
       "implementation": "shared",
       "model": "waste",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1375,7 +1375,7 @@
       "implementation": "shared",
       "model": "roofArea",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1383,7 +1383,7 @@
       "implementation": "shared",
       "model": "roofCover",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1391,7 +1391,7 @@
       "implementation": "shared",
       "model": "roofCover",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1399,7 +1399,7 @@
       "implementation": "shared",
       "model": "roofCover",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1407,7 +1407,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1415,7 +1415,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1423,7 +1423,7 @@
       "implementation": "shared",
       "model": "weight",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1431,7 +1431,7 @@
       "implementation": "shared",
       "model": "concrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1439,7 +1439,7 @@
       "implementation": "shared",
       "model": "roofCover",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1447,7 +1447,7 @@
       "implementation": "shared",
       "model": "roofCover",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1455,7 +1455,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1463,7 +1463,7 @@
       "implementation": "shared",
       "model": "grid",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1471,7 +1471,7 @@
       "implementation": "shared",
       "model": "depth",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1479,7 +1479,7 @@
       "implementation": "shared",
       "model": "excavation",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1487,7 +1487,7 @@
       "implementation": "shared",
       "model": "weight",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1495,7 +1495,7 @@
       "implementation": "shared",
       "model": "sprayFoam",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1503,7 +1503,7 @@
       "implementation": "shared",
       "model": "concrete",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1511,7 +1511,7 @@
       "implementation": "shared",
       "model": "spaced",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1519,7 +1519,7 @@
       "implementation": "shared",
       "model": "spacing",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1527,7 +1527,7 @@
       "implementation": "shared",
       "model": "area",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1535,7 +1535,7 @@
       "implementation": "shared",
       "model": "coverage",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1543,7 +1543,7 @@
       "implementation": "shared",
       "model": "tile",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1551,7 +1551,7 @@
       "implementation": "shared",
       "model": "material-cost",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1559,7 +1559,7 @@
       "implementation": "shared",
       "model": "jointFill",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1567,7 +1567,7 @@
       "implementation": "shared",
       "model": "tile",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1575,7 +1575,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1583,7 +1583,7 @@
       "implementation": "shared",
       "model": "bulk",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1591,7 +1591,7 @@
       "implementation": "shared",
       "model": "backfill",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1599,7 +1599,7 @@
       "implementation": "shared",
       "model": "excavation",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1607,7 +1607,7 @@
       "implementation": "shared",
       "model": "excavation",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1615,7 +1615,7 @@
       "implementation": "shared",
       "model": "coverage",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1623,7 +1623,7 @@
       "implementation": "shared",
       "model": "coverage",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1631,7 +1631,7 @@
       "implementation": "shared",
       "model": "spaced",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     },
     {
@@ -1639,7 +1639,7 @@
       "implementation": "shared",
       "model": "paint",
       "content": "ALIGNED_WITH_MODEL",
-      "maths": "NEEDS_INDEPENDENT_REVIEW",
+      "maths": "FAMILY_REFERENCE_CASES_PASS",
       "browser": "LIVE_RECHECK_PENDING"
     }
   ]

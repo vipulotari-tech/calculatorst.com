@@ -105,3 +105,9 @@ const softwareSchema: any = {
   </main>
   <slot name="footer" />
 </Layout>
+
+<script>
+  import { initLegacyValidation } from '../lib/legacy-validation';
+  initLegacyValidation();
+  document.addEventListener('astro:page-load', initLegacyValidation);
+</script>
