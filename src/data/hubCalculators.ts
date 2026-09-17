@@ -238,141 +238,161 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "slab-thickness-calculator",
-    "title": "Slab Thickness Calculator — Quantity & Cost for US Construction",
+    "title": "Slab Thickness Calculator — Depth, Volume & Coverage",
     "h1": "Slab Thickness Calculator",
-    "description": "Calculate slab thickness and volume — for slabs, base and coverage with waste. Enter slab dimensions to get instant results.",
+    "description": "Determine slab depth from area and volume — coverage thickness for concrete slabs, patios and flatwork. Enter volume and area to get average thickness in inches and mm.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "slab thickness calculator",
-      "slab thickness calculator estimator"
+      "concrete slab thickness",
+      "how thick should a slab be",
+      "slab depth calculator"
     ],
     "featured": false
   },
   {
     "slug": "slab-cost-calculator",
-    "title": "Slab Cost Calculator — Price & Quantity",
+    "title": "Slab Cost Calculator — Concrete Cost per Yard, Bag or Ton",
     "h1": "Slab Cost Calculator",
-    "description": "Estimate slab cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate concrete slab cost from dimensions and thickness — volume in cubic yards, bags or tons with waste allowance and optional delivery, labor and tax. Ready-mix and bag comparison.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "slab cost calculator",
-      "slab price calculator"
+      "concrete slab cost",
+      "cost per cubic yard concrete",
+      "ready mix cost calculator"
     ],
     "featured": false
   },
   {
     "slug": "slab-reinforcement-calculator",
-    "title": "Slab Reinforcement Calculator — Bags, Volume & Cost",
+    "title": "Slab Reinforcement Calculator — Rebar Grid, Count & Weight",
     "h1": "Slab Reinforcement Calculator",
-    "description": "Calculate slab reinforcement count and spacing — how many pieces and equalized centers with waste for US layouts.",
+    "description": "Calculate rebar grid layout for concrete slabs — number of bars, total linear footage, approximate weight by bar size, and equalized spacing with edge offset and waste.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "slab reinforcement calculator",
-      "slab reinforcement calculator estimator"
+      "rebar calculator for slab",
+      "rebar grid calculator",
+      "how many rebar for concrete slab"
     ],
     "featured": false
   },
   {
     "slug": "patio-concrete-calculator",
-    "title": "Patio Concrete Calculator — Quantity & Cost for US Construction",
+    "title": "Patio Concrete Calculator — Volume, Bags, Weight & Cost",
     "h1": "Patio Concrete Calculator",
-    "description": "Calculate patio concrete volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete needed for a patio — cubic yards, 40/60/80-lb bags, ready-mix truckloads, weight and cost with waste. Works for square or rectangular patios.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "patio concrete calculator",
-      "patio concrete calculator estimator"
+      "concrete patio calculator",
+      "how much concrete for patio",
+      "patio concrete yardage calculator"
     ],
     "featured": false
   },
   {
     "slug": "patio-cost-calculator",
-    "title": "Patio Cost Calculator — Price & Quantity",
+    "title": "Patio Cost Calculator — Concrete Material Cost Estimate",
     "h1": "Patio Cost Calculator",
-    "description": "Estimate patio cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate material cost for a concrete patio — cubic yards, bags or tons with waste, delivery, labor and sales tax. Get per-square-foot cost from your dimensions.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "patio cost calculator",
-      "patio price calculator"
+      "concrete patio cost",
+      "cost per square foot patio",
+      "patio concrete cost estimate"
     ],
     "featured": false
   },
   {
     "slug": "driveway-concrete-calculator",
-    "title": "Driveway Concrete Calculator — Slab & Patio",
+    "title": "Driveway Concrete Calculator — Volume, Bags, Weight & Cost",
     "h1": "Driveway Concrete Calculator",
-    "description": "Calculate driveway concrete volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete needed for a driveway — cubic yards, 40/60/80-lb bags, ready-mix truckloads, weight and cost with waste. Works for single or double car driveways.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "driveway concrete calculator",
-      "driveway concrete calculator estimator"
+      "concrete driveway calculator",
+      "how much concrete for driveway",
+      "driveway yardage calculator"
     ],
     "featured": false
   },
   {
     "slug": "driveway-cost-calculator",
-    "title": "Driveway Cost Calculator — Price & Quantity",
+    "title": "Driveway Cost Calculator — Concrete Material Cost Estimate",
     "h1": "Driveway Cost Calculator",
-    "description": "Estimate driveway cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate material cost for a concrete driveway — cubic yards, bags or tons with waste, delivery, labor and sales tax. Get per-square-foot cost from your dimensions.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "driveway cost calculator",
-      "driveway price calculator"
+      "concrete driveway cost",
+      "cost per square foot driveway",
+      "driveway concrete cost estimate"
     ],
     "featured": false
   },
   {
     "slug": "driveway-thickness-calculator",
-    "title": "Driveway Thickness Calculator — Slab & Patio",
+    "title": "Driveway Thickness Calculator — Depth, Volume & Coverage",
     "h1": "Driveway Thickness Calculator",
-    "description": "Calculate driveway thickness and volume — for slabs, base and coverage with waste. Enter slab dimensions to get instant results.",
+    "description": "Determine average driveway thickness from volume and area — coverage depth in inches and millimeters for concrete driveways, aprons and flatwork.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "driveway thickness calculator",
-      "driveway thickness calculator estimator"
+      "concrete driveway thickness",
+      "how thick is a concrete driveway",
+      "driveway depth calculator"
     ],
     "featured": false
   },
   {
     "slug": "garage-slab-calculator",
-    "title": "Garage Slab Calculator — Quantity & Cost for US Construction",
+    "title": "Garage Slab Calculator — Volume, Bags, Weight & Cost",
     "h1": "Garage Slab Calculator",
-    "description": "Calculate garage slab volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete needed for a garage slab — cubic yards, 40/60/80-lb bags, ready-mix truckloads, weight and cost with waste. Works for single or double car garages.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "garage slab calculator",
-      "garage slab calculator estimator"
+      "concrete garage slab",
+      "garage floor concrete calculator",
+      "how much concrete for garage"
     ],
     "featured": false
   },
   {
     "slug": "shed-foundation-calculator",
-    "title": "Shed Foundation Calculator — Quantity & Cost for US Construction",
+    "title": "Shed Foundation Calculator — Slab, Pier & Footing",
     "h1": "Shed Foundation Calculator",
-    "description": "Calculate shed foundation volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete for shed foundations — slab, pier & beam, or strip footing. Cubic yards, bags, weight and cost with waste allowance. Choose the foundation type that fits your project.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "shed foundation calculator",
-      "shed foundation calculator estimator"
+      "shed slab calculator",
+      "shed pier foundation",
+      "concrete shed base calculator"
     ],
     "featured": false
   },

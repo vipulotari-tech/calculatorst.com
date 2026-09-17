@@ -1027,6 +1027,212 @@ const bags: Model = {
 };
 
 // =============================
+// 5a.  Slab Cost Calculator
+// =============================
+const slabCostFields: Field[] = [
+  ...rectangle,
+  length('depth', 'Slab thickness', 4, 'in'),
+  count('quantity', 'Identical slabs', 1),
+  allowance,
+  densityField,
+  yieldField,
+  price('USD/yd3', ['USD/yd3', 'USD/m3', 'USD/ft3', 'USD/bag', 'USD/ton']),
+  number('delivery', 'Delivery fee ($)', 0, 0),
+  number('labor', 'Labor charge ($)', 0, 0),
+  number('tax', 'Sales tax on material (%)', 0, 0),
+];
+
+const slabCost: Model = {
+  fields: slabCostFields,
+  formula: 'Volume = L × W × D × quantity; cost = volume × price per unit × (1 + tax/100) + delivery + labor.',
+  assumptions: [
+    'This estimates material cost for the concrete quantity calculated. It does not include formwork, base preparation, rebar, finishing, or site-specific labor.',
+    'Thickness must come from your project plans or engineer. Common residential slabs are 4 in (patio/walk) or 6 in (driveway/garage).',
+    'Price and the selected price unit must describe the same basis (e.g. per cubic yard of ready-mix).',
+    'Delivery fee is a flat amount, not per yard. Bag cost estimates cover material only.',
+  ],
+  sources: [quikrete, geometry],
+  calculate(v, u) {
+    const cuFt = v.length * v.width * v.depth * v.quantity;
+    const total = cuFt * waste(v);
+    const bags = roundUp(total / v.yield);
+    const lb = total * densityLb(v.density, u.density);
+    const volumes = {
+      'USD/yd3': total / 27,
+      'USD/m3': total / FT_PER_M ** 3,
+      'USD/ft3': total,
+      'USD/bag': bags,
+      'USD/ton': lb / 2000,
+    };
+    const qty = volumes[u.price] ?? total / 27;
+    const rows = [
+      row('order', 'Concrete to order', total / 27, 'yd³'),
+      row('net', 'Geometric volume', cuFt / 27, 'yd³'),
+      row('ft3', 'Order volume', total, 'ft³'),
+      row('m3', 'Order volume', total / FT_PER_M ** 3, 'm³'),
+      row('bags', 'Bags at entered yield', bags, 'bags', true),
+      row('weight', 'Estimated order weight', lb, 'lb'),
+      row('tons', 'Estimated order weight', lb / 2000, 'US tons'),
+    ];
+    if (Number.isFinite(v.price)) {
+      const materials = qty * v.price;
+      const taxAmt = materials * (v.tax / 100);
+      const totalCost = materials + taxAmt + v.delivery + v.labor;
+      rows.push(
+        row('materials', 'Material subtotal', materials, 'USD'),
+        row('tax', 'Material tax', taxAmt, 'USD'),
+        row('delivery', 'Delivery fee', v.delivery, 'USD'),
+        row('labor', 'Labor charge', v.labor, 'USD'),
+        row('total', 'Estimated total', totalCost, 'USD'),
+      );
+    }
+    return result(rows, [
+      `Volume: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
+      `Apply ${fmt(v.waste)}% allowance: ${fmt(cuFt)} × ${fmt(waste(v))} = ${fmt(total)} ft³ = ${fmt(total / 27)} yd³.`,
+      ...(Number.isFinite(v.price) ? [`${fmt(total / 27)} yd³ × $${fmt(v.price)}/yd³ = $${fmt((total / 27) * v.price)}. Add delivery and labor.`] : [`Enter a price to estimate material cost.`]),
+    ]);
+  },
+};
+
+// =============================
+// 5b.  Patio Cost Calculator
+// =============================
+const patioCost: Model = {
+  ...slabCost,
+  fields: slabCost.fields,
+  formula: 'Volume = L × W × D × quantity; cost = volume × price per unit × (1 + tax/100) + delivery + labor.',
+  assumptions: [
+    ...standardAssumptions,
+    'Common patio thickness is 4 in. Thicker slabs (6 in) are used for heavy loads or poor soil. Confirm with your project design.',
+    'This estimates material cost. It does not include excavation, base gravel, formwork, rebar, finishing, or site preparation.',
+    'Price and the selected price unit must describe the same basis.',
+  ],
+  sources: [quikrete, geometry],
+  calculate(v, u) {
+    return slabCost.calculate(v, u);
+  },
+};
+
+// =============================
+// 5c.  Driveway Cost Calculator
+// =============================
+const drivewayCost: Model = {
+  ...slabCost,
+  fields: slabCost.fields,
+  formula: 'Volume = L × W × D × quantity; cost = volume × price per unit × (1 + tax/100) + delivery + labor.',
+  assumptions: [
+    ...standardAssumptions,
+    'Common residential driveway thickness is 4–6 in. 4 in is typical for passenger vehicles; 6 in is recommended for heavier vehicles or poor soil subgrade.',
+    'This estimates concrete material cost only. It does not include excavation, base preparation, rebar, expansion joints, finishing, or sealing.',
+    'Price and the selected price unit must describe the same basis.',
+  ],
+  sources: [quikrete, geometry],
+  calculate(v, u) {
+    return slabCost.calculate(v, u);
+  },
+};
+
+// =============================
+// 6.  Shed Foundation Calculator
+// =============================
+const shedFoundationFields: Field[] = [
+  { id: 'foundationType', label: 'Foundation type', value: 0, unit: '', integer: true, min: 0, max: 2,
+    options: [
+      { value: 0, label: 'Concrete slab' },
+      { value: 1, label: 'Concrete pier & beam' },
+      { value: 2, label: 'Concrete footing (strip)' },
+    ] },
+  // Slab: length × width × thickness
+  length('length', 'Slab length / footing run', 10, 'ft'),
+  length('width', 'Slab width / footing width', 10, 'ft'),
+  length('thickness', 'Slab thickness / footing depth', 4, 'in'),
+  // Pier
+  positiveOrZero(count('pierCount', 'Number of piers', 4, 1)),
+  positiveOrZero(length('pierDiameter', 'Pier diameter', 12, 'in')),
+  positiveOrZero(length('pierDepth', 'Pier embedment depth', 24, 'in')),
+  // Footing
+  positiveOrZero(length('footingWidth', 'Footing width', 12, 'in')),
+  positiveOrZero(length('footingDepth', 'Footing depth', 12, 'in')),
+  count('quantity', 'Identical sections', 1),
+  allowance,
+  densityField,
+  yieldField,
+  price('USD/yd3', ['USD/yd3', 'USD/m3', 'USD/ft3', 'USD/bag', 'USD/ton']),
+  number('delivery', 'Delivery fee ($)', 0, 0),
+  number('labor', 'Labor charge ($)', 0, 0),
+  number('tax', 'Sales tax on material (%)', 0, 0),
+];
+
+const shedFoundation: Model = {
+  fields: shedFoundationFields,
+  formula: 'Slab: V = L × W × T × qty; Pier: V = πr² × depth × count; Footing: V = L × W × D × qty.',
+  assumptions: [
+    'This is a material quantity estimate for simple foundation shapes. It does not design structural members, frost depth, or load capacity.',
+    'Slab: rectangular flat pad. Include isolation board thickness if required.',
+    'Pier: cylindrical concrete piers. Verify bearing capacity and frost depth locally.',
+    'Footing: continuous strip. Verify width and depth from project plans.',
+    'Common shed floor thickness: 4 in (light) to 6 in (heavy). Typical pier: 12 in diameter × 24 in deep.',
+    'Confirm all dimensions with your local building code and a qualified designer.',
+  ],
+  sources: [quikrete, geometry],
+  calculate(v, u) {
+    const fType = Math.round(v.foundationType);
+    let cuFt: number;
+    let steps: string[];
+    let breakdown: { key: string; label: string; value: number; unit: string }[] = [];
+
+    if (fType === 0) {
+      // Slab
+      cuFt = v.length * v.width * v.thickness * v.quantity;
+      steps = [
+        `Slab: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.thickness)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
+      ];
+    } else if (fType === 2) {
+      // Strip footing
+      cuFt = v.length * v.footingWidth * v.footingDepth * v.quantity;
+      steps = [
+        `Footing: ${fmt(v.length)} × ${fmt(v.footingWidth)} × ${fmt(v.footingDepth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
+      ];
+    } else {
+      // Pier
+      const pierCuFt = Math.PI * (v.pierDiameter / 24) ** 2 * v.pierDepth * (v.pierCount || 1);
+      cuFt = pierCuFt;
+      steps = [
+        `Pier radius: ${fmt(v.pierDiameter / 2)} in = ${fmt(v.pierDiameter / 24)} ft.`,
+        `Pier volume: π × ${fmt(v.pierDiameter / 24)}² × ${fmt(v.pierDepth)} × ${v.pierCount || 1} = ${fmt(cuFt)} ft³.`,
+      ];
+    }
+
+    const total = cuFt * waste(v);
+    const bags = roundUp(total / v.yield);
+    const lb = total * densityLb(v.density, u.density);
+    const rows: ResultRow[] = [
+      row('order', 'Concrete to order', total / 27, 'yd³'),
+      row('ft3', 'Order volume', total, 'ft³'),
+      row('m3', 'Order volume', total / FT_PER_M ** 3, 'm³'),
+      row('bags', 'Bags at entered yield', bags, 'bags', true),
+      row('weight', 'Estimated order weight', lb, 'lb'),
+    ];
+
+    if (Number.isFinite(v.price)) {
+      const qty = total / 27;
+      const materials = qty * v.price;
+      const taxAmt = materials * (v.tax / 100);
+      const totalCost = materials + taxAmt + v.delivery + v.labor;
+      rows.push(
+        row('materials', 'Material subtotal', materials, 'USD'),
+        row('tax', 'Material tax', taxAmt, 'USD'),
+        row('delivery', 'Delivery fee', v.delivery, 'USD'),
+        row('labor', 'Labor charge', v.labor, 'USD'),
+        row('total', 'Estimated total', totalCost, 'USD'),
+      );
+    }
+
+    return result(rows, steps);
+  },
+};
+
+// =============================
 // Exports
 // =============================
 export const materialModels: Record<string, Model> = {
@@ -1047,6 +1253,12 @@ export const materialModels: Record<string, Model> = {
   'concrete-ramp': concreteRamp,
   'concrete-tube': concreteTube,
   'concrete-waste': concreteWaste,
+
+  // --- Slab, Patio, Driveway, Shed ---
+  'slab-cost': slabCost,
+  'patio-cost': patioCost,
+  'driveway-cost': drivewayCost,
+  'shed-foundation': shedFoundation,
 
   // --- Non-concrete models (unchanged) ---
   bulk,
@@ -1172,7 +1384,7 @@ export const materialModels: Record<string, Model> = {
       'Use a separate calculation for each material line and add the totals.',
     ],
     sources: [],
-    calculate(v) {
+    calculate(v, u) {
       const q = v.quantity * waste(v);
       const materials = q * v.price;
       const total = materials * (1 + v.tax / 100) + v.delivery + v.labor;
