@@ -23,7 +23,7 @@ describe('Page intent regression cases', () => {
     expect(res.rows[0].unit).toBe('packages');
   });
   it('omits coarse aggregate from default cement/sand mixes', () => {
-    expect(calculate('cement-sand-ratio-calculator').rows.find(r => r.key === 'aggregate')?.value).toBe(0);
+    expect(calculate('cement-sand-ratio-calculator').rows.find(r => r.key === 'aggregateVol')?.value).toBeCloseTo(0, 7);
   });
   it('does not silently dispatch unknown URLs to concrete', () => {
     expect(() => getModelForSlug('unknown-calculator')).toThrow();

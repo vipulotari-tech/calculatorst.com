@@ -2,47 +2,47 @@ import type { Field, Model } from './calculator-types.ts';
 import { allModels } from './calculator-models.ts';
 
 export const slugToModelKey: Record<string, string> = {
-  // 1. Concrete (15)
+  // 1. Concrete (16) — each has its own model for distinct inputs/outputs
   "concrete-calculator": "concrete",
-  "concrete-volume-calculator": "concrete",
-  "concrete-cost-calculator": "concrete",
-  "concrete-pour-calculator": "concrete",
-  "concrete-mix-calculator": "mix",
-  "concrete-weight-calculator": "weight",
-  "concrete-slab-calculator": "concrete",
-  "concrete-footing-calculator": "concrete",
-  "concrete-foundation-calculator": "concrete",
-  "concrete-wall-calculator": "wall",
-  "concrete-column-calculator": "cylinder",
-  "concrete-curb-calculator": "curb",
-  "concrete-stair-calculator": "stairs",
-  "concrete-ramp-calculator": "ramp",
-  "concrete-tube-calculator": "tube",
-  "concrete-waste-calculator": "waste",
+  "concrete-volume-calculator": "concrete-volume",
+  "concrete-cost-calculator": "concrete-cost",
+  "concrete-pour-calculator": "concrete-pour",
+  "concrete-mix-calculator": "concrete-mix",
+  "concrete-weight-calculator": "concrete-weight",
+  "concrete-slab-calculator": "concrete-slab",
+  "concrete-footing-calculator": "concrete-footing",
+  "concrete-foundation-calculator": "concrete-foundation",
+  "concrete-wall-calculator": "concrete-wall",
+  "concrete-column-calculator": "concrete-column",
+  "concrete-curb-calculator": "concrete-curb",
+  "concrete-stair-calculator": "concrete-stair",
+  "concrete-ramp-calculator": "concrete-ramp",
+  "concrete-tube-calculator": "concrete-tube",
+  "concrete-waste-calculator": "concrete-waste",
 
   // 2. Slab & Patio (10)
   "slab-thickness-calculator": "depth",
   "slab-cost-calculator": "material-cost",
   "slab-reinforcement-calculator": "grid",
-  "patio-concrete-calculator": "concrete",
+  "patio-concrete-calculator": "concrete-slab",
   "patio-cost-calculator": "material-cost",
-  "driveway-concrete-calculator": "concrete",
+  "driveway-concrete-calculator": "concrete-slab",
   "driveway-cost-calculator": "material-cost",
   "driveway-thickness-calculator": "depth",
-  "garage-slab-calculator": "concrete",
-  "shed-foundation-calculator": "concrete",
+  "garage-slab-calculator": "concrete-slab",
+  "shed-foundation-calculator": "concrete-slab",
 
   // 3. Foundation (10)
   "foundation-cost-calculator": "material-cost",
   "foundation-excavation-calculator": "excavation",
-  "strip-footing-calculator": "concrete",
-  "pad-footing-calculator": "concrete",
-  "pier-footing-calculator": "cylinder",
-  "footing-volume-calculator": "concrete",
-  "footing-concrete-calculator": "concrete",
-  "foundation-wall-calculator": "wall",
-  "basement-wall-calculator": "wall",
-  "crawl-space-calculator": "wall",
+  "strip-footing-calculator": "concrete-footing",
+  "pad-footing-calculator": "concrete-footing",
+  "pier-footing-calculator": "concrete-column",
+  "footing-volume-calculator": "concrete-footing",
+  "footing-concrete-calculator": "concrete-footing",
+  "foundation-wall-calculator": "concrete-wall",
+  "basement-wall-calculator": "concrete-wall",
+  "crawl-space-calculator": "concrete-wall",
 
   // 4. Rebar (10)
   "rebar-calculator": "grid",
@@ -87,7 +87,7 @@ export const slugToModelKey: Record<string, string> = {
 
   // 7. Mortar & Cement (10)
   "mortar-calculator": "bags",
-  "mortar-mix-calculator": "mix",
+  "mortar-mix-calculator": "concrete-mix",
   "mortar-quantity-calculator": "bags",
   "mortar-cost-calculator": "material-cost",
   "grout-calculator": "bags",
@@ -95,7 +95,7 @@ export const slugToModelKey: Record<string, string> = {
   "grout-cost-calculator": "material-cost",
   "cement-calculator": "bags",
   "cement-bag-calculator": "bags",
-  "cement-sand-ratio-calculator": "mix",
+  "cement-sand-ratio-calculator": "concrete-mix",
 
   // 8. Gravel & Aggregate (15)
   "gravel-calculator": "bulk",
@@ -235,8 +235,14 @@ export const slugToModelKey: Record<string, string> = {
   "surface-area-calculator": "area",
   "construction-material-cost-calculator": "material-cost",
 
+  // 17. Dams & Coastal (4)
+  "cone-gravity-dam-calculator": "cone-gravity-dam",
+  "groin-jetty-breakwater-calculator": "groin-jetty-breakwater",
+  "masonry-arch-calculator": "masonry-arch",
+  "masonry-gravity-retaining-wall-calculator": "masonry-gravity-retaining-wall",
+
   // Additional Dedicated Slugs
-  "circular-slab-tube-calculator": "tube",
+  "circular-slab-tube-calculator": "concrete-tube",
 };
 
 export function getModelForSlug(slug: string): Model {
@@ -254,9 +260,9 @@ export function getModelForSlug(slug: string): Model {
       overrides.tileLength = { value: 8 };
       overrides.tileWidth = { value: 4 };
     }
-    if (key === 'mix' && /mortar|cement-sand/.test(slug)) {
-      overrides.aggregate = { value: 0, label: 'Coarse aggregate parts (zero for mortar)' };
-      overrides.sand = { value: 3 };
+    if (key === 'concrete-mix' && /mortar|cement-sand/.test(slug)) {
+      overrides.aggregateParts = { value: 0, label: 'Coarse aggregate parts (zero for mortar)' };
+      overrides.sandParts = { value: 3 };
     }
     if (slug === 'roof-truss-calculator') {
       overrides.length = { label: 'Building length across trusses' };
@@ -267,63 +273,7 @@ export function getModelForSlug(slug: string): Model {
     }
     if (slug === 'roof-sheathing-calculator') overrides.coverage = { value: 32, label: 'Effective coverage per sheathing sheet' };
     if (slug === 'roofing-underlayment-calculator') overrides.coverage = { value: undefined, label: 'Net coverage per roll after overlaps' };
-    // Concrete model overrides for better field labels
-    if (key === 'concrete') {
-      const concreteOverrides: Record<string, Record<string, Partial<Field>>> = {
-        'concrete-calculator': {
-          length: { label: 'Length' },
-          width: { label: 'Width' },
-          depth: { label: 'Depth or Thickness' },
-          quantity: { label: 'Number of identical sections' }
-        },
-        'concrete-volume-calculator': {
-          length: { label: 'Length' },
-          width: { label: 'Width' },
-          depth: { label: 'Depth' },
-          quantity: { label: 'Number of identical sections' }
-        },
-        'concrete-cost-calculator': {
-          length: { label: 'Length' },
-          width: { label: 'Width' },
-          depth: { label: 'Depth' },
-          quantity: { label: 'Number of identical sections' }
-        },
-        'concrete-pour-calculator': {
-          length: { label: 'Length' },
-          width: { label: 'Width' },
-          depth: { label: 'Depth' },
-          quantity: { label: 'Number of identical pours' }
-        },
-        'concrete-slab-calculator': {
-          length: { label: 'Length' },
-          width: { label: 'Width' },
-          depth: { label: 'Thickness' },
-          quantity: { label: 'Number of identical slabs', value: 1 }
-        },
-        'concrete-footing-calculator': {
-          length: { label: 'Length' },
-          width: { label: 'Width' },
-          depth: { label: 'Depth' },
-          quantity: { label: 'Number of footings' }
-        },
-        'concrete-foundation-calculator': {
-          length: { label: 'Length' },
-          width: { label: 'Width' },
-          depth: { label: 'Depth' },
-          quantity: { label: 'Number of identical foundations' }
-        },
-        'concrete-wall-calculator': {
-          length: { label: 'Wall Length' },
-          width: { label: 'Wall Height' },
-          depth: { label: 'Thickness' },
-          quantity: { label: 'Number of wall sections' }
-        }
-      };
-      if (concreteOverrides[slug]) {
-        Object.assign(overrides, concreteOverrides[slug]);
-      }
-    }
-    return { ...model, fields: model.fields.map(field => ({ ...field, ...overrides[field.id] })) };
+    return { ...model, fields: model.fields.map(field => ({ ...field, ...(overrides[field.id] ?? {}) })) };
   }
   throw new Error(`No calculator model registered for ${slug}`);
 }

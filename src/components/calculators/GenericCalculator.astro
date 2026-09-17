@@ -36,6 +36,22 @@ const costs = fields.filter((f) => f.group === "Cost");
               <span>{field.label} {field.optional && <span class="text-xs text-muted-foreground font-normal">(optional)</span>}</span>
             </span>
             <div class="flex rounded-lg shadow-sm">
+              {field.options ? (
+                <select
+                  id={`${slug}-${field.id}`}
+                  name={field.id}
+                  required={!field.optional}
+                  aria-describedby={`${slug}-${field.id}-err`}
+                  class="calc-input h-11 w-full rounded-lg border border-border bg-muted/40 px-3.5 text-[14px] text-foreground focus:border-ring focus:bg-background focus:outline-none focus:ring-2 focus:ring-ring/20 transition-all font-mono cursor-pointer"
+                >
+                  {field.options.map((opt) => (
+                    <option value={opt.value} selected={opt.value === field.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <>
               <input
                 id={`${slug}-${field.id}`}
                 name={field.id}
@@ -68,6 +84,8 @@ const costs = fields.filter((f) => f.group === "Cost");
                   {unitLabels[field.unit] ?? field.unit}
                 </span>
               ) : null}
+                </>
+              )}
             </div>
             {field.help && (
               <p class="text-[11px] text-muted-foreground leading-normal">{field.help}</p>
@@ -91,6 +109,22 @@ const costs = fields.filter((f) => f.group === "Cost");
                 <span>{field.label} {field.optional && <span class="text-xs text-muted-foreground font-normal">(optional)</span>}</span>
               </span>
               <div class="flex rounded-lg shadow-sm">
+                {field.options ? (
+                  <select
+                    id={`${slug}-${field.id}`}
+                    name={field.id}
+                    required={!field.optional}
+                    aria-describedby={`${slug}-${field.id}-err`}
+                    class="calc-input h-11 w-full rounded-lg border border-border bg-muted/40 px-3.5 text-[14px] text-foreground focus:border-ring focus:bg-background focus:outline-none focus:ring-2 focus:ring-ring/20 transition-all font-mono cursor-pointer"
+                  >
+                    {field.options.map((opt) => (
+                      <option value={opt.value} selected={opt.value === field.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <>
                 <input
                   id={`${slug}-${field.id}`}
                   name={field.id}
@@ -123,6 +157,8 @@ const costs = fields.filter((f) => f.group === "Cost");
                     {unitLabels[field.unit] ?? field.unit}
                   </span>
                 ) : null}
+                  </>
+                )}
               </div>
               {field.help && (
                 <p class="text-[11px] text-muted-foreground leading-normal">{field.help}</p>
@@ -147,6 +183,22 @@ const costs = fields.filter((f) => f.group === "Cost");
                 <span>{field.label} {field.optional && <span class="text-xs text-muted-foreground font-normal">(optional)</span>}</span>
               </span>
               <div class="flex rounded-lg shadow-sm">
+                {field.options ? (
+                  <select
+                    id={`${slug}-${field.id}`}
+                    name={field.id}
+                    required={!field.optional}
+                    aria-describedby={`${slug}-${field.id}-err`}
+                    class="calc-input h-11 w-full rounded-lg border border-border bg-muted/40 px-3.5 text-[14px] text-foreground focus:border-ring focus:bg-background focus:outline-none focus:ring-2 focus:ring-ring/20 transition-all font-mono cursor-pointer"
+                  >
+                    {field.options.map((opt) => (
+                      <option value={opt.value} selected={opt.value === field.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <>
                 <input
                   id={`${slug}-${field.id}`}
                   name={field.id}
@@ -179,6 +231,8 @@ const costs = fields.filter((f) => f.group === "Cost");
                     {unitLabels[field.unit] ?? field.unit}
                   </span>
                 ) : null}
+                  </>
+                )}
               </div>
               {field.help && (
                 <p class="text-[11px] text-muted-foreground leading-normal">{field.help}</p>

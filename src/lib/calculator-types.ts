@@ -12,6 +12,7 @@ export interface Field {
   optional?: boolean;
   help?: string;
   group?: 'Measurements' | 'Material & assumptions' | 'Cost';
+  options?: { value: number; label: string }[];
 }
 export interface ResultRow { key: string; label: string; value: number; unit: string; discrete?: boolean; }
 export interface Calculation { rows: ResultRow[]; notes: string[]; steps: string[]; }
