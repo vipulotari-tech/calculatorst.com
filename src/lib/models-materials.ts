@@ -724,25 +724,25 @@ const concreteFooting: Model = {
 
     switch (shape) {
       case 0: {
-        cuFt = v.length * (v.width / 12) * (v.depth / 12);
+        cuFt = v.length * v.width * v.depth;
         steps = [`Strip: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} = ${fmt(cuFt)} ft³.`];
         break;
       }
       case 1: {
         const s = v.sideWidth;
-        cuFt = (s / 12) ** 2 * (v.depth / 12) * v.quantity;
+        cuFt = s * s * v.depth * v.quantity;
         steps = [`Square pad: ${fmt(s)} × ${fmt(s)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
         break;
       }
       case 2: {
-        cuFt = (v.padLength / 12) * (v.padWidth / 12) * (v.depth / 12) * v.quantity;
+        cuFt = v.padLength * v.padWidth * v.depth * v.quantity;
         steps = [`Rectangular pad: ${fmt(v.padLength)} × ${fmt(v.padWidth)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
         break;
       }
       case 3: {
-        const r = v.diameter / 24;
-        cuFt = Math.PI * r * r * (v.depth / 12) * v.quantity;
-        steps = [`Round: π × (${fmt(v.diameter)}/24)² × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
+        const r = v.diameter / 2;
+        cuFt = Math.PI * r * r * v.depth * v.quantity;
+        steps = [`Round: π × (${fmt(v.diameter)}/2)² × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
         break;
       }
       default: {
@@ -929,15 +929,15 @@ const concreteColumn: Model = {
     let steps: string[];
 
     if (s === 1) {
-      cuFt = (v.side / 12) ** 2 * v.height * v.quantity;
-      steps = [`Square: (${fmt(v.side)}/12)² × ${fmt(v.height)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
+      cuFt = v.side ** 2 * v.height * v.quantity;
+      steps = [`Square: (${fmt(v.side)} × ${fmt(v.side)}) × ${fmt(v.height)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
     } else if (s === 2) {
-      cuFt = (v.rectWidth / 12) * (v.rectDepth / 12) * v.height * v.quantity;
-      steps = [`Rectangular: (${fmt(v.rectWidth)}/12) × (${fmt(v.rectDepth)}/12) × ${fmt(v.height)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
+      cuFt = v.rectWidth * v.rectDepth * v.height * v.quantity;
+      steps = [`Rectangular: ${fmt(v.rectWidth)} × ${fmt(v.rectDepth)} × ${fmt(v.height)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
     } else {
-      const r = v.diameter / 24;
+      const r = v.diameter / 2;
       cuFt = Math.PI * r * r * v.height * v.quantity;
-      steps = [`Circular: π × (${fmt(v.diameter)}/24)² × ${fmt(v.height)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
+      steps = [`Circular: π × (${fmt(v.diameter)}/2)² × ${fmt(v.height)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
     }
     return concreteResult(cuFt, v, u, steps);
   },
@@ -984,8 +984,8 @@ const concreteCurb: Model = {
   calculate(v, u) {
     const isReverse = Math.round(v.curbMode) === 1;
     const gutterW = Math.round(v.curbStyle) === 1 ? 0 : v.gutterWidth;
-    const curbArea = (v.curbWidth / 12) * (v.curbHeight / 12);
-    const gutterArea = (gutterW / 12) * (v.gutterThickness / 12);
+    const curbArea = v.curbWidth * v.curbHeight;
+    const gutterArea = gutterW * v.gutterThickness;
     const totalArea = curbArea + gutterArea;
     const style = Math.round(v.curbStyle) === 1 ? 'curb only' : 'curb + gutter';
 
@@ -1177,33 +1177,29 @@ const concreteRamp: Model = {
   ],
   sources: [geometry, 'https://www.ada.gov/'],
   calculate(v, u) {
-    const riseFt = v.rise / 12;
-    const lowTFt = v.lowThickness / 12;
-    // Note: rise = highThickness − lowThickness so the high end thickness = rise + lowT.
-    const highTFt = riseFt + lowTFt;
+    const lowTFt = v.lowThickness;
+    const highTFt = v.rise;
     const avgThickness = (lowTFt + highTFt) / 2;
     const wedgeFt3 = v.length * v.width * avgThickness;
-    // Subtract the average low-thickness slab so wedge represents only the wedge contribution above the low thickness
     const slabFt3 = v.length * v.width * lowTFt;
-    const wedgeNet = Math.max(0, wedgeFt3 - slabFt3); // wedge above low thickness
+    const wedgeNet = Math.max(0, wedgeFt3 - slabFt3);
 
     const landingLen = v.landingLength > 0 ? v.landingLength : 0;
     const landingW = v.landingWidth > 0 ? v.landingWidth : v.width;
-    const landingT = v.landingThickness > 0 ? v.landingThickness / 12 : 0;
+    const landingT = v.landingThickness > 0 ? v.landingThickness : 0;
     const landingFt3 = landingLen > 0 && landingT > 0 ? landingLen * landingW * landingT : 0;
     const cuFt = wedgeFt3 + landingFt3;
 
-    // Slope diagnostics
-    const slopeRatio = v.length > 0 ? riseFt / v.length : NaN;
+    const slopeRatio = v.length > 0 ? (highTFt - lowTFt) / v.length : NaN;
     const slopePct = slopeRatio * 100;
     const slopeAngle = slopeRatio > 0 ? Math.atan(slopeRatio) * 180 / Math.PI : 0;
-    const slopedLength = v.length > 0 ? Math.sqrt(riseFt ** 2 + v.length ** 2) : 0;
+    const slopedLength = v.length > 0 ? Math.sqrt((highTFt - lowTFt) ** 2 + v.length ** 2) : 0;
     const adaOK = slopeRatio <= 1 / 12;
 
     return concreteResult(cuFt, v, u, [
-      `Average thickness = (${fmt(v.lowThickness)} + ${fmt(v.rise)}) / 2 = ${fmt(avgThickness * 12)} in.`,
-      `Wedge (including ${fmt(v.lowThickness)}-in base): ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(avgThickness)} = ${fmt(wedgeFt3)} ft³.`,
-      landingFt3 > 0 ? `Landing: ${fmt(landingLen)} × ${fmt(landingW)} × ${fmt(v.landingThickness)} = ${fmt(landingFt3)} ft³.` : 'No landing.',
+      `Average thickness = (${fmt(lowTFt * 12)} + ${fmt(highTFt * 12)}) / 2 = ${fmt(avgThickness * 12)} in.`,
+      `Wedge (including ${fmt(lowTFt * 12)}-in base): ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(avgThickness)} = ${fmt(wedgeFt3)} ft³.`,
+      landingFt3 > 0 ? `Landing: ${fmt(landingLen)} × ${fmt(landingW)} × ${fmt(v.landingThickness * 12)} = ${fmt(landingFt3)} ft³.` : 'No landing.',
       `Total: ${fmt(cuFt)} ft³.`,
     ], [
       row('wedge', 'Ramp wedge (incl. base)', wedgeFt3, 'ft³'),
@@ -1249,16 +1245,16 @@ const concreteTube: Model = {
       innerId = Math.max(0, v.outerDiameter - 2 * v.wallThickness);
     }
     requireCondition(innerId < v.outerDiameter, 'innerDiameter', 'Inside diameter must be smaller than outside diameter.');
-    const ro = v.outerDiameter / 24;
-    const ri = innerId / 24;
+    const ro = v.outerDiameter / 2;
+    const ri = innerId / 2;
     const outerArea = Math.PI * ro * ro;
     const innerArea = Math.PI * ri * ri;
     const netArea = Math.max(0, outerArea - innerArea);
     const cuFt = netArea * v.height * v.quantity;
 
     return concreteResult(cuFt, v, u, [
-      `Outer radius: ${fmt(v.outerDiameter)}/24 = ${fmt(ro)} ft.`,
-      innerId > 0 ? `Inner radius: ${fmt(innerId)}/24 = ${fmt(ri)} ft.` : 'Solid (ID = 0).',
+      `Outer radius: ${fmt(v.outerDiameter)}/2 = ${fmt(ro)} ft.`,
+      innerId > 0 ? `Inner radius: ${fmt(innerId)}/2 = ${fmt(ri)} ft.` : 'Solid (ID = 0).',
       `Net annular area: ${fmt(netArea)} ft² × ${fmt(v.height)} ft × ${v.quantity} = ${fmt(cuFt)} ft³.`,
     ], [
       row('outerArea', 'Outer circle area', outerArea, 'ft²'),

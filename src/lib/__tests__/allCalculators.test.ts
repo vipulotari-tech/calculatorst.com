@@ -61,7 +61,7 @@ describe("Complete 201 Calculator Logic Audit", () => {
 
     // 2. Concrete stairs: solid volume must use n*(n+1)/2 summation
     const stairs = getModelForSlug("concrete-stair-calculator");
-    const stairInputs = readInputs(stairs.fields, { width: 4, rise: 7, run: 11, steps: 4, waistThickness: 6, landingLength: 0, landingWidth: 4, waste: 10, density: 150, yield: 0.6 }, { width: 'ft', rise: 'in', run: 'in' });
+    const stairInputs = readInputs(stairs.fields, { stairModel: 0, width: 4, rise: 7, run: 11, steps: 4, waistThickness: 6, landingLength: 0, landingWidth: 4, landingThickness: 0, waste: 10, density: 150, yield: 0.6 }, { width: 'ft', rise: 'in', run: 'in' });
     const stairRes = stairs.calculate(stairInputs, {});
     // 4 steps solid: sum(1..4) = 10 blocks of width*rise*run
     // 4 * (7/12) * (11/12) * 10 = 21.3888 ft3 = 0.792 yd3
