@@ -21,16 +21,16 @@ export const slugToModelKey: Record<string, string> = {
   "concrete-waste-calculator": "concrete-waste",
 
   // 2. Slab & Patio (10)
-  "slab-thickness-calculator": "depth",
-  "slab-cost-calculator": "slab-cost",
-  "slab-reinforcement-calculator": "grid",
-  "patio-concrete-calculator": "concrete-slab",
-  "patio-cost-calculator": "patio-cost",
-  "driveway-concrete-calculator": "concrete-slab",
-  "driveway-cost-calculator": "driveway-cost",
-  "driveway-thickness-calculator": "depth",
-  "garage-slab-calculator": "concrete-slab",
-  "shed-foundation-calculator": "shed-foundation",
+    "slab-thickness-calculator": "thickness",
+    "slab-cost-calculator": "slab-cost",
+    "slab-reinforcement-calculator": "grid",
+    "patio-concrete-calculator": "patio-concrete",
+    "patio-cost-calculator": "patio-cost",
+    "driveway-concrete-calculator": "driveway-concrete",
+    "driveway-cost-calculator": "driveway-cost",
+    "driveway-thickness-calculator": "thickness",
+    "garage-slab-calculator": "garage-slab",
+    "shed-foundation-calculator": "shed-foundation",
 
   // 3. Foundation (10)
   "foundation-cost-calculator": "material-cost",

@@ -13,7 +13,8 @@ export interface Field {
   help?: string;
   group?: 'Measurements' | 'Material & assumptions' | 'Cost';
   options?: { value: number; label: string }[];
-}
+    visibleWhen?: { field: string; equals?: number; in?: number[] };
+  }
 export interface ResultRow { key: string; label: string; value: number; unit: string; discrete?: boolean; }
 export interface Calculation { rows: ResultRow[]; notes: string[]; steps: string[]; }
 export interface Model {

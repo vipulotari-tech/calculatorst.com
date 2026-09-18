@@ -3,12 +3,14 @@ import { structureModels } from './models-structure.ts';
 import { materialModels } from './models-materials.ts';
 import { finishModels } from './models-finishes.ts';
 import { outdoorModels } from './models-outdoor.ts';
+import { slabModels } from './models-slab.ts';
 
 export const allModels: Record<string, Model> = {
   ...structureModels,
   ...materialModels,
   ...finishModels,
   ...outdoorModels,
+  ...slabModels,
 };
 
 export function getModel(key: string): Model {

@@ -34,7 +34,7 @@ const DENSITY_DENSITY_SAFETY_MIN = 90;
 const DENSITY_DENSITY_SAFETY_MAX = 350;
 
 // Helper: build a concrete result with all standard outputs
-function concreteResult(
+export function concreteResult(
   cuFt: number,
   v: Record<string, number>,
   u: Record<string, string>,
@@ -48,16 +48,16 @@ function concreteResult(
   const rows = [
     row('order', 'Concrete to order', total / 27, 'yd³'),
     row('net', 'Geometric volume', cuFt / 27, 'yd³'),
-    row('ft3', 'Order volume', total, 'ft³'),
-    row('m3', 'Order volume', totalM3, 'm³'),
-    row('L', 'Order volume', totalM3 * 1000, 'L'),
-    row('bags', 'Bags (80-lb @ 0.60 ft³)', bags, 'bags', true),
+    row('ft3', 'Order volume (ft³)', total, 'ft³'),
+    row('m3', 'Order volume (m³)', totalM3, 'm³'),
+    row('L', 'Order volume (L)', totalM3 * 1000, 'L'),
+    row('bags', `Bags (entered yield ${fmt(v.yield)} ft³)`, bags, 'bags', true),
     row('bags60', 'Bags (60-lb @ 0.45 ft³)', roundUp(total / BAG_YIELD_60), 'bags', true),
     row('bags40', 'Bags (40-lb @ 0.30 ft³)', roundUp(total / BAG_YIELD_40), 'bags', true),
-    row('weight', 'Estimated order weight', lb, 'lb'),
-    row('kg', 'Estimated order weight', lb / LB_PER_KG, 'kg'),
-    row('tons', 'Estimated order weight', lb / 2000, 'US tons'),
-    row('tonnes', 'Estimated order weight', lb / LB_PER_KG / 1000, 'tonnes'),
+    row('weight', 'Estimated order weight (lb)', lb, 'lb'),
+    row('kg', 'Estimated order weight (kg)', lb / LB_PER_KG, 'kg'),
+    row('tons', 'Estimated order weight (US tons)', lb / 2000, 'US tons'),
+    row('tonnes', 'Estimated order weight (metric tonnes)', lb / LB_PER_KG / 1000, 'metric tonnes'),
     ...(extraRows ?? []),
   ];
   withCost(rows, v.price, u.price, {
@@ -71,7 +71,7 @@ function concreteResult(
     [
       ...steps,
       `Allowance: ${fmt(cuFt)} ft³ × ${fmt(waste(v))} = ${fmt(total)} ft³.`,
-      `Bags: round ${fmt(total)} ÷ ${fmt(v.yield)} up to ${bags} (80-lb at entered yield).`,
+      `Bags: round ${fmt(total)} ÷ ${fmt(v.yield)} ft³ (entered yield) up to ${bags}.`,
       `Weight: ${fmt(total)} ft³ × ${fmt(densityLb(v.density, u.density))} lb/ft³ = ${fmt(lb)} lb.`,
     ],
     [
@@ -81,16 +81,16 @@ function concreteResult(
   );
 }
 
-const densityField: Field = {
+export const densityField: Field = {
   ...number('density', 'Material density', 150, undefined, 'Example bulk density. Replace with a supplier value for the same moisture and compaction condition. Normal-weight concrete is ~150 lb/ft³ per ACI 318R; lightweight ~110; heavyweight ~250 lb/ft³.'),
   unit: 'lb/ft3',
   units: ['lb/ft3', 'kg/m3', 'ton/yd3'],
   group: 'Material & assumptions'
 };
-function densityLb(v: number, unit: string): number {
+export function densityLb(v: number, unit: string): number {
   return unit === 'kg/m3' ? v * LB_PER_KG / FT_PER_M ** 3 : unit === 'ton/yd3' ? v * 2000 / 27 : v;
 }
-const yieldField: Field = {
+export const yieldField: Field = {
   ...volume('yield', 'Mixed yield per bag', 0.6, 'ft3'),
   unit: 'ft3',
   group: 'Material & assumptions',
@@ -313,17 +313,18 @@ const concreteWeight: Model = {
 
     return result(
       [
-        row('netYd3', 'Net volume', cuYd, 'yd³'),
-        row('orderYd3', 'Volume with allowance', totalCuYd, 'yd³'),
-        row('netFt3', 'Net volume', cuFt, 'ft³'),
-        row('orderFt3', 'Volume with allowance', totalCuFt, 'ft³'),
-        row('netM3', 'Volume with allowance', totalCuFt / FT_PER_M ** 3, 'm³'),
-        row('netWeight', 'Net weight', netLb, 'lb'),
-        row('netTons', 'Net weight', netLb / 2000, 'US tons'),
-        row('netTonnes', 'Net weight', netLb / LB_PER_KG / 1000, 'metric tonnes'),
-        row('orderWeight', 'Weight with allowance', totalLb, 'lb'),
-        row('orderTons', 'Weight with allowance', totalLb / 2000, 'US tons'),
-        row('orderTonnes', 'Weight with allowance', totalLb / LB_PER_KG / 1000, 'metric tonnes'),
+        row('netYd3', 'Net volume (yd³)', cuYd, 'yd³'),
+        row('orderYd3', 'Volume with allowance (yd³)', totalCuYd, 'yd³'),
+        row('netFt3', 'Net volume (ft³)', cuFt, 'ft³'),
+        row('orderFt3', 'Volume with allowance (ft³)', totalCuFt, 'ft³'),
+        row('netM3', 'Net volume (m³)', cuFt / FT_PER_M ** 3, 'm³'),
+        row('orderM3', 'Volume with allowance (m³)', totalCuFt / FT_PER_M ** 3, 'm³'),
+        row('netWeight', 'Net weight (lb)', netLb, 'lb'),
+        row('netTons', 'Net weight (US tons)', netLb / 2000, 'US tons'),
+        row('netTonnes', 'Net weight (metric tonnes)', netLb / LB_PER_KG / 1000, 'metric tonnes'),
+        row('orderWeight', 'Weight with allowance (lb)', totalLb, 'lb'),
+        row('orderTons', 'Weight with allowance (US tons)', totalLb / 2000, 'US tons'),
+        row('orderTonnes', 'Weight with allowance (metric tonnes)', totalLb / LB_PER_KG / 1000, 'metric tonnes'),
         row('densityUsed', 'Density applied', density, 'lb/ft³'),
         row('lbPerYd3', 'Check (density × 27)', density * 27, 'lb/yd³'),
       ],
@@ -391,12 +392,12 @@ const concreteCost: Model = {
     const baseRows: { key: string; label: string; value: number; unit: string; discrete?: boolean }[] = [
       row('order', 'Concrete to order', total / 27, 'yd³'),
       row('net', 'Geometric volume', cuFt / 27, 'yd³'),
-      row('ft3', 'Order volume', total, 'ft³'),
-      row('m3', 'Order volume', total / FT_PER_M ** 3, 'm³'),
-      row('bags80', 'Bags (80-lb @ 0.60 ft³)', bags, 'bags', true),
+      row('ft3', 'Order volume (ft³)', total, 'ft³'),
+      row('m3', 'Order volume (m³)', total / FT_PER_M ** 3, 'm³'),
+      row('bags80', `Bags (entered yield ${fmt(v.yield)} ft³)`, bags, 'bags', true),
       row('bags60', 'Bags (60-lb @ 0.45 ft³)', roundUp(total / BAG_YIELD_60), 'bags', true),
       row('bags40', 'Bags (40-lb @ 0.30 ft³)', roundUp(total / BAG_YIELD_40), 'bags', true),
-      row('weight', 'Estimated order weight', lb, 'lb'),
+      row('weight', 'Estimated order weight (lb)', lb, 'lb'),
     ];
 
     const materials = Number.isFinite(v.price) ? qty * v.price : NaN;
@@ -584,11 +585,11 @@ const concretePour: Model = {
       [
         row('order', 'Total concrete', totalCuYd, 'yd³'),
         row('net', 'Geometric volume', netCuFt / 27, 'yd³'),
-        row('ft3', 'Total volume', totalCuFt, 'ft³'),
-        row('m3', 'Total volume', totalCuFt / FT_PER_M ** 3, 'm³'),
-        row('bags', 'Bags (80-lb @ 0.60 ft³)', bags, 'bags', true),
-        row('weight', 'Estimated order weight', lb, 'lb'),
-        row('tons', 'Estimated order weight', lb / 2000, 'US tons'),
+        row('ft3', 'Total volume (ft³)', totalCuFt, 'ft³'),
+        row('m3', 'Total volume (m³)', totalCuFt / FT_PER_M ** 3, 'm³'),
+        row('bags', `Bags (entered yield ${fmt(v.yield)} ft³)`, bags, 'bags', true),
+        row('weight', 'Estimated order weight (lb)', lb, 'lb'),
+        row('tons', 'Estimated order weight (US tons)', lb / 2000, 'US tons'),
         row('trucks', 'Ready-mix truck loads', trucks, 'loads', true),
         row('lastTruck', 'Final truck size', lastTruckYd, 'yd³'),
         row('shortLoad', 'Short-load fee', shortFee, 'USD'),
@@ -617,10 +618,10 @@ const concreteSlabFields: Field[] = [
       { value: 1, label: 'Circle' },
     ] },
   // Rectangle
-  length('length', 'Slab length', 10, 'ft'),
-  length('width', 'Slab width', 10, 'ft'),
+  { ...length('length', 'Slab length', 10, 'ft'), visibleWhen: { field: 'slabShape', equals: 0 } },
+  { ...length('width', 'Slab width', 10, 'ft'), visibleWhen: { field: 'slabShape', equals: 0 } },
   // Circle
-  positiveOrZero(length('diameter', 'Slab diameter (circle)', 0, 'ft')),
+  { ...positiveOrZero(length('diameter', 'Slab diameter (circle)', 0, 'ft')), visibleWhen: { field: 'slabShape', equals: 1 } },
   // Common
   length('thickness', 'Slab thickness', 4, 'in'),
   count('quantity', 'Identical slabs', 1),
@@ -1402,7 +1403,7 @@ const depth: Model = {
     const area = v.length * v.width;
     const depth = v.volume / area;
     return result(
-      [row('depth', 'Average depth', depth * 12, 'in'), row('mm', 'Average depth', depth / FT_PER_M * 1000, 'mm'), row('area', 'Covered area', area, 'ft²')],
+      [row('depth', 'Average depth (in)', depth * 12, 'in'), row('mm', 'Average depth (mm)', depth / FT_PER_M * 1000, 'mm'), row('area', 'Covered area', area, 'ft²')],
       [`${fmt(v.volume)} ft³ ÷ ${fmt(area)} ft² = ${fmt(depth)} ft.`, `Convert feet to inches: ${fmt(depth)} × 12 = ${fmt(depth * 12)} in.`]
     );
   },
@@ -1460,106 +1461,6 @@ const bags: Model = {
   },
 };
 
-// 5a. Slab Cost
-const slabCostFields: Field[] = [
-  ...rectangle,
-  length('depth', 'Slab thickness', 4, 'in'),
-  count('quantity', 'Identical slabs', 1),
-  allowance,
-  densityField,
-  yieldField,
-  price('USD/yd3', ['USD/yd3', 'USD/m3', 'USD/ft3', 'USD/bag', 'USD/ton']),
-  number('delivery', 'Delivery fee ($)', 0, 0),
-  number('labor', 'Labor charge ($)', 0, 0),
-  number('tax', 'Sales tax on material (%)', 0, 0),
-];
-
-const slabCost: Model = {
-  fields: slabCostFields,
-  formula: 'Volume = L × W × D × quantity; cost = volume × price per unit × (1 + tax/100) + delivery + labor.',
-  assumptions: [
-    'This estimates material cost for the concrete quantity calculated. It does not include formwork, base preparation, rebar, finishing, or site-specific labor.',
-    'Thickness must come from your project plans or engineer. Common residential slabs are 4 in (patio/walk) or 6 in (driveway/garage).',
-    'Price and the selected price unit must describe the same basis (e.g. per cubic yard of ready-mix).',
-    'Delivery fee is a flat amount, not per yard. Bag cost estimates cover material only.',
-  ],
-  sources: [quikrete, geometry],
-  calculate(v, u) {
-    const cuFt = v.length * v.width * v.depth * v.quantity;
-    const total = cuFt * waste(v);
-    const bags = roundUp(total / v.yield);
-    const lb = total * densityLb(v.density, u.density);
-    const volumes: Record<string, number> = {
-      'USD/yd3': total / 27,
-      'USD/m3': total / FT_PER_M ** 3,
-      'USD/ft3': total,
-      'USD/bag': bags,
-      'USD/ton': lb / 2000,
-    };
-    const qty = volumes[u.price] ?? total / 27;
-    const rows: { key: string; label: string; value: number; unit: string; discrete?: boolean }[] = [
-      row('order', 'Concrete to order', total / 27, 'yd³'),
-      row('net', 'Geometric volume', cuFt / 27, 'yd³'),
-      row('ft3', 'Order volume', total, 'ft³'),
-      row('m3', 'Order volume', total / FT_PER_M ** 3, 'm³'),
-      row('bags', 'Bags at entered yield', bags, 'bags', true),
-      row('weight', 'Estimated order weight', lb, 'lb'),
-      row('tons', 'Estimated order weight', lb / 2000, 'US tons'),
-    ];
-    if (Number.isFinite(v.price)) {
-      const materials = qty * v.price;
-      const taxAmt = materials * (v.tax / 100);
-      const totalCost = materials + taxAmt + v.delivery + v.labor;
-      rows.push(
-        row('materials', 'Material subtotal', materials, 'USD'),
-        row('tax', 'Material tax', taxAmt, 'USD'),
-        row('delivery', 'Delivery fee', v.delivery, 'USD'),
-        row('labor', 'Labor charge', v.labor, 'USD'),
-        row('total', 'Estimated total', totalCost, 'USD'),
-      );
-    }
-    return result(rows, [
-      `Volume: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
-      `Apply ${fmt(v.waste)}% allowance: ${fmt(cuFt)} × ${fmt(waste(v))} = ${fmt(total)} ft³ = ${fmt(total / 27)} yd³.`,
-      ...(Number.isFinite(v.price) ? [`${fmt(total / 27)} yd³ × $${fmt(v.price)}/yd³ = $${fmt((total / 27) * v.price)}. Add delivery and labor.`] : [`Enter a price to estimate material cost.`]),
-    ]);
-  },
-};
-
-// 5b. Patio Cost
-const patioCost: Model = {
-  ...slabCost,
-  fields: slabCost.fields,
-  formula: 'Volume = L × W × D × quantity; cost = volume × price per unit × (1 + tax/100) + delivery + labor.',
-  assumptions: [
-    ...standardAssumptions,
-    'Common patio thickness is 4 in. Thicker slabs (6 in) are used for heavy loads or poor soil. Confirm with your project design.',
-    'This estimates material cost. It does not include excavation, base gravel, formwork, rebar, finishing, or site preparation.',
-    'Price and the selected price unit must describe the same basis.',
-  ],
-  sources: [quikrete, geometry],
-  calculate(v, u) {
-    return slabCost.calculate(v, u);
-  },
-};
-
-// 5c. Driveway Cost
-const drivewayCost: Model = {
-  ...slabCost,
-  fields: slabCost.fields,
-  formula: 'Volume = L × W × D × quantity; cost = volume × price per unit × (1 + tax/100) + delivery + labor.',
-  assumptions: [
-    ...standardAssumptions,
-    'Common residential driveway thickness is 4–6 in. 4 in is typical for passenger vehicles; 6 in is recommended for heavier vehicles or poor soil subgrade.',
-    'This estimates concrete material cost only. It does not include excavation, base preparation, rebar, expansion joints, finishing, or sealing.',
-    'Price and the selected price unit must describe the same basis.',
-  ],
-  sources: [quikrete, geometry],
-  calculate(v, u) {
-    return slabCost.calculate(v, u);
-  },
-};
-
 // 6. Shed Foundation
 const shedFoundationFields: Field[] = [
   { id: 'foundationType', label: 'Foundation type', value: 0, unit: '', integer: true, min: 0, max: 2,
@@ -1568,14 +1469,14 @@ const shedFoundationFields: Field[] = [
       { value: 1, label: 'Concrete pier & beam' },
       { value: 2, label: 'Concrete footing (strip)' },
     ] },
-  length('length', 'Slab length / footing run', 10, 'ft'),
-  length('width', 'Slab width / footing width', 10, 'ft'),
-  length('thickness', 'Slab thickness / footing depth', 4, 'in'),
-  positiveOrZero(count('pierCount', 'Number of piers', 4, 1)),
-  positiveOrZero(length('pierDiameter', 'Pier diameter', 12, 'in')),
-  positiveOrZero(length('pierDepth', 'Pier embedment depth', 24, 'in')),
-  positiveOrZero(length('footingWidth', 'Footing width', 12, 'in')),
-  positiveOrZero(length('footingDepth', 'Footing depth', 12, 'in')),
+  { ...length('length', 'Slab length / footing run', 10, 'ft'), visibleWhen: { field: 'foundationType', in: [0, 2] } },
+  { ...length('width', 'Slab width', 10, 'ft'), visibleWhen: { field: 'foundationType', equals: 0 } },
+  { ...length('thickness', 'Slab thickness', 4, 'in'), visibleWhen: { field: 'foundationType', equals: 0 } },
+  { ...positiveOrZero(count('pierCount', 'Number of piers', 4, 1)), visibleWhen: { field: 'foundationType', equals: 1 } },
+  { ...positiveOrZero(length('pierDiameter', 'Pier diameter', 12, 'in')), visibleWhen: { field: 'foundationType', equals: 1 } },
+  { ...positiveOrZero(length('pierDepth', 'Pier embedment depth', 24, 'in')), visibleWhen: { field: 'foundationType', equals: 1 } },
+  { ...positiveOrZero(length('footingWidth', 'Footing width', 12, 'in')), visibleWhen: { field: 'foundationType', equals: 2 } },
+  { ...positiveOrZero(length('footingDepth', 'Footing depth', 12, 'in')), visibleWhen: { field: 'foundationType', equals: 2 } },
   count('quantity', 'Identical sections', 1),
   allowance,
   densityField,
@@ -1627,10 +1528,10 @@ const shedFoundation: Model = {
     const lb = total * densityLb(v.density, u.density);
     const rows: { key: string; label: string; value: number; unit: string; discrete?: boolean }[] = [
       row('order', 'Concrete to order', total / 27, 'yd³'),
-      row('ft3', 'Order volume', total, 'ft³'),
-      row('m3', 'Order volume', total / FT_PER_M ** 3, 'm³'),
-      row('bags', 'Bags at entered yield', bags, 'bags', true),
-      row('weight', 'Estimated order weight', lb, 'lb'),
+      row('ft3', 'Order volume (ft³)', total, 'ft³'),
+      row('m3', 'Order volume (m³)', total / FT_PER_M ** 3, 'm³'),
+      row('bags', `Bags (entered yield ${fmt(v.yield)} ft³)`, bags, 'bags', true),
+      row('weight', 'Estimated order weight (lb)', lb, 'lb'),
     ];
 
     if (Number.isFinite(v.price)) {
@@ -1671,9 +1572,6 @@ export const materialModels: Record<string, Model> = {
   'concrete-waste': concreteWaste,
 
   // --- Slab, Patio, Driveway, Shed ---
-  'slab-cost': slabCost,
-  'patio-cost': patioCost,
-  'driveway-cost': drivewayCost,
   'shed-foundation': shedFoundation,
 
   // --- Non-concrete (unchanged) ---

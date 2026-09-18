@@ -1,6 +1,7 @@
 ---
 import { getModelForSlug } from "../../lib/calculator-registry";
 import { unitLabels } from "../../lib/calculator-math";
+import type { Field } from "../../lib/calculator-types";
 
 interface Props {
   id: string; // The slug, e.g. "concrete-calculator"
@@ -12,6 +13,16 @@ const { id, resultTitle } = Astro.props;
 const slug = id;
 const model = getModelForSlug(slug);
 const fields = model.fields;
+
+// Server-render the initial visibility of mode-gated fields so hidden inputs
+// do not flash before the client script applies the same rules.
+function fieldVisible(f: Field, all: Field[]): boolean {
+  if (!f.visibleWhen) return true;
+  const ctrl = all.find((x) => x.id === f.visibleWhen.field);
+  const ctrlValue = ctrl?.value ?? ctrl?.min ?? 0;
+  if (f.visibleWhen.equals !== undefined) return ctrlValue === f.visibleWhen.equals;
+  return (f.visibleWhen.in ?? []).includes(ctrlValue);
+}
 
 const measurements = fields.filter((f) => !f.group || f.group === "Measurements");
 const assumptions = fields.filter((f) => f.group === "Material & assumptions");
@@ -31,7 +42,8 @@ const costs = fields.filter((f) => f.group === "Cost");
       </h3>
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {measurements.map((field) => (
-          <label class="block space-y-1.5" for={`${slug}-${field.id}`}>
+                  <div class="calc-field" id={`${slug}-field-${field.id}`} hidden={!fieldVisible(field, model.fields)}>
+                  <label class="block space-y-1.5" for={`${slug}-${field.id}`}>
             <span class="text-[13px] font-medium text-foreground flex items-center justify-between">
               <span>{field.label} {field.optional && <span class="text-xs text-muted-foreground font-normal">(optional)</span>}</span>
             </span>
@@ -92,7 +104,8 @@ const costs = fields.filter((f) => f.group === "Cost");
             )}
             <span id={`${slug}-${field.id}-err`} class="hidden text-xs text-destructive font-medium" role="alert"></span>
           </label>
-        ))}
+                    </div>
+                  ))}
       </div>
     </div>
 
@@ -104,7 +117,8 @@ const costs = fields.filter((f) => f.group === "Cost");
         </h3>
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {assumptions.map((field) => (
-            <label class="block space-y-1.5" for={`${slug}-${field.id}`}>
+                    <div class="calc-field" id={`${slug}-field-${field.id}`} hidden={!fieldVisible(field, model.fields)}>
+                    <label class="block space-y-1.5" for={`${slug}-${field.id}`}>
               <span class="text-[13px] font-medium text-foreground flex items-center justify-between">
                 <span>{field.label} {field.optional && <span class="text-xs text-muted-foreground font-normal">(optional)</span>}</span>
               </span>
@@ -165,7 +179,8 @@ const costs = fields.filter((f) => f.group === "Cost");
               )}
               <span id={`${slug}-${field.id}-err`} class="hidden text-xs text-destructive font-medium" role="alert"></span>
             </label>
-          ))}
+                      </div>
+                    ))}
         </div>
       </div>
     )}
@@ -178,7 +193,8 @@ const costs = fields.filter((f) => f.group === "Cost");
         </h3>
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {costs.map((field) => (
-            <label class="block space-y-1.5" for={`${slug}-${field.id}`}>
+                    <div class="calc-field" id={`${slug}-field-${field.id}`} hidden={!fieldVisible(field, model.fields)}>
+                    <label class="block space-y-1.5" for={`${slug}-${field.id}`}>
               <span class="text-[13px] font-medium text-foreground flex items-center justify-between">
                 <span>{field.label} {field.optional && <span class="text-xs text-muted-foreground font-normal">(optional)</span>}</span>
               </span>
@@ -239,7 +255,8 @@ const costs = fields.filter((f) => f.group === "Cost");
               )}
               <span id={`${slug}-${field.id}-err`} class="hidden text-xs text-destructive font-medium" role="alert"></span>
             </label>
-          ))}
+                      </div>
+                    ))}
         </div>
       </div>
     )}
@@ -324,6 +341,7 @@ const costs = fields.filter((f) => f.group === "Cost");
 <script>
   import { getModelForSlug } from "../../lib/calculator-registry";
   import { readInputs, fmt, unitLabels } from "../../lib/calculator-math";
+  import type { Field } from "../../lib/calculator-types";
 
   function initCalculators() {
     const calcElements = document.querySelectorAll<HTMLElement>("[data-calculator-slug]");
@@ -347,34 +365,68 @@ const costs = fields.filter((f) => f.group === "Cost");
       const notesList = root.querySelector<HTMLElement>('.result-notes-list');
 
       if (!form || !primaryValEl || !rowsGridEl || !stepsListEl) return;
-      const targetPrimaryValEl = primaryValEl;
-      const targetRowsGridEl = rowsGridEl;
-      const targetStepsListEl = stepsListEl;
+            const targetPrimaryValEl = primaryValEl;
+            const targetRowsGridEl = rowsGridEl;
+            const targetStepsListEl = stepsListEl;
 
-      function calculate(focusError = false) {
-        const rawInputs: Record<string, string> = {};
-        const rawUnits: Record<string, string> = {};
+            // Mode-gated field visibility: fields hidden by visibleWhen resolve to
+            // their default value so calculations stay valid in every mode.
+            function readControlValues() {
+              const state: Record<string, number> = {};
+              model.fields.forEach((f) => {
+                const el = form?.querySelector<HTMLInputElement>(`#${slug}-${f.id}`);
+                const raw = el?.value ?? String(f.value ?? '');
+                state[f.id] = raw === '' ? Number.NaN : Number(raw);
+              });
+              return state;
+            }
+            function fieldVisible(f: Field, state: Record<string, number>) {
+              if (!f.visibleWhen) return true;
+              const ctrl = state[f.visibleWhen.field];
+              if (f.visibleWhen.equals !== undefined) return ctrl === f.visibleWhen.equals;
+              return (f.visibleWhen.in ?? []).includes(ctrl);
+            }
+            function updateVisibility() {
+              const state = readControlValues();
+              model.fields.forEach((f) => {
+                if (!f.visibleWhen) return;
+                const wrap = root.querySelector<HTMLElement>(`#${slug}-field-${f.id}`);
+                if (wrap) wrap.hidden = !fieldVisible(f, state);
+              });
+            }
 
-        // Clear previous field errors
-        root.querySelectorAll<HTMLElement>("[role='alert']").forEach((el) => {
-          el.classList.add("hidden");
-          el.textContent = "";
-        });
-        form?.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+            function calculate(focusError = false) {
+              const rawInputs: Record<string, string> = {};
+              const rawUnits: Record<string, string> = {};
 
-        // Collect all inputs
-        model.fields.forEach((field) => {
-          const inputEl = form?.querySelector<HTMLInputElement>(`#${slug}-${field.id}`);
-          if (inputEl) {
-            rawInputs[field.id] = inputEl.value;
-          }
-          const unitSelect = form?.querySelector<HTMLSelectElement>(`#${slug}-${field.id}-unit`);
-          if (unitSelect) {
-            rawUnits[field.id] = unitSelect.value;
-          } else if (field.unit) {
-            rawUnits[field.id] = field.unit;
-          }
-        });
+              // Clear previous field errors
+              root.querySelectorAll<HTMLElement>("[role='alert']").forEach((el) => {
+                el.classList.add("hidden");
+                el.textContent = "";
+              });
+              form?.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+
+              const state = readControlValues();
+
+              // Collect all inputs
+              model.fields.forEach((field) => {
+                const inputEl = form?.querySelector<HTMLInputElement>(`#${slug}-${field.id}`);
+                if (inputEl) {
+                                  if (field.visibleWhen && !fieldVisible(field, state)) {
+                                    // Hidden in the current mode: use the field default so the
+                                    // calculation is identical to leaving it untouched.
+                                    rawInputs[field.id] = field.optional ? '' : (field.value !== undefined ? String(field.value) : String(field.min ?? 0));
+                                  } else {
+                                    rawInputs[field.id] = inputEl.value;
+                                  }
+                                }
+                const unitSelect = form?.querySelector<HTMLSelectElement>(`#${slug}-${field.id}-unit`);
+                if (unitSelect) {
+                  rawUnits[field.id] = unitSelect.value;
+                } else if (field.unit) {
+                  rawUnits[field.id] = field.unit;
+                }
+              });
 
         try {
           const parsed = readInputs(model.fields, rawInputs, rawUnits);
@@ -449,24 +501,25 @@ const costs = fields.filter((f) => f.group === "Cost");
       }
 
       // Live calculation on input change
-      form.addEventListener("input", () => calculate());
-      form.addEventListener("change", () => calculate());
-      form.addEventListener('submit', event => { event.preventDefault(); calculate(true); });
+            form.addEventListener("input", () => { updateVisibility(); calculate(); });
+            form.addEventListener("change", () => { updateVisibility(); calculate(); });
+            form.addEventListener('submit', event => { event.preventDefault(); updateVisibility(); calculate(true); });
 
-      // Reset handler
-      resetBtn?.addEventListener("click", () => {
-        model.fields.forEach((field) => {
-          const inputEl = form.querySelector<HTMLInputElement>(`#${slug}-${field.id}`);
-          if (inputEl) {
-            inputEl.value = field.value !== undefined ? String(field.value) : "";
-          }
-          const unitSelect = form.querySelector<HTMLSelectElement>(`#${slug}-${field.id}-unit`);
-          if (unitSelect && field.unit) {
-            unitSelect.value = field.unit;
-          }
-        });
-        calculate();
-      });
+            // Reset handler
+            resetBtn?.addEventListener("click", () => {
+              model.fields.forEach((field) => {
+                const inputEl = form.querySelector<HTMLInputElement>(`#${slug}-${field.id}`);
+                if (inputEl) {
+                  inputEl.value = field.value !== undefined ? String(field.value) : "";
+                }
+                const unitSelect = form.querySelector<HTMLSelectElement>(`#${slug}-${field.id}-unit`);
+                if (unitSelect && field.unit) {
+                  unitSelect.value = field.unit;
+                }
+              });
+              updateVisibility();
+              calculate();
+            });
 
       // Copy handler
       copyBtn?.addEventListener("click", async () => {
@@ -487,7 +540,8 @@ const costs = fields.filter((f) => f.group === "Cost");
       });
 
       // Run initial calculation immediately on page mount
-      calculate();
+            updateVisibility();
+            calculate();
     });
   }
 
