@@ -35,11 +35,14 @@ export async function onRequest(context) {
     }
   } catch {}
 
-  // Fallback for garbage units (in case _redirects not hit) + legacy drywall path
+  // Fallback for garbage units (in case _redirects not hit) + legacy drywall path (12 Not found)
   try {
     const decoded = decodeURIComponent(url.pathname);
     const norm = decoded.replace(/\/+$/, "").toLowerCase();
-    if (norm === "/ton" || norm === "/ft\u00B2" || norm === "/yd\u00B3") {
+    if (norm === "/ton" || norm === "/ft\u00B2" || norm === "/yd\u00B3" || norm === "/ft") {
+      return Response.redirect("https://calculatorst.com/gravel-calculator/", 301);
+    }
+    if (norm === "/unit" || norm === "/panel" || norm === "/post") {
       return Response.redirect("https://calculatorst.com/gravel-calculator/", 301);
     }
     if (norm === "/construction/drywall") {

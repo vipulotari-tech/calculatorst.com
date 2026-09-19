@@ -41,12 +41,15 @@ export default {
       }
     } catch { /* ignore */ }
 
-    // 3) Garbage units parsed as URLs (8 Not found) — fallback in case _redirects/static miss
+    // 3) Garbage units parsed as URLs (12 Not found) — fallback in case _redirects/static miss
     // Also keeps legacy /construction/drywall → drywall-paint for old crawls
     try {
       const decoded = decodeURIComponent(url.pathname);
       const norm = decoded.replace(/\/+$/, "").toLowerCase();
-      if (norm === "/ton" || norm === "/ft\u00B2" || norm === "/yd\u00B3") {
+      if (norm === "/ton" || norm === "/ft\u00B2" || norm === "/yd\u00B3" || norm === "/ft") {
+        return Response.redirect("https://calculatorst.com/gravel-calculator/", 301);
+      }
+      if (norm === "/unit" || norm === "/panel" || norm === "/post") {
         return Response.redirect("https://calculatorst.com/gravel-calculator/", 301);
       }
       if (norm === "/construction/drywall") {
