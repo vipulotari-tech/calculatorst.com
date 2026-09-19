@@ -77,5 +77,9 @@ export function groutVolume(opts: {
 }) {
   // Grout volume approx: (joint width * tile thickness * total joint length)
   // Simplified placeholder: 0.1 ft3 per 100 ft2
-  return { estimate: opts.areaSqFt * 0.001 };
+  // PLACEHOLDER: grout volume estimation.
+  // Accurate grout volume requires tile layout, joint length, and grout depth.
+  // This function uses a simplified rule-of-thumb: ~0.1 ft³ per 100 ft².
+  // Replace with geometric grout volume calculation for accurate estimates.
+  return { estimate: opts.areaSqFt * 0.001 }; // placeholder ft³
 }

@@ -64,6 +64,10 @@ export function cmuQuantity(opts: {
   return { wallArea, blocks, blocksW: ceilDiscrete(blocks * w), perSqFt, wasteF: w };
 }
 
+// PLACEHOLDER: mortar per brick estimation.
+// A geometric mortar calculation requires joint volume = (wall joint area - brick area) × wythe thickness.
+// This function returns a simplified rule-of-thumb: ~0.005 ft³ per brick for a 3/8" joint
+// in a standard single-wythe wall. Replace with a geometric calculation for accurate estimates.
 export function mortarVolumeForBrick(opts: {
   bricks: number; // without waste? use with waste for ordering
   brickLengthIn: number;

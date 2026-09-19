@@ -43,7 +43,11 @@ export function joistCount(opts: {
   return { Lf, Sf, count, countW: ceilDiscrete(count * w), wasteF: w };
 }
 
-// Header/Beam: simplified — returns required depth table lookup placeholder
+// PLACEHOLDER: header/beam sizing.
+// Accurate header sizing requires span, load type, lumber grade, and tributary width.
+// This function returns a rule-of-thumb estimate (1 inch of depth per foot of span)
+// for a simply supported uniform load. It is not an engineering design calculation.
+// Consult a structural engineer for load-bearing header design.
 export function headerDepth(opts: { spanFt: number; loadPsf?: number }) {
   // Rule of thumb: header depth (in) ≈ span(ft) * 1.5? Not exact. Provide formula.
   const depthIn = opts.spanFt * 1.0; // placeholder: 1" per ft span for estimation
