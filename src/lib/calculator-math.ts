@@ -69,4 +69,4 @@ export const allowance:Field={...number('waste','Material allowance',10,0,'Added
 export const price=(unit='USD/yd3',units=[unit]):Field=>({id:'price',label:'Material price',unit,units,min:0,optional:true,group:'Cost',help:'Use your supplier quote. Taxes, delivery and labor are excluded unless shown separately.'});
 export const rectangle=[length(),length('width','Width',10)];
 export const openings:Field={...area('openings','Openings / excluded area',0,0),help:'Subtract openings once; do not subtract them again from your dimensions.'};
-export const positiveOrZero=(field:Field):Field=>({...field,min:0});
+export const positiveOrZero=(field:Field,extra?:Partial<Field>):Field => ({...extra,...field,min:0});

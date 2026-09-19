@@ -17,7 +17,7 @@ const fields = model.fields;
 // Server-render the initial visibility of mode-gated fields so hidden inputs
 // do not flash before the client script applies the same rules.
 function fieldVisible(f: Field, all: Field[]): boolean {
-  if (!f.visibleWhen) return true;
+  if (!f.visibleWhen || !f.visibleWhen.field) return true;
   const ctrl = all.find((x) => x.id === f.visibleWhen.field);
   const ctrlValue = ctrl?.value ?? ctrl?.min ?? 0;
   if (f.visibleWhen.equals !== undefined) return ctrlValue === f.visibleWhen.equals;

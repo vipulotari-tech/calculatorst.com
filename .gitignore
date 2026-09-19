@@ -41,3 +41,17 @@ audit/**/*.log
 audit/**/*.txt
 test-results/
 playwright-report/
+
+# Hermes local agent data
+.hermes/
+
+# Skill repos (not part of the site)
+/agent-skills/
+/claudedesignskills/
+/gsap-skills/
+/magic-mcp/
+/shadcn-ui-mcp-server/
+/skills/
+/taste-skill/
+/ui-ux-pro-max-skill/
+/vercel-labs-agent-skills/

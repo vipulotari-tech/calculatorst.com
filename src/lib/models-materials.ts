@@ -91,7 +91,7 @@ export function densityLb(v: number, unit: string): number {
   return unit === 'kg/m3' ? v * LB_PER_KG / FT_PER_M ** 3 : unit === 'ton/yd3' ? v * 2000 / 27 : v;
 }
 export const yieldField: Field = {
-  ...volume('yield', 'Mixed yield per bag', 0.6, 'ft3'),
+  ...volume('yield', 'Mixed yield per bag', 0.6),
   unit: 'ft3',
   group: 'Material & assumptions',
   help: 'Read the yield printed on the bag. 0.60 ft³ is an example for an 80 lb standard concrete mix, not every product.'
@@ -119,6 +119,7 @@ const yieldField60: Field = { ...yieldField, value: 0.45 };
 // 1.  Concrete Calculator — generic multi-shape utility
 // ==========================================================
 type ShapeType = 'slab' | 'footing' | 'wall';
+type ShapeIdx = 0 | 1 | 2 | 3;
 
 const concreteGenericFields: Field[] = [
   { id: 'shape', label: 'Project type', value: 0, unit: '', integer: true, min: 0, max: 3,
@@ -149,7 +150,7 @@ const concreteGeneric: Model = {
   ],
   sources: [geometry, quikrete, acicr],
   calculate(v, u) {
-    const shapeIdx = Math.round(v.shape) as ShapeType | 3;
+    const shapeIdx = Math.round(v.shape) as ShapeIdx;
     let cuFt: number;
     let steps: string[];
 
@@ -283,7 +284,7 @@ const concreteVolume: Model = {
 // 3.  Concrete Weight Calculator — input a known volume or area+depth
 // ==========================================================
 const concreteWeightFields: Field[] = [
-  volume('volume', 'Concrete volume', 1, 'yd3'),
+  volume('volume', 'Concrete volume', 1),
   { ...densityField, value: DEFAULT_DENSITY },
   allowance,
 ];
@@ -456,7 +457,7 @@ const concreteCost: Model = {
 // 5.  Concrete Mix Calculator — dry-volume nominal mix
 // ==========================================================
 const concreteMixFields: Field[] = [
-  volume('volume', 'Required mixed concrete volume', 1, 'm3'),
+  volume('volume', 'Required mixed concrete volume', 1),
   number('cementParts', 'Cement parts by volume', 1, 1, 'Typical 1-2-3 (cement:sand:aggregate) for general concrete.'),
   number('sandParts', 'Sand (fine aggregate) parts by volume', 2, 1),
   number('aggregateParts', 'Coarse aggregate parts by volume', 3, 0),
@@ -1746,7 +1747,7 @@ export const materialModels: Record<string, Model> = {
       length('base', 'Base width', 70, 'ft'),
       length('crest', 'Crest width', 10, 'ft'),
       length('length', 'Dam crest length', 200, 'ft'),
-      volume('head', 'Upslope head', 15, 'ft'),
+      volume('head', 'Upslope head', 15),
       length('freeboard', 'Freeboard above water', 2, 'ft'),
       densityField,
       yieldField,
