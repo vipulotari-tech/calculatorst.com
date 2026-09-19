@@ -7,5 +7,5 @@
     }
   },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "exclude": ["dist", "agent-skills", "claudedesignskills", "gsap-skills", "magic-mcp", "shadcn-ui-mcp-server", "skills", "taste-skill", "ui-ux-pro-max-skill", "vercel-labs-agent-skills"]
 }

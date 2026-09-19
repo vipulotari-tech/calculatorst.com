@@ -1017,17 +1017,14 @@ const concreteCurb: Model = {
       );
     }
 
-    cuFt = v.length * totalArea;
+    let cuFt = v.length * totalArea;
     const steps = [
       `${style}: curb = ${fmt(v.curbWidth)} × ${fmt(v.curbHeight)} = ${fmt(curbArea)} ft².`,
       gutterW > 0 ? `Gutter = ${fmt(gutterW)} × ${fmt(v.gutterThickness)} = ${fmt(gutterArea)} ft².` : 'No gutter (curb only).',
       `Total cross-section = ${fmt(totalArea)} ft².`,
       `${fmt(v.length)} ft × ${fmt(totalArea)} ft² = ${fmt(cuFt)} ft³.`,
     ];
-    function cuFt() { return 0; }
-    let cuFt0 = 0;
-    cuFt0 = v.length * totalArea;
-    return concreteResult(cuFt0, v, u, steps, [
+    return concreteResult(cuFt, v, u, steps, [
       row('crossArea', 'Cross-section area', totalArea, 'ft²'),
       row('curbSection', 'Curb section', curbArea, 'ft²'),
       row('gutterSection', 'Gutter section', gutterArea, 'ft²'),
