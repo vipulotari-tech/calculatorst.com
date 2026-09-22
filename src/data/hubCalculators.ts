@@ -12,8 +12,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "concrete calculator",
-      "concrete calculator estimator"
+      "concrete calculator"
     ],
     "featured": true
   },
@@ -54,8 +53,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "concrete pour calculator",
-      "concrete pour calculator estimator"
+      "concrete pour calculator"
     ],
     "featured": false
   },
@@ -63,13 +61,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-mix-calculator",
     "title": "Concrete Mix Calculator — Ratio, Bags & Volume",
     "h1": "Concrete Mix Calculator",
-    "description": "Calculate concrete mix — cement, sand, aggregate and bags from volume and ratio. Enter concrete dimensions to get instant results.",
+    "description": "Calculate cement, sand, aggregate and bags from volume and mix ratio — supports custom ratios for slabs, footings and structural concrete.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "concrete mix calculator",
-      "concrete mix calculator estimator"
+      "concrete mix calculator"
     ],
     "featured": true
   },
@@ -105,9 +102,9 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "concrete-footing-calculator",
-    "title": "Concrete Footing Calculator — Quantity & Cost for US Construction",
+    "title": "Concrete Footing Calculator — Yards, Bags & Cost (2026)",
     "h1": "Concrete Footing Calculator",
-    "description": "Calculate concrete volume for spread footings, continuous footings, and spot footings. Includes options for square, rectangular, and circular footings with rebar considerations.",
+    "description": "Calculate concrete for spread, strip and pad footings — cubic yards, 80/60/40-lb bags, weight and cost with waste for US residential foundations.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -150,9 +147,9 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "concrete-column-calculator",
-    "title": "Concrete Column Calculator — Quantity & Cost for US Construction",
+    "title": "Concrete Column Calculator — Volume, Rebar & Cost (2026)",
     "h1": "Concrete Column Calculator",
-    "description": "Calculate concrete volume for square, rectangular, and circular columns. Includes options for tied columns, spiral columns, and column ties with rebar calculations.",
+    "description": "Calculate concrete for square, rectangular and round columns — cubic yards, bags, weight and cost with rebar considerations and waste allowance.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -165,9 +162,9 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "concrete-curb-calculator",
-    "title": "Concrete Curb Calculator — Quantity & Cost for US Construction",
+    "title": "Concrete Curb Calculator — Curb & Gutter Volume (2026)",
     "h1": "Concrete Curb Calculator",
-    "description": "Calculate concrete volume for curb and gutter systems, including barrier curbs, mountable curbs, and slab curbs. Supports various curb dimensions and gutter widths.",
+    "description": "Calculate concrete for curb and gutter — barrier, mountable and slab curbs with linear footage, cubic yards, bags and cost with waste.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -180,9 +177,9 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "concrete-stair-calculator",
-    "title": "Concrete Stair Calculator — Quantity & Cost for US Construction",
+    "title": "Concrete Stair Calculator — Volume, Bags & Cost (2026)",
     "h1": "Concrete Stair Calculator",
-    "description": "Calculate concrete volume for straight stairs, L-shaped stairs, and U-shaped stairs. Includes options for riser height, tread depth, stringer thickness, and landing calculations.",
+    "description": "Calculate concrete for straight, L-shaped and U-shaped stairs — riser, tread, stringer and landing volume in cubic yards, bags and cost with waste.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -195,9 +192,9 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "concrete-ramp-calculator",
-    "title": "Concrete Ramp Calculator — Quantity & Cost for US Construction",
+    "title": "Concrete Ramp Calculator — Volume, Bags & Cost (2026)",
     "h1": "Concrete Ramp Calculator",
-    "description": "Calculate concrete volume for wheelchair ramps, loading dock ramps, and sloped access ramps. Includes options for slope ratio, rise, run, and landing dimensions.",
+    "description": "Calculate concrete for wheelchair, loading-dock and sloped ramps — rise, run, slope ratio and landing volume in cubic yards, bags and cost.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -212,7 +209,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-tube-calculator",
     "title": "Concrete Tube Calculator — Hollow Cylinder & Pipe Volume",
     "h1": "Concrete Tube Calculator",
-    "description": "Calculate concrete volume for circular slabs and hollow tubes — outer and inner diameter with quantity and waste.",
+    "description": "Calculate concrete for circular slabs and hollow tubes — enter outer and inner diameter, get cubic yards, bags, weight and cost with waste.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -224,15 +221,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "concrete-waste-calculator",
-    "title": "Concrete Waste Calculator — Quantity & Cost for US Construction",
+    "title": "Concrete Waste Calculator — Order Quantity with Waste (2026)",
     "h1": "Concrete Waste Calculator",
-    "description": "Calculate quantity with waste — net, extra and whole items to order. Enter concrete dimensions to get instant results.",
+    "description": "Calculate net, extra and total concrete to order — account for spillage, over-excavation and rounding so you never run short or over-order.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "concrete waste calculator",
-      "concrete waste calculator estimator"
+      "concrete waste calculator"
     ],
     "featured": false
   },
@@ -400,7 +396,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "foundation-cost-calculator",
     "title": "Foundation Cost Calculator — Price & Quantity",
     "h1": "Foundation Cost Calculator",
-    "description": "Estimate foundation cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate foundation cost — material quantity, delivery, labor and total. Compare ready-mix vs 80/60/40-lb bags with waste.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -414,55 +410,51 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "foundation-excavation-calculator",
     "title": "Foundation Excavation Calculator — Yards & Bank Volume",
     "h1": "Foundation Excavation Calculator",
-    "description": "Calculate foundation excavation bank volume in cubic yards and loose haulage volume — adjust for swell and waste.",
+    "description": "Calculate foundation excavation bank volume in cubic yards — adjust for swell and waste to estimate haul-away and backfill needs.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "foundation excavation calculator",
-      "foundation excavation calculator estimator"
+      "foundation excavation calculator"
     ],
     "featured": false
   },
   {
     "slug": "strip-footing-calculator",
-    "title": "Strip Footing Calculator — Quantity & Cost for US Construction",
+    "title": "Strip Footing Calculator — Yards, Bags & Cost (2026)",
     "h1": "Strip Footing Calculator",
-    "description": "Calculate strip footing volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate strip footing concrete — linear footage, cross-section dimensions, cubic yards, 80/60/40-lb bags, weight and cost with waste.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "strip footing calculator",
-      "strip footing calculator estimator"
+      "strip footing calculator"
     ],
     "featured": false
   },
   {
     "slug": "pad-footing-calculator",
-    "title": "Pad Footing Calculator — Quantity & Cost for US Construction",
+    "title": "Pad Footing Calculator — Yards, Bags & Cost (2026)",
     "h1": "Pad Footing Calculator",
-    "description": "Calculate pad footing volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate pad footing concrete for posts and columns — enter length, width and depth, get cubic yards, bags, weight and cost per footing with waste.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "pad footing calculator",
-      "pad footing calculator estimator"
+      "pad footing calculator"
     ],
     "featured": false
   },
   {
     "slug": "pier-footing-calculator",
-    "title": "Pier Footing Calculator — Quantity & Cost for US Construction",
+    "title": "Pier Footing Calculator — Yards, Bags & Cost (2026)",
     "h1": "Pier Footing Calculator",
-    "description": "Calculate pier footing volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate pier footing concrete for decks, porches and post-frame buildings — diameter, depth, cubic yards, bags and cost per pier with waste.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "pier footing calculator",
-      "pier footing calculator estimator"
+      "pier footing calculator"
     ],
     "featured": false
   },
@@ -470,7 +462,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "footing-volume-calculator",
     "title": "Footing Volume Calculator — Cubic Yards",
     "h1": "Footing Volume Calculator",
-    "description": "Calculate footing volume in cubic yards and cubic feet — enter dimensions, get yards with waste. Enter foundation dimensions to get instant results.",
+    "description": "Calculate footing volume in cubic yards and cubic feet — enter length, width and depth for spread, strip and pad footings with waste factor.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -482,15 +474,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "footing-concrete-calculator",
-    "title": "Footing Concrete Calculator — Quantity & Cost for US Construction",
+    "title": "Footing Concrete Calculator — Yards, Bags & Cost (2026)",
     "h1": "Footing Concrete Calculator",
-    "description": "Calculate footing concrete volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete for any footing type — spread, strip, pad or pier. Cubic yards, bags, weight and total cost with waste allowance.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "footing concrete calculator",
-      "footing concrete calculator estimator"
+      "footing concrete calculator"
     ],
     "featured": false
   },
@@ -498,13 +489,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "foundation-wall-calculator",
     "title": "Foundation Wall Calculator — Area, Units & Waste",
     "h1": "Foundation Wall Calculator",
-    "description": "Calculate foundation wall volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete for foundation walls — height, length, thickness with optional door/window deductions. Cubic yards, bags and cost with waste.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "foundation wall calculator",
-      "foundation wall calculator estimator"
+      "foundation wall calculator"
     ],
     "featured": false
   },
@@ -512,27 +502,25 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "basement-wall-calculator",
     "title": "Basement Wall Calculator — Area, Units & Waste",
     "h1": "Basement Wall Calculator",
-    "description": "Calculate basement wall volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete for basement walls — height, length, thickness with opening deductions. Cubic yards, bags, weight and cost with waste.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "basement wall calculator",
-      "basement wall calculator estimator"
+      "basement wall calculator"
     ],
     "featured": false
   },
   {
     "slug": "crawl-space-calculator",
-    "title": "Crawl Space Calculator — Quantity & Cost for US Construction",
+    "title": "Crawl Space Calculator — Volume & Concrete (2026)",
     "h1": "Crawl Space Calculator",
-    "description": "Calculate crawl space volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate concrete for crawl space foundations — vapor barrier area, footing volume, perimeter wall and pier counts with cost and waste.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "crawl space calculator",
-      "crawl space calculator estimator"
+      "crawl space calculator"
     ],
     "featured": false
   },
@@ -540,7 +528,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rebar-calculator",
     "title": "Rebar Calculator — Quantity, Weight & Cost",
     "h1": "Rebar Calculator",
-    "description": "Calculate rebar quantity and spacing for concrete reinforcement. Determine how many bars you need with equal center spacing, total weight, and material cost for structural beams, slabs, and walls.",
+    "description": "Calculate rebar quantity and spacing for concrete reinforcement — equal center spacing, total bar count, weight and cost for slabs, beams and walls.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -555,7 +543,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rebar-weight-calculator",
     "title": "Rebar Weight Calculator — Pounds per Foot & Tons",
     "h1": "Rebar Weight Calculator",
-    "description": "Calculate rebar weight per foot and total tons from length, size and spacing — for ordering. Enter rebar dimensions to get instant results.",
+    "description": "Calculate rebar weight per foot and total tons — enter count, length and bar size (#3 to #18) to get pounds, short tons and metric tonnes.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -567,29 +555,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "rebar-spacing-calculator",
-    "title": "Rebar Spacing Calculator — Quantity & Cost for US Construction",
+    "title": "Rebar Spacing Calculator — Equal Center Spacing (2026)",
     "h1": "Rebar Spacing Calculator",
-    "description": "Calculate equal center spacing from length and member count. Enter rebar dimensions to get instant results.",
+    "description": "Calculate equal center spacing from member length and bar count — for slabs, walls and beams. Reverse-calculates spacing from rebar on hand.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "rebar spacing calculator",
-      "rebar spacing calculator estimator"
+      "rebar spacing calculator"
     ],
     "featured": false
   },
   {
     "slug": "rebar-length-calculator",
-    "title": "Rebar Length Calculator — Quantity & Cost for US Construction",
+    "title": "Rebar Length Calculator — Total Feet & Weight (2026)",
     "h1": "Rebar Length Calculator",
-    "description": "Calculate rebar length — rebar length and weight from count, length per bar and size with waste for US projects.",
+    "description": "Calculate total rebar length and weight — enter bar count, length per bar and size, get linear footage, pounds and tons with waste.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "rebar length calculator",
-      "rebar length calculator estimator"
+      "rebar length calculator"
     ],
     "featured": false
   },
@@ -597,7 +583,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rebar-quantity-calculator",
     "title": "Rebar Quantity Calculator — Count & Waste",
     "h1": "Rebar Quantity Calculator",
-    "description": "Calculate rebar quantity — how many units, bags or pieces you need with waste factor. Enter rebar dimensions to get instant results.",
+    "description": "Calculate how many rebar pieces you need — enter spacing and dimensions to get bar count, linear feet, weight and cost with waste.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -611,42 +597,39 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rebar-cost-calculator",
     "title": "Rebar Cost Calculator — Price & Quantity",
     "h1": "Rebar Cost Calculator",
-    "description": "Calculate rebar project costs for reinforced concrete structures. Determine material quantity and detailed cost estimate for beams, slabs, columns, and foundations based on spacing and sizing.",
+    "description": "Calculate rebar project cost — bar count, weight and price per pound for slabs, beams, columns and foundations with waste allowance.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar cost calculator",
-      "rebar price estimator",
       "rebar material cost"
     ],
     "featured": false
   },
   {
     "slug": "rebar-grid-calculator",
-    "title": "Rebar Grid Calculator — Quantity & Cost for US Construction",
+    "title": "Rebar Grid Calculator — Bar Count & Spacing (2026)",
     "h1": "Rebar Grid Calculator",
-    "description": "Calculate rebar grid count and spacing — how many pieces and equalized centers with waste for US layouts.",
+    "description": "Calculate rebar grid layout — bar count per direction with equalized spacing, edge offset, total linear feet, weight and waste.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "rebar grid calculator",
-      "rebar grid calculator estimator"
+      "rebar grid calculator"
     ],
     "featured": false
   },
   {
     "slug": "rebar-lap-length-calculator",
-    "title": "Rebar Lap Length Calculator — Quantity & Cost for US Construction",
+    "title": "Rebar Lap Length Calculator — Lap Steel & Weight (2026)",
     "h1": "Rebar Lap Length Calculator",
-    "description": "Calculate rebar lap length — additional steel for laps with waste for US projects. Enter rebar dimensions to get instant results.",
+    "description": "Calculate rebar lap splice length and additional steel — enter lap length per bar size, get extra bars, weight and cost with waste.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "rebar lap length calculator",
-      "rebar lap length calculator estimator"
+      "rebar lap length calculator"
     ],
     "featured": false
   },
@@ -654,27 +637,25 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "reinforcement-mesh-calculator",
     "title": "Reinforcement Mesh Calculator — Bags, Volume & Cost",
     "h1": "Reinforcement Mesh Calculator",
-    "description": "Calculate reinforcement mesh count and spacing — how many pieces and equalized centers with waste for US layouts.",
+    "description": "Calculate welded wire reinforcement mesh — sheet count, coverage area, overlap allowance and cost per project with waste.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "reinforcement mesh calculator",
-      "reinforcement mesh calculator estimator"
+      "reinforcement mesh calculator"
     ],
     "featured": false
   },
   {
     "slug": "rebar-chair-calculator",
-    "title": "Rebar Chair Calculator — Quantity & Cost for US Construction",
+    "title": "Rebar Chair Calculator — Chair Count & Spacing (2026)",
     "h1": "Rebar Chair Calculator",
-    "description": "Calculate rebar chair count and spacing — how many pieces and equalized centers with waste for US layouts.",
+    "description": "Calculate rebar chair count and spacing — chairs per square foot for slabs and decks, total pieces and cost with waste.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "rebar chair calculator",
-      "rebar chair calculator estimator"
+      "rebar chair calculator"
     ],
     "featured": false
   },
@@ -682,13 +663,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "brick-calculator",
     "title": "Brick Calculator — Quantity, Mortar & Cost",
     "h1": "Brick Calculator",
-    "description": "Calculate brick — units per wall area with mortar joint, weight and cost with waste. Enter brick dimensions to get instant results.",
+    "description": "Calculate bricks per wall area — enter wall dimensions and brick size with mortar joint, get unit count, mortar volume and cost with waste.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick calculator",
-      "brick calculator estimator"
+      "brick calculator"
     ],
     "featured": false
   },
@@ -696,13 +676,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "brick-wall-calculator",
     "title": "Brick Wall Calculator — Area, Units & Waste",
     "h1": "Brick Wall Calculator",
-    "description": "Calculate brick wall — units per wall area with mortar joint, weight and cost with waste. Enter brick dimensions to get instant results.",
+    "description": "Calculate brick wall quantity — wall area, brick size, mortar joint thickness, total units, mortar bags, weight and cost with waste.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick wall calculator",
-      "brick wall calculator estimator"
+      "brick wall calculator"
     ],
     "featured": false
   },
@@ -710,7 +689,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "brick-quantity-calculator",
     "title": "Brick Quantity Calculator — Bricks per Wall Area",
     "h1": "Brick Quantity Calculator",
-    "description": "Calculate bricks needed per wall area — account for brick size, mortar joint and waste. Enter brick dimensions to get instant results.",
+    "description": "Calculate how many bricks you need for a wall — enter length, height and brick size to get count, mortar and cost with waste allowance.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -724,7 +703,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "brick-cost-calculator",
     "title": "Brick Cost Calculator — Price & Quantity",
     "h1": "Brick Cost Calculator",
-    "description": "Estimate brick cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate brick wall cost — material quantity, mortar bags, delivery and labor for US brick walls with waste and regional price comparison.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -738,41 +717,38 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "brick-mortar-calculator",
     "title": "Brick Mortar Calculator — Bags, Volume & Cost",
     "h1": "Brick Mortar Calculator",
-    "description": "Calculate brick mortar — units per wall area with mortar joint, cost with waste. Enter brick dimensions to get instant results.",
+    "description": "Calculate brick mortar — bags, cubic feet or yards for any brick wall with joint thickness. Type N, S or M mortar with waste allowance.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick mortar calculator",
-      "brick mortar calculator estimator"
+      "brick mortar calculator"
     ],
     "featured": false
   },
   {
     "slug": "brick-veneer-calculator",
-    "title": "Brick Veneer Calculator — Quantity & Cost for US Construction",
+    "title": "Brick Veneer Calculator — Bricks, Mortar & Cost (2026)",
     "h1": "Brick Veneer Calculator",
-    "description": "Calculate brick veneer — units per wall area with mortar joint, weight and cost with waste. Enter brick dimensions to get instant results.",
+    "description": "Calculate brick veneer quantity — thin brick or full veneer, wall area, opening deductions, brick count, mortar and cost with waste.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick veneer calculator",
-      "brick veneer calculator estimator"
+      "brick veneer calculator"
     ],
     "featured": false
   },
   {
     "slug": "brick-patio-calculator",
-    "title": "Brick Patio Calculator — Quantity & Cost for US Construction",
+    "title": "Brick Patio Calculator — Bricks, Mortar & Cost (2026)",
     "h1": "Brick Patio Calculator",
-    "description": "Calculate brick patio — units per wall area with mortar joint, weight and cost with waste. Enter brick dimensions to get instant results.",
+    "description": "Calculate brick patio quantity — paver bricks, mortar or sand base, area, brick count, joint sand and cost with waste allowance.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick patio calculator",
-      "brick patio calculator estimator"
+      "brick patio calculator"
     ],
     "featured": false
   },
@@ -780,27 +756,25 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "brick-paver-calculator",
     "title": "Brick Paver Calculator — Pavers, Base & Sand",
     "h1": "Brick Paver Calculator",
-    "description": "Calculate brick paver — units per wall area with mortar joint, weight and cost with waste. Enter brick dimensions to get instant results.",
+    "description": "Calculate brick paver quantity — patio or walkway area, brick size, joint width, count, base gravel, sand and cost with waste.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick paver calculator",
-      "brick paver calculator estimator"
+      "brick paver calculator"
     ],
     "featured": false
   },
   {
     "slug": "masonry-calculator",
-    "title": "Masonry Calculator — Quantity & Cost for US Construction",
+    "title": "Masonry Calculator — Bricks, Mortar & Cost (2026)",
     "h1": "Masonry Calculator",
     "description": "Calculate masonry — units per wall area with mortar joint, weight and cost with waste. Enter brick dimensions to get instant results.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "masonry calculator",
-      "masonry calculator estimator"
+      "masonry calculator"
     ],
     "featured": false
   },
@@ -813,8 +787,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "masonry wall calculator",
-      "masonry wall calculator estimator"
+      "masonry wall calculator"
     ],
     "featured": false
   },
@@ -841,8 +814,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "masonry block calculator",
-      "masonry block calculator estimator"
+      "masonry block calculator"
     ],
     "featured": false
   },
@@ -850,7 +822,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "brick-weight-calculator",
     "title": "Brick Weight Calculator — Weight & Tons",
     "h1": "Brick Weight Calculator",
-    "description": "Calculate brick weight — volume to pounds and tons with density. For ordering and truck loads. Enter brick dimensions to get instant results.",
+    "description": "Calculate brick weight — volume to pounds and short tons with density for ordering and truck-load planning.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -862,29 +834,27 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "brick-waste-calculator",
-    "title": "Brick Waste Calculator — Quantity & Cost for US Construction",
+    "title": "Brick Waste Calculator — Order Quantity with Waste (2026)",
     "h1": "Brick Waste Calculator",
-    "description": "Calculate quantity with waste — net, extra and whole items to order — for brick projects. Enter brick dimensions to get instant results.",
+    "description": "Calculate brick order quantity with waste — net, extra and total bricks to order for any wall with cut, break and damage allowance.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick waste calculator",
-      "brick waste calculator estimator"
+      "brick waste calculator"
     ],
     "featured": false
   },
   {
     "slug": "brick-joint-calculator",
-    "title": "Brick Joint Calculator — Quantity & Cost for US Construction",
+    "title": "Brick Joint Calculator — Mortar Joint Width (2026)",
     "h1": "Brick Joint Calculator",
-    "description": "Calculate equal mortar joint width for a course length and brick count. Enter brick dimensions to get instant results.",
+    "description": "Calculate equal mortar joint width — for a given course length and brick count. Helps set consistent joint size for brick walls.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick joint calculator",
-      "brick joint calculator estimator"
+      "brick joint calculator"
     ],
     "featured": false
   },
@@ -892,27 +862,25 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-block-calculator",
     "title": "Concrete Block Calculator — Blocks, Mortar & Waste",
     "h1": "Concrete Block Calculator",
-    "description": "Calculate concrete block — units per wall area with mortar joint, weight and cost with waste. Enter cmu dimensions to get instant results.",
+    "description": "Calculate concrete block (CMU) quantity — wall area, block size, mortar joint, unit count, mortar bags, grout volume and cost with waste.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "concrete block calculator",
-      "concrete block calculator estimator"
+      "concrete block calculator"
     ],
     "featured": false
   },
   {
     "slug": "cmu-calculator",
-    "title": "CMU Calculator — Quantity & Cost for US Construction",
+    "title": "CMU Calculator — Blocks, Mortar & Cost (2026)",
     "h1": "CMU Calculator",
-    "description": "Calculate cmu — units per wall area with mortar joint, weight and cost with waste. Enter cmu dimensions to get instant results.",
+    "description": "Calculate CMU (concrete masonry unit) quantity — wall area, block size, mortar joint, unit count, mortar bags, grout and cost with waste.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "cmu calculator",
-      "cmu calculator estimator"
+      "cmu calculator"
     ],
     "featured": false
   },
@@ -920,13 +888,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cmu-wall-calculator",
     "title": "CMU Wall Calculator — Area, Units & Waste",
     "h1": "CMU Wall Calculator",
-    "description": "Calculate cmu wall — units per wall area with mortar joint, weight and cost with waste. Enter cmu dimensions to get instant results.",
+    "description": "Calculate CMU wall — wall area, block size, opening deductions, block count, mortar, grout, rebar and cost with waste allowance.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "cmu wall calculator",
-      "cmu wall calculator estimator"
+      "cmu wall calculator"
     ],
     "featured": false
   },
@@ -934,7 +901,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cmu-quantity-calculator",
     "title": "CMU Quantity Calculator — Count & Waste",
     "h1": "CMU Quantity Calculator",
-    "description": "Calculate cmu quantity — how many units, bags or pieces you need with waste factor. Enter cmu dimensions to get instant results.",
+    "description": "Calculate how many CMU blocks you need — enter wall dimensions, get block count, mortar, grout and cost with waste factor.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -948,7 +915,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cmu-cost-calculator",
     "title": "CMU Cost Calculator — Price & Quantity",
     "h1": "CMU Cost Calculator",
-    "description": "Estimate cmu cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate CMU wall cost — block count, mortar, grout, rebar, labor and delivery for US projects with waste allowance.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -962,13 +929,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-block-wall-calculator",
     "title": "Concrete Block Wall Calculator — Area, Units & Waste",
     "h1": "Concrete Block Wall Calculator",
-    "description": "Calculate concrete block wall — units per wall area with mortar joint, weight and cost with waste. Enter cmu dimensions to get instant results.",
+    "description": "Calculate concrete block wall — area, opening deductions, block count, mortar, grout volume and cost with waste allowance.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "concrete block wall calculator",
-      "concrete block wall calculator estimator"
+      "concrete block wall calculator"
     ],
     "featured": false
   },
@@ -976,7 +942,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-block-weight-calculator",
     "title": "Concrete Block Weight Calculator — Weight & Tons",
     "h1": "Concrete Block Weight Calculator",
-    "description": "Calculate concrete block weight — volume to pounds and tons with density. For ordering and truck loads.",
+    "description": "Calculate concrete block weight — volume to pounds and short tons with density for truck-load planning.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -990,13 +956,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "concrete-block-mortar-calculator",
     "title": "Concrete Block Mortar Calculator — Bags, Volume & Cost",
     "h1": "Concrete Block Mortar Calculator",
-    "description": "Calculate concrete block mortar — units per wall area with mortar joint, cost with waste. Enter cmu dimensions to get instant results.",
+    "description": "Calculate concrete block mortar — bags, cubic feet or yards for any CMU wall with joint thickness and waste allowance.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "concrete block mortar calculator",
-      "concrete block mortar calculator estimator"
+      "concrete block mortar calculator"
     ],
     "featured": false
   },
@@ -1004,13 +969,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cmu-grout-calculator",
     "title": "CMU Grout Calculator — Bags, Volume & Cost",
     "h1": "CMU Grout Calculator",
-    "description": "Calculate cmu grout — units per wall area with mortar joint, cost with waste. Enter cmu dimensions to get instant results.",
+    "description": "Calculate CMU grout — cubic yards or bags for filled cells, bond beams and lintels with waste allowance for any CMU wall.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "cmu grout calculator",
-      "cmu grout calculator estimator"
+      "cmu grout calculator"
     ],
     "featured": false
   },
@@ -1018,13 +982,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cmu-reinforcement-calculator",
     "title": "CMU Reinforcement Calculator — Bags, Volume & Cost",
     "h1": "CMU Reinforcement Calculator",
-    "description": "Calculate cmu reinforcement count and spacing — how many pieces and equalized centers with waste for US layouts.",
+    "description": "Calculate CMU reinforcement — vertical and horizontal rebar count, spacing, weight and cost for grouted CMU walls with waste.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "cmu reinforcement calculator",
-      "cmu reinforcement calculator estimator"
+      "cmu reinforcement calculator"
     ],
     "featured": false
   },
@@ -1032,13 +995,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "mortar-calculator",
     "title": "Mortar Calculator — Bags, Volume & Cost",
     "h1": "Mortar Calculator",
-    "description": "Calculate mortar — bags from volume and yield per bag. Enter mortar dimensions to get instant results.",
+    "description": "Calculate mortar bags from volume and yield per bag — enter wall area or mortar volume to get type N/S/M bag count and cost with waste.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "mortar calculator",
-      "mortar calculator estimator"
+      "mortar calculator"
     ],
     "featured": false
   },
@@ -1046,13 +1008,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "mortar-mix-calculator",
     "title": "Mortar Mix Calculator — Ratio, Bags & Volume",
     "h1": "Mortar Mix Calculator",
-    "description": "Calculate mortar mix ratio, cement, sand and bags for brick, block and stone work. Enter mortar dimensions to get instant results.",
+    "description": "Calculate mortar mix ratio — cement, sand and lime proportions for type N, S, M or O mortar with bag count and cost with waste.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "mortar mix calculator",
-      "mortar mix calculator estimator"
+      "mortar mix calculator"
     ],
     "featured": false
   },
@@ -1060,7 +1021,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "mortar-quantity-calculator",
     "title": "Mortar Quantity Calculator — Count & Waste",
     "h1": "Mortar Quantity Calculator",
-    "description": "Calculate mortar quantity — how many units, bags or pieces you need with waste factor. Enter mortar dimensions to get instant results.",
+    "description": "Calculate how many mortar bags you need — from volume or wall area with type and waste allowance. Covers type N, S, M and O.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1074,7 +1035,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "mortar-cost-calculator",
     "title": "Mortar Cost Calculator — Price & Quantity",
     "h1": "Mortar Cost Calculator",
-    "description": "Estimate mortar cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate mortar cost — material, quantity and price with waste. Type N, S, M or O mortar for brick, block or stone with delivery and labor.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1088,13 +1049,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "grout-calculator",
     "title": "Grout Calculator — Bags, Volume & Cost",
     "h1": "Grout Calculator",
-    "description": "Calculate grout — bags from volume and yield per bag. Enter mortar dimensions to get instant results.",
+    "description": "Calculate grout bags from volume and yield per bag — enter tile area or grout volume to get bag count and cost with waste.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "grout calculator",
-      "grout calculator estimator"
+      "grout calculator"
     ],
     "featured": false
   },
@@ -1102,7 +1062,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "grout-quantity-calculator",
     "title": "Grout Quantity Calculator — Count & Waste",
     "h1": "Grout Quantity Calculator",
-    "description": "Calculate grout quantity — how many units, bags or pieces you need with waste factor. Enter mortar dimensions to get instant results.",
+    "description": "Calculate how many grout bags you need — from tile area, joint width and depth with waste allowance. Sanded or unsanded grout.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1116,7 +1076,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "grout-cost-calculator",
     "title": "Grout Cost Calculator — Price & Quantity",
     "h1": "Grout Cost Calculator",
-    "description": "Estimate grout cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate grout cost — material, quantity and price with waste. Sanded, unsanded or epoxy grout for tile and stone with waste allowance.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1130,13 +1090,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cement-calculator",
     "title": "Cement Calculator — Bags, Volume & Cost",
     "h1": "Cement Calculator",
-    "description": "Calculate cement — bags from volume and yield per bag. Enter mortar dimensions to get instant results.",
+    "description": "Calculate cement bags from volume and yield per bag — Portland cement for concrete, mortar or grout with bag count and cost.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "cement calculator",
-      "cement calculator estimator"
+      "cement calculator"
     ],
     "featured": false
   },
@@ -1144,13 +1103,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cement-bag-calculator",
     "title": "Cement Bag Calculator — Bags, Volume & Cost",
     "h1": "Cement Bag Calculator",
-    "description": "Calculate cement bag — bags from volume and yield per bag. Enter mortar dimensions to get instant results.",
+    "description": "Calculate how many cement bags you need — from concrete or mortar volume, mix ratio and waste allowance. Type I/II or Type III cement.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "cement bag calculator",
-      "cement bag calculator estimator"
+      "cement bag calculator"
     ],
     "featured": false
   },
@@ -1158,13 +1116,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cement-sand-ratio-calculator",
     "title": "Cement Sand Ratio Calculator — Bags, Volume & Cost",
     "h1": "Cement Sand Ratio Calculator",
-    "description": "Calculate cement sand ratio volume in cubic yards, weight in tons and estimated cost — supports bulk density and waste.",
+    "description": "Calculate cement and sand ratio — cement bags, sand volume in cubic yards, weight in tons and cost for any mix ratio with waste.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "cement sand ratio calculator",
-      "cement sand ratio calculator estimator"
+      "cement sand ratio calculator"
     ],
     "featured": false
   },
@@ -1172,7 +1129,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "gravel-calculator",
     "title": "Gravel Calculator — Cubic Yards, Tons & Cost",
     "h1": "Gravel Calculator",
-    "description": "Calculate gravel in cubic yards, tons and cost for any rectangular area. Supports pea gravel, crushed stone and more with US & metric units.",
+    "description": "Calculate gravel in cubic yards, tons and cost for patios, driveways and bases. Choose pea gravel, crushed stone, river rock or limestone with density and waste.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1186,13 +1143,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "gravel-cost-calculator",
     "title": "Gravel Cost Calculator — Price & Quantity",
     "h1": "Gravel Cost Calculator",
-    "description": "Estimate total gravel project costs including material, delivery, spreading, and labor. Enter quantity in yards or tons to get detailed cost breakdown for your specific gravel type.",
+    "description": "Estimate gravel project cost — material quantity, delivery, spreading and labor for any gravel type with waste allowance.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "gravel cost calculator",
-      "gravel price estimator",
       "gravel material cost calculator"
     ],
     "featured": false
@@ -1201,7 +1157,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "gravel-weight-calculator",
     "title": "Gravel Weight Calculator — Tons & Pounds",
     "h1": "Gravel Weight Calculator",
-    "description": "Convert gravel cubic yards to tons and pounds — for ordering by weight. Enter gravel dimensions to get instant results.",
+    "description": "Convert gravel cubic yards to tons and pounds — for ordering by weight. Supports pea gravel, crushed stone, river rock and limestone densities.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1215,7 +1171,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "gravel-depth-calculator",
     "title": "Gravel Depth Calculator — Depth & Coverage",
     "h1": "Gravel Depth Calculator",
-    "description": "Calculate gravel depth thickness and volume — for slabs, base and coverage with waste. Enter gravel dimensions to get instant results.",
+    "description": "Calculate gravel depth and volume — for slab base, driveway and path coverage with material-specific densities and waste allowance.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1229,13 +1185,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "crushed-stone-calculator",
     "title": "Crushed Stone Calculator — Yards, Tons & Cost",
     "h1": "Crushed Stone Calculator",
-    "description": "Calculate crushed stone volume in cubic yards, weight in tons and estimated cost — supports bulk density and waste.",
+    "description": "Calculate crushed stone volume in cubic yards, weight in tons and cost — for patios, driveways and drainage bases with waste allowance.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "crushed stone calculator",
-      "crushed stone calculator estimator"
+      "crushed stone calculator"
     ],
     "featured": false
   },
@@ -1243,13 +1198,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "crushed-stone-cost-calculator",
     "title": "Crushed Stone Cost Calculator — Price & Quantity",
     "h1": "Crushed Stone Cost Calculator",
-    "description": "Calculate crushed stone project costs for driveways, foundations, and drainage. Enter area and depth to get material quantity and detailed cost estimate including delivery and installation.",
+    "description": "Estimate crushed stone cost — material, delivery, installation and total. For driveways, foundations and drainage projects with waste.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "crushed stone cost calculator",
-      "crushed stone price estimator",
       "crushed stone material cost"
     ],
     "featured": false
@@ -1258,13 +1212,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "aggregate-calculator",
     "title": "Aggregate Calculator — Yards, Tons & Cost",
     "h1": "Aggregate Calculator",
-    "description": "Calculate aggregate volume in cubic yards, weight in tons and estimated cost — supports bulk density and waste.",
+    "description": "Calculate aggregate volume in cubic yards, tons and cost — for concrete mixing, base material or drainage with density and waste.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "aggregate calculator",
-      "aggregate calculator estimator"
+      "aggregate calculator"
     ],
     "featured": false
   },
@@ -1272,7 +1225,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "aggregate-weight-calculator",
     "title": "Aggregate Weight Calculator — Weight & Tons",
     "h1": "Aggregate Weight Calculator",
-    "description": "Calculate aggregate weight — volume to pounds and tons with density. For ordering and truck loads. Enter gravel dimensions to get instant results.",
+    "description": "Calculate aggregate weight — volume to pounds and short tons with density for concrete mixing and base material ordering.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1286,13 +1239,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "sand-calculator",
     "title": "Sand Calculator — Yards, Tons & Cost",
     "h1": "Sand Calculator",
-    "description": "Calculate sand volume in cubic yards, weight in tons and estimated cost — supports bulk density and waste.",
+    "description": "Calculate sand volume in cubic yards, tons and cost — for concrete mixing, masonry or landscaping with bulk density and waste allowance.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "sand calculator",
-      "sand calculator estimator"
+      "sand calculator"
     ],
     "featured": false
   },
@@ -1300,7 +1252,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "sand-weight-calculator",
     "title": "Sand Weight Calculator — Weight & Tons",
     "h1": "Sand Weight Calculator",
-    "description": "Calculate sand weight — volume to pounds and tons with density. For ordering and truck loads. Enter gravel dimensions to get instant results.",
+    "description": "Calculate sand weight — volume to pounds and short tons with density for ordering and truck-load planning.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1314,13 +1266,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "sand-cost-calculator",
     "title": "Sand Cost Calculator — Price & Quantity",
     "h1": "Sand Cost Calculator",
-    "description": "Calculate sand project costs for concrete mixing, masonry, and landscaping. Enter volume or area to get material quantity and detailed cost estimate including delivery and placement.",
+    "description": "Estimate sand cost — material, delivery, placement and total for concrete mixing, masonry or landscaping with waste allowance.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "sand cost calculator",
-      "sand price estimator",
       "sand material cost"
     ],
     "featured": false
@@ -1329,13 +1280,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fill-dirt-calculator",
     "title": "Fill Dirt Calculator — Yards, Tons & Cost",
     "h1": "Fill Dirt Calculator",
-    "description": "Calculate fill dirt volume and weight — cubic yards, tons and pounds with density, plus cost per yard/ton with waste.",
+    "description": "Calculate fill dirt volume, weight and cost — cubic yards, short tons and pounds with density for foundation backfilling or site grading.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "fill dirt calculator",
-      "fill dirt calculator estimator"
+      "fill dirt calculator"
     ],
     "featured": false
   },
@@ -1343,13 +1293,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fill-dirt-cost-calculator",
     "title": "Fill Dirt Cost Calculator — Price & Quantity",
     "h1": "Fill Dirt Cost Calculator",
-    "description": "Calculate fill dirt project costs for foundation backfilling, landscaping, and site grading. Enter volume or area to get material quantity and detailed cost estimate including delivery and placement.",
+    "description": "Estimate fill dirt cost — material, delivery, spreading and compaction for foundation backfilling, landscaping and grading with waste.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "fill dirt cost calculator",
-      "fill dirt price estimator",
       "fill dirt material cost"
     ],
     "featured": false
@@ -1358,13 +1307,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "topsoil-calculator",
     "title": "Topsoil Calculator — Yards, Tons & Cost",
     "h1": "Topsoil Calculator",
-    "description": "Calculate topsoil volume and weight — cubic yards, tons and pounds with density, plus cost per yard/ton with waste.",
+    "description": "Calculate topsoil volume, weight and cost — cubic yards, tons and pounds with density for gardening, landscaping and lawn installation.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "topsoil calculator",
-      "topsoil calculator estimator"
+      "topsoil calculator"
     ],
     "featured": false
   },
@@ -1372,13 +1320,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "topsoil-cost-calculator",
     "title": "Topsoil Cost Calculator — Price & Quantity",
     "h1": "Topsoil Cost Calculator",
-    "description": "Calculate topsoil project costs for gardening, landscaping, and lawn installation. Enter area and depth to get material quantity and detailed cost estimate including delivery and spreading.",
+    "description": "Estimate topsoil cost — material, delivery, spreading and grading for gardens, landscaping and lawn installation with waste allowance.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "topsoil cost calculator",
-      "topsoil price estimator",
       "topsoil material cost"
     ],
     "featured": false
@@ -1387,13 +1334,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "excavation-calculator",
     "title": "Excavation Calculator — Yards & Bank Volume",
     "h1": "Excavation Calculator",
-    "description": "Calculate excavation bank volume in cubic yards and loose haulage volume — adjust for swell and waste.",
+    "description": "Calculate excavation bank volume in cubic yards and loose haulage — adjust for swell and waste for foundation, trench or site work.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "excavation calculator",
-      "excavation calculator estimator"
+      "excavation calculator"
     ],
     "featured": false
   },
@@ -1401,7 +1347,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "excavation-cost-calculator",
     "title": "Excavation Cost Calculator — Price & Quantity",
     "h1": "Excavation Cost Calculator",
-    "description": "Estimate excavation cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate excavation cost — material, haul-away, labor and equipment with waste. Compare per yard or per ton for US excavation projects.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1415,13 +1361,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "trench-calculator",
     "title": "Trench Calculator — Yards & Bank Volume",
     "h1": "Trench Calculator",
-    "description": "Calculate trench bank volume in cubic yards and loose haulage volume — adjust for swell and waste. Enter excavation dimensions to get instant results.",
+    "description": "Calculate trench excavation bank volume in cubic yards — adjust for swell and waste for utility, drainage or foundation trenches.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "trench calculator",
-      "trench calculator estimator"
+      "trench calculator"
     ],
     "featured": false
   },
@@ -1429,7 +1374,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "trench-volume-calculator",
     "title": "Trench Volume Calculator — Cubic Yards",
     "h1": "Trench Volume Calculator",
-    "description": "Calculate trench volume in cubic yards and cubic feet — enter dimensions, get yards with waste. Enter excavation dimensions to get instant results.",
+    "description": "Calculate trench volume in cubic yards and cubic feet — length, width, depth with swell and waste for any trenching project.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1443,13 +1388,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "trench-backfill-calculator",
     "title": "Trench Backfill Calculator — Yards & Bank Volume",
     "h1": "Trench Backfill Calculator",
-    "description": "Calculate trench backfill bank volume in cubic yards and loose haulage volume — adjust for swell and waste.",
+    "description": "Calculate trench backfill volume in cubic yards — bank, loose and compacted with swell and waste for utility or foundation trenches.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "trench backfill calculator",
-      "trench backfill calculator estimator"
+      "trench backfill calculator"
     ],
     "featured": false
   },
@@ -1457,27 +1401,25 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "earthwork-calculator",
     "title": "Earthwork Calculator — Yards & Bank Volume",
     "h1": "Earthwork Calculator",
-    "description": "Calculate earthwork bank volume in cubic yards and loose haulage volume — adjust for swell and waste.",
+    "description": "Calculate earthwork bank volume in cubic yards — adjust for swell and waste for site grading, roadwork or foundation prep.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "earthwork calculator",
-      "earthwork calculator estimator"
+      "earthwork calculator"
     ],
     "featured": false
   },
   {
     "slug": "cut-and-fill-calculator",
-    "title": "Cut and Fill Calculator — Quantity & Cost for US Construction",
+    "title": "Cut and Fill Calculator — Earthwork Balance (2026)",
     "h1": "Cut and Fill Calculator",
-    "description": "Calculate cut and fill — cut and fill bank balance with shrink and swell with waste for US projects.",
+    "description": "Calculate cut and fill earthwork balance — net fill needed, shrink factor and swell factor with waste for site grading projects.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "cut and fill calculator",
-      "cut and fill calculator estimator"
+      "cut and fill calculator"
     ],
     "featured": false
   },
@@ -1485,13 +1427,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "dirt-removal-calculator",
     "title": "Dirt Removal Calculator — Yards, Tons & Cost",
     "h1": "Dirt Removal Calculator",
-    "description": "Calculate dirt removal — excavation volume — bank and loose haulage with swell with waste for US projects.",
+    "description": "Calculate dirt removal volume — bank and loose haulage with swell and waste for foundation, pool or site excavation projects.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "dirt removal calculator",
-      "dirt removal calculator estimator"
+      "dirt removal calculator"
     ],
     "featured": false
   },
@@ -1499,7 +1440,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "soil-volume-calculator",
     "title": "Soil Volume Calculator — Cubic Yards",
     "h1": "Soil Volume Calculator",
-    "description": "Calculate soil volume in cubic yards and cubic feet — enter dimensions, get yards with waste. Enter excavation dimensions to get instant results.",
+    "description": "Calculate soil volume in cubic yards and cubic feet — length, width, depth with waste for landscaping, gardening or backfilling.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1513,7 +1454,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "soil-weight-calculator",
     "title": "Soil Weight Calculator — Weight & Tons",
     "h1": "Soil Weight Calculator",
-    "description": "Calculate soil weight — volume to pounds and tons with density. For ordering and truck loads. Enter excavation dimensions to get instant results.",
+    "description": "Calculate soil weight — volume to pounds and short tons with density for ordering, hauling and truck-load planning.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1527,13 +1468,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "framing-calculator",
     "title": "Framing Calculator — Count, Spacing & Cost",
     "h1": "Framing Calculator",
-    "description": "Calculate framing count and spacing — how many pieces and equalized centers with waste for US layouts.",
+    "description": "Calculate framing member count and spacing — studs, joists or rafters with equal center spacing, linear footage and cost with waste.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "framing calculator",
-      "framing calculator estimator"
+      "framing calculator"
     ],
     "featured": false
   },
@@ -1541,13 +1481,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "wall-framing-calculator",
     "title": "Wall Framing Calculator — Count, Spacing & Cost",
     "h1": "Wall Framing Calculator",
-    "description": "Calculate wall framing count and spacing — how many pieces and equalized centers with waste for US layouts.",
+    "description": "Calculate wall framing — stud count, plates, headers and total linear footage with on-center spacing and waste for any wall length and height.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "wall framing calculator",
-      "wall framing calculator estimator"
+      "wall framing calculator"
     ],
     "featured": false
   },
@@ -1555,13 +1494,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "stud-calculator",
     "title": "Stud Calculator — Count, Spacing & Cost",
     "h1": "Stud Calculator",
-    "description": "Calculate stud count and spacing — how many pieces and equalized centers with waste for US layouts. Enter framing dimensions to get instant results.",
+    "description": "Calculate stud count for a wall — enter length, height and on-center spacing to get stud count, plates, total linear feet and cost with waste.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "stud calculator",
-      "stud calculator estimator"
+      "stud calculator"
     ],
     "featured": false
   },
@@ -1569,13 +1507,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "stud-spacing-calculator",
     "title": "Stud Spacing Calculator — Count, Spacing & Cost",
     "h1": "Stud Spacing Calculator",
-    "description": "Calculate equal center spacing from length and member count — for framing projects. Enter framing dimensions to get instant results.",
+    "description": "Calculate equal center spacing from wall length and stud count — for framing layout. Reverse-calculates spacing for studs on hand.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "stud spacing calculator",
-      "stud spacing calculator estimator"
+      "stud spacing calculator"
     ],
     "featured": false
   },
@@ -1583,13 +1520,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "lumber-calculator",
     "title": "Lumber Calculator — Count, Spacing & Cost",
     "h1": "Lumber Calculator",
-    "description": "Calculate lumber count and spacing — how many pieces and equalized centers with waste for US layouts.",
+    "description": "Calculate lumber pieces, board feet and cost — for any framing or project with quantity, linear footage, board feet and waste allowance.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "lumber calculator",
-      "lumber calculator estimator"
+      "lumber calculator"
     ],
     "featured": false
   },
@@ -1597,7 +1533,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "lumber-cost-calculator",
     "title": "Lumber Cost Calculator — Price & Quantity",
     "h1": "Lumber Cost Calculator",
-    "description": "Estimate lumber cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate lumber cost — material quantity, board feet and price per board foot or per piece for framing and finish projects with waste.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1609,15 +1545,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "board-foot-calculator",
-    "title": "Board Foot Calculator — Quantity & Cost for US Construction",
+    "title": "Board Foot Calculator — Lumber Volume & Cost (2026)",
     "h1": "Board Foot Calculator",
-    "description": "Calculate board foot — board feet from thickness, width, length and count with waste for US projects.",
+    "description": "Calculate board feet from thickness, width, length and count — for lumber ordering with total volume, cost and waste allowance.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "board foot calculator",
-      "board foot calculator estimator"
+      "board foot calculator"
     ],
     "featured": false
   },
@@ -1625,7 +1560,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "board-foot-cost-calculator",
     "title": "Board Foot Cost Calculator — Board Feet & Cost",
     "h1": "Board Foot Cost Calculator",
-    "description": "Estimate board foot cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate board foot cost — material quantity, board feet and price for any lumber with waste. Compare species and grades.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1639,13 +1574,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "joist-calculator",
     "title": "Joist Calculator — Count, Spacing & Cost",
     "h1": "Joist Calculator",
-    "description": "Calculate joist count and spacing — how many pieces and equalized centers with waste for US layouts.",
+    "description": "Calculate joist count and spacing — for floors, ceilings or decks with equal center spacing, linear footage, board feet and cost with waste.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "joist calculator",
-      "joist calculator estimator"
+      "joist calculator"
     ],
     "featured": false
   },
@@ -1653,13 +1587,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "joist-spacing-calculator",
     "title": "Joist Spacing Calculator — Count, Spacing & Cost",
     "h1": "Joist Spacing Calculator",
-    "description": "Calculate equal center spacing from length and member count — for framing projects. Enter framing dimensions to get instant results.",
+    "description": "Calculate equal center spacing from span and joist count — for floor, ceiling or deck framing. Reverse-calculates spacing from joists on hand.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "joist spacing calculator",
-      "joist spacing calculator estimator"
+      "joist spacing calculator"
     ],
     "featured": false
   },
@@ -1667,13 +1600,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "floor-joist-calculator",
     "title": "Floor Joist Calculator — Count, Spacing & Cost",
     "h1": "Floor Joist Calculator",
-    "description": "Calculate floor joist count and spacing — how many pieces and equalized centers with waste for US layouts.",
+    "description": "Calculate floor joist count, spacing and board feet — enter span, on-center spacing and lumber size for floor framing with cost and waste.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "floor joist calculator",
-      "floor joist calculator estimator"
+      "floor joist calculator"
     ],
     "featured": false
   },
@@ -1681,13 +1613,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "ceiling-joist-calculator",
     "title": "Ceiling Joist Calculator — Count, Spacing & Cost",
     "h1": "Ceiling Joist Calculator",
-    "description": "Calculate ceiling joist count and spacing — how many pieces and equalized centers with waste for US layouts.",
+    "description": "Calculate ceiling joist count and spacing — enter span and on-center spacing for ceiling framing with linear footage and cost with waste.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "ceiling joist calculator",
-      "ceiling joist calculator estimator"
+      "ceiling joist calculator"
     ],
     "featured": false
   },
@@ -1695,13 +1626,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "header-size-calculator",
     "title": "Header Size Calculator — Count, Spacing & Cost",
     "h1": "Header Size Calculator",
-    "description": "Calculate header size — header size — bending-only section modulus and depth from span, load and allowable stress with waste for US projects.",
+    "description": "Calculate header size — bending section modulus and depth from span, load and allowable stress for wood headers with waste.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "header size calculator",
-      "header size calculator estimator"
+      "header size calculator"
     ],
     "featured": false
   },
@@ -1709,13 +1639,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "beam-calculator",
     "title": "Beam Calculator — Count, Spacing & Cost",
     "h1": "Beam Calculator",
-    "description": "Calculate beam — beam bending — moment, reaction and deflection from load, e and i with waste for US projects.",
+    "description": "Calculate beam bending — moment, reaction and deflection from load, span, E and I for wood or steel beams with waste allowance.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "beam calculator",
-      "beam calculator estimator"
+      "beam calculator"
     ],
     "featured": false
   },
@@ -1723,13 +1652,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "beam-load-calculator",
     "title": "Beam Load Calculator — Count, Spacing & Cost",
     "h1": "Beam Load Calculator",
-    "description": "Calculate beam load — beam line load from tributary area, dead/live and self-weight with waste for US projects.",
+    "description": "Calculate beam line load — tributary area, dead/live and self-weight for wood or steel beams with waste allowance.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "beam load calculator",
-      "beam load calculator estimator"
+      "beam load calculator"
     ],
     "featured": false
   },
@@ -1737,13 +1665,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roofing-calculator",
     "title": "Roofing Calculator — Area, Pitch & Materials",
     "h1": "Roofing Calculator",
-    "description": "Calculate roofing for US roofing — roof area, pitch, bundles and waste for shingles coverage. Enter roofing dimensions to get instant results.",
+    "description": "Calculate roofing area, pitch, bundles and waste — for shingle coverage on any roof with pitch multiplier and waste allowance.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roofing calculator",
-      "roofinging calculator"
+      "roofing calculator"
     ],
     "featured": false
   },
@@ -1751,7 +1679,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roof-area-calculator",
     "title": "Roof Area Calculator — Square Feet & Squares",
     "h1": "Roof Area Calculator",
-    "description": "Calculate roof area for US roofing — roof area, pitch, bundles and waste for shingles coverage. Enter roofing dimensions to get instant results.",
+    "description": "Calculate roof area in square feet and squares — for shingle, underlayment and sheathing orders with pitch multiplier and waste.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1765,7 +1693,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roof-pitch-calculator",
     "title": "Roof Pitch Calculator — Ratio, Angle & Slope",
     "h1": "Roof Pitch Calculator",
-    "description": "Calculate roof pitch ratio, angle in degrees and slope from rise and run — for rafters and code. Enter roofing dimensions to get instant results.",
+    "description": "Calculate roof pitch ratio, angle in degrees and slope — for rafters, framing and code compliance. Enter rise and run.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1779,7 +1707,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roof-slope-calculator",
     "title": "Roof Slope Calculator — Area, Pitch & Materials",
     "h1": "Roof Slope Calculator",
-    "description": "Calculate roof slope for US roofing — roof area, pitch, bundles and waste for shingles coverage. Enter roofing dimensions to get instant results.",
+    "description": "Calculate roof slope and pitch multiplier — for shingle, roofing material and drainage planning with waste allowance.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1793,13 +1721,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roofing-shingle-calculator",
     "title": "Roofing Shingle Calculator — Area, Pitch & Materials",
     "h1": "Roofing Shingle Calculator",
-    "description": "Calculate roofing shingle for US roofing — roof area, pitch, bundles and waste for shingles coverage.",
+    "description": "Calculate roofing shingles — bundles, squares, waste and total cost for any roof area with pitch multiplier and shingle coverage.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roofing shingle calculator",
-      "roofinging shingle calculator"
+      "roofing shingle calculator"
     ],
     "featured": false
   },
@@ -1807,7 +1735,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "shingle-quantity-calculator",
     "title": "Shingle Quantity Calculator — Count & Waste",
     "h1": "Shingle Quantity Calculator",
-    "description": "Calculate shingle quantity — how many units, bags or pieces you need with waste factor. Enter roofing dimensions to get instant results.",
+    "description": "Calculate how many shingle bundles you need — enter roof area, pitch and waste to get bundle count, squares and cost.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1821,7 +1749,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "shingle-cost-calculator",
     "title": "Shingle Cost Calculator — Price & Quantity",
     "h1": "Shingle Cost Calculator",
-    "description": "Estimate shingle cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate shingle cost — bundles, squares and price per bundle or square for asphalt, architectural or specialty shingles with waste.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1835,13 +1763,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roofing-material-calculator",
     "title": "Roofing Material Calculator — Area, Pitch & Materials",
     "h1": "Roofing Material Calculator",
-    "description": "Calculate roofing material for US roofing — roof area, pitch, bundles and waste for shingles coverage.",
+    "description": "Calculate roofing material — shingles, underlayment, flashing and fasteners with quantity, coverage and cost with waste.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roofing material calculator",
-      "roofinging material calculator"
+      "roofing material calculator"
     ],
     "featured": false
   },
@@ -1849,13 +1777,13 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roofing-underlayment-calculator",
     "title": "Roofing Underlayment Calculator — Area, Pitch & Materials",
     "h1": "Roofing Underlayment Calculator",
-    "description": "Calculate roofing underlayment for US roofing — roof area, pitch, bundles and waste for shingles coverage.",
+    "description": "Calculate roofing underlayment — rolls, square footage and cost for synthetic or felt underlayment with overlap and waste allowance.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roofing underlayment calculator",
-      "roofinging underlayment calculator"
+      "roofing underlayment calculator"
     ],
     "featured": false
   },
@@ -1863,7 +1791,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roof-sheathing-calculator",
     "title": "Roof Sheathing Calculator — Area, Pitch & Materials",
     "h1": "Roof Sheathing Calculator",
-    "description": "Calculate roof sheathing for US roofing — roof area, pitch, bundles and waste for shingles coverage.",
+    "description": "Calculate roof sheathing — plywood or OSB sheets, square footage, edge clips and cost for any roof with pitch and waste allowance.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1877,7 +1805,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roof-rafter-calculator",
     "title": "Roof Rafter Calculator — Area, Pitch & Materials",
     "h1": "Roof Rafter Calculator",
-    "description": "Calculate roof rafter for US roofing — roof area, pitch, bundles and waste for shingles coverage. Enter roofing dimensions to get instant results.",
+    "description": "Calculate roof rafter length and count — from span, pitch and overhang with linear footage, board feet and cost with waste.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1891,13 +1819,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rafter-length-calculator",
     "title": "Rafter Length Calculator — Area, Pitch & Materials",
     "h1": "Rafter Length Calculator",
-    "description": "Calculate rafter length — rafter length from span, pitch and overhang with waste for US projects. Enter roofing dimensions to get instant results.",
+    "description": "Calculate rafter length from span, pitch and overhang — for any roof type with linear footage, board feet and cost with waste.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "rafter length calculator",
-      "rafter length calculator estimator"
+      "rafter length calculator"
     ],
     "featured": false
   },
@@ -1905,7 +1832,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roof-truss-calculator",
     "title": "Roof Truss Calculator — Area, Pitch & Materials",
     "h1": "Roof Truss Calculator",
-    "description": "Calculate roof truss for US roofing — roof area, pitch, bundles and waste for shingles coverage. Enter roofing dimensions to get instant results.",
+    "description": "Calculate roof truss count and spacing — enter span, on-center spacing and truss type for quantity, linear footage and cost with waste.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1919,7 +1846,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roof-flashing-calculator",
     "title": "Roof Flashing Calculator — Area, Pitch & Materials",
     "h1": "Roof Flashing Calculator",
-    "description": "Calculate roof flashing for US roofing — roof area, pitch, bundles and waste for shingles coverage. Enter roofing dimensions to get instant results.",
+    "description": "Calculate roof flashing — linear footage for valleys, hips, ridges, walls and chimneys with material quantity and cost with waste.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1933,7 +1860,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roof-waste-calculator",
     "title": "Roof Waste Calculator — Area, Pitch & Materials",
     "h1": "Roof Waste Calculator",
-    "description": "Calculate roof waste for US roofing — roof area, pitch, bundles and waste for shingles coverage. Enter roofing dimensions to get instant results.",
+    "description": "Calculate roof waste — extra material for cuts, overlaps and ridge with percentage breakdown by roof feature and complexity.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1947,13 +1874,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "flooring-calculator",
     "title": "Flooring Calculator — Area, Coverage & Cost",
     "h1": "Flooring Calculator",
-    "description": "Calculate flooring coverage — tiles, grout and adhesive for US flooring with waste and pattern allowance.",
+    "description": "Calculate flooring coverage — tiles, planks or sheets for any room with waste, pattern allowance and per-square-foot cost.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "flooring calculator",
-      "flooring calculator estimator"
+      "flooring calculator"
     ],
     "featured": false
   },
@@ -1961,7 +1887,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "flooring-cost-calculator",
     "title": "Flooring Cost Calculator — Price & Quantity",
     "h1": "Flooring Cost Calculator",
-    "description": "Estimate flooring cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate flooring cost — material, underlayment and total for any flooring type with waste allowance and per-square-foot breakdown.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1975,13 +1901,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "hardwood-flooring-calculator",
     "title": "Hardwood Flooring Calculator — Area, Coverage & Cost",
     "h1": "Hardwood Flooring Calculator",
-    "description": "Calculate hardwood flooring coverage — tiles, grout and adhesive for US flooring with waste and pattern allowance.",
+    "description": "Calculate hardwood flooring — board feet, planks, waste for pattern and direction with underlayment and cost per square foot.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "hardwood flooring calculator",
-      "hardwood flooring calculator estimator"
+      "hardwood flooring calculator"
     ],
     "featured": false
   },
@@ -1989,7 +1914,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "hardwood-flooring-cost-calculator",
     "title": "Hardwood Flooring Cost Calculator — Price & Quantity",
     "h1": "Hardwood Flooring Cost Calculator",
-    "description": "Estimate hardwood flooring cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate hardwood flooring cost — material, underlayment, fasteners and labor with waste allowance and species price comparison.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2003,13 +1928,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "laminate-flooring-calculator",
     "title": "Laminate Flooring Calculator — Area, Coverage & Cost",
     "h1": "Laminate Flooring Calculator",
-    "description": "Calculate laminate flooring coverage — tiles, grout and adhesive for US flooring with waste and pattern allowance.",
+    "description": "Calculate laminate flooring — planks, square footage, underlayment and waste for any room with cost estimate.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "laminate flooring calculator",
-      "laminate flooring calculator estimator"
+      "laminate flooring calculator"
     ],
     "featured": false
   },
@@ -2017,13 +1941,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "vinyl-flooring-calculator",
     "title": "Vinyl Flooring Calculator — Area, Coverage & Cost",
     "h1": "Vinyl Flooring Calculator",
-    "description": "Calculate vinyl flooring coverage — tiles, grout and adhesive for US flooring with waste and pattern allowance.",
+    "description": "Calculate vinyl flooring — planks or sheet, square footage, underlayment and waste for any room with cost estimate.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "vinyl flooring calculator",
-      "vinyl flooring calculator estimator"
+      "vinyl flooring calculator"
     ],
     "featured": false
   },
@@ -2031,13 +1954,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "carpet-calculator",
     "title": "Carpet Calculator — Area, Coverage & Cost",
     "h1": "Carpet Calculator",
-    "description": "Calculate carpet — order yd², linear ft, strips, room ft², offcuts ft², cost with waste for US coverage.",
+    "description": "Calculate carpet square footage and yardage — for rooms with offcut waste, pad and total cost with seam allowance.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "carpet calculator",
-      "carpet calculator estimator"
+      "carpet calculator"
     ],
     "featured": false
   },
@@ -2045,7 +1967,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "carpet-cost-calculator",
     "title": "Carpet Cost Calculator — Price & Quantity",
     "h1": "Carpet Cost Calculator",
-    "description": "Estimate carpet cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate carpet cost — material, pad, installation and total with waste allowance and seam planning.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2059,13 +1981,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "tile-calculator",
     "title": "Tile Calculator — Area, Coverage & Cost",
     "h1": "Tile Calculator",
-    "description": "Calculate tile coverage — tiles, grout and adhesive for US flooring with waste and pattern allowance.",
+    "description": "Calculate tile count for any floor or wall — tile size, joint width, waste, underlayment and cost per square foot.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "tile calculator",
-      "tile calculator estimator"
+      "tile calculator"
     ],
     "featured": false
   },
@@ -2073,7 +1994,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "tile-quantity-calculator",
     "title": "Tile Quantity Calculator — Count & Waste",
     "h1": "Tile Quantity Calculator",
-    "description": "Calculate tile quantity — how many units, bags or pieces you need with waste factor. Enter flooring dimensions to get instant results.",
+    "description": "Calculate how many tiles you need — enter area and tile size with joint width and waste for floor or wall tile.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2087,7 +2008,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "tile-cost-calculator",
     "title": "Tile Cost Calculator — Price & Quantity",
     "h1": "Tile Cost Calculator",
-    "description": "Estimate tile cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate tile cost — material, mortar, grout and total for ceramic, porcelain or stone tile with waste allowance.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2101,13 +2022,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "tile-grout-calculator",
     "title": "Tile Grout Calculator — Bags, Volume & Cost",
     "h1": "Tile Grout Calculator",
-    "description": "Calculate tile grout coverage — tiles, grout and adhesive for US flooring with waste and pattern allowance.",
+    "description": "Calculate tile grout — bags or volume for any tile size and joint width with sanded or unsanded type and waste allowance.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "tile grout calculator",
-      "tile grout calculator estimator"
+      "tile grout calculator"
     ],
     "featured": false
   },
@@ -2115,13 +2035,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "tile-adhesive-calculator",
     "title": "Tile Adhesive Calculator — Area, Coverage & Cost",
     "h1": "Tile Adhesive Calculator",
-    "description": "Calculate tile adhesive coverage — tiles, grout and adhesive for US flooring with waste and pattern allowance.",
+    "description": "Calculate tile adhesive (thinset) — bags or volume for any tile size and substrate with coverage and waste allowance.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "tile adhesive calculator",
-      "tile adhesive calculator estimator"
+      "tile adhesive calculator"
     ],
     "featured": false
   },
@@ -2129,27 +2048,25 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "flooring-waste-calculator",
     "title": "Flooring Waste Calculator — Area, Coverage & Cost",
     "h1": "Flooring Waste Calculator",
-    "description": "Calculate flooring waste coverage — tiles, grout and adhesive for US flooring with waste and pattern allowance.",
+    "description": "Calculate flooring waste — extra material for cuts, pattern matching and offcuts with percentage by room shape and tile size.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "flooring waste calculator",
-      "flooring waste calculator estimator"
+      "flooring waste calculator"
     ],
     "featured": false
   },
   {
     "slug": "underlayment-calculator",
-    "title": "Underlayment Calculator — Quantity & Cost for US Construction",
+    "title": "Underlayment Calculator — Floor Coverage & Cost (2026)",
     "h1": "Underlayment Calculator",
-    "description": "Calculate underlayment — packages, net ft², order ft², purchased ft², m², cost with waste for US coverage.",
+    "description": "Calculate underlayment — square footage, rolls or sheets for flooring with overlap and waste allowance.",
     "category": "Flooring & Tile",
     "cluster": "flooring",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "underlayment calculator",
-      "underlayment calculator estimator"
+      "underlayment calculator"
     ],
     "featured": false
   },
@@ -2157,13 +2074,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "drywall-calculator",
     "title": "Drywall Calculator — Area, Units & Waste",
     "h1": "Drywall Calculator",
-    "description": "Calculate drywall — sheets, screws and tape for US drywall installation with waste. Enter drywall dimensions to get instant results.",
+    "description": "Calculate drywall sheets, tape, mud and screws — for walls and ceilings with waste allowance and material cost estimate.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "drywall calculator",
-      "drywall calculator estimator"
+      "drywall calculator"
     ],
     "featured": false
   },
@@ -2171,13 +2087,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "drywall-sheet-calculator",
     "title": "Drywall Sheet Calculator — Coverage & Materials",
     "h1": "Drywall Sheet Calculator",
-    "description": "Calculate drywall sheet — sheets, screws and tape for US drywall installation with waste. Enter drywall dimensions to get instant results.",
+    "description": "Calculate drywall sheets — 4x8, 4x9, 4x10 or 4x12 sheets for walls and ceilings with waste allowance and cost.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "drywall sheet calculator",
-      "drywall sheet calculator estimator"
+      "drywall sheet calculator"
     ],
     "featured": false
   },
@@ -2185,7 +2100,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "drywall-cost-calculator",
     "title": "Drywall Cost Calculator — Price & Quantity",
     "h1": "Drywall Cost Calculator",
-    "description": "Estimate drywall cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate drywall cost — sheets, tape, joint compound, screws and labor for walls and ceilings with waste allowance.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2199,13 +2114,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "drywall-joint-compound-calculator",
     "title": "Drywall Joint Compound Calculator — Coverage & Materials",
     "h1": "Drywall Joint Compound Calculator",
-    "description": "Calculate drywall joint compound — sheets, screws and tape for US drywall installation with waste. Enter drywall dimensions to get instant results.",
+    "description": "Calculate joint compound (mud) — gallons or buckets for any drywall job with coat count and waste allowance.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "drywall joint compound calculator",
-      "drywall joint compound calculator estimator"
+      "drywall joint compound calculator"
     ],
     "featured": false
   },
@@ -2213,13 +2127,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "drywall-screw-calculator",
     "title": "Drywall Screw Calculator — Coverage & Materials",
     "h1": "Drywall Screw Calculator",
-    "description": "Calculate drywall screw — sheets, screws and tape for US drywall installation with waste. Enter drywall dimensions to get instant results.",
+    "description": "Calculate drywall screws — pounds or count for walls and ceilings with on-center spacing and waste allowance.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "drywall screw calculator",
-      "drywall screw calculator estimator"
+      "drywall screw calculator"
     ],
     "featured": false
   },
@@ -2227,13 +2140,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "drywall-tape-calculator",
     "title": "Drywall Tape Calculator — Coverage & Materials",
     "h1": "Drywall Tape Calculator",
-    "description": "Calculate drywall tape — sheets, screws and tape for US drywall installation with waste. Enter drywall dimensions to get instant results.",
+    "description": "Calculate drywall tape — rolls for joints and corners with waste allowance for paper or mesh tape.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "drywall tape calculator",
-      "drywall tape calculator estimator"
+      "drywall tape calculator"
     ],
     "featured": false
   },
@@ -2241,13 +2153,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "paint-calculator",
     "title": "Paint Calculator — Coverage & Materials",
     "h1": "Paint Calculator",
-    "description": "Calculate paint coverage — gallons, coats and containers for US interior and exterior painting. Enter drywall dimensions to get instant results.",
+    "description": "Calculate paint gallons — wall and ceiling square footage with coats, primer and waste allowance for interior or exterior.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "paint calculator",
-      "paint calculator estimator"
+      "paint calculator"
     ],
     "featured": false
   },
@@ -2255,13 +2166,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "paint-coverage-calculator",
     "title": "Paint Coverage Calculator — Gallons & Coverage",
     "h1": "Paint Coverage Calculator",
-    "description": "Calculate paint coverage — gallons, coats and containers for US interior and exterior painting — for drywall projects.",
+    "description": "Calculate paint coverage — square footage per gallon for wall, ceiling, primer or specialty paint with coats and waste.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "paint coverage calculator",
-      "paint coverage calculator estimator"
+      "paint coverage calculator"
     ],
     "featured": false
   },
@@ -2269,7 +2179,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "paint-cost-calculator",
     "title": "Paint Cost Calculator — Price & Quantity",
     "h1": "Paint Cost Calculator",
-    "description": "Estimate paint cost — gallons, coverage and price with waste for US interior and exterior painting. Enter drywall dimensions to get instant results.",
+    "description": "Estimate paint cost — gallons, primer and supplies with coverage, coats and waste for interior or exterior projects.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2283,13 +2193,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "primer-calculator",
     "title": "Primer Calculator — Coverage & Materials",
     "h1": "Primer Calculator",
-    "description": "Calculate primer — paint for walls — gallons and containers from area, coats and coverage with waste for US projects.",
+    "description": "Calculate primer gallons — for new drywall, bare wood or stain blocking with coverage and waste allowance.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "primer calculator",
-      "primer calculator estimator"
+      "primer calculator"
     ],
     "featured": false
   },
@@ -2297,13 +2206,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "ceiling-paint-calculator",
     "title": "Ceiling Paint Calculator — Coverage & Materials",
     "h1": "Ceiling Paint Calculator",
-    "description": "Calculate ceiling paint coverage — gallons, coats and containers for US interior and exterior painting.",
+    "description": "Calculate ceiling paint — gallons for ceiling square footage with coats, primer and waste allowance.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "ceiling paint calculator",
-      "ceiling paint calculator estimator"
+      "ceiling paint calculator"
     ],
     "featured": false
   },
@@ -2311,13 +2219,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "wall-paint-calculator",
     "title": "Wall Paint Calculator — Coverage & Materials",
     "h1": "Wall Paint Calculator",
-    "description": "Calculate wall paint coverage — gallons, coats and containers for US interior and exterior painting.",
+    "description": "Calculate wall paint — gallons for wall square footage with coats, primer and waste allowance.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "wall paint calculator",
-      "wall paint calculator estimator"
+      "wall paint calculator"
     ],
     "featured": false
   },
@@ -2325,13 +2232,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "insulation-calculator",
     "title": "Insulation Calculator — Coverage & Materials",
     "h1": "Insulation Calculator",
-    "description": "Calculate insulation — packages, net ft², order ft², purchased ft², m², cost with waste for US coverage.",
+    "description": "Calculate insulation — batts, rolls or blown-in coverage for walls, attic and floors with R-value and waste allowance.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "insulation calculator",
-      "insulation calculator estimator"
+      "insulation calculator"
     ],
     "featured": false
   },
@@ -2339,7 +2245,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "insulation-cost-calculator",
     "title": "Insulation Cost Calculator — Price & Quantity",
     "h1": "Insulation Cost Calculator",
-    "description": "Estimate insulation cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate insulation cost — batts, rolls or blown-in coverage with R-value, vapor barrier and labor with waste allowance.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2353,13 +2259,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "spray-foam-calculator",
     "title": "Spray Foam Calculator — Coverage & Materials",
     "h1": "Spray Foam Calculator",
-    "description": "Calculate spray foam — spray foam kits from area, thickness and kit yield with waste for US projects.",
+    "description": "Calculate spray foam insulation — board feet for open or closed cell with coverage, R-value and cost with waste allowance.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "spray foam calculator",
-      "spray foam calculator estimator"
+      "spray foam calculator"
     ],
     "featured": false
   },
@@ -2367,13 +2272,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "deck-calculator",
     "title": "Deck Calculator — Materials, Posts & Cost",
     "h1": "Deck Calculator",
-    "description": "Calculate deck materials — posts, panels or boards, spacing and waste for US deck & fence projects. Enter deck-fence dimensions to get instant results.",
+    "description": "Calculate deck materials — boards, joists, posts, footings and fasteners with on-center spacing, waste allowance and total cost.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "deck calculator",
-      "deck calculator estimator"
+      "deck calculator"
     ],
     "featured": false
   },
@@ -2381,7 +2285,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "deck-cost-calculator",
     "title": "Deck Cost Calculator — Price & Quantity",
     "h1": "Deck Cost Calculator",
-    "description": "Estimate deck cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate deck cost — boards, joists, posts, footings, fasteners and labor with waste allowance and per-square-foot breakdown.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2395,13 +2299,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "deck-board-calculator",
     "title": "Deck Board Calculator — Boards, Joists & Cost",
     "h1": "Deck Board Calculator",
-    "description": "Calculate deck board materials — posts, panels or boards, spacing and waste for US deck & fence projects.",
+    "description": "Calculate deck boards — count, linear footage, board feet and cost for any deck size with gap and waste allowance.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "deck board calculator",
-      "deck board calculator estimator"
+      "deck board calculator"
     ],
     "featured": false
   },
@@ -2409,13 +2312,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "deck-joist-calculator",
     "title": "Deck Joist Calculator — Count, Spacing & Cost",
     "h1": "Deck Joist Calculator",
-    "description": "Calculate deck joist materials — posts, panels or boards, spacing and waste for US deck & fence projects.",
+    "description": "Calculate deck joists — count, spacing, linear footage and cost for any deck span with on-center spacing and waste allowance.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "deck joist calculator",
-      "deck joist calculator estimator"
+      "deck joist calculator"
     ],
     "featured": false
   },
@@ -2423,13 +2325,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "deck-footing-calculator",
     "title": "Deck Footing Calculator — Materials, Posts & Cost",
     "h1": "Deck Footing Calculator",
-    "description": "Calculate deck footing materials — posts, panels or boards, spacing and waste for US deck & fence projects.",
+    "description": "Calculate deck footings — depth, diameter, concrete volume, post count and cost with frost-line depth and waste allowance.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "deck footing calculator",
-      "deck footing calculator estimator"
+      "deck footing calculator"
     ],
     "featured": false
   },
@@ -2437,13 +2338,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "deck-stair-calculator",
     "title": "Deck Stair Calculator — Materials, Posts & Cost",
     "h1": "Deck Stair Calculator",
-    "description": "Calculate deck stair materials — posts, panels or boards, spacing and waste for US deck & fence projects.",
+    "description": "Calculate deck stairs — rise, run, stringer length, tread count and cost with code-compliant rise/run and waste allowance.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "deck stair calculator",
-      "deck stair calculator estimator"
+      "deck stair calculator"
     ],
     "featured": false
   },
@@ -2451,13 +2351,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "deck-railing-calculator",
     "title": "Deck Railing Calculator — Materials, Posts & Cost",
     "h1": "Deck Railing Calculator",
-    "description": "Calculate deck railing materials — posts, panels or boards, spacing and waste for US deck & fence projects.",
+    "description": "Calculate deck railing — post count, baluster count, rail length and cost with code-compliant spacing and waste allowance.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "deck railing calculator",
-      "deck railing calculator estimator"
+      "deck railing calculator"
     ],
     "featured": false
   },
@@ -2465,13 +2364,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fence-calculator",
     "title": "Fence Calculator — Materials, Posts & Cost",
     "h1": "Fence Calculator",
-    "description": "Calculate fence materials — posts, panels or boards, spacing and waste for US deck & fence projects.",
+    "description": "Calculate fence materials — posts, panels, rails, concrete and fasteners for wood, vinyl or chain link with waste allowance.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "fence calculator",
-      "fence calculator estimator"
+      "fence calculator"
     ],
     "featured": false
   },
@@ -2479,7 +2377,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fence-cost-calculator",
     "title": "Fence Cost Calculator — Posts, Panels & Gates",
     "h1": "Fence Cost Calculator",
-    "description": "Estimate fence cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate fence cost — posts, panels, rails, concrete, gates and labor with waste allowance and per-linear-foot breakdown.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2493,13 +2391,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fence-post-calculator",
     "title": "Fence Post Calculator — Materials, Posts & Cost",
     "h1": "Fence Post Calculator",
-    "description": "Calculate fence post materials — posts, panels or boards, spacing and waste for US deck & fence projects.",
+    "description": "Calculate fence posts — count, spacing, concrete per post and cost with on-center spacing and waste allowance.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "fence post calculator",
-      "fence post calculator estimator"
+      "fence post calculator"
     ],
     "featured": false
   },
@@ -2507,13 +2404,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fence-panel-calculator",
     "title": "Fence Panel Calculator — Materials, Posts & Cost",
     "h1": "Fence Panel Calculator",
-    "description": "Calculate fence panel materials — posts, panels or boards, spacing and waste for US deck & fence projects.",
+    "description": "Calculate fence panels — count, post count, hardware and cost for wood, vinyl or chain link with waste allowance.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "fence panel calculator",
-      "fence panel calculator estimator"
+      "fence panel calculator"
     ],
     "featured": false
   },
@@ -2521,13 +2417,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fence-picket-calculator",
     "title": "Fence Picket Calculator — Materials, Posts & Cost",
     "h1": "Fence Picket Calculator",
-    "description": "Calculate fence picket materials — posts, panels or boards, spacing and waste for US deck & fence projects.",
+    "description": "Calculate fence pickets — count, spacing, linear footage and cost for any fence style with on-center spacing and waste.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "fence picket calculator",
-      "fence picket calculator estimator"
+      "fence picket calculator"
     ],
     "featured": false
   },
@@ -2535,13 +2430,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "fence-concrete-calculator",
     "title": "Fence Concrete Calculator — Materials, Posts & Cost",
     "h1": "Fence Concrete Calculator",
-    "description": "Calculate fence concrete materials — posts, panels or boards, spacing and waste for US deck & fence projects.",
+    "description": "Calculate fence post concrete — bags or cubic yards per post and total with depth, diameter and waste allowance.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "fence concrete calculator",
-      "fence concrete calculator estimator"
+      "fence concrete calculator"
     ],
     "featured": false
   },
@@ -2549,13 +2443,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "gate-calculator",
     "title": "Gate Calculator — Materials, Posts & Cost",
     "h1": "Gate Calculator",
-    "description": "Calculate gate materials — posts, panels or boards, spacing and waste for US deck & fence projects. Enter deck-fence dimensions to get instant results.",
+    "description": "Calculate gate materials — frame, pickets, hardware and posts for any gate size with cost and waste allowance.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "gate calculator",
-      "gate calculator estimator"
+      "gate calculator"
     ],
     "featured": false
   },
@@ -2563,7 +2456,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "gate-cost-calculator",
     "title": "Gate Cost Calculator — Price & Quantity",
     "h1": "Gate Cost Calculator",
-    "description": "Estimate gate cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate gate cost — frame, hardware, posts and labor for any gate style with waste allowance.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2582,8 +2475,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "paver calculator",
-      "paver calculator estimator"
+      "paver calculator"
     ],
     "featured": false
   },
@@ -2610,8 +2502,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "paver sand calculator",
-      "paver sand calculator estimator"
+      "paver sand calculator"
     ],
     "featured": false
   },
@@ -2624,8 +2515,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "paver base calculator",
-      "paver base calculator estimator"
+      "paver base calculator"
     ],
     "featured": false
   },
@@ -2638,8 +2528,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "paver joint sand calculator",
-      "paver joint sand calculator estimator"
+      "paver joint sand calculator"
     ],
     "featured": false
   },
@@ -2652,8 +2541,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "landscaping calculator",
-      "landscaping calculator estimator"
+      "landscaping calculator"
     ],
     "featured": false
   },
@@ -2680,8 +2568,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "mulch calculator",
-      "mulch calculator estimator"
+      "mulch calculator"
     ],
     "featured": false
   },
@@ -2708,8 +2595,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "landscaping",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "retaining wall calculator",
-      "retaining wall calculator estimator"
+      "retaining wall calculator"
     ],
     "featured": false
   },
@@ -2717,13 +2603,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "asphalt-calculator",
     "title": "Asphalt Calculator — Tons, Yards & Thickness",
     "h1": "Asphalt Calculator",
-    "description": "Calculate asphalt volume and weight — tons, cubic yards and compacted thickness for paving. Enter asphalt dimensions to get instant results.",
+    "description": "Calculate asphalt tonnage and cubic yards — for driveways, parking lots and roads with compacted density and waste allowance.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "asphalt calculator",
-      "asphalt calculator estimator"
+      "asphalt calculator"
     ],
     "featured": false
   },
@@ -2731,7 +2616,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "asphalt-cost-calculator",
     "title": "Asphalt Cost Calculator — Price & Quantity",
     "h1": "Asphalt Cost Calculator",
-    "description": "Estimate asphalt cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate asphalt cost — material, installation and total per square foot or per ton for driveways and lots with waste.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2745,13 +2630,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "asphalt-driveway-calculator",
     "title": "Asphalt Driveway Calculator — Tons, Yards & Thickness",
     "h1": "Asphalt Driveway Calculator",
-    "description": "Calculate asphalt driveway volume and weight — tons, cubic yards and compacted thickness for paving.",
+    "description": "Calculate asphalt driveway — tonnage, cubic yards and cost for any driveway size with thickness and waste allowance.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "asphalt driveway calculator",
-      "asphalt driveway calculator estimator"
+      "asphalt driveway calculator"
     ],
     "featured": false
   },
@@ -2759,7 +2643,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "asphalt-weight-calculator",
     "title": "Asphalt Weight Calculator — Weight & Tons",
     "h1": "Asphalt Weight Calculator",
-    "description": "Calculate asphalt weight — volume to pounds and tons with density. For ordering and truck loads. Enter asphalt dimensions to get instant results.",
+    "description": "Calculate asphalt weight — volume to tons and pounds with compacted density for ordering and truck-load planning.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2773,13 +2657,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "asphalt-thickness-calculator",
     "title": "Asphalt Thickness Calculator — Tons, Yards & Thickness",
     "h1": "Asphalt Thickness Calculator",
-    "description": "Calculate asphalt thickness and volume — for slabs, base and coverage with waste. Enter asphalt dimensions to get instant results.",
+    "description": "Determine asphalt thickness — recommended depth from traffic type and subgrade with volume and tonnage calculation.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "asphalt thickness calculator",
-      "asphalt thickness calculator estimator"
+      "asphalt thickness calculator"
     ],
     "featured": false
   },
@@ -2787,13 +2670,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "parking-lot-calculator",
     "title": "Parking Lot Calculator — Tons, Yards & Thickness",
     "h1": "Parking Lot Calculator",
-    "description": "Calculate parking lot volume and weight — cubic yards, tons and pounds with density, plus cost per yard/ton with waste.",
+    "description": "Calculate parking lot asphalt — area, stalls, tonnage, cubic yards and cost with thickness and waste allowance.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "parking lot calculator",
-      "parking lot calculator estimator"
+      "parking lot calculator"
     ],
     "featured": false
   },
@@ -2801,7 +2683,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "parking-lot-cost-calculator",
     "title": "Parking Lot Cost Calculator — Price & Quantity",
     "h1": "Parking Lot Cost Calculator",
-    "description": "Estimate parking lot cost — material, quantity and price with waste. Compare per yard, per bag or per ton for US projects.",
+    "description": "Estimate parking lot cost — asphalt, striping, signage and labor with thickness and waste allowance.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2815,13 +2697,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "road-base-calculator",
     "title": "Road Base Calculator — Tons, Yards & Thickness",
     "h1": "Road Base Calculator",
-    "description": "Calculate road base volume and weight — cubic yards, tons and pounds with density, plus cost per yard/ton with waste.",
+    "description": "Calculate road base — aggregate tonnage, cubic yards and cost for sub-base preparation with compaction and waste.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "road base calculator",
-      "road base calculator estimator"
+      "road base calculator"
     ],
     "featured": false
   },
@@ -2829,13 +2710,12 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "surface-area-calculator",
     "title": "Surface Area Calculator — Tons, Yards & Thickness",
     "h1": "Surface Area Calculator",
-    "description": "Calculate rectangular net area minus openings — square feet, meters and yards. Enter asphalt dimensions to get instant results.",
+    "description": "Calculate surface area — square feet for any rectangular, triangular or circular area for material ordering.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "surface area calculator",
-      "surface area calculator estimator"
+      "surface area calculator"
     ],
     "featured": false
   },

@@ -91,19 +91,18 @@ const softwareSchema: any = {
 
         <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} is:inline />
 
-        <!-- E-E-A-T: Reviewed by -->
+        <!-- Author attribution (factual, not verified claims) -->
         <div class="rounded-xl border border-border bg-card p-5">
           <div class="flex items-start gap-3">
             <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-foreground text-background text-sm font-semibold" aria-hidden="true">VO</span>
             <div class="min-w-0 flex-1">
               <p class="text-sm font-medium text-foreground">
-                Reviewed by <a href="/author/vipul-otari/" class="underline underline-offset-2 decoration-border hover:decoration-foreground/40">Vipul Otari</a>
-                <span class="font-normal text-muted-foreground">· Author & Reviewer</span>
+                Written by <a href="/author/vipul-otari/" class="underline underline-offset-2 decoration-border hover:decoration-foreground/40">Vipul Otari</a>
+                <span class="font-normal text-muted-foreground">· Author</span>
               </p>
               <p class="mt-1 text-xs leading-5 text-muted-foreground">
-                Formulas, examples and FAQs hand-verified against manufacturer yields (QUIKRETE 0.60 ft³/80-lb), TxDOT compaction and CRSI/CMHA. Every calculation runs 100% in-browser. {dateModified ? `Last reviewed: ${dateModified}.` : ''} See <a href="/about/" class="underline text-foreground">review process</a>.
+                Formulas and examples are documented on this page with cited sources. Every calculation runs 100% in your browser — no data is sent to any server. {dateModified ? `Last updated: ${dateModified}.` : ''} See <a href="/about/" class="underline text-foreground">how this site is built</a>.
               </p>
-              <p class="mt-2 font-mono text-[10px] tracking-wide text-muted-foreground">E-E-A-T: Experience in DIY builds · Expertise verified · Authoritative sources cited · Trust via 100% local calculation</p>
             </div>
           </div>
         </div>

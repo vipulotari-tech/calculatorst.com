@@ -16,7 +16,7 @@ interface Props {
 
 const {
   title = "Calculator Street — Free Construction & Home Improvement Calculators",
-  description = "Free, fast, and accurate calculators for decking, roofing, gravel, concrete, fencing, pavers and mulch. Built for US homeowners and DIY pros — mobile-friendly, private, and offline-ready.",
+  description = "Free, fast, and accurate calculators for decking, roofing, gravel, concrete, fencing, pavers and mulch. Built for US homeowners and DIY pros — mobile-friendly, private, and secure.",
   canonical: canonicalProp,
   noindex = false,
   ogImage: ogImageProp,
@@ -134,14 +134,6 @@ const webPageSchema: any = (!effectiveNoindex && canonicalUrl) ? {
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
-
-    <!-- Fonts - optimized, no duplicate preload -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap"
-    />
 
     <title>{title}</title>
 

@@ -51,6 +51,7 @@ const priorityMap: Record<string, number> = {
   "concrete-slab-calculator": 0.95,
   "roof-pitch-calculator": 0.95,
   "fence-calculator": 0.95,
+  "fence-cost-calculator": 0.9,
   "concrete-weight-calculator": 0.9,
   "deck-calculator": 0.9,
   "paver-calculator": 0.9,

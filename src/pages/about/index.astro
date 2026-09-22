@@ -12,14 +12,14 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
     <div class="mx-auto max-w-[720px] pt-6">
       <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">About Calculator Street</h1>
       <p class="mt-3 text-sm leading-6 text-body [text-wrap:pretty]">Calculator Street (CalculatorSt.com) is a complete construction and home-improvement calculator platform — focused, accurate and private. We cover concrete, gravel, rebar, masonry, roofing, flooring, framing, decking, fencing, landscaping, asphalt and more. Every calculator is hand-verified for US customary and metric units, with clear formulas, worked examples and waste-aware estimates.</p>
-      <p class="mt-3 text-sm leading-6 text-body">Founded 2026 by <span class="font-medium text-ink">Vipul Otari</span> — civil DIY enthusiast focused on US customary units, material densities and waste-aware estimating. Every calculation is verified against supplier scale-house densities and public specs (TxDOT compaction, CPSC playground). Last updated: <span class="font-mono text-xs">2026-08-28</span>.</p>
+      <p class="mt-3 text-sm leading-6 text-body">Founded 2026 by <span class="font-medium text-ink">Vipul Otari</span> — built for US homeowners and contractors working with US customary units and metric equivalents. Every calculation runs in your browser, no data is sent to any server. Last updated: <span class="font-mono text-xs">2026-09-22</span>.</p>
 
       <div class="mt-8 rounded-lg border border-hairline bg-canvas p-6 flex gap-4 items-start">
         <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-ink text-white " aria-hidden="true">VO</span>
         <div>
           <p class="text-sm font-semibold text-ink">Vipul Otari — Author & Lead Reviewer</p>
-          <p class="mt-1 text-sm leading-6 text-body">Built and reviewed every calculator. Mathematical models, example tables and construction assumptions are derived from established engineering references (ACI, CRSI, CMHA, NIST SP 811) and manufacturer product yields (such as QUIKRETE 80-lb concrete = 0.60 ft³). Contact for technical feedback or corrections: <a href="mailto:hello@calculatorst.com" class="text-link underline">hello@calculatorst.com</a>.</p>
-          <p class="mt-2 text-xs text-muted-foreground leading-relaxed">Editorial standard: Calculations are verified against manufacturer technical specifications, ASTM standards, and public transportation engineering data.</p>
+          <p class="mt-1 text-sm leading-6 text-body">Built and reviewed every calculator. Mathematical models, example tables and construction assumptions are documented on each calculator page with cited sources. Contact for technical feedback or corrections: <a href="mailto:hello@calculatorst.com" class="text-link underline">hello@calculatorst.com</a>.</p>
+          <p class="mt-2 text-xs text-muted-foreground leading-relaxed">Editorial standard: Calculations cite their sources on each page. References include engineering organizations, government agencies, and manufacturer technical data where applicable.</p>
         </div>
       </div>
 
@@ -29,10 +29,10 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
           <li><span class="font-semibold text-ink">Client-side computing</span> — all math and dimensional conversions execute locally in your browser. Your measurements and cost inputs are never sent to our servers.</li>
           <li><span class="font-semibold text-ink">US & Metric standards</span> — feet, inches, yards, and short tons (2,000 lb), with precise SI metric equivalents based on NIST SP 811 international conversion factors.</li>
           <li><span class="font-semibold text-ink">Mobile-first</span> — large inputs, thumb-friendly, works on the job site at 320px. No horizontal scroll.</li>
-          <li><span class="font-semibold text-ink">Transparent</span> — every page shows formulas, examples, assumptions and related calculators. Cite sources: <a href="https://www.txdot.gov/manuals/brg/offpeo5.html" target="_blank" rel="noopener" class="text-link underline">TxDOT</a> compaction, <a href="https://www.cpsc.gov/safety-education/safety-guides/playgrounds" target="_blank" rel="noopener" class="text-link underline">CPSC</a> playground.</li>
+          <li><span class="font-semibold text-ink">Transparent</span> — every page shows formulas, examples, assumptions and related calculators. Sources cited where available: <a href="https://www.txdot.gov/manuals/brg/offpeo5.html" target="_blank" rel="noopener" class="text-link underline">TxDOT</a> and <a href="https://www.cpsc.gov/safety-education/safety-guides/playgrounds" target="_blank" rel="noopener" class="text-link underline">CPSC</a> public resources.</li>
         </ul>
         <h3 class="text-sm font-semibold tracking-[-0.02em] text-ink">How we verify</h3>
-        <p class="text-sm leading-6 text-body"> densities: pea 1.35, crushed 1.40, limestone 1.60 tons/yd³ verified vs scale house averages; concrete bag yields per manufacturer; roof multiplier √(pitch²+144)/12. Waste recommendations from field practice: 10% rectangle, 15% curves/hips.</p>
+        <p class="text-sm leading-6 text-body">Unit conversions use NIST SP 811 exact factors (1 ft = 0.3048 m, 1 lb = 0.45359237 kg). Density values and bag yields are sourced from manufacturer documentation and public resources. Waste factors are based on common construction practice (10% standard, 15% curves/irregular). Each calculator page documents its specific assumptions and sources.</p>
         <h3 class="text-sm font-semibold tracking-[-0.02em] text-ink">Library</h3>
         <p class="text-sm leading-6 text-body">The platform now includes a complete library of construction and home-improvement calculators — organized into sixteen focused categories and searchable from any page. Every calculator is a standalone, indexable tool with its own formula, example, diagram and related tools.</p>
       </div>

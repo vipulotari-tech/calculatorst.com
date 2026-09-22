@@ -7,14 +7,22 @@ export async function onRequest(context) {
   const url = new URL(context.request.url);
   const hostname = url.hostname.toLowerCase();
 
-  // www → apex + http → https in one hop (covers 114 http www + 6 https www + 1 http apex = 121)
+  // www → apex + http → https in one hop with trailing-slash normalization
+  // Always redirect to apex with trailing slash to match Astro's trailingSlash: 'always'
+  // This prevents Cloudflare Pages Function from returning 200 without trailing slash
   if (hostname === "www.calculatorst.com" || hostname.startsWith("www.")) {
     url.hostname = "calculatorst.com";
     url.protocol = "https:";
+    if (!url.pathname.endsWith("/") && !url.pathname.includes(".")) {
+      url.pathname += "/";
+    }
     return Response.redirect(url.toString(), 301);
   }
   if (url.protocol === "http:") {
     url.protocol = "https:";
+    if (!url.pathname.endsWith("/") && !url.pathname.includes(".")) {
+      url.pathname += "/";
+    }
     return Response.redirect(url.toString(), 301);
   }
 

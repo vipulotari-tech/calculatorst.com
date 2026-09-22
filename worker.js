@@ -9,11 +9,15 @@ export default {
     const url = new URL(request.url);
     const hostname = url.hostname.toLowerCase();
 
-    // 1) Canonical host + protocol: single-hop to https://calculatorst.com
-    // Covers: http://www.calculatorst.com/* (114 in GSC), https://www.calculatorst.com/* (6), http://calculatorst.com/* (1)
+    // 1) Canonical host + protocol + trailing-slash normalization: single-hop to https://calculatorst.com
+    // Fixes 2-hop chain where www→apex dropped trailing slash and _redirects had to add it back
     if (hostname === "www.calculatorst.com" || hostname.startsWith("www.")) {
       url.hostname = "calculatorst.com";
       url.protocol = "https:";
+      // Normalize trailing slash to match Astro's trailingSlash: 'always'
+      if (!url.pathname.endsWith("/") && !url.pathname.includes(".")) {
+        url.pathname += "/";
+      }
       return Response.redirect(url.toString(), 301);
     }
     if (url.protocol === "http:") {
@@ -46,10 +50,15 @@ export default {
     try {
       const decoded = decodeURIComponent(url.pathname);
       const norm = decoded.replace(/\/+$/, "").toLowerCase();
-      if (norm === "/ton" || norm === "/ft\u00B2" || norm === "/yd\u00B3" || norm === "/ft") {
-        return Response.redirect("https://calculatorst.com/gravel-calculator/", 301);
-      }
-      if (norm === "/unit" || norm === "/panel" || norm === "/post") {
+      if (
+        norm === "/ton" ||
+        norm === "/ft²" ||
+        norm === "/yd³" ||
+        norm === "/ft" ||
+        norm === "/unit" ||
+        norm === "/panel" ||
+        norm === "/post"
+      ) {
         return Response.redirect("https://calculatorst.com/gravel-calculator/", 301);
       }
       if (norm === "/construction/drywall") {
