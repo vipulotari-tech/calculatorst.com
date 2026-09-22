@@ -1,0 +1,16 @@
+---
+import CategoryPage from "../../../components/CategoryPage.astro";
+import { slugToCluster } from "../../../data/categoryContent";
+
+export async function getStaticPaths() {
+  return Object.keys(slugToCluster).map((slug) => ({
+    params: { cluster: slug },
+    props: { slug },
+  }));
+}
+
+const { slug } = Astro.props;
+const cluster = slugToCluster[slug] ?? slug;
+---
+
+<CategoryPage cluster={cluster} slug={slug} />

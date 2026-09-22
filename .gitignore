@@ -50,3 +50,6 @@ audit/**/*.txt
 spec-kit/
 .claude-tool-sources/
 spec-kit/
+
+# MCP server configuration
+.mcp.json
