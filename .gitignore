@@ -53,3 +53,6 @@ spec-kit/
 
 # MCP server configuration
 .mcp.json
+
+# local SEO audit / crawl evidence
+reports/
