@@ -8,11 +8,12 @@ import { clusterGroups } from "../data/subcategories";
 import { categoryContent, slugToCluster } from "../data/categoryContent";
 
 interface Props {
+  cluster: string;
   slug: string;
 }
 
-const { slug } = Astro.props as Props;
-const cluster = slugToCluster[slug] ?? slug;
+const { slug, cluster: clusterProp } = Astro.props as Props;
+const cluster = clusterProp ?? slugToCluster[slug] ?? slug;
 
 const categoryNames: Record<string, string> = {
   concrete: "Concrete Calculators",

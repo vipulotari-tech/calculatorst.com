@@ -25,8 +25,8 @@ export const slugToCluster: Record<string, string> = {
   flooring: "flooring",
   "drywall-paint": "drywall",
   "deck-fence": "deck-fence",
-  "decking": "decking",
-  fencing: "fencing",
+  decking: "deck-fence",
+  fencing: "deck-fence",
   landscaping: "landscaping",
   asphalt: "asphalt",
 };
@@ -79,7 +79,7 @@ export const categoryContent: Record<string, CategoryContent> = {
       { name: "Concrete", href: "/construction/concrete/", reason: "Footing and wall concrete volume" },
       { name: "Rebar & Reinforcement", href: "/construction/rebar/", reason: "Vertical and horizontal steel in footings and walls" },
       { name: "Excavation & Earthwork", href: "/construction/excavation/", reason: "Excavation and backfill volumes" },
-      { name: "Waterproofing & Drainage", href: "/construction/drywall-paint/", reason: "Interior finish and moisture control" },
+      { name: "Foundation & Footing", href: "/construction/foundation/", reason: "Structural layout before finish work" },
     ],
   },
 
@@ -147,21 +147,6 @@ export const categoryContent: Record<string, CategoryContent> = {
     ],
   },
 
-  decking: {
-    intro: "Decking covers the materials and layout for outdoor wood or composite deck surfaces — board spacing, joist layout, stair stringers and footing placement. Unlike fences, deck calculations must account for live loads (people and furniture) and lateral bracing.",
-    beforeYouCalculate: "Measure the deck footprint, desired board width and spacing, and joist layout direction. Note the deck height above grade for stair calculations. Confirm whether the deck is attached to the house (ledger board) or freestanding — the load path and footing count differ significantly.",
-    tips: [
-      "Composite decking typically needs 1/8 to 1/4 inch gaps between boards for thermal expansion — check the manufacturer spec.",
-      "Deck stair stringers are usually 2×12 at 12–16 inch rise/run — use the stair calculator to verify.",
-      "Ledger boards need proper flashing and structural fasteners — this is a common inspection failure point.",
-      "A 12×12-foot deck at 16-inch joist spacing needs approximately 9 joists plus rim boards.",
-    ],
-    relatedCategories: [
-      { name: "Deck, Fence & Outdoor", href: "/construction/deck-fence/", reason: "Fence and gate calculators alongside deck tools" },
-      { name: "Concrete", href: "/construction/concrete/", reason: "Deck footing concrete volume" },
-      { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Gravel base for deck footings" },
-    ],
-  },
   "decking": {
     intro: "Deck-only calculators focus on the deck surface system: board layouts, joist spacing, stair stringers, railing heights and ledger connections. If you also need fence or gate estimates, see the broader Deck, Fence & Outdoor category — but this page covers every deck-specific calculation in one place.",
     beforeYouCalculate: "Decide on board material (pressure-treated lumber, cedar, composite, PVC) — each has a different waste factor and expansion gap. Measure the deck footprint (length × width), note whether it's a single-level or multi-level structure, and identify any stairs or railings. For ledger attachments, identify the rim joist material and joist spacing of the house. Determine your local snow and live load requirements — they affect joist span.",
@@ -192,7 +177,6 @@ export const categoryContent: Record<string, CategoryContent> = {
       "Spray-foam insulation R-value depends on thickness: closed-cell at 1 inch ≈ R-6, open-cell at 1 inch ≈ R-3.5.",
     ],
     relatedCategories: [
-      { name: "Insulation", href: "/construction/drywall-paint/", reason: "Insulation calculators are in the same category" },
       { name: "Flooring & Tile", href: "/construction/flooring/", reason: "Flooring underlayment after drywall" },
       { name: "Framing & Lumber", href: "/construction/framing/", reason: "Wall studs and framing behind drywall" },
     ],
@@ -244,7 +228,7 @@ export const categoryContent: Record<string, CategoryContent> = {
     ],
     relatedCategories: [
       { name: "Drywall & Paint", href: "/construction/drywall-paint/", reason: "Drywall sheets under flooring and paint above" },
-      { name: "Tile & Grout", href: "/construction/flooring/", reason: "Tile calculators are in this same category" },
+      { name: "Drywall & Paint", href: "/construction/drywall-paint/", reason: "Drywall sheets under flooring" },
       { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Sand or crushed stone base under tile" },
     ],
   },
@@ -276,7 +260,7 @@ export const categoryContent: Record<string, CategoryContent> = {
     ],
     relatedCategories: [
       { name: "Framing & Lumber", href: "/construction/framing/", reason: "Rafters, trusses and framing lumber" },
-      { name: "Gutter & Downspout", href: "/construction/roofing/", reason: "Roof drainage calculators in this section" },
+      { name: "Siding & Trim", href: "/construction/roofing/", reason: "Roof-to-siding transitions" },
       { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Roof gravel for built-up or tar-and-gravel roofs" },
     ],
   },
@@ -309,7 +293,7 @@ export const categoryContent: Record<string, CategoryContent> = {
     ],
     relatedCategories: [
       { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Paver base gravel and drainage rock" },
-      { name: "Paver & Landscaping", href: "/construction/landscaping/", reason: "Paver sand and base calculators" },
+      { name: "Retaining Walls", href: "/construction/landscaping/", reason: "Retaining wall block calculators" },
       { name: "Concrete", href: "/construction/concrete/", reason: "Concrete footings for retaining walls" },
     ],
   },
@@ -330,21 +314,6 @@ export const categoryContent: Record<string, CategoryContent> = {
     ],
   },
 
-  roofing: {
-    intro: "Roofing calculations must account for slope, overhangs, dormers and waste factors that dramatically increase the real surface area compared to the building footprint. These calculators cover roof pitch, area, shingle quantity, rafter length, truss design and flashing.",
-    beforeYouCalculate: "Measure the building footprint (length × width) and know the roof pitch (rise over 12). Count the number and size of dormers, skylights and chimneys that reduce shingle count. Determine the roof type (gable, hip, gambrel, shed) — each has a different waste factor and pitch multiplier. Note the eave overhang and rake overhang.",
-    tips: [
-      "Hip roofs need 15–20% more shingles than a simple gable of the same footprint — four sloping surfaces instead of two.",
-      "Roof pitch in degrees: pitch = arctan(rise/run). A 6/12 roof = 26.6°, 8/12 = 33.7°, 12/12 = 45°.",
-      "Rafter length = run × pitch multiplier — a 20-foot run on a 6/12 roof needs a 22.36-foot rafter (measured along the slope).",
-      "Flashings at valleys, chimneys and wall intersections are not included in shingle counts — add flashing separately.",
-    ],
-    relatedCategories: [
-      { name: "Framing & Lumber", href: "/construction/framing/", reason: "Rafters, trusses and framing lumber" },
-      { name: "Gutter & Drainage", href: "/construction/roofing/", reason: "Gutter and downspout calculators" },
-      { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Gravel for built-up roofing" },
-    ],
-  },
 
   asphalt: {
     intro: "Asphalt paving calculations differ from concrete because the material is sold by weight (tons) rather than volume, and the compaction factor matters. These calculators cover asphalt volume, weight, cost, driveway thickness and parking lot sizing.",
