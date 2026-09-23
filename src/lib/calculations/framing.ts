@@ -24,11 +24,9 @@ export function boardFeet(opts: {
   quantity?: number;
 }) {
   const Lf = opts.lengthUnit ? toFeet(opts.lengthFt, opts.lengthUnit) : opts.lengthFt;
-  const bfPer = (opts.thicknessIn * opts.widthIn * (Lf*12)) / 144; // T*W*L(in)/144
-  // Simpler: bf = T*W*L(ft)/12
-  const bfAlt = (opts.thicknessIn * opts.widthIn * Lf) / 12;
+  const bfPer = (opts.thicknessIn * opts.widthIn * Lf) / 12;
   const qty = opts.quantity ?? 1;
-  return { bfPer: bfAlt, total: bfAlt * qty };
+  return { bfPer, total: bfPer * qty };
 }
 
 export function joistCount(opts: {

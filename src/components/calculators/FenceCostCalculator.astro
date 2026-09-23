@@ -63,7 +63,10 @@ const hole=parseFloat($("f-hole").value)/12,fill=parseFloat($("f-fill").value)/1
 if(!(hole>postW*Math.SQRT2 && fill>0 && bagYield>0)){err.textContent="The square post must fit inside the round hole; fill depth and bag yield must be positive.";err.classList.remove("hidden");r.classList.add("hidden");return;}
 const safeSpacing = spacing>0 ? spacing : 8;
 const runs = gates + 1; const segLen = effectiveLen / runs; const panelsPerRun = Math.ceil(segLen / safeSpacing);
-const panels = runs * panelsPerRun; const posts = panels + 1;
+const panels = runs * panelsPerRun;
+// Each run needs panels+1 posts, but adjacent runs share their gate-end post.
+// Total posts = runs*(panelsPerRun+1) - gates (subtract the shared gate posts).
+const posts = runs * (panelsPerRun + 1) - gates;
 const linearRails=effectiveLen*($("f-mat").value==="chain"?1:rails);
 const area=effectiveLen*Hf;
 const concreteVolume=posts*fill*(Math.PI*hole*hole/4-postW*postW);
