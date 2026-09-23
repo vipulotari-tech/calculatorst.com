@@ -11,11 +11,11 @@ export function numericError(raw: string, rule: NumericRule): string | null {
   return null;
 }
 export const legacyForms: Record<string, string> = {
-  'gravel-form':'g-results','c-form':'c-results','rp-form':'rp-results',
+  'gravel-form':'g-results','rp-form':'rp-results',
   'pv-form':'pv-results','m-form':'m-results','pea-form':'p-results',
   'd-form':'d-results','dk-form':'dk-results','rsq-form':'rsq-results','f-form':'f-results',
 };
-const positive = new Set(['g-length','g-width','g-depth','g-custom-density','c-len','c-wid','c-thick','rp-run','pv-len','pv-wid','pv-plen','pv-pwid','m-len','m-wid','m-depth','p-length','p-width','p-depth','d-len','d-wid','d-depth','dk-len','dk-wid','dk-bw','dk-bl','rsq-len','rsq-wid','f-len','f-height','f-spacing','f-hole','f-fill','f-postw','f-yield']);
+const positive = new Set(['g-length','g-width','g-depth','g-custom-density','c-len','c-wid','c-depth','rp-run','pv-len','pv-wid','pv-plen','pv-pwid','m-len','m-wid','m-depth','p-length','p-width','p-depth','d-len','d-wid','d-depth','dk-len','dk-wid','dk-bw','dk-bl','rsq-len','rsq-wid','f-len','f-height','f-spacing','f-hole','f-fill','f-postw','f-yield']);
 export function initLegacyValidation() {
   for (const [id, resultId] of Object.entries(legacyForms)) {
     const form = document.getElementById(id) as HTMLFormElement | null;

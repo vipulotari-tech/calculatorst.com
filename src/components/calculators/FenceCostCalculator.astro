@@ -62,9 +62,8 @@ if(effectiveLen<0 || (gates>0 && gateW<=0)){err.textContent="Gate widths must be
 const hole=parseFloat($("f-hole").value)/12,fill=parseFloat($("f-fill").value)/12,postW=parseFloat($("f-postw").value)/12,bagYield=parseFloat($("f-yield").value);
 if(!(hole>postW*Math.SQRT2 && fill>0 && bagYield>0)){err.textContent="The square post must fit inside the round hole; fill depth and bag yield must be positive.";err.classList.remove("hidden");r.classList.add("hidden");return;}
 const safeSpacing = spacing>0 ? spacing : 8;
-const runs=gates+1;
-const panels=runs*Math.ceil(effectiveLen/runs/safeSpacing - 1e-12);
-const posts=panels+runs; // each open fence run includes its two gate/end posts
+const runs = gates + 1; const segLen = effectiveLen / runs; const panelsPerRun = Math.ceil(segLen / safeSpacing);
+const panels = runs * panelsPerRun; const posts = panels + 1;
 const linearRails=effectiveLen*($("f-mat").value==="chain"?1:rails);
 const area=effectiveLen*Hf;
 const concreteVolume=posts*fill*(Math.PI*hole*hole/4-postW*postW);

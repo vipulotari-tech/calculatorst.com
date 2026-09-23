@@ -3,113 +3,178 @@
 
 <div id="concrete-calc" class="rounded-lg border border-hairline bg-canvas p-5 shadow-card sm:p-6">
   <form id="c-form" novalidate class="space-y-5">
-    <div class="grid gap-4 sm:grid-cols-3">
-      <label class="block"><span class="text-sm font-medium text-ink">Length</span><div class="mt-1.5 flex"><input id="c-len" name="length" type="number" inputmode="decimal" min="0" step="any" placeholder="12" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="c-len-error"/><select id="c-len-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="ft">ft</option><option value="in">in</option><option value="yd">yd</option><option value="m">m</option></select></div><span id="c-len-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
-      <label class="block"><span class="text-sm font-medium text-ink">Width</span><div class="mt-1.5 flex"><input id="c-wid" name="width" type="number" inputmode="decimal" min="0" step="any" placeholder="10" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="c-wid-error"/><select id="c-wid-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="ft">ft</option><option value="in">in</option><option value="yd">yd</option><option value="m">m</option></select></div><span id="c-wid-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
-      <label class="block"><span class="text-sm font-medium text-ink">Thickness</span><div class="mt-1.5 flex"><input id="c-thick" name="thickness" type="number" inputmode="decimal" min="0" step="any" placeholder="4" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" required aria-describedby="c-thick-error"/><select id="c-thick-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option><option value="m">m</option></select></div><span id="c-thick-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    <div>
+      <label class="block"><span class="text-sm font-medium text-ink">Project type</span>
+        <select id="c-mode" class="mt-1.5 h-11 w-full rounded-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20 sm:w-auto">
+          <option value="slab">Slab (Rectangle)</option>
+          <option value="circle">Slab (Circle)</option>
+          <option value="wall">Wall</option>
+          <option value="footing">Footing</option>
+          <option value="column">Column / Pier</option>
+          <option value="tube">Tube / Hole</option>
+          <option value="curb">Curb &amp; Gutter</option>
+        </select>
+      </label>
     </div>
+
+    <div id="c-fields-slab" class="c-mode-fields grid gap-4 sm:grid-cols-3">
+      <label class="block"><span class="text-sm font-medium text-ink">Length</span><div class="mt-1.5 flex"><input id="c-len" type="number" inputmode="decimal" min="0" step="any" placeholder="12" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-len-error"/><select id="c-len-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="ft">ft</option><option value="in">in</option><option value="yd">yd</option><option value="m">m</option></select></div><span id="c-len-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Width</span><div class="mt-1.5 flex"><input id="c-wid" type="number" inputmode="decimal" min="0" step="any" placeholder="10" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-wid-error"/><select id="c-wid-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="ft">ft</option><option value="in">in</option><option value="yd">yd</option><option value="m">m</option></select></div><span id="c-wid-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Thickness / Depth</span><div class="mt-1.5 flex"><input id="c-depth" type="number" inputmode="decimal" min="0" step="any" placeholder="4" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-depth-error"/><select id="c-depth-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option><option value="m">m</option></select></div><span id="c-depth-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    </div>
+
+    <div id="c-fields-circle" class="c-mode-fields hidden grid gap-4 sm:grid-cols-2">
+      <label class="block"><span class="text-sm font-medium text-ink">Diameter</span><div class="mt-1.5 flex"><input id="c-diam" type="number" inputmode="decimal" min="0" step="any" placeholder="12" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-diam-error"/><select id="c-diam-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="ft">ft</option><option value="in">in</option><option value="yd">yd</option><option value="m">m</option></select></div><span id="c-diam-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Thickness / Depth</span><div class="mt-1.5 flex"><input id="c-circ-depth" type="number" inputmode="decimal" min="0" step="any" placeholder="4" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-circ-depth-error"/><select id="c-circ-depth-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option><option value="m">m</option></select></div><span id="c-circ-depth-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    </div>
+
+    <div id="c-fields-wall" class="c-mode-fields hidden grid gap-4 sm:grid-cols-3">
+      <label class="block"><span class="text-sm font-medium text-ink">Wall length</span><div class="mt-1.5 flex"><input id="c-wlen" type="number" inputmode="decimal" min="0" step="any" placeholder="30" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-wlen-error"/><select id="c-wlen-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="ft">ft</option><option value="in">in</option><option value="yd">yd</option><option value="m">m</option></select></div><span id="c-wlen-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Wall height</span><div class="mt-1.5 flex"><input id="c-wht" type="number" inputmode="decimal" min="0" step="any" placeholder="6" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-wht-error"/><select id="c-wht-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="ft">ft</option><option value="in">in</option><option value="cm">cm</option></select></div><span id="c-wht-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Wall thickness</span><div class="mt-1.5 flex"><input id="c-wthick" type="number" inputmode="decimal" min="0" step="any" placeholder="8" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-wthick-error"/><select id="c-wthick-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option></select></div><span id="c-wthick-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    </div>
+
+    <div id="c-fields-footing" class="c-mode-fields hidden grid gap-4 sm:grid-cols-3">
+      <label class="block"><span class="text-sm font-medium text-ink">Footing length</span><div class="mt-1.5 flex"><input id="c-flen" type="number" inputmode="decimal" min="0" step="any" placeholder="30" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-flen-error"/><select id="c-flen-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="ft">ft</option><option value="in">in</option><option value="m">m</option></select></div><span id="c-flen-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Footing width</span><div class="mt-1.5 flex"><input id="c-fwid" type="number" inputmode="decimal" min="0" step="any" placeholder="16" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-fwid-error"/><select id="c-fwid-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option></select></div><span id="c-fwid-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Footing depth</span><div class="mt-1.5 flex"><input id="c-fdeep" type="number" inputmode="decimal" min="0" step="any" placeholder="12" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-fdeep-error"/><select id="c-fdeep-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option></select></div><span id="c-fdeep-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    </div>
+
+    <div id="c-fields-column" class="c-mode-fields hidden grid gap-4 sm:grid-cols-2">
+      <label class="block"><span class="text-sm font-medium text-ink">Diameter</span><div class="mt-1.5 flex"><input id="c-coldiam" type="number" inputmode="decimal" min="0" step="any" placeholder="12" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-coldiam-error"/><select id="c-coldiam-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option></select></div><span id="c-coldiam-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Height</span><div class="mt-1.5 flex"><input id="c-colht" type="number" inputmode="decimal" min="0" step="any" placeholder="36" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-colht-error"/><select id="c-colht-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option></select></div><span id="c-colht-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    </div>
+
+    <div id="c-fields-tube" class="c-mode-fields hidden grid gap-4 sm:grid-cols-3">
+      <label class="block"><span class="text-sm font-medium text-ink">Outer diameter</span><div class="mt-1.5 flex"><input id="c-tod" type="number" inputmode="decimal" min="0" step="any" placeholder="10" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-tod-error"/><select id="c-tod-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option></select></div><span id="c-tod-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Inner diameter</span><div class="mt-1.5 flex"><input id="c-tid" type="number" inputmode="decimal" min="0" step="any" placeholder="8" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-tid-error"/><select id="c-tid-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option></select></div><span id="c-tid-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Height</span><div class="mt-1.5 flex"><input id="c-tht" type="number" inputmode="decimal" min="0" step="any" placeholder="48" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-tht-error"/><select id="c-tht-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option></select></div><span id="c-tht-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    </div>
+
+    <div id="c-fields-curb" class="c-mode-fields hidden grid gap-4 sm:grid-cols-4">
+      <label class="block"><span class="text-sm font-medium text-ink">Curb length</span><div class="mt-1.5 flex"><input id="c-clen" type="number" inputmode="decimal" min="0" step="any" placeholder="50" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-clen-error"/><select id="c-clen-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="ft">ft</option><option value="m">m</option></select></div><span id="c-clen-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Curb height</span><div class="mt-1.5 flex"><input id="c-cht" type="number" inputmode="decimal" min="0" step="any" placeholder="6" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-cht-error"/><select id="c-cht-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="cm">cm</option></select></div><span id="c-cht-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Curb depth (base)</span><div class="mt-1.5 flex"><input id="c-cdepth" type="number" inputmode="decimal" min="0" step="any" placeholder="6" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-cdepth-error"/><select id="c-cdepth-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="cm">cm</option></select></div><span id="c-cdepth-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Gutter width</span><div class="mt-1.5 flex"><input id="c-gw" type="number" inputmode="decimal" min="0" step="any" placeholder="12" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-gw-error"/><select id="c-gw-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="cm">cm</option></select></div><span id="c-gw-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    </div>
+    <div id="c-fields-curb2" class="c-mode-fields hidden grid gap-4 sm:grid-cols-2">
+      <label class="block"><span class="text-sm font-medium text-ink">Flag (top slab) thickness</span><div class="mt-1.5 flex"><input id="c-flag" type="number" inputmode="decimal" min="0" step="any" placeholder="4" class="c-req h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="c-flag-error"/><select id="c-flag-unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm focus:outline-none"><option value="in" selected>in</option><option value="cm">cm</option></select></div><span id="c-flag-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+    </div>
+
     <div class="grid gap-4 sm:grid-cols-3">
-      <label class="block"><span class="text-sm font-medium text-ink">Number of slabs</span><input id="c-num" type="number" inputmode="numeric" min="1" step="1" value="1" class="mt-1.5 h-11 w-full rounded-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20"/></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Quantity</span><input id="c-num" type="number" inputmode="numeric" min="1" step="1" value="1" class="mt-1.5 h-11 w-full rounded-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20"/></label>
       <label class="block"><span class="text-sm font-medium text-ink">Waste %</span><div class="mt-1.5 flex"><input id="c-waste" type="number" inputmode="decimal" min="0" max="50" step="1" value="10" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20"/><span class="flex h-11 items-center rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">%</span></div></label>
-      <label class="block"><span class="text-sm font-medium text-ink">Price</span><div class="mt-1.5 flex"><span class="flex h-11 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-sm text-mute">$</span><input id="c-price" type="number" inputmode="decimal" min="0" step="any" placeholder="140" class="h-11 w-full border-y border-hairline bg-canvas px-3 text-sm focus:outline-none"/><select id="c-price-unit" class="h-11 shrink-0 rounded-r-lg border border-hairline bg-canvas-soft px-2 text-xs focus:outline-none"><option value="yd">/ yd³</option><option value="bag80">/ 80lb bag</option></select></div></label>
+      <label class="block"><span class="text-sm font-medium text-ink">Price</span><div class="mt-1.5 flex"><span class="flex h-11 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-sm text-mute">$</span><input id="c-price" type="number" inputmode="decimal" min="0" step="any" placeholder="140" class="h-11 w-full border-y border-hairline bg-canvas px-3 text-sm focus:outline-none"/><select id="c-price-unit" class="h-11 shrink-0 rounded-r-lg border border-hairline bg-canvas-soft px-2 text-xs focus:outline-none"><option value="yd">/ yd³</option><option value="bag80">/ 80lb bag</option><option value="bag60">/ 60lb bag</option><option value="bag50">/ 50lb bag</option><option value="bag40">/ 40lb bag</option></select></div></label>
     </div>
-    <div class="flex flex-wrap gap-2"><button type="submit" class="inline-flex h-11 items-center justify-center rounded-lg bg-primary px-6 text-sm font-medium text-on-primary transition hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link ">Calculate</button><button type="reset" id="c-reset" class="inline-flex h-11 items-center justify-center rounded-lg border border-hairline bg-canvas px-6 text-sm font-medium text-ink transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Reset</button><span class="hidden items-center font-mono text-xs text-mute sm:inline-flex">US customary + metric supported.</span></div>
+    <div class="flex flex-wrap gap-2"><button type="submit" class="inline-flex h-11 items-center justify-center rounded-lg bg-primary px-6 text-sm font-medium text-on-primary transition hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link ">Calculate</button><button type="reset" id="c-reset" class="inline-flex h-11 items-center justify-center rounded-lg border border-hairline bg-canvas px-6 text-sm font-medium text-ink transition hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Reset</button></div>
   </form>
   <div id="c-results" class="mt-6 hidden" aria-live="polite">
     <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5 ">
-      <p class="font-mono text-[11px] tracking-widest text-mute">CONCRETE SLAB ESTIMATE</p>
+      <p class="font-mono text-[11px] tracking-widest text-mute" id="c-result-label">CONCRETE ESTIMATE</p>
       <p class="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink"><span id="c-yd3" class="tabular-nums">—</span> yd³ <span class="text-sm font-medium text-body">· <span id="c-ft3">—</span> ft³</span></p>
       <p class="font-mono text-xs tabular-nums text-body"><span id="c-sqft">—</span> ft² · <span id="c-yd3w">—</span> yd³ with waste</p>
-      <div class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 sm:grid-cols-3">
-        <div><p class="font-mono text-[11px] text-mute">80-lb bags</p><p id="c-b80" class="text-sm font-semibold tabular-nums text-ink">—</p><p class="font-mono text-xs text-mute">0.60 ft³ / 0.022 yd³</p></div>
-        <div><p class="font-mono text-[11px] text-mute">60-lb bags</p><p id="c-b60" class="text-sm font-semibold tabular-nums text-ink">—</p><p class="font-mono text-xs text-mute">0.45 ft³</p></div>
-        <div><p class="font-mono text-[11px] text-mute">40-lb bags</p><p id="c-b40" class="text-sm font-semibold tabular-nums text-ink">—</p><p class="font-mono text-xs text-mute">0.30 ft³</p></div>
+      <div class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 sm:grid-cols-5">
+        <div><p class="font-mono text-[11px] text-mute">40-lb bags</p><p id="c-b40" class="text-sm font-semibold tabular-nums text-ink">—</p><p class="font-mono text-[10px] text-mute">0.30 ft³</p></div>
+        <div><p class="font-mono text-[11px] text-mute">50-lb bags</p><p id="c-b50" class="text-sm font-semibold tabular-nums text-ink">—</p><p class="font-mono text-[10px] text-mute">0.33 ft³</p></div>
+        <div><p class="font-mono text-[11px] text-mute">60-lb bags</p><p id="c-b60" class="text-sm font-semibold tabular-nums text-ink">—</p><p class="font-mono text-[10px] text-mute">0.45 ft³</p></div>
+        <div><p class="font-mono text-[11px] text-mute">80-lb bags</p><p id="c-b80" class="text-sm font-semibold tabular-nums text-ink">—</p><p class="font-mono text-[10px] text-mute">0.60 ft³</p></div>
+        <div><p class="font-mono text-[11px] text-mute">Est. weight</p><p id="c-wt" class="text-sm font-semibold tabular-nums text-ink">—</p><p class="font-mono text-[10px] text-mute">4,050 lb/yd³</p></div>
       </div>
-      <div class="mt-3 flex items-center justify-between rounded-md border border-hairline bg-canvas p-3 ">
-        <p class="font-mono text-[11px] text-mute">Est. cost</p><p id="c-cost" class="text-sm font-semibold text-ink">—</p>
-      </div>
+      <div class="mt-3 flex items-center justify-between rounded-md border border-hairline bg-canvas p-3 "><p class="font-mono text-[11px] text-mute">Est. cost</p><p id="c-cost" class="text-sm font-semibold text-ink">—</p></div>
     </div>
   </div>
 </div>
 <script is:inline>
 (() => {
   const $ = (id) => document.getElementById(id);
-  const form = $("c-form");
-  const results = $("c-results");
-  function toFeet(v, u) {
-    if (u === "ft") return v;
-    if (u === "in") return v / 12;
-    if (u === "yd") return v * 3;
-    if (u === "m") return v / 0.3048;
-    if (u === "cm") return v / 30.48;
-    return v;
-  }
-  function fmt(n, dec = 2) {
-    if (!isFinite(n)) return "—";
-    return new Intl.NumberFormat("en-US", {
-      maximumFractionDigits: dec,
-      minimumFractionDigits: dec === 0 ? 0 : dec === 2 ? 2 : 0,
-    }).format(n);
-  }
-  function show(id, msg) {
-    const e = $(id);
-    if (!e) return;
-    e.textContent = msg;
-    e.classList.remove("hidden");
-  }
-  function clear() {
-    ["c-len-error", "c-wid-error", "c-thick-error"].forEach((id) => {
-      const e = $(id);
-      if (e) { e.textContent = ""; e.classList.add("hidden"); }
-    });
-  }
+  const form = $("c-form"), results = $("c-results"), modeSel = $("c-mode");
+  const modeFields = document.querySelectorAll(".c-mode-fields");
+  const bagYields = { bag40: 0.30, bag50: 0.33, bag60: 0.45, bag80: 0.60 };
+  const modeLabels = { slab: "CONCRETE SLAB", circle: "CONCRETE SLAB (CIRCULAR)", wall: "CONCRETE WALL", footing: "CONCRETE FOOTING", column: "CONCRETE COLUMN / PIER", tube: "CONCRETE TUBE / HOLE", curb: "CONCRETE CURB & GUTTER" };
+  function toFeet(v, u) { if (u === "ft") return v; if (u === "in") return v / 12; if (u === "yd") return v * 3; if (u === "m") return v / 0.3048; if (u === "cm") return v / 30.48; return v; }
+  function fmt(n, dec = 2) { if (!isFinite(n)) return "—"; return new Intl.NumberFormat("en-US", { maximumFractionDigits: dec, minimumFractionDigits: dec === 0 ? 0 : dec === 2 ? 2 : 0 }).format(n); }
+  function show(id, msg) { const e = $(id); if (!e) return; e.textContent = msg; e.classList.remove("hidden"); }
+  function clearErrors() { document.querySelectorAll("[id$='-error']").forEach((e) => { if (!e) return; if (e.id.startsWith("c-")) { e.textContent = ""; e.classList.add("hidden"); } }); }
+  function switchMode() { const m = modeSel.value; modeFields.forEach((f) => { f.classList.toggle("hidden", !f.id.endsWith("-" + m)); }); $("c-result-label").textContent = modeLabels[m] || "CONCRETE ESTIMATE"; clearErrors(); }
+  if (modeSel) modeSel.addEventListener("change", switchMode);
   if (!form || !results) return;
   form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    clear();
-    const L = parseFloat($("c-len").value);
-    const W = parseFloat($("c-wid").value);
-    const T = parseFloat($("c-thick").value);
+    e.preventDefault(); clearErrors();
+    const mode = modeSel ? modeSel.value : "slab";
     const num = parseInt($("c-num").value) || 1;
     const waste = parseFloat($("c-waste").value) || 0;
     const price = parseFloat($("c-price").value);
-    let ok = true;
-    if (!(L > 0)) { show("c-len-error", "Please enter a valid length."); ok = false; }
-    if (!(W > 0)) { show("c-wid-error", "Please enter a valid width."); ok = false; }
-    if (!(T > 0)) { show("c-thick-error", "Thickness must be greater than 0."); ok = false; }
-    if (!ok) return;
-    const Lf = toFeet(L, $("c-len-unit").value);
-    const Wf = toFeet(W, $("c-wid-unit").value);
-    const Tf = toFeet(T, $("c-thick-unit").value);
-    const sqft = Lf * Wf * num;
-    const cuFt = sqft * Tf;
-    const cuYd = cuFt / 27;
     const w = 1 + waste / 100;
-    const cuFtW = cuFt * w;
-    const cuYdW = cuYd * w;
-    $("c-sqft").textContent = fmt(sqft, 1);
-    $("c-ft3").textContent = fmt(cuFt);
-    $("c-yd3").textContent = fmt(cuYd);
-    $("c-yd3w").textContent = fmt(cuYdW);
-    const b80 = Math.ceil(cuFtW / 0.60);
-    const b60 = Math.ceil(cuFtW / 0.45);
-    const b40 = Math.ceil(cuFtW / 0.30);
-    $("c-b80").textContent = String(b80);
-    $("c-b60").textContent = String(b60);
-    $("c-b40").textContent = String(b40);
+    let cuFt = 0, sqft = 0, ok = true;
+    const reqIds = { slab: ["c-len", "c-wid", "c-depth"], circle: ["c-diam", "c-circ-depth"], wall: ["c-wlen", "c-wht", "c-wthick"], footing: ["c-flen", "c-fwid", "c-fdeep"], column: ["c-coldiam", "c-colht"], tube: ["c-tod", "c-tid", "c-tht"], curb: ["c-clen", "c-cht", "c-cdepth", "c-gw", "c-flag"] };
+    const reqUnits = { slab: ["c-len-unit", "c-wid-unit", "c-depth-unit"], circle: ["c-diam-unit", "c-circ-depth-unit"], wall: ["c-wlen-unit", "c-wht-unit", "c-wthick-unit"], footing: ["c-flen-unit", "c-fwid-unit", "c-fdeep-unit"], column: ["c-coldiam-unit", "c-colht-unit"], tube: ["c-tod-unit", "c-tid-unit", "c-tht-unit"], curb: ["c-clen-unit", "c-cht-unit", "c-cdepth-unit", "c-gw-unit", "c-flag-unit"] };
+    const reqLabels = { slab: ["length", "width", "thickness"], circle: ["diameter", "depth"], wall: ["wall length", "wall height", "wall thickness"], footing: ["footing length", "footing width", "footing depth"], column: ["diameter", "height"], tube: ["outer diameter", "inner diameter", "height"], curb: ["curb length", "curb height", "curb depth", "gutter width", "flag thickness"] };
+    const reqEls = reqIds[mode].map((id, i) => ({ id, unit: reqUnits[mode][i], label: reqLabels[mode][i], el: $(id) }));
+    reqEls.forEach(({ id, label, el }) => { const v = parseFloat(el.value); if (!(v > 0)) { const errId = id + "-error"; show(errId, "Please enter a valid " + label + "."); ok = false; } });
+    if (!ok) return;
+    if (mode === "slab") {
+      const Lf = toFeet(parseFloat($("c-len").value), $("c-len-unit").value);
+      const Wf = toFeet(parseFloat($("c-wid").value), $("c-wid-unit").value);
+      const Tf = toFeet(parseFloat($("c-depth").value), $("c-depth-unit").value);
+      sqft = Lf * Wf; cuFt = sqft * Tf;
+    } else if (mode === "circle") {
+      const diamFt = toFeet(parseFloat($("c-diam").value), $("c-diam-unit").value);
+      const Tf = toFeet(parseFloat($("c-circ-depth").value), $("c-circ-depth-unit").value);
+      sqft = Math.PI / 4 * diamFt * diamFt;
+      cuFt = sqft * Tf;
+    } else if (mode === "wall") {
+      const Lf = toFeet(parseFloat($("c-wlen").value), $("c-wlen-unit").value);
+      const Hf = toFeet(parseFloat($("c-wht").value), $("c-wht-unit").value);
+      const Tf = toFeet(parseFloat($("c-wthick").value), $("c-wthick-unit").value);
+      sqft = Lf * Hf; cuFt = sqft * Tf;
+    } else if (mode === "footing") {
+      const Lf = toFeet(parseFloat($("c-flen").value), $("c-flen-unit").value);
+      const Wf = toFeet(parseFloat($("c-fwid").value), $("c-fwid-unit").value);
+      const Df = toFeet(parseFloat($("c-fdeep").value), $("c-fdeep-unit").value);
+      cuFt = Lf * Wf * Df; sqft = Lf * Wf;
+    } else if (mode === "column") {
+      const diamFt = toFeet(parseFloat($("c-coldiam").value), $("c-coldiam-unit").value);
+      const Hf = toFeet(parseFloat($("c-colht").value), $("c-colht-unit").value);
+      sqft = Math.PI / 4 * diamFt * diamFt;
+      cuFt = sqft * Hf;
+    } else if (mode === "tube") {
+      const odFt = toFeet(parseFloat($("c-tod").value), $("c-tod-unit").value);
+      const idFt = toFeet(parseFloat($("c-tid").value), $("c-tid-unit").value);
+      const Hf = toFeet(parseFloat($("c-tht").value), $("c-tht-unit").value);
+      if (idFt >= odFt) { show("c-tid-error", "Inner diameter must be smaller than outer diameter."); return; }
+      sqft = Math.PI / 4 * (odFt * odFt - idFt * idFt);
+      cuFt = sqft * Hf;
+    } else if (mode === "curb") {
+      const Lf = toFeet(parseFloat($("c-clen").value), $("c-clen-unit").value);
+      const cH = toFeet(parseFloat($("c-cht").value), $("c-cht-unit").value);
+      const cD = toFeet(parseFloat($("c-cdepth").value), $("c-cdepth-unit").value);
+      const gW = toFeet(parseFloat($("c-gw").value), $("c-gw-unit").value);
+      const flagT = toFeet(parseFloat($("c-flag").value), $("c-flag-unit").value);
+      sqft = Lf * (cH + gW);
+      cuFt = sqft * cD + Lf * gW * flagT;
+    }
+    const cuYd = cuFt / 27;
+    const cuFtW = cuFt * w; const cuYdW = cuYd * w;
+    const sqftW = sqft * num;
+    $("c-sqft").textContent = fmt(sqftW, 1);
+    $("c-ft3").textContent = fmt(cuFt * num);
+    $("c-yd3").textContent = fmt(cuYd * num);
+    $("c-yd3w").textContent = fmt(cuYdW * num);
+    ["bag40", "bag50", "bag60", "bag80"].forEach((key) => {
+      const el = $("c-" + key); if (el) el.textContent = String(Math.ceil(cuFtW * num / bagYields[key]));
+    });
+    $("c-wt").textContent = fmt(cuYdW * num * 4050, 0) + " lb";
     let cost = "—";
     if (isFinite(price) && price >= 0) {
       const unit = $("c-price-unit").value;
-      const c = unit === "yd" ? cuYdW * price : b80 * price;
-      cost = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(c);
+      if (unit === "yd") cost = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cuYdW * num * price);
+      else { const bKey = "c-" + unit; const bEl = $(bKey); if (bEl) cost = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(parseInt(bEl.textContent || "0") * price); }
     }
     $("c-cost").textContent = cost;
     results.classList.remove("hidden");
     results.scrollIntoView({ behavior: "smooth", block: "nearest" });
   });
-  $("c-reset")?.addEventListener("click", () => {
-    clear();
-    results.classList.add("hidden");
-  });
+  if ($("c-reset")) $("c-reset").addEventListener("click", () => { clearErrors(); results.classList.add("hidden"); });
+  switchMode();
 })();
 </script>
