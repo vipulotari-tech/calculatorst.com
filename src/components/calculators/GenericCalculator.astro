@@ -289,6 +289,14 @@ const costs = fields.filter((f) => f.group === "Cost");
         </button>
         <button
           type="button"
+          aria-label="Share this calculation"
+          class="calc-share-btn inline-flex h-10 items-center justify-center rounded-lg border border-border bg-background px-3.5 text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4"/><path d="m15.4 6.5-6.8 4"/></svg>
+          <span class="share-status" role="status">Share</span>
+        </button>
+        <button
+          type="button"
           aria-label="Print calculation results"
           class="calc-print-btn inline-flex h-10 items-center justify-center rounded-lg border border-border bg-background px-3.5 text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
         >
@@ -369,6 +377,8 @@ const costs = fields.filter((f) => f.group === "Cost");
       const stepsListEl = root.querySelector<HTMLElement>(".result-steps-list");
       const copyBtn = root.querySelector<HTMLButtonElement>(".calc-copy-btn");
       const copyStatus = root.querySelector<HTMLElement>(".copy-status");
+      const shareBtn = root.querySelector<HTMLButtonElement>(".calc-share-btn");
+      const shareStatus = root.querySelector<HTMLElement>(".share-status");
       const printBtn = root.querySelector<HTMLButtonElement>(".calc-print-btn");
       const resetBtn = root.querySelector<HTMLButtonElement>(".calc-reset-btn");
       const status = root.querySelector<HTMLElement>('.calc-status');
@@ -403,6 +413,48 @@ const costs = fields.filter((f) => f.group === "Cost");
                 const wrap = root.querySelector<HTMLElement>(`#${slug}-field-${f.id}`);
                 if (wrap) wrap.hidden = !fieldVisible(f, state);
               });
+            }
+
+            const sharedParam = (id: string) => `cs_${id}`;
+            function hydrateSharedState() {
+              const params = new URLSearchParams(window.location.search);
+              if (params.get("cs_calc") !== slug) return;
+              model.fields.forEach((field) => {
+                const raw = params.get(sharedParam(field.id));
+                const control = form?.querySelector<HTMLInputElement | HTMLSelectElement>(`#${slug}-${field.id}`);
+                if (raw !== null && control) {
+                  const numeric = Number(raw);
+                  const matchesOption = !field.options || field.options.some(opt => opt.value === numeric);
+                  const inRange = Number.isFinite(numeric)
+                    && (field.min === undefined || numeric >= field.min)
+                    && (field.max === undefined || numeric <= field.max)
+                    && (!field.integer || Number.isInteger(numeric));
+                  if (matchesOption && inRange) control.value = raw;
+                }
+                const unit = params.get(sharedParam(`${field.id}_unit`));
+                const unitSelect = form?.querySelector<HTMLSelectElement>(`#${slug}-${field.id}-unit`);
+                if (unit && unitSelect && field.units?.includes(unit)) unitSelect.value = unit;
+              });
+            }
+
+            function buildShareUrl() {
+              const url = new URL(window.location.href);
+              url.search = "";
+              url.searchParams.set("cs_calc", slug);
+              model.fields.forEach((field) => {
+                const control = form?.querySelector<HTMLInputElement | HTMLSelectElement>(`#${slug}-${field.id}`);
+                if (control?.value !== "") url.searchParams.set(sharedParam(field.id), control.value);
+                const unitSelect = form?.querySelector<HTMLSelectElement>(`#${slug}-${field.id}-unit`);
+                if (unitSelect?.value) url.searchParams.set(sharedParam(`${field.id}_unit`), unitSelect.value);
+              });
+              return url;
+            }
+
+            function clearSharedStateFromUrl() {
+              const url = new URL(window.location.href);
+              if (url.searchParams.get("cs_calc") !== slug) return;
+              [...url.searchParams.keys()].filter(key => key === "cs_calc" || key.startsWith("cs_")).forEach(key => url.searchParams.delete(key));
+              history.replaceState(history.state, "", url.pathname + (url.search ? url.search : "") + url.hash);
             }
 
             function calculate(focusError = false) {
@@ -527,6 +579,7 @@ const costs = fields.filter((f) => f.group === "Cost");
                   unitSelect.value = field.unit;
                 }
               });
+              clearSharedStateFromUrl();
               updateVisibility();
               calculate();
             });
@@ -549,13 +602,35 @@ const costs = fields.filter((f) => f.group === "Cost");
         }
       });
 
+      shareBtn?.addEventListener("click", async () => {
+        const url = buildShareUrl();
+        try {
+          if (navigator.share) {
+            await navigator.share({ title: document.title, url: url.toString() });
+            if (shareStatus) shareStatus.textContent = "Shared";
+          } else {
+            await navigator.clipboard.writeText(url.toString());
+            if (shareStatus) shareStatus.textContent = "Link copied";
+          }
+          setTimeout(() => { if (shareStatus) shareStatus.textContent = "Share"; }, 2000);
+        } catch (err: any) {
+          if (err?.name !== "AbortError") {
+            if (shareStatus) shareStatus.textContent = "Share unavailable";
+            if (status) status.textContent = "Sharing was unavailable. You can still copy the displayed result.";
+          }
+        }
+      });
+
       printBtn?.addEventListener("click", () => {
         root.dataset.printing = "true";
+        document.body.classList.add("calc-print-mode");
         window.print();
+        document.body.classList.remove("calc-print-mode");
         delete root.dataset.printing;
       });
 
-      // Run initial calculation immediately on page mount
+      // Restore a calculation from a shared URL before the first render.
+            hydrateSharedState();
             updateVisibility();
             calculate();
     });
@@ -569,18 +644,30 @@ const costs = fields.filter((f) => f.group === "Cost");
 
 <style is:global>
   @media print {
-    [data-calculator-slug][data-printing="true"] form,
-    [data-calculator-slug][data-printing="true"] .calc-status {
-      display: none !important;
+    body.calc-print-mode * {
+      visibility: hidden !important;
     }
 
-    [data-calculator-slug][data-printing="true"] {
+    body.calc-print-mode [data-calculator-slug][data-printing="true"],
+    body.calc-print-mode [data-calculator-slug][data-printing="true"] * {
+      visibility: visible !important;
+    }
+
+    body.calc-print-mode [data-calculator-slug][data-printing="true"] {
+      position: absolute !important;
+      inset: 0 auto auto 0 !important;
+      width: 100% !important;
       border: 0 !important;
       box-shadow: none !important;
       padding: 0 !important;
     }
 
-    [data-calculator-slug][data-printing="true"] .calc-results-panel {
+    body.calc-print-mode [data-calculator-slug][data-printing="true"] form,
+    body.calc-print-mode [data-calculator-slug][data-printing="true"] .calc-status {
+      display: none !important;
+    }
+
+    body.calc-print-mode [data-calculator-slug][data-printing="true"] .calc-results-panel {
       border: 0 !important;
       background: white !important;
       padding: 0 !important;
