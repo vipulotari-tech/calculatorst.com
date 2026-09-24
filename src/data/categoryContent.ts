@@ -104,34 +104,40 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   "brick-masonry": {
-    intro: "Masonry work spans structural brick walls, veneer, patios and decorative paving. Each application has different mortar joints, waste factors and unit sizes. These calculators cover brick quantity, mortar volume, wall area and cost across every common masonry project.",
-    beforeYouCalculate: "Measure the wall area (length × height) or paved area in square feet. Know your brick or block dimensions (standard modular brick is approximately 3-5/8 × 2-1/4 × 7-5/8 inches). Decide on mortar joint thickness (typically 3/8 inch). Check local code for veneer clearance and weep-slot requirements.",
+    intro: "Brick and masonry estimating involves different jobs: wall quantity, course layout, mortar, veneer, paved surfaces, shipment weight, waste and project cost. These 15 calculators separate those intents so users can choose the tool that matches the actual takeoff instead of repeating one generic wall formula.",
+    beforeYouCalculate: "Measure the wall or paved area and use the actual unit dimensions for the product being ordered. For mortared walls, include the intended joint width; for multi-wythe work, know the number of brick layers. Gather openings, unit weight, supplier prices, mortar yield, paver base depth or veneer tie spacing only when the selected calculator needs them.",
     tips: [
-      "A modular brick laid to an approximately 8 in × 2⅝ in nominal face module is about 6.9 bricks per square foot. Use the actual unit and joint dimensions for the final count.",
-      "Brick veneer cavity, flashing, drainage and weep details are assembly-specific; follow the wall design and applicable code requirements.",
-      "Brick sizes vary widely by manufacturer and product line, so enter the actual face dimensions of the unit being ordered.",
-      "Set the waste allowance from the bond pattern, cuts, breakage and project geometry rather than relying on one universal percentage.",
+      "Use actual brick dimensions plus the joint to form the installed module. Brick products vary substantially, so product dimensions are more reliable than a single default size.",
+      "Courses and units-per-course are layout checks; opening-adjusted material quantity should be based on net wall area and the installed module.",
+      "Mortar volume and bag yield vary with unit shape, joint geometry and workmanship. Use product yield when purchasing and treat geometric mortar volume as an estimate.",
+      "Brick veneer ties, flashing, drainage, cavity width and weeps are assembly-design details. The veneer calculator only converts entered tie spacing into a planning count.",
+      "Paver base and bedding outputs are placed/compacted volumes. Loose delivery quantities can require supplier-specific conversion.",
+      "Choose waste from cuts, bond pattern, breakage and project geometry rather than assuming one universal percentage."
     ],
     relatedCategories: [
-      { name: "Mortar, Grout & Cement", href: "/construction/mortar-grout-cement/", reason: "Mortar and grout quantity for brick and block walls" },
-      { name: "Paver & Landscaping", href: "/construction/landscaping/", reason: "Brick pavers and patio layouts" },
-      { name: "Concrete Block & CMU", href: "/construction/concrete-block/", reason: "Structural masonry with concrete blocks" },
+      { name: "Mortar, Grout & Cement", href: "/construction/mortar-grout-cement/", reason: "Mortar and cement workflows for masonry installation" },
+      { name: "Paver & Landscaping", href: "/construction/landscaping/", reason: "Paver base, sand and landscaping material takeoffs" },
+      { name: "Concrete Block & CMU", href: "/construction/concrete-block/", reason: "Concrete masonry units, grout and reinforced masonry" },
+      { name: "Rebar & Reinforcement", href: "/construction/rebar/", reason: "Reinforcement takeoff where masonry walls are reinforced" },
     ],
   },
 
   "concrete-block": {
-    intro: "Concrete masonry units (CMUs) — commonly called concrete blocks — are the backbone of structural masonry walls, foundations and retaining walls. Unlike brick, CMU dimensions are nominal and actual dimensions differ (a 8×8×16 block is actually 7-5/8 × 7-5/8 × 15-5/8 inches). These calculators account for the real unit size and mortar fill.",
-    beforeYouCalculate: "Know the nominal block size (8×8×16 is standard), wall thickness (8-inch or 12-inch nominal), and wall height and length. Factor in mortar joint thickness (3/8 inch standard) and whether cores will be grouted for reinforcement. Check local code for required grout spacing.",
+    intro: "Concrete block and CMU estimating has several distinct scopes: block count and course layout, mortar, grout core fill, shipment weight, project cost and reinforcement takeoff. These 10 calculators keep those scopes separate while using specified block dimensions, transparent allowances and project-entered material assumptions.",
+    beforeYouCalculate: "Know the wall length, height and openings plus the CMU face dimensions being supplied. For common modular CMU, specified dimensions are typically 3/8 inch smaller than nominal dimensions so the unit plus mortar joint fits the nominal module. Gather manufacturer block weight, mortar coverage, grout cell volume and structural reinforcement spacing only for calculators that need them.",
     tips: [
-      "A standard 8×8×16 CMU covers 1.125 blocks per sq ft of wall face — but the actual block is smaller than the nominal dimension.",
-      "Grouted-cell and reinforcement spacing come from the structural design. Use the grout calculator only after the cells to be filled are known.",
-      "Special units at corners, bond beams and openings should be counted from the wall layout; a generic waste percentage is not a substitute for that takeoff.",
-      "Bond beams and reinforcement are design details that depend on wall loading, height and construction; follow the structural drawings.",
+      "Do not confuse nominal and specified CMU dimensions. A nominal 8 × 8 × 16 in module commonly uses a 7⅝ × 7⅝ × 15⅝ in specified unit with a ⅜ in mortar joint.",
+      "Block face count depends on length and height; wall thickness affects weight, mortar/grout geometry and structural design but not units per square foot.",
+      "Mortar and grout are different materials. Mortar forms joints; grout fills selected cores, bond beams and lintels.",
+      "Use manufacturer core/cell geometry for grout volume. Hollow-unit voids vary by block width, shape and producer.",
+      "Vertical and horizontal reinforcement spacing, bar size, lap and anchorage come from the structural masonry design. The reinforcement calculator only performs takeoff math.",
+      "Special corner units, bond-beam units, lintels, jamb units and cuts should be counted from the wall layout rather than hidden inside a generic waste factor."
     ],
     relatedCategories: [
-      { name: "Rebar & Reinforcement", href: "/construction/rebar/", reason: "Vertical and horizontal steel in CMU cores" },
-      { name: "Mortar, Grout & Cement", href: "/construction/mortar-grout-cement/", reason: "Mortar for laying blocks and grout for fill" },
-      { name: "Foundation & Footing", href: "/construction/foundation/", reason: "CMU foundation walls and footings" },
+      { name: "Rebar & Reinforcement", href: "/construction/rebar/", reason: "Detailed rebar weight, spacing, lap and quantity workflows" },
+      { name: "Mortar, Grout & Cement", href: "/construction/mortar-grout-cement/", reason: "Mortar and grout products used with CMU" },
+      { name: "Foundation & Footing", href: "/construction/foundation/", reason: "Footings and foundation geometry supporting masonry walls" },
+      { name: "Brick & Masonry", href: "/construction/brick-masonry/", reason: "Brick and generic masonry unit takeoffs" },
     ],
   },
 
