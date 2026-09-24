@@ -1245,7 +1245,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "gravel-calculator",
     "title": "Gravel Calculator — Yards, Tons, Metric Volume & Cost",
     "h1": "Gravel Calculator",
-    "description": "Calculate gravel from dimensions, known area or known volume with material density presets, custom density, separate compaction and waste, metric/US outputs and optional cost.",
+    "description": "Calculate gravel from rectangular dimensions with material density presets or custom density, separate compaction and waste allowances, metric/US outputs and optional cost.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
