@@ -70,3 +70,24 @@ describe('Search intent', () => {
   it('includes every published calculator', () => expect(searchCatalog).toHaveLength(204));
   it('returns useful empty results', () => expect(searchCalculators('zzzzzzzzz')).toEqual([]));
 });
+
+
+describe('Traffic-priority distinct calculator models', () => {
+  it('calculates excavation cost from bank and loose-volume rate bases', () => {
+    const res=calculate('excavation-cost-calculator',{length:10,width:10,depth:2,swell:20,bankRate:10,haulRate:5,equipment:100,labor:50});
+    expect(res.rows.find(r=>r.key==='bank')?.value).toBeCloseTo(200/27,8);
+    expect(res.rows.find(r=>r.key==='loose')?.value).toBeCloseTo((200/27)*1.2,8);
+    expect(res.rows.find(r=>r.key==='total')?.value).toBeCloseTo((200/27)*10+(200/27)*1.2*5+150,8);
+  });
+  it('gives wall framing studs plus plate and stud linear footage', () => {
+    const res=calculate('wall-framing-calculator',{length:20,height:8,spacing:16,extra:2,topPlates:2,bottomPlates:1,waste:0});
+    expect(res.rows.find(r=>r.key==='studs')?.value).toBe(18);
+    expect(res.rows.find(r=>r.key==='net')?.value).toBeCloseTo(204,8);
+  });
+  it('normalizes a user-entered mortar cement lime sand ratio', () => {
+    const res=calculate('mortar-mix-calculator',{volume:10,cementParts:1,limeParts:1,sandParts:6});
+    expect(res.rows.find(r=>r.key==='cement')?.value).toBeCloseTo(1.25,8);
+    expect(res.rows.find(r=>r.key==='lime')?.value).toBeCloseTo(1.25,8);
+    expect(res.rows.find(r=>r.key==='sand')?.value).toBeCloseTo(7.5,8);
+  });
+});

@@ -1550,6 +1550,42 @@ const shedFoundation: Model = {
   },
 };
 
+
+const mortarMix: Model = {
+  fields: [
+    volume('volume','Total dry batch volume',1),
+    number('cementParts','Portland cement parts',1,0),
+    number('limeParts','Hydrated lime parts',1,0),
+    number('sandParts','Sand parts',6,0),
+  ],
+  formula:'Component volume = total dry batch volume × component parts / total parts. The calculator normalizes the user-entered cement : lime : sand ratio; it does not select a mortar type.',
+  assumptions:[
+    'Parts are relative dry-volume proportions supplied by the user. Use the proportions required by the project specification or mortar standard.',
+    'This is a proportioning calculator, not a mixed-yield predictor. Bulking, moisture, mixing loss and final mortar yield are not inferred from dry component volumes.',
+    'The calculator does not choose Type M, S, N or O and does not establish compressive strength or suitability for a masonry assembly.'
+  ],
+  sources:['https://www.cement.org/learn/materials-applications/masonry/masonry-mortars'],
+  calculate(v){
+    const parts=v.cementParts+v.limeParts+v.sandParts;
+    requireCondition(parts>0,'cementParts','Enter at least one non-zero mix component.');
+    const cement=v.volume*v.cementParts/parts;
+    const lime=v.volume*v.limeParts/parts;
+    const sand=v.volume*v.sandParts/parts;
+    return result([
+      row('cement','Cement volume',cement,'ft³'),
+      row('lime','Hydrated lime volume',lime,'ft³'),
+      row('sand','Sand volume',sand,'ft³'),
+      row('total','Total dry batch volume',v.volume,'ft³'),
+      row('parts','Total ratio parts',parts,'parts')
+    ],[
+      'Ratio parts: '+fmt(v.cementParts)+' + '+fmt(v.limeParts)+' + '+fmt(v.sandParts)+' = '+fmt(parts)+'.',
+      'Cement: '+fmt(v.volume)+' × '+fmt(v.cementParts)+' / '+fmt(parts)+' = '+fmt(cement)+' ft³.',
+      'Lime: '+fmt(v.volume)+' × '+fmt(v.limeParts)+' / '+fmt(parts)+' = '+fmt(lime)+' ft³.',
+      'Sand: '+fmt(v.volume)+' × '+fmt(v.sandParts)+' / '+fmt(parts)+' = '+fmt(sand)+' ft³.'
+    ]);
+  }
+};
+
 export const materialModels: Record<string, Model> = {
   // --- 16 Concrete calculators ---
   'concrete': concreteGeneric,
@@ -1557,6 +1593,7 @@ export const materialModels: Record<string, Model> = {
   'concrete-weight': concreteWeight,
   'concrete-cost': concreteCost,
   'concrete-mix': concreteMix,
+  'mortar-mix': mortarMix,
   'concrete-pour': concretePour,
   'concrete-slab': concreteSlab,
   'concrete-footing': concreteFooting,

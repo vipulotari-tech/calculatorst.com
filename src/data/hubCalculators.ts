@@ -1014,14 +1014,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "mortar-mix-calculator",
-    "title": "Mortar Mix Calculator — Ratio, Bags & Volume",
+    "title": "Mortar Mix Ratio Calculator — Cement, Lime & Sand",
     "h1": "Mortar Mix Calculator",
-    "description": "Calculate mortar mix ratio — cement, sand and lime proportions for type N, S, M or O mortar with bag count and cost with waste.",
+    "description": "Split a specified dry batch volume into cement, hydrated lime and sand from the mix ratio you enter. Does not choose a mortar type or strength.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "mortar mix calculator"
+      "mortar mix calculator",
+      "mortar ratio calculator",
+      "cement lime sand ratio",
+      "mortar mix ratio"
     ],
     "featured": false
   },
@@ -1356,15 +1359,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "excavation-cost-calculator",
-    "title": "Excavation Cost Calculator — Price & Quantity",
+    "title": "Excavation Cost Calculator — Bank, Haul & Total Cost",
     "h1": "Excavation Cost Calculator",
-    "description": "Estimate excavation cost — material, haul-away, labor and equipment with waste. Compare per yard or per ton for US excavation projects.",
+    "description": "Estimate excavation cost from measured bank volume, swell-adjusted loose volume, quoted excavation and haul rates, equipment and labor.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "excavation cost calculator",
-      "excavation price calculator"
+      "excavation cost estimator",
+      "excavation price calculator",
+      "cost per cubic yard excavation"
     ],
     "featured": false
   },
@@ -1490,17 +1495,18 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "wall-framing-calculator",
-    "title": "Wall Framing Calculator — Stud Count & On-Center Spacing",
+    "title": "Wall Framing Calculator — Studs, Plates & Linear Feet",
     "h1": "Wall Framing Calculator",
-    "description": "Estimate evenly spaced wall framing pieces from wall length and maximum on-center spacing, with detail pieces, waste and optional unit cost.",
+    "description": "Calculate wall studs, top and bottom plate footage, total framing lumber, waste allowance and optional linear-foot cost from wall dimensions and spacing.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "wall framing calculator",
       "2x4 wall framing calculator",
-      "wall stud count calculator",
-      "wall framing spacing calculator"
+      "wall stud calculator",
+      "stud count calculator",
+      "wall framing material calculator"
     ],
     "featured": false
   },

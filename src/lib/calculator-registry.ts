@@ -88,7 +88,7 @@ export const slugToModelKey: Record<string, string> = {
 
   // 7. Mortar & Cement (12)
   "mortar-calculator": "bags",
-  "mortar-mix-calculator": "concrete-mix",
+  "mortar-mix-calculator": "mortar-mix",
   "mortar-quantity-calculator": "bags",
   "mortar-cost-calculator": "material-cost",
   "grout-calculator": "bags",
@@ -119,7 +119,7 @@ export const slugToModelKey: Record<string, string> = {
 
   // 9. Excavation (10)
   "excavation-calculator": "excavation",
-  "excavation-cost-calculator": "excavation",
+  "excavation-cost-calculator": "excavationCost",
   "trench-calculator": "excavation",
   "trench-volume-calculator": "excavation",
   "trench-backfill-calculator": "backfill",
@@ -131,7 +131,7 @@ export const slugToModelKey: Record<string, string> = {
 
   // 10. Framing & Lumber (15)
   "framing-calculator": "spaced",
-  "wall-framing-calculator": "spaced",
+  "wall-framing-calculator": "wallFraming",
   "stud-calculator": "spaced",
   "stud-spacing-calculator": "spacing",
   "lumber-calculator": "spaced",
