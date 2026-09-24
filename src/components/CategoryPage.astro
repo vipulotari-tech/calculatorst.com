@@ -45,7 +45,7 @@ const content = categoryContent[slug] ?? categoryContent[cluster];
 const canonicalPath = `/construction/${slug}/`;
 const primaryByCluster: Record<string, string> = {
   concrete: "concrete-calculator",
-  slab: "concrete-slab-calculator",
+  slab: "slab-thickness-calculator",
   foundation: "concrete-footing-calculator",
   rebar: "rebar-calculator",
   brick: "brick-calculator",
@@ -67,18 +67,30 @@ const categorySeoOverrides: Record<string, { title: string; description: string 
     title: "Concrete Calculators — Yards, Bags, Cost & Project Tools",
     description: "Use 17 concrete calculators for volume, slabs, footings, foundations, walls, columns, curbs, stairs, ramps, mix, weight, waste, cost and crack repair.",
   },
+  slab: {
+    title: "Slab, Patio & Driveway Calculators — Concrete & Cost Tools",
+    description: "Use 10 calculators for slab thickness, cost and rebar plus patio, driveway, garage-slab and shed-foundation concrete, base, bags, trucks and project cost.",
+  },
 };
 const categorySeo = categorySeoOverrides[cluster];
 const categoryTitle = categorySeo?.title ?? `${displayName} — Construction Calculators | Calculator Street`;
 const categoryDescription = categorySeo?.description ?? `${displayName} — ${calculators.length} tools. ${content ? content.intro.split(".")[0].toLowerCase() + "." : (calculators[0]?.category || "").toLowerCase() + "."} Browse by project group.`;
 
-const concreteTaskLinks = cluster === "concrete" ? [
+const taskLinks = cluster === "concrete" ? [
   { label: "General estimate", href: "/concrete-calculator/", text: "Cubic yards, bags, weight and optional cost for common pour shapes." },
   { label: "Geometry only", href: "/concrete-volume-calculator/", text: "Volume conversions for rectangles, cylinders, tubes, curbs, stairs and wedges." },
   { label: "Ready-mix delivery", href: "/concrete-pour-calculator/", text: "Truck loads, final-load size, short-load fee and pump-time planning." },
   { label: "Slab project", href: "/concrete-slab-calculator/", text: "Square feet, slab yards and 40/50/60/80-lb bag counts." },
   { label: "Foundation takeoff", href: "/concrete-foundation-calculator/", text: "Combine walls, footings, slab and piers into one foundation order." },
   { label: "Cost estimate", href: "/concrete-cost-calculator/", text: "Price ready-mix or bags with tax and quoted delivery/project charges." },
+] : cluster === "slab" ? [
+  { label: "Slab depth & quantity", href: "/slab-thickness-calculator/", text: "Convert volume to average depth or compare concrete quantity for chosen thicknesses." },
+  { label: "Slab cost", href: "/slab-cost-calculator/", text: "Quote-based concrete and project cost with delivery, reinforcement, forms and labor." },
+  { label: "Rebar grid", href: "/slab-reinforcement-calculator/", text: "Bar count, grid size, spacing, cut length and weight from specified layout inputs." },
+  { label: "Patio concrete", href: "/patio-concrete-calculator/", text: "Rectangle or circle yards, bags, base, forms and truck-load planning." },
+  { label: "Driveway concrete", href: "/driveway-concrete-calculator/", text: "Rectangle, apron or tapered driveway yards, base and truck-load planning." },
+  { label: "Garage slab", href: "/garage-slab-calculator/", text: "Slab plus thickened edge, compacted base, vapor barrier, forms and trucks." },
+  { label: "Shed foundation", href: "/shed-foundation-calculator/", text: "Concrete for shed slabs, cylindrical piers or continuous strip footings." },
 ] : [];
 ---
 
@@ -113,12 +125,12 @@ const concreteTaskLinks = cluster === "concrete" ? [
           </aside>
         )}
 
-        {concreteTaskLinks.length > 0 && (
-          <section class="mt-6 rounded-xl border border-hairline bg-canvas p-5" aria-labelledby="choose-concrete-calculator">
-            <h2 id="choose-concrete-calculator" class="text-sm font-semibold text-ink">Choose the right concrete calculator</h2>
+        {taskLinks.length > 0 && (
+          <section class="mt-6 rounded-xl border border-hairline bg-canvas p-5" aria-labelledby="choose-category-calculator">
+            <h2 id="choose-category-calculator" class="text-sm font-semibold text-ink">Choose the right {cluster === "concrete" ? "concrete" : "slab, patio or driveway"} calculator</h2>
             <p class="mt-2 text-[13px] leading-5 text-body">These pages target different estimating tasks. Pick the one that matches the decision you are making instead of repeating the same inputs across several calculators.</p>
             <div class="mt-4 grid gap-3 sm:grid-cols-2">
-              {concreteTaskLinks.map((item) => (
+              {taskLinks.map((item) => (
                 <a href={item.href} class="rounded-lg border border-hairline bg-white p-3 transition hover:border-hairline-strong/30 hover:shadow-card">
                   <span class="text-[13px] font-semibold text-link">{item.label}</span>
                   <span class="mt-1 block text-xs leading-5 text-body">{item.text}</span>
