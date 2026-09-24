@@ -1632,6 +1632,60 @@ const mortarQuantity: Model = {
   }
 };
 
+
+const crushedStone: Model = {
+  fields: [
+    { ...number('mode','Calculate from',0,0), max:2, integer:true, options:[
+      {value:0,label:'Length × width × depth'},
+      {value:1,label:'Known area × depth'},
+      {value:2,label:'Known volume'}
+    ]},
+    { ...length('length','Area length',20), visibleWhen:{field:'mode',equals:0} },
+    { ...length('width','Area width',10), visibleWhen:{field:'mode',equals:0} },
+    { ...area('area','Known surface area',200), visibleWhen:{field:'mode',equals:1} },
+    { ...length('depth','Stone depth',4,'in'), visibleWhen:{field:'mode',in:[0,1]} },
+    { ...volume('volume','Known stone volume',1), visibleWhen:{field:'mode',equals:2} },
+    { ...number('density','Bulk density',1.5,0.01,'Use the supplier or material data for the same loose/compacted state you are estimating.'), unit:'ton/yd3', group:'Material & assumptions' },
+    allowance,
+    price('USD/ton',['USD/ton','USD/yd3'])
+  ],
+  formula:'Net volume comes from length × width × depth, area × depth, or entered volume. Order volume = net volume × allowance factor; US tons = order cubic yards × entered bulk density.',
+  assumptions:[
+    'Density is user-entered because crushed stone, crusher run and crushed concrete can have different bulk densities depending on grading, moisture and compaction.',
+    'Use dimensions, area and depth that describe the same placed state as the density. Do not add a separate compaction factor if your entered density and dimensions already represent the compacted layer.',
+    'Material allowance increases the measured quantity once. Supplier truckload minimums and delivery fees are not included in the optional material cost.'
+  ],
+  sources:[],
+  calculate(v,u){
+    const mode=Math.round(v.mode);
+    let netFt3:number;
+    if(mode===0) netFt3=v.length*v.width*v.depth;
+    else if(mode===1) netFt3=v.area*v.depth;
+    else netFt3=v.volume;
+    requireCondition(netFt3>=0,'volume','Stone volume cannot be negative.');
+    const netYd3=netFt3/27;
+    const orderYd3=netYd3*waste(v);
+    const tons=orderYd3*v.density;
+    const pounds=tons*2000;
+    const m3=orderYd3*27/(FT_PER_M**3);
+    return result(withCost([
+      row('order','Crushed stone to order',orderYd3,'yd³'),
+      row('tons','Estimated order weight',tons,'US tons'),
+      row('pounds','Estimated order weight',pounds,'lb'),
+      row('net','Measured volume before allowance',netYd3,'yd³'),
+      row('m3','Order volume',m3,'m³')
+    ],v.price,u.price,{'USD/ton':tons,'USD/yd3':orderYd3}),[
+      mode===0
+        ? fmt(v.length)+' × '+fmt(v.width)+' × '+fmt(v.depth)+' = '+fmt(netFt3)+' ft³.'
+        : mode===1
+          ? fmt(v.area)+' ft² × '+fmt(v.depth)+' ft = '+fmt(netFt3)+' ft³.'
+          : 'Entered volume = '+fmt(netFt3)+' ft³.',
+      fmt(netFt3)+' ÷ 27 = '+fmt(netYd3)+' yd³ before allowance.',
+      fmt(orderYd3)+' yd³ × '+fmt(v.density)+' ton/yd³ = '+fmt(tons)+' US tons.'
+    ]);
+  }
+};
+
 export const materialModels: Record<string, Model> = {
   // --- 16 Concrete calculators ---
   'concrete': concreteGeneric,
@@ -1658,6 +1712,7 @@ export const materialModels: Record<string, Model> = {
 
   // --- Non-concrete (unchanged) ---
   bulk,
+  crushedStone,
   weight,
   depth,
   masonry,

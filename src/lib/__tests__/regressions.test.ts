@@ -112,3 +112,12 @@ describe('Mortar intent separation', () => {
     expect(res.rows.find(r=>r.key==='bags')?.value).toBe(6);
   });
 });
+
+
+describe('Crushed stone traffic-priority calculator', () => {
+  it('supports dimensions and returns yards plus tons', () => {
+    const res=calculate('crushed-stone-calculator',{mode:0,length:3,width:3,depth:36,density:1.5,waste:0});
+    expect(res.rows.find(r=>r.key==='order')?.value).toBeCloseTo(1,8);
+    expect(res.rows.find(r=>r.key==='tons')?.value).toBeCloseTo(1.5,8);
+  });
+});

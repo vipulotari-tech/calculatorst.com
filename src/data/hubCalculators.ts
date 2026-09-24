@@ -1196,17 +1196,18 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "crushed-stone-calculator",
-    "title": "Crushed Stone Calculator — Tons & Cubic Yards",
+    "title": "Crushed Stone Calculator — Tons, Yards & Crusher Run",
     "h1": "Crushed Stone Calculator",
-    "description": "Calculate crushed stone volume and weight in cubic yards and tons for driveways, patios, drainage and base layers, with waste and optional cost.",
+    "description": "Calculate crushed stone, crusher run or crushed concrete from dimensions, known area or volume. Get cubic yards, tons, pounds and optional material cost.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "crushed stone calculator",
-      "crushed gravel calculator",
       "crusher run calculator",
-      "crushed concrete calculator"
+      "crushed gravel calculator",
+      "crushed concrete calculator",
+      "stone tons calculator"
     ],
     "featured": false
   },
