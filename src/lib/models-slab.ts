@@ -82,7 +82,7 @@ const thickness: Model = {
     if (mode === 1) {
       const cuFt = area * v.thickness;
       const extra = [row('area', 'Covered area (ft²)', area, 'ft²')];
-      return concreteResult(cuFt, v, {}, [
+      return concreteResult(cuFt, v, u, [
         `Volume: ${fmt(area)} ft² × ${fmt(v.thickness)} ft = ${fmt(cuFt)} ft³.`,
         'This is the concrete quantity for the thickness you selected — a quantity result, not a thickness recommendation.',
       ], extra);
@@ -297,7 +297,7 @@ const garageSlab: Model = {
   ],
   formula: 'Slab V = L × W × T × sections. Thickened-edge extra V = [L × W − (L − 2w) × (W − 2w)] × (edge depth − slab thickness) × sections. Gravel base V = L × W × base depth. Vapor barrier area = L × W.',
   assumptions: [
-    'The thickened edge is modeled as an inward perimeter band inside the slab footprint; corner areas are counted once. Extra depth equals total edge depth minus slab thickness.'
+    'The thickened edge is modeled as an inward perimeter band inside the slab footprint; corner areas are counted once. Extra depth equals total edge depth minus slab thickness.',
     'Gravel base quantity is compacted volume; loose delivered volume depends on the supplier conversion.',
     'Slab thickness must come from the project design. Vehicle type alone does not determine the required section.',
     'This estimates material quantity; rebar, dowels, insulation and finishing are separate items.',
@@ -467,7 +467,7 @@ const slabCost: Model = {
   ],
   formula: 'Volume = L × W × T × quantity. Total = material subtotal × (1 + tax/100) + delivery + short-load + pump + subbase + reinforcement + forms + finishing + labor.',
   assumptions: [
-    'Material-only scope estimates only concrete quantity × price and ignores hidden project-fee values. Full-project scope adds only the editable line items you enter.'
+    'Material-only scope estimates only concrete quantity × price and ignores hidden project-fee values. Full-project scope adds only the editable line items you enter.',
     'Thickness must come from the project plans or engineer; volume alone does not establish load capacity.',
     'Tax applies to the material subtotal only. Delivery, labor and fees are not taxed unless your jurisdiction requires otherwise.',
     'All prices are editable planning values — use supplier quotes. National averages are not local quotes.',
@@ -511,7 +511,7 @@ const patioCost: Model = {
   ],
   formula: 'Volume = L × W × T × quantity. Total = material subtotal × (1 + tax/100) + delivery + short-load + pump + subbase + reinforcement + forms + finishing + decorative + demolition + labor.',
   assumptions: [
-    'Material-only scope estimates just the concrete quantity × price. Full-project scope adds the editable line items you enter.',
+    'Material-only scope estimates only concrete quantity × price and ignores hidden project-fee values. Full-project scope adds only the editable line items you enter.',
     'Patio thickness is a project-design input. Enter the specified thickness for the quantity estimate.',
     'Decorative finish and demolition allowances are self-entered planning values — no preset prices are assumed. Get a local quote.',
     'Tax applies to the material subtotal only. All prices are editable planning values.',
@@ -556,7 +556,7 @@ const drivewayCost: Model = {
   ],
   formula: 'Volume = L × W × T × quantity. Total = material subtotal × (1 + tax/100) + delivery + short-load + pump + subbase + reinforcement + forms + joints + finishing + demolition + disposal + labor.',
   assumptions: [
-    'Material-only scope estimates just the concrete quantity × price. Full-project scope adds the editable line items you enter.',
+    'Material-only scope estimates only concrete quantity × price and ignores hidden project-fee values. Full-project scope adds only the editable line items you enter.',
     'Replacement line items (demolition, disposal) represent work already chosen by the user — they are not automatically added.',
     'Driveway thickness is a project-design input. Enter the specified thickness for the quantity estimate.',
     'Tax applies to the material subtotal only. All prices are editable planning values.',
