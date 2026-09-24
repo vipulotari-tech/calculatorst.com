@@ -81,7 +81,7 @@ describe("Concrete category golden-value regression suite", () => {
       "concrete-weight-calculator", "netTonnes",
       { volume: 1, density: 150, waste: 0 },
       { volume: "yd3", density: "lb/ft3" },
-    )).toBeCloseTo(1.837054572, 6);
+    )).toBeCloseTo(1.8370490985, 6);
   });
 
   it("Concrete Cost: bag price uses rounded bag count", () => {
