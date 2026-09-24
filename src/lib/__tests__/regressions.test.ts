@@ -67,6 +67,6 @@ describe('Search intent', () => {
   it.each([['sheetrock','drywall-calculator'],['cinder block','concrete-block-calculator'],['timber','lumber-calculator']])('matches %s', (q,slug) => {
     expect(searchCalculators(q).some(c => c.slug === slug)).toBe(true);
   });
-  it('includes every published calculator', () => expect(searchCatalog).toHaveLength(201));
+  it('includes every published calculator', () => expect(searchCatalog).toHaveLength(204));
   it('returns useful empty results', () => expect(searchCalculators('zzzzzzzzz')).toEqual([]));
 });
