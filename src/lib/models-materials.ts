@@ -768,16 +768,16 @@ const concreteFooting: Model = {
 // 9.  Concrete Foundation Calculator — multi-component
 // ==========================================================
 const concreteFoundationFields: Field[] = [
-  // Wall
-  length('wallLength', 'Foundation wall length', 40, 'ft'),
-  length('wallHeight', 'Wall height', 8, 'ft'),
-  length('wallThickness', 'Wall thickness', 8, 'in'),
+  // Wall — zero disables this component.
+  positiveOrZero(length('wallLength', 'Foundation wall length', 40, 'ft')),
+  positiveOrZero(length('wallHeight', 'Wall height', 8, 'ft')),
+  positiveOrZero(length('wallThickness', 'Wall thickness', 8, 'in')),
   positiveOrZero(area('wallOpenings', 'Openings (windows/doors)', 0, 0),
     { help: 'Subtract the total opening area once, in ft².' }),
-  // Footing
-  length('footingLength', 'Footing length', 40, 'ft'),
-  length('footingWidth', 'Footing width', 12, 'in'),
-  length('footingDepth', 'Footing depth', 12, 'in'),
+  // Footing — zero disables this component.
+  positiveOrZero(length('footingLength', 'Footing length', 40, 'ft')),
+  positiveOrZero(length('footingWidth', 'Footing width', 12, 'in')),
+  positiveOrZero(length('footingDepth', 'Footing depth', 12, 'in')),
   // Slab on grade
   positiveOrZero(length('slabLength', 'Slab on grade length', 0, 'ft')),
   positiveOrZero(length('slabWidth', 'Slab on grade width', 0, 'ft')),
