@@ -71,7 +71,21 @@ export default {
     // 4) Serve static asset
     // env.ASSETS is bound via wrangler.jsonc assets.directory = "./dist"
     if (env.ASSETS) {
-      return env.ASSETS.fetch(request);
+      const response = await env.ASSETS.fetch(request);
+
+      // Search-filter URLs are useful to users but should not become indexable
+      // duplicate landing pages. Keep them crawlable and preserve clean canonicals.
+      if (/^\\/calculators\\/?$/.test(url.pathname) && url.searchParams.has("q")) {
+        const headers = new Headers(response.headers);
+        headers.set("X-Robots-Tag", "noindex, follow");
+        return new Response(response.body, {
+          status: response.status,
+          statusText: response.statusText,
+          headers,
+        });
+      }
+
+      return response;
     }
     // fallback (wrangler dev without binding)
     return fetch(request);
