@@ -22,6 +22,7 @@ const curatedPopularSlugs = [
 const popular = curatedPopularSlugs.map(s => hubCalculators.find(c => c.slug === s)).filter(Boolean) as typeof hubCalculators;
 const actualPopular = popular.length ? popular : hubCalculators.filter(c => c.featured).slice(0,12);
 const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.slug === s)).filter(Boolean) as typeof hubCalculators;
+const clusterPath: Record<string, string> = { drywall: "drywall-paint" };
 ---
 
 <Layout
@@ -196,7 +197,7 @@ const getCalcs = (slugs: string[]) => slugs.map(s => hubCalculators.find(c => c.
                     <li><a href={`/${c.slug}/`} class="flex items-center gap-1.5 text-[13px] leading-5 text-muted-foreground hover:text-foreground transition-colors"><span class="h-1 w-1 rounded-full bg-border"></span>{c.h1}</a></li>
                   ))}
                 </ul>
-                <a href={`/construction/${group.cluster}/`} class="mt-3 inline-flex items-center gap-1 font-mono text-[11px] font-medium tracking-wide text-muted-foreground hover:text-foreground transition-colors">View {group.name} <span aria-hidden="true">→</span></a>
+                <a href={`/construction/${clusterPath[group.cluster] ?? group.cluster}/`} class="mt-3 inline-flex items-center gap-1 font-mono text-[11px] font-medium tracking-wide text-muted-foreground hover:text-foreground transition-colors">View {group.name} <span aria-hidden="true">→</span></a>
               </div>
             );
           })}
