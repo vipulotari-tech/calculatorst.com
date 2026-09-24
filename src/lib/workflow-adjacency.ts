@@ -377,7 +377,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   // Gravel / aggregate
   "gravel-calculator": {
     primary: ["gravel-cost-calculator", "gravel-depth-calculator", "gravel-weight-calculator"],
-    workflow: ["paver-base-calculator", "concrete-slab-calculator", "driveway-calculator"],
+    workflow: ["paver-base-calculator", "concrete-slab-calculator", "driveway-concrete-calculator"],
   },
   "gravel-cost-calculator": {
     primary: ["gravel-calculator", "gravel-weight-calculator", "gravel-depth-calculator"],
@@ -421,7 +421,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "fill-dirt-calculator": {
     primary: ["fill-dirt-cost-calculator", "topsoil-calculator", "soil-volume-calculator"],
-    workflow: ["excavation-calculator", "backfill-calculator"],
+    workflow: ["excavation-calculator", "trench-backfill-calculator"],
   },
   "fill-dirt-cost-calculator": {
     primary: ["fill-dirt-calculator", "topsoil-cost-calculator", "gravel-cost-calculator"],
