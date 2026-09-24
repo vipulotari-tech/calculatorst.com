@@ -252,16 +252,16 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "slab-cost-calculator",
-    "title": "Slab Cost Calculator — Concrete Pad & Slab Cost",
+    "title": "Concrete Pad & Slab Cost Calculator — Material Cost",
     "h1": "Slab Cost Calculator",
-    "description": "Estimate concrete slab or pad cost from dimensions, thickness, waste and material price. Use for pads, patios and slab-on-grade projects.",
+    "description": "Estimate concrete pad or slab material cost from length, width, thickness, allowance and quoted concrete price, with the calculated concrete quantity shown.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "slab cost calculator",
-      "concrete slab cost calculator",
       "concrete pad cost calculator",
+      "concrete slab cost calculator",
+      "slab cost calculator",
       "concrete pad price calculator"
     ],
     "featured": false
@@ -2118,15 +2118,15 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "drywall-sheet-calculator",
-    "title": "Drywall Sheet Calculator — Sheetrock Sheets by Area",
+    "title": "Sheetrock & Drywall Sheet Calculator — Sheets Needed",
     "h1": "Drywall Sheet Calculator",
-    "description": "Calculate drywall or sheetrock sheets from measured surface area, actual sheet length and width, waste allowance and optional per-sheet price.",
+    "description": "Calculate how many drywall or sheetrock sheets you need from measured surface area, actual sheet length and width, purchasing allowance and optional per-sheet price.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "drywall sheet calculator",
       "sheetrock calculator",
+      "drywall sheet calculator",
       "how many sheets of drywall do i need",
       "drywall sheets by square feet"
     ],

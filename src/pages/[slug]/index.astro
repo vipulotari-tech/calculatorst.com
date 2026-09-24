@@ -108,6 +108,14 @@ const faqEnhancements: Record<string, { q: string; a: string }[]> = {
     { q: "Which beam load cases are included?", a: "The calculator includes a simply supported beam with a full-span uniform load, a simply supported beam with one center point load, a cantilever with a full-span uniform load, and a cantilever with one point load at the free end." },
     { q: "Does the beam calculator tell me what beam size is safe?", a: "No. It calculates idealized elastic reactions, bending moment, shear and deflection from the inputs. It does not select a member or check allowable capacity, bearing, buckling, connections or code load combinations." },
   ],
+  "slab-cost-calculator": [
+    { q: "How is concrete pad or slab material cost calculated?", a: "The calculator converts the entered pad or slab dimensions and thickness to concrete volume, applies the purchasing allowance, then multiplies the order quantity by the material price you enter." },
+    { q: "Does the slab cost estimate include rebar, base, forms or labor?", a: "Not unless the calculator explicitly provides and you enter those cost items. Use the related calculators for reinforcement, base and other project materials; contractor labor and site conditions can vary widely." },
+  ],
+  "drywall-sheet-calculator": [
+    { q: "How many Sheetrock or drywall sheets do I need?", a: "Enter the total surface area you plan to cover and the actual sheet length and width. The calculator divides the area by sheet coverage, applies the purchasing allowance and rounds up to whole sheets." },
+    { q: "Can I use 4×8, 4×10 or 4×12 drywall sheets?", a: "Yes. Enter the actual sheet dimensions you plan to buy. The sheet count changes with the selected sheet area and the waste allowance." },
+  ],
   "foundation-cost-calculator": [
     { q: "What costs are included in the foundation estimate?", a: "The calculator prices the concrete quantity from your quoted cost per cubic yard, then adds the material tax, delivery or short-load fees and any labor/equipment allowance you enter. Excavation, forms, reinforcement, waterproofing, drainage, engineering and permits are not automatically included." },
     { q: "Can it estimate slab, pier and strip-footing foundations?", a: "Yes. Select a slab or pad, concrete piers, or a continuous strip footing and enter the dimensions from your project requirements. The calculator converts that geometry to concrete yards before applying your cost inputs." },
