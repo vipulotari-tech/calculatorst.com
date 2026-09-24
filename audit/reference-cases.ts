@@ -154,7 +154,7 @@ export const referenceCases:ReferenceCase[] = [
  {model:'deck-mud-dedicated',input:{length:10,width:10,thickness:1.2,yield:0.5,waste:0,price:0},units:{length:'ft',width:'ft',thickness:'in',yield:'ft3',price:'USD/bag'},expected:{net:10,bags:20}},
  {model:'stucco-dedicated',input:{length:10,height:10,openings:0,baseCoats:2,baseCoverage:20,finishCoats:1,finishCoverage:50,waste:0},units:{length:'ft',height:'ft',openings:'ft2',baseCoverage:'ft2',finishCoverage:'ft2'},expected:{base:10,finish:2,total:12}},
 
- {model:'gravel-general-dedicated',input:{mode:0,length:10,width:10,area:100,depth:12,volume:100,density:1.5,waste:10,price:10},units:{length:'ft',width:'ft',area:'ft2',depth:'in',volume:'ft3',density:'ton/yd3',price:'USD/yd3'},expected:{order:(100/27)*1.1,tons:(100/27)*1.1*1.5,cost:(100/27)*1.1*10}},
+ {model:'gravel-general-dedicated',input:{mode:0,length:10,width:10,area:100,depth:12,volume:100,material:5,customDensity:1.5,compaction:0,waste:10,price:10},units:{length:'ft',width:'ft',area:'ft2',depth:'in',volume:'ft3',customDensity:'ton/yd3',price:'USD/yd3'},expected:{order:(100/27)*1.1,tons:(100/27)*1.1*1.5,cost:(100/27)*1.1*10}},
  {model:'gravel-cost-dedicated',input:{mode:0,length:10,width:10,area:100,depth:12,volume:100,density:1.5,waste:10,price:10,tax:10,delivery:20,labor:30},units:{length:'ft',width:'ft',area:'ft2',depth:'in',volume:'ft3',density:'ton/yd3',price:'USD/yd3'},expected:{materials:(100/27)*1.1*10,total:((100/27)*1.1*10)*1.1+50}},
  {model:'gravel-weight-dedicated',input:{mode:0,length:3,width:3,area:9,depth:36,volume:27,density:1.5},units:{length:'ft',width:'ft',area:'ft2',depth:'in',volume:'ft3',density:'ton/yd3'},expected:{volume:1,tons:1.5,weight:3000}},
  {model:'gravel-depth-dedicated',input:{areaMode:1,length:10,width:10,area:100,supplyMode:0,volume:100,tons:3,density:1.4},units:{length:'ft',width:'ft',area:'ft2',volume:'ft3'},expected:{depth:12,volume:100/27}},
@@ -199,7 +199,7 @@ export const referenceCases:ReferenceCase[] = [
  {model:'cement-sand-dedicated',input:{volume:5,cementParts:1,sandParts:4,bagYield:0.5,sandDensity:100,waste:0,cementBagPrice:10,sandTonPrice:20},units:{volume:'ft3',bagYield:'ft3'},expected:{bags:2,cement:1,sand:4/27,aggregateVol:0,sandWeight:0.2,cost:24}},
  {model:'deck-mud-dedicated',input:{length:10,width:10,thickness:1.2,yield:0.5},expected:{area:100,net:10,order:10,bags:20,coverage:5}},
  {model:'stucco-dedicated',input:{length:20,height:10,openings:0,baseCoats:2,baseCoverage:20,finishCoats:1,finishCoverage:100},expected:{total:22,base:20,finish:2,area:200,order:200}},
- {model:'gravel-general-dedicated',input:{mode:0,length:3,width:3,depth:36,density:1.5,waste:0},expected:{order:1,net:1,tons:1.5,pounds:3000}},
+ {model:'gravel-general-dedicated',input:{mode:0,length:3,width:3,depth:36,material:5,customDensity:1.5,compaction:0,waste:0},expected:{order:1,net:1,tons:1.5,pounds:3000}},
  {model:'gravel-cost-dedicated',input:{mode:0,length:3,width:3,depth:36,density:1.5,waste:0,price:10,tax:10,delivery:20,labor:30},units:{price:'USD/yd3'},expected:{order:1,net:1,tons:1.5,pounds:3000,materials:10,tax:1,delivery:20,labor:30,total:61}},
  {model:'gravel-weight-dedicated',input:{mode:0,length:3,width:3,depth:36,density:1.5},expected:{volume:1,tons:1.5,weight:3000}},
  {model:'gravel-depth-dedicated',input:{areaMode:0,length:3,width:3,supplyMode:0,volume:1},units:{volume:'yd3'},expected:{depth:36,area:9,volume:1}},
