@@ -90,6 +90,7 @@
   const form = $("c-form"), results = $("c-results"), modeSel = $("c-mode");
   const modeFields = document.querySelectorAll(".c-mode-fields");
   const bagYields = { bag40: 0.30, bag50: 0.375, bag60: 0.45, bag80: 0.60 };
+  const bagOutputIds = { bag40: "c-b40", bag50: "c-b50", bag60: "c-b60", bag80: "c-b80" };
   const modeLabels = { slab: "CONCRETE SLAB", circle: "CONCRETE SLAB (CIRCULAR)", wall: "CONCRETE WALL", footing: "CONCRETE FOOTING", column: "CONCRETE COLUMN / PIER", tube: "CONCRETE TUBE / HOLE", curb: "CONCRETE CURB & GUTTER" };
   function toFeet(v, u) { if (u === "ft") return v; if (u === "in") return v / 12; if (u === "yd") return v * 3; if (u === "m") return v / 0.3048; if (u === "cm") return v / 30.48; return v; }
   function fmt(n, dec = 2) { if (!isFinite(n)) return "—"; return new Intl.NumberFormat("en-US", { maximumFractionDigits: dec, minimumFractionDigits: dec === 0 ? 0 : dec === 2 ? 2 : 0 }).format(n); }
@@ -161,14 +162,14 @@
     $("c-yd3").textContent = fmt(cuYd * num);
     $("c-yd3w").textContent = fmt(cuYdW * num);
     ["bag40", "bag50", "bag60", "bag80"].forEach((key) => {
-      const el = $("c-" + key); if (el) el.textContent = String(Math.ceil(cuFtW * num / bagYields[key]));
+      const el = $(bagOutputIds[key]); if (el) el.textContent = String(Math.ceil(cuFtW * num / bagYields[key]));
     });
     $("c-wt").textContent = fmt(cuYdW * num * 4050, 0) + " lb";
     let cost = "—";
     if (isFinite(price) && price >= 0) {
       const unit = $("c-price-unit").value;
       if (unit === "yd") cost = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cuYdW * num * price);
-      else { const bKey = "c-" + unit; const bEl = $(bKey); if (bEl) cost = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(parseInt(bEl.textContent || "0") * price); }
+      else { const bKey = bagOutputIds[unit]; const bEl = bKey ? $(bKey) : null; if (bEl) cost = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(parseInt(bEl.textContent || "0") * price); }
     }
     $("c-cost").textContent = cost;
     results.classList.remove("hidden");
