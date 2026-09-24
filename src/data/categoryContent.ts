@@ -281,7 +281,7 @@ export const categoryContent: Record<string, CategoryContent> = {
     beforeYouCalculate: "Measure the placed or measured area and depth, or use a known volume when you already have one. Match the density to the same material state as the dimensions—loose delivery and compacted placement are not interchangeable. Confirm whether the supplier quote is per cubic yard, cubic meter or US ton and keep delivery or spreading charges separate when they are quoted separately.",
     tips: [
       "Bulk density is not a universal constant. Use supplier scale-ticket or product data for the exact material, grading, moisture and loose/compacted condition whenever possible.",
-      "Purchasing allowance is not a compaction factor. If loose delivered volume must be converted to a compacted layer, use project- or supplier-specific conversion information.",
+      "Keep compaction and purchasing waste separate. The main Gravel Calculator exposes both inputs explicitly; for other material tools, use supplier/project information to convert loose delivery to placed volume instead of hiding compaction inside waste.",
       "The weight-only calculators deliberately do not add hidden overage; they convert the measured volume you enter into estimated mass.",
       "The depth calculator solves average coverage from the material you already have. It does not recommend a structural base thickness.",
       "Cost calculators keep material subtotal, tax, delivery/trucking and spreading/labor separate so quoted scopes are not double counted."
