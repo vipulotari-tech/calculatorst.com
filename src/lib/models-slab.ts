@@ -4,6 +4,10 @@ import { concreteResult, densityField, densityLb, yieldField } from './models-ma
 
 const geometry = 'https://www.calculatorsoup.com/calculators/construction/concrete-calculator.php';
 const quikrete = 'https://www.quikrete.com/calculator/main.asp';
+const patioGuide = 'https://www.concretenetwork.com/concrete/howmuch/for-a-patio.html';
+const drivewayGuide = 'https://www.concretenetwork.com/concrete/howmuch/for-a-driveway.html';
+const patioCostGuide = 'https://www.inchcalculator.com/cost-to-install-concrete-patio/';
+const drivewayCostGuide = 'https://www.inchcalculator.com/concrete-driveway-cost-guide/';
 
 const zone = (mode: number) => ({ field: 'mode', equals: mode });
 const modeOptions = (min: number, max: number, labels: { value: number; label: string }[]) => ({
@@ -158,8 +162,9 @@ const patioConcrete: Model = {
     'Patio thickness is a project-design input. Enter the specified thickness; the calculator only converts geometry into quantity.',
     'The subbase quantity is compacted gravel volume; loose delivered volume depends on the supplier compaction factor.',
     'Form perimeter assumes forms on the full perimeter of the shape.',
+    'Ready-mix load count is a planning estimate based only on the truck capacity you enter; supplier minimums and dispatch rules are separate.',
   ],
-  sources: [geometry, quikrete],
+  sources: [geometry, quikrete, patioGuide],
   calculate(v, u) {
     const circle = Math.round(v.patioShape) === 1;
     const area = circle ? Math.PI * (v.diameter / 2) ** 2 : v.length * v.width;
@@ -227,8 +232,9 @@ const drivewayConcrete: Model = {
     'Trapezoid mode uses area = length × average width. This is exact only when the width changes linearly along the length; for irregular widths, split the driveway into rectangles.',
     'Driveway thickness must come from the pavement/project design. This calculator estimates material quantity for the thickness you enter.',
     'Truck load count is a planning estimate; capacity varies by supplier, distance and mix type.',
+    'Optional gravel-base output is compacted geometric volume for the same footprint; loose delivered volume can differ.',
   ],
-  sources: [geometry, quikrete],
+  sources: [geometry, quikrete, drivewayGuide],
   calculate(v, u) {
     const shape = Math.round(v.driveShape);
     let area: number;
@@ -291,10 +297,11 @@ const garageSlab: Model = {
   ],
   formula: 'Slab V = L × W × T × sections. Thickened-edge extra V = [L × W − (L − 2w) × (W − 2w)] × (edge depth − slab thickness) × sections. Gravel base V = L × W × base depth. Vapor barrier area = L × W.',
   assumptions: [
-    'The thickened edge is modeled as an extra perimeter band of (edge depth − slab thickness) × edge width; leave both at 0 for a uniform slab.',
+    'The thickened edge is modeled as an inward perimeter band inside the slab footprint; corner areas are counted once. Extra depth equals total edge depth minus slab thickness.'
     'Gravel base quantity is compacted volume; loose delivered volume depends on the supplier conversion.',
     'Slab thickness must come from the project design. Vehicle type alone does not determine the required section.',
     'This estimates material quantity; rebar, dowels, insulation and finishing are separate items.',
+    'Ready-mix load count is a planning estimate based on the truck capacity you enter.',
   ],
   sources: [geometry, quikrete],
   calculate(v, u) {
@@ -460,12 +467,12 @@ const slabCost: Model = {
   ],
   formula: 'Volume = L × W × T × quantity. Total = material subtotal × (1 + tax/100) + delivery + short-load + pump + subbase + reinforcement + forms + finishing + labor.',
   assumptions: [
-    'Material-only scope estimates just the concrete quantity × price. Full-project scope adds the editable line items you enter.',
+    'Material-only scope estimates only concrete quantity × price and ignores hidden project-fee values. Full-project scope adds only the editable line items you enter.'
     'Thickness must come from the project plans or engineer; volume alone does not establish load capacity.',
     'Tax applies to the material subtotal only. Delivery, labor and fees are not taxed unless your jurisdiction requires otherwise.',
     'All prices are editable planning values — use supplier quotes. National averages are not local quotes.',
   ],
-  sources: [quikrete, geometry, 'https://www.homeadvisor.com/cost/landscape/concrete-driveway'],
+  sources: [quikrete, geometry, 'https://www.inchcalculator.com/concrete-cost-calculators/'],
   calculate(v, u) {
     const cuFt = v.length * v.width * v.depth * v.quantity;
     return projectCostResult(cuFt, v, u, ['delivery', 'shortLoad', 'pump', 'subbase', 'reinforcement', 'forms', 'finishing', 'labor'], [
@@ -509,7 +516,7 @@ const patioCost: Model = {
     'Decorative finish and demolition allowances are self-entered planning values — no preset prices are assumed. Get a local quote.',
     'Tax applies to the material subtotal only. All prices are editable planning values.',
   ],
-  sources: [quikrete, geometry, 'https://www.homeadvisor.com/cost/landscape/concrete-driveway'],
+  sources: [quikrete, geometry, patioCostGuide],
   calculate(v, u) {
     const cuFt = v.length * v.width * v.depth * v.quantity;
     return projectCostResult(cuFt, v, u, ['delivery', 'shortLoad', 'pump', 'subbase', 'reinforcement', 'forms', 'finishing', 'decorative', 'demolition', 'labor'], [
@@ -554,7 +561,7 @@ const drivewayCost: Model = {
     'Driveway thickness is a project-design input. Enter the specified thickness for the quantity estimate.',
     'Tax applies to the material subtotal only. All prices are editable planning values.',
   ],
-  sources: [quikrete, geometry, 'https://www.homeadvisor.com/cost/landscape/concrete-driveway'],
+  sources: [quikrete, geometry, drivewayCostGuide],
   calculate(v, u) {
     const cuFt = v.length * v.width * v.depth * v.quantity;
     return projectCostResult(cuFt, v, u, ['delivery', 'shortLoad', 'pump', 'subbase', 'reinforcement', 'forms', 'joints', 'finishing', 'demolition', 'disposal', 'labor'], [
