@@ -1093,31 +1093,31 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "mortar-calculator",
-    "title": "Mortar Calculator — Bags from Units or Mixed Volume",
+    "title": "Mortar Calculator — Brick/Block Coverage, Bags & Cost",
     "h1": "Mortar Calculator",
-    "description": "Calculate mortar bags from installed brick/block count or known mixed mortar volume using product-specific coverage or yield, with allowance, bag weight and optional cost.",
+    "description": "Calculate mortar bags from installed brick/block count or known mixed mortar volume using product coverage or bag yield, with waste, bag weight and optional cost.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "mortar calculator",
       "mortar bags calculator",
-      "how much mortar do i need"
+      "mortar for bricks and blocks"
     ],
     "featured": false
   },
   {
     "slug": "mortar-mix-calculator",
-    "title": "Mortar Mix Ratio Calculator — Cement, Lime & Sand",
+    "title": "Mortar Mix Ratio Calculator — Cement, Lime & Sand Volumes",
     "h1": "Mortar Mix Calculator",
-    "description": "Split a specified dry mortar batch into cement, hydrated lime and sand from the ratio you enter, with transparent component volumes and no automatic mortar-type selection.",
+    "description": "Split a user-specified dry mortar batch into cement, hydrated lime and sand by entered ratio without selecting mortar type, strength or suitability.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "mortar mix ratio calculator",
-      "cement lime sand ratio",
-      "mortar mix calculator"
+      "cement lime sand ratio calculator",
+      "mortar proportion calculator"
     ],
     "featured": false
   },
@@ -1125,14 +1125,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "mortar-quantity-calculator",
     "title": "Mortar Quantity Calculator — Wall Joints, Volume & Bags",
     "h1": "Mortar Quantity Calculator",
-    "description": "Estimate mortar volume and whole bags from wall dimensions, openings, masonry unit face, joint width, bed depth, product yield and purchasing allowance.",
+    "description": "Estimate masonry mortar volume and bags from wall dimensions, openings, actual unit face, mortar joint, bed depth, product yield and project allowance.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "mortar quantity calculator",
-      "mortar for wall calculator",
-      "mortar volume calculator"
+      "masonry mortar volume calculator",
+      "mortar bags for wall"
     ],
     "featured": false
   },
@@ -1140,29 +1140,29 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "mortar-cost-calculator",
     "title": "Mortar Cost Calculator — Bags, Tax, Delivery & Labor",
     "h1": "Mortar Cost Calculator",
-    "description": "Price a known mortar-bag takeoff using quoted bag cost, material tax, delivery and entered labor/equipment, with every cost component shown separately.",
+    "description": "Estimate mortar cost from a known bag quantity and quoted bag price, with explicit material tax, delivery/fixed fees and entered labor or equipment allowance.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "mortar cost calculator",
-      "mortar bag cost calculator",
-      "masonry mortar cost calculator"
+      "mortar bags cost calculator",
+      "masonry mortar cost estimator"
     ],
     "featured": false
   },
   {
     "slug": "grout-calculator",
-    "title": "Grout Calculator — Mixed Volume, Bags, Weight & Cost",
+    "title": "Grout Calculator — Known Volume, Bags, Weight & Cost",
     "h1": "Grout Calculator",
-    "description": "Convert a known mixed grout volume into whole bags using exact product yield, allowance and bag weight, with liters, bagged weight and optional material cost.",
+    "description": "Convert a known mixed grout volume into allowance-adjusted whole bags using product yield, with bagged-product weight, liters and optional material cost.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "grout calculator",
-      "grout bags calculator",
-      "grout volume calculator"
+      "grout bags from volume",
+      "grout volume to bags calculator"
     ],
     "featured": false
   },
@@ -1170,14 +1170,14 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "grout-quantity-calculator",
     "title": "Grout Quantity Calculator — Tile Joints, Volume & Bags",
     "h1": "Grout Quantity Calculator",
-    "description": "Estimate tile-joint grout from tiled area, tile dimensions, joint width and filled depth, then calculate allowance-adjusted volume and whole bags from product yield.",
+    "description": "Calculate tile-joint grout volume from tiled area, tile dimensions, joint width and depth, then apply waste and product yield for whole-bag quantity.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "grout quantity calculator",
-      "tile grout quantity calculator",
-      "grout joint volume calculator"
+      "tile grout volume calculator",
+      "grout bags calculator"
     ],
     "featured": false
   },
@@ -1185,82 +1185,82 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "grout-cost-calculator",
     "title": "Grout Cost Calculator — Bags, Tax, Delivery & Labor",
     "h1": "Grout Cost Calculator",
-    "description": "Estimate grout cost from a known whole-bag quantity and quoted bag price, with material tax, delivery and entered labor shown as separate cost lines.",
+    "description": "Estimate grout cost from a known whole-bag quantity and quoted bag price, with material tax, delivery/fixed charges and entered labor allowance.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "grout cost calculator",
-      "grout bag cost calculator",
-      "tile grout cost calculator"
+      "grout bags cost calculator",
+      "tile grout cost estimator"
     ],
     "featured": false
   },
   {
     "slug": "cement-calculator",
-    "title": "Cement Calculator — Volume, Bags, Weight & Cost",
+    "title": "Cement Calculator — Cement Volume, Bags, Weight & Cost",
     "h1": "Cement Calculator",
-    "description": "Calculate whole cement bags from a known cement-only volume and entered bag-volume convention, with purchasing allowance, bagged weight and optional cost.",
+    "description": "Convert a known cement-only volume into whole bags using an editable bag-volume convention, with purchasing allowance, bagged weight and optional bag cost.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cement calculator",
-      "cement bags calculator",
-      "portland cement calculator"
+      "cement volume to bags calculator",
+      "portland cement bags calculator"
     ],
     "featured": false
   },
   {
     "slug": "cement-bag-calculator",
-    "title": "Cement Bag Calculator — Dry Mix Ratio & Whole Bags",
+    "title": "Cement Bag Calculator — Mix Ratio, Cement Share & Bags",
     "h1": "Cement Bag Calculator",
-    "description": "Calculate the cement share and whole bags from a user-specified dry cement:sand:aggregate ratio, with component dry volumes, allowance and optional bag cost.",
+    "description": "Calculate cement bags from total dry batch volume and an entered cement:sand:aggregate ratio, with component volumes, allowance and optional bag cost.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cement bag calculator",
-      "bags of cement calculator",
-      "cement mix ratio bags calculator"
+      "cement bags from mix ratio",
+      "concrete cement bag calculator"
     ],
     "featured": false
   },
   {
     "slug": "cement-sand-ratio-calculator",
-    "title": "Cement Sand Ratio Calculator — Bags, Sand Weight & Cost",
+    "title": "Cement Sand Ratio Calculator — Bags, Sand Tons & Cost",
     "h1": "Cement Sand Ratio Calculator",
-    "description": "Split a dry cement:sand batch by the ratio you enter, then estimate cement bags, sand volume, sand weight and combined material cost with zero coarse aggregate.",
+    "description": "Split a dry cement-sand batch by entered ratio, calculate cement bags, sand cubic yards and tons from editable density, and estimate combined material cost.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cement sand ratio calculator",
       "cement sand mix calculator",
-      "cement sand quantity calculator"
+      "cement and sand quantity calculator"
     ],
     "featured": false
   },
   {
     "slug": "gravel-calculator",
-    "title": "Gravel Calculator — Cubic Yards, Tons & Cost",
+    "title": "Gravel Calculator — Yards, Tons, Metric Volume & Cost",
     "h1": "Gravel Calculator",
-    "description": "Calculate gravel volume, weight and cost from project dimensions with material density presets, editable custom density, purchasing overage and US/metric conversions.",
+    "description": "Calculate gravel from dimensions, known area or known volume with editable bulk density, waste, cubic yards, cubic meters, tons, pounds and optional cost.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "gravel calculator",
-      "gravel cubic yards calculator",
+      "gravel yards and tons calculator",
       "how much gravel do i need"
     ],
     "featured": false
   },
   {
     "slug": "gravel-cost-calculator",
-    "title": "Gravel Cost Calculator — Yards, Tons, Tax & Delivery",
+    "title": "Gravel Cost Calculator — Yards/Tons, Tax, Delivery & Labor",
     "h1": "Gravel Cost Calculator",
-    "description": "Estimate gravel order volume and weight from dimensions, area or known volume, then price by yard, cubic meter or ton with tax, delivery and spreading/labor.",
+    "description": "Estimate gravel volume, tons and entered-scope cost from geometry, density and waste, with price by yard, cubic meter or ton plus tax, delivery and spreading.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1273,54 +1273,54 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "gravel-weight-calculator",
-    "title": "Gravel Weight Calculator — Yards, Tons, Pounds & Tonnes",
+    "title": "Gravel Weight Calculator — Volume, Tons, Pounds & Tonnes",
     "h1": "Gravel Weight Calculator",
-    "description": "Convert measured gravel dimensions, area or known volume into cubic yards, US tons, pounds, kilograms and metric tonnes using an editable bulk density without hidden overage.",
+    "description": "Calculate measured gravel weight from dimensions, known area or volume using editable bulk density, with US tons, pounds, kilograms and metric tonnes.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "gravel weight calculator",
-      "yards to tons gravel calculator",
-      "gravel tons calculator"
+      "gravel tons calculator",
+      "gravel volume to weight calculator"
     ],
     "featured": false
   },
   {
     "slug": "gravel-depth-calculator",
-    "title": "Gravel Depth Calculator — Coverage from Volume or Tons",
+    "title": "Gravel Depth Calculator — Coverage from Volume or Weight",
     "h1": "Gravel Depth Calculator",
-    "description": "Calculate average gravel coverage depth from a known area plus available volume or weight, using editable bulk density for weight-to-volume conversion.",
+    "description": "Calculate average gravel coverage depth from available volume or weight and coverage area, using editable density for weight-to-volume conversion.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "gravel depth calculator",
       "gravel coverage calculator",
-      "gravel thickness calculator"
+      "gravel volume to depth calculator"
     ],
     "featured": false
   },
   {
     "slug": "crushed-stone-calculator",
-    "title": "Crushed Stone Calculator — Yards, Tons, Weight & Cost",
+    "title": "Crushed Stone Calculator — Yards, Tons, Pounds & Cost",
     "h1": "Crushed Stone Calculator",
-    "description": "Calculate crushed-stone order volume and weight from dimensions, known area or volume using editable bulk density, allowance and optional price by yard, meter or ton.",
+    "description": "Calculate crushed stone, crusher run or crushed concrete from dimensions, area or volume using editable density, waste and optional per-yard or per-ton cost.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "crushed stone calculator",
       "crusher run calculator",
-      "stone yards to tons calculator"
+      "crushed concrete calculator"
     ],
     "featured": false
   },
   {
     "slug": "crushed-stone-cost-calculator",
-    "title": "Crushed Stone Cost Calculator — Yards, Tons & Total Cost",
+    "title": "Crushed Stone Cost Calculator — Material, Delivery & Labor",
     "h1": "Crushed Stone Cost Calculator",
-    "description": "Estimate crushed-stone order volume, weight and entered-scope cost from dimensions, density and allowance, including quoted price basis, tax, delivery and labor.",
+    "description": "Estimate crushed-stone order volume, tons and total entered cost with editable density, waste, quoted bulk price, material tax, delivery and spreading/labor.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1335,29 +1335,29 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "aggregate-calculator",
     "title": "Aggregate Calculator — Cubic Yards, Tons, Weight & Cost",
     "h1": "Aggregate Calculator",
-    "description": "Calculate aggregate volume, weight and optional material cost from dimensions, known area or volume with editable bulk density, allowance and multiple price bases.",
+    "description": "Calculate bulk aggregate from dimensions, known area or volume with editable density and allowance, returning cubic yards, cubic meters, tons and optional cost.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "aggregate calculator",
-      "aggregate quantity calculator",
-      "aggregate yards to tons calculator"
+      "aggregate volume calculator",
+      "aggregate tons calculator"
     ],
     "featured": false
   },
   {
     "slug": "aggregate-weight-calculator",
-    "title": "Aggregate Weight Calculator — Tons, Pounds & Tonnes",
+    "title": "Aggregate Weight Calculator — Yards, Tons, Pounds & Tonnes",
     "h1": "Aggregate Weight Calculator",
-    "description": "Convert aggregate dimensions, area or known volume into US tons, pounds, kilograms and metric tonnes using editable bulk density with no automatic purchasing overage.",
+    "description": "Convert measured aggregate volume from dimensions, area or direct volume into US tons, pounds, kilograms and metric tonnes using editable bulk density.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "aggregate weight calculator",
       "aggregate tons calculator",
-      "aggregate weight per yard calculator"
+      "aggregate volume to weight"
     ],
     "featured": false
   },
@@ -1365,37 +1365,37 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "sand-calculator",
     "title": "Sand Calculator — Cubic Yards, Tons, Weight & Cost",
     "h1": "Sand Calculator",
-    "description": "Calculate sand volume, order weight and optional material cost from dimensions, known area or volume using editable bulk density, allowance and flexible bulk price units.",
+    "description": "Calculate sand from dimensions, known area or volume using editable bulk density and allowance, with yards, cubic meters, tons, pounds and optional material cost.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "sand calculator",
-      "sand cubic yards calculator",
-      "how much sand do i need"
+      "sand yards calculator",
+      "sand tons calculator"
     ],
     "featured": false
   },
   {
     "slug": "sand-weight-calculator",
-    "title": "Sand Weight Calculator — Tons, Pounds, Kilograms & Tonnes",
+    "title": "Sand Weight Calculator — Volume, Tons, Pounds & Tonnes",
     "h1": "Sand Weight Calculator",
-    "description": "Convert measured sand volume from dimensions, area or direct volume into US tons, pounds, kilograms and metric tonnes using an editable bulk density.",
+    "description": "Calculate measured sand weight from dimensions, area or known volume using editable bulk density, with US tons, pounds, kilograms and metric tonnes.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "sand weight calculator",
       "sand tons calculator",
-      "sand weight per yard calculator"
+      "sand volume to weight calculator"
     ],
     "featured": false
   },
   {
     "slug": "sand-cost-calculator",
-    "title": "Sand Cost Calculator — Yards, Tons, Tax & Delivery",
+    "title": "Sand Cost Calculator — Yards/Tons, Tax, Delivery & Labor",
     "h1": "Sand Cost Calculator",
-    "description": "Estimate sand order volume, weight and total entered cost using editable density, allowance, quoted bulk price, material tax, delivery and spreading/labor.",
+    "description": "Estimate sand order volume, weight and entered-scope cost with editable density, allowance, bulk price basis, material tax, delivery and spreading/labor.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1408,69 +1408,69 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "fill-dirt-calculator",
-    "title": "Fill Dirt Calculator — Yards, Tons, Weight & Cost",
+    "title": "Fill Dirt Calculator — Cubic Yards, Tons, Weight & Cost",
     "h1": "Fill Dirt Calculator",
-    "description": "Calculate fill-dirt order volume, weight and optional material cost from dimensions, known area or direct volume using editable density and purchasing allowance.",
+    "description": "Calculate fill dirt from dimensions, area or known volume using editable bulk density and allowance, with cubic yards, metric volume, tons and optional cost.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "fill dirt calculator",
-      "fill dirt cubic yards calculator",
+      "fill dirt yards calculator",
       "fill dirt tons calculator"
     ],
     "featured": false
   },
   {
     "slug": "fill-dirt-cost-calculator",
-    "title": "Fill Dirt Cost Calculator — Yards, Tons & Total Cost",
+    "title": "Fill Dirt Cost Calculator — Yards/Tons, Delivery & Labor",
     "h1": "Fill Dirt Cost Calculator",
-    "description": "Estimate fill-dirt volume, order weight and entered-scope cost with editable density, allowance, price basis, material tax, delivery and spreading/labor.",
+    "description": "Estimate fill-dirt order volume, weight and entered-scope cost from geometry, density and allowance, with bulk price, tax, trucking and spreading/labor.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "fill dirt cost calculator",
       "fill dirt price calculator",
-      "fill dirt delivery cost calculator"
+      "fill dirt delivery cost"
     ],
     "featured": false
   },
   {
     "slug": "topsoil-calculator",
-    "title": "Topsoil Calculator — Yards, Tons, Weight & Cost",
+    "title": "Topsoil Calculator — Cubic Yards, Tons, Weight & Cost",
     "h1": "Topsoil Calculator",
-    "description": "Calculate topsoil order volume, weight and optional material cost from dimensions, known area or direct volume using editable bulk density and purchasing allowance.",
+    "description": "Calculate topsoil from dimensions, known area or volume with editable bulk density and allowance, returning yards, metric volume, weight and optional cost.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "topsoil calculator",
-      "topsoil cubic yards calculator",
+      "topsoil yards calculator",
       "how much topsoil do i need"
     ],
     "featured": false
   },
   {
     "slug": "topsoil-cost-calculator",
-    "title": "Topsoil Cost Calculator — Yards, Tons & Total Cost",
+    "title": "Topsoil Cost Calculator — Yards/Tons, Delivery & Labor",
     "h1": "Topsoil Cost Calculator",
-    "description": "Estimate topsoil volume, order weight and entered-scope cost using editable density, allowance, quoted bulk price, material tax, delivery and spreading/labor.",
+    "description": "Estimate topsoil order volume, tons and entered-scope cost with editable density and allowance, quoted bulk price, material tax, delivery and spreading/labor.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "topsoil cost calculator",
       "topsoil price calculator",
-      "topsoil delivery cost calculator"
+      "topsoil delivery cost"
     ],
     "featured": false
   },
   {
     "slug": "excavation-calculator",
-    "title": "Excavation Calculator — Side Slopes, Bank & Loose Yards",
+    "title": "Excavation Calculator — Bank/Loose Yards & Sloped Sides",
     "h1": "Excavation Calculator",
-    "description": "Calculate bank excavation volume from bottom dimensions, depth and an entered side-slope geometry, then convert to swell-adjusted loose haul volume and optional bank-yard cost.",
+    "description": "Calculate excavation bank volume for vertical or entered sloped sides, plus top dimensions, swell-adjusted loose haul volume, metric volume and optional bank-yard cost.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1485,22 +1485,22 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "excavation-cost-calculator",
     "title": "Excavation Cost Calculator — Bank, Haul, Trips & Total",
     "h1": "Excavation Cost Calculator",
-    "description": "Estimate excavation cost from side-slope geometry, bank volume, swell-adjusted loose haul volume, excavation and disposal rates, truck capacity, equipment and labor.",
+    "description": "Estimate excavation bank and loose volumes, excavation and haul/disposal charges, truck trips, equipment/mobilization and entered labor for sloped or vertical cuts.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "excavation cost calculator",
-      "earth excavation cost calculator",
+      "earthwork cost calculator",
       "excavation haul cost calculator"
     ],
     "featured": false
   },
   {
     "slug": "trench-calculator",
-    "title": "Trench Calculator — Side Slopes, Bank & Loose Volume",
+    "title": "Trench Calculator — Sloped Cross-Section, Bank & Loose Yards",
     "h1": "Trench Calculator",
-    "description": "Calculate trench bank and loose excavation volume from length, bottom width, depth, entered side slope and swell, with top width, cross-section and optional bank-yard cost.",
+    "description": "Calculate trench cross-section, top width, bank cubic yards and swell-adjusted loose volume from length, bottom width, depth and entered side slope, with optional cost.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1513,31 +1513,31 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "trench-volume-calculator",
-    "title": "Trench Volume Calculator — Cubic Feet, Bank & Loose Yards",
+    "title": "Trench Volume Calculator — Bank/Loose Yards, ft³ & m³",
     "h1": "Trench Volume Calculator",
-    "description": "Calculate trench cross-section, top width, cubic feet, bank cubic yards, metric volume and swell-adjusted loose volume from length, bottom width, depth and side slope.",
+    "description": "Calculate trench bank volume, loose excavation volume, cubic feet, cubic meters and top width from trench length, bottom width, depth, side slope and swell.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "trench volume calculator",
       "trench cubic yard calculator",
-      "trench excavation volume calculator"
+      "trench excavation volume"
     ],
     "featured": false
   },
   {
     "slug": "trench-backfill-calculator",
-    "title": "Trench Backfill Calculator — Pipe, Bedding & Loose Order",
+    "title": "Trench Backfill Calculator — Pipe/Bedding Displacement & Order",
     "h1": "Trench Backfill Calculator",
-    "description": "Calculate placed trench backfill after pipe and bedding displacement, then convert to loose material using an entered reduction factor and add purchasing allowance.",
+    "description": "Calculate placed trench backfill after pipe and bedding displacement, then convert to loose material and allowance-adjusted order yards using entered shrink.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "trench backfill calculator",
       "pipe trench backfill calculator",
-      "backfill volume calculator"
+      "backfill quantity calculator"
     ],
     "featured": false
   },
@@ -1545,22 +1545,22 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "earthwork-calculator",
     "title": "Earthwork Calculator — Bank, Loose & Compacted Volume",
     "h1": "Earthwork Calculator",
-    "description": "Calculate earthwork bank volume from dimensions or known volume, then show project-entered swell and shrink equivalents for loose haulage and compacted fill.",
+    "description": "Calculate bank earthwork from dimensions or known volume, then show loose and compacted equivalents from entered swell/shrink factors plus optional bank-yard cost.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "earthwork calculator",
       "earthwork volume calculator",
-      "bank loose compacted volume calculator"
+      "bank loose compacted volume"
     ],
     "featured": false
   },
   {
     "slug": "cut-and-fill-calculator",
-    "title": "Cut and Fill Calculator — Earthwork Import & Export Balance",
+    "title": "Cut and Fill Calculator — Bank Balance, Export & Import",
     "h1": "Cut and Fill Calculator",
-    "description": "Balance available bank cut against required compacted fill by converting both to a common bank basis, with shrink, swell, import/export and loose haul-equivalent outputs.",
+    "description": "Balance available bank cut against compacted fill by converting fill to bank basis, with explicit export/import bank yards and loose haul equivalent from swell.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1573,24 +1573,24 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "dirt-removal-calculator",
-    "title": "Dirt Removal Calculator — Loose Yards, Truck Trips & Cost",
+    "title": "Dirt Removal Calculator — Loose Yards, Truck Trips & Disposal Cost",
     "h1": "Dirt Removal Calculator",
-    "description": "Estimate dirt-removal bank and swell-adjusted loose volume from excavation dimensions, then calculate whole truck trips and entered haul/disposal cost.",
+    "description": "Calculate bank excavation and swell-adjusted loose dirt volume, estimated truck trips from entered loose capacity, and haul/disposal cost from rates and trip fees.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "dirt removal calculator",
       "dirt hauling calculator",
-      "excavation truck loads calculator"
+      "excavation truck trips calculator"
     ],
     "featured": false
   },
   {
     "slug": "soil-volume-calculator",
-    "title": "Soil Volume Calculator — Bank, Loose Yards, Feet & Meters",
+    "title": "Soil Volume Calculator — Bank & Loose Yards from Area/Depth",
     "h1": "Soil Volume Calculator",
-    "description": "Calculate in-place soil volume from dimensions, known area or direct volume, then show bank cubic yards, cubic feet, cubic meters and project-entered loose swell volume.",
+    "description": "Calculate in-place bank soil volume from dimensions, known area and depth or direct volume, then convert to loose haul yards using an entered swell factor.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1603,16 +1603,16 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "soil-weight-calculator",
-    "title": "Soil Weight Calculator — Pounds, Tons, Kilograms & Tonnes",
+    "title": "Soil Weight Calculator — Pounds, Tons, kg & Tonnes",
     "h1": "Soil Weight Calculator",
-    "description": "Calculate soil weight from dimensions or known volume using an editable bulk density and optional material allowance, with pounds, US tons, kilograms and metric tonnes.",
+    "description": "Calculate soil weight from dimensions or known volume using editable bulk density and optional material allowance, with pounds, US tons, kilograms and metric tonnes.",
     "category": "Excavation",
     "cluster": "excavation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "soil weight calculator",
       "soil tons calculator",
-      "soil weight per cubic yard calculator"
+      "soil volume to weight calculator"
     ],
     "featured": false
   },
@@ -2925,33 +2925,31 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "deck-mud-calculator",
-    "title": "Deck Mud Calculator — Square Feet, Volume & Bags",
+    "title": "Deck Mud Calculator — Bed Volume, Coverage & Whole Bags",
     "h1": "Deck Mud Calculator",
-    "description": "Calculate deck mud or floor mud volume and bag count from floor dimensions, average bed thickness, product yield and waste allowance.",
+    "description": "Calculate deck mud or floor mud from floor dimensions and average bed thickness, with editable mixed bag yield, waste, coverage per bag and optional cost.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "deck mud calculator",
       "floor mud calculator",
-      "deck mud calculator square feet",
       "shower pan mud calculator"
     ],
     "featured": false
   },
   {
     "slug": "stucco-calculator",
-    "title": "Stucco Calculator — Scratch, Brown & Finish Coat Bags",
+    "title": "Stucco Calculator — Base/Finish Coats, Area & Bags",
     "h1": "Stucco Calculator",
-    "description": "Estimate stucco bags from wall dimensions, openings, base and finish coats, product coverage per bag and waste allowance.",
+    "description": "Estimate separate scratch/brown base-coat and finish-coat bag quantities from net wall area, product coverage, coat count and project waste allowance.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "stucco calculator",
       "stucco bags calculator",
-      "stucco square footage calculator",
-      "how much stucco do i need"
+      "stucco material calculator"
     ],
     "featured": false
   }
