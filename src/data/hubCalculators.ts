@@ -998,14 +998,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "mortar-calculator",
-    "title": "Mortar Calculator — Bags, Volume & Cost",
+    "title": "Mortar Calculator — Bags from Volume & Bag Yield",
     "h1": "Mortar Calculator",
-    "description": "Calculate mortar bags from volume and yield per bag — enter wall area or mortar volume to get type N/S/M bag count and cost with waste.",
+    "description": "Estimate whole mortar bags from required mixed volume, product yield per bag and waste allowance, with optional bag cost.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "mortar calculator"
+      "mortar calculator",
+      "mortar bag calculator",
+      "how much mortar do i need",
+      "mortar quantity calculator"
     ],
     "featured": false
   },
@@ -1487,14 +1490,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "wall-framing-calculator",
-    "title": "Wall Framing Calculator — Count, Spacing & Cost",
+    "title": "Wall Framing Calculator — Stud Count & On-Center Spacing",
     "h1": "Wall Framing Calculator",
-    "description": "Calculate wall framing — stud count, plates, headers and total linear footage with on-center spacing and waste for any wall length and height.",
+    "description": "Estimate evenly spaced wall framing pieces from wall length and maximum on-center spacing, with detail pieces, waste and optional unit cost.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "wall framing calculator"
+      "wall framing calculator",
+      "2x4 wall framing calculator",
+      "wall stud count calculator",
+      "wall framing spacing calculator"
     ],
     "featured": false
   },
@@ -2085,27 +2091,32 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "drywall-calculator",
-    "title": "Drywall Calculator — Area, Units & Waste",
+    "title": "Drywall Calculator — Sheets for Walls & Ceilings",
     "h1": "Drywall Calculator",
-    "description": "Calculate drywall sheets, tape, mud and screws — for walls and ceilings with waste allowance and material cost estimate.",
+    "description": "Calculate drywall sheet quantity for a rectangular room from length, width, wall height, openings, optional ceiling area and waste allowance.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "drywall calculator"
+      "drywall calculator",
+      "drywall estimator",
+      "drywall sheet quantity calculator"
     ],
     "featured": false
   },
   {
     "slug": "drywall-sheet-calculator",
-    "title": "Drywall Sheet Calculator — Coverage & Materials",
+    "title": "Drywall Sheet Calculator — Sheets for Walls & Ceilings",
     "h1": "Drywall Sheet Calculator",
-    "description": "Calculate drywall sheets — 4x8, 4x9, 4x10 or 4x12 sheets for walls and ceilings with waste allowance and cost.",
+    "description": "Calculate drywall or sheetrock sheets for four walls and an optional ceiling from room dimensions, openings, sheet coverage and waste allowance.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "drywall sheet calculator"
+      "drywall sheet calculator",
+      "sheetrock calculator",
+      "drywall sheets calculator",
+      "how many sheets of drywall do i need"
     ],
     "featured": false
   },
@@ -2684,27 +2695,31 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "parking-lot-calculator",
-    "title": "Parking Lot Calculator — Tons, Yards & Thickness",
+    "title": "Asphalt Parking Lot Calculator — Tons, Yards & Thickness",
     "h1": "Parking Lot Calculator",
-    "description": "Calculate parking lot asphalt — area, stalls, tonnage, cubic yards and cost with thickness and waste allowance.",
+    "description": "Calculate asphalt parking lot material from area and thickness, including cubic yards, estimated tons, waste allowance and optional material cost.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "parking lot calculator"
+      "parking lot calculator",
+      "asphalt parking lot calculator",
+      "parking lot asphalt calculator"
     ],
     "featured": false
   },
   {
     "slug": "parking-lot-cost-calculator",
-    "title": "Parking Lot Cost Calculator — Price & Quantity",
+    "title": "Asphalt Parking Lot Cost Calculator — Tons & Material Cost",
     "h1": "Parking Lot Cost Calculator",
-    "description": "Estimate parking lot cost — asphalt, striping, signage and labor with thickness and waste allowance.",
+    "description": "Estimate asphalt parking lot material cost from area, thickness, density, waste allowance and a quoted material price per yard or ton.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
+      "asphalt parking lot cost calculator",
       "parking lot cost calculator",
+      "parking lot asphalt cost calculator",
       "parking lot price calculator"
     ],
     "featured": false
