@@ -78,8 +78,8 @@ export const finishModels:Record<string,Model>={
           row('bags','Whole bags to order',bags,'bags',true),
           row('area','Floor area',a,'ft²'),
           row('net','Net mud volume',net,'ft³'),
-          row('order','Mud volume with allowance',order,'ft³'),
-          row('yards','Mud volume with allowance',order/27,'yd³'),
+          row('order','Mud volume with allowance — ft³',order,'ft³'),
+          row('yards','Mud volume with allowance — yd³',order/27,'yd³'),
           row('coverage','Coverage per bag at entered thickness',coverage,'ft²')
         ],v.price,u.price,{'USD/bag':bags}),
         [
