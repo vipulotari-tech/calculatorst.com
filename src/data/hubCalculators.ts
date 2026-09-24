@@ -2723,9 +2723,9 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "parking-lot-cost-calculator",
-    "title": "Asphalt Parking Lot Cost Calculator — Tons & Material Cost",
+    "title": "Asphalt Parking Lot Cost Calculator — Tons & Total",
     "h1": "Parking Lot Cost Calculator",
-    "description": "Calculate parking-lot asphalt volume, estimated tons and optional material cost from area, thickness, density, allowance and a quoted bulk price.",
+    "description": "Estimate asphalt parking-lot tons and cost from area, compacted thickness, mix density, allowance, quoted ton/yard price, tax, delivery and fixed paving costs.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2733,7 +2733,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "asphalt parking lot cost calculator",
       "parking lot cost calculator",
       "parking lot asphalt cost calculator",
-      "parking lot price calculator"
+      "parking lot paving cost estimator"
     ],
     "featured": false
   },

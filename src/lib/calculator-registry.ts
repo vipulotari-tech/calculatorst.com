@@ -233,7 +233,7 @@ export const slugToModelKey: Record<string, string> = {
   "asphalt-weight-calculator": "weight",
   "asphalt-thickness-calculator": "asphalt-depth",
   "parking-lot-calculator": "bulk",
-  "parking-lot-cost-calculator": "bulk",
+  "parking-lot-cost-calculator": "parkingLotCost",
   "road-base-calculator": "bulk",
   "surface-area-calculator": "area",
   "construction-material-cost-calculator": "material-cost",

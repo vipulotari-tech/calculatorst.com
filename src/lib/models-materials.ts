@@ -1414,6 +1414,49 @@ const gravelWeight: Model = {
   }
 };
 
+
+const parkingLotCost: Model = {
+  fields: [
+    ...rectangle,
+    length('depth','Compacted asphalt thickness',3,'in'),
+    { ...number('density','Compacted asphalt density',145,1,'Use the supplier or mix-design density when available.'), unit:'lb/ft3', group:'Material & assumptions' },
+    allowance,
+    { ...price('USD/ton',['USD/ton','USD/yd3']), optional:false },
+    number('delivery','Delivery / trucking (USD)',0,0),
+    number('labor','Fixed paving labor / equipment (USD)',0,0),
+    number('tax','Material sales tax (%)',0,0)
+  ],
+  formula:'Net volume = length × width × thickness; order volume = net volume × allowance factor; tons = order volume × density / 2,000; material subtotal uses the selected quoted price basis; total = material subtotal + tax + delivery + labor.',
+  assumptions:[
+    'Rectangular paved area with one uniform compacted asphalt thickness. Separate areas with different lifts or thicknesses should be calculated separately.',
+    'Use compacted mix density and a quoted material price that matches the selected per-ton or per-cubic-yard basis.',
+    'This is a configurable cost estimate. Base preparation, milling, striping, drainage, permits and other scope items are excluded unless you include them in the fixed labor/equipment amount.'
+  ],
+  sources:[],
+  calculate(v,u){
+    const netFt3=v.length*v.width*v.depth;
+    const orderFt3=netFt3*waste(v);
+    const orderYd3=orderFt3/27;
+    const tons=orderFt3*v.density/2000;
+    const materialBasis=u.price==='USD/yd3' ? orderYd3 : tons;
+    const materials=materialBasis*v.price;
+    const taxAmount=materials*v.tax/100;
+    const total=materials+taxAmount+v.delivery+v.labor;
+    return result([
+      row('total','Estimated parking-lot material + entered fixed costs',total,'USD'),
+      row('tons','Asphalt to order',tons,'US tons'),
+      row('order','Asphalt volume with allowance',orderYd3,'yd³'),
+      row('materials','Asphalt material subtotal',materials,'USD'),
+      row('tax','Material tax',taxAmount,'USD'),
+      row('fixed','Delivery + labor / equipment',v.delivery+v.labor,'USD')
+    ],[
+      fmt(v.length)+' × '+fmt(v.width)+' × '+fmt(v.depth)+' = '+fmt(netFt3)+' ft³ compacted volume.',
+      fmt(orderFt3)+' ft³ × '+fmt(v.density)+' lb/ft³ ÷ 2,000 = '+fmt(tons)+' US tons with allowance.',
+      'Material subtotal '+fmt(materials)+' + tax '+fmt(taxAmount)+' + fixed costs '+fmt(v.delivery+v.labor)+' = '+fmt(total)+' USD.'
+    ]);
+  }
+};
+
 const weight: Model = {
   ...bulk,
   fields: [volume(), densityField, allowance, price('USD/ton', ['USD/ton', 'USD/yd3'])],
@@ -1760,6 +1803,7 @@ export const materialModels: Record<string, Model> = {
   bulk,
   crushedStone,
   gravelWeight,
+  parkingLotCost,
   weight,
   depth,
   masonry,

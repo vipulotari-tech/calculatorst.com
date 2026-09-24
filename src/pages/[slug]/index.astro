@@ -83,6 +83,10 @@ const ogClusterMap: Record<string, string> = {
 
 const ogImage = ogClusterMap[calc.cluster] ?? "/og.png";
 const faqEnhancements: Record<string, { q: string; a: string }[]> = {
+  "parking-lot-cost-calculator": [
+    { q: "What does the asphalt parking lot cost estimate include?", a: "It calculates compacted asphalt volume and tons, then prices the asphalt from your selected per-ton or per-cubic-yard quote. You can also enter material tax, delivery/trucking and a fixed labor or equipment amount." },
+    { q: "Does this include base, milling, striping or drainage?", a: "Not automatically. Those scope items vary by project. Add only costs that belong in the fixed labor/equipment amount, or estimate separate material layers with the related calculators." },
+  ],
   "gravel-weight-calculator": [
     { q: "Can I calculate gravel weight from square feet instead of cubic yards?", a: "Yes. Choose known area plus depth, or enter length, width and depth. If you already know the volume, choose the known-volume mode." },
     { q: "Why does the gravel weight calculator ask for density?", a: "Weight per cubic yard changes with gravel type, grading, moisture and compaction. Enter a density that matches the material and condition you are estimating instead of relying on one universal value." },

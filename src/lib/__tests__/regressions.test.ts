@@ -144,3 +144,12 @@ describe('Gravel weight traffic-priority calculator', () => {
     expect(res.rows.find(r=>r.key==='weight')?.value).toBeCloseTo(3000,8);
   });
 });
+
+
+describe('Parking lot cost intent separation', () => {
+  it('uses asphalt tonnage and entered cost scope', () => {
+    const res=calculate('parking-lot-cost-calculator',{length:10,width:10,depth:3,density:144,waste:0,price:100,delivery:50,labor:150,tax:10});
+    expect(res.rows.find(r=>r.key==='tons')?.value).toBeCloseTo(1.8,8);
+    expect(res.rows.find(r=>r.key==='total')?.value).toBeCloseTo(398,8);
+  });
+});
