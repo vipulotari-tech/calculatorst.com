@@ -193,18 +193,19 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   excavation: {
-    intro: "Excavation is the invisible cost of most construction projects. A trench for footings, a basement cut, or a pad for a driveway — each has different volume, soil type and equipment considerations. These calculators cover excavation volume, trench backfill, cut-and-fill and soil weight.",
-    beforeYouCalculate: "Measure the length, width and depth of the excavation area. Know the soil type (sand, clay, gravel, topsoil) because it affects both volume swell and equipment choice. For trenches, note the width, depth and whether the bottom is flat or benched for safety. Check for underground utilities before digging.",
+    intro: "Excavation and earthwork quantities change depending on whether material is measured in place (bank), loosened for haulage, or compacted as fill. These 10 calculators separate excavation geometry, trench volume, backfill displacement, cut/fill balance, soil weight, truck trips and quote-based cost.",
+    beforeYouCalculate: "Use the project excavation geometry, including bottom dimensions and any specified side slope. Gather project-specific swell or shrink factors when loose haulage or compacted fill is involved. For cost work, confirm whether rates are quoted per bank cubic yard, loose cubic yard, truck trip or fixed mobilization. Safety slopes, shoring and protective systems must come from the applicable excavation plan and requirements—not from a volume calculator.",
     tips: [
-      "Excavation swell is material- and condition-specific. Enter a project-appropriate swell factor or use measured haul volumes when available.",
-      "OSHA generally requires cave-in protection at 5 ft or greater unless the excavation is entirely in stable rock; shallower excavations can also require protection when a competent person identifies a cave-in hazard.",
-      "Call 811 before any excavation — utility strikes cause injury, delays and cost overruns.",
-      "Backfill material, lift thickness and compaction criteria should follow the project specification and equipment limitations rather than a universal lift depth.",
+      "Keep bank, loose and compacted quantities on clearly identified bases. FHWA guidance notes that shrink/swell factors vary by material and construction method, so use local geotechnical or field information when available.",
+      "An entered side slope is geometry only; the calculator does not determine whether that slope or vertical excavation is safe. Excavation protection depends on soil and site conditions and applicable safety requirements.",
+      "Trench backfill should deduct the actual pipe and bedding/occupied volume before applying a loose-to-placed conversion and purchasing allowance.",
+      "Cut-and-fill balance first converts required compacted fill back to a bank-volume basis before comparing it with available bank cut.",
+      "Truck-trip estimates use entered loose-volume capacity. Legal payload, axle limits, access constraints and contractor minimums still need separate checking."
     ],
     relatedCategories: [
-      { name: "Foundation & Footing", href: "/construction/foundation/", reason: "Foundation excavation depth" },
-      { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Gravel sub-base and backfill material" },
-      { name: "Concrete", href: "/construction/concrete/", reason: "Concrete to fill excavated footings" },
+      { name: "Foundation & Footing", href: "/construction/foundation/", reason: "Foundation-specific working room, excavation and concrete" },
+      { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Backfill, base and imported bulk-material quantities" },
+      { name: "Concrete", href: "/construction/concrete/", reason: "Concrete volume for excavated footings and foundations" },
     ],
   },
 
@@ -276,19 +277,20 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   gravel: {
-    intro: "Gravel, crushed stone, sand and topsoil are the invisible base layers that support every hardscape project. The wrong depth or density means a driveway that sinks or a patio that shifts. These calculators cover gravel volume, weight, cost and depth for driveways, backfill, drainage and landscaping beds.",
-    beforeYouCalculate: "Measure the area and desired depth in inches. Know the material type — pea gravel, crushed stone, limestone, sand and topsoil each have different densities and compaction behavior. For driveways, check local code for minimum base depth (typically 4–6 inches of compacted base). For drainage, note the slope and whether the material is for French drain backfill or surface drainage.",
+    intro: "Gravel, crushed stone, aggregate, sand, fill dirt and topsoil are usually ordered by cubic yard or by weight, but their bulk density changes with grading, moisture and compaction state. These 15 calculators separate volume, weight, reverse-depth and cost workflows while keeping density and purchasing allowance explicit.",
+    beforeYouCalculate: "Measure the placed or measured area and depth, or use a known volume when you already have one. Match the density to the same material state as the dimensions—loose delivery and compacted placement are not interchangeable. Confirm whether the supplier quote is per cubic yard, cubic meter or US ton and keep delivery or spreading charges separate when they are quoted separately.",
     tips: [
-      "Pea gravel compacts poorly — use it for drainage and decoration, not structural base. Crushed stone compacts well and is better for driveways.",
-      "Gravel density: pea gravel ≈ 1.35 tons/yd³, crushed stone ≈ 1.40, limestone ≈ 1.60 — use the right density for accurate weight estimates.",
-      "Suppliers set their own order increments, minimum loads and delivery fees. Confirm whether the quote is by ton, cubic yard or truckload.",
-      "Landscape fabric, layer depth and drainage details depend on the application; do not assume the same section works for decorative beds, paths and structural bases.",
+      "Bulk density is not a universal constant. Use supplier scale-ticket or product data for the exact material, grading, moisture and loose/compacted condition whenever possible.",
+      "Purchasing allowance is not a compaction factor. If loose delivered volume must be converted to a compacted layer, use project- or supplier-specific conversion information.",
+      "The weight-only calculators deliberately do not add hidden overage; they convert the measured volume you enter into estimated mass.",
+      "The depth calculator solves average coverage from the material you already have. It does not recommend a structural base thickness.",
+      "Cost calculators keep material subtotal, tax, delivery/trucking and spreading/labor separate so quoted scopes are not double counted."
     ],
     relatedCategories: [
-      { name: "Concrete", href: "/construction/concrete/", reason: "Concrete over gravel sub-base" },
-      { name: "Paver & Landscaping", href: "/construction/landscaping/", reason: "Paver base and landscaping rock" },
-      { name: "Slab, Patio & Driveway", href: "/construction/slab-patio-driveway/", reason: "Driveway gravel base depth" },
-      { name: "Excavation & Earthwork", href: "/construction/excavation/", reason: "Excavation volume and backfill" },
+      { name: "Concrete", href: "/construction/concrete/", reason: "Concrete volume over a specified aggregate base" },
+      { name: "Paver & Landscaping", href: "/construction/landscaping/", reason: "Paver base, bedding sand and landscape material takeoffs" },
+      { name: "Slab, Patio & Driveway", href: "/construction/slab-patio-driveway/", reason: "Specified base depth under slabs and driveways" },
+      { name: "Excavation & Earthwork", href: "/construction/excavation/", reason: "Bank excavation, haul volume and trench backfill" },
     ],
   },
 
@@ -309,18 +311,19 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   "mortar-grout-cement": {
-    intro: "Mortar, grout and cement are the bonding agents that hold masonry together — but they are not the same material. Mortar bonds masonry units (brick, block), grout fills hollow cores and joints, and cement is the powder that, when mixed with sand and water, becomes either. These calculators cover each material's quantity, cost and mix proportions.",
-    beforeYouCalculate: "Know the masonry unit size, joint thickness and whether you are laying brick, block or stone. Mortar is batched by the bag (typically 80 lb covers about 30–36 sq ft of brick wall). Grout volume depends on core volume of the block and whether cores are fully or partially filled. Cement bag calculations depend on mix ratio (1:2:3, 1:1:6, etc.).",
+    intro: "Mortar, grout and cement are related but different estimating scopes. Mortar calculators handle masonry-unit coverage, joint volume, mix proportions and bag cost; grout calculators cover known mixed volume or tile-joint geometry; cement calculators convert cement-only volume or user-entered dry mix ratios into purchasing quantities.",
+    beforeYouCalculate: "Identify which material quantity you actually know: installed masonry units, wall geometry, tile-joint geometry, known mixed volume, or a specified dry mix ratio. Then use the exact product yield, package weight, joint dimensions and supplier price that match the material being purchased. These calculators do not choose a mortar type, grout specification or structural mix.",
     tips: [
-      "Mortar type is a project specification, not a choice the quantity calculator should make. Use the mortar type required for the masonry assembly and exposure.",
-      "Grout for CMU walls: flowable grout fills cores by gravity; use the grout calculator with actual core dimensions, not nominal block size.",
-      "Use the mixed yield stated on the exact mortar product. Coverage per bag changes with unit size, joint dimensions and waste, so calculate from product yield rather than a universal brick count.",
-      "Cement by itself is not mortar or concrete — it needs sand (and lime for mortar) to function as a bonding agent.",
+      "Use the exact mixed yield or unit coverage stated for the mortar product and masonry unit. Bag coverage changes with unit size, bedding method, joint dimensions and workmanship.",
+      "Tile grout and masonry core-fill grout are different estimating tasks. Use the tile-joint grout tools here for tile joints; use the CMU Grout Calculator for filled block cells and bond beams.",
+      "Mortar mix ratios and cement:sand ratios are project inputs. A quantity calculator should proportion the ratio you enter rather than infer a strength class or suitability.",
+      "Cement is a constituent, not a complete concrete or mortar mix. Keep cement-only bag calculations separate from sand, aggregate, lime, water and admixture requirements unless the chosen calculator explicitly includes them.",
+      "Apply purchasing allowance once, then round discrete bags up at the end. Do not round intermediate component volumes."
     ],
     relatedCategories: [
-      { name: "Brick & Masonry", href: "/construction/brick-masonry/", reason: "Mortar for brick walls and veneer" },
-      { name: "Concrete Block & CMU", href: "/construction/concrete-block/", reason: "Grout for CMU cores" },
-      { name: "Concrete", href: "/construction/concrete/", reason: "Concrete mix and pour calculators" },
+      { name: "Brick & Masonry", href: "/construction/brick-masonry/", reason: "Brick quantity and geometric mortar takeoff" },
+      { name: "Concrete Block & CMU", href: "/construction/concrete-block/", reason: "CMU mortar, core-fill grout and reinforcement" },
+      { name: "Concrete", href: "/construction/concrete/", reason: "Concrete mix, volume, pour and bag calculations" },
     ],
   },
 
