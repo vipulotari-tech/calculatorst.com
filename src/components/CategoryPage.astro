@@ -87,6 +87,18 @@ const categorySeoOverrides: Record<string, { title: string; description: string 
     title: "Concrete Block & CMU Calculators — Blocks, Mortar, Grout & Rebar",
     description: "Use 10 concrete-block and CMU calculators for block quantity, walls, cost, shipment weight, mortar, grout core fill and vertical/horizontal reinforcement takeoff.",
   },
+  mortar: {
+    title: "Mortar, Grout & Cement Calculators — Bags, Mixes, Cost & Stucco",
+    description: "Use 12 calculators for mortar bags, mix ratios, wall mortar, grout joints, grout/cement cost, cement bags, cement-sand ratios, deck mud and stucco.",
+  },
+  gravel: {
+    title: "Gravel, Aggregate & Dirt Calculators — Yards, Tons, Depth & Cost",
+    description: "Use 15 calculators for gravel, crushed stone, aggregate, sand, fill dirt and topsoil volume, weight, coverage depth and quote-based project cost.",
+  },
+  excavation: {
+    title: "Excavation & Earthwork Calculators — Bank, Loose, Fill & Hauling",
+    description: "Use 10 excavation calculators for bank and loose volume, sloped cuts, trenches, backfill, cut/fill balance, truck trips, soil volume, weight and cost.",
+  },
 };
 const categorySeo = categorySeoOverrides[cluster];
 const categoryTitle = categorySeo?.title ?? `${displayName} — Construction Calculators | Calculator Street`;
@@ -143,6 +155,34 @@ const taskLinks = cluster === "concrete" ? [
   { label: "Mortar", href: "/concrete-block-mortar-calculator/", text: "Mortar bags from installed blocks or wall geometry and entered product yield." },
   { label: "Grout core fill", href: "/cmu-grout-calculator/", text: "Vertical cells plus bond-beam/lintel grout, bags and pricing." },
   { label: "CMU reinforcement", href: "/cmu-reinforcement-calculator/", text: "Vertical locations, horizontal runs, rebar length, weight and cost." },
+] : cluster === "mortar" ? [
+  { label: "Mortar bags", href: "/mortar-calculator/", text: "Estimate from installed brick/block coverage or a known mixed mortar volume." },
+  { label: "Mortar wall quantity", href: "/mortar-quantity-calculator/", text: "Wall geometry, openings, joint fraction, mixed volume and whole bags." },
+  { label: "Mortar mix ratio", href: "/mortar-mix-calculator/", text: "Split a user-entered cement : lime : sand dry ratio without selecting a mortar type." },
+  { label: "Mortar cost", href: "/mortar-cost-calculator/", text: "Known bag count plus quoted price, tax, delivery and entered labor/equipment." },
+  { label: "Tile grout quantity", href: "/grout-quantity-calculator/", text: "Tile dimensions, joint width/depth, grout volume, allowance and whole bags." },
+  { label: "Known grout volume", href: "/grout-calculator/", text: "Convert an already-known mixed grout volume into bags, liters and weight." },
+  { label: "Cement bags", href: "/cement-bag-calculator/", text: "Derive cement share and whole bags from an entered dry cement:sand:aggregate ratio." },
+  { label: "Cement + sand", href: "/cement-sand-ratio-calculator/", text: "Cement bags, sand yards/tons and combined material cost for a dry ratio." },
+  { label: "Deck mud / stucco", href: "/deck-mud-calculator/", text: "Floor-mud bed volume and product yield; use Stucco Calculator for wall coats." },
+] : cluster === "gravel" ? [
+  { label: "General gravel", href: "/gravel-calculator/", text: "Dimensions, area or known volume → yards, tons, metric volume and optional cost." },
+  { label: "Gravel cost", href: "/gravel-cost-calculator/", text: "Quote by yard, cubic meter or ton with tax, delivery and spreading/labor." },
+  { label: "Gravel weight", href: "/gravel-weight-calculator/", text: "Measured volume to pounds, US tons, kilograms and metric tonnes without hidden overage." },
+  { label: "Coverage depth", href: "/gravel-depth-calculator/", text: "Available volume or weight → average depth over a measured coverage area." },
+  { label: "Crushed stone", href: "/crushed-stone-calculator/", text: "Crushed stone, crusher run or crushed concrete volume, tons and cost." },
+  { label: "Sand", href: "/sand-calculator/", text: "Sand volume, editable density, order weight and optional material cost." },
+  { label: "Fill dirt", href: "/fill-dirt-calculator/", text: "Fill volume and weight for grading/backfill using editable supplier density." },
+  { label: "Topsoil", href: "/topsoil-calculator/", text: "Topsoil yards, metric volume, weight and optional material cost." },
+] : cluster === "excavation" ? [
+  { label: "Excavation volume", href: "/excavation-calculator/", text: "Bank volume for vertical or entered sloped sides plus swell-adjusted loose haul volume." },
+  { label: "Excavation cost", href: "/excavation-cost-calculator/", text: "Bank excavation rate, loose haul/disposal rate, truck trips and fixed costs." },
+  { label: "Trench excavation", href: "/trench-calculator/", text: "Bottom width, depth, side slope, cross-section, bank volume and loose yards." },
+  { label: "Trench backfill", href: "/trench-backfill-calculator/", text: "Deduct pipe and bedding displacement, then convert placed backfill to loose order material." },
+  { label: "Earthwork state conversion", href: "/earthwork-calculator/", text: "Bank volume with separate loose and compacted equivalents from entered factors." },
+  { label: "Cut / fill balance", href: "/cut-and-fill-calculator/", text: "Convert compacted fill to bank basis and show explicit export/import plus loose haul equivalent." },
+  { label: "Dirt removal", href: "/dirt-removal-calculator/", text: "Bank and loose dirt volume, truck trips and entered haul/disposal cost." },
+  { label: "Soil volume / weight", href: "/soil-volume-calculator/", text: "Area/depth or known volume for bank/loose soil; pair with Soil Weight for mass." },
 ] : [];
 ---
 
@@ -179,7 +219,7 @@ const taskLinks = cluster === "concrete" ? [
 
         {taskLinks.length > 0 && (
           <section class="mt-6 rounded-xl border border-hairline bg-canvas p-5" aria-labelledby="choose-category-calculator">
-            <h2 id="choose-category-calculator" class="text-sm font-semibold text-ink">Choose the right {cluster === "concrete" ? "concrete" : cluster === "slab" ? "slab, patio or driveway" : cluster === "foundation" ? "foundation or footing" : cluster === "rebar" ? "rebar or reinforcement" : cluster === "brick" ? "brick or masonry" : "concrete block or CMU"} calculator</h2>
+            <h2 id="choose-category-calculator" class="text-sm font-semibold text-ink">Choose the right {cluster === "concrete" ? "concrete" : cluster === "slab" ? "slab, patio or driveway" : cluster === "foundation" ? "foundation or footing" : cluster === "rebar" ? "rebar or reinforcement" : cluster === "brick" ? "brick or masonry" : cluster === "cmu" ? "concrete block or CMU" : cluster === "mortar" ? "mortar, grout or cement" : cluster === "gravel" ? "gravel, aggregate or dirt" : "excavation or earthwork"} calculator</h2>
             <p class="mt-2 text-[13px] leading-5 text-body">These pages target different estimating tasks. Pick the one that matches the decision you are making instead of repeating the same inputs across several calculators.</p>
             <div class="mt-4 grid gap-3 sm:grid-cols-2">
               {taskLinks.map((item) => (
