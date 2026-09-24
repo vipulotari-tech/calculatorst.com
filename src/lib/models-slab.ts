@@ -130,7 +130,8 @@ const patioConcrete: Model = {
     count('quantity', 'Identical patios'),
     { ...positiveOrZero(length('subbaseDepth', 'Gravel subbase depth (0 = none)', 0, 'in')),
       group: 'Material & assumptions',
-      help: 'Optional compacted gravel base under the patio. 4 in is a common planning value; use your base design.' },
+      help: 'Optional compacted gravel base under the patio. Enter the thickness from your base design.' },
+    { ...number('truckCapacity', 'Ready-mix truck capacity (yd³)', 10, 1, 'Planning value for load count. Enter the supplier truck capacity.'), group: 'Material & assumptions' },
     allowance,
     densityField,
     yieldField,
@@ -148,10 +149,15 @@ const patioConcrete: Model = {
     const circle = Math.round(v.patioShape) === 1;
     const area = circle ? Math.PI * (v.diameter / 2) ** 2 : v.length * v.width;
     const cuFt = area * v.thickness * v.quantity;
+    const orderYd = cuFt * waste(v) / 27;
+    const loads = Math.max(1, roundUp(orderYd / v.truckCapacity));
+    const lastLoad = Math.max(0, orderYd - (loads - 1) * v.truckCapacity);
     const extra: { key: string; label: string; value: number; unit: string; discrete?: boolean }[] = [
-      row('area', 'Patio area (ft²)', area, 'ft²'),
-      row('m2', 'Patio area (m²)', area / FT_PER_M ** 2, 'm²'),
+      row('area', 'Patio area per section (ft²)', area, 'ft²'),
+      row('m2', 'Patio area per section (m²)', area / FT_PER_M ** 2, 'm²'),
       row('perimeter', 'Form perimeter (ft)', (circle ? Math.PI * v.diameter : 2 * (v.length + v.width)) * v.quantity, 'ft'),
+      row('loads', 'Ready-mix truck loads (planning)', loads, 'loads', true),
+      row('lastLoad', 'Final truck portion (yd³)', lastLoad, 'yd³'),
     ];
     const steps = circle
       ? [`Circle: π × (${fmt(v.diameter)}/2)² × ${fmt(v.thickness)} × ${v.quantity} = ${fmt(cuFt)} ft³.`]
@@ -159,8 +165,9 @@ const patioConcrete: Model = {
     if (v.subbaseDepth > 0) {
       const subFt3 = area * v.subbaseDepth * v.quantity;
       extra.push(row('subbase', 'Gravel subbase volume (yd³)', subFt3 / 27, 'yd³'));
-      steps.push(`Gravel subbase: ${fmt(area)} ft² × ${fmt(v.subbaseDepth)} ft = ${fmt(subFt3 / 27)} yd³ (compacted).`);
+      steps.push(`Gravel subbase: ${fmt(area)} ft² × ${fmt(v.subbaseDepth)} ft × ${v.quantity} = ${fmt(subFt3 / 27)} yd³ (compacted).`);
     }
+    steps.push(`${fmt(orderYd)} yd³ ÷ ${fmt(v.truckCapacity)} yd³ per truck = ${loads} load(s); final load ≈ ${fmt(lastLoad)} yd³.`);
     return concreteResult(cuFt, v, u, steps, extra);
   },
 };
@@ -181,7 +188,7 @@ const driveShape = {
 const drivewayConcrete: Model = {
   fields: [
     driveShape,
-    { ...length('length', 'Driveway length', 24), visibleWhen: { field: 'driveShape', in: [0, 1] } },
+    length('length', 'Driveway length', 24),
     { ...length('width', 'Driveway width', 10), visibleWhen: { field: 'driveShape', in: [0, 1] } },
     { ...positiveOrZero(length('apronLength', 'Apron length (street end)', 4, 'ft')), visibleWhen: { field: 'driveShape', equals: 1 } },
     { ...positiveOrZero(length('apronWidth', 'Apron width', 14, 'ft')), visibleWhen: { field: 'driveShape', equals: 1 } },
@@ -189,6 +196,9 @@ const drivewayConcrete: Model = {
     { ...positiveOrZero(length('widthHouse', 'Width at house end', 20, 'ft')), visibleWhen: { field: 'driveShape', equals: 2 } },
     length('thickness', 'Driveway thickness', 4, 'in'),
     count('quantity', 'Identical driveways'),
+    { ...positiveOrZero(length('subbaseDepth', 'Compacted gravel base depth (0 = none)', 0, 'in')),
+      group: 'Material & assumptions',
+      help: 'Optional compacted base quantity. Enter the project base thickness; loose delivered volume can differ.' },
     { ...number('truckCapacity', 'Ready-mix truck capacity (yd³)', 10, 1, 'Planning value for load count. Enter the actual truck capacity used by the ready-mix supplier.'),
       group: 'Material & assumptions' },
     allowance,
@@ -225,10 +235,15 @@ const drivewayConcrete: Model = {
     const lastLoad = Math.max(0, orderYd - (loads - 1) * v.truckCapacity);
     steps.push(`${fmt(orderYd)} yd³ ÷ ${fmt(v.truckCapacity)} yd³ per truck = ${loads} load(s); final load ≈ ${fmt(lastLoad)} yd³.`);
     const extra: { key: string; label: string; value: number; unit: string; discrete?: boolean }[] = [
-      row('area', 'Driveway area (ft²)', area, 'ft²'),
+      row('area', 'Driveway area per section (ft²)', area, 'ft²'),
       row('loads', 'Ready-mix truck loads (planning)', loads, 'loads', true),
       row('lastLoad', 'Final truck portion (yd³)', lastLoad, 'yd³'),
     ];
+    if (v.subbaseDepth > 0) {
+      const subbaseFt3 = area * v.subbaseDepth * v.quantity;
+      extra.push(row('subbase', 'Compacted gravel base (yd³)', subbaseFt3 / 27, 'yd³'));
+      steps.push(`Gravel base: ${fmt(area)} ft² × ${fmt(v.subbaseDepth)} ft × ${v.quantity} = ${fmt(subbaseFt3 / 27)} yd³ compacted.`);
+    }
     return concreteResult(cuFt, v, u, steps, extra);
   },
 };
@@ -242,8 +257,8 @@ const garageSlab: Model = {
     length('length', 'Garage length', 20),
     length('width', 'Garage width', 20),
     length('thickness', 'Slab thickness', 4, 'in'),
-    count('quantity', 'Bays (identical slabs)'),
-    positiveOrZero(length('edgeDepth', 'Thickened perimeter depth (0 = none)', 0, 'in')),
+    count('quantity', 'Identical slab sections'),
+    positiveOrZero(length('edgeDepth', 'Thickened perimeter total depth (0 = none)', 0, 'in')),
     positiveOrZero(length('edgeWidth', 'Thickened perimeter width', 0, 'in')),
     { ...positiveOrZero(length('gravelDepth', 'Compacted gravel base depth (0 = none)', 4, 'in')),
       group: 'Material & assumptions',
@@ -253,6 +268,7 @@ const garageSlab: Model = {
         { value: 0, label: 'None' },
         { value: 1, label: 'Include under slab' },
       ], group: 'Material & assumptions' },
+    { ...number('truckCapacity', 'Ready-mix truck capacity (yd³)', 10, 1, 'Planning value for load count. Enter the supplier truck capacity.'), group: 'Material & assumptions' },
     allowance,
     densityField,
     yieldField,
@@ -294,6 +310,12 @@ const garageSlab: Model = {
       extra.push(row('vapor', 'Vapor barrier area (ft²)', floor, 'ft²'));
     }
     extra.push(row('forms', 'Form perimeter (ft)', 2 * (v.length + v.width) * v.quantity, 'ft'));
+    const orderYd = total * waste(v) / 27;
+    const loads = Math.max(1, roundUp(orderYd / v.truckCapacity));
+    const lastLoad = Math.max(0, orderYd - (loads - 1) * v.truckCapacity);
+    extra.push(row('loads', 'Ready-mix truck loads (planning)', loads, 'loads', true));
+    extra.push(row('lastLoad', 'Final truck portion (yd³)', lastLoad, 'yd³'));
+    steps.push(`${fmt(orderYd)} yd³ ÷ ${fmt(v.truckCapacity)} yd³ per truck = ${loads} load(s); final load ≈ ${fmt(lastLoad)} yd³.`);
     return concreteResult(total, v, u, steps, extra);
   },
 };
@@ -494,6 +516,7 @@ const drivewayCost: Model = {
     lineItem('pump', 'Pump fee', 'Flat boom or line pump charge.'),
     lineItem('subbase', 'Subbase / gravel', 'Compacted subbase material under the driveway.'),
     lineItem('reinforcement', 'Reinforcement', 'Rebar, mesh or fiber.'),
+    lineItem('forms', 'Formwork', 'Forms, stakes and related edge material.'),
     lineItem('joints', 'Control-joint cutting', 'Sawcutting or tooled joint allowance.'),
     lineItem('finishing', 'Finishing', 'Screeding, troweling, curing compound.'),
     lineItem('demolition', 'Demolition / removal', 'Removing the existing driveway slab.'),
@@ -501,7 +524,7 @@ const drivewayCost: Model = {
     lineItem('labor', 'Labor', 'Crew labor for the driveway.'),
     taxField,
   ],
-  formula: 'Volume = L × W × T × quantity. Total = material subtotal × (1 + tax/100) + delivery + short-load + pump + subbase + reinforcement + joints + finishing + demolition + disposal + labor.',
+  formula: 'Volume = L × W × T × quantity. Total = material subtotal × (1 + tax/100) + delivery + short-load + pump + subbase + reinforcement + forms + joints + finishing + demolition + disposal + labor.',
   assumptions: [
     'Material-only scope estimates just the concrete quantity × price. Full-project scope adds the editable line items you enter.',
     'Replacement line items (demolition, disposal) represent work already chosen by the user — they are not automatically added.',
@@ -511,7 +534,7 @@ const drivewayCost: Model = {
   sources: [quikrete, geometry, 'https://www.homeadvisor.com/cost/landscape/concrete-driveway'],
   calculate(v, u) {
     const cuFt = v.length * v.width * v.depth * v.quantity;
-    return projectCostResult(cuFt, v, u, ['delivery', 'shortLoad', 'pump', 'subbase', 'reinforcement', 'joints', 'finishing', 'demolition', 'disposal', 'labor'], [
+    return projectCostResult(cuFt, v, u, ['delivery', 'shortLoad', 'pump', 'subbase', 'reinforcement', 'forms', 'joints', 'finishing', 'demolition', 'disposal', 'labor'], [
       `Volume: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
       `With ${fmt(v.waste)}% allowance: ${fmt(cuFt * waste(v))} ft³ = ${fmt(cuFt * waste(v) / 27)} yd³.`,
     ]);
