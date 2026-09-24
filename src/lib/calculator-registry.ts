@@ -89,7 +89,7 @@ export const slugToModelKey: Record<string, string> = {
   // 7. Mortar & Cement (12)
   "mortar-calculator": "bags",
   "mortar-mix-calculator": "mortar-mix",
-  "mortar-quantity-calculator": "bags",
+  "mortar-quantity-calculator": "mortar-quantity",
   "mortar-cost-calculator": "material-cost",
   "grout-calculator": "bags",
   "grout-quantity-calculator": "bags",

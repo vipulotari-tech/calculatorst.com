@@ -1030,15 +1030,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "mortar-quantity-calculator",
-    "title": "Mortar Quantity Calculator — Count & Waste",
+    "title": "Mortar Quantity Calculator — Wall Volume & Bags",
     "h1": "Mortar Quantity Calculator",
-    "description": "Calculate how many mortar bags you need — from volume or wall area with type and waste allowance. Covers type N, S, M and O.",
+    "description": "Estimate mortar volume and bags from wall dimensions, openings, actual masonry unit size, joint width, bed depth, product yield and allowance.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "mortar quantity calculator",
-      "mortar how many calculator"
+      "how much mortar do i need",
+      "mortar bags calculator",
+      "brick wall mortar calculator"
     ],
     "featured": false
   },

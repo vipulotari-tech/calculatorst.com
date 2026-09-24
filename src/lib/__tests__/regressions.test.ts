@@ -102,3 +102,13 @@ describe('Drywall intent separation', () => {
     expect(res.rows.find(r=>r.key==='purchased')?.value).toBeCloseTo(544,8);
   });
 });
+
+
+describe('Mortar intent separation', () => {
+  it('derives mortar quantity from wall and unit geometry', () => {
+    const res=calculate('mortar-quantity-calculator',{length:10,height:10,openings:0,unitLength:11,unitHeight:11,joint:1,bedDepth:4,yield:1,waste:0});
+    expect(res.rows.find(r=>r.key==='area')?.value).toBeCloseTo(100,8);
+    expect(res.rows.find(r=>r.key==='mortar')?.value).toBeCloseTo(2300/432,8);
+    expect(res.rows.find(r=>r.key==='bags')?.value).toBe(6);
+  });
+});

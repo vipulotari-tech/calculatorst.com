@@ -46,6 +46,7 @@ export const referenceCases:ReferenceCase[] = [
  {model:'concrete-mix',input:{volume:1,dryFactor:1.01,cementParts:1,sandParts:1,aggregateParts:0,cementDensity:1000,bagMass:50},units:{volume:'m3'},expected:{cementMass:505,cementBags:11,sandVol:0.505,aggregateVol:0,mixedVol:1,dryVol:1.01}},
  {model:'masonry',input:{length:10,width:10,openings:0,unitLength:11,unitHeight:11,joint:1,unitWeight:4},expected:{units:100,area:100,weight:400}},
  {model:'bags',input:{volume:1,yield:0.6},units:{volume:'yd3'},expected:{bags:45,order:27}},
+ {model:'mortar-quantity',input:{length:10,height:10,openings:0,unitLength:11,unitHeight:11,joint:1,bedDepth:4,yield:1,waste:0},expected:{area:100,mortar:2300/432,order:2300/432,bags:6}},
  {model:'asphalt-depth',input:{length:10,width:10,mass:3.75,density:150},expected:{depth:6}},
  {model:'brick-mortar',input:{length:10,width:10,openings:0,unitLength:11,unitHeight:11,joint:1,wythe:12,yield:1},expected:{bags:16,order:2300/144}},
  {model:'cmu-mortar',input:{units:100,coverage:10},expected:{bags:10}},

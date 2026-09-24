@@ -1586,6 +1586,52 @@ const mortarMix: Model = {
   }
 };
 
+
+const mortarQuantity: Model = {
+  fields: [
+    length('length','Wall length',20),
+    length('height','Wall height',8),
+    openings,
+    length('unitLength','Actual masonry unit length',7.625,'in'),
+    length('unitHeight','Actual masonry unit height',2.25,'in'),
+    length('joint','Mortar joint width',0.375,'in'),
+    length('bedDepth','Mortar bed depth / wall wythe',3.625,'in'),
+    { ...volume('yield','Mixed mortar yield per bag',0.6), unit:'ft3', help:'Use the mixed yield printed on the exact mortar product being purchased.' },
+    allowance,
+    price('USD/bag')
+  ],
+  formula:'Mortar fraction = 1 − actual unit face area / installed module face area; net mortar volume ≈ net wall area × bed depth × mortar fraction; bags = ceil(volume × allowance factor / mixed yield per bag).',
+  assumptions:[
+    'Geometric full-bed estimate for one rectangular masonry wythe with uniform horizontal and vertical joints.',
+    'The model approximates mortar volume from face-joint fraction through the entered bed depth. Hollow CMU face-shell bedding and specialty unit shapes require a different takeoff.',
+    'Openings are subtracted once. Product yield and installation loss vary, so use the exact bag yield and a project-specific allowance.'
+  ],
+  sources:['https://www.cement.org/learn/materials-applications/masonry/masonry-mortars'],
+  calculate(v,u){
+    const net=v.length*v.height-v.openings;
+    requireCondition(net>=0,'openings','Openings cannot exceed the measured wall area.');
+    const installedFace=(v.unitLength+v.joint)*(v.unitHeight+v.joint);
+    requireCondition(installedFace>0,'joint','Unit and joint dimensions must produce a positive installed module.');
+    const fraction=1-(v.unitLength*v.unitHeight/installedFace);
+    requireCondition(fraction>=0 && fraction<1,'joint','Check the unit and joint dimensions.');
+    const mortar=net*v.bedDepth*fraction;
+    const order=mortar*waste(v);
+    const bags=roundUp(order/v.yield);
+    return result(withCost([
+      row('bags','Mortar bags to order',bags,'bags',true),
+      row('mortar','Net mortar volume',mortar,'ft³'),
+      row('order','Mortar volume with allowance',order,'ft³'),
+      row('area','Net wall area',net,'ft²'),
+      row('fraction','Estimated mortar face fraction',fraction*100,'%')
+    ],v.price,u.price,{'USD/bag':bags}),[
+      fmt(v.length)+' × '+fmt(v.height)+' − '+fmt(v.openings)+' = '+fmt(net)+' ft² net wall area.',
+      'Mortar face fraction = 1 − unit face / installed module face = '+fmt(fraction*100)+'%.',
+      fmt(net)+' × '+fmt(v.bedDepth*12)+' in ÷ 12 × '+fmt(fraction)+' = '+fmt(mortar)+' ft³ net mortar.',
+      'Round '+fmt(order)+' ÷ '+fmt(v.yield)+' ft³ per bag up = '+bags+' bags.'
+    ]);
+  }
+};
+
 export const materialModels: Record<string, Model> = {
   // --- 16 Concrete calculators ---
   'concrete': concreteGeneric,
@@ -1594,6 +1640,7 @@ export const materialModels: Record<string, Model> = {
   'concrete-cost': concreteCost,
   'concrete-mix': concreteMix,
   'mortar-mix': mortarMix,
+  'mortar-quantity': mortarQuantity,
   'concrete-pour': concretePour,
   'concrete-slab': concreteSlab,
   'concrete-footing': concreteFooting,
