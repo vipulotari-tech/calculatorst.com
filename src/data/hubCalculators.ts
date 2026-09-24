@@ -672,7 +672,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "rebar-lap-length-calculator",
     "title": "Rebar Lap Length Calculator — Additional Steel & Weight",
     "h1": "Rebar Lap Length Calculator",
-    "description": "Total additional rebar from a lap length already specified on the drawings, including splice count, allowance, nominal weight and optional cost without inventing a required splice length.",
+    "description": "Total extra rebar from a lap length already specified on the drawings, including splice count, allowance, nominal weight and optional cost without deriving the required lap.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
