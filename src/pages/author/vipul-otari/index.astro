@@ -3,55 +3,62 @@ import Layout from "../../../layouts/Layout.astro";
 import Header from "../../../components/Header.astro";
 import Footer from "../../../components/Footer.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import { hubCalculators } from "../../../data/hubCalculators";
 ---
 
 <Layout
-  title="Vipul Otari — Author & Reviewer | Calculator Street"
-  description="Vipul Otari is the author of Calculator Street (calculatorst.com) — 201 construction calculators for US homeowners. Every tool runs 100% in-browser with no data sent to any server."
+  title="Vipul Otari — Site Author | Calculator Street"
+  description={`Vipul Otari is the site author and maintainer of Calculator Street, a library of ${hubCalculators.length} construction calculators with transparent formulas and in-browser calculations.`}
   canonical="/author/vipul-otari/"
   datePublished="2026-08-28"
-  dateModified="2026-09-08"
+  dateModified="2026-09-24"
 >
   <Header />
   <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About", href: "/about/" }, { label: "Vipul Otari" }]} />
     <div class="mx-auto max-w-[720px] pt-6">
-      <div class="flex gap-4 items-start rounded-xl border border-hairline bg-canvas p-6 ">
+      <div class="flex gap-4 items-start rounded-xl border border-hairline bg-canvas p-6">
         <span class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-ink text-white text-xl font-semibold">VO</span>
         <div>
           <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Vipul Otari</h1>
-          <p class="font-mono text-xs tracking-wide text-mute">Author & Reviewer — Calculator Street</p>
-          <p class="mt-2 text-sm leading-6 text-body">Built every calculator by hand — formulas, examples and FAQs documented on each page with cited sources. No AI filler.</p>
+          <p class="font-mono text-xs tracking-wide text-mute">Site author &amp; maintainer — Calculator Street</p>
+          <p class="mt-2 text-sm leading-6 text-body">
+            Maintains Calculator Street’s calculator models, page content, source references and automated test suite.
+          </p>
           <div class="mt-3 flex flex-wrap gap-2 font-mono text-xs">
             <a href="mailto:hello@calculatorst.com" class="underline text-link">hello@calculatorst.com</a>
             <span class="text-border">·</span>
-            <a href="https://github.com/calculatorst" target="_blank" rel="noopener" class="underline text-link">GitHub</a>
-            <span class="text-border">·</span>
-            <a href="https://x.com/calculatorst" target="_blank" rel="noopener" class="underline text-link">X</a>
+            <a href="https://github.com/vipulotari-tech/calculatorst.com" target="_blank" rel="noopener" class="underline text-link">Source repository</a>
           </div>
         </div>
       </div>
 
       <div class="mt-6 rounded-xl border border-hairline bg-canvas p-6 space-y-4">
-        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Experience & Expertise</h2>
+        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Calculator methodology</h2>
         <ul class="list-disc pl-5 space-y-2 text-sm leading-6 text-body">
-          <li><strong class="text-ink">Hands-on builds:</strong> Deck, fence, patio, gravel driveway — measured, ordered and built, then back-checked calculator outputs vs supplier tickets.</li>
-          <li><strong class="text-ink">Densities documented:</strong> Pea 1.35, crushed 1.40, limestone 1.60 tons/yd³ — sourced from scale-house and manufacturer data.</li>
-          <li><strong class="text-ink">Formulas documented:</strong> Roof multiplier √(pitch²+144)/12, board-foot = T(in)×W(in)×L(ft)/12, rebar lap 40× diameter. Each calculator page cites sources for its specific calculation.</li>
+          <li><strong class="text-ink">Transparent models:</strong> calculator formulas are implemented as explicit functions and the result pages show calculation steps and assumptions.</li>
+          <li><strong class="text-ink">Unit handling:</strong> a shared unit engine normalizes dimensional inputs before the formula runs.</li>
+          <li><strong class="text-ink">Testing:</strong> automated tests cover calculator registration, input validation, equivalent units, regression cases and independent reference scenarios.</li>
+          <li><strong class="text-ink">Sources:</strong> manufacturer data sheets, engineering references and public technical sources are linked on calculator pages when they materially support an input assumption or method.</li>
         </ul>
-        <h3 class="text-sm font-semibold text-ink">Review process</h3>
+
+        <h3 class="text-sm font-semibold text-ink">Publishing workflow</h3>
         <ol class="list-decimal pl-5 space-y-1 text-sm leading-6 text-body">
-          <li>Draft calculator with unit tests `src/utils/__tests__/units.test.ts`</li>
-          <li>Hand-calculate 3 examples, compare to offline spreadsheet</li>
-          <li>Cross-check against publicly available sources and supplier yield sheets</li>
-          <li>Publish with `dateModified`</li>
+          <li>Define the calculation scope, inputs, outputs and limitations.</li>
+          <li>Implement the formula and unit behavior in the calculator model.</li>
+          <li>Add or update automated regression/reference coverage.</li>
+          <li>Publish the formula, worked example, assumptions and relevant sources on the page.</li>
         </ol>
-        <p class="font-mono text-[11px] text-mute">Built with transparent formulas, in-browser calculation, and cited sources. See <a href="/about/" class="underline">About</a>, <a href="/privacy/" class="underline">Privacy</a>, and <a href="/disclaimer/" class="underline">Disclaimer</a>.</p>
+        <p class="font-mono text-[11px] text-mute">
+          See <a href="/about/" class="underline">About</a>, <a href="/privacy/" class="underline">Privacy</a>, and <a href="/disclaimer/" class="underline">Disclaimer</a>.
+        </p>
       </div>
 
       <div class="mt-6 rounded-xl border border-border bg-card p-5">
-        <p class="font-mono text-[11px] font-medium tracking-[0.1em] uppercase text-muted-foreground">Trust & transparency</p>
-        <p class="mt-2 text-[13px] leading-5 text-muted-foreground">Every calculator shows formula, worked example, assumptions and related tools. See <a href="/about/" class="underline text-foreground">About</a>, <a href="/privacy/" class="underline text-foreground">Privacy</a> and <a href="/disclaimer/" class="underline text-foreground">Disclaimer</a>. Corrections? <a href="/contact/" class="underline text-foreground">Contact</a> — we fix verified errors in 1–3 days.</p>
+        <p class="font-mono text-[11px] font-medium tracking-[0.1em] uppercase text-muted-foreground">Corrections</p>
+        <p class="mt-2 text-[13px] leading-5 text-muted-foreground">
+          If a calculator result looks wrong, use the <a href="/contact/" class="underline text-foreground">contact page</a> and include the calculator URL, inputs, expected result and supporting source when available.
+        </p>
       </div>
 
       <script type="application/ld+json" set:html={JSON.stringify({
@@ -60,10 +67,10 @@ import Breadcrumbs from "../../../components/Breadcrumbs.astro";
         name: "Vipul Otari",
         url: "https://calculatorst.com/author/vipul-otari/",
         image: "https://calculatorst.com/favicon.svg",
-        jobTitle: "Author & Reviewer",
+        jobTitle: "Site Author",
         worksFor: { "@type": "Organization", name: "Calculator Street", url: "https://calculatorst.com/" },
-        sameAs: ["https://github.com/calculatorst", "https://x.com/calculatorst"],
-        description: "Author of construction calculators on Calculator Street — hand-verified formulas with documented sources on each page."
+        sameAs: ["https://github.com/vipulotari-tech/calculatorst.com"],
+        description: "Site author and maintainer of Calculator Street construction calculators."
       })} is:inline />
     </div>
   </main>

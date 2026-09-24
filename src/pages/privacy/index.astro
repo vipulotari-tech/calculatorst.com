@@ -5,50 +5,50 @@ import Footer from "../../components/Footer.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 ---
 
-<Layout title="Privacy Policy — Calculator Street" description="Privacy policy: Calculator Street runs 100% in-browser, no tracking, no data leaving your device. Learn how we handle cookies, AdSense, and your rights.">
+<Layout title="Privacy Policy — Calculator Street" description="Privacy policy for Calculator Street: calculator inputs are processed in-browser, with Cloudflare infrastructure and Google analytics/advertising services handled as described below." canonical="/privacy/" dateModified="2026-09-24">
   <Header />
   <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Privacy Policy" }]} />
     <div class="mx-auto max-w-[720px] pt-6">
       <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Privacy Policy</h1>
-      <p class="mt-1 font-mono text-xs text-mute">Last updated: September 4, 2026</p>
+      <p class="mt-1 font-mono text-xs text-mute">Last updated: September 24, 2026</p>
       <div class="mt-6 space-y-6 rounded-lg border border-hairline bg-canvas p-6 text-sm leading-6 text-body ">
-        <p>Calculator Street (CalculatorSt.com) is a static, privacy-friendly site. All calculator computations happen 100% in your browser (client-side JavaScript). We do not have a database, user accounts, or server-side calculation. No input values you type into calculators are sent to a server.</p>
+        <p>Calculator Street performs calculator arithmetic in your browser using client-side JavaScript. The site does not require an account or server-side calculation database. Calculator measurement and cost inputs are not submitted to our application server as part of the calculation. Normal webpage requests and third-party services are described below.</p>
 
         <h2 class="font-semibold text-ink">1. Information we collect</h2>
         <p>We intentionally collect minimal data:</p>
         <ul class="list-disc pl-5 space-y-1">
           <li><span class="font-medium text-ink">Calculator inputs:</span> Stay on your device. We never log, store, or transmit the dimensions, materials, or costs you enter.</li>
-          <li><span class="font-medium text-ink">Standard anonymous analytics (if you consent):</span> Page views, device type, approximate location (country-level), and referrer. No personal identifiers, no IP stored by us directly. We use Google Analytics 4 via Google Tag Manager only after you click "Accept" in our cookie banner. You can decline and still use all calculators.</li>
+          <li><span class="font-medium text-ink">Analytics and consent signals:</span> The Google tag is initialized with Consent Mode storage set to denied by default. The tag can make measurement/consent-related network requests while storage is denied. If you choose "Accept", analytics and advertising storage permissions are updated to granted. You can decline and still use the calculators.</li>
           <li><span class="font-medium text-ink">Log data via Cloudflare:</span> As a site on Cloudflare Workers, basic request logs (URL, timestamp, user-agent) may be processed by Cloudflare for security and performance (see Cloudflare Privacy Policy). We do not use these logs to identify you.</li>
           <li><span class="font-medium text-ink">Contact emails:</span> If you email us at hello@calculatorst.com, we retain your email and message to respond. We do not sell or share this.</li>
         </ul>
 
         <h2 class="font-semibold text-ink">2. How we use information</h2>
-        <p>We use anonymous analytics only to understand which calculators are helpful, fix errors, and improve wording, formulas, and examples. We do not create profiles, sell data, or track you across sites. Calculation help is provided without requiring any login.</p>
+        <p>Analytics is used to understand page usage and improve the site. Calculator results do not require a login. We do not sell calculator input data.</p>
 
         <h2 class="font-semibold text-ink">3. Cookies & Google AdSense</h2>
-        <p>We use Google AdSense to show ads and fund free calculators. Google, as a third-party vendor, uses cookies — including the DoubleClick cookie — to serve ads based on your prior visits to this site and other sites.</p>
+        <p>The site includes Google AdSense integration. The AdSense script is loaded by the site only after you choose "Accept" in the cookie banner. Whether an ad is actually served depends on Google’s service and account status.</p>
         <p>When you visit, Google and its partners may set cookies for:</p>
         <ul class="list-disc pl-5 space-y-1">
           <li>Ad delivery and frequency capping</li>
           <li>Personalized vs non-personalized ads (based on your consent)</li>
           <li>Measurement and fraud prevention</li>
         </ul>
-        <p>We implement Google Consent Mode v2: by default <span class="font-mono text-xs">ad_storage, analytics_storage, ad_user_data, ad_personalization</span> are <em>denied</em>. Only after you click "Accept" do we set them to <em>granted</em> and load <span class="font-mono text-xs">pagead2.googlesyndication.com/pagead/js/adsbygoogle.js</span>. If you click "Decline", we keep them denied and do not load AdSense.</p>
+        <p>Google Consent Mode storage signals <span class="font-mono text-xs">ad_storage, analytics_storage, ad_user_data, ad_personalization</span> default to <em>denied</em>. If you click "Accept", the site updates them to <em>granted</em> and loads the AdSense script. If you click "Decline", those storage permissions remain denied and the site does not load the AdSense script.</p>
         <p>You may opt out of personalized advertising at any time by visiting <a href="https://www.google.com/settings/ads" class="text-link underline" target="_blank" rel="noopener">Google Ads Settings</a>. See <a href="https://policies.google.com/technologies/ads" class="text-link underline" target="_blank" rel="noopener">Google’s ad policy</a> and <a href="https://policies.google.com/technologies/cookies" class="text-link underline" target="_blank" rel="noopener">How Google uses cookies</a> for details. You can also disable cookies in your browser settings. We do not use cookies to collect personal data via calculators.</p>
         <p>Our <span class="font-mono text-xs">ads.txt</span> at <a href="/ads.txt" class="text-link underline">/ads.txt</a> lists <span class="font-mono text-xs">google.com, pub-3234603610000879, DIRECT, f08c47fec0942fa0</span> as the authorized seller.</p>
 
         <h2 class="font-semibold text-ink">4. Data sharing</h2>
-        <p>We do not sell personal data. We share only with service providers necessary to run the site: Cloudflare (hosting/security) and Google (AdSense/Analytics, only after consent). Both act under their own privacy policies and our instructions.</p>
+        <p>We do not sell calculator input data. Cloudflare processes requests for hosting, security and performance. Google services process requests associated with analytics, consent and, after acceptance, advertising integration under their applicable terms and privacy policies.</p>
 
         <h2 class="font-semibold text-ink">5. Data retention</h2>
-        <p>Calculator inputs are not retained. Analytics data, if consented, is retained per GA4 settings (default 14 months, aggregated). Contact emails are retained until your request is resolved, then archived for up to 12 months for reference unless you ask us to delete them.</p>
+        <p>Calculator inputs are not retained by the calculator application. Analytics retention is controlled by the configured Google Analytics settings. Contact emails may be retained as needed to respond to and document the request, subject to applicable requirements.</p>
 
         <h2 class="font-semibold text-ink">6. Your rights</h2>
         <p><span class="font-medium text-ink">EU/EEA, UK, Switzerland:</span> You have rights to access, correct, delete, restrict, object, and portability. You can withdraw consent anytime via your browser or by clearing site data — this resets the cookie banner to "denied". Contact us to exercise rights.</p>
         <p><span class="font-medium text-ink">California (CCPA/CPRA):</span> You can request to know, delete, or opt-out of sale/sharing (we do not sell). Use the contact below. We do not discriminate for exercising rights.</p>
-        <p>To exercise rights, email <a href="mailto:hello@calculatorst.com" class="text-link underline">hello@calculatorst.com</a> with subject "Privacy Request". We respond within 30 days.</p>
+        <p>To exercise applicable privacy rights, email <a href="mailto:hello@calculatorst.com" class="text-link underline">hello@calculatorst.com</a> with subject "Privacy Request".</p>
 
         <h2 class="font-semibold text-ink">7. Children’s privacy</h2>
         <p>Calculator Street is not directed to children under 13 and does not knowingly collect data from children. Ad personalization is not enabled for users we know are under 16 where required. If you believe a child provided us data, contact us and we will delete it.</p>
@@ -63,7 +63,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
         <p>We may update this policy as laws or our practices change. We will update the "Last updated" date above and, for material changes, show a notice on the site. Continued use after changes means you accept the updated policy.</p>
 
         <h2 class="font-semibold text-ink">11. Contact</h2>
-        <p>Questions, requests, or complaints: <a href="mailto:hello@calculatorst.com" class="text-link underline">hello@calculatorst.com</a> — we respond within 1–3 business days. Alternative: <a href="mailto:vipulotari1718@gmail.com" class="text-link underline">vipulotari1718@gmail.com</a>. You also have the right to lodge a complaint with your local data protection authority.</p>
+        <p>Questions, requests, or complaints: <a href="mailto:hello@calculatorst.com" class="text-link underline">hello@calculatorst.com</a>. Where applicable, you may also have the right to contact your local data protection authority.</p>
         <p class="font-mono text-xs text-mute">Organization: Calculator Street — Site: https://calculatorst.com — Ads.txt: google.com, pub-3234603610000879, DIRECT, f08c47fec0942fa0</p>
       </div>
     </div>

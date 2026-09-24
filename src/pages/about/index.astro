@@ -3,38 +3,59 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { hubCalculators } from "../../data/hubCalculators";
 ---
 
-<Layout title="About Calculator Street — Free Construction Calculators" description="About Calculator Street: US-focused, fast & private calculators for construction. Static, no tracking, built for homeowners & contractors.">
+<Layout
+  title="About Calculator Street — Construction Calculator Methodology"
+  description={`About Calculator Street: ${hubCalculators.length} construction calculators with in-browser math, documented formulas, assumptions, worked examples and source links where applicable.`}
+  canonical="/about/"
+  dateModified="2026-09-24"
+>
   <Header />
   <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />
     <div class="mx-auto max-w-[720px] pt-6">
       <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">About Calculator Street</h1>
-      <p class="mt-3 text-sm leading-6 text-body [text-wrap:pretty]">Calculator Street (CalculatorSt.com) is a complete construction and home-improvement calculator platform — focused, accurate and private. We cover concrete, gravel, rebar, masonry, roofing, flooring, framing, decking, fencing, landscaping, asphalt and more. Every calculator is hand-verified for US customary and metric units, with clear formulas, worked examples and waste-aware estimates.</p>
-      <p class="mt-3 text-sm leading-6 text-body">Founded 2026 by <span class="font-medium text-ink">Vipul Otari</span> — built for US homeowners and contractors working with US customary units and metric equivalents. Every calculation runs in your browser, no data is sent to any server. Last updated: <span class="font-mono text-xs">2026-09-22</span>.</p>
+      <p class="mt-3 text-sm leading-6 text-body [text-wrap:pretty]">
+        Calculator Street is a construction-calculator library covering concrete, gravel, rebar, masonry, roofing, flooring, framing, drywall, deck and fence work, landscaping, asphalt and related estimating tasks. The current library contains {hubCalculators.length} calculators.
+      </p>
+      <p class="mt-3 text-sm leading-6 text-body">
+        Calculator math runs in the browser. Each calculator is intended to show the formula, inputs, result steps, assumptions and limitations behind the estimate rather than hiding the method behind a single answer.
+      </p>
 
       <div class="mt-8 rounded-lg border border-hairline bg-canvas p-6 flex gap-4 items-start">
-        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-ink text-white " aria-hidden="true">VO</span>
+        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-ink text-white" aria-hidden="true">VO</span>
         <div>
-          <p class="text-sm font-semibold text-ink">Vipul Otari — Author & Lead Reviewer</p>
-          <p class="mt-1 text-sm leading-6 text-body">Built and reviewed every calculator. Mathematical models, example tables and construction assumptions are documented on each calculator page with cited sources. Contact for technical feedback or corrections: <a href="mailto:hello@calculatorst.com" class="text-link underline">hello@calculatorst.com</a>.</p>
-          <p class="mt-2 text-xs text-muted-foreground leading-relaxed">Editorial standard: Calculations cite their sources on each page. References include engineering organizations, government agencies, and manufacturer technical data where applicable.</p>
+          <p class="text-sm font-semibold text-ink">Vipul Otari — Site author &amp; maintainer</p>
+          <p class="mt-1 text-sm leading-6 text-body">
+            Maintains the calculator source code, page content and testing workflow. Calculator pages document their assumptions and include source links when an external manufacturer, standards organization or engineering reference is used.
+          </p>
+          <p class="mt-2 text-xs text-muted-foreground leading-relaxed">
+            Technical feedback or corrections: <a href="mailto:hello@calculatorst.com" class="text-link underline">hello@calculatorst.com</a>.
+          </p>
         </div>
       </div>
 
-      <div class="mt-8 space-y-6 rounded-lg border border-hairline bg-canvas p-6 ">
-        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Our principles</h2>
+      <div class="mt-8 space-y-6 rounded-lg border border-hairline bg-canvas p-6">
+        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How calculator quality is checked</h2>
         <ul class="list-disc space-y-2 pl-5 text-sm leading-6 text-body">
-          <li><span class="font-semibold text-ink">Client-side computing</span> — all math and dimensional conversions execute locally in your browser. Your measurements and cost inputs are never sent to our servers.</li>
-          <li><span class="font-semibold text-ink">US & Metric standards</span> — feet, inches, yards, and short tons (2,000 lb), with precise SI metric equivalents based on NIST SP 811 international conversion factors.</li>
-          <li><span class="font-semibold text-ink">Mobile-first</span> — large inputs, thumb-friendly, works on the job site at 320px. No horizontal scroll.</li>
-          <li><span class="font-semibold text-ink">Transparent</span> — every page shows formulas, examples, assumptions and related calculators. Sources are cited on individual calculator pages where relevant — concrete calculators cite concrete industry sources, roofing calculators cite roofing sources, etc.</li>
+          <li><span class="font-semibold text-ink">Explicit formulas</span> — calculator models contain the actual arithmetic used to produce results, and pages expose the formula and calculation steps.</li>
+          <li><span class="font-semibold text-ink">Unit conversion</span> — dimensional inputs are normalized before calculation; exact international-foot and avoirdupois-pound conversion factors are used in the shared unit engine.</li>
+          <li><span class="font-semibold text-ink">Automated tests</span> — the repository tests the published calculator registry, input validation, equivalent-unit behavior, regression cases and independent reference scenarios.</li>
+          <li><span class="font-semibold text-ink">Product-specific assumptions</span> — yields, coverage rates, densities and prices can vary. Where a page uses an example manufacturer value, the page identifies it and lets the user replace it when the model requires a product-specific input.</li>
+          <li><span class="font-semibold text-ink">Clear limits</span> — quantity calculators do not claim to select structural sizes, establish code compliance or replace project drawings and professional design.</li>
         </ul>
-        <h3 class="text-sm font-semibold tracking-[-0.02em] text-ink">How we verify</h3>
-        <p class="text-sm leading-6 text-body">Unit conversions use NIST SP 811 exact factors (1 ft = 0.3048 m, 1 lb = 0.45359237 kg). Density values and bag yields are sourced from manufacturer documentation and public resources. Waste factors are based on common construction practice (10% standard, 15% curves/irregular). Each calculator page documents its specific assumptions and sources.</p>
-        <h3 class="text-sm font-semibold tracking-[-0.02em] text-ink">Library</h3>
-        <p class="text-sm leading-6 text-body">The platform now includes a complete library of construction and home-improvement calculators — organized into sixteen focused categories and searchable from any page. Every calculator is a standalone, indexable tool with its own formula, example, diagram and related tools.</p>
+
+        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Privacy and calculations</h2>
+        <p class="text-sm leading-6 text-body">
+          Calculator input values are processed client-side. The site also uses third-party infrastructure and optional analytics/advertising services as described in the <a href="/privacy/" class="text-link underline">Privacy Policy</a>; those services are separate from the calculator arithmetic itself.
+        </p>
+
+        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Using the results</h2>
+        <p class="text-sm leading-6 text-body">
+          Treat results as estimates based on the measurements and assumptions entered. Confirm product yields, package coverage and order quantities with the supplier. Structural, code, safety and permit decisions should be checked against project requirements and qualified professional guidance.
+        </p>
       </div>
       <p class="mt-6 text-sm leading-6 text-body">Questions? <a href="/contact/" class="text-link underline hover:text-link-deep">Contact us</a>.</p>
     </div>

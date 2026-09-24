@@ -5,34 +5,39 @@ import Footer from "../../components/Footer.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 ---
 
-<Layout title="Disclaimer — Calculator Street" description="Disclaimer: Calculator Street provides estimates only; verify with professionals and local codes.">
+<Layout
+  title="Disclaimer — Calculator Street"
+  description="Calculator Street calculators provide estimates based on entered measurements and assumptions. Verify project quantities, product data and safety-critical requirements."
+  canonical="/disclaimer/"
+  dateModified="2026-09-24"
+>
   <Header />
   <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
     <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Disclaimer" }]} />
     <div class="mx-auto max-w-[720px] pt-6">
       <h1 class="text-display-lg font-semibold tracking-[-0.04em] text-ink">Disclaimer</h1>
-      <p class="mt-1 font-mono text-xs text-mute">Last updated: September 4, 2026</p>
-      <div class="mt-6 space-y-6 rounded-lg border border-hairline bg-canvas p-6 text-sm leading-6 text-body ">
+      <p class="mt-1 font-mono text-xs text-mute">Last updated: September 24, 2026</p>
+      <div class="mt-6 space-y-6 rounded-lg border border-hairline bg-canvas p-6 text-sm leading-6 text-body">
         <h2 class="font-semibold text-ink">Estimates only</h2>
-        <p>All calculators on Calculator Street provide estimates only. Materials, densities, coverage rates, prices, labor, waste factors, and yields vary by location, supplier, product, batch, site conditions, and project specifics. Always confirm quantities, costs, and methods with your supplier and contractor before ordering or building.</p>
+        <p>Calculator outputs are estimates based on the measurements, units and assumptions entered. Material density, package coverage, product yield, waste, pricing and site conditions vary. Confirm purchase quantities and current product specifications with the supplier before ordering.</p>
 
         <h2 class="font-semibold text-ink">Not professional advice</h2>
-        <p>Nothing on this site is professional construction, engineering, architectural, or financial advice. For structural, roofing, foundation, retaining wall, load-bearing, electrical, plumbing, or code questions, consult a licensed professional. Do not rely solely on calculator outputs for safety-critical decisions.</p>
+        <p>Nothing on this site is a substitute for professional construction, engineering, architectural or code advice. Structural and safety-critical decisions — including member sizing, load capacity, foundations, retaining walls, roofing assemblies and code compliance — should be checked against project documents, applicable requirements and qualified professional guidance.</p>
 
-        <h2 class="font-semibold text-ink">No guarantee of accuracy</h2>
-        <p>We strive for accuracy with hand-verified formulas, manufacturer yields (e.g., 80-lb concrete = 0.60 ft³), and cited densities (pea 1.35, crushed 1.40, limestone 1.60 tons/yd³; roof multiplier √(pitch²+144)/12). However, we do not guarantee results. Field factors like compaction variation, moisture, spillage, and irregular shapes affect real needs.</p>
+        <h2 class="font-semibold text-ink">Accuracy and assumptions</h2>
+        <p>Calculator pages document the formula, worked example, assumptions and source links used for that tool. Even when the arithmetic is correct, real projects can differ because of irregular geometry, compaction, moisture, installation loss, product variation and measurement error. No calculator result is guaranteed to match field consumption or final project cost.</p>
 
-        <h2 class="font-semibold text-ink">Use at your own risk</h2>
-        <p>Use of calculators is at your own risk. You are responsible for verifying measurements, adding appropriate waste (we suggest 10% rectangles, 15% curves/hips — adjust per job), and complying with local building codes and permits. We are not liable for over- or under-ordering, cost overruns, rework, delays, or structural failures. See <a href="/terms/" class="text-link underline">Terms</a> for liability limits.</p>
+        <h2 class="font-semibold text-ink">Material allowance</h2>
+        <p>Where a calculator includes a material or waste allowance, choose a percentage appropriate for the actual project, product and installation method. The site does not treat one fixed allowance as universally correct.</p>
 
-        <h2 class="font-semibold text-ink">External links &amp; sources</h2>
-        <p>Individual calculator pages cite sources relevant to that tool's formulas and assumptions, such as industry standards, manufacturer published data, or engineering references. Those sources may change; we link for reference but do not control third-party content. Verify current specifications with your supplier or local authority.</p>
+        <h2 class="font-semibold text-ink">External sources</h2>
+        <p>Individual calculator pages may cite manufacturer documentation, industry organizations, government references or other technical sources. Third-party content can change. Verify current specifications for the exact product and project.</p>
 
-        <h2 class="font-semibold text-ink">Ads & affiliates</h2>
-        <p>We show Google AdSense ads (see <a href="/privacy/" class="text-link underline">Privacy</a>). We do not participate in affiliate programs that affect calculator results. If we add affiliate links in the future, we will disclose them clearly.</p>
+        <h2 class="font-semibold text-ink">Advertising and third-party services</h2>
+        <p>Advertising or analytics services do not determine calculator results. Calculator arithmetic runs from the inputs and formulas implemented on the page. See the <a href="/privacy/" class="text-link underline">Privacy Policy</a> for information about cookies, consent and third-party services.</p>
 
         <h2 class="font-semibold text-ink">Contact</h2>
-        <p>Found an error? Email <a href="mailto:hello@calculatorst.com" class="text-link underline">hello@calculatorst.com</a> with the calculator URL, your inputs, expected vs actual, and source. We fix verified errors promptly.</p>
+        <p>Found a possible error? Email <a href="mailto:hello@calculatorst.com" class="text-link underline">hello@calculatorst.com</a> with the calculator URL, inputs, expected result and supporting source if available.</p>
       </div>
     </div>
   </main>

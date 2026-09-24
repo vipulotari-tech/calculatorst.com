@@ -15,8 +15,8 @@ interface Props {
 }
 
 const {
-  title = "Calculator Street — Free Construction & Home Improvement Calculators",
-  description = "Free, fast, and accurate calculators for decking, roofing, gravel, concrete, fencing, pavers and mulch. Built for US homeowners and DIY pros — mobile-friendly, private, and secure.",
+  title = "Calculator Street — Construction Calculators",
+  description = "Construction calculators for concrete, roofing, gravel, rebar, framing, drywall, excavation, deck, fence, flooring and more — with formulas and assumptions shown.",
   canonical: canonicalProp,
   noindex = false,
   ogImage: ogImageProp,
@@ -48,7 +48,7 @@ const isJunkQ = junkTemplatePattern.test(rawQ) || rawQ.includes("{search_term_st
 const effectiveNoindex = noindex || isSearchResultPage || isJunkQ;
 
 const ogImage = new URL(ogImageProp ?? "/og.png", site).href;
-const ogImageAlt = ogImageAltProp ?? "Calculator Street — Construction & Home Improvement Calculators";
+const ogImageAlt = ogImageAltProp ?? "Calculator Street — Construction Calculators";
 
 const websiteSchema: any = {
   "@context": "https://schema.org",
@@ -82,7 +82,7 @@ const webPageSchema: any = (!effectiveNoindex && canonicalUrl) ? {
   inLanguage: "en-US",
   ...(datePublished ? { datePublished } : {}),
   ...(dateModified ? { dateModified } : {}),
-  author: { "@type": "Person", name: "Vipul Otari", url: siteNoSlash + "/about/" },
+  author: { "@type": "Person", name: "Vipul Otari", url: siteNoSlash + "/author/vipul-otari/" },
   publisher: { "@type": "Organization", name: "Calculator Street", logo: { "@type": "ImageObject", url: new URL("/favicon.svg", site).href } },
 } : null;
 ---
