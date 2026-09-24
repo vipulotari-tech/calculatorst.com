@@ -62,6 +62,14 @@ const primaryByCluster: Record<string, string> = {
   asphalt: "asphalt-calculator",
 };
 const primaryCalculator = calculators.find((c) => c.slug === primaryByCluster[cluster]);
+const concreteTaskLinks = cluster === "concrete" ? [
+  { label: "General estimate", href: "/concrete-calculator/", text: "Cubic yards, bags, weight and optional cost for common pour shapes." },
+  { label: "Geometry only", href: "/concrete-volume-calculator/", text: "Volume conversions for rectangles, cylinders, tubes, curbs, stairs and wedges." },
+  { label: "Ready-mix delivery", href: "/concrete-pour-calculator/", text: "Truck loads, final-load size, short-load fee and pump-time planning." },
+  { label: "Slab project", href: "/concrete-slab-calculator/", text: "Square feet, slab yards and 40/50/60/80-lb bag counts." },
+  { label: "Foundation takeoff", href: "/concrete-foundation-calculator/", text: "Combine walls, footings, slab and piers into one foundation order." },
+  { label: "Cost estimate", href: "/concrete-cost-calculator/", text: "Price ready-mix or bags with tax and quoted delivery/project charges." },
+] : [];
 ---
 
 <Layout
@@ -93,6 +101,21 @@ const primaryCalculator = calculators.find((c) => c.slug === primaryByCluster[cl
             <p class="font-mono text-[11px] font-medium tracking-[0.10em] uppercase text-mute">Before you calculate</p>
             <p class="mt-2 text-[13.5px] leading-6 text-body [text-wrap:pretty]">{content.beforeYouCalculate}</p>
           </aside>
+        )}
+
+        {concreteTaskLinks.length > 0 && (
+          <section class="mt-6 rounded-xl border border-hairline bg-canvas p-5" aria-labelledby="choose-concrete-calculator">
+            <h2 id="choose-concrete-calculator" class="text-sm font-semibold text-ink">Choose the right concrete calculator</h2>
+            <p class="mt-2 text-[13px] leading-5 text-body">These pages target different estimating tasks. Pick the one that matches the decision you are making instead of repeating the same inputs across several calculators.</p>
+            <div class="mt-4 grid gap-3 sm:grid-cols-2">
+              {concreteTaskLinks.map((item) => (
+                <a href={item.href} class="rounded-lg border border-hairline bg-white p-3 transition hover:border-hairline-strong/30 hover:shadow-card">
+                  <span class="text-[13px] font-semibold text-link">{item.label}</span>
+                  <span class="mt-1 block text-xs leading-5 text-body">{item.text}</span>
+                </a>
+              ))}
+            </div>
+          </section>
         )}
 
         <div class="mt-8 space-y-8">
