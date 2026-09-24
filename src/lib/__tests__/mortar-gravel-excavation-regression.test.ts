@@ -180,6 +180,13 @@ describe("Excavation & earthwork golden regressions",()=>{
     expect(r.rows.find(x=>x.key==="export")?.value).toBeCloseTo(200/27,8);
     expect(r.rows.find(x=>x.key==="loose")?.value).toBeCloseTo(240/27,8);
   });
+  it("Cut and Fill quick mode derives volumes from area and average depth",()=>{
+    const r=run("cut-and-fill-calculator",{mode:1,cutArea:600,cutDepth:2,fillArea:400,fillDepth:2,shrink:20,swell:20},{cutArea:"ft2",cutDepth:"ft",fillArea:"ft2",fillDepth:"ft"});
+    expect(r.rows.find(x=>x.key==="cut")?.value).toBeCloseTo(1200/27,8);
+    expect(r.rows.find(x=>x.key==="fill")?.value).toBeCloseTo(800/27,8);
+    expect(r.rows.find(x=>x.key==="required")?.value).toBeCloseTo(1000/27,8);
+    expect(r.rows.find(x=>x.key==="export")?.value).toBeCloseTo(200/27,8);
+  });
   it("Dirt Removal calculates loose truck trips and disposal cost",()=>{
     const r=run("dirt-removal-calculator",{length:10,width:10,depth:10,swell:20,truckCapacity:10,haulRate:3,tripFee:20},{length:"ft",width:"ft",depth:"ft"});
     const loose=1000/27*1.2;
