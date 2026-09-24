@@ -28,7 +28,7 @@ export const calculators: CalculatorMeta[] = [
     h1: "Fence Cost Calculator",
     description: "Estimate fence posts, panels, rails and cost for wood, vinyl or chain link. Includes gates, waste and concrete.",
     category: "Fence",
-    cluster: "fence",
+    cluster: "deck-fence",
     iconPath: "M4 3.5v9M6 3.5v9M8 3.5v9M10 3.5v9M12 3.5v9M4 5h8M4 8h8",
     featured: true,
     keywords: ["fence cost calculator", "fence calculator"],
@@ -87,6 +87,6 @@ export const categories = [
   { name: "Gravel Calculators", slug: "gravel", desc: "Crushed stone, pea gravel and driveway estimates" },
   { name: "Concrete Calculators", slug: "concrete", desc: "Slabs, footings, walls and bags" },
   { name: "Roofing Calculators", slug: "roofing", desc: "Pitch, area and shingles" },
-  { name: "Deck Calculators", slug: "decking", desc: "Boards, joists and cost" },
+  { name: "Deck & Fence Calculators", slug: "deck-fence", desc: "Deck boards, joists, fence posts, panels and cost" },
   { name: "Landscaping Calculators", slug: "landscaping", desc: "Pavers, mulch and topsoil" },
 ];

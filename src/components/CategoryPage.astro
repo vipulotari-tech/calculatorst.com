@@ -4,6 +4,7 @@ import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 import Breadcrumbs from "./Breadcrumbs.astro";
 import { hubCalculators } from "../data/hubCalculators";
+import { calculators as legacyCalculators } from "../data/calculators";
 import { clusterGroups } from "../data/subcategories";
 import { categoryContent, slugToCluster } from "../data/categoryContent";
 
@@ -36,7 +37,8 @@ const categoryNames: Record<string, string> = {
   asphalt: "Asphalt & Surface Calculators",
 };
 
-const calculators = hubCalculators.filter((c) => c.cluster === cluster);
+const calculatorCatalog = [...new Map([...hubCalculators, ...legacyCalculators].map((c) => [c.slug, c])).values()];
+const calculators = calculatorCatalog.filter((c) => c.cluster === cluster);
 const groups = clusterGroups[cluster] || [];
 const displayName = categoryNames[cluster] || calculators[0]?.category || slug.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
 const content = categoryContent[slug] ?? categoryContent[cluster];

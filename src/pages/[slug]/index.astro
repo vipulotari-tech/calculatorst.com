@@ -137,6 +137,12 @@ const seoDescriptionOverrides: Record<string, string> = {
   "stucco-calculator": calc.description,
 };
 const seoDescription = seoDescriptionOverrides[calc.slug] ?? content.description;
+const newCalculatorSlugs = new Set([
+  "deck-mud-calculator",
+  "stucco-calculator",
+  "concrete-crack-repair-calculator",
+]);
+const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-08-29";
 ---
 
 <CalculatorLayout
@@ -149,7 +155,7 @@ const seoDescription = seoDescriptionOverrides[calc.slug] ?? content.description
   faq={faq}
   canonical={`/${calc.slug}/`}
   ogImage={ogImage}
-  datePublished="2026-08-29"
+  datePublished={datePublished}
   dateModified="2026-09-24"
   noindex={false}
 >
