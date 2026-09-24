@@ -2,7 +2,7 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import GravelCalculator from "../../components/calculators/GravelCalculator.astro";
+import GenericCalculator from "../../components/calculators/GenericCalculator.astro";
 
 const related = [
   { title: "Crushed Stone Calculator", href: "/crushed-stone-calculator/", desc: "Crushed stone for patios & paths" },
@@ -14,11 +14,11 @@ const related = [
 const faq = [
   {
     "q": "How is gravel quantity calculated?",
-    "a": "Length × width × depth gives cubic feet after unit conversion. Divide by 27 for cubic yards, then multiply by the selected density in US short tons per cubic yard. One short ton is 2,000 lb."
+    "a": "Choose dimensions, known area plus depth, or known volume. The calculator converts the measurement to cubic yards, applies compaction allowance and waste separately, then converts order volume to weight using the selected or custom density."
   },
   {
     "q": "Which density should I use?",
-    "a": "The material choices are estimate presets: pea gravel 1.35, crushed stone 1.40, river rock 1.33, limestone 1.60 and granite 1.42 short tons/yd³. Choose Custom for a supplier-provided density; actual material can differ."
+    "a": "The material choices are estimating presets: pea gravel 1.35, crushed stone 1.40, river rock 1.33, limestone 1.60 and granite 1.42 short tons/yd³. Choose Custom for supplier data; grading, moisture and compaction state can change actual bulk density."
   },
   {
     "q": "How is cost calculated?",
@@ -39,7 +39,7 @@ const faq = [
   title="Gravel Calculator — Yards, Tons, Metric Volume & Cost"
   description="Calculate gravel in cubic yards, cubic meters, US tons and metric tonnes with material density presets, separate compaction and waste allowances, plus optional cost."
   h1="Gravel Calculator"
-  intro="Calculate gravel for any rectangular area with material density presets, separate compaction and waste allowances, metric and US outputs, and optional pricing by cubic yard, cubic meter or ton."
+  intro="Calculate gravel from dimensions, known area plus depth, or known volume. Use material density presets or a custom supplier density, keep compaction and waste separate, and price the final order by cubic yard, cubic meter or ton."
   breadcrumbs={[
     { label: "Home", href: "/" },
     { label: "Construction", href: "/construction/" },
@@ -54,7 +54,7 @@ const faq = [
   dateModified="2026-09-24"
 >
   <Header slot="header" />
-  <GravelCalculator slot="calculator" />
+  <GenericCalculator id="gravel-calculator" resultTitle="Gravel Estimate" slot="calculator" />
 
   <section class="space-y-6">
     <div class="rounded-lg border border-hairline bg-canvas p-6 ">
