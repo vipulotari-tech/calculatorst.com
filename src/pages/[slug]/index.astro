@@ -404,7 +404,7 @@ const slabSeo: Record<string, {
   },
   "slab-cost-calculator": {
     title: "Concrete Slab Cost Calculator — Material & Project Cost",
-    description: "Estimate slab concrete cost from dimensions and quoted unit price, with optional tax, delivery, short-load, pump, base, reinforcement, forms, finishing and labor.",
+    description: "Estimate slab concrete cost from dimensions and quoted prices, with optional tax, delivery, pump, base, reinforcement, forms, finishing and labor.",
     guidance: [
       "Start with dimensions and the concrete price unit from the supplier quote; the calculator supports yard, meter, cubic-foot, bag and ton pricing.",
       "Use material-only scope for concrete purchasing. Switch to full-project scope only when you have real quotes or allowances for the additional line items.",
@@ -419,7 +419,7 @@ const slabSeo: Record<string, {
   },
   "slab-reinforcement-calculator": {
     title: "Slab Rebar Calculator — Grid, Spacing, Length & Weight",
-    description: "Estimate a slab rebar grid from length, width, centerline edge offset, maximum spacing and bar size, including bar counts, grid size, cut length, weight and waste.",
+    description: "Estimate slab rebar from dimensions, centerline edge offset, maximum spacing and bar size, including grid size, bar counts, cut length, weight and waste.",
     guidance: [
       "Enter the edge offset to the bar centerline, not clear cover to the outside of the bar.",
       "The calculator rounds bar count up so equalized spacing stays at or below the maximum spacing you enter.",
@@ -434,7 +434,7 @@ const slabSeo: Record<string, {
   },
   "patio-concrete-calculator": {
     title: "Patio Concrete Calculator — Yards, Bags, Base & Truck Loads",
-    description: "Calculate rectangular or circular patio concrete in yards and bags, plus form perimeter, optional gravel base, ready-mix truck loads, weight, waste and material cost.",
+    description: "Calculate rectangular or circular patio concrete in yards and bags, plus forms, optional gravel base, truck loads, weight, waste and material cost.",
     guidance: [
       "Choose rectangle or circle so the area formula matches the patio footprint. Split irregular patios into non-overlapping simple sections.",
       "Optional gravel-base output is compacted volume; supplier loose-volume conversion can differ.",
@@ -449,7 +449,7 @@ const slabSeo: Record<string, {
   },
   "patio-cost-calculator": {
     title: "Concrete Patio Cost Calculator — Material, Finish & Labor",
-    description: "Estimate concrete patio cost from dimensions and quoted prices, with optional delivery, short-load, pump, base, reinforcement, forms, finish, decorative work, removal and labor.",
+    description: "Estimate concrete patio cost from dimensions and quotes, with optional delivery, base, reinforcement, forms, finish, decorative work, removal and labor.",
     guidance: [
       "Use the concrete-material-only mode when comparing supplier quotes; use full-project mode when you have additional project prices.",
       "Decorative finish, demolition and labor are user-entered amounts because finish complexity and local rates vary widely.",
@@ -464,7 +464,7 @@ const slabSeo: Record<string, {
   },
   "driveway-concrete-calculator": {
     title: "Concrete Driveway Calculator — Yards, Apron, Base & Trucks",
-    description: "Calculate driveway concrete for rectangles, attached aprons or linearly tapered widths, with cubic yards, bags, optional compacted base, truck loads, weight and cost.",
+    description: "Calculate driveway concrete for rectangles, aprons or tapered widths, with cubic yards, bags, compacted base, truck loads, weight, waste and cost.",
     guidance: [
       "Rectangle + apron mode adds a separately measured apron at the street end; do not include the same apron area inside the main rectangle twice.",
       "Trapezoid mode uses driveway length × average of the two end widths, which is exact when width changes linearly.",
@@ -479,7 +479,7 @@ const slabSeo: Record<string, {
   },
   "driveway-cost-calculator": {
     title: "Concrete Driveway Cost Calculator — Material & Replacement Cost",
-    description: "Estimate driveway concrete cost from dimensions and quotes, with optional delivery, short-load, pump, base, reinforcement, forms, joints, finishing, removal, disposal and labor.",
+    description: "Estimate concrete driveway cost from dimensions and quotes, with optional delivery, base, reinforcement, forms, joints, finishing, removal, disposal and labor.",
     guidance: [
       "Material-only mode is useful for ready-mix quote comparison; replacement scope exposes demolition and disposal separately.",
       "Forms, reinforcement, base and joint-cutting are separate inputs so the estimate does not hide assumptions inside a single square-foot rate.",
@@ -509,7 +509,7 @@ const slabSeo: Record<string, {
   },
   "garage-slab-calculator": {
     title: "Garage Slab Calculator — Thickened Edge, Base & Concrete",
-    description: "Estimate garage slab concrete with optional thickened perimeter, compacted gravel base, vapor-barrier area, forms and truck loads, plus yards, bags, weight and cost.",
+    description: "Estimate garage slab concrete with thickened edge, compacted gravel base, vapor-barrier area, forms and truck loads, plus yards, bags, weight and cost.",
     guidance: [
       "Enter the finished slab footprint and the slab thickness specified for the project; number of vehicle bays alone does not determine slab thickness.",
       "The thickened-edge input is total edge depth. The calculator adds only the depth below the main slab so concrete is not double-counted.",
@@ -524,7 +524,7 @@ const slabSeo: Record<string, {
   },
   "shed-foundation-calculator": {
     title: "Shed Foundation Calculator — Slab, Piers & Strip Footing",
-    description: "Calculate shed-foundation concrete for a slab, cylindrical piers or continuous strip footing, with yards, bags, weight, waste and quote-based material or project cost.",
+    description: "Calculate shed-foundation concrete for slabs, cylindrical piers or strip footings, with yards, bags, weight, waste and quote-based material and entered project cost.",
     guidance: [
       "Choose the foundation geometry already specified for the shed: slab, concrete piers or continuous strip footing.",
       "Pier mode multiplies cylinder volume by the number of piers and identical sections; strip mode multiplies run × width × depth × quantity.",
