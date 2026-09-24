@@ -165,10 +165,10 @@ const concreteGeneric: Model = {
         `Footing: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
       ];
     } else if (shapeIdx === 3) {
-      const r = v.diameter / 24;
+      const r = v.diameter / 2;
       cuFt = Math.PI * r * r * v.height * v.quantity;
       steps = [
-        `Cylinder: π × (${fmt(v.diameter)}/2)² / 144 × ${fmt(v.height)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
+        `Cylinder: π × (${fmt(v.diameter)}/2)² × ${fmt(v.height)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
       ];
     } else {
       cuFt = v.length * v.width * v.depth * v.quantity;
@@ -236,26 +236,26 @@ const concreteVolume: Model = {
     let steps: string[] = [];
 
     if (s === 1) {
-      const r = v.diameter / 24; // convert inches to feet
+      const r = v.diameter / 2; // readInputs already normalized the diameter to feet
       cuFt = Math.PI * r * r * v.height * v.quantity;
-      steps = [`Cylinder: π × (${fmt(v.diameter)}/24)² × ${fmt(v.height)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
+      steps = [`Cylinder: π × (${fmt(v.diameter)}/2)² × ${fmt(v.height)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
     } else if (s === 2) {
       requireCondition(v.innerDiameter < v.diameter, 'innerDiameter', 'Inner diameter must be smaller than outer diameter.');
-      const ro = v.diameter / 24; // outer radius in feet
-      const ri = v.innerDiameter / 24;
+      const ro = v.diameter / 2;
+      const ri = v.innerDiameter / 2;
       const outerArea = Math.PI * ro * ro;
       const innerArea = Math.PI * ri * ri;
       cuFt = (outerArea - innerArea) * v.height * v.quantity;
       steps = [
-        `Outer area: π × (${fmt(v.diameter)}/24)² = ${fmt(outerArea)} ft².`,
-        v.innerDiameter > 0 ? `Inner area: π × (${fmt(v.innerDiameter)}/24)² = ${fmt(innerArea)} ft².` : 'Solid cylinder (no inner diameter).',
+        `Outer area: π × (${fmt(v.diameter)}/2)² = ${fmt(outerArea)} ft².`,
+        v.innerDiameter > 0 ? `Inner area: π × (${fmt(v.innerDiameter)}/2)² = ${fmt(innerArea)} ft².` : 'Solid cylinder (no inner diameter).',
         `Net annular area × H × Q = ${fmt(cuFt)} ft³.`,
       ];
     } else if (s === 3) {
-      const cw = v.curbWidth / 12;
-      const ch = v.curbHeight / 12;
-      const gw = v.gutterWidth / 12;
-      const gd = v.gutterDepth / 12;
+      const cw = v.curbWidth;
+      const ch = v.curbHeight;
+      const gw = v.gutterWidth;
+      const gd = v.gutterDepth;
       cuFt = v.length * (cw * ch + gw * gd);
       steps = [
         `Curb cross-section: ${fmt(v.curbWidth)} × ${fmt(v.curbHeight)} = ${fmt(cw * ch)} ft².`,
@@ -264,11 +264,11 @@ const concreteVolume: Model = {
       ];
     } else if (s === 4) {
       cuFt = v.stairWidth * v.rise * v.run * v.steps * (v.steps + 1) / 2
-        + v.stairWidth * v.landing * v.steps * v.rise / 12;
+        + v.stairWidth * v.landing * v.steps * v.rise;
       steps = [`Stairs (solid, ${v.steps} steps): ${fmt(cuFt)} ft³.`];
     } else if (s === 5) {
-      const baseF = v.base / 12;
-      const heightF = v.triHeight / 12;
+      const baseF = v.base;
+      const heightF = v.triHeight;
       const area = 0.5 * baseF * heightF;
       cuFt = area * v.wedgeLength;
       steps = [`Triangle cross-section: 0.5 × ${fmt(baseF)} × ${fmt(heightF)} = ${fmt(area)} ft². × ${fmt(v.wedgeLength)} ft = ${fmt(cuFt)} ft³.`];
@@ -291,7 +291,7 @@ const concreteWeightFields: Field[] = [
 
 const concreteWeight: Model = {
   fields: concreteWeightFields,
-  formula: 'Mass = volume × density; US tons = mass / 2,000; kg = mass × 0.45359237; metric tonnes = mass / 0.45359237 ÷ 1000.',
+  formula: 'Mass = volume × density; US tons = mass / 2,000; kg = mass × 0.45359237; metric tonnes = mass × 0.45359237 ÷ 1000.',
   assumptions: [
     `Default density ${DEFAULT_DENSITY} lb/ft³ = ${(DEFAULT_DENSITY * 27 / 2000).toFixed(2)} US tons/yd³ for normal-weight concrete per ACI 318R.`,
     'Lightweight structural concrete may be 110–130 lb/ft³ (e.g. perlite, scoria, expanded clay aggregate).',
@@ -333,7 +333,7 @@ const concreteWeight: Model = {
         `${fmt(cuFt)} ft³ × ${fmt(density)} lb/ft³ = ${fmt(netLb)} lb.`,
         `${fmt(cuYd)} yd³ × ${fmt(density * 27)} lb/yd³ = ${fmt(netLb)} lb.`,
         `With ${fmt(v.waste)}% allowance: ${fmt(totalLb)} lb.`,
-        `kg: ${fmt(netLb)} × ${fmt(LB_PER_KG)} = ${fmt(netLb * LB_PER_KG)} kg.`,
+        `kg: ${fmt(netLb)} ÷ ${fmt(LB_PER_KG)} = ${fmt(netLb / LB_PER_KG)} kg.`,
       ],
       [
         `Volume and density must refer to the same placed or compacted condition.`,
@@ -353,8 +353,8 @@ const concreteCostFields: Field[] = [
   { ...densityField },
   yieldField,
   price('USD/yd3', ['USD/yd3', 'USD/m3', 'USD/ft3', 'USD/bag', 'USD/ton']),
-  number('delivery', 'Ready-mix delivery fee ($)', 0, 0, 'Flat delivery charge per truck, not per yard.'),
-  number('shortLoadFee', 'Short-load fee ($)', 0, 0, 'Added to the order if the final truck is below the supplier\'s minimum.'),
+  number('delivery', 'Ready-mix delivery fee ($)', 0, 0, 'Enter the total quoted delivery charge for this order. If your supplier charges per truck, enter the combined delivery amount.'),
+  number('shortLoadFee', 'Short-load fee ($)', 0, 0, 'Enter the quoted short-load surcharge when it applies; otherwise enter 0.'),
   number('pumpFee', 'Concrete pump fee ($)', 0, 0, 'Flat charge for a boom or line pump if placement requires one.'),
   number('reinforcement', 'Reinforcement ($)', 0, 0, 'Rebar, mesh, chairs, ties — your supplier or takeoff value.'),
   number('formwork', 'Formwork / subbase ($)', 0, 0, 'Forms, gravel base, vapor barrier, finishing prep. Optional.'),
@@ -370,8 +370,8 @@ const concreteCost: Model = {
     ...standardAssumptions,
     'Price and the selected price unit must describe the same basis (e.g. per cubic yard of ready-mix).',
     'Bag pricing estimates material only; bag cost per yard varies by brand and location.',
-    'Delivery fee is a flat amount, not per yard. Confirm with your supplier.',
-    'Short-load fees and pump fees are supplier-specific. Enter the values from your quote.',
+    'Delivery charging methods vary by supplier; enter the total delivery amount from the quote for this order.',
+    'Short-load and pump fees are supplier-specific. Enter the quoted surcharge when applicable, otherwise use zero.',
     'Tax applies to material only unless explicitly added to other line items.',
     'National price data is for context only. Get a local quote before ordering.',
   ],
@@ -573,10 +573,18 @@ const concretePour: Model = {
     // Load planning
     const trucks = Math.max(1, roundUp(totalCuYd / v.truckCapacity));
     const lastTruckYd = Math.max(0, totalCuYd - (trucks - 1) * v.truckCapacity);
-    const isShortLoad = lastTruckYd > 0 && lastTruckYd < v.minOrder && trucks > 1;
+    const isShortLoad = lastTruckYd > 0 && lastTruckYd < v.minOrder;
     const shortFee = isShortLoad && Number.isFinite(v.shortLoadFee) ? v.shortLoadFee : 0;
-    const totalCost = Number.isFinite(v.price)
-      ? totalCuYd * v.price + shortFee
+    const priceQuantities: Record<string, number> = {
+      'USD/yd3': totalCuYd,
+      'USD/m3': totalCuFt / FT_PER_M ** 3,
+      'USD/ft3': totalCuFt,
+      'USD/bag': bags,
+      'USD/ton': lb / 2000,
+    };
+    const pricedQuantity = priceQuantities[u.price];
+    const totalCost = Number.isFinite(v.price) && pricedQuantity !== undefined
+      ? pricedQuantity * v.price + shortFee
       : NaN;
 
     // Pour duration
@@ -664,8 +672,8 @@ const concreteSlab: Model = {
     }
     const edgeAdded = v.thickenedEdgeDepth > v.thickness && v.thickenedEdgeWidth > 0
       ? (isCircle
-          ? Math.PI * v.diameter * v.thickenedEdgeWidth * (v.thickenedEdgeDepth - v.thickness) / 144
-          : 2 * (v.length + v.width) * v.thickenedEdgeWidth * (v.thickenedEdgeDepth - v.thickness) / 144)
+          ? Math.PI * v.diameter * v.thickenedEdgeWidth * (v.thickenedEdgeDepth - v.thickness) * v.quantity
+          : 2 * (v.length + v.width) * v.thickenedEdgeWidth * (v.thickenedEdgeDepth - v.thickness) * v.quantity)
       : 0;
     const cuFt = slabCuFt + edgeAdded;
 
@@ -726,8 +734,8 @@ const concreteFooting: Model = {
 
     switch (shape) {
       case 0: {
-        cuFt = v.length * v.width * v.depth;
-        steps = [`Strip: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} = ${fmt(cuFt)} ft³.`];
+        cuFt = v.length * v.width * v.depth * v.quantity;
+        steps = [`Strip: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
         break;
       }
       case 1: {
@@ -825,7 +833,7 @@ const concreteFoundation: Model = {
     }
 
     if (v.pierCount > 0 && v.pierDiameter > 0 && v.pierDepth > 0) {
-      const r = v.pierDiameter / 24;
+      const r = v.pierDiameter / 2;
       const pierVol = Math.PI * r * r * v.pierDepth * v.pierCount;
       cuFt += pierVol;
       parts.push(`Piers: π × ${fmt(r)}² × ${fmt(v.pierDepth)} × ${v.pierCount} = ${fmt(pierVol)} ft³`);
@@ -844,18 +852,10 @@ const concreteFoundation: Model = {
 // 10.  Concrete Wall Calculator
 // ==========================================================
 const concreteWallFields: Field[] = [
-  { id: 'wallStyle', label: 'Wall layout', value: 0, unit: '', integer: true, min: 0, max: 1,
-    options: [
-      { value: 0, label: 'Single segment' },
-      { value: 1, label: 'Add segments' },
-    ] },
   length('length', 'Total wall length (centerline)', 40, 'ft'),
   length('height', 'Wall height', 8, 'ft'),
   length('thickness', 'Wall thickness', 8, 'in'),
-  { ...openings, value: 0 },
-  // Optional alternate: list of opening counts
-  positiveOrZero(count('windowCount', 'Number of windows', 0)),
-  positiveOrZero(count('doorCount', 'Number of doors', 0)),
+  { ...openings, value: 0, help: 'Enter the combined door, window and utility opening area once; it is multiplied by wall thickness to deduct opening volume.' },
   allowance,
   densityField,
   yieldField60,
@@ -874,17 +874,18 @@ const concreteWall: Model = {
   sources: [geometry, cmha],
   calculate(v, u) {
     const gross = v.length * v.height * v.thickness;
-    const net = Math.max(0, gross - v.openings);
-    requireCondition(net >= 0, 'openings', 'Openings cannot exceed the wall volume. Check dimensions.');
-    const formArea = 2 * (v.length * v.height); // one face for each side
+    const openingVolume = v.openings * v.thickness;
+    requireCondition(openingVolume <= gross, 'openings', 'Opening area cannot exceed the measured wall face. Check dimensions.');
+    const net = gross - openingVolume;
+    const oneSideFormArea = v.length * v.height;
     return concreteResult(net, v, u, [
       `Gross: ${fmt(v.length)} × ${fmt(v.height)} × ${fmt(v.thickness)} = ${fmt(gross)} ft³.`,
-      `Less openings: ${fmt(gross)} − ${fmt(v.openings)} = ${fmt(net)} ft³.`,
+      `Openings: ${fmt(v.openings)} ft² × ${fmt(v.thickness)} ft = ${fmt(openingVolume)} ft³; net = ${fmt(net)} ft³.`,
     ], [
       row('gross', 'Gross volume', gross, 'ft³'),
-      row('openingsVolume', 'Opening deductions', v.openings, 'ft³'),
-      row('formArea', 'Form contact area (one side)', formArea, 'ft²'),
-      row('formTotal', 'Form contact area (both sides)', formArea * 2, 'ft²'),
+      row('openingsVolume', 'Opening deductions', openingVolume, 'ft³'),
+      row('formArea', 'Form contact area (one side)', oneSideFormArea, 'ft²'),
+      row('formTotal', 'Form contact area (both sides)', oneSideFormArea * 2, 'ft²'),
     ]);
   },
 };
@@ -994,25 +995,31 @@ const concreteCurb: Model = {
     const extras: { key: string; label: string; value: number; unit: string; discrete?: boolean }[] = [];
 
     if (isReverse) {
-      // Convert input volume (yd³) → ft³
-      const availFt3 = v.volume * 27 * (1 - (v.waste ?? 0) / 100 / 2); // small buffer since user provided already-wasted volume is ambiguous
-      const linearFt = totalArea > 0 ? v.volume * 27 / totalArea : 0;
+      const availableFt3 = v.volume;
+      const linearFt = totalArea > 0 ? availableFt3 / totalArea : 0;
+      const reverseRows = [
+        row('linearFt', 'Linear feet of curb', linearFt, 'ft'),
+        row('linearM', 'Linear meters of curb', linearFt / FT_PER_M, 'm'),
+        row('crossArea', 'Cross-section area', totalArea, 'ft²'),
+        row('crossSqIn', 'Cross-section area', totalArea * 144, 'in²'),
+        row('volume', 'Available concrete', availableFt3 / 27, 'yd³'),
+        row('volumeFt3', 'Available concrete', availableFt3, 'ft³'),
+      ];
+      withCost(reverseRows, v.price, u.price, {
+        'USD/yd3': availableFt3 / 27,
+        'USD/m3': availableFt3 / FT_PER_M ** 3,
+        'USD/ft3': availableFt3,
+        'USD/bag': roundUp(availableFt3 / v.yield),
+      });
       return result(
-        [
-          row('linearFt', 'Linear feet of curb', linearFt, 'ft'),
-          row('linearM', 'Linear meters of curb', linearFt / FT_PER_M, 'm'),
-          row('crossArea', 'Cross-section area', totalArea, 'ft²'),
-          row('crossSqIn', 'Cross-section area', totalArea * 144, 'in²'),
-          row('volume', 'Available concrete', v.volume, 'yd³'),
-          row('volumeFt3', 'Available concrete', v.volume * 27, 'ft³'),
-        ],
+        reverseRows,
         [
           `${style} cross-section:`,
           `  Curb: ${fmt(v.curbWidth)} × ${fmt(v.curbHeight)} = ${fmt(curbArea)} ft².`,
           gutterW > 0 ? `  Gutter: ${fmt(gutterW)} × ${fmt(v.gutterThickness)} = ${fmt(gutterArea)} ft².` : '  No gutter (curb only).',
           `Total cross-section = ${fmt(totalArea)} ft².`,
-          `With ${fmt(v.volume)} yd³ = ${fmt(v.volume * 27)} ft³ of concrete:`,
-          `  Linear feet = ${fmt(v.volume * 27)} ÷ ${fmt(totalArea)} = ${fmt(linearFt)} ft.`,
+          `With ${fmt(availableFt3 / 27)} yd³ = ${fmt(availableFt3)} ft³ of concrete:`,
+          `  Linear feet = ${fmt(availableFt3)} ÷ ${fmt(totalArea)} = ${fmt(linearFt)} ft.`,
         ],
       );
     }
@@ -1060,7 +1067,7 @@ const concreteStairFields: Field[] = [
 
 const concreteStair: Model = {
   fields: concreteStairFields,
-  formula: 'Solid: V = W × rise × run × n(n+1)/2 + landing. Waist-slab: slab V = √(totalRun² + totalRise²) × W × T_w; wedges V = 0.5 × totalRun × totalRise × W; landing V = L × W × T_w.',
+  formula: 'Solid: V = W × rise × run × n(n+1)/2 + landing. Waist-slab: slab V = √(totalRun² + totalRise²) × W × T_w; step wedges V = 0.5 × n × run × rise × W; landing V = L × W × T.',
   assumptions: [
     ...standardAssumptions,
     'Solid stairs use full concrete fill; each tread section is one riser taller than the one below it.',
@@ -1076,17 +1083,17 @@ const concreteStair: Model = {
     const Rise = v.rise;
     const Run = v.run;
     const n = v.steps;
-    const totalRiseFt = n * Rise / 12;
-    const totalRunFt = n * Run / 12;
+    const totalRiseFt = n * Rise;
+    const totalRunFt = n * Run;
 
     if (model === 1) {
       const slopedLength = Math.sqrt(totalRunFt ** 2 + totalRiseFt ** 2);
-      const waistT = v.waistThickness / 12;
-      const landingT = v.landingThickness > 0 ? v.landingThickness / 12 : waistT;
+      const waistT = v.waistThickness;
+      const landingT = v.landingThickness > 0 ? v.landingThickness : waistT;
       const landingW = v.landingWidth > 0 ? v.landingWidth : Wf;
 
       const waistSlabVol = slopedLength * Wf * waistT;
-      const wedgeArea = 0.5 * totalRunFt * totalRiseFt;
+      const wedgeArea = 0.5 * n * Run * Rise;
       const wedgeVol = wedgeArea * Wf;
       const landingVol = v.landingLength > 0 && landingW > 0
         ? v.landingLength * landingW * landingT
@@ -1118,7 +1125,7 @@ const concreteStair: Model = {
 
     // Solid / mass concrete
     const stepVol = Wf * Rise * Run * n * (n + 1) / 2;
-    const landingT = v.landingThickness > 0 ? v.landingThickness / 12 : (v.waistThickness / 12);
+    const landingT = v.landingThickness > 0 ? v.landingThickness : v.waistThickness;
     const landingW = v.landingWidth > 0 ? v.landingWidth : Wf;
     const landingVol = v.landingLength > 0 && landingW > 0
       ? v.landingLength * landingW * landingT
@@ -1151,7 +1158,7 @@ const concreteStair: Model = {
 const concreteRampFields: Field[] = [
   length('length', 'Horizontal run length', 10, 'ft'),
   length('width', 'Ramp width', 4, 'ft'),
-  length('rise', 'Vertical rise (max thickness high end)', 18, 'in'),
+  length('rise', 'High-end thickness', 18, 'in'),
   positiveOrZero(length('lowThickness', 'Thickness at low end', 0, 'in'),
     { help: 'Often 0 for a ramp on a slab. Add if there is a curb or thickened edge at the low end.' }),
   positiveOrZero(length('landingLength', 'Landing length (top) (optional)', 0, 'ft')),
@@ -1189,10 +1196,11 @@ const concreteRamp: Model = {
     const landingFt3 = landingLen > 0 && landingT > 0 ? landingLen * landingW * landingT : 0;
     const cuFt = wedgeFt3 + landingFt3;
 
-    const slopeRatio = v.length > 0 ? (highTFt - lowTFt) / v.length : NaN;
+    const riseDelta = Math.abs(highTFt - lowTFt);
+    const slopeRatio = v.length > 0 ? riseDelta / v.length : NaN;
     const slopePct = slopeRatio * 100;
     const slopeAngle = slopeRatio > 0 ? Math.atan(slopeRatio) * 180 / Math.PI : 0;
-    const slopedLength = v.length > 0 ? Math.sqrt((highTFt - lowTFt) ** 2 + v.length ** 2) : 0;
+    const slopedLength = v.length > 0 ? Math.sqrt(riseDelta ** 2 + v.length ** 2) : 0;
     const adaOK = slopeRatio <= 1 / 12;
 
     return concreteResult(cuFt, v, u, [
@@ -1241,7 +1249,8 @@ const concreteTube: Model = {
   calculate(v, u) {
     let innerId = v.innerDiameter;
     if (innerId === 0 && v.wallThickness > 0) {
-      innerId = Math.max(0, v.outerDiameter - 2 * v.wallThickness);
+      requireCondition(2 * v.wallThickness < v.outerDiameter, 'wallThickness', 'Wall thickness must be less than half the outside diameter.');
+      innerId = v.outerDiameter - 2 * v.wallThickness;
     }
     requireCondition(innerId < v.outerDiameter, 'innerDiameter', 'Inside diameter must be smaller than outside diameter.');
     const ro = v.outerDiameter / 2;
