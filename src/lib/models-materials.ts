@@ -1664,21 +1664,28 @@ const foundationCost: Model = {
 
 // 6. Shed Foundation
 const shedFoundationFields: Field[] = [
-  { id: 'foundationType', label: 'Foundation type', value: 0, unit: '', integer: true, min: 0, max: 2,
+  { id: 'foundationType', label: 'Foundation type / pier takeoff mode', value: 0, unit: '', integer: true, min: 0, max: 3,
     options: [
       { value: 0, label: 'Concrete slab' },
-      { value: 1, label: 'Concrete pier & beam' },
+      { value: 1, label: 'Concrete pier & beam — enter pier count' },
       { value: 2, label: 'Concrete footing (strip)' },
+      { value: 3, label: 'Concrete pier & beam — calculate count from spacing' },
     ] },
   { ...length('length', 'Slab length / footing run', 10, 'ft'), visibleWhen: { field: 'foundationType', in: [0, 2] } },
   { ...length('width', 'Slab width', 10, 'ft'), visibleWhen: { field: 'foundationType', equals: 0 } },
   { ...length('thickness', 'Slab thickness', 4, 'in'), visibleWhen: { field: 'foundationType', equals: 0 } },
   { ...count('pierCount', 'Number of piers', 4, 1), visibleWhen: { field: 'foundationType', equals: 1 } },
-  { ...length('pierDiameter', 'Pier diameter', 12, 'in'), visibleWhen: { field: 'foundationType', equals: 1 } },
-  { ...length('pierDepth', 'Pier embedment depth', 24, 'in'), visibleWhen: { field: 'foundationType', equals: 1 } },
+  { ...length('pierPlanLength', 'Pier layout length', 10, 'ft'), visibleWhen: { field: 'foundationType', equals: 3 },
+    help: 'Overall center-to-center layout length covered by the pier grid.' },
+  { ...length('pierPlanWidth', 'Pier layout width', 10, 'ft'), visibleWhen: { field: 'foundationType', equals: 3 },
+    help: 'Overall center-to-center layout width covered by the pier grid.' },
+  { ...length('pierSpacing', 'Maximum pier spacing from plan', 6, 'ft'), visibleWhen: { field: 'foundationType', equals: 3 },
+    help: 'Enter the maximum on-center spacing specified by your project plan or designer. The calculator does not choose a structural spacing.' },
+  { ...length('pierDiameter', 'Pier diameter', 12, 'in'), visibleWhen: { field: 'foundationType', in: [1, 3] } },
+  { ...length('pierDepth', 'Pier embedment depth', 24, 'in'), visibleWhen: { field: 'foundationType', in: [1, 3] } },
   { ...length('footingWidth', 'Footing width', 12, 'in'), visibleWhen: { field: 'foundationType', equals: 2 } },
   { ...length('footingDepth', 'Footing depth', 12, 'in'), visibleWhen: { field: 'foundationType', equals: 2 } },
-  count('quantity', 'Identical sections', 1),
+  count('quantity', 'Identical foundation sections', 1),
   allowance,
   densityField,
   yieldField,
@@ -1690,20 +1697,23 @@ const shedFoundationFields: Field[] = [
 
 const shedFoundation: Model = {
   fields: shedFoundationFields,
-  formula: 'Slab: V = L × W × T × qty. Pier: V = π × (D/2)² × depth × pier count × qty. Footing: V = run × width × depth × qty. Units are normalized before the formulas run.',
+  formula: 'Slab: V = L × W × T × qty. Pier: V = π × (D/2)² × depth × pier count × qty. Spacing takeoff: piers per axis = ceil(layout dimension / entered maximum spacing) + 1. Footing: V = run × width × depth × qty. Units are normalized before the formulas run.',
   assumptions: [
-    'This is a material quantity estimate for simple foundation shapes. It does not design structural members, frost depth, or load capacity.',
+    'This is a material quantity and layout takeoff for simple foundation shapes. It does not design structural members, frost depth, bearing capacity or load capacity.',
     'Slab: rectangular flat pad. Include isolation board thickness if required.',
-    'Pier: cylindrical concrete piers. Verify bearing capacity and frost depth locally.',
+    'Pier: cylindrical concrete piers. In spacing mode, the entered maximum spacing must come from the project plan or qualified designer; the calculator only converts it into an equalized grid count.',
+    'Spacing mode includes a pier at both ends of each layout axis, rounds interval count up, and equalizes spacing so the actual spacing does not exceed the entered maximum.',
     'Footing: continuous strip. Verify width and depth from project plans.',
-    'Slab thickness, pier diameter and embedment are design inputs. Enter dimensions from the project requirements rather than using generic defaults.',
-    'Confirm all dimensions with your local building code and a qualified designer.',
+    'Slab thickness, pier diameter, embedment and spacing are design inputs. Enter dimensions from the project requirements rather than treating initial form values as recommendations.',
+    'Confirm all dimensions with your local building requirements and a qualified designer.',
   ],
   sources: [quikrete, geometry],
   calculate(v, u) {
     const fType = Math.round(v.foundationType);
     let cuFt: number;
     let steps: string[];
+
+    let layoutRows: { key: string; label: string; value: number; unit: string; discrete?: boolean }[] = [];
 
     if (fType === 0) {
       cuFt = v.length * v.width * v.thickness * v.quantity;
@@ -1717,12 +1727,34 @@ const shedFoundation: Model = {
       ];
     } else {
       const radiusFt = v.pierDiameter / 2;
-      const pierCuFt = Math.PI * radiusFt ** 2 * v.pierDepth * v.pierCount * v.quantity;
+      let piersPerSection = v.pierCount;
+      if (fType === 3) {
+        requireCondition(v.pierSpacing > 0, 'pierSpacing', 'Maximum pier spacing must be greater than zero.');
+        const countAlongLength = roundUp(v.pierPlanLength / v.pierSpacing) + 1;
+        const countAlongWidth = roundUp(v.pierPlanWidth / v.pierSpacing) + 1;
+        piersPerSection = countAlongLength * countAlongWidth;
+        const actualLengthSpacing = v.pierPlanLength / (countAlongLength - 1);
+        const actualWidthSpacing = v.pierPlanWidth / (countAlongWidth - 1);
+        layoutRows = [
+          row('pierCount', 'Piers per foundation section', piersPerSection, 'piers', true),
+          row('pierCountLength', 'Pier lines along layout length', countAlongLength, 'lines', true),
+          row('pierCountWidth', 'Pier lines along layout width', countAlongWidth, 'lines', true),
+          row('pierSpacingLength', 'Equalized spacing along length', actualLengthSpacing * 12, 'in'),
+          row('pierSpacingWidth', 'Equalized spacing along width', actualWidthSpacing * 12, 'in'),
+        ];
+        steps = [
+          `Pier grid: ceil(${fmt(v.pierPlanLength)} ÷ ${fmt(v.pierSpacing)}) + 1 = ${countAlongLength} lines along length; ceil(${fmt(v.pierPlanWidth)} ÷ ${fmt(v.pierSpacing)}) + 1 = ${countAlongWidth} lines along width.`,
+          `Piers per foundation section: ${countAlongLength} × ${countAlongWidth} = ${piersPerSection}; equalized spacing ≈ ${fmt(actualLengthSpacing)} ft × ${fmt(actualWidthSpacing)} ft.`,
+        ];
+      } else {
+        steps = [];
+      }
+      const pierCuFt = Math.PI * radiusFt ** 2 * v.pierDepth * piersPerSection * v.quantity;
       cuFt = pierCuFt;
-      steps = [
+      steps.push(
         `Pier radius: ${fmt(v.pierDiameter)} ft ÷ 2 = ${fmt(radiusFt)} ft.`,
-        `Pier volume: π × ${fmt(radiusFt)}² × ${fmt(v.pierDepth)} ft × ${v.pierCount} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
-      ];
+        `Pier volume: π × ${fmt(radiusFt)}² × ${fmt(v.pierDepth)} ft × ${piersPerSection} piers/section × ${v.quantity} section(s) = ${fmt(cuFt)} ft³.`,
+      );
     }
 
     const total = cuFt * waste(v);
@@ -1735,6 +1767,7 @@ const shedFoundation: Model = {
       row('bags', `Bags (entered yield ${fmt(v.yield)} ft³)`, bags, 'bags', true),
       row('weight', 'Estimated order weight (lb)', lb, 'lb'),
       row('tons', 'Estimated order weight (US tons)', lb / 2000, 'US tons'),
+      ...layoutRows,
     ];
 
     if (Number.isFinite(v.price)) {
