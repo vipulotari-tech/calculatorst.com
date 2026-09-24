@@ -86,8 +86,9 @@ describe('Traffic-priority distinct calculator models', () => {
   });
   it('normalizes a user-entered mortar cement lime sand ratio', () => {
     const res=calculate('mortar-mix-calculator',{volume:10,cementParts:1,limeParts:1,sandParts:6});
-    expect(res.rows.find(r=>r.key==='cement')?.value).toBeCloseTo(1.25,8);
-    expect(res.rows.find(r=>r.key==='lime')?.value).toBeCloseTo(1.25,8);
-    expect(res.rows.find(r=>r.key==='sand')?.value).toBeCloseTo(7.5,8);
+    // The form's default volume unit is yd³, so 10 yd³ = 270 ft³ before ratio splitting.
+    expect(res.rows.find(r=>r.key==='cement')?.value).toBeCloseTo(33.75,8);
+    expect(res.rows.find(r=>r.key==='lime')?.value).toBeCloseTo(33.75,8);
+    expect(res.rows.find(r=>r.key==='sand')?.value).toBeCloseTo(202.5,8);
   });
 });
