@@ -279,7 +279,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "keywords": [
       "slab rebar calculator",
       "slab reinforcement calculator",
-      "rebar grid calculator",
+      "concrete slab rebar grid",
       "rebar spacing calculator slab"
     ],
     "featured": false
