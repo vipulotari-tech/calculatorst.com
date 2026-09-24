@@ -1673,11 +1673,11 @@ const shedFoundationFields: Field[] = [
   { ...length('length', 'Slab length / footing run', 10, 'ft'), visibleWhen: { field: 'foundationType', in: [0, 2] } },
   { ...length('width', 'Slab width', 10, 'ft'), visibleWhen: { field: 'foundationType', equals: 0 } },
   { ...length('thickness', 'Slab thickness', 4, 'in'), visibleWhen: { field: 'foundationType', equals: 0 } },
-  { ...positiveOrZero(count('pierCount', 'Number of piers', 4, 1)), visibleWhen: { field: 'foundationType', equals: 1 } },
-  { ...positiveOrZero(length('pierDiameter', 'Pier diameter', 12, 'in')), visibleWhen: { field: 'foundationType', equals: 1 } },
-  { ...positiveOrZero(length('pierDepth', 'Pier embedment depth', 24, 'in')), visibleWhen: { field: 'foundationType', equals: 1 } },
-  { ...positiveOrZero(length('footingWidth', 'Footing width', 12, 'in')), visibleWhen: { field: 'foundationType', equals: 2 } },
-  { ...positiveOrZero(length('footingDepth', 'Footing depth', 12, 'in')), visibleWhen: { field: 'foundationType', equals: 2 } },
+  { ...count('pierCount', 'Number of piers', 4, 1), visibleWhen: { field: 'foundationType', equals: 1 } },
+  { ...length('pierDiameter', 'Pier diameter', 12, 'in'), visibleWhen: { field: 'foundationType', equals: 1 } },
+  { ...length('pierDepth', 'Pier embedment depth', 24, 'in'), visibleWhen: { field: 'foundationType', equals: 1 } },
+  { ...length('footingWidth', 'Footing width', 12, 'in'), visibleWhen: { field: 'foundationType', equals: 2 } },
+  { ...length('footingDepth', 'Footing depth', 12, 'in'), visibleWhen: { field: 'foundationType', equals: 2 } },
   count('quantity', 'Identical sections', 1),
   allowance,
   densityField,
@@ -1690,7 +1690,7 @@ const shedFoundationFields: Field[] = [
 
 const shedFoundation: Model = {
   fields: shedFoundationFields,
-  formula: 'Slab: V = L × W × T × qty. Pier: V = π × (D/24)² × depth × count. Footing: V = L × W × D × qty.',
+  formula: 'Slab: V = L × W × T × qty. Pier: V = π × (D/2)² × depth × pier count × qty. Footing: V = run × width × depth × qty. Units are normalized before the formulas run.',
   assumptions: [
     'This is a material quantity estimate for simple foundation shapes. It does not design structural members, frost depth, or load capacity.',
     'Slab: rectangular flat pad. Include isolation board thickness if required.',
@@ -1711,16 +1711,17 @@ const shedFoundation: Model = {
         `Slab: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.thickness)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
       ];
     } else if (fType === 2) {
-      cuFt = v.length * (v.footingWidth / 12) * (v.footingDepth / 12) * v.quantity;
+      cuFt = v.length * v.footingWidth * v.footingDepth * v.quantity;
       steps = [
-        `Footing: ${fmt(v.length)} × ${fmt(v.footingWidth)} × ${fmt(v.footingDepth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
+        `Footing: ${fmt(v.length)} ft × ${fmt(v.footingWidth)} ft × ${fmt(v.footingDepth)} ft × ${v.quantity} = ${fmt(cuFt)} ft³.`,
       ];
     } else {
-      const pierCuFt = Math.PI * (v.pierDiameter / 24) ** 2 * (v.pierDepth / 12) * (v.pierCount || 1);
+      const radiusFt = v.pierDiameter / 2;
+      const pierCuFt = Math.PI * radiusFt ** 2 * v.pierDepth * v.pierCount * v.quantity;
       cuFt = pierCuFt;
       steps = [
-        `Pier radius: ${fmt(v.pierDiameter / 2)} in = ${fmt(v.pierDiameter / 24)} ft.`,
-        `Pier volume: π × ${fmt(v.pierDiameter / 24)}² × ${fmt(v.pierDepth / 12)} × ${v.pierCount || 1} = ${fmt(cuFt)} ft³.`,
+        `Pier radius: ${fmt(v.pierDiameter)} ft ÷ 2 = ${fmt(radiusFt)} ft.`,
+        `Pier volume: π × ${fmt(radiusFt)}² × ${fmt(v.pierDepth)} ft × ${v.pierCount} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
       ];
     }
 
@@ -1733,13 +1734,22 @@ const shedFoundation: Model = {
       row('m3', 'Order volume (m³)', total / FT_PER_M ** 3, 'm³'),
       row('bags', `Bags (entered yield ${fmt(v.yield)} ft³)`, bags, 'bags', true),
       row('weight', 'Estimated order weight (lb)', lb, 'lb'),
+      row('tons', 'Estimated order weight (US tons)', lb / 2000, 'US tons'),
     ];
 
     if (Number.isFinite(v.price)) {
-      const qty = total / 27;
-      const materials = qty * v.price;
+      const priceQuantities: Record<string, number> = {
+        'USD/yd3': total / 27,
+        'USD/m3': total / FT_PER_M ** 3,
+        'USD/ft3': total,
+        'USD/bag': bags,
+        'USD/ton': lb / 2000,
+      };
+      const priceQty = priceQuantities[u.price] ?? total / 27;
+      const materials = priceQty * v.price;
       const taxAmt = materials * (v.tax / 100);
       const totalCost = materials + taxAmt + v.delivery + v.labor;
+      steps.push(`Material price basis: ${fmt(priceQty)} ${u.price || 'USD/yd3'} × ${fmt(v.price)} = ${fmt(materials)}.`);
       rows.push(
         row('materials', 'Material subtotal', materials, 'USD'),
         row('tax', 'Material tax', taxAmt, 'USD'),
