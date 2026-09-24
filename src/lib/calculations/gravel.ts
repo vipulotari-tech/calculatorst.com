@@ -17,6 +17,7 @@ export function gravelVolume(opts: {
   width: number; widthUnit: string;
   depth: number; depthUnit: string;
   wastePercent: number;
+  compactionPercent?: number; // explicit extra loose material before waste
   densityKey?: string; // pea, crushed, etc.
   densityTonsPerYd?: number; // override
 }) {
@@ -25,15 +26,18 @@ export function gravelVolume(opts: {
   const Df = toFeet(opts.depth, opts.depthUnit);
   const cuFt = Lf * Wf * Df;
   const cuYd = cuFt / 27;
+  const c = wasteFactor(opts.compactionPercent ?? 0);
   const w = wasteFactor(opts.wastePercent);
-  const cuYdW = cuYd * w;
-  const cuFtW = cuFt * w;
+  const orderF = c * w;
+  const cuYdCompaction = cuYd * c;
+  const cuYdW = cuYd * orderF;
+  const cuFtW = cuFt * orderF;
   const tonsPerYd = opts.densityTonsPerYd ?? GRAVEL_DENSITY[opts.densityKey ?? "crushed"] ?? 1.40;
   const tons = cuYd * tonsPerYd;
   const tonsW = cuYdW * tonsPerYd;
   const lb = tons * 2000;
   const lbW = tonsW * 2000;
-  return { cuFt, cuYd, cuFtW, cuYdW, tons, tonsW, lb, lbW, tonsPerYd, wasteF: w, sqft: Lf * Wf };
+  return { cuFt, cuYd, cuFtW, cuYdW, cuYdCompaction, tons, tonsW, lb, lbW, tonsPerYd, compactionF: c, wasteF: w, orderF, sqft: Lf * Wf };
 }
 
 export function gravelWeightOnly(opts: {
@@ -63,9 +67,14 @@ export function gravelDepth(opts: {
 
 export function gravelCost(opts: {
   tonsW: number; cuYdW: number;
-  price: number; priceUnit: "yd" | "ton";
+  price: number; priceUnit: "yd" | "m3" | "ton";
+  m3W?: number;
 }) {
   if (!isFinite(opts.price) || opts.price <= 0) return { cost: NaN };
-  const cost = opts.priceUnit === "ton" ? opts.tonsW * opts.price : opts.cuYdW * opts.price;
+  const cost = opts.priceUnit === "ton"
+    ? opts.tonsW * opts.price
+    : opts.priceUnit === "m3"
+      ? (opts.m3W ?? opts.cuYdW * 0.764554857984) * opts.price
+      : opts.cuYdW * opts.price;
   return { cost };
 }
