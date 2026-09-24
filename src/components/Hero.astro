@@ -20,7 +20,7 @@
     <div class="flex justify-center">
       <p class="inline-flex items-center gap-2.5 font-mono text-[11px] font-medium tracking-[0.22em] text-zinc-500">
         <span class="h-px w-6 bg-zinc-300" aria-hidden="true"></span>
-        CONSTRUCTION & HOME IMPROVEMENT
+        CONSTRUCTION CALCULATORS
         <span class="h-px w-6 bg-zinc-300" aria-hidden="true"></span>
       </p>
     </div>
@@ -31,8 +31,8 @@
         id="hero-heading"
         class="text-[32px] font-[620] leading-[0.95] tracking-[-0.04em] sm:text-[48px] lg:text-[56px] [text-wrap:balance]"
       >
-        <span class="bg-gradient-to-b from-zinc-900 to-zinc-600 bg-clip-text text-transparent ">Construction &amp; Home</span><br />
-        <span class="bg-gradient-to-b from-zinc-900 to-zinc-600 bg-clip-text text-transparent ">Improvement Calculators</span>
+        <span class="bg-gradient-to-b from-zinc-900 to-zinc-600 bg-clip-text text-transparent ">Construction Calculators</span><br />
+        <span class="bg-gradient-to-b from-zinc-900 to-zinc-600 bg-clip-text text-transparent ">for Material, Quantity &amp; Cost</span>
       </h1>
 
       <!-- Expanded Premium Subheadline -->
@@ -41,13 +41,13 @@
         Clear formulas, worked examples and assumptions help you understand each result before ordering materials.
       </p>
       <p class="mx-auto mt-3 hidden max-w-[680px] text-[13px] leading-5 text-zinc-500 text-zinc-500 sm:block">
-        Concrete &bull; Roofing &bull; Framing &bull; Gravel &bull; Excavation &bull; Flooring &bull; Decking &bull; Asphalt — every result validated for US customary &amp; metric.
+        Concrete &bull; Roofing &bull; Framing &bull; Gravel &bull; Excavation &bull; Flooring &bull; Deck &amp; Fence &bull; Asphalt — with US customary and metric unit support.
       </p>
     </div>
 
     <!-- Glassmorphism Search -->
     <div class="mx-auto mt-9 max-w-[640px]">
-      <form role="search" aria-label="Search calculators" class="group relative" onsubmit="return false">
+      <form role="search" aria-label="Search calculators" class="group relative" action="/calculators/" method="get">
         <div class="pointer-events-none absolute -inset-[1px] rounded-[16px] bg-gradient-to-b from-zinc-200 to-zinc-100 opacity-80 blur-[1px] group-focus-within:from-violet-200 group-focus-within:to-indigo-200 from-zinc-800 to-zinc-900 group-focus-within:from-violet-900/40 group-focus-within:to-indigo-900/40" aria-hidden="true"></div>
         <div class="relative flex items-center gap-3 rounded-[14px] border border-zinc-200/70 bg-white/80 px-4 py-3 shadow-[0_2px_16px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04)] backdrop-blur-xl transition-all group-focus-within:border-violet-300 group-focus-within:bg-white group-focus-within:shadow-[0_8px_32px_rgba(99,102,241,0.12)] border-zinc-800 bg-zinc-900/70 group-focus-within:border-violet-800 group-focus-within:bg-zinc-900">
           <!-- search icon -->
@@ -56,6 +56,7 @@
           </svg>
           <input
             id="hero-search"
+            name="q"
             type="search"
             placeholder="Search for a calculator..."
             autocomplete="off"
@@ -94,14 +95,3 @@
   </div>
 </section>
 
-<script is:inline>
-  const heroSearchInput = document.getElementById('hero-search');
-  if (heroSearchInput instanceof HTMLInputElement) {
-    heroSearchInput.addEventListener('keydown', (event) => {
-      if (event.key !== 'Enter') return;
-      const query = heroSearchInput.value.trim();
-      if (!query) return;
-      window.location.href = "/calculators/?q=" + encodeURIComponent(query);
-    });
-  }
-</script>

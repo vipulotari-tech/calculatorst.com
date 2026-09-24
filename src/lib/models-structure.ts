@@ -13,8 +13,79 @@ function roofValues(v:Record<string,number>){const footprint=(v.length+2*v.overh
 const roofArea:Model={fields:roofFields,formula:'Roof surface = (length + 2 × overhang) × (width + 2 × overhang) × √(1 + (pitch / 12)²) × sections.',assumptions:['Use the horizontal building footprint and a single common pitch. The same factor works for a simple gable or hip roof with uniform pitch.','Complex roofs need non-overlapping sections; valleys, dormers and differing slopes require separate measurements.','Overhang is a horizontal distance on each side. Allowance is material waste, not an increase in physical roof area.'],sources:[],calculate(v){const r=roofValues(v);return result([row('roof','Measured roof surface',r.roof,'ft²'),row('order','Material area with allowance',r.order,'ft²'),row('squares','Roofing squares with allowance',r.order/100,'squares'),row('m2','Measured roof surface',r.roof/FT_PER_M**2,'m²')],[`Footprint including overhang: ${fmt(r.footprint)} ft².`,`Pitch multiplier: √(1 + (${v.pitch}/12)²) = ${fmt(r.mult)}.`,`${fmt(r.footprint)} × ${fmt(r.mult)} = ${fmt(r.roof)} ft²; purchasing area = ${fmt(r.order)} ft².`]);}};
 const roofCover:Model={...roofArea,fields:[...roofFields,{...area('coverage','Effective coverage per package',100/3),group:'Material & assumptions',help:'Use the manufacturer’s net coverage after required overlaps. Bundles, sheets and rolls have different coverage.'},price('USD/unit')],formula:roofArea.formula+' Packages = ceil(roof surface × allowance factor / effective package coverage).',calculate(v,u){const r=roofValues(v),n=roundUp(r.order/v.coverage);const base=roofArea.calculate(v,u);return result(withCost([row('packages','Packages to order',n,'packages',true),...base.rows],v.price,u.price,{'USD/unit':n}),[...base.steps,`Round ${fmt(r.order)} ÷ ${fmt(v.coverage)} up = ${n} packages.`]);}};
 const rafter:Model={fields:[length('span','Building span (full width)',30),number('pitch','Rise per 12 units of run',6,0),positiveOrZero(length('overhang','Horizontal eave overhang',1))],formula:'Common rafter line length = (span / 2 + overhang) × √(1 + (pitch / 12)²).',assumptions:['Symmetric gable geometry measured along the roof slope. Does not include ridge-board deduction, birdsmouth cuts, plumb-cut allowance or lumber stock allowance.','A line length is not a rafter size, span approval, hip/valley rafter length or truss design.'],sources:[],calculate(v){const run=v.span/2+v.overhang,rise=run*v.pitch/12,l=Math.hypot(run,rise);return result([row('length','Common rafter line length',l,'ft'),row('meters','Common rafter line length',l/FT_PER_M,'m'),row('rise','Rise including overhang projection',rise,'ft')],[`Horizontal run: ${fmt(v.span)} / 2 + ${fmt(v.overhang)} = ${fmt(run)} ft.`,`√(${fmt(run)}² + ${fmt(rise)}²) = ${fmt(l)} ft.`]);}};
-const beamFields=[length('span','Simply supported span',10),number('load','Uniform line load (lb/ft)',100,0),number('modulus','Elastic modulus E (psi)',1600000),number('inertia','Second moment of area I (in⁴)',100)];
-const beam:Model={fields:beamFields,formula:'Reactions = wL/2; maximum moment = wL²/8; maximum deflection = 5wL⁴/(384EI), with w in lb/in and L in inches for deflection.',assumptions:['A prismatic, linearly elastic, simply supported beam under a full-span uniformly distributed load. Include self-weight in the line load.','No point loads, cantilevers, continuity, torsion, buckling, bearing, shear capacity, connection checks or code load combinations. Results are demands, not a safe load rating.','Elastic modulus and section properties must describe the actual member.'],sources:[awc],calculate(v){const reaction=v.load*v.span/2,moment=v.load*v.span**2/8,l=v.span*12,deflection=5*(v.load/12)*l**4/(384*v.modulus*v.inertia);return result([row('moment','Maximum bending moment',moment,'lb·ft'),row('reaction','Reaction at each support',reaction,'lb'),row('deflection','Maximum elastic deflection',deflection,'in'),row('total','Total applied load',v.load*v.span,'lb')],[`Reaction = ${fmt(v.load)} × ${fmt(v.span)} / 2 = ${fmt(reaction)} lb.`,`M = ${fmt(v.load)} × ${fmt(v.span)}² / 8 = ${fmt(moment)} lb·ft.`,`Deflection uses L = ${fmt(l)} in, w = ${fmt(v.load/12)} lb/in, E = ${fmt(v.modulus)} psi, I = ${fmt(v.inertia)} in⁴.`]);}};
+const beamFields=[
+  { ...number('case','Support / load case',0,0), integer:true, max:3, options:[
+    {value:0,label:'Simply supported — full-span uniform load'},
+    {value:1,label:'Simply supported — center point load'},
+    {value:2,label:'Cantilever — full-span uniform load'},
+    {value:3,label:'Cantilever — end point load'},
+  ]},
+  length('span','Beam span / cantilever length',10),
+  { ...number('load','Uniform line load (lb/ft)',100,0), visibleWhen:{field:'case',in:[0,2]}, help:'Full-span uniformly distributed service load. Include beam self-weight when it belongs in the load case.' },
+  { ...number('pointLoad','Point load (lb)',1000,0), visibleWhen:{field:'case',in:[1,3]}, help:'Single point load at midspan for the simply supported case or at the free end for the cantilever case.' },
+  number('modulus','Elastic modulus E (psi)',1600000),
+  number('inertia','Second moment of area I (in⁴)',100)
+];
+const beam:Model={
+  fields:beamFields,
+  formula:'Choose one idealized case. Simply supported UDL: R=wL/2, Mmax=wL²/8, δmax=5wL⁴/(384EI). Center point: R=P/2, Mmax=PL/4, δmax=PL³/(48EI). Cantilever UDL: R=wL, Mmax=wL²/2, δfree=wL⁴/(8EI). Cantilever end point: R=P, Mmax=PL, δfree=PL³/(3EI).',
+  assumptions:[
+    'Idealized prismatic, linearly elastic beam with constant E and I. Uniform-load cases act over the full span; point-load cases are exactly at midspan or the cantilever free end.',
+    'Outputs are elastic analysis demands only. This calculator does not select a member, calculate allowable capacity, check shear/bearing/buckling/connections, apply code load combinations or certify a safe design.',
+    'Elastic modulus and section moment of inertia must describe the actual member and axis being analyzed. Deflection formulas assume small deformation.'
+  ],
+  sources:[awc],
+  calculate(v){
+    const mode=Math.round(v.case);
+    const Lin=v.span*12;
+    let reaction:number,moment:number,deflection:number,total:number,maxShear:number;
+    let steps:string[];
+    if(mode===0){
+      const w=v.load;
+      reaction=w*v.span/2; maxShear=reaction; moment=w*v.span**2/8; total=w*v.span;
+      deflection=5*(w/12)*Lin**4/(384*v.modulus*v.inertia);
+      steps=[
+        `Simply supported UDL: reaction = ${fmt(w)} × ${fmt(v.span)} / 2 = ${fmt(reaction)} lb at each support.`,
+        `Maximum moment = wL²/8 = ${fmt(moment)} lb·ft at midspan.`,
+        `Maximum deflection = 5wL⁴/(384EI) = ${fmt(deflection)} in at midspan.`
+      ];
+    }else if(mode===1){
+      const P=v.pointLoad;
+      reaction=P/2; maxShear=reaction; moment=P*v.span/4; total=P;
+      deflection=P*Lin**3/(48*v.modulus*v.inertia);
+      steps=[
+        `Simply supported center point load: reaction = ${fmt(P)} / 2 = ${fmt(reaction)} lb at each support.`,
+        `Maximum moment = PL/4 = ${fmt(moment)} lb·ft at midspan.`,
+        `Maximum deflection = PL³/(48EI) = ${fmt(deflection)} in at midspan.`
+      ];
+    }else if(mode===2){
+      const w=v.load;
+      reaction=w*v.span; maxShear=reaction; moment=w*v.span**2/2; total=w*v.span;
+      deflection=(w/12)*Lin**4/(8*v.modulus*v.inertia);
+      steps=[
+        `Cantilever UDL: fixed-support vertical reaction = wL = ${fmt(reaction)} lb.`,
+        `Maximum fixed-end moment = wL²/2 = ${fmt(moment)} lb·ft.`,
+        `Free-end deflection = wL⁴/(8EI) = ${fmt(deflection)} in.`
+      ];
+    }else{
+      const P=v.pointLoad;
+      reaction=P; maxShear=P; moment=P*v.span; total=P;
+      deflection=P*Lin**3/(3*v.modulus*v.inertia);
+      steps=[
+        `Cantilever end point load: fixed-support vertical reaction = ${fmt(reaction)} lb.`,
+        `Maximum fixed-end moment = PL = ${fmt(moment)} lb·ft.`,
+        `Free-end deflection = PL³/(3EI) = ${fmt(deflection)} in.`
+      ];
+    }
+    return result([
+      row('moment','Maximum bending moment',moment,'lb·ft'),
+      row('reaction',mode<2?'Vertical reaction per support':'Fixed-support vertical reaction',reaction,'lb'),
+      row('shear','Maximum shear magnitude',maxShear,'lb'),
+      row('deflection',mode<2?'Maximum elastic deflection':'Free-end elastic deflection',deflection,'in'),
+      row('total','Total applied vertical load',total,'lb')
+    ],steps);
+  }
+};
 const excavation:Model={fields:[...rectangle,length('depth','Excavation depth',4),{...number('swell','Loose-volume increase (swell)',20,0,'Site-specific example. 20% means 1 bank yd³ becomes 1.2 loose yd³.'),max:200,unit:'%'},price('USD/yd3')],formula:'Bank volume = length × width × depth; loose volume = bank volume × (1 + swell / 100).',assumptions:['Vertical rectangular excavation. Sloped sides, working room, overbreak and irregular ground need separate measured allowances.','The cost basis is bank cubic yards. Loose haulage volumes are shown separately. Swell is not a second waste allowance.'],sources:['https://www.fhwa.dot.gov/construction/'],calculate(v,u){const bank=v.length*v.width*v.depth,loose=bank*(1+v.swell/100);return result(withCost([row('bank','In-place (bank) volume',bank/27,'yd³'),row('loose','Loose haulage volume',loose/27,'yd³'),row('m3','Bank volume',bank/FT_PER_M**3,'m³')],v.price,u.price,{'USD/yd3':bank/27}),[`${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} / 27 = ${fmt(bank/27)} bank yd³.`,`${fmt(bank/27)} × ${fmt(1+v.swell/100)} = ${fmt(loose/27)} loose yd³.`]);}};
 export const structureModels:Record<string,Model>={
   grid,spaced,spacing,roofArea,roofCover,rafter,beam,excavation,

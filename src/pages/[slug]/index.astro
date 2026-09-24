@@ -82,7 +82,25 @@ const ogClusterMap: Record<string, string> = {
 };
 
 const ogImage = ogClusterMap[calc.cluster] ?? "/og.png";
-const faq = content.faq;
+const faqEnhancements: Record<string, { q: string; a: string }[]> = {
+  "roofing-shingle-calculator": [
+    { q: "How does the roofing shingle calculator estimate bundles?", a: "It calculates sloped roof surface from the measured footprint, overhang and pitch, applies the entered material allowance, then divides by your effective coverage per bundle or package and rounds up." },
+    { q: "Is a roofing square the same as a bundle of shingles?", a: "No. A roofing square is 100 square feet of roof surface. Bundle coverage varies by product, so enter the manufacturer’s effective package coverage rather than assuming a fixed number of bundles per square." },
+  ],
+  "rebar-chair-calculator": [
+    { q: "How is the rebar chair count calculated?", a: "The calculator lays out a rectangular support grid using the maximum spacing you enter, counts support positions along both slab dimensions, multiplies the grid counts, then adds the purchasing allowance." },
+    { q: "Does this calculator choose the correct rebar chair spacing or height?", a: "No. Spacing, chair height, support type, edge setbacks and load capacity must come from the reinforcement support plan or project specification. This tool converts an already selected layout into a quantity." },
+  ],
+  "beam-calculator": [
+    { q: "Which beam load cases are included?", a: "The calculator includes a simply supported beam with a full-span uniform load, a simply supported beam with one center point load, a cantilever with a full-span uniform load, and a cantilever with one point load at the free end." },
+    { q: "Does the beam calculator tell me what beam size is safe?", a: "No. It calculates idealized elastic reactions, bending moment, shear and deflection from the inputs. It does not select a member or check allowable capacity, bearing, buckling, connections or code load combinations." },
+  ],
+  "concrete-wall-calculator": [
+    { q: "Can I subtract doors and windows from a concrete wall?", a: "Yes. Enter the opening area once so the calculator deducts it from the gross wall face before converting the remaining wall volume to concrete quantity." },
+    { q: "Does the concrete wall calculator choose wall thickness or reinforcement?", a: "No. Enter the wall thickness from your project requirements. The calculator estimates material quantity; structural thickness and reinforcement must be determined separately." },
+  ],
+};
+const faq = [...content.faq, ...(faqEnhancements[calc.slug] ?? [])];
 const seoDescriptionOverrides: Record<string, string> = {
   "crushed-stone-calculator": calc.description,
   "concrete-cost-calculator": calc.description,
