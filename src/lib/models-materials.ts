@@ -1172,7 +1172,7 @@ const concreteRampFields: Field[] = [
 
 const concreteRamp: Model = {
   fields: concreteRampFields,
-  formula: 'Wedge: V = L × W × (highT + lowT) / 2 − lowT slab. Landing: V = L_land × W_land × T_land. Slope ratio = rise / run.',
+  formula: 'Ramp volume = L × W × (high-end thickness + low-end thickness) / 2. Landing = L_land × W_land × T_land. Slope ratio = |high-end thickness − low-end thickness| / horizontal run.',
   assumptions: [
     ...standardAssumptions,
     'The ramp has a linearly varying thickness between the low and high ends.',
