@@ -13,8 +13,8 @@ function calculate(slug: string, changes: Record<string, number> = {}) {
 }
 describe('Page intent regression cases', () => {
   it('uses nominal CMU face area, not brick dimensions', () => {
-    const res = calculate('concrete-block-calculator',{length:10,width:10,waste:0});
-    expect(res.rows.find(r => r.key === 'units')?.value).toBe(113);
+    const res = calculate('concrete-block-calculator',{length:10,height:10,waste:0});
+    expect(res.rows.find(r => r.key === 'installed')?.value).toBe(113);
   });
   it('counts trusses across building length', () => {
     expect(calculate('roof-truss-calculator',{length:40,spacing:24,extra:0}).rows[0].value).toBe(21);
