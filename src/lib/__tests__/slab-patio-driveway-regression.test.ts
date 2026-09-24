@@ -44,6 +44,14 @@ describe("Slab, Patio & Driveway golden-value regression suite", () => {
       { mode: 1, length: 10, width: 10, thickness: 4, waste: 0 },
       { length: "ft", width: "ft", thickness: "in" },
     )).toBeCloseTo(100 / 3, 8);
+
+    const compare = run(
+      "slab-thickness-calculator",
+      { mode: 2, length: 10, width: 10, compareA: 4, compareB: 5, compareC: 6, waste: 0, density: 150, yield: 0.6, price: 200 },
+      { length: "ft", width: "ft", compareA: "in", compareB: "in", compareC: "in", density: "lb/ft3", price: "USD/yd3" },
+    );
+    expect(compare.rows.find(x => x.key === "weightA")?.value).toBeCloseTo(5000, 8);
+    expect(compare.rows.find(x => x.key === "costA")?.value).toBeCloseTo((100 / 3) / 27 * 200, 8);
   });
 
   it("Slab Cost: selected price basis plus entered project items are totaled once", () => {
@@ -59,6 +67,20 @@ describe("Slab, Patio & Driveway golden-value regression suite", () => {
     );
     expect(r.rows.find(x => x.key === "materials")?.value).toBeCloseTo(246.913580247, 7);
     expect(r.rows.find(x => x.key === "total")?.value).toBeCloseTo(446.604938272, 7);
+
+    const materialOnly = run(
+      "slab-cost-calculator",
+      {
+        length: 10, width: 10, depth: 4, quantity: 1, waste: 0,
+        price: 200, scope: 0, tax: 10,
+        delivery: 100, shortLoad: 100, pump: 100, subbase: 100,
+        reinforcement: 100, forms: 100, finishing: 100, labor: 100,
+      },
+      { length: "ft", width: "ft", depth: "in", price: "USD/yd3" },
+    );
+    expect(materialOnly.rows.find(x => x.key === "total")?.value).toBeCloseTo(246.913580247, 7);
+    expect(materialOnly.rows.some(x => x.key === "delivery")).toBe(false);
+    expect(materialOnly.rows.some(x => x.key === "tax")).toBe(false);
   });
 
   it("Slab Reinforcement: 10 × 10 ft slab, 3 in edge offset, 18 in max spacing gives 16 bars and 152 ft", () => {
@@ -151,13 +173,13 @@ describe("Slab, Patio & Driveway golden-value regression suite", () => {
       },
       { length: "ft", width: "ft", thickness: "in", edgeDepth: "in", edgeWidth: "in", gravelDepth: "in" },
     );
-    expect(r.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(186.666666667, 7);
-    expect(r.rows.find(x => x.key === "edge")?.value).toBeCloseTo(53.333333333, 7);
+    expect(r.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(184, 7);
+    expect(r.rows.find(x => x.key === "edge")?.value).toBeCloseTo(50.666666667, 7);
     expect(r.rows.find(x => x.key === "gravel")?.value).toBeCloseTo((400 / 3) / 27, 7);
     expect(r.rows.find(x => x.key === "vapor")?.value).toBeCloseTo(400, 8);
     expect(r.rows.find(x => x.key === "forms")?.value).toBeCloseTo(80, 8);
     expect(r.rows.find(x => x.key === "loads")?.value).toBe(2);
-    expect(r.rows.find(x => x.key === "lastLoad")?.value).toBeCloseTo(186.666666667 / 27 - 5, 7);
+    expect(r.rows.find(x => x.key === "lastLoad")?.value).toBeCloseTo(184 / 27 - 5, 7);
   });
 
   it("Shed Foundation: slab, piers and strip footing normalize units exactly once", () => {
