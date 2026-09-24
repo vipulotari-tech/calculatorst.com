@@ -6,8 +6,44 @@ function paintResult(net:number,v:Record<string,number>,u:Record<string,string>)
 const paint:Model={fields:paintFields,formula:'Wall area = 2 × (room length + room width) × wall height − excluded area; paint = area × coats × allowance factor / coverage.',assumptions:['Four rectangular walls; ceiling and trim are excluded. Measure recesses and extra walls separately.','Coverage is a product- and surface-specific example, per coat. Rough or porous surfaces may need more paint. Container price is the price of one entered container size.'],sources:['https://www.sherwin-williams.com/homeowners/color/color-tools/paint-calculator'],calculate(v,u){return paintResult(2*(v.length+v.width)*v.height-v.openings,v,u);}};
 const tile:Model={fields:[...rectangle,length('tileLength','Tile / paver length',12,'in'),length('tileWidth','Tile / paver width',12,'in'),positiveOrZero(length('joint','Joint width',0.125,'in')),allowance,price('USD/unit')],formula:'Rows = ceil((floor width + joint)/(unit width + joint)); columns = ceil((floor length + joint)/(unit length + joint)); units = rows × columns.',assumptions:['Straight rectangular grid. Counts a whole unit for each edge cut and assumes no reuse of offcuts; diagonal layouts and patterns require a separate layout.','Allowance covers breakage and spare units after the basic layout count. Expansion perimeter gaps are excluded.'],sources:[],calculate(v,u){const columns=roundUp((v.length+v.joint)/(v.tileLength+v.joint)),rows=roundUp((v.width+v.joint)/(v.tileWidth+v.joint)),base=columns*rows,n=roundUp(base*waste(v));return result(withCost([row('units','Units to buy',n,'units',true),row('base','Units in straight layout',base,'units',true),row('area','Surface area',v.length*v.width,'ft²'),row('rows','Rows',rows,'rows',true),row('columns','Columns',columns,'columns',true)],v.price,u.price,{'USD/unit':n}),[`${rows} rows × ${columns} columns = ${base} units before spares.`,`Round ${base} × ${fmt(waste(v))} up = ${n}.`]);}};
 const jointFill:Model={fields:[...rectangle,length('tileLength','Tile / paver length',12,'in'),length('tileWidth','Tile / paver width',12,'in'),positiveOrZero(length('joint','Joint width',0.125,'in')),length('depth','Filled joint depth',0.375,'in'),number('density','Fill density (kg/m³)',1600,undefined,'Use the product’s installed or bulk density, matching the volume state. This is an editable example.'),number('bagMass','Bag mass (kg)',5),allowance,price('USD/unit')],formula:'Joint fraction = 1 − Ltile × Wtile / ((Ltile + joint) × (Wtile + joint)); fill volume ≈ area × joint fraction × filled depth.',assumptions:['Repeating rectangular grid with fully filled joints. This is an interior-area approximation; perimeter joints, irregular pavers and joint profiles differ.','Density and yield vary by product. A manufacturer coverage table matched to unit size, joint width and depth is preferable for a final order.'],sources:[],calculate(v,u){const fraction=1-v.tileLength*v.tileWidth/((v.tileLength+v.joint)*(v.tileWidth+v.joint)),cuFt=v.length*v.width*fraction*v.depth*waste(v),m3=cuFt/FT_PER_M**3,kg=m3*v.density,bags=roundUp(kg/v.bagMass);return result(withCost([row('weight','Estimated joint fill',kg,'kg'),row('bags','Whole bags',bags,'bags',true),row('liters','Filled joint volume',m3*1000,'L'),row('ft3','Filled joint volume',cuFt,'ft³')],v.price,u.price,{'USD/unit':bags}),[`Joint fraction: ${fmt(fraction*100)}% of the tiled surface.`,`${fmt(v.length*v.width)} ft² × ${fmt(fraction)} × ${fmt(v.depth)} ft × ${fmt(waste(v))} = ${fmt(cuFt)} ft³.`,`${fmt(m3)} m³ × ${fmt(v.density)} kg/m³ = ${fmt(kg)} kg.`]);}};
+
+const drywallSheet: Model = {
+  fields: [
+    area('area','Drywall surface area',480),
+    length('sheetLength','Sheet length',8),
+    length('sheetWidth','Sheet width',4),
+    allowance,
+    price('USD/unit')
+  ],
+  formula:'Sheet area = sheet length × sheet width; sheets to order = ceil(surface area × allowance factor / sheet area).',
+  assumptions:[
+    'Use the measured drywall surface area after any opening deductions that you intend to exclude.',
+    'This is an area-based sheet takeoff. It does not optimize sheet orientation, seam layout, offcut reuse or fastening pattern.',
+    'Enter the actual sheet dimensions being purchased. Different sheet sizes can produce different whole-sheet counts for the same area.'
+  ],
+  sources:['https://www.certainteed.com/products/drywall-products/regular-drywall'],
+  calculate(v,u){
+    const sheetArea=v.sheetLength*v.sheetWidth;
+    requireCondition(sheetArea>0,'sheetLength','Sheet dimensions must produce a positive sheet area.');
+    const orderArea=v.area*waste(v);
+    const sheets=roundUp(orderArea/sheetArea);
+    const purchased=sheets*sheetArea;
+    return result(withCost([
+      row('sheets','Drywall sheets to order',sheets,'sheets',true),
+      row('sheetArea','Area per sheet',sheetArea,'ft²'),
+      row('order','Required coverage with allowance',orderArea,'ft²'),
+      row('purchased','Purchased sheet area',purchased,'ft²'),
+      row('extra','Purchased area above required coverage',purchased-orderArea,'ft²')
+    ],v.price,u.price,{'USD/unit':sheets}),[
+      fmt(v.sheetLength)+' × '+fmt(v.sheetWidth)+' = '+fmt(sheetArea)+' ft² per sheet.',
+      fmt(v.area)+' × '+fmt(waste(v))+' = '+fmt(orderArea)+' ft² required with allowance.',
+      'Round '+fmt(orderArea)+' ÷ '+fmt(sheetArea)+' up = '+sheets+' sheets.'
+    ]);
+  }
+};
+
 export const finishModels:Record<string,Model>={
-  coverage,paint,tile,jointFill,
+  coverage,paint,tile,jointFill,drywallSheet,
   area:{fields:[...rectangle,openings],formula:'Net rectangular area = length × width − excluded area.',assumptions:['Flat rectangular area, not total three-dimensional surface area. For L-shaped rooms, calculate non-overlapping rectangles and add them.'],sources:[],calculate(v){const a=netArea(v);return result([row('area','Net area',a,'ft²'),row('m2','Net area',a/FT_PER_M**2,'m²'),row('yd2','Net area',a/9,'yd²')],[`${fmt(v.length)} × ${fmt(v.width)} − ${fmt(v.openings)} = ${fmt(a)} ft².`]);}},
   carpet:{fields:[...rectangle,length('rollWidth','Carpet roll width',12),allowance,price('USD/ft2',['USD/ft2','USD/m2'])],formula:'Strips = ceil(room width / roll width); purchased length = strips × room length × allowance factor; purchased area = purchased length × roll width.',assumptions:['All strips run along the entered room length, with no reuse of offcuts. Swap room length and width to compare seam direction.','Pattern repeat, pile direction, seams and irregular alcoves may require additional stock. Price applies to the full roll area purchased, not just room area.'],sources:[],calculate(v,u){const strips=roundUp(v.width/v.rollWidth),linear=strips*v.length*waste(v),bought=linear*v.rollWidth,net=v.length*v.width;return result(withCost([row('order','Roll area to buy',bought/9,'yd²'),row('linear','Linear roll length',linear,'ft'),row('strips','Full-width strips',strips,'strips',true),row('area','Room area',net,'ft²'),row('offcuts','Order area above room area',bought-net,'ft²')],v.price,u.price,{'USD/ft2':bought,'USD/m2':bought/FT_PER_M**2}),[`ceil(${fmt(v.width)} / ${fmt(v.rollWidth)}) = ${strips} strips.`,`${strips} × ${fmt(v.length)} × ${fmt(waste(v))} = ${fmt(linear)} linear ft.`,`${fmt(linear)} × ${fmt(v.rollWidth)} / 9 = ${fmt(bought/9)} square yards purchased.`]);}},
   ceilingPaint:{...paint,fields:paintFields.filter(f=>f.id!=='height'),formula:'Ceiling area = room length × room width − excluded area; paint = ceiling area × coats × allowance factor / coverage.',assumptions:['One flat rectangular ceiling; walls and trim are excluded. Sloped ceilings require their actual surface dimensions.','Use product coverage per coat and the actual container size.'],calculate(v,u){return paintResult(netArea(v),v,u);}},

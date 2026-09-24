@@ -92,3 +92,13 @@ describe('Traffic-priority distinct calculator models', () => {
     expect(res.rows.find(r=>r.key==='sand')?.value).toBeCloseTo(202.5,8);
   });
 });
+
+
+describe('Drywall intent separation', () => {
+  it('calculates known surface area from actual sheet dimensions', () => {
+    const res=calculate('drywall-sheet-calculator',{area:480,sheetLength:8,sheetWidth:4,waste:10});
+    expect(res.rows.find(r=>r.key==='sheets')?.value).toBe(17);
+    expect(res.rows.find(r=>r.key==='sheetArea')?.value).toBeCloseTo(32,8);
+    expect(res.rows.find(r=>r.key==='purchased')?.value).toBeCloseTo(544,8);
+  });
+});

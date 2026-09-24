@@ -182,7 +182,7 @@ export const slugToModelKey: Record<string, string> = {
 
   // 13. Drywall & Paint (15)
   "drywall-calculator": "drywall",
-  "drywall-sheet-calculator": "drywall",
+  "drywall-sheet-calculator": "drywallSheet",
   "drywall-cost-calculator": "material-cost",
   "drywall-joint-compound-calculator": "coverage",
   "drywall-screw-calculator": "drywallScrews",

@@ -2112,17 +2112,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "drywall-sheet-calculator",
-    "title": "Drywall Sheet Calculator — Sheets for Walls & Ceilings",
+    "title": "Drywall Sheet Calculator — Sheetrock Sheets by Area",
     "h1": "Drywall Sheet Calculator",
-    "description": "Calculate drywall or sheetrock sheets for four walls and an optional ceiling from room dimensions, openings, sheet coverage and waste allowance.",
+    "description": "Calculate drywall or sheetrock sheets from measured surface area, actual sheet length and width, waste allowance and optional per-sheet price.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "drywall sheet calculator",
       "sheetrock calculator",
-      "drywall sheets calculator",
-      "how many sheets of drywall do i need"
+      "how many sheets of drywall do i need",
+      "drywall sheets by square feet"
     ],
     "featured": false
   },

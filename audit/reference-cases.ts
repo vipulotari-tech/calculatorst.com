@@ -72,6 +72,7 @@ export const referenceCases:ReferenceCase[] = [
  {model:'ceilingPaint',input:{length:10,width:10,openings:0,coats:2,coverage:100,container:1},expected:{area:100,gallons:2,containers:2}},
  {model:'paintCoverage',input:{paint:2,coverage:100,coats:2},expected:{area:100}},
  {model:'drywall',input:{length:10,width:10,height:10,ceiling:1,openings:20,coverage:32},expected:{area:480,sheets:15}},
+ {model:'drywallSheet',input:{area:480,sheetLength:8,sheetWidth:4,waste:10},expected:{sheets:17,sheetArea:32,order:528,purchased:544,extra:16}},
  {model:'drywallScrews',input:{sheets:10,perSheet:32,perBox:200},expected:{screws:320,boxes:2}},
  {model:'drywallTape',input:{length:501,roll:250},expected:{length:501,rolls:3}},
  {model:'sprayFoam',input:{length:10,width:10,depth:2,coverage:200},expected:{net:200,kits:1}},
