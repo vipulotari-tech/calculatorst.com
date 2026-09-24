@@ -68,19 +68,20 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   foundation: {
-    intro: "Foundation work starts below grade and rarely gets a second chance. Footing size depends on soil bearing capacity, wall load, and frost depth — not just guesswork. These calculators cover excavation, footing volume, foundation wall materials and crawl space estimates.",
-    beforeYouCalculate: "Know your local frost depth (check county building code) and soil bearing capacity (a soils report or local geotech data). Measure the building footprint, wall height, and whether the foundation includes a basement, crawl space or slab-on-grade. Account for any waterproofing or drainage board on exterior walls.",
+    intro: "Foundation estimating involves several separate tasks: excavation, strip/pad/pier footing concrete, wall concrete, basement or crawl-space geometry and quote-based project cost. These 10 calculators keep those intents separate while using consistent units, allowances and transparent formulas.",
+    beforeYouCalculate: "Use dimensions from the approved foundation plan or qualified designer. Gather the finished concrete geometry, opening areas, excavation working room, soil swell or overbreak assumptions and current supplier/contractor quotes required by the specific calculator. These tools estimate quantities and entered costs; they do not select bearing capacity, frost depth, footing size or reinforcement.",
     tips: [
-      "Footing width, thickness and embedment depend on loads, soil, frost conditions and local requirements. Enter dimensions from the approved design rather than using a fixed wall-width multiple.",
-      "Crawl-space ventilation and conditioned-crawlspace requirements vary by assembly and jurisdiction; verify the applicable code path for the project.",
-      "Basement-wall thickness and reinforcement depend on wall height, soil pressure, groundwater and structural design; use the specified dimensions.",
-      "Working room, over-excavation and backfill requirements are project-specific. Include only dimensions required by the excavation and foundation plan.",
+      "Use centerline length for connected strip footings and foundation walls so corners are not double-counted.",
+      "Keep bank excavation, overbreak and loose-volume swell conceptually separate. Swell converts in-place soil to hauled volume; it is not another concrete or excavation waste allowance.",
+      "Use the dedicated Strip, Pad or Pier Footing Calculator for project-specific outputs; use Footing Volume for pure geometry and Footing Concrete for bags, weight and cost.",
+      "Basement and crawl-space wall calculators deduct openings by face area × wall thickness. Footings, slabs, waterproofing and drainage remain separate unless explicitly entered in a cost calculator.",
+      "Foundation dimensions, reinforcement, soil support and frost embedment are design inputs. Confirm them from the project requirements rather than treating calculator defaults as recommendations.",
     ],
     relatedCategories: [
-      { name: "Concrete", href: "/construction/concrete/", reason: "Footing and wall concrete volume" },
-      { name: "Rebar & Reinforcement", href: "/construction/rebar/", reason: "Vertical and horizontal steel in footings and walls" },
-      { name: "Excavation & Earthwork", href: "/construction/excavation/", reason: "Excavation and backfill volumes" },
-      { name: "Foundation & Footing", href: "/construction/foundation/", reason: "Structural layout before finish work" },
+      { name: "Concrete", href: "/construction/concrete/", reason: "General concrete volume, mix, pour and weight tools" },
+      { name: "Rebar & Reinforcement", href: "/construction/rebar/", reason: "Steel takeoff after reinforcement is specified" },
+      { name: "Excavation & Earthwork", href: "/construction/excavation/", reason: "Trench, cut/fill, backfill and soil-volume workflows" },
+      { name: "Slab, Patio & Driveway", href: "/construction/slab-patio-driveway/", reason: "Slab thickness, reinforcement and cost tools" },
     ],
   },
 
