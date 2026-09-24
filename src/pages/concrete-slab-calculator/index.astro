@@ -5,10 +5,12 @@ import Footer from "../../components/Footer.astro";
 import ConcreteSlabCalculator from "../../components/calculators/ConcreteSlabCalculator.astro";
 
 const related = [
-  { title: "Paver Calculator", href: "/paver-calculator/", desc: "Paver alternative to poured slab" },
-  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "Base gravel under slab" },
-  { title: "Mulch Calculator", href: "/mulch-calculator/", desc: "For surrounding beds" },
-  { title: "Fence Cost Calculator", href: "/fence-cost-calculator/", desc: "Fence footings" },
+  { title: "Concrete Calculator", href: "/concrete-calculator/", desc: "Broad concrete volume, bags, weight and cost estimate" },
+  { title: "Slab Reinforcement Calculator", href: "/slab-reinforcement-calculator/", desc: "Estimate reinforcement layout after slab dimensions are known" },
+  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "Estimate compacted base material below the slab" },
+  { title: "Slab Cost Calculator", href: "/slab-cost-calculator/", desc: "Estimate slab material cost from order quantity and quoted price" },
+  { title: "Driveway Concrete Calculator", href: "/driveway-concrete-calculator/", desc: "Dedicated driveway concrete quantity estimate" },
+  { title: "Patio Concrete Calculator", href: "/patio-concrete-calculator/", desc: "Dedicated patio concrete quantity estimate" },
 ];
 const faq = [
   {
@@ -17,24 +19,32 @@ const faq = [
   },
   {
     "q": "How are concrete bags counted?",
-    "a": "The calculator assumes yields of 0.60 ft³ for an 80-lb bag, 0.45 ft³ for a 60-lb bag and 0.30 ft³ for a 40-lb bag. Divide waste-adjusted volume by the selected yield and round up. Verify the yield on your actual product."
+    "a": "The calculator uses comparison yields of 0.60 ft³ for an 80-lb bag, 0.45 ft³ for a 60-lb bag, 0.375 ft³ for a 50-lb bag and 0.30 ft³ for a 40-lb bag. Divide waste-adjusted volume by the selected yield and round up. Verify the yield on your actual product."
   },
   {
     "q": "How does material pricing work?",
     "a": "A per-yard quote uses waste-adjusted cubic yards. A per-bag quote uses the rounded count for the selected bag size. Delivery, reinforcement, formwork and labor are separate."
   },
   {
+    "q": "How much concrete does a 12 × 10 ft slab at 4 inches need?",
+    "a": "The geometric volume is 40 ft³, or about 1.48 yd³. With a 10% allowance the calculator shows about 1.63 yd³, before any supplier-specific order rounding."
+  },
+  {
+    "q": "Should I use this slab calculator or the general Concrete Calculator?",
+    "a": "Use this page when the project is specifically a slab and you want square feet, bag counts and slab-focused ordering output. Use the general Concrete Calculator when the pour shape may be a wall, footing or cylinder."
+  },
+  {
     "q": "Can this design a slab?",
-    "a": "This is a volume estimate for uniform rectangular slabs. Thickness, reinforcement and subbase requirements must be determined separately. Split different shapes or thicknesses into non-overlapping sections."
+    "a": "No. This is a quantity estimate. Slab thickness, reinforcement, joints, vapor control and subbase requirements must be determined from the project requirements or a qualified designer."
   }
 ];
 ---
 
 <CalculatorLayout
-  title="Concrete Slab Calculator — Yards, Bags & Cost"
-  description="Calculate concrete for slabs in cubic yards and bags. Enter length, width & thickness to get square feet, yards, 80/60/40lb bags, waste & cost instantly."
+  title="Concrete Slab Calculator — Yards, 40–80 lb Bags & Cost"
+  description="Calculate slab concrete from length, width and thickness in cubic feet and yards, with 40/50/60/80-lb bag counts, waste allowance, weight and optional cost."
   h1="Concrete Slab Calculator"
-  intro="Calculate concrete for slabs — get cubic yards, square feet and 80/60/40lb bags with waste & cost. Enter length, width, thickness in feet, inches, yards or meters — instant results for US customary & metric."
+  intro="Estimate a concrete slab from finished length, width and thickness. Get square feet, cubic feet, cubic yards, 40/50/60/80-lb bag counts, waste-adjusted order quantity, weight and optional material cost."
   breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Concrete Calculators", href: "/construction/concrete/" }, { label: "Concrete Slab Calculator" }]}
   related={related}
   faq={faq}
@@ -54,7 +64,16 @@ const faq = [
         <li>Cubic yards = Cubic feet ÷ 27 (waste multiplies after)</li>
         <li>Bags = ceil(cubic feet with waste ÷ coverage per bag)</li>
       </ol>
-      <div class="mt-3 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm "><p>Coverages: 80-lb = 0.60 ft³, 60-lb = 0.45 ft³, 40-lb = 0.30 ft³</p></div>
+      <div class="mt-3 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm "><p>Comparison yields: 80-lb = 0.60 ft³, 60-lb = 0.45 ft³, 50-lb = 0.375 ft³, 40-lb = 0.30 ft³</p></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">When to Use This Slab Calculator</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
+        <li>Use it for uniform-thickness concrete slabs such as patios, pads, garage floors and similar rectangular pours.</li>
+        <li>Measure the finished concrete dimensions, not the excavation or subbase footprint, unless those dimensions are intentionally the same.</li>
+        <li>For slabs with different thickness zones, thickened edges or irregular outlines, split the project into non-overlapping sections or use the dedicated project calculator.</li>
+        <li>Use the product yield printed on the bag or the supplier quote when purchasing; the displayed bag yields are comparison values.</li>
+      </ul>
     </div>
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
