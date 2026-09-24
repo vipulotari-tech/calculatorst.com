@@ -46,6 +46,7 @@ afterEach(()=>vi.unstubAllGlobals());
 
 const cases: Array<{name:string;values:Record<string,string|number>;outputId:string;expected:string}> = [
   {name:'GravelCalculator',values:{'g-length':10,'g-width':10,'g-depth':12,'g-waste':0},outputId:'g-ft3',expected:'100.00'},
+  {name:'GravelCalculator',values:{'g-length':10,'g-width':10,'g-depth':12,'g-compaction':10,'g-waste':10},outputId:'g-yd3-w',expected:'4.48'},
   {name:'ConcreteSlabCalculator',values:{'c-len':10,'c-wid':10,'c-depth':12,'c-depth-unit':'in','c-waste':5,'c-num':1},outputId:'c-ft3',expected:'100.00'},
   {name:'ConcreteSlabCalculator',values:{'c-len':10,'c-wid':10,'c-depth':12,'c-depth-unit':'in','c-waste':0,'c-num':1},outputId:'c-b50',expected:'267'},
   {name:'ConcreteSlabCalculator',values:{'c-len':10,'c-wid':10,'c-depth':12,'c-depth-unit':'in','c-waste':0,'c-num':1,'c-price':5,'c-price-unit':'bag50'},outputId:'c-cost',expected:'$1,335.00'},
