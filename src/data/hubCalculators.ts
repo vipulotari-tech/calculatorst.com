@@ -1342,7 +1342,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "keywords": [
       "aggregate calculator",
       "aggregate volume calculator",
-      "aggregate tons calculator"
+      "bulk aggregate calculator"
     ],
     "featured": false
   },
@@ -1372,7 +1372,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "keywords": [
       "sand calculator",
       "sand yards calculator",
-      "sand tons calculator"
+      "sand volume calculator"
     ],
     "featured": false
   },
