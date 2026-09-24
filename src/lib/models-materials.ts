@@ -458,13 +458,13 @@ const concreteCost: Model = {
 // ==========================================================
 const concreteMixFields: Field[] = [
   volume('volume', 'Required mixed concrete volume', 1),
-  number('cementParts', 'Cement parts by volume', 1, 1, 'Typical 1-2-3 (cement:sand:aggregate) for general concrete.'),
+  number('cementParts', 'Cement parts by volume', 1, 1, 'Editable example ratio only. Enter the proportions required by the mix design or trial batch.'),
   number('sandParts', 'Sand (fine aggregate) parts by volume', 2, 1),
   number('aggregateParts', 'Coarse aggregate parts by volume', 3, 0),
-  number('dryFactor', 'Dry volume / mixed volume factor', 1.54, 1.01, 'Accounts for aggregate voids and compaction. Industry standard is 1.54. Use a trial batch for accuracy.'),
-  number('cementDensity', 'Loose cement bulk density (kg/m³)', 1440, 100, 'Portland cement bulk density varies. 1,440 kg/m³ is typical for loose cement.'),
+  number('dryFactor', 'Dry volume / mixed volume factor', 1.54, 1.01, 'Editable dry-volume planning factor. Use trial-batch or project mix data; there is no single universal factor for every material combination.'),
+  number('cementDensity', 'Loose cement bulk density (kg/m³)', 1440, 100, 'Editable example bulk density. Use the cement/product data or measured loose bulk density for the material being batched.'),
   number('bagMass', 'Cement bag mass (kg)', 50, 1, 'Common sizes: 40 kg, 50 kg. Check your product.'),
-  number('waterRatio', 'Water/cement ratio', 0.5, 0.1, '0.40–0.60 typical for nominal mixes. Lower ratio = stronger, less workable. Structural mixes use engineered w/c.'),
+  number('waterRatio', 'Water/cement ratio', 0.5, 0.1, 'Editable example only. Enter the water/cement ratio specified for the mix; this calculator does not choose strength, durability or workability requirements.'),
   allowance,
 ];
 
@@ -549,7 +549,7 @@ const concretePourFields: Field[] = [
   number('truckCapacity', 'Ready-mix truck capacity (yd³)', 10, 1, 'Typical transit mixer holds 9–11 yd³. Edit to your supplier\'s load.'),
   number('minOrder', 'Supplier minimum order (yd³)', 1, 0.1, 'Below this, suppliers may add a short-load fee or refuse delivery.'),
   number('shortLoadFee', 'Short-load fee ($)', 0, 0, 'Added when the final truck is below the supplier\'s minimum.'),
-  number('pumpRate', 'Pour rate (yd³/hr)', 30, 1, 'Typical: 25–40 yd³/hr by chute; less by pump, more by direct boom. Editable.'),
+  number('pumpRate', 'Pour rate (yd³/hr)', 30, 1, 'Planning example only. Enter the placement rate expected for the actual crew, access and equipment.'),
 ];
 
 const concretePour: Model = {
@@ -642,7 +642,7 @@ const concreteSlab: Model = {
   formula: 'Rectangle: V = L × W × T × Q. Circle: V = π × (D/2)² × T × Q. Thickened edge: V_edge = perimeter × edge_width × (edge_depth − T), added when edge_depth > T.',
   assumptions: [
     ...standardAssumptions,
-    'Common residential slab thickness: 4 in for patios/walks, 5 in for garages, 6 in for driveways or heavier loads. Confirm with engineer.',
+    'Slab thickness is a design input. Enter the thickness specified for the project; this volume calculator does not determine structural adequacy.',
     'The thickened edge is treated as an additional perimeter band of (edge_depth − slab_thickness) × edge_width.',
   ],
   sources: [geometry, quikrete, 'https://www.concrete.org/tools/frequently-asked-questions'],
@@ -792,7 +792,7 @@ const concreteFoundation: Model = {
     'Foundation walls: enter centerline length so corners are not double-counted.',
     'Only include components that apply to your project. Leave unused components at zero.',
     'Openings are entered in ft² and multiplied by wall thickness to convert to volume.',
-    'Footing length typically equals wall length. This tool does not adjust for stepped footings.',
+    'Enter the actual footing length from the project geometry. Stepped or discontinuous footings must be measured as separate sections.',
     'This is a material quantity estimator, not a structural design tool.',
   ],
   sources: [geometry, 'https://www.concrete.org/tools/frequently-asked-questions'],
@@ -869,7 +869,7 @@ const concreteWall: Model = {
     'Use the combined centerline length of wall runs so corners are counted once, not twice.',
     'Subtract door, window, and utility openings. Enter each opening as length × height × thickness.',
     'This calculates cast-in-place concrete walls. Retaining walls with different backfill pressures need engineering review.',
-    'Wall thickness must come from structural drawings. 6″–8″ is typical for residential foundation walls; 10″+ for commercial or basement walls.',
+    'Wall thickness must come from the structural design. This calculator estimates quantity from the thickness you enter.',
   ],
   sources: [geometry, cmha],
   calculate(v, u) {
@@ -1171,8 +1171,8 @@ const concreteRamp: Model = {
     'The ramp has a linearly varying thickness between the low and high ends.',
     'Enter horizontal plan length, not the sloping surface length.',
     'This models a straight ramp. Curved or switchback ramps require section-based estimation.',
-    'ADA: 1:12 (8.33%) is the steepest slope for an accessible route. Steeper slopes are not code-compliant accessible ramps.',
-    'ADA landings: at least 5 ft × 5 ft is typical at the top and bottom; slope of the landing must be ≤ 1:48.',
+    'Accessibility slope requirements depend on the applicable standard and project condition. Enter the design slope and verify compliance separately.',
+    'Landing dimensions and slopes are code/design inputs. This calculator estimates concrete quantity only and does not verify accessibility compliance.',
   ],
   sources: [geometry, 'https://www.ada.gov/'],
   calculate(v, u) {
@@ -1271,7 +1271,7 @@ const concreteWasteFields: Field[] = [
   length('depth', 'Slab thickness', 4, 'in'),
   count('quantity', 'Identical sections', 1),
   number('wastePercent', 'Waste allowance (%)', 10, 0,
-    'Extra material to account for spillage, uneven subgrade, over-excavation. Typical: 5–10%.'),
+    'Optional ordering allowance for measured project conditions. Enter a project-specific percentage rather than assuming a universal waste value.'),
   positiveOrZero(number('orderIncrement', 'Supplier ordering increment (yd³)', 0.25, 0),
     { help: 'Round up to this increment (e.g. 0.25 yd³). 0 leaves the order at exact yards.' }),
 ];
@@ -1281,7 +1281,7 @@ const concreteWaste: Model = {
   formula: 'Base = L × W × T × Q. Waste volume = base × waste%. Ordered = roundUp(base × (1 + waste%) to orderIncrement).',
   assumptions: [
     'Waste allowance is a percentage added to the calculated volume, not a separate calculation.',
-    'Typical waste allowances: 5% controlled, 10% typical residential, 15% complex/sloped.',
+    'Choose an allowance from the actual formwork, subgrade, geometry and ordering conditions; no single percentage fits every pour.',
     'Do not add waste allowance on top of another tool\'s waste-inclusive result.',
     'If you have a supplier who delivers in fixed increments (e.g. 0.25 yd³), enter that increment to round up the final order.',
   ],
@@ -1582,7 +1582,7 @@ const shedFoundation: Model = {
     'Slab: rectangular flat pad. Include isolation board thickness if required.',
     'Pier: cylindrical concrete piers. Verify bearing capacity and frost depth locally.',
     'Footing: continuous strip. Verify width and depth from project plans.',
-    'Common shed floor thickness: 4 in (light) to 6 in (heavy). Typical pier: 12 in diameter × 24 in deep.',
+    'Slab thickness, pier diameter and embedment are design inputs. Enter dimensions from the project requirements rather than using generic defaults.',
     'Confirm all dimensions with your local building code and a qualified designer.',
   ],
   sources: [quikrete, geometry],
@@ -2025,7 +2025,7 @@ export const materialModels: Record<string, Model> = {
     ],
     formula: 'Cone-frustum armor-rock volume = πh(R²+Rr+r²)/3. Bedding layer ≈ 10 % of armor. Toe apron = width×depth×length.',
     assumptions: [
-      'Armor rock is modeled as a cone frustum; 10 % extra for placement voids (standard armor layer).',
+      'Armor rock is modeled as a cone frustum. Any placement-void or ordering allowance must be selected for the actual gradation and placement method.',
       'Bedding/quarry-run layer is 0.15× armor volume. Toe apron is 2 ft thick × 3 ft deep × structure length.',
       'All volumes include the entered waste factor; pricing is per cubic yard of armor rock.',
     ],

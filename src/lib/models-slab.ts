@@ -46,7 +46,7 @@ const thickness: Model = {
   formula: 'Mode A: average thickness = volume / (length × width). Mode B: volume = length × width × selected thickness, then allowance, bags and weight. Mode C: volume = length × width × thickness for each scenario.',
   assumptions: [
     'This tool converts between concrete volume, footprint area and thickness mathematically. It does not determine a structurally adequate slab or pavement thickness.',
-    'Typical residential guidance (for example 4 in for patios or 6 in for driveways) is quantity planning context only. Vehicle loading, soil, base preparation, reinforcement, climate and local requirements can govern.',
+    'Thickness is an input from the project design. Vehicle loading, soil, base preparation, reinforcement, climate and local requirements can govern the required section.',
     'Mode B and Mode C estimate material quantity for the thickness scenarios you choose; they are not thickness recommendations.',
     'Volume and area must describe the same placed or compacted condition.',
   ],
@@ -139,7 +139,7 @@ const patioConcrete: Model = {
   formula: 'Rectangle: V = L × W × T. Circle: V = π × (D/2)² × T. Subbase V = area × subbase depth. Perimeter (forms): rectangle 2(L+W), circle πD.',
   assumptions: [
     'A simple rectangular or circular patio with uniform thickness. Irregular footprints should be split into non-overlapping simple sections.',
-    'Typical patio planning thickness is 4 in. Heavier loads or poor subgrade may require more — confirm with your project design.',
+    'Patio thickness is a project-design input. Enter the specified thickness; the calculator only converts geometry into quantity.',
     'The subbase quantity is compacted gravel volume; loose delivered volume depends on the supplier compaction factor.',
     'Form perimeter assumes forms on the full perimeter of the shape.',
   ],
@@ -189,7 +189,7 @@ const drivewayConcrete: Model = {
     { ...positiveOrZero(length('widthHouse', 'Width at house end', 20, 'ft')), visibleWhen: { field: 'driveShape', equals: 2 } },
     length('thickness', 'Driveway thickness', 4, 'in'),
     count('quantity', 'Identical driveways'),
-    { ...number('truckCapacity', 'Ready-mix truck capacity (yd³)', 10, 1, 'Planning value for load count; typical transit mixers hold 9–11 yd³. Edit to your supplier load.'),
+    { ...number('truckCapacity', 'Ready-mix truck capacity (yd³)', 10, 1, 'Planning value for load count. Enter the actual truck capacity used by the ready-mix supplier.'),
       group: 'Material & assumptions' },
     allowance,
     densityField,
@@ -200,7 +200,7 @@ const drivewayConcrete: Model = {
   assumptions: [
     'The apron is modeled as a separate rectangle added at one end and is assumed to use the same thickness as the main driveway.',
     'Trapezoid mode uses area = length × average width. This is exact only when the width changes linearly along the length; for irregular widths, split the driveway into rectangles.',
-    'A driveway thickness of 4 in suits light passenger vehicles in many cases; heavier vehicles, poor subgrade or local requirements can call for more. Thickness must come from the project design.',
+    'Driveway thickness must come from the pavement/project design. This calculator estimates material quantity for the thickness you enter.',
     'Truck load count is a planning estimate; capacity varies by supplier, distance and mix type.',
   ],
   sources: [geometry, quikrete],
@@ -247,7 +247,7 @@ const garageSlab: Model = {
     positiveOrZero(length('edgeWidth', 'Thickened perimeter width', 0, 'in')),
     { ...positiveOrZero(length('gravelDepth', 'Compacted gravel base depth (0 = none)', 4, 'in')),
       group: 'Material & assumptions',
-      help: 'Optional gravel base under the slab. Typical residential planning value is 4–6 in of compacted fill. Use your base design.' },
+      help: 'Optional gravel base under the slab. Enter the compacted base thickness specified for the project.' },
     { id: 'vaporBarrier', label: 'Vapor barrier', value: 0, integer: true, min: 0, max: 1,
       options: [
         { value: 0, label: 'None' },
@@ -262,7 +262,7 @@ const garageSlab: Model = {
   assumptions: [
     'The thickened edge is modeled as an extra perimeter band of (edge depth − slab thickness) × edge width; leave both at 0 for a uniform slab.',
     'Gravel base quantity is compacted volume; loose delivered volume depends on the supplier conversion.',
-    'Slab thickness must come from the project design. A common planning value is 4–5 in; vehicle type alone does not set a code-required thickness.',
+    'Slab thickness must come from the project design. Vehicle type alone does not determine the required section.',
     'This estimates material quantity; rebar, dowels, insulation and finishing are separate items.',
   ],
   sources: [geometry, quikrete],
@@ -460,7 +460,7 @@ const patioCost: Model = {
   formula: 'Volume = L × W × T × quantity. Total = material subtotal × (1 + tax/100) + delivery + short-load + pump + subbase + reinforcement + forms + finishing + decorative + demolition + labor.',
   assumptions: [
     'Material-only scope estimates just the concrete quantity × price. Full-project scope adds the editable line items you enter.',
-    'Typical patio planning thickness is 4 in; heavier loads or poor subgrade can require more. Confirm with your project design.',
+    'Patio thickness is a project-design input. Enter the specified thickness for the quantity estimate.',
     'Decorative finish and demolition allowances are self-entered planning values — no preset prices are assumed. Get a local quote.',
     'Tax applies to the material subtotal only. All prices are editable planning values.',
   ],
@@ -505,7 +505,7 @@ const drivewayCost: Model = {
   assumptions: [
     'Material-only scope estimates just the concrete quantity × price. Full-project scope adds the editable line items you enter.',
     'Replacement line items (demolition, disposal) represent work already chosen by the user — they are not automatically added.',
-    'A driveway thickness of 4 in suits light passenger vehicles in many cases; heavier vehicles, poor subgrade or local requirements can call for more. Thickness must come from the project design.',
+    'Driveway thickness is a project-design input. Enter the specified thickness for the quantity estimate.',
     'Tax applies to the material subtotal only. All prices are editable planning values.',
   ],
   sources: [quikrete, geometry, 'https://www.homeadvisor.com/cost/landscape/concrete-driveway'],
