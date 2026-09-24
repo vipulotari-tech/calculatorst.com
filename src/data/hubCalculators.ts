@@ -566,9 +566,9 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar calculator",
-      "rebar grid calculator",
+      "rebar takeoff calculator",
       "rebar material calculator",
-      "how much rebar do i need"
+      "rebar material takeoff calculator"
     ],
     "featured": false
   },
