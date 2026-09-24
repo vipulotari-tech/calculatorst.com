@@ -22,24 +22,24 @@ const faq = [
   },
   {
     "q": "How is cost calculated?",
-    "a": "The calculator multiplies unrounded waste-adjusted yards or short tons by your entered price. Displayed volume is rounded, so multiplying the displayed figure may differ slightly. Delivery, tax and labor are separate."
+    "a": "The calculator prices the final order quantity after the separate compaction allowance and waste allowance. You can price by cubic yard, cubic meter or US ton; displayed values are rounded, so the internal unrounded result is used for cost."
   },
   {
     "q": "How should I measure an irregular area?",
     "a": "Split it into non-overlapping measured shapes and calculate their volumes separately. A bounding rectangle overestimates a curved area; increasing waste cannot correct that geometry."
   },
   {
-    "q": "Is compaction included?",
-    "a": "There is no separate compaction factor. The entered waste allowance increases the order quantity; ask your supplier how the loose material relates to your intended finished depth."
+    "q": "How are compaction and waste handled?",
+    "a": "They are separate inputs. Compaction allowance adds extra loose material for the placed layer, then waste/overrun is applied to that adjusted quantity. Use supplier or project guidance rather than assuming one universal compaction percentage."
   }
 ];
 ---
 
 <CalculatorLayout
-  title="Gravel Calculator — Cubic Yards, Tons & Cost"
-  description="Calculate gravel in cubic yards and tons for patios, driveways & landscaping. Enter length, width, depth & material — get yards, tons & cost with waste."
+  title="Gravel Calculator — Yards, Tons, Metric Volume & Cost"
+  description="Calculate gravel in cubic yards, cubic meters, US tons and metric tonnes with material density presets, separate compaction and waste allowances, plus optional cost."
   h1="Gravel Calculator"
-  intro="Calculate gravel for any area — get cubic yards, tons and cost with waste. Choose pea gravel, crushed stone, river rock or limestone, enter length, width & depth — instant results in yards, tons & pounds."
+  intro="Calculate gravel for any rectangular area with material density presets, separate compaction and waste allowances, metric and US outputs, and optional pricing by cubic yard, cubic meter or ton."
   breadcrumbs={[
     { label: "Home", href: "/" },
     { label: "Construction", href: "/construction/" },
@@ -59,13 +59,13 @@ const faq = [
   <section class="space-y-6">
     <div class="rounded-lg border border-hairline bg-canvas p-6 ">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
-      <p class="mt-2 text-sm leading-6 text-body [text-wrap:pretty]">We compute the rectangular volume and convert units to feet before any math. Then we convert to cubic yards and to weight using the material's density. Waste is applied last so you order enough.</p>
+      <p class="mt-2 text-sm leading-6 text-body [text-wrap:pretty]">We compute the rectangular volume and convert units to feet before any math. Then we convert to cubic yards and weight using the selected or custom density. Compaction allowance is applied separately before waste so the purchasing assumptions remain transparent.</p>
       <ol class="mt-4 list-decimal space-y-1 pl-5 text-sm leading-6 text-body" role="list">
         <li>Convert length, width and depth to <span class="font-medium text-ink">feet</span> (inches ÷ 12, yards × 3, meters ÷ 0.3048).</li>
         <li><span class="font-mono text-xs">Cubic Feet = Length × Width × Depth</span></li>
         <li><span class="font-mono text-xs">Cubic Yards = Cubic Feet ÷ 27</span></li>
         <li><span class="font-mono text-xs">Weight = Cubic Yards × Tons per yd³ × 2000</span> (lb)</li>
-        <li>Apply waste: <span class="font-mono text-xs">× (1 + waste%)</span>. Cost: <span class="font-mono text-xs">× price per yd³ or per ton</span>.</li>
+        <li>Apply compaction allowance, then waste: <span class="font-mono text-xs">× (1 + compaction%) × (1 + waste%)</span>. Cost can use price per yd³, m³ or US ton.</li>
       </ol>
     </div>
 
@@ -120,7 +120,7 @@ const faq = [
       <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
         <li>Rectangular area; calculate irregular shapes as separate measured sections.</li>
         <li>Uniform depth — add base layer separately if needed.</li>
-        <li>No compaction factor — if heavily compacted, ask supplier for compacted vs loose density.</li>
+        <li>Compaction allowance and waste are separate purchasing assumptions. Use supplier/project information for the loose-to-placed relationship.</li>
         <li>US units default — metric converts to feet; final tons use short tons (2000 lb). For metric tonnes, multiply tons × 0.907.</li>
       </ul>
     </div>
