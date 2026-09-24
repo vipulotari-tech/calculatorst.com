@@ -47,8 +47,8 @@ const mortarGeneral:Model={
       row('bags','Mortar bags to order',bags,'bags',true),
       row('baseBags','Bags before allowance / rounding',rawBags,'bags'),
       row('mixedYield','Purchased mixed-yield capacity',purchasedVolume,'ft³'),
-      row('weight','Estimated bagged-product weight',bags*v.bagWeight,'lb'),
-      row('tons','Estimated bagged-product weight',bags*v.bagWeight/2000,'US tons')
+      row('weight','Estimated bagged-product weight — lb',bags*v.bagWeight,'lb'),
+      row('tons','Estimated bagged-product weight — US tons',bags*v.bagWeight/2000,'US tons')
     ],v.price,u.price,{'USD/bag':bags}),[
       mode===0
         ? `${v.units} installed units ÷ ${fmt(v.coverage)} units/bag = ${fmt(rawBags)} bags before allowance.`
@@ -74,7 +74,7 @@ const groutGeneral:Model={
   formula:'Bags = ceil(required mixed grout volume × allowance factor ÷ mixed yield per bag).',
   assumptions:['This page starts from a known grout volume. Use the Grout Quantity Calculator when estimating tile-joint volume from tile geometry.','Masonry core-fill grout and tile grout are different products; use product-specific yield.'],
   sources:[omniGrout,quikreteBulk],
-  calculate(v,u){const order=v.volume*waste(v),bags=roundUp(order/v.yield);return result(withCost([row('bags','Grout bags to order',bags,'bags',true),row('net','Net mixed grout volume',v.volume,'ft³'),row('order','Mixed grout volume with allowance',order,'ft³'),row('liters','Mixed grout volume with allowance',order*28.316846592,'L'),row('weight','Estimated bagged-product weight',bags*v.bagWeight,'lb')],v.price,u.price,{'USD/bag':bags}),[`${fmt(v.volume)} × ${fmt(waste(v))} = ${fmt(order)} ft³ with allowance.`,`Round ${fmt(order)} ÷ ${fmt(v.yield)} up = ${bags} bags.`]);}
+  calculate(v,u){const order=v.volume*waste(v),bags=roundUp(order/v.yield);return result(withCost([row('bags','Grout bags to order',bags,'bags',true),row('net','Net mixed grout volume',v.volume,'ft³'),row('order','Mixed grout volume with allowance — ft³',order,'ft³'),row('liters','Mixed grout volume with allowance — liters',order*28.316846592,'L'),row('weight','Estimated bagged-product weight — lb',bags*v.bagWeight,'lb')],v.price,u.price,{'USD/bag':bags}),[`${fmt(v.volume)} × ${fmt(waste(v))} = ${fmt(order)} ft³ with allowance.`,`Round ${fmt(order)} ÷ ${fmt(v.yield)} up = ${bags} bags.`]);}
 };
 
 const groutQuantity:Model={
@@ -94,7 +94,7 @@ const groutQuantity:Model={
     requireCondition(module>tile,'jointWidth','Joint width must produce a positive grout area.');
     const fraction=1-tile/module;
     const net=a*v.jointDepth*fraction,order=net*waste(v),bags=roundUp(order/v.yield);
-    return result(withCost([row('bags','Grout bags to order',bags,'bags',true),row('volume','Theoretical grout volume',net,'ft³'),row('order','Grout volume with allowance',order,'ft³'),row('liters','Grout volume with allowance',order*28.316846592,'L'),row('area','Tiled area',a,'ft²'),row('fraction','Estimated joint face fraction',fraction*100,'%')],v.price,u.price,{'USD/bag':bags}),[`Joint face fraction = 1 − tile face/module face = ${fmt(fraction*100)}%.`,`${fmt(a)} ft² × ${fmt(v.jointDepth*12)} in ÷ 12 × ${fmt(fraction)} = ${fmt(net)} ft³.`,`Allowance → ${fmt(order)} ft³; round ÷ ${fmt(v.yield)} = ${bags} bags.`]);
+    return result(withCost([row('bags','Grout bags to order',bags,'bags',true),row('volume','Theoretical grout volume',net,'ft³'),row('order','Grout volume with allowance — ft³',order,'ft³'),row('liters','Grout volume with allowance — liters',order*28.316846592,'L'),row('area','Tiled area',a,'ft²'),row('fraction','Estimated joint face fraction',fraction*100,'%')],v.price,u.price,{'USD/bag':bags}),[`Joint face fraction = 1 − tile face/module face = ${fmt(fraction*100)}%.`,`${fmt(a)} ft² × ${fmt(v.jointDepth*12)} in ÷ 12 × ${fmt(fraction)} = ${fmt(net)} ft³.`,`Allowance → ${fmt(order)} ft³; round ÷ ${fmt(v.yield)} = ${bags} bags.`]);
   }
 };
 
@@ -111,7 +111,7 @@ const cementGeneral:Model={
   formula:'Cement bags = ceil(required cement volume × allowance factor ÷ entered volume represented by one bag).',
   assumptions:['This estimates Portland/masonry cement quantity from a known cement-only volume. It does not infer a concrete or mortar mix design.','Bag mass and bulk-volume convention vary by market/product; both are editable.'],
   sources:[quikreteMortar],
-  calculate(v,u){const order=v.volume*waste(v),bags=roundUp(order/v.yield),lb=bags*v.bagWeight;return result(withCost([row('bags','Cement bags to order',bags,'bags',true),row('net','Net cement volume',v.volume,'ft³'),row('order','Cement volume with allowance',order,'ft³'),row('weight','Bagged cement weight',lb,'lb'),row('tons','Bagged cement weight',lb/2000,'US tons')],v.price,u.price,{'USD/bag':bags}),[`${fmt(v.volume)} × ${fmt(waste(v))} ÷ ${fmt(v.yield)} = ${fmt(order/v.yield)} bags before rounding.`,`Order ${bags} whole bags.`]);}
+  calculate(v,u){const order=v.volume*waste(v),bags=roundUp(order/v.yield),lb=bags*v.bagWeight;return result(withCost([row('bags','Cement bags to order',bags,'bags',true),row('net','Net cement volume',v.volume,'ft³'),row('order','Cement volume with allowance',order,'ft³'),row('weight','Bagged cement weight — lb',lb,'lb'),row('tons','Bagged cement weight — US tons',lb/2000,'US tons')],v.price,u.price,{'USD/bag':bags}),[`${fmt(v.volume)} × ${fmt(waste(v))} ÷ ${fmt(v.yield)} = ${fmt(order/v.yield)} bags before rounding.`,`Order ${bags} whole bags.`]);}
 };
 
 const cementBag:Model={
@@ -187,7 +187,7 @@ function bulkModel(opts:BulkOpts):Model{
       requireCondition(netFt3>=0,'volume','Material volume cannot be negative.');
       const netYd3=netFt3/27,orderYd3=netYd3*waste(v),tons=orderYd3*v.density,lb=tons*2000,m3=orderYd3*27/(FT_PER_M**3);
       const q=u.price==='USD/ton'?tons:u.price==='USD/m3'?m3:orderYd3;
-      const rows=[row('order',`${label} to order`,orderYd3,'yd³'),row('net','Measured volume before allowance',netYd3,'yd³'),row('m3','Order volume',m3,'m³'),row('tons','Estimated order weight',tons,'US tons'),row('pounds','Estimated order weight',lb,'lb'),row('tonnes','Estimated order weight',lb/LB_PER_KG/1000,'metric tonnes')];
+      const rows=[row('order',`${label} to order`,orderYd3,'yd³'),row('net','Measured volume before allowance',netYd3,'yd³'),row('m3','Order volume',m3,'m³'),row('tons','Estimated order weight — US tons',tons,'US tons'),row('pounds','Estimated order weight — lb',lb,'lb'),row('tonnes','Estimated order weight — metric tonnes',lb/LB_PER_KG/1000,'metric tonnes')];
       if(costMode){
         const materials=q*v.price,tax=materials*v.tax/100,total=materials+tax+v.delivery+v.labor;
         rows.push(row('materials','Material subtotal',materials,'USD'),row('tax','Material tax',tax,'USD'),row('delivery','Delivery / trucking',v.delivery,'USD'),row('labor','Spreading / labor allowance',v.labor,'USD'),row('total','Estimated entered-scope total',total,'USD'));
@@ -251,9 +251,9 @@ const gravelGeneral:Model={
       row('net','Measured / placed volume',netYd3,'yd³'),
       row('compaction','Volume after compaction allowance',afterCompaction,'yd³'),
       row('m3','Order volume',m3,'m³'),
-      row('tons','Estimated order weight',tons,'US tons'),
-      row('pounds','Estimated order weight',lb,'lb'),
-      row('tonnes','Estimated order weight',lb/LB_PER_KG/1000,'metric tonnes')
+      row('tons','Estimated order weight — US tons',tons,'US tons'),
+      row('pounds','Estimated order weight — lb',lb,'lb'),
+      row('tonnes','Estimated order weight — metric tonnes',lb/LB_PER_KG/1000,'metric tonnes')
     ],v.price,u.price,{'USD/yd3':orderYd3,'USD/m3':m3,'USD/ton':tons}),[
       mode===0?`${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} = ${fmt(netFt3)} ft³.`:mode===1?`${fmt(v.area)} ft² × ${fmt(v.depth)} = ${fmt(netFt3)} ft³.`:`Entered volume = ${fmt(netFt3)} ft³.`,
       `${fmt(netYd3)} yd³ × ${fmt(compactionFactor)} compaction factor × ${fmt(waste(v))} waste factor = ${fmt(orderYd3)} yd³ to order.`,
@@ -272,7 +272,7 @@ function weightModel(label:string,density:number):Model{
     formula:'Measured volume is converted to cubic yards; estimated weight = cubic yards × entered tons-per-cubic-yard density.',
     assumptions:[`${label} density is editable because moisture, grading and compaction change bulk weight.`,'Dimensions and density should describe the same material state.','This weight-only calculator does not add a purchasing overage; use the material calculator for order allowance.'],
     sources:[inchGravel],
-    calculate(v){const mode=Math.round(v.mode),ft3=mode===0?v.length*v.width*v.depth:mode===1?v.area*v.depth:v.volume,yd3=ft3/27,tons=yd3*v.density,lb=tons*2000;return result([row('tons',`Estimated ${label.toLowerCase()} weight`,tons,'US tons'),row('weight','Estimated weight',lb,'lb'),row('kg','Estimated weight',lb/LB_PER_KG,'kg'),row('tonnes','Estimated weight',lb/LB_PER_KG/1000,'metric tonnes'),row('volume','Measured volume',yd3,'yd³')],[`${fmt(ft3)} ft³ ÷ 27 = ${fmt(yd3)} yd³.`,`${fmt(yd3)} yd³ × ${fmt(v.density)} = ${fmt(tons)} US tons.`]);}
+    calculate(v){const mode=Math.round(v.mode),ft3=mode===0?v.length*v.width*v.depth:mode===1?v.area*v.depth:v.volume,yd3=ft3/27,tons=yd3*v.density,lb=tons*2000;return result([row('tons',`Estimated ${label.toLowerCase()} weight`,tons,'US tons'),row('weight','Estimated weight — lb',lb,'lb'),row('kg','Estimated weight — kg',lb/LB_PER_KG,'kg'),row('tonnes','Estimated weight — metric tonnes',lb/LB_PER_KG/1000,'metric tonnes'),row('volume','Measured volume',yd3,'yd³')],[`${fmt(ft3)} ft³ ÷ 27 = ${fmt(yd3)} yd³.`,`${fmt(yd3)} yd³ × ${fmt(v.density)} = ${fmt(tons)} US tons.`]);}
   };
 }
 
@@ -288,7 +288,7 @@ const gravelDepth:Model={
   formula:'Average depth = available volume ÷ coverage area. Weight mode first converts tons to cubic yards using the entered bulk density.',
   assumptions:['This is a coverage-depth calculator, not a structural pavement or base-thickness recommendation.','Volume and density must represent the same loose/compacted state as the intended layer.'],
   sources:[omniGravel],
-  calculate(v){const a=Math.round(v.areaMode)===0?v.length*v.width:v.area;requireCondition(a>0,'area','Coverage area must be greater than zero.');const yd3=Math.round(v.supplyMode)===0?v.volume/27:v.tons/v.density;const ft3=yd3*27,depth=ft3/a;return result([row('depth','Average coverage depth',depth*12,'in'),row('mm','Average coverage depth',depth/FT_PER_M*1000,'mm'),row('area','Coverage area',a,'ft²'),row('volume','Available gravel volume',yd3,'yd³')],[`${fmt(yd3)} yd³ × 27 = ${fmt(ft3)} ft³.`,`${fmt(ft3)} ft³ ÷ ${fmt(a)} ft² = ${fmt(depth*12)} in average depth.`]);}
+  calculate(v){const a=Math.round(v.areaMode)===0?v.length*v.width:v.area;requireCondition(a>0,'area','Coverage area must be greater than zero.');const yd3=Math.round(v.supplyMode)===0?v.volume/27:v.tons/v.density;const ft3=yd3*27,depth=ft3/a;return result([row('depth','Average coverage depth — inches',depth*12,'in'),row('mm','Average coverage depth — millimeters',depth/FT_PER_M*1000,'mm'),row('area','Coverage area',a,'ft²'),row('volume','Available gravel volume',yd3,'yd³')],[`${fmt(yd3)} yd³ × 27 = ${fmt(ft3)} ft³.`,`${fmt(ft3)} ft³ ÷ ${fmt(a)} ft² = ${fmt(depth*12)} in average depth.`]);}
 };
 
 // ---------------- Excavation / earthwork ----------------
@@ -319,10 +319,10 @@ const trenchGeneral:Model={
   formula:'Trench cross-section = depth × (bottom width + top width) / 2; top width = bottom width + 2 × side slope × depth; loose volume applies swell.',
   assumptions:['Uniform trench cross-section along the entered length.','Side slope comes from the excavation plan/site requirements; zero represents vertical sides and does not imply vertical sides are safe.'],
   sources:[fhwaEarthwork],
-  calculate(v,u){const t=trenchBank(v),totalFt3=t.ft3*v.quantity,bank=totalFt3/27,loose=bank*(1+v.swell/100);return result(withCost([row('bank','Trench bank volume',bank,'yd³'),row('loose','Loose excavation volume',loose,'yd³'),row('topWidth','Top trench width',t.top,'ft'),row('area','Trench cross-sectional area per trench',t.area,'ft²'),row('m3','Bank volume',totalFt3/FT_PER_M**3,'m³')],v.price,u.price,{'USD/yd3':bank}),[`Top width = ${fmt(t.top)} ft; cross-section = ${fmt(t.area)} ft² per trench.`,`${fmt(t.area)} × ${fmt(v.length)} × ${v.quantity} / 27 = ${fmt(bank)} bank yd³.`]);}
+  calculate(v,u){const t=trenchBank(v),totalFt3=t.ft3*v.quantity,bank=totalFt3/27,loose=bank*(1+v.swell/100);return result(withCost([row('bank','Trench bank volume',bank,'yd³'),row('loose','Loose excavation volume',loose,'yd³'),row('topWidth','Top trench width',t.top,'ft'),row('area','Trench cross-sectional area per trench',t.area,'ft²'),row('m3','Bank volume — m³',totalFt3/FT_PER_M**3,'m³')],v.price,u.price,{'USD/yd3':bank}),[`Top width = ${fmt(t.top)} ft; cross-section = ${fmt(t.area)} ft² per trench.`,`${fmt(t.area)} × ${fmt(v.length)} × ${v.quantity} / 27 = ${fmt(bank)} bank yd³.`]);}
 };
 
-const trenchVolume:Model={...trenchGeneral,fields:trenchGeneral.fields.filter(f=>f.id!=='price'),calculate(v){const t=trenchBank(v),totalFt3=t.ft3*v.quantity,bank=totalFt3/27,loose=bank*(1+v.swell/100);return result([row('bank','Trench bank volume',bank,'yd³'),row('loose','Loose excavation volume',loose,'yd³'),row('ft3','Bank volume',totalFt3,'ft³'),row('m3','Bank volume',totalFt3/FT_PER_M**3,'m³'),row('topWidth','Top trench width',t.top,'ft')],[`Cross-sectional area ${fmt(t.area)} ft² × ${fmt(v.length)} ft × ${v.quantity} = ${fmt(totalFt3)} ft³.`,`Swell → ${fmt(loose)} loose yd³.`]);}};
+const trenchVolume:Model={...trenchGeneral,fields:trenchGeneral.fields.filter(f=>f.id!=='price'),calculate(v){const t=trenchBank(v),totalFt3=t.ft3*v.quantity,bank=totalFt3/27,loose=bank*(1+v.swell/100);return result([row('bank','Trench bank volume',bank,'yd³'),row('loose','Loose excavation volume',loose,'yd³'),row('ft3','Bank volume — ft³',totalFt3,'ft³'),row('m3','Bank volume — m³',totalFt3/FT_PER_M**3,'m³'),row('topWidth','Top trench width',t.top,'ft')],[`Cross-sectional area ${fmt(t.area)} ft² × ${fmt(v.length)} ft × ${v.quantity} = ${fmt(totalFt3)} ft³.`,`Swell → ${fmt(loose)} loose yd³.`]);}};
 
 const trenchBackfill:Model={
   fields:[length('length','Trench length',100),length('width','Trench width',2),length('depth','Trench depth',4),positiveOrZero(length('pipeDiameter','Outside pipe diameter',12,'in')),count('pipeCount','Parallel pipes',1,0),positiveOrZero(length('beddingDepth','Bedding already occupying trench',0,'in')),number('looseToPlacedShrink','Loose-to-placed volume reduction (%)',0,0),allowance],
@@ -397,7 +397,7 @@ const soilVolume:Model={
   formula:'Bank volume comes from dimensions, area × depth or direct entry; loose volume = bank × (1 + swell).',
   assumptions:['Dimensions represent in-place bank volume.','Swell is project-specific and affects loose haul volume, not in-place excavation geometry.'],
   sources:[fhwaEarthwork],
-  calculate(v){const mode=Math.round(v.mode),ft3=mode===0?v.length*v.width*v.depth:mode===1?v.area*v.depth:v.volume,bank=ft3/27,loose=bank*(1+v.swell/100);return result([row('bank','In-place soil volume',bank,'yd³'),row('loose','Loose soil volume',loose,'yd³'),row('ft3','In-place soil volume',ft3,'ft³'),row('m3','In-place soil volume',ft3/FT_PER_M**3,'m³')],[`Bank volume = ${fmt(bank)} yd³.`,`Swell ${fmt(v.swell)}% → ${fmt(loose)} loose yd³.`]);}
+  calculate(v){const mode=Math.round(v.mode),ft3=mode===0?v.length*v.width*v.depth:mode===1?v.area*v.depth:v.volume,bank=ft3/27,loose=bank*(1+v.swell/100);return result([row('bank','In-place soil volume — yd³',bank,'yd³'),row('loose','Loose soil volume — yd³',loose,'yd³'),row('ft3','In-place soil volume — ft³',ft3,'ft³'),row('m3','In-place soil volume — m³',ft3/FT_PER_M**3,'m³')],[`Bank volume = ${fmt(bank)} yd³.`,`Swell ${fmt(v.swell)}% → ${fmt(loose)} loose yd³.`]);}
 };
 
 const soilWeight:Model={
@@ -405,7 +405,7 @@ const soilWeight:Model={
   formula:'Soil weight = measured volume × allowance factor × entered bulk density.',
   assumptions:['Use density for the same moisture and loose/compacted state as the entered volume.','This is a mass estimate; legal truck payload limits are not inferred.'],
   sources:[],
-  calculate(v){const ft3=Math.round(v.mode)===0?v.length*v.width*v.depth:v.volume,order=ft3*waste(v),lb=order*v.density;return result([row('weight','Estimated soil order weight',lb,'lb'),row('tons','Estimated soil order weight',lb/2000,'US tons'),row('kg','Estimated soil order weight',lb/LB_PER_KG,'kg'),row('tonnes','Estimated soil order weight',lb/LB_PER_KG/1000,'metric tonnes'),row('volume','Volume with allowance',order/27,'yd³')],[`${fmt(order)} ft³ × ${fmt(v.density)} lb/ft³ = ${fmt(lb)} lb.`]);}
+  calculate(v){const ft3=Math.round(v.mode)===0?v.length*v.width*v.depth:v.volume,order=ft3*waste(v),lb=order*v.density;return result([row('weight','Estimated soil order weight — lb',lb,'lb'),row('tons','Estimated soil order weight — US tons',lb/2000,'US tons'),row('kg','Estimated soil order weight — kg',lb/LB_PER_KG,'kg'),row('tonnes','Estimated soil order weight — metric tonnes',lb/LB_PER_KG/1000,'metric tonnes'),row('volume','Volume with allowance',order/27,'yd³')],[`${fmt(order)} ft³ × ${fmt(v.density)} lb/ft³ = ${fmt(lb)} lb.`]);}
 };
 
 export const mortarSiteworkModels:Record<string,Model>={
