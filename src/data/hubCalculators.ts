@@ -558,140 +558,161 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "rebar-calculator",
-    "title": "Rebar Calculator — Quantity, Weight & Cost",
+    "title": "Rebar Calculator — Grid, Quantity, Stock Bars & Cost",
     "h1": "Rebar Calculator",
-    "description": "Calculate rebar quantity and spacing for concrete reinforcement — equal center spacing, total bar count, weight and cost for slabs, beams and walls.",
+    "description": "Calculate a slab rebar grid from dimensions, centerline edge offset and maximum spacing, with bar counts, equalized centers, total footage, stock bars, weight and cost.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar calculator",
+      "rebar grid calculator",
       "rebar material calculator",
-      "rebar length and weight calculator"
-    ],
-    "featured": false
-  },
-  {
-    "slug": "rebar-weight-calculator",
-    "title": "Rebar Weight Calculator — Pounds per Foot & Tons",
-    "h1": "Rebar Weight Calculator",
-    "description": "Calculate rebar weight per foot and total tons — enter count, length and bar size (#3 to #18) to get pounds, short tons and metric tonnes.",
-    "category": "Rebar",
-    "cluster": "rebar",
-    "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
-    "keywords": [
-      "rebar weight calculator",
-      "rebar weight tons calculator"
-    ],
-    "featured": false
-  },
-  {
-    "slug": "rebar-spacing-calculator",
-    "title": "Rebar Spacing Calculator — Equal Center Spacing",
-    "h1": "Rebar Spacing Calculator",
-    "description": "Calculate equal center spacing from member length and bar count — for slabs, walls and beams. Reverse-calculates spacing from rebar on hand.",
-    "category": "Rebar",
-    "cluster": "rebar",
-    "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
-    "keywords": [
-      "rebar spacing calculator",
-      "rebar spacing layout calculator"
-    ],
-    "featured": false
-  },
-  {
-    "slug": "rebar-length-calculator",
-    "title": "Rebar Length Calculator — Total Feet & Weight",
-    "h1": "Rebar Length Calculator",
-    "description": "Calculate total rebar length and weight — enter bar count, length per bar and size, get linear footage, pounds and tons with waste.",
-    "category": "Rebar",
-    "cluster": "rebar",
-    "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
-    "keywords": [
-      "rebar length calculator"
-    ],
-    "featured": false
-  },
-  {
-    "slug": "rebar-quantity-calculator",
-    "title": "Rebar Quantity Calculator — Count & Waste",
-    "h1": "Rebar Quantity Calculator",
-    "description": "Calculate how many rebar pieces you need — enter spacing and dimensions to get bar count, linear feet, weight and cost with waste.",
-    "category": "Rebar",
-    "cluster": "rebar",
-    "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
-    "keywords": [
-      "rebar quantity calculator",
       "how much rebar do i need"
     ],
     "featured": false
   },
   {
+    "slug": "rebar-weight-calculator",
+    "title": "Rebar Weight Calculator — lb/ft, Tons & Metric Tonnes",
+    "h1": "Rebar Weight Calculator",
+    "description": "Calculate nominal rebar weight for US bar sizes #3–#11, #14 and #18 from bar count and length, including lb/ft, diameter, pounds, kilograms, US tons and metric tonnes.",
+    "category": "Rebar",
+    "cluster": "rebar",
+    "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
+    "keywords": [
+      "rebar weight calculator",
+      "rebar weight per foot",
+      "rebar tons calculator",
+      "rebar kg calculator"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "rebar-spacing-calculator",
+    "title": "Rebar Spacing Calculator — Bar Count ↔ Equal Centers",
+    "h1": "Rebar Spacing Calculator",
+    "description": "Calculate equal rebar center spacing from installed bar count, or calculate the required bar count from a maximum spacing, with end offsets and inch/mm results.",
+    "category": "Rebar",
+    "cluster": "rebar",
+    "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
+    "keywords": [
+      "rebar spacing calculator",
+      "rebar bar count calculator",
+      "equal rebar spacing calculator",
+      "rebar center spacing calculator"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "rebar-length-calculator",
+    "title": "Rebar Length Calculator — Total Footage & Stock Bars",
+    "h1": "Rebar Length Calculator",
+    "description": "Calculate net and allowance-adjusted rebar footage from bar count and cut length, plus meters, minimum equivalent stock bars and purchased stock footage.",
+    "category": "Rebar",
+    "cluster": "rebar",
+    "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
+    "keywords": [
+      "rebar length calculator",
+      "rebar linear feet calculator",
+      "rebar stock length calculator",
+      "total rebar footage calculator"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "rebar-quantity-calculator",
+    "title": "Rebar Quantity Calculator — Grid Bars, Stock Length & Weight",
+    "h1": "Rebar Quantity Calculator",
+    "description": "Estimate rebar purchasing quantity from slab dimensions, centerline edge offset, maximum spacing and stock length, with grid bars, total footage, stock pieces, weight and waste.",
+    "category": "Rebar",
+    "cluster": "rebar",
+    "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
+    "keywords": [
+      "rebar quantity calculator",
+      "how much rebar do i need",
+      "rebar stock bar calculator",
+      "rebar quantity by spacing"
+    ],
+    "featured": false
+  },
+  {
     "slug": "rebar-cost-calculator",
-    "title": "Rebar Cost Calculator — Price & Quantity",
+    "title": "Rebar Cost Calculator — Length, Weight, Stock Bars & Price",
     "h1": "Rebar Cost Calculator",
-    "description": "Estimate rebar order length, nominal weight and optional cost from bar count, bar length, size, allowance and a quoted price per linear foot.",
+    "description": "Estimate rebar material cost from bar count and cut length or known total footage, with stock-bar length, waste, nominal weight, price per foot/bar/lb/ton, tax and delivery.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar cost calculator",
-      "rebar material cost"
+      "rebar price calculator",
+      "rebar material cost",
+      "rebar cost per foot calculator"
     ],
     "featured": false
   },
   {
     "slug": "rebar-grid-calculator",
-    "title": "Rebar Grid Calculator — Bar Count & Spacing",
+    "title": "Rebar Grid Calculator — Rows, Columns & Equal Spacing",
     "h1": "Rebar Grid Calculator",
-    "description": "Calculate rebar grid layout — bar count per direction with equalized spacing, edge offset, total linear feet, weight and waste.",
+    "description": "Lay out an orthogonal rebar grid from area dimensions, centerline edge offset and maximum spacing, with grid size, bars per direction, equalized spacing and total footage.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar grid calculator",
-      "rebar grid layout calculator"
+      "rebar grid layout calculator",
+      "rebar rows columns calculator",
+      "rebar grid spacing calculator"
     ],
     "featured": false
   },
   {
     "slug": "rebar-lap-length-calculator",
-    "title": "Rebar Lap Length Calculator — Additional Steel Length",
+    "title": "Rebar Lap Length Calculator — Additional Steel & Weight",
     "h1": "Rebar Lap Length Calculator",
-    "description": "Calculate total additional lap steel from a specified lap length per splice and number of splices. This tool does not derive the required splice length.",
+    "description": "Total additional rebar from a lap length already specified on the drawings, including splice count, allowance, nominal weight and optional cost without inventing a required splice length.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "rebar lap length calculator"
+      "rebar lap length calculator",
+      "rebar splice length calculator",
+      "rebar lap steel calculator",
+      "rebar lap weight calculator"
     ],
     "featured": false
   },
   {
     "slug": "reinforcement-mesh-calculator",
-    "title": "Reinforcement Mesh Calculator — Bags, Volume & Cost",
+    "title": "Reinforcement Mesh Calculator — Sheets, Overlap & Cost",
     "h1": "Reinforcement Mesh Calculator",
-    "description": "Calculate welded wire reinforcement mesh — sheet count, coverage area, overlap allowance and cost per project with waste.",
+    "description": "Calculate welded reinforcement mesh sheets or rolls for a rectangular slab, including overlap, automatic 90° orientation comparison, rows, columns, spares, coverage and cost.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "reinforcement mesh calculator"
+      "reinforcement mesh calculator",
+      "concrete mesh calculator",
+      "welded wire mesh calculator",
+      "mesh sheet calculator"
     ],
     "featured": false
   },
   {
     "slug": "rebar-chair-calculator",
-    "title": "Rebar Chair Calculator — Chair Count, Spacing & Cost",
+    "title": "Rebar Chair Calculator — Support Grid, Spacing & Cost",
     "h1": "Rebar Chair Calculator",
-    "description": "Calculate rebar chair quantity from slab area and chair spacing, with waste and optional cost for supported reinforcement layouts.",
+    "description": "Estimate a rectangular rebar-chair support grid from mat dimensions, edge offset and maximum spacing in both directions, with installed chairs, spares, equalized spacing and cost.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar chair calculator",
       "rebar chair spacing calculator",
-      "rebar support chair calculator"
+      "rebar support chair calculator",
+      "rebar support grid calculator"
     ],
     "featured": false
   },
