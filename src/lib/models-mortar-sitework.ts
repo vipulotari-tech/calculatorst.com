@@ -114,11 +114,42 @@ const cementGeneral:Model={
 };
 
 const cementBag:Model={
-  fields:[volume('volume','Total dry mix volume',10),number('cementParts','Cement parts',1,0),number('sandParts','Sand parts',2,0),number('aggregateParts','Coarse aggregate parts',3,0),{...volume('bagYield','Bulk cement volume per bag',1),unit:'ft3'},allowance,price('USD/bag')],
-  formula:'Cement share = total dry mix volume × cement parts ÷ total ratio parts; cement bags = ceil(cement share × allowance factor ÷ entered bag volume).',
-  assumptions:['Ratio parts are user-specified dry-volume proportions, not a strength prescription.','This does not convert wet placed concrete volume into dry ingredient volume; enter the dry batch volume appropriate to the chosen mix design.'],
-  sources:[],
-  calculate(v,u){const parts=v.cementParts+v.sandParts+v.aggregateParts;requireCondition(parts>0,'cementParts','Enter at least one non-zero mix part.');const cement=v.volume*v.cementParts/parts,sand=v.volume*v.sandParts/parts,agg=v.volume*v.aggregateParts/parts,order=cement*waste(v),bags=roundUp(order/v.bagYield);return result(withCost([row('bags','Cement bags to order',bags,'bags',true),row('cement','Cement dry volume',cement,'ft³'),row('sand','Sand dry volume',sand,'ft³'),row('aggregate','Coarse aggregate dry volume',agg,'ft³'),row('order','Cement volume with allowance',order,'ft³')],v.price,u.price,{'USD/bag':bags}),[`Total ratio parts = ${fmt(parts)}.`,`Cement = ${fmt(v.volume)} × ${fmt(v.cementParts)} / ${fmt(parts)} = ${fmt(cement)} ft³.`,`Allowance and bag volume → ${bags} bags.`]);}
+  fields:[
+    {id:'batchMode',label:'Batch volume represents',value:0,min:0,max:1,integer:true,dimension:'number',options:[{value:0,label:'Known dry batch volume'},{value:1,label:'Placed / wet volume'}]},
+    volume('volume','Entered batch volume',10),
+    {...number('dryFactor','Dry-volume factor',1.54,0.01,'Multiplier from placed/wet volume to the dry ingredient volume used by your estimating method.'),visibleWhen:{field:'batchMode',equals:1}},
+    number('cementParts','Cement parts',1,0),
+    number('sandParts','Sand parts',2,0),
+    number('aggregateParts','Coarse aggregate parts',3,0),
+    {...volume('bagYield','Bulk cement volume per bag',1),unit:'ft3'},
+    allowance,price('USD/bag')
+  ],
+  formula:'Dry batch volume = entered dry volume, or placed/wet volume × entered dry-volume factor. Cement share = dry batch × cement parts ÷ total ratio parts; bags = ceil(cement share × allowance ÷ bag volume).',
+  assumptions:[
+    'Ratio parts are user-specified dry-volume proportions, not a strength prescription.',
+    'The dry-volume factor is an estimating input, not a universal material constant. Use the factor required by the selected mix/design method.',
+    'Bag volume is editable because package mass and bulk-volume conventions vary by market and product.'
+  ],
+  sources:[omniGrout],
+  calculate(v,u){
+    const parts=v.cementParts+v.sandParts+v.aggregateParts;
+    requireCondition(parts>0,'cementParts','Enter at least one non-zero mix part.');
+    const dryBatch=Math.round(v.batchMode)===1?v.volume*v.dryFactor:v.volume;
+    const cement=dryBatch*v.cementParts/parts,sand=dryBatch*v.sandParts/parts,agg=dryBatch*v.aggregateParts/parts;
+    const order=cement*waste(v),bags=roundUp(order/v.bagYield);
+    return result(withCost([
+      row('bags','Cement bags to order',bags,'bags',true),
+      row('dryBatch','Dry batch volume used',dryBatch,'ft³'),
+      row('cement','Cement dry volume',cement,'ft³'),
+      row('sand','Sand dry volume',sand,'ft³'),
+      row('aggregate','Coarse aggregate dry volume',agg,'ft³'),
+      row('order','Cement volume with allowance',order,'ft³')
+    ],v.price,u.price,{'USD/bag':bags}),[
+      Math.round(v.batchMode)===1?`Dry batch = ${fmt(v.volume)} × ${fmt(v.dryFactor)} = ${fmt(dryBatch)} ft³.`:`Dry batch = entered ${fmt(dryBatch)} ft³.`,
+      `Cement = ${fmt(dryBatch)} × ${fmt(v.cementParts)} / ${fmt(parts)} = ${fmt(cement)} ft³.`,
+      `Allowance and bag volume → ${bags} bags.`
+    ]);
+  }
 };
 
 const cementSand:Model={
