@@ -404,7 +404,7 @@ const soilWeight:Model={
   fields:[{id:'mode',label:'Soil volume from',value:0,min:0,max:1,integer:true,dimension:'number',options:[{value:0,label:'Length × width × depth'},{value:1,label:'Known volume'}]},{...length('length','Area length',20),visibleWhen:{field:'mode',equals:0}},{...length('width','Area width',10),visibleWhen:{field:'mode',equals:0}},{...length('depth','Soil depth',1),visibleWhen:{field:'mode',equals:0}},{...volume('volume','Known soil volume',10),visibleWhen:{field:'mode',equals:1}},number('density','Soil bulk density (lb/ft³)',100,0),allowance],
   formula:'Soil weight = measured volume × allowance factor × entered bulk density.',
   assumptions:['Use density for the same moisture and loose/compacted state as the entered volume.','This is a mass estimate; legal truck payload limits are not inferred.'],
-  sources:[],
+  sources:[fhwaEarthwork],
   calculate(v){const ft3=Math.round(v.mode)===0?v.length*v.width*v.depth:v.volume,order=ft3*waste(v),lb=order*v.density;return result([row('weight','Estimated soil order weight — lb',lb,'lb'),row('tons','Estimated soil order weight — US tons',lb/2000,'US tons'),row('kg','Estimated soil order weight — kg',lb/LB_PER_KG,'kg'),row('tonnes','Estimated soil order weight — metric tonnes',lb/LB_PER_KG/1000,'metric tonnes'),row('volume','Volume with allowance',order/27,'yd³')],[`${fmt(order)} ft³ × ${fmt(v.density)} lb/ft³ = ${fmt(lb)} lb.`]);}
 };
 
