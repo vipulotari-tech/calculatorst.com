@@ -381,7 +381,166 @@ const concreteSeo: Record<string, {
   }
 };
 
-const faq = concreteSeo[calc.slug]?.faq ?? [...content.faq, ...(faqEnhancements[calc.slug] ?? [])];
+const slabSeo: Record<string, {
+  title: string;
+  description: string;
+  guidance: string[];
+  faq: { q: string; a: string }[];
+}> = {
+  "slab-thickness-calculator": {
+    title: "Slab Thickness Calculator — Volume ↔ Depth & Coverage",
+    description: "Convert slab area and concrete volume into average thickness, or enter a thickness to compare cubic yards, bags and material quantity across scenarios.",
+    guidance: [
+      "Use Volume → average thickness when you know how much concrete was placed over a measured footprint and want the resulting average depth.",
+      "Use Thickness → concrete required when the project thickness is already specified and you need order quantity, bags and weight.",
+      "Scenario comparison changes material quantity only. It does not decide which slab thickness is structurally adequate."
+    ],
+    faq: [
+      { q: "How do I calculate slab thickness from concrete volume?", a: "Convert the concrete volume to cubic feet, divide by slab area in square feet to get thickness in feet, then multiply by 12 for inches." },
+      { q: "How many square feet does one cubic yard cover at 4 inches thick?", a: "One cubic yard is 27 ft³. At 4 inches, or one-third of a foot, it covers 81 ft² before any allowance." },
+      { q: "Can I compare 4-inch, 5-inch and 6-inch slab quantities?", a: "Yes. Scenario mode calculates the geometric and allowance-adjusted concrete quantity for each thickness you enter." },
+      { q: "Does this calculator tell me how thick a structural slab should be?", a: "No. It solves volume, area and thickness geometry. Required thickness depends on loading, soil, base, reinforcement, climate and project requirements." }
+    ]
+  },
+  "slab-cost-calculator": {
+    title: "Concrete Slab Cost Calculator — Material & Project Cost",
+    description: "Estimate slab concrete cost from dimensions and quoted unit price, with optional tax, delivery, short-load, pump, base, reinforcement, forms, finishing and labor.",
+    guidance: [
+      "Start with dimensions and the concrete price unit from the supplier quote; the calculator supports yard, meter, cubic-foot, bag and ton pricing.",
+      "Use material-only scope for concrete purchasing. Switch to full-project scope only when you have real quotes or allowances for the additional line items.",
+      "The cost-per-square-foot result reflects only the costs you enter; it is not a national or local market-price lookup."
+    ],
+    faq: [
+      { q: "How is concrete slab cost calculated?", a: "The calculator finds the allowance-adjusted concrete quantity, multiplies it by the selected quoted price basis, then adds the entered tax and optional project line items." },
+      { q: "Can I price a slab by bags instead of cubic yards?", a: "Yes. Select the per-bag price unit. The material subtotal uses the rounded whole-bag count." },
+      { q: "What is included in full-project scope?", a: "Only the values you enter for delivery, short-load, pumping, subbase, reinforcement, forms, finishing and labor are added." },
+      { q: "Does the calculator use average slab prices?", a: "No. Enter current supplier or contractor quotes so the estimate reflects your project rather than a national average." }
+    ]
+  },
+  "slab-reinforcement-calculator": {
+    title: "Slab Rebar Calculator — Grid, Spacing, Length & Weight",
+    description: "Estimate a slab rebar grid from length, width, centerline edge offset, maximum spacing and bar size, including bar counts, grid size, cut length, weight and waste.",
+    guidance: [
+      "Enter the edge offset to the bar centerline, not clear cover to the outside of the bar.",
+      "The calculator rounds bar count up so equalized spacing stays at or below the maximum spacing you enter.",
+      "This is a single orthogonal mat takeoff. Add laps, hooks, dowels, second layers and special reinforcement from the project drawings."
+    ],
+    faq: [
+      { q: "How many rebar bars do I need for a slab?", a: "For each direction, the calculator subtracts the two edge offsets, divides the usable distance by the maximum spacing, rounds up, and adds one bar for the opposite edge." },
+      { q: "What does edge offset mean?", a: "It is the distance from the slab edge to the centerline of the first and last bars. If your drawings specify clear cover, convert that requirement to bar-center distance." },
+      { q: "Why can the actual spacing be smaller than the spacing I entered?", a: "The entered spacing is treated as a maximum. After the bar count is rounded up, the calculator equalizes the intervals across the usable grid." },
+      { q: "Does this include lap splices or a second rebar mat?", a: "No. The result is one straight orthogonal mat. Add splice, hook, dowel and second-layer steel separately when required." }
+    ]
+  },
+  "patio-concrete-calculator": {
+    title: "Patio Concrete Calculator — Yards, Bags, Base & Truck Loads",
+    description: "Calculate rectangular or circular patio concrete in yards and bags, plus form perimeter, optional gravel base, ready-mix truck loads, weight, waste and material cost.",
+    guidance: [
+      "Choose rectangle or circle so the area formula matches the patio footprint. Split irregular patios into non-overlapping simple sections.",
+      "Optional gravel-base output is compacted volume; supplier loose-volume conversion can differ.",
+      "Truck-load count is planning output based on the capacity you enter, not a supplier dispatch schedule."
+    ],
+    faq: [
+      { q: "How much concrete do I need for a patio?", a: "For a rectangle, multiply length × width × thickness. For a circle, use π × radius² × thickness. The calculator then converts the volume to cubic yards and applies your allowance." },
+      { q: "Can I calculate a circular concrete patio?", a: "Yes. Select Circle and enter the finished diameter and thickness." },
+      { q: "How should I estimate an irregular patio?", a: "Divide it into non-overlapping rectangles, circles or other simple sections, calculate each section, then add the order quantities." },
+      { q: "Does the patio calculator include the gravel base and forms?", a: "It can estimate compacted gravel-base volume when you enter a base depth, and it reports the perimeter used for edge forms." }
+    ]
+  },
+  "patio-cost-calculator": {
+    title: "Concrete Patio Cost Calculator — Material, Finish & Labor",
+    description: "Estimate concrete patio cost from dimensions and quoted prices, with optional delivery, short-load, pump, base, reinforcement, forms, finish, decorative work, removal and labor.",
+    guidance: [
+      "Use the concrete-material-only mode when comparing supplier quotes; use full-project mode when you have additional project prices.",
+      "Decorative finish, demolition and labor are user-entered amounts because finish complexity and local rates vary widely.",
+      "Compare the final cost per square foot only after confirming that both estimates include the same scope."
+    ],
+    faq: [
+      { q: "How is concrete patio cost per square foot calculated?", a: "The calculator divides the entered-scope total by the patio area. Costs not entered in the form are not included in that per-square-foot figure." },
+      { q: "Can I include stamped or decorative concrete cost?", a: "Yes. Full-project mode includes a separate decorative-finish line where you can enter a current quote or allowance." },
+      { q: "Can I include removal of an existing patio?", a: "Yes. Full-project mode includes a demolition/removal line item that is added only when you enter a value." },
+      { q: "Does this calculator provide local contractor pricing automatically?", a: "No. It intentionally uses your quoted values because concrete, labor and finish prices vary by location, access and project scope." }
+    ]
+  },
+  "driveway-concrete-calculator": {
+    title: "Concrete Driveway Calculator — Yards, Apron, Base & Trucks",
+    description: "Calculate driveway concrete for rectangles, attached aprons or linearly tapered widths, with cubic yards, bags, optional compacted base, truck loads, weight and cost.",
+    guidance: [
+      "Rectangle + apron mode adds a separately measured apron at the street end; do not include the same apron area inside the main rectangle twice.",
+      "Trapezoid mode uses driveway length × average of the two end widths, which is exact when width changes linearly.",
+      "Optional base output is compacted gravel volume. Use the dedicated slab-reinforcement calculator for a rebar takeoff from specified spacing and cover."
+    ],
+    faq: [
+      { q: "How do I calculate concrete for a driveway that gets wider?", a: "Use Trapezoid mode. Enter the full driveway length plus the widths at the street and house ends; area equals length × average end width." },
+      { q: "How is a driveway apron included?", a: "Rectangle + apron mode calculates the main driveway rectangle and adds a separately measured apron rectangle using the same concrete thickness." },
+      { q: "Can the calculator estimate the gravel base?", a: "Yes. Enter the compacted base depth to get a compacted cubic-yard quantity for the same driveway footprint." },
+      { q: "Does this calculator choose a safe driveway thickness?", a: "No. Thickness is a design input. Vehicle loads, soil, base, reinforcement, climate and local requirements can change the required pavement section." }
+    ]
+  },
+  "driveway-cost-calculator": {
+    title: "Concrete Driveway Cost Calculator — Material & Replacement Cost",
+    description: "Estimate driveway concrete cost from dimensions and quotes, with optional delivery, short-load, pump, base, reinforcement, forms, joints, finishing, removal, disposal and labor.",
+    guidance: [
+      "Material-only mode is useful for ready-mix quote comparison; replacement scope exposes demolition and disposal separately.",
+      "Forms, reinforcement, base and joint-cutting are separate inputs so the estimate does not hide assumptions inside a single square-foot rate.",
+      "Use the same scope when comparing contractor or DIY scenarios; otherwise per-square-foot comparisons can be misleading."
+    ],
+    faq: [
+      { q: "What costs can I include in a concrete driveway estimate?", a: "Full-project scope can include delivery, short-load, pumping, subbase, reinforcement, formwork, control-joint cutting, finishing, demolition, disposal and labor." },
+      { q: "How is driveway cost per square foot calculated?", a: "The calculator divides the total of the costs you entered by the measured driveway area." },
+      { q: "Can I estimate a replacement driveway?", a: "Yes. Enter demolition/removal and disposal/haul-away costs in the replacement scope." },
+      { q: "Does it automatically assume rebar, gravel or forms prices?", a: "No. Enter current project values for those items. This avoids presenting generic national assumptions as a local quote." }
+    ]
+  },
+  "driveway-thickness-calculator": {
+    title: "Driveway Thickness Calculator — Volume ↔ Depth & Scenarios",
+    description: "Convert driveway area and concrete volume into average depth, or calculate and compare concrete yards, bags and weight for user-selected thickness scenarios.",
+    guidance: [
+      "Use inverse mode to check the average depth represented by a known volume over the measured driveway footprint.",
+      "Use scenario mode to see how changing an already-chosen thickness changes concrete quantity and bag count.",
+      "This page does not recommend pavement thickness; structural adequacy depends on loads, support and project requirements."
+    ],
+    faq: [
+      { q: "How do I calculate driveway thickness from cubic yards?", a: "Convert cubic yards to cubic feet, divide by the driveway area in square feet, then convert the resulting depth in feet to inches." },
+      { q: "Can I compare concrete quantity for several driveway thicknesses?", a: "Yes. Scenario mode calculates geometric volume, allowance-adjusted yards and bag counts for each thickness you enter." },
+      { q: "Why is this different from the Driveway Concrete Calculator?", a: "This page focuses on the inverse relationship between area, volume and depth. The Driveway Concrete Calculator focuses on footprint shapes, apron or taper geometry, base and truck planning." },
+      { q: "Does the result prove the driveway thickness is structurally adequate?", a: "No. It is a geometry result, not pavement design. Use thickness specified for the loads, soil, base, reinforcement and local conditions." }
+    ]
+  },
+  "garage-slab-calculator": {
+    title: "Garage Slab Calculator — Thickened Edge, Base & Concrete",
+    description: "Estimate garage slab concrete with optional thickened perimeter, compacted gravel base, vapor-barrier area, forms and truck loads, plus yards, bags, weight and cost.",
+    guidance: [
+      "Enter the finished slab footprint and the slab thickness specified for the project; number of vehicle bays alone does not determine slab thickness.",
+      "The thickened-edge input is total edge depth. The calculator adds only the depth below the main slab so concrete is not double-counted.",
+      "Gravel output is compacted volume and vapor-barrier output is floor area; overlaps, seams and loose base delivery factors are separate."
+    ],
+    faq: [
+      { q: "How is a thickened garage-slab edge calculated?", a: "The calculator starts with the uniform slab, then adds perimeter × edge width × the extra depth below the main slab thickness." },
+      { q: "Can I include a gravel base under the garage slab?", a: "Yes. Enter the compacted base depth to get compacted gravel volume for the full slab area." },
+      { q: "Can I estimate vapor-barrier area?", a: "Yes. When enabled, the calculator reports the slab floor area as the base vapor-barrier coverage before overlap or seam allowance." },
+      { q: "Does the calculator determine garage slab thickness or reinforcement?", a: "No. Those are project-design inputs. The calculator estimates material for the dimensions you enter." }
+    ]
+  },
+  "shed-foundation-calculator": {
+    title: "Shed Foundation Calculator — Slab, Piers & Strip Footing",
+    description: "Calculate shed-foundation concrete for a slab, cylindrical piers or continuous strip footing, with yards, bags, weight, waste and quote-based material or project cost.",
+    guidance: [
+      "Choose the foundation geometry already specified for the shed: slab, concrete piers or continuous strip footing.",
+      "Pier mode multiplies cylinder volume by the number of piers and identical sections; strip mode multiplies run × width × depth × quantity.",
+      "Foundation type, frost depth, bearing capacity, dimensions and reinforcement must come from project requirements rather than the calculator."
+    ],
+    faq: [
+      { q: "Can I calculate both shed slabs and concrete piers?", a: "Yes. Select Concrete slab, Concrete pier & beam, or Concrete footing (strip), then enter the dimensions for that foundation type." },
+      { q: "How is concrete for shed piers calculated?", a: "Each pier is treated as a cylinder using π × radius² × embedment depth, then multiplied by pier count and identical-section quantity." },
+      { q: "Can the shed foundation calculator price bags instead of ready-mix?", a: "Yes. Select the matching price unit. Per-bag pricing uses the rounded whole-bag count; cubic-yard, cubic-meter, cubic-foot and ton pricing use their corresponding order quantities." },
+      { q: "Does this calculator tell me which shed foundation type to use?", a: "No. It estimates concrete after the foundation type and dimensions are chosen. Soil, frost, loads, anchorage and local requirements determine the design." }
+    ]
+  }
+};
+
+const pageSeo = concreteSeo[calc.slug] ?? slabSeo[calc.slug];
+const faq = pageSeo?.faq ?? [...content.faq, ...(faqEnhancements[calc.slug] ?? [])];
 const seoDescriptionOverrides: Record<string, string> = {
   "crushed-stone-calculator": calc.description,
   "gravel-weight-calculator": calc.description,
@@ -409,9 +568,9 @@ const seoDescriptionOverrides: Record<string, string> = {
   "brick-cost-calculator": calc.description,
   "cmu-cost-calculator": calc.description,
 };
-const seoDescription = concreteSeo[calc.slug]?.description ?? seoDescriptionOverrides[calc.slug] ?? content.description;
-const seoTitle = concreteSeo[calc.slug]?.title ?? calc.title;
-const concreteGuidance = concreteSeo[calc.slug]?.guidance ?? [];
+const seoDescription = pageSeo?.description ?? seoDescriptionOverrides[calc.slug] ?? content.description;
+const seoTitle = pageSeo?.title ?? calc.title;
+const pageGuidance = pageSeo?.guidance ?? [];
 const newCalculatorSlugs = new Set([
   "deck-mud-calculator",
   "stucco-calculator",
@@ -450,11 +609,11 @@ const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-0
         {content.instructions.map(step => <li>{step}</li>)}
       </ol>
     </div>
-    {concreteGuidance.length > 0 && (
+    {pageGuidance.length > 0 && (
       <div class="rounded-lg border border-hairline bg-canvas p-6">
         <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">When to Use This Calculator</h2>
         <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
-          {concreteGuidance.map(item => <li>{item}</li>)}
+          {pageGuidance.map(item => <li>{item}</li>)}
         </ul>
       </div>
     )}
