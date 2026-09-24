@@ -311,8 +311,8 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   "mortar-grout-cement": {
-    intro: "Mortar, grout and cement are related but different estimating scopes. Mortar calculators handle masonry-unit coverage, joint volume, mix proportions and bag cost; grout calculators cover known mixed volume or tile-joint geometry; cement calculators convert cement-only volume or user-entered dry mix ratios into purchasing quantities.",
-    beforeYouCalculate: "Identify which material quantity you actually know: installed masonry units, wall geometry, tile-joint geometry, known mixed volume, or a specified dry mix ratio. Then use the exact product yield, package weight, joint dimensions and supplier price that match the material being purchased. These calculators do not choose a mortar type, grout specification or structural mix.",
+    intro: "Mortar, grout and cement are related but different estimating scopes. Mortar calculators handle masonry-unit coverage, joint volume, mix proportions and bag cost; grout calculators cover known mixed volume or tile-joint geometry; cement tools handle cement-only volume, dry ratios and optional placed-to-dry batch conversion.",
+    beforeYouCalculate: "Identify what you actually know: installed masonry units, wall geometry, tile-joint geometry, mixed volume, a dry batch, or a placed/wet batch with an estimating dry-volume factor. Use the exact product yield, package weight, joint dimensions and supplier price. These calculators do not choose a mortar type, grout specification or structural mix.",
     tips: [
       "Use the exact mixed yield or unit coverage stated for the mortar product and masonry unit. Bag coverage changes with unit size, bedding method, joint dimensions and workmanship.",
       "Tile grout and masonry core-fill grout are different estimating tasks. Use the tile-joint grout tools here for tile joints; use the CMU Grout Calculator for filled block cells and bond beams.",
