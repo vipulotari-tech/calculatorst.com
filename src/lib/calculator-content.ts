@@ -52,7 +52,7 @@ export function getCalculatorContent(title: string, model: Model) {
       'Enter the measurements and quantities listed below. Select the unit beside each measurement.',
       ...model.fields.filter(f => f.help && f.id !== 'price').map(f => `${f.label}: ${f.help}`),
       ...(model.fields.some(f => f.id === 'price') ? ['Enter the quoted price in the displayed unit when you want a cost estimate. Read the cost assumptions to see what is included.'] : []),
-      'Calculate updates the result; Reset restores initial values and units. Copy Result copies the current valid results.',
+      'Calculate updates the result; Reset restores initial values and units. Copy Result copies the current valid results, Share creates a restorable link with the current inputs, and Print opens a result-focused print view.',
     ],
     faq: [
       { q: `What does the ${title} calculate?`, a: outputs.join('; ') + '. The results are estimates under the assumptions shown on this page.' },
