@@ -1548,6 +1548,72 @@ const bags: Model = {
   },
 };
 
+const foundationCost: Model = {
+  fields: [
+    { id: 'foundationType', label: 'Foundation concrete shape', value: 0, unit: '', integer: true, min: 0, max: 2,
+      options: [
+        { value: 0, label: 'Slab / pad' },
+        { value: 1, label: 'Concrete piers' },
+        { value: 2, label: 'Continuous strip footing' },
+      ] },
+    { ...length('length', 'Slab length / footing run', 20, 'ft'), visibleWhen: { field: 'foundationType', in: [0, 2] } },
+    { ...length('width', 'Slab width', 20, 'ft'), visibleWhen: { field: 'foundationType', equals: 0 } },
+    { ...length('thickness', 'Slab thickness', 4, 'in'), visibleWhen: { field: 'foundationType', equals: 0 } },
+    { ...count('pierCount', 'Number of piers', 6, 1), visibleWhen: { field: 'foundationType', equals: 1 } },
+    { ...length('pierDiameter', 'Pier diameter', 12, 'in'), visibleWhen: { field: 'foundationType', equals: 1 } },
+    { ...length('pierDepth', 'Pier depth', 36, 'in'), visibleWhen: { field: 'foundationType', equals: 1 } },
+    { ...length('footingWidth', 'Footing width', 16, 'in'), visibleWhen: { field: 'foundationType', equals: 2 } },
+    { ...length('footingDepth', 'Footing depth', 8, 'in'), visibleWhen: { field: 'foundationType', equals: 2 } },
+    count('quantity', 'Identical sections', 1),
+    allowance,
+    number('priceYd3', 'Concrete quote (USD / yd³)', 0, 0),
+    number('delivery', 'Delivery / short-load fees (USD)', 0, 0),
+    number('labor', 'Labor / equipment allowance (USD)', 0, 0),
+    number('tax', 'Material tax (%)', 0, 0),
+  ],
+  formula: 'Concrete volume depends on the selected slab, pier or strip-footing geometry. Order yards = net volume × allowance factor / 27. Total = order yards × quoted $/yd³ + material tax + delivery + labor/equipment.',
+  assumptions: [
+    'This is a concrete-material and entered-cost estimator, not a complete foundation bid. Excavation, forms, reinforcement, waterproofing, drainage, engineering, permits and other scope are excluded unless you include them in the entered labor/equipment allowance.',
+    'Foundation type and dimensions must come from the project requirements. This calculator does not design footing width, slab thickness, pier size, frost depth or bearing capacity.',
+    'Concrete quote is entered per cubic yard; delivery and short-load charges vary by supplier and order size.'
+  ],
+  sources: [geometry],
+  calculate(v) {
+    const type = Math.round(v.foundationType);
+    let netFt3: number;
+    let geometryStep: string;
+    if (type === 1) {
+      const radiusFt = v.pierDiameter / 2;
+      netFt3 = Math.PI * radiusFt * radiusFt * v.pierDepth * v.pierCount * v.quantity;
+      geometryStep = `Piers: π × ${fmt(radiusFt)}² × ${fmt(v.pierDepth)} × ${v.pierCount} × ${v.quantity} = ${fmt(netFt3)} ft³.`;
+    } else if (type === 2) {
+      netFt3 = v.length * v.footingWidth * v.footingDepth * v.quantity;
+      geometryStep = `Strip footing: ${fmt(v.length)} × ${fmt(v.footingWidth)} × ${fmt(v.footingDepth)} × ${v.quantity} = ${fmt(netFt3)} ft³.`;
+    } else {
+      netFt3 = v.length * v.width * v.thickness * v.quantity;
+      geometryStep = `Slab: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.thickness)} × ${v.quantity} = ${fmt(netFt3)} ft³.`;
+    }
+    const orderFt3 = netFt3 * waste(v);
+    const yards = orderFt3 / 27;
+    const materials = yards * v.priceYd3;
+    const taxAmount = materials * v.tax / 100;
+    const total = materials + taxAmount + v.delivery + v.labor;
+    return result([
+      row('total','Estimated entered-scope total',total,'USD',true),
+      row('yards','Concrete to order',yards,'yd³'),
+      row('net','Net concrete volume',netFt3/27,'yd³'),
+      row('materials','Concrete material subtotal',materials,'USD'),
+      row('tax','Material tax',taxAmount,'USD'),
+      row('delivery','Delivery / short-load fees',v.delivery,'USD'),
+      row('labor','Labor / equipment allowance',v.labor,'USD'),
+    ],[
+      geometryStep,
+      `${fmt(netFt3/27)} yd³ × ${fmt(waste(v))} allowance factor = ${fmt(yards)} yd³ to order.`,
+      `${fmt(yards)} yd³ × ${fmt(v.priceYd3)}/yd³ = ${fmt(materials)} material subtotal; add tax, delivery and labor/equipment.`
+    ]);
+  }
+};
+
 // 6. Shed Foundation
 const shedFoundationFields: Field[] = [
   { id: 'foundationType', label: 'Foundation type', value: 0, unit: '', integer: true, min: 0, max: 2,
@@ -1797,6 +1863,7 @@ export const materialModels: Record<string, Model> = {
   'concrete-waste': concreteWaste,
 
   // --- Slab, Patio, Driveway, Shed ---
+  'foundation-cost': foundationCost,
   'shed-foundation': shedFoundation,
 
   // --- Non-concrete (unchanged) ---

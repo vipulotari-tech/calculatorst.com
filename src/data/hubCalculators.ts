@@ -394,14 +394,16 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "foundation-cost-calculator",
-    "title": "Foundation Cost Calculator — Price & Quantity",
+    "title": "Foundation Cost Calculator — Concrete Yards & Cost",
     "h1": "Foundation Cost Calculator",
-    "description": "Estimate a foundation cost line from a known material quantity and quoted unit price, with allowance, material tax, delivery and labor entered separately.",
+    "description": "Estimate concrete quantity and entered-scope foundation cost for a slab, concrete piers or continuous strip footing using dimensions, allowance, quoted concrete price, tax, delivery and labor/equipment.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "foundation cost calculator",
+      "foundation cost estimator",
+      "concrete foundation cost calculator",
       "foundation price calculator"
     ],
     "featured": false

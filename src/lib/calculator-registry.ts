@@ -34,7 +34,7 @@ export const slugToModelKey: Record<string, string> = {
     "shed-foundation-calculator": "shed-foundation",
 
   // 3. Foundation (10)
-  "foundation-cost-calculator": "material-cost",
+  "foundation-cost-calculator": "foundation-cost",
   "foundation-excavation-calculator": "excavation",
   "strip-footing-calculator": "concrete-footing",
   "pad-footing-calculator": "concrete-footing",
