@@ -83,13 +83,24 @@ const ogClusterMap: Record<string, string> = {
 
 const ogImage = ogClusterMap[calc.cluster] ?? "/og.png";
 const faq = content.faq;
+const seoDescriptionOverrides: Record<string, string> = {
+  "crushed-stone-calculator": calc.description,
+  "concrete-cost-calculator": calc.description,
+  "slab-cost-calculator": calc.description,
+  "drywall-joint-compound-calculator": calc.description,
+  "roofing-shingle-calculator": calc.description,
+  "rebar-chair-calculator": calc.description,
+  "beam-calculator": calc.description,
+  "concrete-wall-calculator": calc.description,
+};
+const seoDescription = seoDescriptionOverrides[calc.slug] ?? content.description;
 ---
 
 <CalculatorLayout
   title={calc.title}
-  description={content.description}
+  description={seoDescription}
   h1={calc.h1}
-  intro={content.description}
+  intro={seoDescription}
   breadcrumbs={breadcrumbs}
   related={related}
   faq={faq}

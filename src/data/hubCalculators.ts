@@ -32,15 +32,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "concrete-cost-calculator",
-    "title": "Concrete Cost Calculator — Cost per Yard & Per Bag",
+    "title": "Concrete Cost Calculator — Ready-Mix vs Bags Pricing",
     "h1": "Concrete Cost Calculator",
-    "description": "Estimate concrete cost per cubic yard and per bag — compare ready-mix vs bags with waste and delivery.",
+    "description": "Estimate concrete material cost from cubic yards or bag quantities, including waste, quoted unit price and delivery assumptions.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete cost calculator",
-      "concrete price calculator"
+      "concrete price calculator",
+      "ready mix concrete cost calculator",
+      "concrete cost per yard calculator"
     ],
     "featured": true
   },
@@ -132,16 +134,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "concrete-wall-calculator",
-    "title": "Concrete Wall Calculator — Area, Units & Waste",
+    "title": "Concrete Wall Calculator — Volume, Yards & Cost",
     "h1": "Concrete Wall Calculator",
-    "description": "Calculate concrete volume for foundation walls, retaining walls, and freestanding walls. Includes options for wall thickness, height, length, and opening deductions for doors/windows.",
+    "description": "Calculate concrete wall volume from length, height and thickness, with opening deductions, waste allowance and optional material cost.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete wall calculator",
       "wall concrete calculator",
-      "concrete wall volume calculator"
+      "concrete wall volume calculator",
+      "concrete wall cost calculator"
     ],
     "featured": true
   },
@@ -250,17 +253,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "slab-cost-calculator",
-    "title": "Slab Cost Calculator — Concrete Cost per Yard, Bag or Ton",
+    "title": "Slab Cost Calculator — Concrete Pad & Slab Cost",
     "h1": "Slab Cost Calculator",
-    "description": "Estimate concrete slab cost from dimensions and thickness — volume in cubic yards, bags or tons with waste allowance and optional delivery, labor and tax. Ready-mix and bag comparison.",
+    "description": "Estimate concrete slab or pad cost from dimensions, thickness, waste and material price. Use for pads, patios and slab-on-grade projects.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "slab cost calculator",
-      "concrete slab cost",
-      "cost per cubic yard concrete",
-      "ready mix cost calculator"
+      "concrete slab cost calculator",
+      "concrete pad cost calculator",
+      "concrete pad price calculator"
     ],
     "featured": false
   },
@@ -648,14 +651,16 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "rebar-chair-calculator",
-    "title": "Rebar Chair Calculator — Chair Count & Spacing (2026)",
+    "title": "Rebar Chair Calculator — Chair Count, Spacing & Cost",
     "h1": "Rebar Chair Calculator",
-    "description": "Calculate rebar chair count and spacing — chairs per square foot for slabs and decks, total pieces and cost with waste.",
+    "description": "Calculate rebar chair quantity from slab area and chair spacing, with waste and optional cost for supported reinforcement layouts.",
     "category": "Rebar",
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "rebar chair calculator"
+      "rebar chair calculator",
+      "rebar chair spacing calculator",
+      "rebar support chair calculator"
     ],
     "featured": false
   },
@@ -1183,14 +1188,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "crushed-stone-calculator",
-    "title": "Crushed Stone Calculator — Yards, Tons & Cost",
+    "title": "Crushed Stone Calculator — Tons & Cubic Yards",
     "h1": "Crushed Stone Calculator",
-    "description": "Calculate crushed stone volume in cubic yards, weight in tons and cost — for patios, driveways and drainage bases with waste allowance.",
+    "description": "Calculate crushed stone volume and weight in cubic yards and tons for driveways, patios, drainage and base layers, with waste and optional cost.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "crushed stone calculator"
+      "crushed stone calculator",
+      "crushed gravel calculator",
+      "crusher run calculator",
+      "crushed concrete calculator"
     ],
     "featured": false
   },
@@ -1637,14 +1645,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "beam-calculator",
-    "title": "Beam Calculator — Count, Spacing & Cost",
+    "title": "Beam Calculator — Reactions, Moment & Deflection",
     "h1": "Beam Calculator",
-    "description": "Calculate beam bending — moment, reaction and deflection from load, span, E and I for wood or steel beams with waste allowance.",
+    "description": "Calculate simply supported beam reactions, bending moment and deflection from span, load, elastic modulus and section moment of inertia.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "beam calculator"
+      "beam calculator",
+      "beam deflection calculator",
+      "bending moment calculator",
+      "beam reaction calculator"
     ],
     "featured": false
   },
@@ -1719,15 +1730,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "roofing-shingle-calculator",
-    "title": "Roofing Shingle Calculator — Area, Pitch & Materials",
+    "title": "Roofing Shingle Calculator — Bundles, Squares & Cost",
     "h1": "Roofing Shingle Calculator",
-    "description": "Calculate roofing shingles — bundles, squares, waste and total cost for any roof area with pitch multiplier and shingle coverage.",
+    "description": "Estimate roofing shingles from roof area and pitch, including squares, bundles, waste and optional cost for asphalt shingle projects.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roofing shingle calculator",
-      "roofing shingle calculator"
+      "shingle calculator",
+      "shingle estimator",
+      "shingle roof estimate calculator"
     ],
     "featured": false
   },
@@ -2112,14 +2125,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "drywall-joint-compound-calculator",
-    "title": "Drywall Joint Compound Calculator — Coverage & Materials",
+    "title": "Drywall Mud & Joint Compound Calculator — Coverage & Quantity",
     "h1": "Drywall Joint Compound Calculator",
-    "description": "Calculate joint compound (mud) — gallons or buckets for any drywall job with coat count and waste allowance.",
+    "description": "Estimate drywall mud or joint compound needed from finished drywall area and product coverage. Enter manufacturer coverage for your finish level.",
     "category": "Drywall & Paint",
     "cluster": "drywall",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "drywall joint compound calculator"
+      "drywall mud calculator",
+      "joint compound calculator",
+      "drywall joint compound calculator",
+      "drywall mud coverage calculator"
     ],
     "featured": false
   },
