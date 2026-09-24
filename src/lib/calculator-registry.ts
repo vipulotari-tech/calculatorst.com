@@ -46,16 +46,16 @@ export const slugToModelKey: Record<string, string> = {
   "crawl-space-calculator": "crawl-space-dedicated",
 
   // 4. Rebar (10)
-  "rebar-calculator": "grid",
-  "rebar-weight-calculator": "bar-length",
-  "rebar-spacing-calculator": "spacing",
-  "rebar-length-calculator": "bar-length",
-  "rebar-quantity-calculator": "bar-length",
-  "rebar-cost-calculator": "bar-length",
-  "rebar-grid-calculator": "grid",
-  "rebar-lap-length-calculator": "lap",
-  "reinforcement-mesh-calculator": "mesh",
-  "rebar-chair-calculator": "chairs",
+  "rebar-calculator": "rebar-general-dedicated",
+  "rebar-weight-calculator": "rebar-weight-dedicated",
+  "rebar-spacing-calculator": "rebar-spacing-dedicated",
+  "rebar-length-calculator": "rebar-length-dedicated",
+  "rebar-quantity-calculator": "rebar-quantity-dedicated",
+  "rebar-cost-calculator": "rebar-cost-dedicated",
+  "rebar-grid-calculator": "rebar-grid-dedicated",
+  "rebar-lap-length-calculator": "rebar-lap-dedicated",
+  "reinforcement-mesh-calculator": "reinforcement-mesh-dedicated",
+  "rebar-chair-calculator": "rebar-chair-dedicated",
 
   // 5. Brick & Masonry (15)
   "brick-calculator": "masonry",
