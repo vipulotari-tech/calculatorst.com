@@ -527,12 +527,13 @@ const slabSeo: Record<string, {
     description: "Calculate shed-foundation concrete for slabs, cylindrical piers or strip footings, with yards, bags, weight, waste and quote-based material and entered project cost.",
     guidance: [
       "Choose the foundation geometry already specified for the shed: slab, concrete piers or continuous strip footing.",
-      "Pier mode multiplies cylinder volume by the number of piers and identical sections; strip mode multiplies run × width × depth × quantity.",
-      "Foundation type, frost depth, bearing capacity, dimensions and reinforcement must come from project requirements rather than the calculator."
+      "For piers, either enter a known count or use spacing takeoff mode with the layout dimensions and maximum spacing from the project plan. The calculator rounds intervals up and reports the equalized actual spacing.",
+      "Foundation type, pier spacing, frost depth, bearing capacity, dimensions and reinforcement must come from project requirements rather than the calculator."
     ],
     faq: [
-      { q: "Can I calculate both shed slabs and concrete piers?", a: "Yes. Select Concrete slab, Concrete pier & beam, or Concrete footing (strip), then enter the dimensions for that foundation type." },
-      { q: "How is concrete for shed piers calculated?", a: "Each pier is treated as a cylinder using π × radius² × embedment depth, then multiplied by pier count and identical-section quantity." },
+      { q: "Can I calculate both shed slabs and concrete piers?", a: "Yes. Select Concrete slab, a pier mode, or Concrete footing (strip), then enter the dimensions for that foundation type." },
+      { q: "Can the calculator determine pier count from a specified spacing?", a: "Yes. Spacing takeoff mode divides each entered layout dimension by the maximum spacing from your project plan, rounds the interval count up, includes both ends, and reports the resulting pier grid plus equalized actual spacing." },
+      { q: "How is concrete for shed piers calculated?", a: "Each pier is treated as a cylinder using π × radius² × embedment depth, then multiplied by the manual or spacing-derived pier count and identical-section quantity." },
       { q: "Can the shed foundation calculator price bags instead of ready-mix?", a: "Yes. Select the matching price unit. Per-bag pricing uses the rounded whole-bag count; cubic-yard, cubic-meter, cubic-foot and ton pricing use their corresponding order quantities." },
       { q: "Does this calculator tell me which shed foundation type to use?", a: "No. It estimates concrete after the foundation type and dimensions are chosen. Soil, frost, loads, anchorage and local requirements determine the design." }
     ]
