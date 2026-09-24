@@ -137,71 +137,78 @@
   </div>
 </div>
 
-<script>
-  import { gravelVolume, gravelCost } from "../../lib/calculations/gravel";
+<script is:inline>
+  (() => {
+    const $ = (id) => document.getElementById(id);
+    const root = $("gravel-calculator");
+    const form = $("gravel-form");
+    const results = $("g-results");
+    if (!form || !results || !root) return;
 
-  const $ = (id: string) => document.getElementById(id) as HTMLInputElement | HTMLSelectElement | HTMLElement | null;
-  const root = $("gravel-calculator") as HTMLElement | null;
-  const form = $("gravel-form") as HTMLFormElement | null;
-  const results = $("g-results") as HTMLElement | null;
+    const densityMap = { pea: 1.35, crushed: 1.40, river: 1.33, limestone: 1.60, granite: 1.42 };
+    const densityLabel = { pea: "Pea Gravel 1.35 t/yd³", crushed: "Crushed 1.40", river: "River Rock 1.33", limestone: "Limestone 1.60", granite: "Granite 1.42" };
+    const matSelect = $("g-material");
+    const customWrap = $("g-custom-density-wrap");
+    const customInput = $("g-custom-density");
 
-  if (form && results && root) {
-    const densityMap: Record<string, number> = { pea: 1.35, crushed: 1.40, river: 1.33, limestone: 1.60, granite: 1.42 };
-    const densityLabel: Record<string, string> = { pea: "Pea Gravel 1.35 t/yd³", crushed: "Crushed 1.40", river: "River Rock 1.33", limestone: "Limestone 1.60", granite: "Granite 1.42" };
-    const matSelect = $("g-material") as HTMLSelectElement | null;
-    const customWrap = $("g-custom-density-wrap") as HTMLElement | null;
-    const customInput = $("g-custom-density") as HTMLInputElement | null;
+    if (matSelect && customWrap) {
+      matSelect.addEventListener("change", () => {
+        if (matSelect.value === "custom") {
+          customWrap.classList.remove("hidden");
+          if (customInput) customInput.focus();
+        } else {
+          customWrap.classList.add("hidden");
+        }
+      });
+    }
 
-    matSelect?.addEventListener("change", () => {
-      if (!customWrap) return;
-      if (matSelect.value === "custom") {
-        customWrap.classList.remove("hidden");
-        customInput?.focus();
-      } else {
-        customWrap.classList.add("hidden");
-      }
-    });
-
-    const fmt = (n: number, dec = 2) =>
-      Number.isFinite(n)
-        ? new Intl.NumberFormat("en-US", { maximumFractionDigits: dec, minimumFractionDigits: dec === 0 ? 0 : dec === 2 ? 2 : 0 }).format(n)
-        : "—";
-
-    const showError = (id: string, msg: string) => {
-      const el = $(id) as HTMLElement | null;
+    function toFeet(v, unit) {
+      if (unit === "ft") return v;
+      if (unit === "in") return v / 12;
+      if (unit === "yd") return v * 3;
+      if (unit === "m") return v / 0.3048;
+      if (unit === "cm") return v / 30.48;
+      return v;
+    }
+    function fmt(n, dec=2) {
+      if (!isFinite(n)) return "—";
+      return new Intl.NumberFormat("en-US", { maximumFractionDigits: dec, minimumFractionDigits: dec === 0 ? 0 : dec === 2 ? 2 : 0 }).format(n);
+    }
+    function showError(id, msg) {
+      const el = $(id);
       if (!el) return;
       el.textContent = msg;
       el.classList.remove("hidden");
-    };
-    const clearErrors = () => {
-      ["g-length-error","g-width-error","g-depth-error","g-custom-density-error"].forEach((id) => {
-        const e = $(id) as HTMLElement | null;
+    }
+    function clearErrors() {
+      ["g-length-error","g-width-error","g-depth-error","g-custom-density-error"].forEach(id => {
+        const e = $(id);
         if (e) { e.textContent = ""; e.classList.add("hidden"); }
       });
-    };
+    }
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       clearErrors();
 
-      const L = Number.parseFloat(($("g-length") as HTMLInputElement).value);
-      const W = Number.parseFloat(($("g-width") as HTMLInputElement).value);
-      const D = Number.parseFloat(($("g-depth") as HTMLInputElement).value);
-      const wastePercent = Number.parseFloat(($("g-waste") as HTMLInputElement).value) || 0;
-      const compactionPercent = Number.parseFloat(($("g-compaction") as HTMLInputElement).value) || 0;
-      const price = Number.parseFloat(($("g-price") as HTMLInputElement).value);
+      const L = parseFloat($("g-length").value);
+      const W = parseFloat($("g-width").value);
+      const D = parseFloat($("g-depth").value);
+      const waste = parseFloat($("g-waste").value) || 0;
+      const compaction = parseFloat($("g-compaction").value) || 0;
+      const price = parseFloat($("g-price").value);
       let valid = true;
 
       if (!(L > 0)) { showError("g-length-error", "Please enter a valid length."); valid = false; }
       if (!(W > 0)) { showError("g-width-error", "Please enter a valid width."); valid = false; }
       if (!(D > 0)) { showError("g-depth-error", "Depth must be greater than 0."); valid = false; }
 
-      const mat = matSelect?.value ?? "crushed";
+      const mat = matSelect?.value || "crushed";
       let tonsPerYd = densityMap[mat] ?? 1.4;
       let labelForNote = densityLabel[mat] ?? "Custom";
       if (mat === "custom") {
-        const customVal = Number.parseFloat(customInput?.value ?? "");
-        if (Number.isFinite(customVal) && customVal >= 0.5 && customVal <= 3) {
+        const customVal = parseFloat(customInput?.value);
+        if (isFinite(customVal) && customVal >= 0.5 && customVal <= 3) {
           tonsPerYd = customVal;
           labelForNote = `Custom ${customVal.toFixed(2)} t/yd³`;
         } else {
@@ -211,73 +218,72 @@
       }
       if (!valid) return;
 
-      const r = gravelVolume({
-        length: L,
-        lengthUnit: ($("g-length-unit") as HTMLSelectElement).value,
-        width: W,
-        widthUnit: ($("g-width-unit") as HTMLSelectElement).value,
-        depth: D,
-        depthUnit: ($("g-depth-unit") as HTMLSelectElement).value,
-        wastePercent,
-        compactionPercent,
-        densityTonsPerYd: tonsPerYd,
-      });
+      const Lf = toFeet(L, $("g-length-unit").value);
+      const Wf = toFeet(W, $("g-width-unit").value);
+      const Df = toFeet(D, $("g-depth-unit").value);
+      const cuFt = Lf * Wf * Df;
+      const cuYd = cuFt / 27;
+      const tons = cuYd * tonsPerYd;
+      const pounds = tons * 2000;
+      const orderFactor = (1 + compaction / 100) * (1 + waste / 100);
+      const cuYdW = cuYd * orderFactor;
+      const tonsW = tons * orderFactor;
+      const lbW = pounds * orderFactor;
+      const m3W = cuYdW * 0.764554857984;
+      const metricTonnes = tonsW * 0.90718474;
 
-      const m3W = r.cuYdW * 0.764554857984;
-      const metricTonnes = r.tonsW * 0.90718474;
+      $("g-ft3").textContent = fmt(cuFt);
+      $("g-yd3").textContent = fmt(cuYd);
+      $("g-tons").textContent = fmt(tons);
+      $("g-lb").textContent = fmt(pounds, 0);
+      $("g-yd3-w").textContent = fmt(cuYdW);
+      $("g-tons-w").textContent = fmt(tonsW);
+      $("g-tonsw").textContent = fmt(tonsW);
+      $("g-lbw").textContent = fmt(lbW, 0);
+      $("g-m3-w").textContent = fmt(m3W);
+      $("g-tonnes-w").textContent = fmt(metricTonnes);
+      $("g-order-note").textContent = `compaction ${fmt(compaction,0)}% · waste ${fmt(waste,0)}%`;
+      $("g-density-note").textContent = labelForNote;
 
-      ($("g-ft3") as HTMLElement).textContent = fmt(r.cuFt);
-      ($("g-yd3") as HTMLElement).textContent = fmt(r.cuYd);
-      ($("g-tons") as HTMLElement).textContent = fmt(r.tons);
-      ($("g-lb") as HTMLElement).textContent = fmt(r.lb, 0);
-      ($("g-yd3-w") as HTMLElement).textContent = fmt(r.cuYdW);
-      ($("g-tons-w") as HTMLElement).textContent = fmt(r.tonsW);
-      ($("g-tonsw") as HTMLElement).textContent = fmt(r.tonsW);
-      ($("g-lbw") as HTMLElement).textContent = fmt(r.lbW, 0);
-      ($("g-m3-w") as HTMLElement).textContent = fmt(m3W);
-      ($("g-tonnes-w") as HTMLElement).textContent = fmt(metricTonnes);
-      ($("g-order-note") as HTMLElement).textContent = `compaction ${fmt(compactionPercent,0)}% · waste ${fmt(wastePercent,0)}%`;
-      ($("g-density-note") as HTMLElement).textContent = labelForNote;
-
-      const priceUnit = ($("g-price-unit") as HTMLSelectElement).value as "yd" | "m3" | "ton";
+      const priceUnit = $("g-price-unit").value;
       let costText = "—";
       let note = "Add price for cost";
-      if (Number.isFinite(price) && price >= 0) {
-        const { cost } = gravelCost({ tonsW: r.tonsW, cuYdW: r.cuYdW, m3W, price, priceUnit });
+      if (isFinite(price) && price >= 0) {
+        const cost = priceUnit === "ton" ? tonsW * price : priceUnit === "m3" ? m3W * price : cuYdW * price;
         costText = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cost);
         note = `at $${fmt(price)} per ${priceUnit === "yd" ? "yd³" : priceUnit === "m3" ? "m³" : "ton"} incl. compaction + waste`;
       }
-      ($("g-cost") as HTMLElement).textContent = costText;
-      ($("g-cost-note") as HTMLElement).textContent = note;
+      $("g-cost").textContent = costText;
+      $("g-cost-note").textContent = note;
 
       root.dataset.lastCalculated = [
-        `Measured volume: ${fmt(r.cuYd,4)} yd³`,
-        `Order volume: ${fmt(r.cuYdW,4)} yd³`,
-        `Order weight: ${fmt(r.tonsW,4)} US tons`,
+        `Measured volume: ${fmt(cuYd,4)} yd³`,
+        `Order volume: ${fmt(cuYdW,4)} yd³`,
+        `Order weight: ${fmt(tonsW,4)} US tons`,
         `Order metric volume: ${fmt(m3W,4)} m³`,
         `Order metric weight: ${fmt(metricTonnes,4)} metric tonnes`,
         `Estimated cost: ${costText}`,
       ].join("\n");
 
       results.classList.remove("hidden");
-      const copyBtn = $("g-copy") as HTMLButtonElement | null;
+      const copyBtn = $("g-copy");
       if (copyBtn) {
         copyBtn.classList.remove("hidden");
         copyBtn.textContent = "Copy";
         copyBtn.onclick = async () => {
-          const text = `Gravel: ${fmt(r.cuYdW)} yd³ (${fmt(r.tonsW)} tons) incl. ${compactionPercent}% compaction allowance + ${wastePercent}% waste`;
+          const text = `Gravel: ${fmt(cuYdW)} yd³ (${fmt(tonsW)} tons) incl. ${compaction}% compaction allowance + ${waste}% waste`;
           try { await navigator.clipboard.writeText(text); copyBtn.textContent = "Copied!"; setTimeout(() => copyBtn.textContent = "Copy", 1500); } catch {}
         };
       }
       results.scrollIntoView({ behavior: "smooth", block: "nearest" });
     });
 
-    ($("g-reset") as HTMLButtonElement | null)?.addEventListener("click", () => {
+    $("g-reset").addEventListener("click", () => {
       clearErrors();
       results.classList.add("hidden");
       root.dataset.lastCalculated = "";
-      customWrap?.classList.add("hidden");
+      if (customWrap) customWrap.classList.add("hidden");
       if (customInput) customInput.value = "";
     });
-  }
+  })();
 </script>
