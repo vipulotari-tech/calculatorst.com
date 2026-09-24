@@ -131,6 +131,16 @@ describe("Excavation & earthwork golden regressions",()=>{
     expect(r.rows.find(x=>x.key==="bank")?.value).toBeCloseTo(800/27,8);
     expect(r.rows.find(x=>x.key==="loose")?.value).toBeCloseTo(800/27*1.2,8);
   });
+  it("Excavation quantity multiplies identical pits",()=>{
+    const r=run("excavation-calculator",{length:10,width:10,depth:10,sideSlope:0,quantity:2,swell:20,price:0},{length:"ft",width:"ft",depth:"ft",price:"USD/yd3"});
+    expect(r.rows.find(x=>x.key==="bank")?.value).toBeCloseTo(2000/27,8);
+    expect(r.rows.find(x=>x.key==="loose")?.value).toBeCloseTo((2000/27)*1.2,8);
+  });
+  it("Trench quantity scales yards and metric volume consistently",()=>{
+    const r=run("trench-calculator",{length:100,bottomWidth:2,depth:4,sideSlope:0,quantity:2,swell:20,price:0},{length:"ft",bottomWidth:"ft",depth:"ft",price:"USD/yd3"});
+    expect(r.rows.find(x=>x.key==="bank")?.value).toBeCloseTo(1600/27,8);
+    expect(r.rows.find(x=>x.key==="m3")?.value).toBeCloseTo(1600/(3.280839895013123**3),8);
+  });
   it("Trench Volume reports bank and loose volume without pricing",()=>{
     const r=run("trench-volume-calculator",{length:100,bottomWidth:2,depth:4,sideSlope:0,swell:20},{length:"ft",bottomWidth:"ft",depth:"ft"});
     expect(r.rows.find(x=>x.key==="ft3")?.value).toBeCloseTo(800,8);
