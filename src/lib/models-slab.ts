@@ -51,7 +51,7 @@ const thickness: Model = {
     'Volume and area must describe the same placed or compacted condition.',
   ],
   sources: [geometry, quikrete],
-  calculate(v) {
+  calculate(v, u) {
     const area = v.length * v.width;
     requireCondition(area > 0, 'width', 'Length and width must cover a positive area.');
     const mode = Math.round(v.mode);
@@ -94,12 +94,27 @@ const thickness: Model = {
     const steps: string[] = [`Area: ${fmt(area)} ft². Each scenario is geometric volume with and without the ${fmt(v.waste)}% allowance.`];
     for (const s of scenarios) {
       const cuFt = area * s.in;
+      const orderFt3 = cuFt * waste(v);
+      const orderYd3 = orderFt3 / 27;
+      const bags = roundUp(orderFt3 / v.yield);
+      const weightLb = orderFt3 * densityLb(v.density, u.density);
       rows.push(row(`vol${s.key}`, `Concrete @ ${fmt(s.in * 12)} in (geometric, yd³)`, cuFt / 27, 'yd³'));
-      rows.push(row(`order${s.key}`, `Order @ ${fmt(s.in * 12)} in (with allowance, yd³)`, cuFt * waste(v) / 27, 'yd³'));
-      rows.push(row(`bags${s.key}`, `Bags @ ${fmt(s.in * 12)} in`, roundUp(cuFt * waste(v) / v.yield), 'bags', true));
+      rows.push(row(`order${s.key}`, `Order @ ${fmt(s.in * 12)} in (with allowance, yd³)`, orderYd3, 'yd³'));
+      rows.push(row(`bags${s.key}`, `Bags @ ${fmt(s.in * 12)} in`, bags, 'bags', true));
+      rows.push(row(`weight${s.key}`, `Order weight @ ${fmt(s.in * 12)} in`, weightLb, 'lb'));
+      if (Number.isFinite(v.price)) {
+        const bases: Record<string, number> = {
+          'USD/yd3': orderYd3,
+          'USD/m3': orderFt3 / FT_PER_M ** 3,
+          'USD/ft3': orderFt3,
+          'USD/bag': bags,
+        };
+        const priceQty = bases[u.price] ?? orderYd3;
+        rows.push(row(`cost${s.key}`, `Material cost @ ${fmt(s.in * 12)} in`, priceQty * v.price, 'USD'));
+      }
       steps.push(
-        `Scenario ${s.key} — ${fmt(s.in * 12)} in: ${fmt(cuFt / 27)} yd³ geometric; ${fmt(cuFt * waste(v) / 27)} yd³ ordered; ` +
-        `bags = ceil(${fmt(cuFt * waste(v))} ÷ ${fmt(v.yield)}) = ${roundUp(cuFt * waste(v) / v.yield)}.`
+        `Scenario ${s.key} — ${fmt(s.in * 12)} in: ${fmt(cuFt / 27)} yd³ geometric; ${fmt(orderYd3)} yd³ ordered; ` +
+        `bags = ceil(${fmt(orderFt3)} ÷ ${fmt(v.yield)}) = ${bags}; order weight ≈ ${fmt(weightLb)} lb.`
       );
     }
     steps.push('These are quantity comparisons for the thicknesses you entered — not recommendations of any scenario.');
@@ -125,7 +140,7 @@ const patioConcrete: Model = {
     patioShape,
     { ...length('length', 'Patio length', 12), visibleWhen: { field: 'patioShape', equals: 0 } },
     { ...length('width', 'Patio width', 10), visibleWhen: { field: 'patioShape', equals: 0 } },
-    { ...positiveOrZero(length('diameter', 'Patio diameter', 0, 'ft')), visibleWhen: { field: 'patioShape', equals: 1 } },
+    { ...length('diameter', 'Patio diameter', 12, 'ft'), visibleWhen: { field: 'patioShape', equals: 1 } },
     length('thickness', 'Patio thickness', 4, 'in'),
     count('quantity', 'Identical patios'),
     { ...positiveOrZero(length('subbaseDepth', 'Gravel subbase depth (0 = none)', 0, 'in')),
@@ -190,10 +205,10 @@ const drivewayConcrete: Model = {
     driveShape,
     length('length', 'Driveway length', 24),
     { ...length('width', 'Driveway width', 10), visibleWhen: { field: 'driveShape', in: [0, 1] } },
-    { ...positiveOrZero(length('apronLength', 'Apron length (street end)', 4, 'ft')), visibleWhen: { field: 'driveShape', equals: 1 } },
-    { ...positiveOrZero(length('apronWidth', 'Apron width', 14, 'ft')), visibleWhen: { field: 'driveShape', equals: 1 } },
-    { ...positiveOrZero(length('widthStreet', 'Width at street end', 10, 'ft')), visibleWhen: { field: 'driveShape', equals: 2 } },
-    { ...positiveOrZero(length('widthHouse', 'Width at house end', 20, 'ft')), visibleWhen: { field: 'driveShape', equals: 2 } },
+    { ...length('apronLength', 'Apron length (street end)', 4, 'ft'), visibleWhen: { field: 'driveShape', equals: 1 } },
+    { ...length('apronWidth', 'Apron width', 14, 'ft'), visibleWhen: { field: 'driveShape', equals: 1 } },
+    { ...length('widthStreet', 'Width at street end', 10, 'ft'), visibleWhen: { field: 'driveShape', equals: 2 } },
+    { ...length('widthHouse', 'Width at house end', 20, 'ft'), visibleWhen: { field: 'driveShape', equals: 2 } },
     length('thickness', 'Driveway thickness', 4, 'in'),
     count('quantity', 'Identical driveways'),
     { ...positiveOrZero(length('subbaseDepth', 'Compacted gravel base depth (0 = none)', 0, 'in')),
@@ -274,7 +289,7 @@ const garageSlab: Model = {
     yieldField,
     price('USD/yd3', ['USD/yd3', 'USD/m3', 'USD/ft3', 'USD/bag']),
   ],
-  formula: 'Slab V = L × W × T × bays. Thickened perimeter V = perimeter × width × (edge depth − T) when edge depth > T. Gravel base V = L × W × base depth. Vapor barrier area = L × W.',
+  formula: 'Slab V = L × W × T × sections. Thickened-edge extra V = [L × W − (L − 2w) × (W − 2w)] × (edge depth − slab thickness) × sections. Gravel base V = L × W × base depth. Vapor barrier area = L × W.',
   assumptions: [
     'The thickened edge is modeled as an extra perimeter band of (edge depth − slab thickness) × edge width; leave both at 0 for a uniform slab.',
     'Gravel base quantity is compacted volume; loose delivered volume depends on the supplier conversion.',
@@ -287,7 +302,9 @@ const garageSlab: Model = {
     const slabCuFt = floor * v.thickness;
     let edgeFt3 = 0;
     if (v.edgeDepth > v.thickness && v.edgeWidth > 0) {
-      edgeFt3 = 2 * (v.length + v.width) * v.quantity * v.edgeWidth * (v.edgeDepth - v.thickness);
+      requireCondition(2 * v.edgeWidth < v.length && 2 * v.edgeWidth < v.width, 'edgeWidth', 'Twice the thickened-edge width must be smaller than both slab dimensions.');
+      const bandArea = v.length * v.width - (v.length - 2 * v.edgeWidth) * (v.width - 2 * v.edgeWidth);
+      edgeFt3 = bandArea * v.quantity * (v.edgeDepth - v.thickness);
     }
     const total = slabCuFt + edgeFt3;
     const steps = [
@@ -379,9 +396,12 @@ function projectCostResult(
 
   if (Number.isFinite(v.price)) {
     const materials = qty * v.price;
-    const taxAmt = materials * (v.tax / 100);
-    const itemValues = itemIds.map((id) => ({ id, value: Number.isFinite(v[id]) ? v[id] : 0 }));
-    const sumItems = itemValues.reduce((s, it) => s + it.value, 0);
+    const fullScope = Math.round(v.scope) === 1;
+    const taxAmt = fullScope ? materials * (v.tax / 100) : 0;
+    const itemValues = fullScope
+      ? itemIds.map((id) => ({ id, value: Number.isFinite(v[id]) ? v[id] : 0 }))
+      : itemIds.map((id) => ({ id, value: 0 }));
+    const sumItems = itemValues.reduce((sum, item) => sum + item.value, 0);
     const totalCost = materials + taxAmt + sumItems;
     const area = v.length * v.width * (v.quantity ?? 1);
     const costPerSqFt = area > 0 ? totalCost / area : NaN;
@@ -389,9 +409,9 @@ function projectCostResult(
 
     rows.push(
       row('materials', 'Material subtotal', materials, 'USD'),
-      row('tax', 'Material tax', taxAmt, 'USD'),
+      ...(fullScope ? [row('tax', 'Material tax', taxAmt, 'USD')] : []),
       ...itemValues.filter(it => it.value > 0).map(it => row(it.id, ITEM_LABEL[it.id], it.value, 'USD')),
-      row('total', 'Estimated total', totalCost, 'USD'),
+      row('total', fullScope ? 'Estimated project total' : 'Estimated material total', totalCost, 'USD'),
     );
     if (Number.isFinite(effectivePerYd3)) rows.push(row('effYd3', 'Effective cost per yd³', effectivePerYd3, 'USD/yd³'));
     if (Number.isFinite(costPerSqFt)) rows.push(row('sqft', 'Cost per square foot', costPerSqFt, 'USD/ft²'));
@@ -399,11 +419,14 @@ function projectCostResult(
     const totalRow = rows.splice(rows.findIndex(r => r.key === 'total'), 1)[0];
     rows.unshift(totalRow);
 
-    steps.push(
-      `Material: ${fmt(qty)} units × $${fmt(v.price)} = $${fmt(materials)}; material tax ${fmt(v.tax)}% = $${fmt(taxAmt)}.`,
-    );
-    itemValues.filter(it => it.value > 0).forEach(it => steps.push(`${ITEM_LABEL[it.id]}: $${fmt(it.value)}.`));
-    steps.push(`Estimated total: $${fmt(totalCost)}.`);
+    steps.push(`Material: ${fmt(qty)} units × ${fmt(v.price)} = ${fmt(materials)}.`);
+    if (fullScope) {
+      steps.push(`Material tax ${fmt(v.tax)}% = ${fmt(taxAmt)}.`);
+      itemValues.filter(it => it.value > 0).forEach(it => steps.push(`${ITEM_LABEL[it.id]}: ${fmt(it.value)}.`));
+    } else {
+      steps.push('Material-only scope ignores hidden project-fee values.');
+    }
+    steps.push(`Estimated total: ${fmt(totalCost)}.`);
   } else {
     steps.push('Enter a material price to build the cost breakdown.');
   }
@@ -509,7 +532,7 @@ const drivewayCost: Model = {
     price('USD/yd3', ['USD/yd3', 'USD/m3', 'USD/ft3', 'USD/bag', 'USD/ton']),
     scope([
       { value: 0, label: 'Concrete material only' },
-      { value: 1, label: 'New driveway + replace' },
+      { value: 1, label: 'Full project / replacement estimate' },
     ]),
     lineItem('delivery', 'Delivery fee', 'Flat delivery charge, not per yard.'),
     lineItem('shortLoad', 'Short-load fee', 'Applied when an order falls below the supplier minimum.'),
