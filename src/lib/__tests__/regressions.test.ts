@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { getModelForSlug, slugToModelKey } from '../calculator-registry';
 import { factors, fmt, readInputs } from '../calculator-math';
 import { searchCalculators, searchCatalog } from '../search';
+import { hubCalculators, hubCategories } from '../../data/hubCalculators';
+import { calculators as legacyCalculators } from '../../data/calculators';
 
 function calculate(slug: string, changes: Record<string, number> = {}) {
   const model = getModelForSlug(slug);
@@ -151,5 +153,41 @@ describe('Parking lot cost intent separation', () => {
     const res=calculate('parking-lot-cost-calculator',{length:10,width:10,depth:3,density:144,waste:0,price:100,delivery:50,labor:150,tax:10});
     expect(res.rows.find(r=>r.key==='tons')?.value).toBeCloseTo(1.8,8);
     expect(res.rows.find(r=>r.key==='total')?.value).toBeCloseTo(398,8);
+  });
+});
+
+
+describe('SEO catalog integrity', () => {
+  const catalog = [...new Map([...hubCalculators, ...legacyCalculators].map(c => [c.slug, c])).values()];
+
+  it('keeps exactly one published entry per calculator', () => {
+    expect(catalog).toHaveLength(204);
+    expect(new Set(catalog.map(c => c.slug)).size).toBe(catalog.length);
+  });
+
+  it('keeps titles, H1s and owned keywords unique', () => {
+    expect(new Set(catalog.map(c => c.title.toLowerCase())).size).toBe(catalog.length);
+    expect(new Set(catalog.map(c => c.h1.toLowerCase())).size).toBe(catalog.length);
+    const keywords = catalog.flatMap(c => (c.keywords ?? []).map(keyword => keyword.toLowerCase()));
+    expect(new Set(keywords).size).toBe(keywords.length);
+  });
+
+  it('keeps calculator titles free of stale year labels', () => {
+    expect(catalog.every(c => !c.title.includes('(2026)'))).toBe(true);
+  });
+
+  it('keeps category counts synchronized with the catalog', () => {
+    const aliases: Record<string, string> = {
+      'slab-patio-driveway': 'slab',
+      'brick-masonry': 'brick',
+      'concrete-block': 'cmu',
+      'mortar-grout-cement': 'mortar',
+      'drywall-paint': 'drywall',
+      'deck-fence': 'deck-fence',
+    };
+    for (const category of hubCategories) {
+      const cluster = aliases[category.slug] ?? category.slug;
+      expect(catalog.filter(c => c.cluster === cluster).length).toBe(category.count);
+    }
   });
 });
