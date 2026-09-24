@@ -46,7 +46,7 @@ const canonicalPath = `/construction/${slug}/`;
 const primaryByCluster: Record<string, string> = {
   concrete: "concrete-calculator",
   slab: "slab-thickness-calculator",
-  foundation: "concrete-footing-calculator",
+  foundation: "footing-concrete-calculator",
   rebar: "rebar-calculator",
   brick: "brick-calculator",
   cmu: "concrete-block-calculator",
@@ -71,6 +71,10 @@ const categorySeoOverrides: Record<string, { title: string; description: string 
     title: "Slab, Patio & Driveway Calculators — Concrete & Cost Tools",
     description: "Use 10 calculators for slab thickness, cost and rebar plus patio, driveway, garage-slab and shed-foundation concrete, base, bags, trucks and project cost.",
   },
+  foundation: {
+    title: "Foundation & Footing Calculators — Concrete, Excavation & Cost",
+    description: "Use 10 foundation calculators for strip, pad and pier footings, footing volume, concrete, walls, basements, crawl spaces, excavation and project cost.",
+  },
 };
 const categorySeo = categorySeoOverrides[cluster];
 const categoryTitle = categorySeo?.title ?? `${displayName} — Construction Calculators | Calculator Street`;
@@ -91,6 +95,15 @@ const taskLinks = cluster === "concrete" ? [
   { label: "Driveway concrete", href: "/driveway-concrete-calculator/", text: "Rectangle, apron or tapered driveway yards, base and truck-load planning." },
   { label: "Garage slab", href: "/garage-slab-calculator/", text: "Slab plus thickened edge, compacted base, vapor barrier, forms and trucks." },
   { label: "Shed foundation", href: "/shed-foundation-calculator/", text: "Concrete for shed slabs, strip footings, or piers with manual count or plan-spacing takeoff." },
+] : cluster === "foundation" ? [
+  { label: "All footing concrete", href: "/footing-concrete-calculator/", text: "Broad strip, rectangular, square and round footing material estimate with bags, weight and cost." },
+  { label: "Strip footing", href: "/strip-footing-calculator/", text: "Continuous centerline run, cross-section area, yards, bags and cost." },
+  { label: "Pad footing", href: "/pad-footing-calculator/", text: "Rectangular, square or round isolated pads with per-pad and total concrete." },
+  { label: "Pier footing", href: "/pier-footing-calculator/", text: "Cylindrical shafts plus optional enlarged bell-base concrete." },
+  { label: "Excavation", href: "/foundation-excavation-calculator/", text: "Working room, bank yards, overbreak, swell, loose haul volume and quote-based cost." },
+  { label: "Foundation walls", href: "/foundation-wall-calculator/", text: "Centerline wall concrete, opening deductions and form-contact area." },
+  { label: "Basement walls", href: "/basement-wall-calculator/", text: "Rectangle perimeter, extra wall runs, openings, forms and concrete." },
+  { label: "Foundation cost", href: "/foundation-cost-calculator/", text: "Concrete material plus entered excavation, forms, reinforcement, waterproofing and labor costs." },
 ] : [];
 ---
 
@@ -127,7 +140,7 @@ const taskLinks = cluster === "concrete" ? [
 
         {taskLinks.length > 0 && (
           <section class="mt-6 rounded-xl border border-hairline bg-canvas p-5" aria-labelledby="choose-category-calculator">
-            <h2 id="choose-category-calculator" class="text-sm font-semibold text-ink">Choose the right {cluster === "concrete" ? "concrete" : "slab, patio or driveway"} calculator</h2>
+            <h2 id="choose-category-calculator" class="text-sm font-semibold text-ink">Choose the right {cluster === "concrete" ? "concrete" : cluster === "slab" ? "slab, patio or driveway" : "foundation or footing"} calculator</h2>
             <p class="mt-2 text-[13px] leading-5 text-body">These pages target different estimating tasks. Pick the one that matches the decision you are making instead of repeating the same inputs across several calculators.</p>
             <div class="mt-4 grid gap-3 sm:grid-cols-2">
               {taskLinks.map((item) => (
