@@ -718,336 +718,376 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "brick-calculator",
-    "title": "Brick Calculator — Quantity, Weight & Cost",
+    "title": "Brick Calculator — Bricks, Wythes, Weight & Cost",
     "h1": "Brick Calculator",
-    "description": "Calculate brick quantity from wall area, openings, brick dimensions and mortar-joint width, with waste, estimated unit weight and optional unit cost.",
+    "description": "Calculate brick quantity from wall dimensions or known area using actual brick size, mortar joint and wythes, with waste, order weight and optional unit cost.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick calculator"
+      "brick calculator",
+      "brick material calculator",
+      "brick wall material estimator"
     ],
     "featured": false
   },
   {
     "slug": "brick-wall-calculator",
-    "title": "Brick Wall Calculator — Bricks, Weight & Cost",
+    "title": "Brick Wall Calculator — Courses, Bricks & Openings",
     "h1": "Brick Wall Calculator",
-    "description": "Calculate bricks for a wall from dimensions, openings, brick size and mortar-joint width, with waste, estimated unit weight and optional cost.",
+    "description": "Calculate bricks for a wall from length, height, openings, actual brick dimensions, mortar joint and wythes, with gross courses, bricks per course, waste, weight and cost.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick wall calculator"
+      "brick wall calculator",
+      "bricks for wall calculator",
+      "brick courses calculator"
     ],
     "featured": false
   },
   {
     "slug": "brick-quantity-calculator",
-    "title": "Brick Quantity Calculator — Bricks per Wall Area",
+    "title": "Brick Quantity Calculator — Wall Area, Waste & Order Count",
     "h1": "Brick Quantity Calculator",
-    "description": "Calculate how many bricks you need from wall dimensions, openings, brick size and mortar-joint width, with a purchasing waste allowance.",
+    "description": "Calculate installed and order brick quantities from wall dimensions, openings, brick module, wythes and waste, with bricks per square foot and spare count.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick quantity calculator",
-      "brick how many calculator"
+      "how many bricks do i need",
+      "brick order quantity calculator"
     ],
     "featured": false
   },
   {
     "slug": "brick-cost-calculator",
-    "title": "Brick Cost Calculator — Bricks & Material Cost",
+    "title": "Brick Cost Calculator — Bricks, Mortar, Tax & Labor",
     "h1": "Brick Cost Calculator",
-    "description": "Estimate brick quantity and entered-scope cost from wall dimensions, openings, brick size, mortar-joint width, waste, quoted unit price, tax, delivery and labor/equipment.",
+    "description": "Estimate brick and mortar material cost from wall geometry, brick size, joints and waste, with quoted unit prices, material tax, delivery and entered labor/equipment.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick cost calculator",
-      "brick price calculator",
-      "brick wall cost calculator"
+      "brick wall cost calculator",
+      "brick material cost calculator"
     ],
     "featured": false
   },
   {
     "slug": "brick-mortar-calculator",
-    "title": "Brick Mortar Calculator — Bags, Volume & Cost",
+    "title": "Brick Mortar Calculator — Joint Volume, Bags & Cost",
     "h1": "Brick Mortar Calculator",
-    "description": "Calculate brick mortar — bags, cubic feet or yards for any brick wall with joint thickness. Type N, S or M mortar with waste allowance.",
+    "description": "Estimate theoretical brick-joint mortar volume from wall and brick geometry, then calculate allowance-adjusted cubic feet, yards, meters, whole bags and optional bag cost.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick mortar calculator"
+      "brick mortar calculator",
+      "mortar for brick wall calculator",
+      "brick mortar bags calculator"
     ],
     "featured": false
   },
   {
     "slug": "brick-veneer-calculator",
-    "title": "Brick Veneer Calculator — Brick Quantity & Cost",
+    "title": "Brick Veneer Calculator — Bricks, Tie Grid & Weight",
     "h1": "Brick Veneer Calculator",
-    "description": "Calculate brick units from wall area, openings, actual brick dimensions and mortar-joint width, with waste, unit weight and optional unit cost.",
+    "description": "Estimate single-wythe brick veneer quantity from wall area, openings, brick size and joints, with waste, order weight, optional cost and a planning tie grid from entered spacing.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick veneer calculator"
+      "brick veneer calculator",
+      "brick veneer quantity calculator",
+      "brick veneer tie calculator"
     ],
     "featured": false
   },
   {
     "slug": "brick-patio-calculator",
-    "title": "Brick Patio Calculator — Paver Count & Layout",
+    "title": "Brick Patio Calculator — Paver Rows, Count & Cost",
     "h1": "Brick Patio Calculator",
-    "description": "Calculate brick paver count from patio dimensions, paver size and joint width, with waste allowance and optional unit cost.",
+    "description": "Calculate brick patio pavers from rectangular dimensions, paver size and joint width, with rows, columns, installed count, waste-adjusted order quantity and optional cost.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick patio calculator"
+      "brick patio calculator",
+      "brick patio paver calculator",
+      "patio brick quantity calculator"
     ],
     "featured": false
   },
   {
     "slug": "brick-paver-calculator",
-    "title": "Brick Paver Calculator — Pavers, Base & Sand",
+    "title": "Brick Paver Calculator — Pavers, Base, Sand & Edge",
     "h1": "Brick Paver Calculator",
-    "description": "Calculate brick paver quantity — patio or walkway area, brick size, joint width, count, base gravel, sand and cost with waste.",
+    "description": "Calculate brick pavers for a patio or walkway with rows, columns, waste, compacted base, bedding sand, edge-restraint perimeter and optional paver cost.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick paver calculator"
+      "brick paver calculator",
+      "brick paving calculator",
+      "brick paver base calculator"
     ],
     "featured": false
   },
   {
     "slug": "masonry-calculator",
-    "title": "Masonry Calculator — Unit Quantity, Weight & Cost",
+    "title": "Masonry Calculator — Units, Wythes, Weight & Cost",
     "h1": "Masonry Calculator",
-    "description": "Calculate masonry units from wall area, openings, unit dimensions and joint width, with waste, estimated unit weight and optional unit cost.",
+    "description": "Calculate masonry units from wall dimensions, openings, actual unit size, joint width and wythes, with waste, units per square foot, order weight and optional cost.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "masonry calculator"
+      "masonry calculator",
+      "masonry unit calculator",
+      "masonry material calculator"
     ],
     "featured": false
   },
   {
     "slug": "masonry-wall-calculator",
-    "title": "Masonry Wall Calculator — Units, Weight & Cost",
+    "title": "Masonry Wall Calculator — Courses, Units & Openings",
     "h1": "Masonry Wall Calculator",
-    "description": "Calculate masonry units for a wall from area, openings, unit dimensions and joint width, with waste, estimated unit weight and optional cost.",
+    "description": "Calculate masonry wall units from dimensions and openings, with installed module size, gross courses, units per course, waste-adjusted order quantity, weight and optional cost.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "masonry wall calculator"
+      "masonry wall calculator",
+      "masonry wall units calculator",
+      "masonry courses calculator"
     ],
     "featured": false
   },
   {
     "slug": "masonry-cost-calculator",
-    "title": "Masonry Cost Calculator — Units & Material Cost",
+    "title": "Masonry Cost Calculator — Units, Tax, Delivery & Labor",
     "h1": "Masonry Cost Calculator",
-    "description": "Estimate masonry unit quantity and entered-scope cost from wall dimensions, openings, unit size, joint width, waste, quoted unit price, tax, delivery and labor/equipment.",
+    "description": "Estimate masonry unit cost from wall geometry, module size and waste, with material subtotal, tax, delivery, entered labor/equipment and order weight.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "masonry cost calculator",
-      "masonry price calculator",
-      "masonry wall cost calculator"
+      "masonry wall cost calculator",
+      "masonry material cost calculator"
     ],
     "featured": false
   },
   {
     "slug": "masonry-block-calculator",
-    "title": "Masonry Block Calculator — Quantity, Weight & Cost",
+    "title": "Masonry Block Calculator — Wall Blocks, Weight & Cost",
     "h1": "Masonry Block Calculator",
-    "description": "Calculate masonry block quantity from wall area, openings, block dimensions and joint width, with waste, estimated unit weight and optional cost.",
+    "description": "Calculate masonry blocks from wall dimensions, openings, block face size and joint width, with waste-adjusted order count, estimated shipment weight and optional unit cost.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "masonry block calculator"
+      "masonry block calculator",
+      "masonry block quantity calculator",
+      "block masonry calculator"
     ],
     "featured": false
   },
   {
     "slug": "brick-weight-calculator",
-    "title": "Brick Weight Calculator — Weight & Tons",
+    "title": "Brick Weight Calculator — Brick Count, Pallets & Tons",
     "h1": "Brick Weight Calculator",
-    "description": "Calculate brick weight — volume to pounds and short tons with density for ordering and truck-load planning.",
+    "description": "Calculate brick shipment weight from brick count, manufacturer unit weight and waste, with pounds, kilograms, US tons, metric tonnes and optional pallet estimate.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick weight calculator",
-      "brick weight tons calculator"
+      "brick pallet weight calculator",
+      "brick tons calculator"
     ],
     "featured": false
   },
   {
     "slug": "brick-waste-calculator",
-    "title": "Brick Waste Calculator — Order Quantity with Waste",
+    "title": "Brick Waste Calculator — Extra Bricks & Order Quantity",
     "h1": "Brick Waste Calculator",
-    "description": "Calculate brick order quantity with waste — net, extra and total bricks to order for any wall with cut, break and damage allowance.",
+    "description": "Calculate extra bricks and whole order quantity from the net brick count and project-specific cut, breakage and damage allowance without rounding intermediate waste.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick waste calculator"
+      "brick waste calculator",
+      "brick order waste calculator",
+      "extra bricks calculator"
     ],
     "featured": false
   },
   {
     "slug": "brick-joint-calculator",
-    "title": "Brick Joint Calculator — Mortar Joint Width",
+    "title": "Brick Joint Calculator — Equal Mortar Joint Width",
     "h1": "Brick Joint Calculator",
-    "description": "Calculate equal mortar joint width — for a given course length and brick count. Helps set consistent joint size for brick walls.",
+    "description": "Calculate equal internal mortar-joint width from finished course length, actual brick length and brick count, with inch and millimeter results using the correct N−1 joints.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "brick joint calculator"
+      "brick joint calculator",
+      "brick mortar joint calculator",
+      "brick joint width calculator"
     ],
     "featured": false
   },
   {
     "slug": "concrete-block-calculator",
-    "title": "Concrete Block Calculator — CMU Quantity & Cost",
+    "title": "Concrete Block Calculator — Blocks, Courses, Weight & Cost",
     "h1": "Concrete Block Calculator",
-    "description": "Calculate concrete block quantity from wall area, openings, block dimensions and mortar-joint width, with waste, estimated block weight and optional unit cost.",
+    "description": "Calculate concrete blocks from wall dimensions, openings, specified block dimensions and mortar joint, with courses, blocks per course, waste, shipment weight and optional cost.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "concrete block calculator"
+      "concrete block calculator",
+      "concrete block quantity calculator",
+      "cinder block calculator"
     ],
     "featured": false
   },
   {
     "slug": "cmu-calculator",
-    "title": "CMU Calculator — Block Quantity, Weight & Cost",
+    "title": "CMU Calculator — Standard/Custom Blocks, Quantity & Cost",
     "h1": "CMU Calculator",
-    "description": "Calculate CMU blocks from wall area, openings, block dimensions and mortar-joint width, with waste, estimated unit weight and optional unit cost.",
+    "description": "Calculate CMU quantity using standard 8×16, half 8×8 or custom specified block faces, with openings, waste, courses, blocks per course, weight and optional cost.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "cmu calculator"
+      "cmu calculator",
+      "concrete masonry unit calculator",
+      "cmu block calculator"
     ],
     "featured": false
   },
   {
     "slug": "cmu-wall-calculator",
-    "title": "CMU Wall Calculator — Blocks, Weight & Cost",
+    "title": "CMU Wall Calculator — Courses, Openings & Block Count",
     "h1": "CMU Wall Calculator",
-    "description": "Calculate CMU blocks for a wall from dimensions, openings, block size and mortar-joint width, with waste, estimated unit weight and optional cost.",
+    "description": "Calculate CMU blocks for a wall from dimensions, openings and block module, with gross courses, blocks per course, approximate opening displacement, waste and optional cost.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "cmu wall calculator"
+      "cmu wall calculator",
+      "cmu block wall calculator",
+      "concrete masonry wall calculator"
     ],
     "featured": false
   },
   {
     "slug": "cmu-quantity-calculator",
-    "title": "CMU Quantity Calculator — Count & Waste",
+    "title": "CMU Quantity Calculator — Blocks, Waste & Order Count",
     "h1": "CMU Quantity Calculator",
-    "description": "Calculate how many CMU blocks you need from wall dimensions, openings, block size and mortar-joint width, with a purchasing waste allowance.",
+    "description": "Calculate installed and order CMU quantities from wall dimensions, openings, specified block face and mortar joint, with blocks per square foot and spare count.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cmu quantity calculator",
-      "cmu how many calculator"
+      "how many cmu blocks do i need",
+      "cmu order calculator"
     ],
     "featured": false
   },
   {
     "slug": "cmu-cost-calculator",
-    "title": "CMU Cost Calculator — Blocks & Material Cost",
+    "title": "CMU Cost Calculator — Blocks, Mortar, Tax & Labor",
     "h1": "CMU Cost Calculator",
-    "description": "Estimate CMU block quantity and entered-scope cost from wall dimensions, openings, block size, joint width, waste, quoted unit price, tax, delivery and labor/equipment.",
+    "description": "Estimate CMU block and mortar material cost from wall geometry and waste, with unit and bag prices, material tax, delivery and entered labor/equipment.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cmu cost calculator",
-      "cmu price calculator",
-      "concrete block cost calculator"
+      "concrete block cost calculator",
+      "cmu wall cost calculator"
     ],
     "featured": false
   },
   {
     "slug": "concrete-block-wall-calculator",
-    "title": "Concrete Block Wall Calculator — Blocks & Cost",
+    "title": "Concrete Block Wall Calculator — Blocks, Courses & Openings",
     "h1": "Concrete Block Wall Calculator",
-    "description": "Calculate concrete blocks for a wall from area, openings, block dimensions and mortar-joint width, with waste, estimated unit weight and optional cost.",
+    "description": "Calculate concrete blocks for a wall from dimensions, openings, specified block size and joint width, with courses, blocks per course, waste, order weight and optional cost.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "concrete block wall calculator"
+      "concrete block wall calculator",
+      "cinder block wall calculator",
+      "block wall quantity calculator"
     ],
     "featured": false
   },
   {
     "slug": "concrete-block-weight-calculator",
-    "title": "Concrete Block Weight Calculator — Weight & Tons",
+    "title": "Concrete Block Weight Calculator — Blocks, Pallets & Tons",
     "h1": "Concrete Block Weight Calculator",
-    "description": "Calculate concrete block weight — volume to pounds and short tons with density for truck-load planning.",
+    "description": "Calculate bare concrete-block shipment weight from block count, manufacturer unit weight and waste, with pounds, kilograms, tons, metric tonnes and optional pallets.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete block weight calculator",
-      "concrete block weight tons calculator"
+      "cmu block weight calculator",
+      "concrete block pallet weight calculator"
     ],
     "featured": false
   },
   {
     "slug": "concrete-block-mortar-calculator",
-    "title": "Concrete Block Mortar Calculator — Bags, Volume & Cost",
+    "title": "Concrete Block Mortar Calculator — Bags from Block Yield",
     "h1": "Concrete Block Mortar Calculator",
-    "description": "Calculate concrete block mortar — bags, cubic feet or yards for any CMU wall with joint thickness and waste allowance.",
+    "description": "Calculate mortar bags from installed concrete-block count or wall geometry using project/product blocks-per-bag coverage, with waste and optional bag cost.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "concrete block mortar calculator"
+      "concrete block mortar calculator",
+      "cmu mortar calculator",
+      "block mortar bags calculator"
     ],
     "featured": false
   },
   {
     "slug": "cmu-grout-calculator",
-    "title": "CMU Grout Calculator — Bags, Volume & Cost",
+    "title": "CMU Grout Calculator — Core Fill, Bond Beams & Bags",
     "h1": "CMU Grout Calculator",
-    "description": "Calculate CMU grout — cubic yards or bags for filled cells, bond beams and lintels with waste allowance for any CMU wall.",
+    "description": "Calculate CMU grout for filled vertical cells plus optional bond-beam or lintel grout, with waste, cubic feet, yards, meters, bag count and price per yard or bag.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "cmu grout calculator"
+      "cmu grout calculator",
+      "concrete block fill calculator",
+      "cmu core fill calculator"
     ],
     "featured": false
   },
   {
     "slug": "cmu-reinforcement-calculator",
-    "title": "CMU Reinforcement Calculator — Bags, Volume & Cost",
+    "title": "CMU Reinforcement Calculator — Vertical/Horizontal Rebar",
     "h1": "CMU Reinforcement Calculator",
-    "description": "Calculate CMU reinforcement — vertical and horizontal rebar count, spacing, weight and cost for grouted CMU walls with waste.",
+    "description": "Calculate CMU reinforcement from specified vertical and horizontal spacing, wall dimensions and bar size, with locations, runs, total rebar length, weight, waste and cost.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "cmu reinforcement calculator"
+      "cmu reinforcement calculator",
+      "cmu rebar calculator",
+      "masonry wall reinforcement calculator"
     ],
     "featured": false
   },
