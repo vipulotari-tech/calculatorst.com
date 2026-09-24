@@ -24,14 +24,14 @@ export const calculators: CalculatorMeta[] = [
   },
   {
     slug: "fence-cost-calculator",
-    title: "Fence Cost Calculator — Materials & Cost Estimate",
+    title: "Fence Cost Calculator — Posts, Panels & Gates",
     h1: "Fence Cost Calculator",
-    description: "Estimate fence posts, panels, rails and cost for wood, vinyl or chain link. Includes gates, waste and concrete.",
+    description: "Calculate fence posts, panels, rails, gate openings and concrete quantities, with waste allowance and optional material pricing.",
     category: "Fence",
     cluster: "deck-fence",
     iconPath: "M4 3.5v9M6 3.5v9M8 3.5v9M10 3.5v9M12 3.5v9M4 5h8M4 8h8",
     featured: true,
-    keywords: ["fence cost calculator", "fence calculator"],
+    keywords: ["fence cost calculator", "fence price calculator"],
   },
   {
     slug: "concrete-slab-calculator",
@@ -42,7 +42,7 @@ export const calculators: CalculatorMeta[] = [
     cluster: "concrete",
     iconPath: "M3 8h10M3 11h10M3 5h10",
     featured: true,
-    keywords: ["concrete slab calculator", "concrete calculator"],
+    keywords: ["concrete slab calculator", "concrete slab yards calculator"],
   },
   {
     slug: "roof-pitch-calculator",
