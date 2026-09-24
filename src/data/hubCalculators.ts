@@ -1215,7 +1215,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "cement-bag-calculator",
     "title": "Cement Bag Calculator — Mix Ratio, Cement Share & Bags",
     "h1": "Cement Bag Calculator",
-    "description": "Calculate cement bags from total dry batch volume and an entered cement:sand:aggregate ratio, with component volumes, allowance and optional bag cost.",
+    "description": "Calculate cement bags from a known dry batch or placed/wet volume with editable dry-volume factor and cement:sand:aggregate ratio, allowance and optional bag cost.",
     "category": "Mortar & Cement",
     "cluster": "mortar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
