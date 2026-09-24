@@ -540,7 +540,165 @@ const slabSeo: Record<string, {
   }
 };
 
-const pageSeo = concreteSeo[calc.slug] ?? slabSeo[calc.slug];
+const foundationSeo: Record<string, {
+  title: string;
+  description: string;
+  guidance: string[];
+  faq: { q: string; a: string }[];
+}> = {
+  "foundation-cost-calculator": {
+    title: "Foundation Cost Calculator — Concrete & Entered Project Costs",
+    description: "Estimate foundation concrete and quote-based cost for slabs, piers or strip footings, with bags, weight, tax, delivery, excavation, forms, reinforcement and labor.",
+    guidance: [
+      "Use material-only scope to compare concrete supplier quotes without hidden project fees.",
+      "Use entered-project-cost scope only when you have current prices or allowances for excavation, forms, reinforcement, waterproofing/drainage and labor.",
+      "This estimator does not select a foundation type or structural dimensions; those are project-design inputs."
+    ],
+    faq: [
+      { q: "What does the foundation cost calculator include?", a: "It calculates the selected foundation concrete geometry, allowance-adjusted order quantity, bags and weight, then applies the price basis you choose. Full scope adds only the project costs you enter." },
+      { q: "Can I price foundation concrete by the bag or cubic meter?", a: "Yes. Supported price bases include cubic yard, cubic meter, cubic foot, bag and US ton." },
+      { q: "Does material-only mode include old hidden project charges?", a: "No. Material-only mode ignores hidden tax and project-cost values and reports only the concrete material subtotal." },
+      { q: "Does this calculate a complete contractor bid?", a: "No. It is an entered-scope estimator. Engineering, permits, utilities, shoring and any unentered scope are excluded." }
+    ]
+  },
+  "foundation-excavation-calculator": {
+    title: "Foundation Excavation Calculator — Bank & Loose Yards + Cost",
+    description: "Calculate foundation excavation from footprint, working room and depth, with overbreak, bank cubic yards, soil swell, loose haul volume and quote-based excavation cost.",
+    guidance: [
+      "Enter the finished foundation footprint, then add working room on each side instead of silently inflating the building dimensions.",
+      "Overbreak adjusts bank excavation once; swell converts bank volume to loose haul volume and should not be treated as a second waste factor.",
+      "Use measured or quoted project rates because rock, groundwater, shoring, access and hauling conditions can dominate excavation cost."
+    ],
+    faq: [
+      { q: "What is bank volume in foundation excavation?", a: "Bank volume is the soil volume in place before excavation. This calculator derives it from the excavation footprint, depth and optional overbreak allowance." },
+      { q: "What is loose excavation volume?", a: "Loose volume is the hauled or stockpiled volume after applying the entered swell factor to bank volume." },
+      { q: "How is working room included?", a: "The calculator adds the entered working-room distance to both sides of the foundation length and width before calculating excavation volume." },
+      { q: "Does this calculate sloped or benched excavation?", a: "No. The model is vertical-sided rectangular excavation. Slopes, benches, shoring and irregular ground need separate geometry." }
+    ]
+  },
+  "strip-footing-calculator": {
+    title: "Strip Footing Calculator — Linear Run, Yards, Bags & Cost",
+    description: "Calculate continuous strip-footing concrete from centerline run, width, depth and quantity, with cross-section area, cubic yards, bags, weight, waste and cost.",
+    guidance: [
+      "Use centerline run for connected continuous footings so corners are counted once.",
+      "The calculator reports footing cross-section separately from total linear run so the geometry is easy to audit.",
+      "Width, depth, reinforcement and frost embedment must come from the approved project design."
+    ],
+    faq: [
+      { q: "How do I calculate concrete for a strip footing?", a: "Multiply centerline run × footing width × footing depth × quantity, then convert cubic feet to cubic yards and apply the entered allowance." },
+      { q: "Why use centerline length for connected footings?", a: "Centerline measurement avoids counting corner overlap twice when footing runs meet." },
+      { q: "Can I enter several identical footing runs?", a: "Yes. Quantity multiplies the complete strip-footing volume." },
+      { q: "Does this size the footing for soil bearing capacity?", a: "No. Footing dimensions are design inputs. The calculator estimates concrete from the dimensions you provide." }
+    ]
+  },
+  "pad-footing-calculator": {
+    title: "Pad Footing Calculator — Rectangular, Square & Round Pads",
+    description: "Calculate isolated pad-footing concrete for rectangular, square or round pads, including per-pad volume, total yards, bags, weight, waste and optional material cost.",
+    guidance: [
+      "Choose the actual formed pad shape so footprint area is calculated with the correct geometry.",
+      "Per-pad concrete is shown separately from the total, making repeated column or post foundations easier to check.",
+      "For a pedestal cast above the pad, calculate the pedestal as a separate non-overlapping component."
+    ],
+    faq: [
+      { q: "Can the pad footing calculator handle round pads?", a: "Yes. It supports rectangular, square and round pad footprints." },
+      { q: "How is a rectangular pad footing calculated?", a: "Volume equals length × width × depth × number of pads." },
+      { q: "Does the result show concrete per footing?", a: "Yes. The calculator reports footprint area and concrete volume per pad as well as the total order quantity." },
+      { q: "Does this choose the pad size?", a: "No. Pad dimensions depend on structural loads, soil and project requirements." }
+    ]
+  },
+  "pier-footing-calculator": {
+    title: "Pier Footing Calculator — Shaft, Bell Base, Yards & Bags",
+    description: "Calculate concrete for cylindrical foundation piers from diameter, depth and count, with optional enlarged bell-base volume, cubic yards, bags, weight, waste and cost.",
+    guidance: [
+      "Use shaft diameter and embedment depth from the project plan; the main pier is modeled as a cylinder.",
+      "If an enlarged base is specified, enter its diameter and thickness. The calculator adds only the enlargement beyond the shaft volume.",
+      "Bearing capacity, frost depth, reinforcement and anchorage are not selected by this quantity calculator."
+    ],
+    faq: [
+      { q: "How is concrete for a pier footing calculated?", a: "The shaft uses cylinder volume: π × radius² × depth, multiplied by the number of piers." },
+      { q: "Can I include a belled or enlarged pier base?", a: "Yes. Enter a base diameter larger than the shaft and a base thickness; the calculator adds the annular enlargement volume." },
+      { q: "How much concrete is shown per pier?", a: "The results separate shaft volume, enlarged-base extra and total concrete per pier before multiplying by the pier count." },
+      { q: "Does this determine required pier depth?", a: "No. Depth and diameter are design inputs based on loads, soil, frost and local requirements." }
+    ]
+  },
+  "footing-volume-calculator": {
+    title: "Footing Volume Calculator — Cubic Feet, Yards & Meters",
+    description: "Calculate pure footing volume for strip, rectangular, square or round foundations in cubic feet, cubic yards, cubic meters and liters with quantity and allowance.",
+    guidance: [
+      "Use this page when the main question is geometry and volume conversion rather than bags, weight or price.",
+      "Choose strip, rectangular pad, square pad or round pad/pier so only the dimensions for that geometry are requested.",
+      "Use Footing Concrete Calculator when you also need package counts, material weight and cost."
+    ],
+    faq: [
+      { q: "What is the difference between Footing Volume and Footing Concrete calculators?", a: "Footing Volume focuses on geometric volume and unit conversion. Footing Concrete adds bags, density-based weight and optional material cost." },
+      { q: "Can I calculate cubic meters as well as cubic yards?", a: "Yes. The result includes cubic feet, cubic yards, cubic meters and liters." },
+      { q: "Can I apply a quantity and allowance?", a: "Yes. Quantity multiplies the selected footing geometry and the allowance is then applied once to the total." },
+      { q: "Can this calculate stepped footings in one entry?", a: "Not directly. Split stepped footings into non-overlapping sections and add the volumes." }
+    ]
+  },
+  "footing-concrete-calculator": {
+    title: "Footing Concrete Calculator — Yards, Bags, Weight & Cost",
+    description: "Calculate concrete for strip, rectangular, square or round footings with quantity, waste, cubic yards, bag rounding, density-based weight and optional material cost.",
+    guidance: [
+      "Use this as the broad footing material estimator when you need more than volume conversion.",
+      "For a single project type, the dedicated Strip, Pad or Pier Footing Calculator provides more project-specific outputs.",
+      "Bag count uses the mixed yield you enter and rounds up to whole bags."
+    ],
+    faq: [
+      { q: "What footing types can this calculator handle?", a: "It supports strip/continuous, rectangular pad, square pad and round pad or pier geometry." },
+      { q: "How are concrete bags calculated?", a: "The allowance-adjusted cubic-foot requirement is divided by the mixed yield per bag you enter, then rounded up." },
+      { q: "Can I enter a price per bag?", a: "Yes. Price can be entered per cubic yard, cubic meter, cubic foot, bag or US ton." },
+      { q: "When should I use the dedicated footing calculators?", a: "Use Strip, Pad or Pier calculators when you want project-specific outputs such as centerline run, per-pad quantity or enlarged-base volume." }
+    ]
+  },
+  "foundation-wall-calculator": {
+    title: "Foundation Wall Calculator — Openings, Forms, Yards & Bags",
+    description: "Calculate cast-in-place foundation-wall concrete from centerline length, height, thickness and opening area, with gross/net volume, form area, bags, weight and cost.",
+    guidance: [
+      "Use centerline wall length for connected walls to avoid double-counting corners.",
+      "Enter the combined wall-face area of openings once; the calculator multiplies it by wall thickness to deduct opening volume.",
+      "The form-area result covers the two main wall faces only."
+    ],
+    faq: [
+      { q: "How are openings deducted from foundation wall concrete?", a: "Opening face area is multiplied by wall thickness to convert it to volume, then subtracted from gross wall volume." },
+      { q: "How much wall-form area is shown?", a: "The calculator reports one-side wall face area and both main faces. Ends, corners and special forms are separate." },
+      { q: "Should I use centerline or outside wall length?", a: "For connected wall runs, centerline length is the preferred takeoff method because it avoids corner overlap." },
+      { q: "Does this design a retaining or basement wall?", a: "No. It estimates concrete quantity only from dimensions already selected for the project." }
+    ]
+  },
+  "basement-wall-calculator": {
+    title: "Basement Wall Calculator — Perimeter, Openings, Forms & Yards",
+    description: "Calculate rectangular basement-wall concrete from outside length, width, wall height and thickness, with openings, extra wall runs, form area, bags, weight and cost.",
+    guidance: [
+      "Use outside basement length and width for a rectangular perimeter, then add any measured interior or jog wall run separately.",
+      "Opening deductions are applied once to the wall-face area.",
+      "Footings, slab, reinforcement, waterproofing and drainage are intentionally separate from the wall-concrete result."
+    ],
+    faq: [
+      { q: "How is basement wall perimeter calculated?", a: "The calculator uses 2 × (outside length + outside width), then adds any extra interior or jog wall length you enter." },
+      { q: "Can I subtract basement windows and doors?", a: "Yes. Enter their combined wall-face area and the calculator deducts the corresponding concrete volume." },
+      { q: "Does the result include basement floor slab concrete?", a: "No. This page estimates cast-in-place basement walls only." },
+      { q: "Does it include waterproofing or drainage cost?", a: "No. Those scopes are separate because systems and project requirements vary." }
+    ]
+  },
+  "crawl-space-calculator": {
+    title: "Crawl Space Foundation Calculator — Stem-Wall Concrete",
+    description: "Estimate crawl-space stem-wall concrete from outside length, width, wall height and thickness, with interior wall run, vent/access deductions, yards, bags and weight.",
+    guidance: [
+      "The outside crawl-space footprint is treated as a rectangle and converted to perimeter automatically.",
+      "Add interior stem-wall length separately when the foundation includes interior bearing lines.",
+      "Vent/access openings are deducted by face area; footings, piers, vapor barrier, drainage and framing remain separate scopes."
+    ],
+    faq: [
+      { q: "How is crawl-space stem-wall length calculated?", a: "Outside wall run is 2 × (length + width). Any interior stem-wall length you enter is then added." },
+      { q: "Can I subtract crawl-space vents and access openings?", a: "Yes. Enter their combined wall-face area and the calculator converts that area to a concrete-volume deduction." },
+      { q: "Does this include crawl-space footings or piers?", a: "No. This page estimates stem-wall concrete. Use the footing or pier calculators for those components." },
+      { q: "Does this determine crawl-space ventilation requirements?", a: "No. Ventilation and conditioned-crawlspace requirements depend on the assembly and applicable code path." }
+    ]
+  }
+};
+
+const pageSeo = concreteSeo[calc.slug] ?? slabSeo[calc.slug] ?? foundationSeo[calc.slug];
 const faq = pageSeo?.faq ?? [...content.faq, ...(faqEnhancements[calc.slug] ?? [])];
 const seoDescriptionOverrides: Record<string, string> = {
   "crushed-stone-calculator": calc.description,
