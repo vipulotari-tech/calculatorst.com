@@ -708,15 +708,16 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "brick-cost-calculator",
-    "title": "Brick Cost Calculator — Price & Quantity",
+    "title": "Brick Cost Calculator — Bricks & Material Cost",
     "h1": "Brick Cost Calculator",
-    "description": "Estimate a brick material cost line from a known brick quantity and quoted unit price, with allowance, material tax, delivery and labor.",
+    "description": "Estimate brick quantity and entered-scope cost from wall dimensions, openings, brick size, mortar-joint width, waste, quoted unit price, tax, delivery and labor/equipment.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "brick cost calculator",
-      "brick price calculator"
+      "brick price calculator",
+      "brick wall cost calculator"
     ],
     "featured": false
   },
@@ -800,15 +801,16 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "masonry-cost-calculator",
-    "title": "Masonry Cost Calculator — Price & Quantity",
+    "title": "Masonry Cost Calculator — Units & Material Cost",
     "h1": "Masonry Cost Calculator",
-    "description": "Estimate a masonry material cost line from a known quantity and quoted unit price, with allowance, material tax, delivery and labor.",
+    "description": "Estimate masonry unit quantity and entered-scope cost from wall dimensions, openings, unit size, joint width, waste, quoted unit price, tax, delivery and labor/equipment.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "masonry cost calculator",
-      "masonry price calculator"
+      "masonry price calculator",
+      "masonry wall cost calculator"
     ],
     "featured": false
   },
@@ -920,15 +922,16 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "cmu-cost-calculator",
-    "title": "CMU Cost Calculator — Price & Quantity",
+    "title": "CMU Cost Calculator — Blocks & Material Cost",
     "h1": "CMU Cost Calculator",
-    "description": "Estimate a CMU material cost line from a known block quantity and quoted unit price, with allowance, material tax, delivery and labor.",
+    "description": "Estimate CMU block quantity and entered-scope cost from wall dimensions, openings, block size, joint width, waste, quoted unit price, tax, delivery and labor/equipment.",
     "category": "Concrete Block",
     "cluster": "cmu",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "cmu cost calculator",
-      "cmu price calculator"
+      "cmu price calculator",
+      "concrete block cost calculator"
     ],
     "featured": false
   },

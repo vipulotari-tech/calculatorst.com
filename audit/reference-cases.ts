@@ -58,6 +58,7 @@ export const referenceCases:ReferenceCase[] = [
  {model:'cmu-mortar',input:{units:100,coverage:10},expected:{bags:10}},
  {model:'cmu-grout',input:{units:108,cellVolume:0.25},expected:{order:1,ft3:27}},
  {model:'brick-joint',input:{length:25,unitLength:8,units:3},units:{length:'in'},expected:{joint:0.5}},
+ {model:'masonry-cost',input:{length:10,width:10,openings:0,unitLength:11,unitHeight:11,joint:1,unitWeight:4,price:2,tax:10,delivery:20,labor:30,waste:0},expected:{units:100,area:100,materials:200,tax:20,delivery:20,labor:30,total:270,weight:400}},
  {model:'material-cost',input:{quantity:10,price:5,tax:10,delivery:20,labor:30,waste:20},expected:{quantity:12,materials:60,tax:6,cost:116}},
  {model:'slab-cost',input:{length:10,width:10,depth:4,quantity:1,waste:0,price:100,yield:0.6,density:150},expected:{order:1.2345679012345678,bags:56,materials:123.45679012345678}},
  {model:'patio-cost',input:{length:10,width:10,depth:4,quantity:1,waste:0,price:100,yield:0.6,density:150},expected:{order:1.2345679012345678,bags:56,materials:123.45679012345678}},

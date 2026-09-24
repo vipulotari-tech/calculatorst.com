@@ -108,6 +108,10 @@ const faqEnhancements: Record<string, { q: string; a: string }[]> = {
     { q: "Which beam load cases are included?", a: "The calculator includes a simply supported beam with a full-span uniform load, a simply supported beam with one center point load, a cantilever with a full-span uniform load, and a cantilever with one point load at the free end." },
     { q: "Does the beam calculator tell me what beam size is safe?", a: "No. It calculates idealized elastic reactions, bending moment, shear and deflection from the inputs. It does not select a member or check allowable capacity, bearing, buckling, connections or code load combinations." },
   ],
+  "cmu-cost-calculator": [
+    { q: "How does the CMU cost calculator work?", a: "It calculates the net wall area, converts that area to whole CMU blocks using the entered block dimensions and mortar-joint width, applies the purchasing allowance, then prices the blocks using your unit price plus any tax, delivery and labor/equipment amounts you enter." },
+    { q: "Does the CMU cost estimate include mortar, grout or rebar?", a: "No. Those are separate material takeoffs because wall reinforcement and grouting requirements vary by project. Use the related mortar, grout and reinforcement calculators when those items are required." },
+  ],
   "slab-cost-calculator": [
     { q: "How is concrete pad or slab material cost calculated?", a: "The calculator converts the entered pad or slab dimensions and thickness to concrete volume, applies the purchasing allowance, then multiplies the order quantity by the material price you enter." },
     { q: "Does the slab cost estimate include rebar, base, forms or labor?", a: "Not unless the calculator explicitly provides and you enter those cost items. Use the related calculators for reinforcement, base and other project materials; contractor labor and site conditions can vary widely." },
@@ -153,6 +157,9 @@ const seoDescriptionOverrides: Record<string, string> = {
   "deck-mud-calculator": calc.description,
   "stucco-calculator": calc.description,
   "foundation-cost-calculator": calc.description,
+  "masonry-cost-calculator": calc.description,
+  "brick-cost-calculator": calc.description,
+  "cmu-cost-calculator": calc.description,
 };
 const seoDescription = seoDescriptionOverrides[calc.slug] ?? content.description;
 const newCalculatorSlugs = new Set([

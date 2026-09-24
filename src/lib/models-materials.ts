@@ -1524,6 +1524,45 @@ const masonry: Model = {
   },
 };
 
+const masonryCost: Model = {
+  fields: [
+    ...masonry.fields.filter((field) => field.id !== 'price'),
+    { ...price('USD/unit'), optional: false },
+    number('delivery', 'Delivery charge (USD)', 0, 0),
+    number('labor', 'Labor / equipment allowance (USD)', 0, 0),
+    number('tax', 'Material tax (%)', 0, 0),
+  ],
+  formula: 'Net wall area = length × height − openings; units = ceil(net area × allowance factor / installed module face); total = units × unit price + material tax + delivery + labor/equipment.',
+  assumptions: [
+    ...masonry.assumptions,
+    'This estimates unit-material cost plus the tax, delivery and labor/equipment amounts you enter. Mortar, grout, reinforcement, foundations, finishes and permits are separate unless you price them separately.'
+  ],
+  sources: masonry.sources,
+  calculate(v, u) {
+    const wallArea = netArea(v);
+    const face = (v.unitLength + v.joint) * (v.unitHeight + v.joint);
+    const raw = wallArea / face;
+    const units = roundUp(raw * waste(v));
+    const materials = units * v.price;
+    const taxAmount = materials * v.tax / 100;
+    const total = materials + taxAmount + v.delivery + v.labor;
+    return result([
+      row('total','Estimated entered-scope total',total,'USD',true),
+      row('units','Units to order',units,'units',true),
+      row('area','Net wall area',wallArea,'ft²'),
+      row('materials','Unit material subtotal',materials,'USD'),
+      row('tax','Material tax',taxAmount,'USD'),
+      row('delivery','Delivery charge',v.delivery,'USD'),
+      row('labor','Labor / equipment allowance',v.labor,'USD'),
+      row('weight','Unmortared unit weight',units*v.unitWeight,'lb'),
+    ],[
+      `Net wall area: ${fmt(v.length*v.width)} − ${fmt(v.openings)} = ${fmt(wallArea)} ft².`,
+      `Installed module face = ${fmt((v.unitLength+v.joint)*12)} × ${fmt((v.unitHeight+v.joint)*12)} in; round ${fmt(raw)} × ${fmt(waste(v))} up = ${units} units.`,
+      `${units} units × ${fmt(v.price)} = ${fmt(materials)}; add tax, delivery and labor/equipment.`
+    ]);
+  }
+};
+
 const bags: Model = {
   fields: [volume(), yieldField, allowance, price('USD/bag')],
   formula: 'Bags = ceil(required mixed volume × allowance factor / mixed yield per bag).',
@@ -1874,6 +1913,7 @@ export const materialModels: Record<string, Model> = {
   weight,
   depth,
   masonry,
+  'masonry-cost': masonryCost,
   bags,
   'asphalt-depth': {
     ...depth,

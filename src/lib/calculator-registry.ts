@@ -61,14 +61,14 @@ export const slugToModelKey: Record<string, string> = {
   "brick-calculator": "masonry",
   "brick-wall-calculator": "masonry",
   "brick-quantity-calculator": "masonry",
-  "brick-cost-calculator": "material-cost",
+  "brick-cost-calculator": "masonry-cost",
   "brick-mortar-calculator": "brick-mortar",
   "brick-veneer-calculator": "masonry",
   "brick-patio-calculator": "tile",
   "brick-paver-calculator": "tile",
   "masonry-calculator": "masonry",
   "masonry-wall-calculator": "masonry",
-  "masonry-cost-calculator": "material-cost",
+  "masonry-cost-calculator": "masonry-cost",
   "masonry-block-calculator": "masonry",
   "brick-weight-calculator": "weight",
   "brick-waste-calculator": "waste",
@@ -79,7 +79,7 @@ export const slugToModelKey: Record<string, string> = {
   "cmu-calculator": "masonry",
   "cmu-wall-calculator": "masonry",
   "cmu-quantity-calculator": "masonry",
-  "cmu-cost-calculator": "material-cost",
+  "cmu-cost-calculator": "masonry-cost",
   "concrete-block-wall-calculator": "masonry",
   "concrete-block-weight-calculator": "weight",
   "concrete-block-mortar-calculator": "cmu-mortar",
@@ -254,7 +254,7 @@ export function getModelForSlug(slug: string): Model {
     const model = allModels[key];
     const overrides: Record<string, Partial<Field>> = {};
     // Shared geometry must retain the material and application of the page.
-    if (key === 'masonry' && /cmu|concrete-block|masonry-block/.test(slug)) {
+    if ((key === 'masonry' || key === 'masonry-cost') && /cmu|concrete-block|masonry-block/.test(slug)) {
       overrides.unitLength = { value: 15.625 };
       overrides.unitHeight = { value: 7.625 };
       overrides.unitWeight = { value: 35, help: 'Example hollow 8-inch CMU weight. Use the actual manufacturer weight.' };
