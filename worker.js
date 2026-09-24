@@ -9,41 +9,35 @@ export default {
     const url = new URL(request.url);
     const hostname = url.hostname.toLowerCase();
 
-    // 1) Canonical host + protocol + trailing-slash normalization: single-hop to https://calculatorst.com
-    // Fixes 2-hop chain where www→apex dropped trailing slash and _redirects had to add it back
-    if (hostname === "www.calculatorst.com" || hostname.startsWith("www.")) {
-      url.hostname = "calculatorst.com";
-      url.protocol = "https:";
-      // Normalize trailing slash to match Astro's trailingSlash: 'always'
-      if (!url.pathname.endsWith("/") && !url.pathname.includes(".")) {
-        url.pathname += "/";
-      }
-      return Response.redirect(url.toString(), 301);
-    }
-    if (url.protocol === "http:") {
-      url.protocol = "https:";
-      // keep hostname as-is (handles http://calculatorst.com)
-      // but if it was http://www, above already handled
-      return Response.redirect(url.toString(), 301);
-    }
-
-    // 2) Junk search template leakage: /calculators/?q=<JS template> literal (GSC Blocked by robots.txt)
-    // Handles both raw and encoded forms via edge 301 before serving static asset
+    // 1) Canonicalize junk search URLs, host, protocol and trailing slash in one hop.
+    let redirectNeeded = false;
     try {
       const q = url.searchParams.get("q");
       if (q !== null) {
-        const decodedQ = (() => { try { return decodeURIComponent(q); } catch { return q; }})();
+        const decodedQ = (() => { try { return decodeURIComponent(q); } catch { return q; } })();
         const isJunk = decodedQ.includes("$" + "{") || decodedQ.includes("encodeURIComponent") || decodedQ.includes("{search_term_string}") || decodedQ.includes("%24%7B");
         if (isJunk) {
           url.searchParams.delete("q");
-          const cleanPath = url.pathname.startsWith("/calculators") ? url.pathname : "/calculators/";
-          const redirectUrl = new URL(cleanPath, "https://calculatorst.com");
-          redirectUrl.pathname = cleanPath.endsWith("/") ? cleanPath : cleanPath + "/";
-          for (const [k, v] of url.searchParams.entries()) redirectUrl.searchParams.set(k, v);
-          return Response.redirect(redirectUrl.toString(), 301);
+          redirectNeeded = true;
         }
       }
-    } catch { /* ignore */ }
+    } catch { /* keep serving if query parsing fails */ }
+
+    if (hostname !== "calculatorst.com") {
+      url.hostname = "calculatorst.com";
+      redirectNeeded = true;
+    }
+    if (url.protocol !== "https:") {
+      url.protocol = "https:";
+      redirectNeeded = true;
+    }
+    if (!url.pathname.endsWith("/") && !url.pathname.includes(".")) {
+      url.pathname += "/";
+      redirectNeeded = true;
+    }
+    if (redirectNeeded) {
+      return Response.redirect(url.toString(), 301);
+    }
 
     // 3) Garbage units parsed as URLs (12 Not found) — fallback in case _redirects/static miss
     // Also keeps legacy /construction/drywall → drywall-paint for old crawls
@@ -75,7 +69,7 @@ export default {
 
       // Search-filter URLs are useful to users but should not become indexable
       // duplicate landing pages. Keep them crawlable and preserve clean canonicals.
-      if (/^\\/calculators\\/?$/.test(url.pathname) && url.searchParams.has("q")) {
+      if ((url.pathname === "/calculators/" || url.pathname === "/calculators") && url.searchParams.has("q")) {
         const headers = new Headers(response.headers);
         headers.set("X-Robots-Tag", "noindex, follow");
         return new Response(response.body, {
