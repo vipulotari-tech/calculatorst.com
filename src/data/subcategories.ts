@@ -8,6 +8,7 @@ export const clusterGroups: Record<string, { name: string; slugs: string[] }[]> 
     { name: "Footings & Foundations", slugs: ["concrete-footing-calculator","concrete-foundation-calculator","concrete-slab-calculator"] },
     { name: "Walls & Structures", slugs: ["concrete-wall-calculator","concrete-column-calculator","concrete-curb-calculator","concrete-stair-calculator","concrete-ramp-calculator","concrete-tube-calculator"] },
     { name: "Waste", slugs: ["concrete-waste-calculator"] },
+    { name: "Repair", slugs: ["concrete-crack-repair-calculator"] },
   ],
   slab: [
     { name: "Slab Core", slugs: ["slab-thickness-calculator","slab-cost-calculator","slab-reinforcement-calculator"] },
@@ -39,6 +40,7 @@ export const clusterGroups: Record<string, { name: string; slugs: string[] }[]> 
     { name: "Mortar", slugs: ["mortar-calculator","mortar-mix-calculator","mortar-quantity-calculator","mortar-cost-calculator"] },
     { name: "Grout", slugs: ["grout-calculator","grout-quantity-calculator","grout-cost-calculator"] },
     { name: "Cement", slugs: ["cement-calculator","cement-bag-calculator","cement-sand-ratio-calculator"] },
+    { name: "Specialty Mortars & Plaster", slugs: ["deck-mud-calculator","stucco-calculator"] },
   ],
   gravel: [
     { name: "Gravel", slugs: ["gravel-calculator","gravel-cost-calculator","gravel-weight-calculator","gravel-depth-calculator"] },

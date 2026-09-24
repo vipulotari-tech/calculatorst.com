@@ -16,4 +16,133 @@ export const finishModels:Record<string,Model>={
   drywallScrews:{fields:[count('sheets','Number of installed sheets',10,0),count('perSheet','Screws per sheet from fastening plan',32),count('perBox','Screws per box',200),allowance,price('USD/unit')],formula:'Screws = ceil(sheets × screws per sheet × allowance factor); boxes = ceil(screws / screws per box).',assumptions:['Screw schedule depends on sheet size, orientation, support spacing and wall/ceiling assembly. The example count is not a fastening specification.'],sources:[],calculate(v,u){const screws=roundUp(v.sheets*v.perSheet*waste(v)),boxes=roundUp(screws/v.perBox);return result(withCost([row('screws','Screws with spares',screws,'screws',true),row('boxes','Whole boxes',boxes,'boxes',true)],v.price,u.price,{'USD/unit':boxes}),[`${v.sheets} × ${v.perSheet} × ${fmt(waste(v))}, rounded up = ${screws} screws.`,`Round ${screws}/${v.perBox} up = ${boxes} boxes.`]);}},
   drywallTape:{fields:[positiveOrZero(length('length','Total seams and taped corners',100)),length('roll','Tape length per roll',250),allowance,price('USD/unit')],formula:'Tape = seam length × allowance factor; rolls = ceil(tape / roll length).',assumptions:['Measure seams and inside corners once. Paper-faced corner beads or specialty tapes may be separate products.','This uses actual joint length rather than treating drywall area as a tape length.'],sources:[],calculate(v,u){const total=v.length*waste(v),rolls=roundUp(total/v.roll);return result(withCost([row('rolls','Tape rolls',rolls,'rolls',true),row('length','Tape including allowance',total,'ft')],v.price,u.price,{'USD/unit':rolls}),[`${fmt(v.length)} × ${fmt(waste(v))} = ${fmt(total)} ft; divide by ${fmt(v.roll)} ft/roll and round up.`]);}},
   sprayFoam:{fields:[...rectangle,length('depth','Installed foam thickness',2,'in'),number('coverage','Usable yield per kit (board ft)',200,undefined,'One board foot = one square foot at one inch thick. Use expected field yield, which may be lower than laboratory yield.'),allowance,price('USD/unit')],formula:'Foam board feet = area in ft² × thickness in inches; kits = ceil(board feet × allowance factor / kit yield).',assumptions:['Uniform finished thickness. Theoretical kit yield can fall with temperature, substrate and application losses.','Does not determine R-value, vapor control requirements or whether a foam system is suitable for the assembly.'],sources:[],calculate(v,u){const bf=v.length*v.width*v.depth*12,order=bf*waste(v),kits=roundUp(order/v.coverage);return result(withCost([row('kits','Foam kits',kits,'kits',true),row('boardFeet','Foam including allowance',order,'board ft'),row('net','Net installed foam',bf,'board ft')],v.price,u.price,{'USD/unit':kits}),[`${fmt(v.length*v.width)} ft² × ${fmt(v.depth*12)} in = ${fmt(bf)} board ft.`,`Round ${fmt(order)} / ${fmt(v.coverage)} up = ${kits} kits.`]);}},
+  deckMud:{
+    fields:[
+      ...rectangle,
+      length('thickness','Average mud bed thickness',1.5,'in','For a sloped bed, use the measured average thickness rather than the edge or drain thickness alone.'),
+      {id:'yield',label:'Mixed yield per bag',value:0.41,unit:'ft3',units:['ft3','m3','L'],dimension:'volume',min:0.0001,group:'Material & assumptions',help:'Use the exact product yield. The 0.41 ft³ default matches an example 50 lb QUIKRETE Deck Mud bag; its 75 lb bag is listed at about 0.62 ft³.'},
+      allowance,
+      price('USD/bag')
+    ],
+    formula:'Net deck mud volume = length × width × average thickness; order volume = net volume × allowance factor; bags = ceil(order volume / mixed yield per bag).',
+    assumptions:[
+      'Uniform average bed thickness over a rectangular area. For slopes or uneven substrates, use a measured average thickness or split the floor into sections.',
+      'The default bag yield is an editable product example, not a universal deck-mud yield. Replace it with the yield printed on the exact bag or product data sheet.',
+      'This calculator estimates material quantity only. It does not select a shower-pan slope, minimum mortar thickness, waterproofing system or sand-to-cement mix design.'
+    ],
+    sources:['https://www.quikrete.com/pdfs/data_sheet-deck%20mud%20-%20154-50%20-76.pdf'],
+    calculate(v,u){
+      const a=v.length*v.width;
+      const net=a*v.thickness;
+      const order=net*waste(v);
+      const bags=roundUp(order/v.yield);
+      const coverage=v.yield/v.thickness;
+      return result(
+        withCost([
+          row('bags','Whole bags to order',bags,'bags',true),
+          row('area','Floor area',a,'ft²'),
+          row('net','Net mud volume',net,'ft³'),
+          row('order','Mud volume with allowance',order,'ft³'),
+          row('yards','Mud volume with allowance',order/27,'yd³'),
+          row('coverage','Coverage per bag at entered thickness',coverage,'ft²')
+        ],v.price,u.price,{'USD/bag':bags}),
+        [
+          `${fmt(v.length)} × ${fmt(v.width)} = ${fmt(a)} ft².`,
+          `${fmt(a)} ft² × ${fmt(v.thickness*12)} in ÷ 12 = ${fmt(net)} ft³.`,
+          `${fmt(net)} × ${fmt(waste(v))} = ${fmt(order)} ft³ including allowance.`,
+          `Round ${fmt(order)} ÷ ${fmt(v.yield)} ft³/bag up = ${bags} bags.`
+        ]
+      );
+    }
+  },
+  concreteCrackRepair:{
+    fields:[
+      length('length','Total crack length',25,'ft'),
+      length('width','Average filled crack width',0.25,'in'),
+      length('depth','Average filled depth',0.5,'in'),
+      count('quantity','Similar cracks',1),
+      {...number('cartridge','Usable product volume per cartridge',10.1,0.01,'Enter the usable fluid volume stated for the exact tube or cartridge.'),unit:'fl oz',units:['fl oz'],group:'Material & assumptions'},
+      allowance,
+      price('USD/unit')
+    ],
+    formula:'Theoretical crack volume = length × width × depth × crack count; required fluid volume = theoretical volume × allowance factor; cartridges = ceil(required fluid ounces / cartridge fluid ounces).',
+    assumptions:[
+      'Models each filled crack as a rectangular prism with a constant average width and depth. Routed, V-shaped, irregular or partially filled cracks require measured geometry.',
+      'Package volume is editable because products come in different cartridge sizes. Backer rod, bond-breaker material, injection ports and unused residue can change actual product consumption.',
+      'This is a quantity estimator, not a diagnosis of crack cause or a structural repair design. Follow the repair-product instructions and project requirements.'
+    ],
+    sources:[
+      'https://www.quikrete.com/productlines/concretecracksealant.asp',
+      'https://www.quikrete.com/productlines/fastset-concrete-crack-repair.aspx'
+    ],
+    calculate(v,u){
+      const netFt3=v.length*v.width*v.depth*v.quantity;
+      const orderFt3=netFt3*waste(v);
+      const netIn3=netFt3*1728;
+      const orderIn3=orderFt3*1728;
+      const fluidOunces=orderIn3*128/231;
+      const ml=fluidOunces*29.5735295625;
+      const cartridges=roundUp(fluidOunces/v.cartridge);
+      return result(
+        withCost([
+          row('cartridges','Whole cartridges to order',cartridges,'cartridges',true),
+          row('net','Theoretical crack volume',netIn3,'in³'),
+          row('order','Volume with allowance',orderIn3,'in³'),
+          row('floz','Required fluid volume',fluidOunces,'fl oz'),
+          row('ml','Required fluid volume',ml,'mL')
+        ],v.price,u.price,{'USD/unit':cartridges}),
+        [
+          `${fmt(v.length)} ft × ${fmt(v.width*12)} in × ${fmt(v.depth*12)} in × ${v.quantity} = ${fmt(netIn3)} in³ theoretical volume.`,
+          `${fmt(netIn3)} × ${fmt(waste(v))} = ${fmt(orderIn3)} in³ including allowance.`,
+          `${fmt(orderIn3)} in³ × 128 / 231 = ${fmt(fluidOunces)} US fl oz.`,
+          `Round ${fmt(fluidOunces)} ÷ ${fmt(v.cartridge)} fl oz/cartridge up = ${cartridges} cartridges.`
+        ]
+      );
+    }
+  },
+  stucco:{
+    fields:[
+      length('length','Total wall length',40,'ft'),
+      length('height','Average wall height',10,'ft'),
+      openings,
+      {...number('baseCoats','Base coats (scratch / brown)',2,0),integer:true,max:3,group:'Material & assumptions',help:'Traditional three-coat work normally has two base coats. Enter the number required by your specified system.'},
+      {...area('baseCoverage','Base-coat coverage per bag',20,0.01),group:'Material & assumptions',help:'Use coverage from the exact product at the specified coat thickness. The 20 ft² default is the conservative end of QUIKRETE’s listed 20–24 ft² per 80 lb bag at 3/8 in.'},
+      {...number('finishCoats','Finish coats',1,0),integer:true,max:3,group:'Material & assumptions',help:'Enter zero if the selected assembly does not use a separate bagged finish coat.'},
+      {...area('finishCoverage','Finish-coat coverage per bag',70,0.01),group:'Material & assumptions',help:'Use the exact product coverage. QUIKRETE lists about 70 ft² per 80 lb Finish Coat Stucco bag at 1/8 in, with texture affecting coverage.'},
+      allowance
+    ],
+    formula:'Net wall area = total wall length × average wall height − openings; bags per coat type = ceil(net area × allowance factor × coat count / coverage per bag).',
+    assumptions:[
+      'One combined wall takeoff with a common average height. Measure different heights or detached wall sections separately when that is clearer.',
+      'Coverage depends on product, coat thickness, substrate and texture. The defaults are editable examples from manufacturer literature, not universal stucco coverage rates.',
+      'This estimates bag quantity only. It does not select lath, weather barrier, control joints, coat thickness, curing method or code-compliant stucco assembly.'
+    ],
+    sources:[
+      'https://www.quikrete.com/PDFs/DATA_SHEET-Scratch%20and%20Brown%20Base%20Coat%20Stucco%20%201139.pdf',
+      'https://www.quikrete.com/PDFs/DATA_SHEET-Finish%20Coat%20Stucco%201201.pdf'
+    ],
+    calculate(v){
+      const gross=v.length*v.height;
+      const net=gross-v.openings;
+      requireCondition(net>=0,'openings','Openings cannot exceed the measured wall area.');
+      requireCondition(v.baseCoats+v.finishCoats>0,'baseCoats','Enter at least one base or finish coat.');
+      const orderArea=net*waste(v);
+      const baseBags=v.baseCoats>0?roundUp(orderArea*v.baseCoats/v.baseCoverage):0;
+      const finishBags=v.finishCoats>0?roundUp(orderArea*v.finishCoats/v.finishCoverage):0;
+      const total=baseBags+finishBags;
+      return result([
+        row('total','Total stucco bags',total,'bags',true),
+        row('base','Base-coat bags',baseBags,'bags',true),
+        row('finish','Finish-coat bags',finishBags,'bags',true),
+        row('area','Net wall area',net,'ft²'),
+        row('order','Area with allowance',orderArea,'ft²')
+      ],[
+        `${fmt(v.length)} × ${fmt(v.height)} − ${fmt(v.openings)} = ${fmt(net)} ft² net wall area.`,
+        `${fmt(net)} × ${fmt(waste(v))} = ${fmt(orderArea)} ft² with allowance.`,
+        `Base: ceil(${fmt(orderArea)} × ${v.baseCoats} ÷ ${fmt(v.baseCoverage)}) = ${baseBags} bags.`,
+        `Finish: ceil(${fmt(orderArea)} × ${v.finishCoats} ÷ ${fmt(v.finishCoverage)}) = ${finishBags} bags.`
+      ]);
+    }
+  },
+
 };

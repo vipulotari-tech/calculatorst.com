@@ -2,7 +2,7 @@ import type { Field, Model } from './calculator-types.ts';
 import { allModels } from './calculator-models.ts';
 
 export const slugToModelKey: Record<string, string> = {
-  // 1. Concrete (16) — each has its own model for distinct inputs/outputs
+  // 1. Concrete (17) — each has its own model for distinct inputs/outputs
   "concrete-calculator": "concrete",
   "concrete-volume-calculator": "concrete-volume",
   "concrete-cost-calculator": "concrete-cost",
@@ -19,6 +19,7 @@ export const slugToModelKey: Record<string, string> = {
   "concrete-ramp-calculator": "concrete-ramp",
   "concrete-tube-calculator": "concrete-tube",
   "concrete-waste-calculator": "concrete-waste",
+  "concrete-crack-repair-calculator": "concreteCrackRepair",
 
   // 2. Slab & Patio (10)
     "slab-thickness-calculator": "thickness",
@@ -85,7 +86,7 @@ export const slugToModelKey: Record<string, string> = {
   "cmu-grout-calculator": "cmu-grout",
   "cmu-reinforcement-calculator": "grid",
 
-  // 7. Mortar & Cement (10)
+  // 7. Mortar & Cement (12)
   "mortar-calculator": "bags",
   "mortar-mix-calculator": "concrete-mix",
   "mortar-quantity-calculator": "bags",
@@ -96,6 +97,8 @@ export const slugToModelKey: Record<string, string> = {
   "cement-calculator": "bags",
   "cement-bag-calculator": "bags",
   "cement-sand-ratio-calculator": "concrete-mix",
+  "deck-mud-calculator": "deckMud",
+  "stucco-calculator": "stucco",
 
   // 8. Gravel & Aggregate (15)
   "gravel-calculator": "bulk",

@@ -63,7 +63,11 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "concrete-wall-calculator": {
     primary: ["rebar-calculator", "concrete-volume-calculator", "concrete-cost-calculator"],
-    workflow: ["concrete-column-calculator", "concrete-tube-calculator"],
+    workflow: ["concrete-crack-repair-calculator", "concrete-column-calculator", "concrete-tube-calculator"],
+  },
+  "concrete-crack-repair-calculator": {
+    primary: ["concrete-calculator", "concrete-volume-calculator", "concrete-cost-calculator"],
+    workflow: ["concrete-wall-calculator", "concrete-slab-calculator"],
   },
   "concrete-column-calculator": {
     primary: ["concrete-tube-calculator", "rebar-calculator", "concrete-cost-calculator"],
@@ -323,7 +327,15 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   // Mortar / cement
   "mortar-calculator": {
     primary: ["mortar-mix-calculator", "mortar-quantity-calculator", "mortar-cost-calculator"],
-    workflow: ["cement-calculator", "cement-sand-ratio-calculator"],
+    workflow: ["deck-mud-calculator", "stucco-calculator", "cement-sand-ratio-calculator"],
+  },
+  "deck-mud-calculator": {
+    primary: ["mortar-calculator", "mortar-mix-calculator", "tile-calculator"],
+    workflow: ["flooring-calculator", "paver-sand-calculator"],
+  },
+  "stucco-calculator": {
+    primary: ["mortar-calculator", "mortar-mix-calculator", "masonry-calculator"],
+    workflow: ["paint-calculator", "concrete-wall-calculator"],
   },
   "mortar-mix-calculator": {
     primary: ["concrete-mix-calculator", "cement-sand-ratio-calculator", "mortar-calculator"],
