@@ -299,7 +299,7 @@ const garageSlab: Model = {
     ];
     if (edgeFt3 > 0) {
       extra.push(row('edge', 'Thickened perimeter (ft³)', edgeFt3, 'ft³'));
-      steps.push(`Thickened perimeter: ${fmt(edgeFt3)} ft³ added (${fmt(v.edgeDepth)} in depth beyond ${fmt(v.thickness)} in slab).`);
+      steps.push(`Thickened perimeter: ${fmt(edgeFt3)} ft³ added (total edge depth ${fmt(v.edgeDepth * 12)} in versus ${fmt(v.thickness * 12)} in slab thickness).`);
     }
     if (v.gravelDepth > 0) {
       const gravelFt3 = floor * v.gravelDepth;
