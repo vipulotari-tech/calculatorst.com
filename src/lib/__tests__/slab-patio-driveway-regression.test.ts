@@ -208,6 +208,36 @@ describe("Slab, Patio & Driveway golden-value regression suite", () => {
     )).toBeCloseTo(20, 8);
   });
 
+  it("Shed Foundation: spacing-based pier layout rounds intervals up and keeps actual spacing within the entered maximum", () => {
+    const r = run(
+      "shed-foundation-calculator",
+      {
+        foundationType: 3,
+        pierPlanLength: 10,
+        pierPlanWidth: 12,
+        pierSpacing: 6,
+        pierDiameter: 12,
+        pierDepth: 24,
+        quantity: 1,
+        waste: 0,
+      },
+      {
+        pierPlanLength: "ft",
+        pierPlanWidth: "ft",
+        pierSpacing: "ft",
+        pierDiameter: "in",
+        pierDepth: "in",
+      },
+    );
+
+    expect(r.rows.find(x => x.key === "pierCount")?.value).toBe(9);
+    expect(r.rows.find(x => x.key === "pierCountLength")?.value).toBe(3);
+    expect(r.rows.find(x => x.key === "pierCountWidth")?.value).toBe(3);
+    expect(r.rows.find(x => x.key === "pierSpacingLength")?.value).toBeCloseTo(60, 8);
+    expect(r.rows.find(x => x.key === "pierSpacingWidth")?.value).toBeCloseTo(72, 8);
+    expect(r.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(4.5 * Math.PI, 8);
+  });
+
   it("Shed Foundation: bag pricing uses rounded bag count instead of cubic-yard quantity", () => {
     const r = run(
       "shed-foundation-calculator",
