@@ -6,6 +6,7 @@ import { outdoorModels } from './models-outdoor.ts';
 import { slabModels } from './models-slab.ts';
 import { foundationModels } from './models-foundation.ts';
 import { rebarModels } from './models-rebar.ts';
+import { masonryDedicatedModels } from './models-masonry-dedicated.ts';
 
 export const allModels: Record<string, Model> = {
   ...structureModels,
@@ -15,6 +16,7 @@ export const allModels: Record<string, Model> = {
   ...slabModels,
   ...foundationModels,
   ...rebarModels,
+  ...masonryDedicatedModels,
 };
 
 export function getModel(key: string): Model {
