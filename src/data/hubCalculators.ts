@@ -112,7 +112,6 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete footing calculator",
-      "footing concrete calculator",
       "concrete footing volume calculator"
     ],
     "featured": true
@@ -277,9 +276,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "slab reinforcement calculator",
-      "rebar calculator for slab",
-      "rebar grid calculator",
-      "how many rebar for concrete slab"
+      "slab rebar calculator"
     ],
     "featured": false
   },
@@ -484,7 +481,8 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "footing concrete calculator"
+      "footing concrete calculator",
+      "concrete for footings calculator"
     ],
     "featured": false
   },
@@ -537,8 +535,8 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar calculator",
-      "rebar quantity calculator",
-      "rebar spacing calculator"
+      "rebar material calculator",
+      "rebar length and weight calculator"
     ],
     "featured": false
   },
@@ -565,7 +563,8 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "rebar spacing calculator"
+      "rebar spacing calculator",
+      "rebar spacing layout calculator"
     ],
     "featured": false
   },
@@ -592,7 +591,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "rebar quantity calculator",
-      "rebar how many calculator"
+      "how much rebar do i need"
     ],
     "featured": false
   },
@@ -619,7 +618,8 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "rebar",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "rebar grid calculator"
+      "rebar grid calculator",
+      "rebar grid layout calculator"
     ],
     "featured": false
   },
@@ -1007,8 +1007,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "keywords": [
       "mortar calculator",
       "mortar bag calculator",
-      "how much mortar do i need",
-      "mortar quantity calculator"
+      "mortar volume to bags calculator"
     ],
     "featured": false
   },
@@ -1039,7 +1038,6 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "keywords": [
       "mortar quantity calculator",
       "how much mortar do i need",
-      "mortar bags calculator",
       "brick wall mortar calculator"
     ],
     "featured": false
@@ -1698,7 +1696,6 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "roofing calculator",
       "roofing calculator"
     ],
     "featured": false
@@ -1814,7 +1811,6 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "roofing underlayment calculator",
       "roofing underlayment calculator"
     ],
     "featured": false
