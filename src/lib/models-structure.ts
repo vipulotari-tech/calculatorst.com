@@ -2,6 +2,7 @@ import type { Field, Model } from './calculator-types.ts';
 import { FT_PER_M, allowance, area, count, fmt, length, number, positiveOrZero, price, rectangle, requireCondition, result, roundUp, row, volume, waste, withCost } from './calculator-math.ts';
 const crsi='https://www.crsi.org/reinforcing-basics/reinforcing-steel/splicing-bars/lap-splices/';
 const awc='https://awc.org/wp-content/uploads/2021/12/AWC-DA6-BeamFormulas-0710.pdf';
+const arma='https://www.asphaltroofing.org/frequently-asked-questions/';
 const barWeights:Record<string,number>={'3':0.376,'4':0.668,'5':1.043,'6':1.502,'7':2.044,'8':2.67,'9':3.4,'10':4.303,'11':5.313};
 const size: Field = { ...number('size', 'US rebar size (#)', 4, 3, 'Use a listed US bar designation; metric bars with similar names may have different mass.'), max: 11, integer: true };
 function barWeight(size:number){requireCondition(barWeights[String(size)]!==undefined,'size','Choose a whole US rebar size from #3 through #11.');return barWeights[String(size)];}
@@ -35,7 +36,7 @@ const shingleEstimate: Model = {
     'A roofing square is 100 ft² of roof surface. Bundle or package coverage must come from the selected shingle product.',
     'Allowance covers cuts, breakage and spare material only once. Starter strips, ridge cap, underlayment, flashing and fasteners are separate takeoffs.'
   ],
-  sources:[],
+  sources:[arma],
   calculate(v,u){
     const mode=Math.round(v.mode);
     let roof:number;
@@ -73,7 +74,7 @@ const shingleQuantity: Model = {
     'Package coverage varies by shingle product. Use the manufacturer’s effective coverage.',
     'Starter, ridge-cap and other accessory products are separate takeoffs.'
   ],
-  sources:[],
+  sources:[arma],
   calculate(v){
     const order=v.roofArea*waste(v);
     const packages=roundUp(order/v.coverage);
@@ -104,7 +105,7 @@ const shingleCost: Model = {
     'Package coverage and price must match the same shingle product.',
     'Tax treatment and delivery charges vary by quote and location; enter them only when applicable.'
   ],
-  sources:[],
+  sources:[arma],
   calculate(v){
     const order=v.roofArea*waste(v);
     const packages=roundUp(order/v.coverage);
