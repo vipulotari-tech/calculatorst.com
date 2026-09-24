@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getModelForSlug } from "../calculator-registry.ts";
 import { readInputs } from "../calculator-math.ts";
+import { hubCalculators } from "../../data/hubCalculators";
 
 function run(slug:string, overrides:Record<string,number>={}, unitOverrides:Record<string,string>={}) {
   const model=getModelForSlug(slug);
@@ -210,5 +211,20 @@ describe("Excavation & earthwork golden regressions",()=>{
     const r=run("soil-weight-calculator",{mode:0,length:10,width:10,depth:1,density:100,waste:10},{length:"ft",width:"ft",depth:"ft"});
     expect(r.rows.find(x=>x.key==="weight")?.value).toBeCloseTo(11000,8);
     expect(r.rows.find(x=>x.key==="tons")?.value).toBeCloseTo(5.5,8);
+  });
+});
+
+
+describe("Mortar / gravel / excavation result-label UX",()=>{
+  const slugs=hubCalculators
+    .filter(c=>["mortar","gravel","excavation"].includes(c.cluster))
+    .map(c=>c.slug);
+
+  it("uses unique result labels on every calculator so multi-unit outputs are unambiguous",()=>{
+    expect(slugs).toHaveLength(37);
+    for(const slug of slugs){
+      const labels=run(slug).rows.map(r=>r.label);
+      expect(new Set(labels).size, slug+" has duplicate result labels: "+labels.join(" | ")).toBe(labels.length);
+    }
   });
 });
