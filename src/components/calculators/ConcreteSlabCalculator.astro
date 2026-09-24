@@ -175,6 +175,7 @@
     results.scrollIntoView({ behavior: "smooth", block: "nearest" });
   });
   if ($("c-reset")) $("c-reset").addEventListener("click", () => { clearErrors(); results.classList.add("hidden"); });
+  form.addEventListener("reset", () => setTimeout(switchMode, 0));
   switchMode();
 })();
 </script>
