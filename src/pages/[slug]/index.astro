@@ -89,7 +89,7 @@ const faqEnhancements: Record<string, { q: string; a: string }[]> = {
     { q: "How are tons calculated from cubic yards?", a: "The calculator multiplies waste-adjusted cubic yards by the bulk density you enter in US tons per cubic yard. The same result is also shown in pounds." },
   ],
   "roofing-shingle-calculator": [
-    { q: "How does the roofing shingle calculator estimate bundles?", a: "It calculates sloped roof surface from the measured footprint, overhang and pitch, applies the entered material allowance, then divides by your effective coverage per bundle or package and rounds up." },
+    { q: "How does the roofing shingle calculator estimate bundles?", a: "Use either building footprint plus pitch or a known sloped roof area. The calculator applies the entered material allowance, divides by the product’s effective bundle or package coverage, and rounds up to a whole package count." },
     { q: "Is a roofing square the same as a bundle of shingles?", a: "No. A roofing square is 100 square feet of roof surface. Bundle coverage varies by product, so enter the manufacturer’s effective package coverage rather than assuming a fixed number of bundles per square." },
   ],
   "rebar-chair-calculator": [
@@ -112,6 +112,8 @@ const seoDescriptionOverrides: Record<string, string> = {
   "slab-cost-calculator": calc.description,
   "drywall-joint-compound-calculator": calc.description,
   "roofing-shingle-calculator": calc.description,
+  "shingle-quantity-calculator": calc.description,
+  "shingle-cost-calculator": calc.description,
   "rebar-chair-calculator": calc.description,
   "beam-calculator": calc.description,
   "concrete-wall-calculator": calc.description,

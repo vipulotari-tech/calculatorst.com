@@ -121,3 +121,16 @@ describe('Crushed stone traffic-priority calculator', () => {
     expect(res.rows.find(r=>r.key==='tons')?.value).toBeCloseTo(1.5,8);
   });
 });
+
+
+describe('Roofing shingle intent separation', () => {
+  it('lets the main estimator use known sloped roof area', () => {
+    const res=calculate('roofing-shingle-calculator',{mode:1,roofArea:100,coverage:25,waste:0});
+    expect(res.rows.find(r=>r.key==='packages')?.value).toBe(4);
+    expect(res.rows.find(r=>r.key==='squares')?.value).toBeCloseTo(1,8);
+  });
+  it('keeps shingle cost focused on material total', () => {
+    const res=calculate('shingle-cost-calculator',{roofArea:100,coverage:25,waste:0,price:10,delivery:20,tax:10});
+    expect(res.rows.find(r=>r.key==='total')?.value).toBeCloseTo(64,8);
+  });
+});

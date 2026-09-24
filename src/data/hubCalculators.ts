@@ -1747,7 +1747,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "roofing-shingle-calculator",
     "title": "Roofing Shingle Calculator — Bundles, Squares & Cost",
     "h1": "Roofing Shingle Calculator",
-    "description": "Estimate roofing shingles from roof area and pitch, including squares, bundles, waste and optional cost for asphalt shingle projects.",
+    "description": "Estimate shingle packages and roofing squares from footprint plus pitch or a known sloped roof area, with product coverage, allowance and optional package cost.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1761,43 +1761,45 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "shingle-quantity-calculator",
-    "title": "Shingle Quantity Calculator — Count & Waste",
+    "title": "Shingle Quantity Calculator — Bundles from Roof Area",
     "h1": "Shingle Quantity Calculator",
-    "description": "Calculate how many shingle bundles you need — enter roof area, pitch and waste to get bundle count, squares and cost.",
+    "description": "Calculate shingle packages and roofing squares from a known sloped roof area, product package coverage and project-specific material allowance.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "shingle quantity calculator",
-      "shingle how many calculator"
+      "how many shingle bundles do i need",
+      "roof shingle bundle calculator"
     ],
     "featured": false
   },
   {
     "slug": "shingle-cost-calculator",
-    "title": "Shingle Cost Calculator — Price & Quantity",
+    "title": "Shingle Cost Calculator — Bundles & Material Total",
     "h1": "Shingle Cost Calculator",
-    "description": "Estimate shingle cost — bundles, squares and price per bundle or square for asphalt, architectural or specialty shingles with waste.",
+    "description": "Estimate shingle package count and material total from sloped roof area, package coverage, allowance, quoted package price, tax and delivery.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "shingle cost calculator",
-      "shingle price calculator"
+      "asphalt shingle roof cost calculator",
+      "shingle material cost calculator"
     ],
     "featured": false
   },
   {
     "slug": "roofing-material-calculator",
-    "title": "Roofing Material Calculator — Area, Pitch & Materials",
+    "title": "Roofing Material Coverage Calculator — Area & Packages",
     "h1": "Roofing Material Calculator",
-    "description": "Calculate roofing material — shingles, underlayment, flashing and fasteners with quantity, coverage and cost with waste.",
+    "description": "Estimate packages for one roofing material from roof dimensions, pitch, effective package coverage, allowance and optional package price.",
     "category": "Roofing",
     "cluster": "roofing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "roofing material calculator",
-      "roofing material calculator"
+      "roof material coverage calculator"
     ],
     "featured": false
   },

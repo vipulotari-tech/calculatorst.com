@@ -12,6 +12,120 @@ const roofFields=[length('length','Building length',40),length('width','Building
 function roofValues(v:Record<string,number>){const footprint=(v.length+2*v.overhang)*(v.width+2*v.overhang)*v.quantity,mult=Math.hypot(1,v.pitch/12);return {footprint,mult,roof:footprint*mult,order:footprint*mult*waste(v)};}
 const roofArea:Model={fields:roofFields,formula:'Roof surface = (length + 2 × overhang) × (width + 2 × overhang) × √(1 + (pitch / 12)²) × sections.',assumptions:['Use the horizontal building footprint and a single common pitch. The same factor works for a simple gable or hip roof with uniform pitch.','Complex roofs need non-overlapping sections; valleys, dormers and differing slopes require separate measurements.','Overhang is a horizontal distance on each side. Allowance is material waste, not an increase in physical roof area.'],sources:[],calculate(v){const r=roofValues(v);return result([row('roof','Measured roof surface',r.roof,'ft²'),row('order','Material area with allowance',r.order,'ft²'),row('squares','Roofing squares with allowance',r.order/100,'squares'),row('m2','Measured roof surface',r.roof/FT_PER_M**2,'m²')],[`Footprint including overhang: ${fmt(r.footprint)} ft².`,`Pitch multiplier: √(1 + (${v.pitch}/12)²) = ${fmt(r.mult)}.`,`${fmt(r.footprint)} × ${fmt(r.mult)} = ${fmt(r.roof)} ft²; purchasing area = ${fmt(r.order)} ft².`]);}};
 const roofCover:Model={...roofArea,fields:[...roofFields,{...area('coverage','Effective coverage per package',100/3),group:'Material & assumptions',help:'Use the manufacturer’s net coverage after required overlaps. Bundles, sheets and rolls have different coverage.'},price('USD/unit')],formula:roofArea.formula+' Packages = ceil(roof surface × allowance factor / effective package coverage).',calculate(v,u){const r=roofValues(v),n=roundUp(r.order/v.coverage);const base=roofArea.calculate(v,u);return result(withCost([row('packages','Packages to order',n,'packages',true),...base.rows],v.price,u.price,{'USD/unit':n}),[...base.steps,`Round ${fmt(r.order)} ÷ ${fmt(v.coverage)} up = ${n} packages.`]);}};
+
+const shingleEstimate: Model = {
+  fields: [
+    { ...number('mode','Roof measurement available',0,0), max:1, integer:true, options:[
+      {value:0,label:'Building footprint + pitch'},
+      {value:1,label:'Known sloped roof area'}
+    ]},
+    { ...length('length','Building length',40), visibleWhen:{field:'mode',equals:0} },
+    { ...length('width','Building width',30), visibleWhen:{field:'mode',equals:0} },
+    { ...number('pitch','Rise per 12 units of run',6,0), visibleWhen:{field:'mode',equals:0} },
+    { ...positiveOrZero(length('overhang','Horizontal overhang on all sides',1)), visibleWhen:{field:'mode',equals:0} },
+    { ...count('quantity','Identical roof sections',1), visibleWhen:{field:'mode',equals:0} },
+    { ...area('roofArea','Known sloped roof area',1500), visibleWhen:{field:'mode',equals:1} },
+    { ...area('coverage','Effective coverage per bundle / package',100/3), group:'Material & assumptions', help:'Use the manufacturer’s net package coverage for the exact shingle product.' },
+    allowance,
+    price('USD/unit')
+  ],
+  formula:'Roof surface is calculated from footprint × slope multiplier or entered directly. Order area = roof surface × allowance factor; packages = ceil(order area / effective package coverage); squares = order area / 100.',
+  assumptions:[
+    'Footprint mode assumes a simple roof with one uniform pitch and the same horizontal overhang on all sides. Complex roofs should be split into measured non-overlapping sections or entered by known sloped area.',
+    'A roofing square is 100 ft² of roof surface. Bundle or package coverage must come from the selected shingle product.',
+    'Allowance covers cuts, breakage and spare material only once. Starter strips, ridge cap, underlayment, flashing and fasteners are separate takeoffs.'
+  ],
+  sources:[],
+  calculate(v,u){
+    const mode=Math.round(v.mode);
+    let roof:number;
+    if(mode===0){
+      const footprint=(v.length+2*v.overhang)*(v.width+2*v.overhang)*v.quantity;
+      roof=footprint*Math.hypot(1,v.pitch/12);
+    }else{
+      roof=v.roofArea;
+    }
+    const order=roof*waste(v);
+    const packages=roundUp(order/v.coverage);
+    return result(withCost([
+      row('packages','Shingle packages to order',packages,'packages',true),
+      row('squares','Roofing squares with allowance',order/100,'squares'),
+      row('roof','Measured roof surface',roof,'ft²'),
+      row('order','Roof area with allowance',order,'ft²'),
+      row('m2','Measured roof surface',roof/(FT_PER_M**2),'m²')
+    ],v.price,u.price,{'USD/unit':packages}),[
+      mode===0 ? 'Roof surface = footprint including overhang × slope multiplier = '+fmt(roof)+' ft².' : 'Entered sloped roof area = '+fmt(roof)+' ft².',
+      fmt(roof)+' × '+fmt(waste(v))+' = '+fmt(order)+' ft² with allowance.',
+      'Round '+fmt(order)+' ÷ '+fmt(v.coverage)+' up = '+packages+' packages.'
+    ]);
+  }
+};
+
+const shingleQuantity: Model = {
+  fields: [
+    area('roofArea','Sloped roof area',1500),
+    { ...area('coverage','Effective coverage per bundle / package',100/3), group:'Material & assumptions', help:'Use the manufacturer’s net package coverage for the exact shingle product.' },
+    allowance
+  ],
+  formula:'Order area = measured sloped roof area × allowance factor; packages = ceil(order area / effective package coverage); roofing squares = order area / 100.',
+  assumptions:[
+    'Enter actual sloped roof surface area, not horizontal footprint area.',
+    'Package coverage varies by shingle product. Use the manufacturer’s effective coverage.',
+    'Starter, ridge-cap and other accessory products are separate takeoffs.'
+  ],
+  sources:[],
+  calculate(v){
+    const order=v.roofArea*waste(v);
+    const packages=roundUp(order/v.coverage);
+    return result([
+      row('packages','Shingle packages to order',packages,'packages',true),
+      row('squares','Roofing squares with allowance',order/100,'squares'),
+      row('roof','Measured roof surface',v.roofArea,'ft²'),
+      row('order','Roof area with allowance',order,'ft²')
+    ],[
+      fmt(v.roofArea)+' × '+fmt(waste(v))+' = '+fmt(order)+' ft² with allowance.',
+      'Round '+fmt(order)+' ÷ '+fmt(v.coverage)+' up = '+packages+' packages.'
+    ]);
+  }
+};
+
+const shingleCost: Model = {
+  fields: [
+    area('roofArea','Sloped roof area',1500),
+    { ...area('coverage','Effective coverage per bundle / package',100/3), group:'Material & assumptions', help:'Use the manufacturer’s net package coverage for the exact shingle product.' },
+    allowance,
+    { ...price('USD/unit'), optional:false },
+    number('delivery','Delivery / fixed material fee (USD)',0,0),
+    number('tax','Material sales tax (%)',0,0)
+  ],
+  formula:'Packages = ceil(roof area × allowance factor / package coverage); material subtotal = packages × package price; total = subtotal × (1 + tax/100) + delivery.',
+  assumptions:[
+    'This estimates the selected shingle-package material cost only. Tear-off, underlayment, starter, ridge cap, flashing, fasteners and labor are excluded unless included in the fixed fee you enter.',
+    'Package coverage and price must match the same shingle product.',
+    'Tax treatment and delivery charges vary by quote and location; enter them only when applicable.'
+  ],
+  sources:[],
+  calculate(v){
+    const order=v.roofArea*waste(v);
+    const packages=roundUp(order/v.coverage);
+    const materials=packages*v.price;
+    const taxAmount=materials*v.tax/100;
+    const total=materials+taxAmount+v.delivery;
+    return result([
+      row('total','Estimated shingle material total',total,'USD'),
+      row('packages','Shingle packages to order',packages,'packages',true),
+      row('materials','Shingle package subtotal',materials,'USD'),
+      row('tax','Material tax',taxAmount,'USD'),
+      row('delivery','Delivery / fixed fee',v.delivery,'USD'),
+      row('squares','Roofing squares with allowance',order/100,'squares')
+    ],[
+      fmt(v.roofArea)+' × '+fmt(waste(v))+' = '+fmt(order)+' ft² with allowance.',
+      'Round '+fmt(order)+' ÷ '+fmt(v.coverage)+' up = '+packages+' packages.',
+      packages+' × '+fmt(v.price)+' + tax + delivery = '+fmt(total)+' USD.'
+    ]);
+  }
+};
+
 const rafter:Model={fields:[length('span','Building span (full width)',30),number('pitch','Rise per 12 units of run',6,0),positiveOrZero(length('overhang','Horizontal eave overhang',1))],formula:'Common rafter line length = (span / 2 + overhang) × √(1 + (pitch / 12)²).',assumptions:['Symmetric gable geometry measured along the roof slope. Does not include ridge-board deduction, birdsmouth cuts, plumb-cut allowance or lumber stock allowance.','A line length is not a rafter size, span approval, hip/valley rafter length or truss design.'],sources:[],calculate(v){const run=v.span/2+v.overhang,rise=run*v.pitch/12,l=Math.hypot(run,rise);return result([row('length','Common rafter line length',l,'ft'),row('meters','Common rafter line length',l/FT_PER_M,'m'),row('rise','Rise including overhang projection',rise,'ft')],[`Horizontal run: ${fmt(v.span)} / 2 + ${fmt(v.overhang)} = ${fmt(run)} ft.`,`√(${fmt(run)}² + ${fmt(rise)}²) = ${fmt(l)} ft.`]);}};
 const beamFields=[
   { ...number('case','Support / load case',0,0), integer:true, max:3, options:[
@@ -168,7 +282,7 @@ const wallFraming: Model = {
 };
 
 export const structureModels:Record<string,Model>={
-  grid,spaced,spacing,roofArea,roofCover,rafter,beam,excavation,excavationCost,wallFraming,
+  grid,spaced,spacing,roofArea,roofCover,shingleEstimate,shingleQuantity,shingleCost,rafter,beam,excavation,excavationCost,wallFraming,
   'bar-length':{fields:[count('quantity','Number of bars',16),length('length','Length per bar',20),size,allowance,price('USD/ft')],formula:'Cut length = count × length per bar; mass = cut length × allowance factor × bar mass per foot.',assumptions:['Straight bars of the same size. Bends, hooks and laps are additional lengths taken from the bar schedule.','US bar mass is nominal; a shipment may differ within product tolerances.'],sources:['https://www.inchcalculator.com/rebar-material-calculator/',crsi],calculate(v,u){const net=v.quantity*v.length,order=net*waste(v),lb=order*barWeight(v.size);return result(withCost([row('length','Net total length',net,'ft'),row('order','Length including allowance',order,'ft'),row('weight','Nominal order weight',lb,'lb'),row('tons','Nominal order weight',lb/2000,'US tons')],v.price,u.price,{'USD/ft':order}),[`${v.quantity} bars × ${fmt(v.length)} ft = ${fmt(net)} ft.`,`Order length ${fmt(order)} ft × ${barWeight(v.size)} lb/ft = ${fmt(lb)} lb.`]);}},
   lap:{fields:[length('lap','Specified lap length per splice',24,'in'),count('quantity','Number of splices',10,0)],formula:'Additional lap length = specified length per splice × number of splices.',assumptions:['Enter the lap length from the approved plans. This tool totals an already specified lap; it does not derive a required code splice length.','There is no universal 40-diameter lap rule. Concrete strength, bar grade, size, cover, spacing and confinement affect required laps.'],sources:[crsi],calculate(v){return result([row('length','Additional steel for laps',v.lap*v.quantity,'ft'),row('meters','Additional steel for laps',v.lap*v.quantity/FT_PER_M,'m')],[`${fmt(v.lap)} ft per splice × ${v.quantity} = ${fmt(v.lap*v.quantity)} ft.`]);}},
   mesh:{fields:[...rectangle,length('sheetLength','Mesh sheet length',10),length('sheetWidth','Mesh sheet width',5),positiveOrZero(length('lap','Sheet overlap in both directions',6,'in')),allowance,price('USD/unit')],formula:'Sheets per direction = max(1, ceil((covered length − overlap)/(sheet length − overlap))); total = rows × columns.',assumptions:['Rectangular sheets laid in one orientation with equal overlaps. Edge sheets may be trimmed; this is a layout estimate without offcut reuse.','Required mesh size, laps and supports are specified by the project design.'],sources:[crsi],calculate(v,u){requireCondition(v.lap<v.sheetLength&&v.lap<v.sheetWidth,'lap','Overlap must be smaller than both sheet dimensions.');const cols=Math.max(1,roundUp((v.length-v.lap)/(v.sheetLength-v.lap))),rows=Math.max(1,roundUp((v.width-v.lap)/(v.sheetWidth-v.lap))),n=cols*rows,order=roundUp(n*waste(v));return result(withCost([row('order','Mesh sheets with spares',order,'sheets',true),row('installed','Sheets in layout',n,'sheets',true),row('rows','Rows',rows,'rows',true),row('columns','Columns',cols,'columns',true)],v.price,u.price,{'USD/unit':order}),[`${cols} columns × ${rows} rows = ${n} sheets before spares.`]);}},
