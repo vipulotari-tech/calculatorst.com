@@ -856,7 +856,216 @@ const rebarSeo: Record<string, {
   }
 };
 
-const pageSeo = concreteSeo[calc.slug] ?? slabSeo[calc.slug] ?? foundationSeo[calc.slug] ?? rebarSeo[calc.slug];
+const masonrySeoEnhancements: Record<string, {
+  guidance: string[];
+  faq: { q: string; a: string }[];
+}> = {
+  "brick-calculator": {
+    guidance: ["Use actual brick dimensions plus the intended mortar joint; brick products are not all the same size.", "Use wythes only when the wall truly has multiple brick layers; special shapes and returns need separate takeoff."],
+    faq: [
+      { q: "Does the Brick Calculator support double-wythe walls?", a: "Yes. The wythe input multiplies the face-area brick quantity by the number of brick layers." },
+      { q: "Why does the calculator use actual brick size plus the mortar joint?", a: "The installed module is the brick face plus the joint. That module, not the brick face alone, determines bricks per square foot." },
+      { q: "Does the weight include mortar?", a: "No. The weight output is brick shipment weight from the entered brick unit weight." }
+    ]
+  },
+  "brick-wall-calculator": {
+    guidance: ["Use wall length, height and openings for the net-area quantity; courses and bricks per course are gross layout checks.", "Corners, arches, soldier courses and bond-pattern cuts should be taken off separately."],
+    faq: [
+      { q: "How are openings handled?", a: "Door and window areas are subtracted once from gross wall area before the brick quantity is calculated." },
+      { q: "Why can gross courses × bricks per course differ from installed bricks?", a: "The course values describe the gross rectangular layout while the installed quantity is based on opening-adjusted net area." },
+      { q: "Can I price the bricks?", a: "Yes. Enter an optional price per brick to get a material-cost estimate." }
+    ]
+  },
+  "brick-quantity-calculator": {
+    guidance: ["Use this page when the main question is installed versus order brick count rather than cost or mortar.", "Waste is applied once after the geometry-based brick quantity is calculated."],
+    faq: [
+      { q: "What is the difference between installed and order bricks?", a: "Installed bricks are the estimated net wall quantity. Order bricks add the entered purchasing allowance and round up to whole units." },
+      { q: "Does waste reduce the wall area?", a: "No. Waste only increases purchasing quantity after the wall geometry is calculated." },
+      { q: "Can this handle multiple wythes?", a: "Yes. The quantity is multiplied by the entered number of brick layers." }
+    ]
+  },
+  "brick-cost-calculator": {
+    guidance: ["Use supplier prices for both brick units and mortar bags; mortar coverage is deliberately user-entered.", "Tax, delivery and labor/equipment are explicit line items rather than hidden assumptions."],
+    faq: [
+      { q: "Does Brick Cost include mortar?", a: "Yes. The calculator can estimate mortar bags from the entered installed-bricks-per-bag yield and add a quoted bag price." },
+      { q: "Is labor automatically estimated?", a: "No. Labor and equipment are entered as a project allowance because production rates vary widely." },
+      { q: "What does the total exclude?", a: "Accessories, flashing, reinforcement, foundations, demolition and other unentered scope are excluded." }
+    ]
+  },
+  "brick-mortar-calculator": {
+    guidance: ["Use the exact mixed yield printed on the mortar product for bag count.", "The geometric mortar volume is a full-bed rectangular-brick approximation and can differ from field usage."],
+    faq: [
+      { q: "How is brick mortar volume estimated?", a: "The calculator subtracts estimated brick outer volume from the net masonry volume for the selected wall geometry." },
+      { q: "Are brick holes or frogs filled with mortar in the calculation?", a: "No. The model uses outer brick geometry and does not assume perforations or frogs are filled." },
+      { q: "Why can actual mortar use differ?", a: "Joint tooling, workmanship, brick shape and product yield all affect field consumption." }
+    ]
+  },
+  "brick-veneer-calculator": {
+    guidance: ["Use this for a single brick veneer wythe, not a multi-wythe structural wall.", "Tie spacing is a planning input from the project design; this calculator does not choose required tie spacing."],
+    faq: [
+      { q: "Does Brick Veneer include a tie estimate?", a: "Yes. A planning tie-grid count is calculated from the horizontal and vertical spacing you enter." },
+      { q: "Are flashing and weeps included?", a: "No. Flashing, weeps, shelf angles, backing and cavity details are separate scopes." },
+      { q: "Are openings deducted?", a: "Yes. Openings are subtracted from veneer face area before brick quantity is calculated." }
+    ]
+  },
+  "brick-patio-calculator": {
+    guidance: ["Use rectangular patio dimensions and the actual paver face plus joint width.", "Borders, curves and complex patterns should be estimated separately because they can increase cuts and waste."],
+    faq: [
+      { q: "How are rows and columns calculated?", a: "Patio dimensions are divided by the paver module dimensions and rounded up to whole rows and columns." },
+      { q: "Does the calculator include paver waste?", a: "Yes. The purchasing allowance is applied after the installed layout count." },
+      { q: "Does it include base or sand?", a: "No. Use the Brick Paver Calculator when you also need base and bedding-sand volumes." }
+    ]
+  },
+  "brick-paver-calculator": {
+    guidance: ["Use compacted base depth and placed bedding-sand depth that match the project specification.", "Loose delivered aggregate can require a supplier-specific conversion from the placed volumes shown."],
+    faq: [
+      { q: "What extra materials does Brick Paver calculate?", a: "It reports paver count, compacted base volume, bedding-sand volume and the rectangular perimeter for edge restraint." },
+      { q: "Does it calculate joint sand?", a: "No. Joint-sand consumption depends on joint geometry and product coverage and should be estimated separately." },
+      { q: "Does it optimize offcuts?", a: "No. The rectangular paver layout does not reuse offcuts between rows or separate areas." }
+    ]
+  },
+  "masonry-calculator": {
+    guidance: ["Use manufacturer unit dimensions and weight for the masonry product being estimated.", "This generic unit calculator supports multiple wythes but does not replace detailed bond-pattern takeoff."],
+    faq: [
+      { q: "What kinds of masonry units can I enter?", a: "Any rectangular face unit can be estimated by entering its actual face dimensions, mortar joint and unit weight." },
+      { q: "Does the calculator include openings?", a: "Yes. Opening area is deducted once before unit quantity is calculated." },
+      { q: "Does it include mortar or grout?", a: "No. Use the dedicated mortar or grout calculators for those materials." }
+    ]
+  },
+  "masonry-wall-calculator": {
+    guidance: ["Use the course outputs as gross layout checks and the area-based quantity for opening-adjusted material count.", "Special shapes, bond beams and lintels need separate takeoff."],
+    faq: [
+      { q: "What does Masonry Wall calculate?", a: "It reports unit quantity, gross courses, gross units per course, wall areas, weight and optional unit cost." },
+      { q: "Are window and door openings subtracted?", a: "Yes. They reduce the net-area material quantity." },
+      { q: "Can the calculator handle more than one wythe?", a: "Yes. Enter the number of masonry layers in the wall." }
+    ]
+  },
+  "masonry-cost-calculator": {
+    guidance: ["Use current quoted unit prices and enter tax, delivery and labor only when they apply.", "Mortar, grout and reinforcement stay separate unless included in your entered scope."],
+    faq: [
+      { q: "How is masonry cost calculated?", a: "Order units are multiplied by the unit price, then entered material tax, delivery and labor/equipment are added." },
+      { q: "Does the calculator estimate productivity?", a: "No. Labor is a user-entered amount, not an automatically assumed crew rate." },
+      { q: "Is order weight shown?", a: "Yes. The entered unit weight is multiplied by the order quantity." }
+    ]
+  },
+  "masonry-block-calculator": {
+    guidance: ["Use the exposed block face dimensions plus the mortar joint for count.", "Use manufacturer block weight when shipment or handling weight matters."],
+    faq: [
+      { q: "Does block thickness affect wall-face quantity?", a: "No. Face count comes from block length and height. Thickness matters for weight, mortar, grout and structural details." },
+      { q: "Are openings included?", a: "Yes. Opening area is deducted from the wall before block quantity is calculated." },
+      { q: "Can I add a unit price?", a: "Yes. Optional price per block produces a material-cost estimate." }
+    ]
+  },
+  "brick-weight-calculator": {
+    guidance: ["Use manufacturer brick unit weight; the calculator no longer treats bricks as a bulk volume material.", "Pallet capacity is optional and only used for a logistics estimate."],
+    faq: [
+      { q: "How is brick weight calculated?", a: "Whole order bricks are multiplied by the entered unit weight." },
+      { q: "Does it include mortar weight?", a: "No. It estimates bare brick shipment weight." },
+      { q: "Can I estimate pallets?", a: "Yes. Enter bricks per pallet and the calculator rounds the pallet count up." }
+    ]
+  },
+  "brick-waste-calculator": {
+    guidance: ["Choose a project-specific waste percentage based on cuts, bond pattern, breakage and spare material needs.", "The extra amount is calculated before final whole-brick rounding."],
+    faq: [
+      { q: "How is brick waste calculated?", a: "Extra bricks equal net quantity × waste percentage. The final total is then rounded up to whole bricks." },
+      { q: "Does this calculate the original wall quantity?", a: "No. Enter the net brick quantity from your takeoff first." },
+      { q: "Is one waste percentage correct for every project?", a: "No. Pattern complexity, cuts and breakage vary by job." }
+    ]
+  },
+  "brick-joint-calculator": {
+    guidance: ["Use this as a geometric course-fit calculator, not as permission to exceed specified joint tolerances.", "The formula correctly uses one fewer internal joint than the number of bricks."],
+    faq: [
+      { q: "Why does the formula use brick count minus one?", a: "A straight course of N bricks has N−1 internal joints between adjacent bricks." },
+      { q: "Can I use it to set a code-allowed joint?", a: "No. It only solves the geometric equal joint width for the dimensions entered." },
+      { q: "Does it return metric units?", a: "Yes. The result is shown in inches and millimeters." }
+    ]
+  },
+  "concrete-block-calculator": {
+    guidance: ["For standard CMU, distinguish nominal dimensions from specified dimensions. The specified face is commonly 3/8 in smaller than nominal in each modular direction.", "Use manufacturer block weight and actual project joint size when available."],
+    faq: [
+      { q: "Why does a nominal 8×8×16 CMU use smaller specified dimensions?", a: "The specified dimensions are commonly 7⅝×7⅝×15⅝ in so the unit plus a ⅜ in mortar joint fits the nominal module." },
+      { q: "Does the calculator include openings?", a: "Yes. Doors and windows are deducted once from wall area." },
+      { q: "Does it show courses and blocks per course?", a: "Yes. Gross layout checks are reported alongside the net area-based block quantity." }
+    ]
+  },
+  "cmu-calculator": {
+    guidance: ["Use the standard preset when estimating common nominal modules, or custom mode for manufacturer-specified face dimensions.", "This is a quantity and material takeoff, not structural CMU wall design."],
+    faq: [
+      { q: "Which CMU sizes are preset?", a: "The calculator includes a standard nominal 8×16 face and a half 8×8 face, plus a custom specified-face option." },
+      { q: "What should I enter in custom mode?", a: "Enter specified or actual face dimensions, not nominal dimensions." },
+      { q: "Can I estimate block cost?", a: "Yes. Enter an optional unit price." }
+    ]
+  },
+  "cmu-wall-calculator": {
+    guidance: ["Use specified block face dimensions plus the mortar joint to define the module.", "Opening displacement is approximate; special jamb, lintel and bond-beam units need separate takeoff."],
+    faq: [
+      { q: "What does the opening-displacement result mean?", a: "It approximates how many standard block modules correspond to the deducted opening area." },
+      { q: "Are courses based on gross or net wall geometry?", a: "Course and blocks-per-course outputs are gross layout checks; installed quantity uses net area." },
+      { q: "Does it include grout or reinforcement?", a: "No. Use the dedicated CMU Grout and CMU Reinforcement calculators." }
+    ]
+  },
+  "cmu-quantity-calculator": {
+    guidance: ["Use this page for installed-versus-order block count without the extra cost scope.", "Waste is applied once after the net wall geometry is converted to block modules."],
+    faq: [
+      { q: "How are CMU blocks per square foot calculated?", a: "The calculator uses the installed block module face, which is specified block length plus joint times specified height plus joint." },
+      { q: "What are spare blocks?", a: "They are the difference between the waste-adjusted order quantity and estimated installed quantity." },
+      { q: "Are openings deducted?", a: "Yes. They reduce net wall area before block count." }
+    ]
+  },
+  "cmu-cost-calculator": {
+    guidance: ["Enter block price and mortar-bag price from the same supplier/project assumptions.", "Mortar coverage is user-entered because full-bed and face-shell bedding consume different amounts."],
+    faq: [
+      { q: "Does CMU Cost include mortar?", a: "Yes. It can estimate mortar bags from the installed block count and your entered blocks-per-bag coverage." },
+      { q: "Does it include grout and rebar?", a: "No. Those scopes are separate unless embedded in your entered prices." },
+      { q: "Can I add tax, delivery and labor?", a: "Yes. Each is an explicit input and output line item." }
+    ]
+  },
+  "concrete-block-wall-calculator": {
+    guidance: ["Use this wall-focused page for block courses, opening-adjusted quantity and optional unit cost.", "Special units at corners, bond beams, lintels and jambs require separate detailing."],
+    faq: [
+      { q: "How are concrete blocks counted for a wall?", a: "The calculator divides opening-adjusted wall area by the installed block module face." },
+      { q: "Does it report a course layout?", a: "Yes. Gross courses and gross blocks per course are shown as layout checks." },
+      { q: "Does block thickness affect the count?", a: "Not the face count; thickness matters to other material and structural calculations." }
+    ]
+  },
+  "concrete-block-weight-calculator": {
+    guidance: ["Use manufacturer unit weight for the exact block width, density class and shape.", "The result is bare-block shipment weight; masonry assembly weight can also include mortar, grout and reinforcement."],
+    faq: [
+      { q: "How is concrete block weight calculated?", a: "Waste-adjusted whole block count is multiplied by the entered unit weight." },
+      { q: "Why not use volume × concrete density?", a: "Hollow CMU mass depends on unit geometry and density, so manufacturer unit weight is the more direct shipment input." },
+      { q: "Can I estimate pallets?", a: "Yes. Enter blocks per pallet to get a rounded pallet count." }
+    ]
+  },
+  "concrete-block-mortar-calculator": {
+    guidance: ["Use manufacturer/product blocks-per-bag yield for the exact CMU and bedding method.", "Mortar is joint material; grout core fill is a different material and uses the CMU Grout Calculator."],
+    faq: [
+      { q: "Can I calculate mortar from wall dimensions?", a: "Yes. Wall mode first converts the wall into installed block count, then applies the entered blocks-per-bag yield." },
+      { q: "Why is mortar coverage user-entered?", a: "Block size, face-shell versus full-bed bedding and bag yield all change coverage." },
+      { q: "Does waste increase block count?", a: "No. In this calculator allowance increases mortar purchasing quantity, not the installed wall blocks." }
+    ]
+  },
+  "cmu-grout-calculator": {
+    guidance: ["Use manufacturer core/cell void geometry for cells actually filled.", "Bond-beam and lintel grout should use net grout cross-sectional area, not gross block area."],
+    faq: [
+      { q: "What grout volumes are combined?", a: "Vertical core fill and optional bond-beam or lintel grout are added before the purchasing allowance." },
+      { q: "Can I price by bag or cubic yard?", a: "Yes. The calculator supports both price bases." },
+      { q: "Is mortar included?", a: "No. Mortar joints and grout core fill are separate materials." }
+    ]
+  },
+  "cmu-reinforcement-calculator": {
+    guidance: ["Vertical and horizontal spacing, bar size, laps and anchorage are structural-design inputs; this tool only performs takeoff math.", "Hooks, dowels and explicit lap lengths should be added separately when required."],
+    faq: [
+      { q: "How are vertical reinforced locations counted?", a: "Wall length is divided by the entered maximum vertical spacing, rounded up to whole intervals, then one location is added for the far end." },
+      { q: "How are horizontal runs counted?", a: "Wall height is treated the same way using the specified maximum reinforced-course spacing." },
+      { q: "Does the calculator choose reinforcement spacing?", a: "No. It converts already-specified spacing and bar size into count, footage, nominal weight and optional cost." }
+    ]
+  }
+};
+
+const masonrySeo = masonrySeoEnhancements[calc.slug]
+  ? { title: calc.title, description: calc.description, ...masonrySeoEnhancements[calc.slug] }
+  : undefined;
+const pageSeo = concreteSeo[calc.slug] ?? slabSeo[calc.slug] ?? foundationSeo[calc.slug] ?? rebarSeo[calc.slug] ?? masonrySeo;
 const faq = pageSeo?.faq ?? [...content.faq, ...(faqEnhancements[calc.slug] ?? [])];
 const seoDescriptionOverrides: Record<string, string> = {
   "crushed-stone-calculator": calc.description,
