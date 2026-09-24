@@ -133,7 +133,255 @@ const faqEnhancements: Record<string, { q: string; a: string }[]> = {
     { q: "Does the earthwork calculator add a waste or compaction factor?", a: "No. It applies only the swell factor shown in the form. Overbreak, working room, shrinkage, compaction and unsuitable material must be measured or handled separately for the project." },
   ],
 };
-const faq = [...content.faq, ...(faqEnhancements[calc.slug] ?? [])];
+const concreteSeo: Record<string, {
+  title: string;
+  description: string;
+  guidance: string[];
+  faq: { q: string; a: string }[];
+}> = {
+  "concrete-calculator": {
+    title: "Concrete Calculator — Cubic Yards, Bags, Weight & Cost",
+    description: "Calculate concrete for slabs, walls, footings and cylinders in cubic yards, bags and weight, with waste allowance and optional material cost.",
+    guidance: [
+      "Use this broad calculator when you need one concrete estimator for common rectangular and cylindrical pours.",
+      "Choose the project shape first, then enter actual field dimensions. The calculator converts mixed US or metric units before applying quantity and waste.",
+      "For truck scheduling, mix proportions, wall openings or stair geometry, use the dedicated calculator linked below because those pages expose project-specific inputs."
+    ],
+    faq: [
+      { q: "How many cubic yards of concrete do I need?", a: "Select the shape and enter its dimensions. The calculator converts the geometric volume to cubic feet and cubic yards, then applies the waste allowance you enter." },
+      { q: "How many bags of concrete equal one cubic yard?", a: "Bag count depends on the product yield. This calculator uses the entered yield and also shows standard comparison counts. Always verify the yield printed on the exact bag you plan to buy." },
+      { q: "Should I use the Concrete Calculator or Concrete Volume Calculator?", a: "Use this page for a broad order estimate including bags, weight and optional cost. Use the Concrete Volume Calculator when you mainly want geometry and cubic-volume conversions across several shapes." },
+      { q: "Does this calculator choose slab thickness or reinforcement?", a: "No. Thickness, reinforcement, subbase and structural requirements must come from the project plans, local requirements or a qualified designer. This tool converts those inputs into material quantity." }
+    ]
+  },
+  "concrete-volume-calculator": {
+    title: "Concrete Volume Calculator — Cubic Yards for 6 Shapes",
+    description: "Find concrete volume in cubic feet, cubic yards and cubic meters for rectangles, cylinders, tubes, curbs, stairs and wedges, with waste allowance.",
+    guidance: [
+      "Use this page when geometry is the main question and you need volume conversions rather than truck logistics or a detailed cost breakdown.",
+      "The shape selector changes the required dimensions, so only measurements for the active geometry are used.",
+      "Break irregular pours into non-overlapping simple shapes, calculate each section separately, then add the order quantities."
+    ],
+    faq: [
+      { q: "What shapes can the concrete volume calculator handle?", a: "It supports rectangular prisms, solid cylinders, hollow tubes, curb-and-gutter sections, solid stair geometry and triangular wedges." },
+      { q: "How do I convert cubic feet of concrete to cubic yards?", a: "Divide cubic feet by 27. The calculator performs this conversion before applying your selected waste allowance." },
+      { q: "Can I mix inches, feet and metric units?", a: "Yes. Select the unit beside each measurement. The calculator normalizes the dimensions before evaluating the shape formula." },
+      { q: "How should I calculate an L-shaped or irregular slab?", a: "Split the pour into rectangles or other non-overlapping shapes, calculate each piece, and add the volumes. Do not count overlapping areas twice." }
+    ]
+  },
+  "concrete-weight-calculator": {
+    title: "Concrete Weight Calculator — Pounds, Tons & Metric Tonnes",
+    description: "Convert concrete volume and density to pounds, US tons and metric tonnes. Includes normal-weight 150 lb/ft³ defaults plus editable density and waste.",
+    guidance: [
+      "Use the density for the actual mix whenever a supplier or project specification provides one; 150 lb/ft³ is only a common normal-weight reference.",
+      "Weight is calculated from volume × density, so changing either the concrete volume or density directly changes the result.",
+      "Use order weight for logistics estimates only after confirming truck, trailer, floor or lifting capacity independently."
+    ],
+    faq: [
+      { q: "How much does one cubic yard of normal-weight concrete weigh?", a: "At 150 lb/ft³, one cubic yard weighs 4,050 lb, or about 2.025 US tons. Actual concrete density can vary by mix." },
+      { q: "Why is concrete density editable?", a: "Lightweight, normal-weight and heavyweight mixes can differ substantially. An editable density lets the weight estimate match the material specification instead of forcing one universal value." },
+      { q: "Does waste increase the estimated weight?", a: "Yes. The calculator shows the net volume and the allowance-adjusted volume, then applies density to each so you can distinguish placed material from ordered material." },
+      { q: "Can this be used for structural load design?", a: "No. It estimates material mass from volume and density. Structural dead-load combinations, capacity and code checks require project-specific engineering." }
+    ]
+  },
+  "concrete-cost-calculator": {
+    title: "Concrete Cost Calculator — Ready-Mix & Bag Cost per Yard",
+    description: "Estimate concrete material cost from cubic yards or rounded bag quantities, with waste, tax, delivery, short-load, pump and other quoted project charges.",
+    guidance: [
+      "Match the price unit to the supplier quote: per cubic yard, cubic meter, cubic foot, bag or ton.",
+      "Material tax is applied to the material subtotal; delivery, short-load, pumping and other project charges are entered separately.",
+      "Use quoted local prices rather than national averages because ready-mix, bag prices and delivery charges vary by supplier and project."
+    ],
+    faq: [
+      { q: "How is concrete cost per cubic yard calculated?", a: "The calculator first finds the waste-adjusted order quantity, multiplies it by the selected price basis, then adds the entered tax and project charges." },
+      { q: "Can I price concrete by the bag instead of by the yard?", a: "Yes. Choose a per-bag price unit. The calculator uses the rounded whole-bag order count rather than multiplying by an unrounded fractional bag quantity." },
+      { q: "Does the estimate include delivery and short-load fees?", a: "Only when you enter those quoted charges. Supplier fee structures vary, so they are separate inputs rather than hidden assumptions." },
+      { q: "Does this include labor, rebar and formwork automatically?", a: "No. Add only the optional project charges shown in the form or estimate reinforcement, formwork and labor separately." }
+    ]
+  },
+  "concrete-mix-calculator": {
+    title: "Concrete Mix Calculator — Cement, Sand & Aggregate Ratio",
+    description: "Calculate cement, sand, coarse aggregate, water and whole cement bags from concrete volume and a custom mix ratio, dry-volume factor and water-cement ratio.",
+    guidance: [
+      "Enter the specified volumetric mix parts for cement, sand and coarse aggregate instead of assuming one ratio fits every application.",
+      "The dry-volume factor and bulk densities are estimating assumptions; actual batching by mass should follow the approved mix design.",
+      "The water result is an approximation from the entered water-cement ratio and does not account for aggregate moisture or admixtures."
+    ],
+    faq: [
+      { q: "What does a 1:2:3 concrete mix ratio mean?", a: "It represents relative parts of cement, sand and coarse aggregate by the chosen volumetric basis. This calculator divides the dry material volume according to those entered parts." },
+      { q: "Why is a dry-volume factor used?", a: "Loose dry ingredients occupy a different volume than finished concrete. The factor expands the target mixed volume before the ingredient proportions are calculated." },
+      { q: "How are cement bags calculated?", a: "The calculator estimates cement volume, converts it to mass using the entered bulk density, divides by bag mass and rounds up to whole bags." },
+      { q: "Is this a structural concrete mix-design tool?", a: "No. It is a material-estimating calculator. Structural mix design must account for strength, durability, aggregate grading, moisture, admixtures and project specifications." }
+    ]
+  },
+  "concrete-pour-calculator": {
+    title: "Concrete Pour Calculator — Truck Loads, Short-Load & Pump Time",
+    description: "Plan a concrete pour with cubic yards, truck-load count, final-load size, short-load fee, pump duration, bags, weight and price in multiple units.",
+    guidance: [
+      "Use this page after the pour dimensions are known and the next question is delivery logistics rather than geometry alone.",
+      "Truck count is rounded up from order yards ÷ truck capacity, while the final-load size shows how much material remains on the last load.",
+      "Short-load rules vary by supplier; enter the supplier minimum and surcharge from the actual quote."
+    ],
+    faq: [
+      { q: "How many concrete trucks do I need?", a: "The calculator divides the waste-adjusted cubic yards by the truck capacity you enter and rounds up to a whole number of loads." },
+      { q: "What is a short-load concrete fee?", a: "It is a supplier surcharge that may apply when a delivery is below a minimum load size. Enter your supplier's minimum order and quoted surcharge." },
+      { q: "How is concrete pump time estimated?", a: "Estimated duration equals total cubic yards divided by the pumping rate you enter. Setup, cleanup, repositioning and delays are not included." },
+      { q: "Can I price a pour by cubic foot, bag or ton?", a: "Yes. Select the matching price unit. The calculator converts the order quantity to that basis before adding any short-load surcharge." }
+    ]
+  },
+  "concrete-footing-calculator": {
+    title: "Concrete Footing Calculator — Strip, Pad & Round Footings",
+    description: "Calculate concrete for strip, square, rectangular and round footings in cubic yards, bags and weight, with quantity, waste allowance and optional material cost.",
+    guidance: [
+      "Select the footing shape that matches the plans; strip, pad and round footings use different geometric formulas.",
+      "Quantity multiplies the full footing volume, so repeated pads or isolated footings can be estimated in one calculation.",
+      "This tool estimates concrete only; footing dimensions, bearing capacity and reinforcement must come from the project design."
+    ],
+    faq: [
+      { q: "How do I calculate concrete for a strip footing?", a: "Multiply footing length × width × depth × quantity, using consistent units, then convert cubic feet to cubic yards and apply the selected allowance." },
+      { q: "Can I calculate several identical pad footings at once?", a: "Yes. Enter the dimensions of one footing and set Quantity to the number of identical footings." },
+      { q: "How is a round footing calculated?", a: "The calculator uses cylinder volume: π × radius² × depth × quantity." },
+      { q: "Does the calculator size the footing for soil bearing capacity?", a: "No. It converts already-selected footing dimensions to concrete quantity. Footing width, depth and reinforcement are design inputs." }
+    ]
+  },
+  "concrete-foundation-calculator": {
+    title: "Concrete Foundation Calculator — Walls, Footings, Slab & Piers",
+    description: "Estimate total foundation concrete by combining wall, continuous footing, slab and round pier volumes, with wall-opening deductions, waste, bags and weight.",
+    guidance: [
+      "Enter zero for any foundation component that is not part of the project; the calculator sums only the components you include.",
+      "Wall openings are entered as area and converted to deducted volume using the wall thickness.",
+      "Use this page for a combined takeoff. Use the dedicated wall, footing or column calculators when you need more component-specific outputs."
+    ],
+    faq: [
+      { q: "What foundation components can I combine?", a: "The calculator can combine foundation walls, continuous footings, a slab and round concrete piers into one total concrete order." },
+      { q: "How are door and window openings deducted from a foundation wall?", a: "Enter the total opening area. The calculator multiplies that area by wall thickness to convert it to opening volume before subtracting it." },
+      { q: "Can I calculate a pier-only or footing-only foundation?", a: "Yes. Set unused component dimensions to zero and enter only the component that applies." },
+      { q: "Does this calculator design the foundation?", a: "No. Wall thickness, footing size, slab thickness, pier dimensions and reinforcement must come from the project requirements or a qualified designer." }
+    ]
+  },
+  "concrete-wall-calculator": {
+    title: "Concrete Wall Calculator — Yards with Opening Deductions",
+    description: "Calculate concrete wall volume from length, height and thickness, deduct total door and window opening area, then estimate yards, bags, weight, forms and cost.",
+    guidance: [
+      "Enter the combined opening area once; the calculator converts area to opening volume using the wall thickness.",
+      "Form-contact area is reported separately for one side and both sides so material takeoff is not confused with concrete volume.",
+      "For stepped walls or changing thicknesses, calculate each non-overlapping wall segment separately."
+    ],
+    faq: [
+      { q: "How do I subtract doors and windows from concrete wall volume?", a: "Add the opening areas together and enter the total once. The calculator multiplies that area by wall thickness and subtracts the resulting opening volume." },
+      { q: "How much form area does a concrete wall need?", a: "For the main faces, one-side contact area is wall length × height and both-side contact area is twice that value. Ends, corners and special formwork are not included." },
+      { q: "Can I use this for retaining-wall design?", a: "Use it only for material volume when you already know the wall dimensions. It does not check earth pressure, sliding, overturning, drainage or reinforcement." },
+      { q: "Should I subtract every small penetration?", a: "Use the project takeoff convention and drawings. Small penetrations may not materially change the order, while large openings should generally be measured and deducted." }
+    ]
+  },
+  "concrete-column-calculator": {
+    title: "Concrete Column Calculator — Round, Square & Rectangular",
+    description: "Calculate concrete for circular, square or rectangular columns and piers in cubic yards, bags and weight, with quantity, waste allowance and optional cost.",
+    guidance: [
+      "Choose the cross-section shape before entering dimensions; the calculator uses the matching area formula and multiplies by height.",
+      "Quantity lets you estimate repeated identical columns or piers without manually summing each one.",
+      "Use actual formed dimensions. This calculator does not select column size, reinforcement or load capacity."
+    ],
+    faq: [
+      { q: "How do I calculate concrete for a round column?", a: "The calculator uses π × radius² × height × quantity, then converts the result to cubic yards and applies the selected allowance." },
+      { q: "Can I calculate square and rectangular columns?", a: "Yes. Select the matching shape and enter side dimensions, height and quantity." },
+      { q: "Can this estimate multiple identical piers?", a: "Yes. Use Quantity for repeated columns or piers with the same dimensions." },
+      { q: "Does this calculator determine column structural capacity?", a: "No. It estimates concrete volume only. Structural dimensions, reinforcement and capacity checks require design information." }
+    ]
+  },
+  "concrete-curb-calculator": {
+    title: "Concrete Curb Calculator — Curb & Gutter Yards + Linear Feet",
+    description: "Calculate curb-and-gutter concrete from length and cross-section, or reverse-calculate linear feet from available concrete. Includes yards, bags, waste and cost.",
+    guidance: [
+      "Forward mode converts curb and gutter cross-sectional area × length into concrete volume.",
+      "Reverse mode answers the purchasing question in the opposite direction: how many linear feet can a known concrete volume place?",
+      "Use dimensions from the curb detail because barrier, mountable and combined gutter sections can have different profiles."
+    ],
+    faq: [
+      { q: "How is curb-and-gutter concrete volume calculated?", a: "The calculator adds the curb and gutter cross-sectional areas, multiplies by length, then converts the result to cubic yards." },
+      { q: "How do I calculate linear feet from one cubic yard of concrete?", a: "Use reverse mode. The calculator converts the available volume to cubic feet and divides by the entered cross-sectional area." },
+      { q: "Does the calculator support a curb without a gutter?", a: "Yes. Use a curb-only style or set the applicable gutter configuration according to the available options." },
+      { q: "Does this account for transitions, radii and curb returns?", a: "Not automatically. Measure special sections separately when their cross-section differs materially from the standard run." }
+    ]
+  },
+  "concrete-stair-calculator": {
+    title: "Concrete Stair Calculator — Solid & Waist-Slab Volume",
+    description: "Calculate straight concrete stair volume using riser, tread, width and step count. Compare solid-step and waist-slab models, with landing, yards, bags and weight.",
+    guidance: [
+      "Use the solid model for a fully filled stepped mass and the waist-slab model when the stair is formed over an inclined structural slab.",
+      "The calculator reports total rise, total run and slope from the entered riser, tread and number of steps.",
+      "Landing volume is added separately from the stair flight so its dimensions and thickness remain explicit."
+    ],
+    faq: [
+      { q: "What is the difference between solid and waist-slab concrete stairs?", a: "A solid stair estimate treats the stepped profile as a filled mass. A waist-slab estimate includes an inclined slab plus the concrete step wedges above it." },
+      { q: "How are total stair rise and run calculated?", a: "Total rise equals riser height × number of steps. Total run equals tread run × number of steps." },
+      { q: "Can I include a landing?", a: "Yes. Enter landing length, width and thickness when a concrete landing is part of the pour." },
+      { q: "Does this calculator design stair code compliance?", a: "No. It estimates geometry and concrete quantity. Riser/tread limits, handrails, reinforcement, headroom and structural requirements must be checked separately." }
+    ]
+  },
+  "concrete-ramp-calculator": {
+    title: "Concrete Ramp Calculator — Slope, Yards & Landing Volume",
+    description: "Calculate concrete ramp volume from run, width and high/low thickness, plus landing volume, slope ratio, percent and angle, with yards, bags, weight and cost.",
+    guidance: [
+      "The ramp body is treated as a trapezoidal prism using the average of the low- and high-end thicknesses.",
+      "Slope is calculated from the absolute thickness/elevation change divided by horizontal run.",
+      "The displayed 1:12 comparison is a slope screening aid only; accessibility compliance includes many other dimensional and site requirements."
+    ],
+    faq: [
+      { q: "How is concrete ramp volume calculated?", a: "Ramp volume equals horizontal length × width × average end thickness. Any landing is calculated separately and added to the ramp body." },
+      { q: "How is ramp slope calculated?", a: "Slope ratio equals the absolute vertical difference between the high and low ends divided by horizontal run. The page also reports percent and angle." },
+      { q: "What does a 1:12 ramp slope mean?", a: "It means one unit of vertical rise for every 12 units of horizontal run, equivalent to about 8.33% grade." },
+      { q: "Does a 1:12 result guarantee ADA compliance?", a: "No. It is only a slope comparison. Accessibility requirements can also involve rise limits, landings, width, handrails, edge protection and local rules." }
+    ]
+  },
+  "concrete-tube-calculator": {
+    title: "Concrete Tube Calculator — Hollow Cylinder & Annular Volume",
+    description: "Calculate concrete for hollow circular tubes, collars and rings from outside diameter, inside diameter or wall thickness, height and quantity, with yards and bags.",
+    guidance: [
+      "Use outside and inside diameters when both are known. If only wall thickness is known, the calculator can derive the inside diameter.",
+      "The concrete cross-section is annular area: outer circle area minus inner circle area.",
+      "Wall thickness must be less than half the outside diameter; otherwise no hollow section remains."
+    ],
+    faq: [
+      { q: "How do I calculate concrete for a hollow tube?", a: "The calculator subtracts the inner-circle area from the outer-circle area, multiplies by height and quantity, then converts to cubic yards." },
+      { q: "Can I enter wall thickness instead of inside diameter?", a: "Yes. When inside diameter is zero and wall thickness is provided, the calculator derives the inside diameter from the outside diameter." },
+      { q: "What happens if wall thickness is too large?", a: "The calculator rejects a wall thickness equal to or greater than half the outside diameter because that would eliminate the hollow opening." },
+      { q: "Can I use this for concrete pipe structural design?", a: "No. It estimates material volume only. Pipe class, reinforcement, loads and structural design are separate engineering requirements." }
+    ]
+  },
+  "concrete-waste-calculator": {
+    title: "Concrete Waste Calculator — Order Yards, Extra & Rounding",
+    description: "Calculate net concrete, waste allowance, required order yards and supplier-increment rounding, plus unused volume, effective waste and whole bag counts.",
+    guidance: [
+      "Enter the measured geometric volume first, then apply a project-specific allowance for uneven subgrade, form tolerances, spillage or handling loss.",
+      "Supplier-increment rounding is applied after waste so the displayed ordered quantity matches the purchasing step.",
+      "The calculator separates requested waste from effective waste after rounding, making over-order caused by supplier increments visible."
+    ],
+    faq: [
+      { q: "What concrete waste percentage should I use?", a: "There is no universal percentage. Choose an allowance based on form accuracy, subgrade variation, placement method, supplier guidance and project risk." },
+      { q: "Why is the ordered volume higher than net volume plus waste?", a: "Ready-mix may be ordered in fixed increments. The calculator rounds the waste-adjusted requirement up to the supplier increment you enter." },
+      { q: "What is effective waste?", a: "It is the difference between net geometric volume and the final rounded order, expressed as a percentage of net volume." },
+      { q: "Does the calculator assume returned concrete can be reused?", a: "No. The unused/returned figure only shows the mathematical excess created by order rounding; handling or disposal depends on the supplier and jobsite." }
+    ]
+  },
+  "concrete-crack-repair-calculator": {
+    title: "Concrete Crack Repair Calculator — Sealant Volume & Cartridges",
+    description: "Estimate concrete crack-filler or sealant volume from crack length, width, depth and quantity, then convert to fluid ounces, milliliters and whole cartridges.",
+    guidance: [
+      "Measure the prepared crack dimensions, not just the visible surface line; routing or cleaning can change the actual fill cross-section.",
+      "Package count is rounded up to whole cartridges after the allowance is applied.",
+      "Use the product manufacturer’s recommended crack preparation, depth control, primer and application limits for the chosen repair material."
+    ],
+    faq: [
+      { q: "How is crack repair material volume calculated?", a: "The calculator multiplies crack length × width × depth × quantity, applies the allowance, and converts the result from cubic inches to fluid ounces and milliliters." },
+      { q: "How many sealant cartridges do I need?", a: "Divide the allowance-adjusted fluid volume by the cartridge capacity you enter, then round up to a whole cartridge." },
+      { q: "Should I measure the crack before or after routing?", a: "Use the prepared dimensions that will actually be filled. Routing, sawing or backer material can change the required material volume." },
+      { q: "Does this choose the correct epoxy or sealant?", a: "No. Product selection depends on crack movement, moisture, structural purpose, temperature and manufacturer requirements. This calculator estimates quantity only." }
+    ]
+  }
+};
+
+const faq = concreteSeo[calc.slug]?.faq ?? [...content.faq, ...(faqEnhancements[calc.slug] ?? [])];
 const seoDescriptionOverrides: Record<string, string> = {
   "crushed-stone-calculator": calc.description,
   "gravel-weight-calculator": calc.description,
@@ -161,7 +409,9 @@ const seoDescriptionOverrides: Record<string, string> = {
   "brick-cost-calculator": calc.description,
   "cmu-cost-calculator": calc.description,
 };
-const seoDescription = seoDescriptionOverrides[calc.slug] ?? content.description;
+const seoDescription = concreteSeo[calc.slug]?.description ?? seoDescriptionOverrides[calc.slug] ?? content.description;
+const seoTitle = concreteSeo[calc.slug]?.title ?? calc.title;
+const concreteGuidance = concreteSeo[calc.slug]?.guidance ?? [];
 const newCalculatorSlugs = new Set([
   "deck-mud-calculator",
   "stucco-calculator",
@@ -171,7 +421,7 @@ const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-0
 ---
 
 <CalculatorLayout
-  title={calc.title}
+  title={seoTitle}
   description={seoDescription}
   h1={calc.h1}
   intro={seoDescription}
@@ -200,6 +450,14 @@ const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-0
         {content.instructions.map(step => <li>{step}</li>)}
       </ol>
     </div>
+    {concreteGuidance.length > 0 && (
+      <div class="rounded-lg border border-hairline bg-canvas p-6">
+        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">When to Use This Calculator</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
+          {concreteGuidance.map(item => <li>{item}</li>)}
+        </ul>
+      </div>
+    )}
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Formula &amp; Method</h2>
       <p class="mt-3 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm leading-6 text-ink break-words">{model.formula}</p>
