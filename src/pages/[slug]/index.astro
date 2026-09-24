@@ -112,6 +112,10 @@ const faqEnhancements: Record<string, { q: string; a: string }[]> = {
     { q: "Can I subtract doors and windows from a concrete wall?", a: "Yes. Enter the opening area once so the calculator deducts it from the gross wall face before converting the remaining wall volume to concrete quantity." },
     { q: "Does the concrete wall calculator choose wall thickness or reinforcement?", a: "No. Enter the wall thickness from your project requirements. The calculator estimates material quantity; structural thickness and reinforcement must be determined separately." },
   ],
+  "earthwork-calculator": [
+    { q: "What is the difference between bank volume and loose volume?", a: "Bank volume is the material in place before excavation. Loose volume applies the swell percentage you enter to estimate the excavated haul volume after the soil is disturbed." },
+    { q: "Does the earthwork calculator add a waste or compaction factor?", a: "No. It applies only the swell factor shown in the form. Overbreak, working room, shrinkage, compaction and unsuitable material must be measured or handled separately for the project." },
+  ],
 };
 const faq = [...content.faq, ...(faqEnhancements[calc.slug] ?? [])];
 const seoDescriptionOverrides: Record<string, string> = {
@@ -126,6 +130,7 @@ const seoDescriptionOverrides: Record<string, string> = {
   "rebar-chair-calculator": calc.description,
   "beam-calculator": calc.description,
   "concrete-wall-calculator": calc.description,
+  "earthwork-calculator": calc.description,
   "parking-lot-calculator": calc.description,
   "parking-lot-cost-calculator": calc.description,
   "wall-framing-calculator": calc.description,
