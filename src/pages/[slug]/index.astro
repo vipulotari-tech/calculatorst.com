@@ -698,7 +698,165 @@ const foundationSeo: Record<string, {
   }
 };
 
-const pageSeo = concreteSeo[calc.slug] ?? slabSeo[calc.slug] ?? foundationSeo[calc.slug];
+const rebarSeo: Record<string, {
+  title: string;
+  description: string;
+  guidance: string[];
+  faq: { q: string; a: string }[];
+}> = {
+  "rebar-calculator": {
+    title: "Rebar Calculator — Grid, Quantity, Stock Bars & Cost",
+    description: "Calculate a slab rebar grid from dimensions, centerline edge offset and maximum spacing, with bar counts, equalized centers, total footage, stock bars, weight and cost.",
+    guidance: [
+      "Use this broad calculator when you want grid geometry, purchasing quantity, nominal weight and optional material cost in one workflow.",
+      "Enter edge offset to bar centerline, not clear cover to the bar surface. Convert the detail on the placing drawings before entering it.",
+      "Stock-bar count is a minimum equivalent by total footage; an actual cutting and splice plan can require more stock."
+    ],
+    faq: [
+      { q: "How does the Rebar Calculator determine rows and columns?", a: "It subtracts the two centerline edge offsets, divides each usable grid dimension by the maximum spacing, rounds up, and adds one bar for the opposite edge." },
+      { q: "Why can actual rebar spacing be smaller than the maximum I enter?", a: "The calculator rounds the bar count up, then equalizes the intervals across the usable grid so the actual center spacing does not exceed the entered maximum." },
+      { q: "Can I estimate stock bars and cost?", a: "Yes. Enter the supplier stock-bar length and a price per foot, stock bar, pound or ton. Stock-bar count is a minimum equivalent based on total footage, not a cutting optimization." },
+      { q: "Does this calculator choose rebar size or structural spacing?", a: "No. Bar size, spacing and cover come from the project design or placing drawings. This tool performs material takeoff only." }
+    ]
+  },
+  "rebar-weight-calculator": {
+    title: "Rebar Weight Calculator — lb/ft, Tons & Metric Tonnes",
+    description: "Calculate nominal rebar weight for US bar sizes #3–#11, #14 and #18 from bar count and length, including lb/ft, diameter, pounds, kilograms, US tons and metric tonnes.",
+    guidance: [
+      "Use the bar designation shown on the material schedule; US #14 and #18 are included along with #3 through #11.",
+      "Nominal linear weights are published values and are multiplied by total bar footage.",
+      "Allowance increases order length and order weight, but does not add installed bars."
+    ],
+    faq: [
+      { q: "How is rebar weight calculated?", a: "Net bar footage is multiplied by the published nominal pounds per foot for the selected US bar size. The allowance-adjusted order weight is calculated the same way from order footage." },
+      { q: "Which US rebar sizes are supported?", a: "The calculator supports #3 through #11 plus #14 and #18, using published nominal diameters and linear weights." },
+      { q: "What is the difference between net and order weight?", a: "Net weight represents the measured bars. Order weight applies the material allowance to the total footage before multiplying by nominal weight per foot." },
+      { q: "Can I use this to select a bar size?", a: "No. It converts an already-selected bar size and quantity to nominal material weight." }
+    ]
+  },
+  "rebar-quantity-calculator": {
+    title: "Rebar Quantity Calculator — Grid Bars, Stock Length & Weight",
+    description: "Estimate rebar purchasing quantity from slab dimensions, centerline edge offset, maximum spacing and stock length, with grid bars, total footage, stock pieces, weight and waste.",
+    guidance: [
+      "Use this page when the purchasing question is how many stock bars are represented by a specified reinforcement grid.",
+      "Installed grid bars and minimum equivalent stock bars are shown separately so placement quantity is not confused with purchasing quantity.",
+      "Actual fabrication, cut optimization and lap splice requirements can increase the number of stock bars."
+    ],
+    faq: [
+      { q: "What is the difference between installed bars and stock bars?", a: "Installed bars are the grid lines placed in the concrete. Stock bars are the supplier lengths represented by the total allowance-adjusted footage." },
+      { q: "How is rebar quantity calculated from spacing?", a: "The calculator determines the bars needed in each direction from the usable grid dimensions and maximum center spacing, then totals their cut lengths." },
+      { q: "Does the stock-bar count include cutting optimization?", a: "No. It is the minimum equivalent count from total footage divided by stock length. A real cutting and splice schedule can require additional stock." },
+      { q: "Does waste change the installed bar count?", a: "No. The material allowance affects purchasing footage and stock quantity, not the required installed grid lines." }
+    ]
+  },
+  "rebar-cost-calculator": {
+    title: "Rebar Cost Calculator — Length, Weight, Stock Bars & Price",
+    description: "Estimate rebar material cost from bar count and cut length or known total footage, with stock-bar length, waste, nominal weight, price per foot/bar/lb/ton, tax and delivery.",
+    guidance: [
+      "Choose count × cut length when you have a bar schedule, or known total footage when another takeoff already produced the required length.",
+      "Match the price basis to the supplier quote: linear foot, stock bar, pound or US ton.",
+      "Tax and delivery are explicit inputs; fabrication, bends, hooks, laps, couplers and installation labor are excluded unless embedded in the quote."
+    ],
+    faq: [
+      { q: "Can I price rebar by stock bar instead of by foot?", a: "Yes. Enter the supplier stock length and choose the per-stock-bar price basis. The calculator rounds the equivalent stock-bar count up." },
+      { q: "Can I price rebar by weight?", a: "Yes. Price can be entered per pound or US ton using the nominal order weight for the selected bar size." },
+      { q: "Does the estimate include sales tax and delivery?", a: "Only when you enter those values. They are shown separately from the rebar material subtotal." },
+      { q: "Does the cost include fabrication and installation labor?", a: "No. The calculator estimates the material scope shown in the form unless those services are already included in your supplier price." }
+    ]
+  },
+  "rebar-spacing-calculator": {
+    title: "Rebar Spacing Calculator — Bar Count ↔ Equal Centers",
+    description: "Calculate equal rebar center spacing from installed bar count, or calculate the required bar count from a maximum spacing, with end offsets and inch/mm results.",
+    guidance: [
+      "Use count mode when the number of bars is already known and you need equal center spacing.",
+      "Use maximum-spacing mode when the design gives a spacing limit and you need the smallest whole bar count that stays at or below it.",
+      "End offset is measured from the concrete edge to the centerline of the end bar."
+    ],
+    faq: [
+      { q: "How do I calculate equal rebar spacing from a bar count?", a: "Subtract both end offsets from the overall layout distance, then divide the usable centerline distance by one fewer than the installed bar count." },
+      { q: "How do I calculate how many bars are needed for a maximum spacing?", a: "Divide usable centerline distance by the maximum spacing, round up to whole intervals, then add one bar." },
+      { q: "Is rebar spacing measured center-to-center?", a: "Yes. The spacing result is the center-to-center distance between adjacent parallel bars." },
+      { q: "Does this calculator decide code-compliant spacing?", a: "No. It solves layout geometry for spacing or bar count already governed by the project design." }
+    ]
+  },
+  "rebar-length-calculator": {
+    title: "Rebar Length Calculator — Total Footage & Stock Bars",
+    description: "Calculate net and allowance-adjusted rebar footage from bar count and cut length, plus meters, minimum equivalent stock bars and purchased stock footage.",
+    guidance: [
+      "Use this page for straight-bar footage when the number and cut length of bars are already known.",
+      "Supplier stock-bar length converts order footage into a minimum equivalent purchasing count.",
+      "Bends, hooks, laps and couplers are separate because their added lengths depend on the bar schedule and detailing."
+    ],
+    faq: [
+      { q: "How is total rebar length calculated?", a: "Net footage equals bar count × cut length per bar. The material allowance is then applied once to obtain order footage." },
+      { q: "How are stock bars estimated?", a: "Order footage is divided by the supplier stock length and rounded up to a whole-bar equivalent." },
+      { q: "Why is equivalent stock-bar count not a cutting plan?", a: "Total footage alone does not account for individual cut lengths, offcuts, lap locations or fabrication constraints." },
+      { q: "Does the length calculator include lap splices?", a: "No. Use the Rebar Lap Length Calculator to total additional steel from lap lengths specified on the drawings." }
+    ]
+  },
+  "rebar-grid-calculator": {
+    title: "Rebar Grid Calculator — Rows, Columns & Equal Spacing",
+    description: "Lay out an orthogonal rebar grid from area dimensions, centerline edge offset and maximum spacing, with grid size, bars per direction, equalized spacing and total footage.",
+    guidance: [
+      "Use this page when layout geometry is the main question rather than weight or material pricing.",
+      "The calculator reports both grid dimensions and the final equalized center spacing in each direction.",
+      "A single orthogonal mat is modeled; second layers, dowels, hooks and laps remain separate."
+    ],
+    faq: [
+      { q: "What does the Rebar Grid Calculator show?", a: "It reports usable grid length and width, bar count in both directions, equalized spacing, installed bar count and total linear footage." },
+      { q: "Why are there different bar counts in the two grid directions?", a: "Each count depends on the perpendicular usable grid dimension and the maximum spacing." },
+      { q: "Does the grid calculator include bar weight?", a: "No. This page is intentionally focused on grid geometry. Use Rebar Weight or the broad Rebar Calculator for weight." },
+      { q: "Does it include a second reinforcement mat?", a: "No. It estimates one orthogonal mat. Calculate additional layers separately when specified." }
+    ]
+  },
+  "rebar-lap-length-calculator": {
+    title: "Rebar Lap Length Calculator — Additional Steel & Weight",
+    description: "Total additional rebar from a lap length already specified on the drawings, including splice count, allowance, nominal weight and optional cost without inventing a required splice length.",
+    guidance: [
+      "Enter the lap length from the approved structural or placing drawings; the calculator deliberately does not derive a code-required lap length.",
+      "Lap requirements depend on variables including concrete strength, bar grade and size, cover, spacing, confinement, coating and splice condition.",
+      "The result is additional steel attributable to laps; base bar lengths are separate."
+    ],
+    faq: [
+      { q: "Does this calculator determine the required rebar lap length?", a: "No. Enter the lap length specified by the engineer or placing drawings. The calculator totals the extra steel, weight and optional cost." },
+      { q: "Why is there no universal 40-bar-diameter rule?", a: "Required lap length depends on multiple design conditions, so a single diameter multiple is not valid for every project." },
+      { q: "How is additional lap steel calculated?", a: "Specified lap length per splice is multiplied by the number of splices, then the purchasing allowance is applied." },
+      { q: "Can I estimate the weight and cost of the lap steel?", a: "Yes. Select the bar size and optionally enter a price per foot, pound or ton." }
+    ]
+  },
+  "reinforcement-mesh-calculator": {
+    title: "Reinforcement Mesh Calculator — Sheets, Overlap & Cost",
+    description: "Calculate welded reinforcement mesh sheets or rolls for a rectangular slab, including overlap, automatic 90° orientation comparison, rows, columns, spares, coverage and cost.",
+    guidance: [
+      "Enter physical overlap at adjoining sheet edges rather than a generic percent.",
+      "The calculator evaluates both 90-degree sheet orientations and uses the one requiring fewer installed pieces.",
+      "Mesh type, lap and support details remain project-design inputs; offcut reuse between separate areas is not modeled."
+    ],
+    faq: [
+      { q: "How many reinforcement mesh sheets do I need?", a: "The calculator determines rows and columns using the sheet dimensions minus overlap, compares both 90-degree orientations and chooses the lower-piece layout." },
+      { q: "Does the calculator account for mesh overlap?", a: "Yes. Enter the physical lap dimension; each additional sheet contributes its dimension minus the overlap." },
+      { q: "Does it rotate sheets automatically?", a: "Yes. It compares both sheet orientations and reports the dimensions used along each slab axis." },
+      { q: "Can I enter a price per mesh sheet or roll?", a: "Yes. The purchasing quantity after allowance is multiplied by the entered unit price." }
+    ]
+  },
+  "rebar-chair-calculator": {
+    title: "Rebar Chair Calculator — Support Grid, Spacing & Cost",
+    description: "Estimate a rectangular rebar-chair support grid from mat dimensions, edge offset and maximum spacing in both directions, with installed chairs, spares, equalized spacing and cost.",
+    guidance: [
+      "Use chair spacing and edge setback from the reinforcement support plan; the calculator does not select a support layout.",
+      "The model counts a chair at every intersection of the rectangular support grid.",
+      "Continuous bolsters, support bars and other support systems require a different takeoff."
+    ],
+    faq: [
+      { q: "How is rebar chair quantity calculated?", a: "The calculator rounds the support locations up along each usable mat dimension so equalized spacing stays at or below the entered maximum, then multiplies the two axis counts." },
+      { q: "Can chair spacing be different in the two directions?", a: "Yes. Enter separate maximum spacing values along the length and width." },
+      { q: "Does the calculator include spare chairs?", a: "Yes. The material allowance is applied to the installed chair count and the purchasing quantity is rounded up." },
+      { q: "Does this tell me what chair type or spacing is structurally required?", a: "No. Chair type, capacity, height, spacing and edge setbacks come from the reinforcement support plan." }
+    ]
+  }
+};
+
+const pageSeo = concreteSeo[calc.slug] ?? slabSeo[calc.slug] ?? foundationSeo[calc.slug] ?? rebarSeo[calc.slug];
 const faq = pageSeo?.faq ?? [...content.faq, ...(faqEnhancements[calc.slug] ?? [])];
 const seoDescriptionOverrides: Record<string, string> = {
   "crushed-stone-calculator": calc.description,
