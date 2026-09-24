@@ -50,13 +50,14 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   "slab-patio-driveway": {
-    intro: "Slabs, patios and driveways are the projects most homeowners tackle with concrete. A 4-inch patio slab and an 8-inch driveway slab are not the same pour — thickness alone changes the volume by a factor of two. These calculators break each project type into its own inputs so you are not guessing.",
-    beforeYouCalculate: "Measure length, width and the specified slab thickness. For driveways and patios, get the required thickness, base section and drainage slope from the project design or local requirements rather than assuming a universal value.",
+    intro: "Slab, patio and driveway estimates involve different decisions: concrete quantity, inverse thickness/coverage, reinforcement takeoff, project cost and delivery planning. These 10 calculators keep those tasks separate while sharing consistent units, allowances and worked formulas.",
+    beforeYouCalculate: "Measure the finished footprint and gather the thickness, base depth, reinforcement spacing or cost quote required by the specific calculator. Treat structural thickness, reinforcement, joints and foundation dimensions as project inputs from the plans, applicable requirements or qualified designer — not defaults selected by a quantity calculator.",
     tips: [
-      "Reinforcement type, size and spacing depend on loads, slab design and project requirements; use the rebar calculators only after those inputs are specified.",
-      "Joint layout depends on slab geometry, thickness and project specifications. Treat joint spacing as a design input rather than a fixed rule.",
-      "Vapor-barrier location and subbase details depend on the floor assembly and project specification; do not add an assumed air gap from this calculator.",
-      "Ready-mix suppliers set their own minimum loads, rounding increments, short-load fees and delivery rules. Confirm the order increment with the supplier.",
+      "Use the quantity calculator for the actual project shape; use the thickness calculator only when solving or comparing the area-volume-depth relationship.",
+      "For tapered driveways, measure both end widths and the full length. For a separate apron, measure it independently and avoid counting the same area inside the main driveway rectangle.",
+      "Rebar size, spacing and edge position are design inputs. The reinforcement calculator converts a specified grid into bar count, cut length and weight; it does not select reinforcement.",
+      "Base quantities are reported as compacted volume. Loose delivered gravel can require a supplier-specific conversion.",
+      "Ready-mix truck capacity, short-load rules, minimum orders and rounding increments vary by supplier. Use the supplier quote for purchasing decisions.",
     ],
     relatedCategories: [
       { name: "Concrete", href: "/construction/concrete/", reason: "General concrete volume, cost and mix calculators" },
