@@ -38,12 +38,15 @@ describe("Slab, Patio & Driveway golden-value regression suite", () => {
       { length: "ft", width: "ft", volume: "yd3" },
     )).toBeCloseTo(3.24, 8);
 
-    expect(rowValue(
+    const modeB = run(
       "slab-thickness-calculator",
-      "ft3",
-      { mode: 1, length: 10, width: 10, thickness: 4, waste: 0 },
-      { length: "ft", width: "ft", thickness: "in" },
-    )).toBeCloseTo(100 / 3, 8);
+      { mode: 1, length: 10, width: 10, thickness: 4, waste: 0, yield: 0.6, density: 2400, price: 5 },
+      { length: "ft", width: "ft", thickness: "in", density: "kg/m3", price: "USD/bag" },
+    );
+    expect(modeB.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(100 / 3, 8);
+    expect(modeB.rows.find(x => x.key === "bags")?.value).toBe(56);
+    expect(modeB.rows.find(x => x.key === "cost")?.value).toBeCloseTo(280, 8);
+    expect(modeB.rows.find(x => x.key === "kg")?.value).toBeCloseTo((100 / 3) / (3.280839895013123 ** 3) * 2400, 6);
 
     const compare = run(
       "slab-thickness-calculator",
