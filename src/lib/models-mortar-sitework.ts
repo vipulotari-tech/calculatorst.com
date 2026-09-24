@@ -167,6 +167,69 @@ function bulkModel(opts:BulkOpts):Model{
   };
 }
 
+const gravelGeneral:Model={
+  fields:[
+    {id:'mode',label:'Calculate gravel from',value:0,min:0,max:2,integer:true,dimension:'number',options:[
+      {value:0,label:'Length × width × depth'},
+      {value:1,label:'Known area × depth'},
+      {value:2,label:'Known volume'}
+    ]},
+    {...length('length','Area length',20),visibleWhen:{field:'mode',equals:0}},
+    {...length('width','Area width',10),visibleWhen:{field:'mode',equals:0}},
+    {...area('area','Known surface area',200),visibleWhen:{field:'mode',equals:1}},
+    {...length('depth','Placed depth',4,'in'),visibleWhen:{field:'mode',in:[0,1]}},
+    {...volume('volume','Known gravel volume',2),visibleWhen:{field:'mode',equals:2}},
+    {id:'material',label:'Gravel material / density preset',value:1,min:0,max:5,integer:true,dimension:'number',group:'Material & assumptions',options:[
+      {value:0,label:'Pea gravel — 1.35 US tons/yd³'},
+      {value:1,label:'Crushed stone — 1.40 US tons/yd³'},
+      {value:2,label:'River rock — 1.33 US tons/yd³'},
+      {value:3,label:'Limestone — 1.60 US tons/yd³'},
+      {value:4,label:'Granite — 1.42 US tons/yd³'},
+      {value:5,label:'Custom supplier density'}
+    ]},
+    {...number('customDensity','Custom bulk density (US tons / yd³)',1.4,0.01,'Use supplier data for the same moisture and loose/compacted state.'),unit:'ton/yd3',group:'Material & assumptions',visibleWhen:{field:'material',equals:5}},
+    {...number('compaction','Compaction allowance (%)',0,0,'Optional extra loose material needed to achieve the intended placed layer. Keep separate from waste.'),group:'Material & assumptions'},
+    allowance,
+    {...price('USD/yd3',['USD/yd3','USD/m3','USD/ton']),optional:true}
+  ],
+  formula:'Measured gravel volume comes from dimensions, known area × depth or known volume. Order volume = measured volume × (1 + compaction allowance) × (1 + waste allowance). Weight = order cubic yards × selected or custom bulk density.',
+  assumptions:[
+    'Material presets are estimating densities only; supplier scale-ticket or product data is preferred for the exact grading, moisture and material state.',
+    'Compaction allowance and waste are separate inputs. Do not hide loose-to-placed conversion inside a generic waste percentage.',
+    'The calculator estimates quantity and purchasing cost; it does not recommend a structural base depth or pavement section.',
+    'US tons are short tons of 2,000 lb; metric tonnes are reported separately.'
+  ],
+  sources:[inchGravel,omniGravel],
+  calculate(v,u){
+    const mode=Math.round(v.mode);
+    const netFt3=mode===0?v.length*v.width*v.depth:mode===1?v.area*v.depth:v.volume;
+    requireCondition(netFt3>=0,'volume','Gravel volume cannot be negative.');
+    const presets=[1.35,1.40,1.33,1.60,1.42];
+    const material=Math.round(v.material);
+    const density=material===5?v.customDensity:(presets[material]??1.40);
+    requireCondition(density>0,'customDensity','Bulk density must be greater than zero.');
+    const netYd3=netFt3/27;
+    const compactionFactor=1+v.compaction/100;
+    const afterCompaction=netYd3*compactionFactor;
+    const orderYd3=afterCompaction*waste(v);
+    const tons=orderYd3*density,lb=tons*2000,m3=orderYd3*27/(FT_PER_M**3);
+    const q=u.price==='USD/ton'?tons:u.price==='USD/m3'?m3:orderYd3;
+    return result(withCost([
+      row('order','Gravel to order',orderYd3,'yd³'),
+      row('net','Measured / placed volume',netYd3,'yd³'),
+      row('compaction','Volume after compaction allowance',afterCompaction,'yd³'),
+      row('m3','Order volume',m3,'m³'),
+      row('tons','Estimated order weight',tons,'US tons'),
+      row('pounds','Estimated order weight',lb,'lb'),
+      row('tonnes','Estimated order weight',lb/LB_PER_KG/1000,'metric tonnes')
+    ],v.price,u.price,{'USD/yd3':orderYd3,'USD/m3':m3,'USD/ton':tons}),[
+      mode===0?`${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} = ${fmt(netFt3)} ft³.`:mode===1?`${fmt(v.area)} ft² × ${fmt(v.depth)} = ${fmt(netFt3)} ft³.`:`Entered volume = ${fmt(netFt3)} ft³.`,
+      `${fmt(netYd3)} yd³ × ${fmt(compactionFactor)} compaction factor × ${fmt(waste(v))} waste factor = ${fmt(orderYd3)} yd³ to order.`,
+      `${fmt(orderYd3)} yd³ × ${fmt(density)} ton/yd³ = ${fmt(tons)} US tons.`
+    ]);
+  }
+};
+
 function weightModel(label:string,density:number):Model{
   return {
     fields:[
@@ -291,7 +354,7 @@ export const mortarSiteworkModels:Record<string,Model>={
   'deck-mud-dedicated':finishModels.deckMud,
   'stucco-dedicated':finishModels.stucco,
 
-  'gravel-general-dedicated':bulkModel({label:'Gravel',density:1.4}),
+  'gravel-general-dedicated':gravelGeneral,
   'gravel-cost-dedicated':bulkModel({label:'Gravel',density:1.4,costMode:true}),
   'gravel-weight-dedicated':weightModel('Gravel',1.4),
   'gravel-depth-dedicated':gravelDepth,
