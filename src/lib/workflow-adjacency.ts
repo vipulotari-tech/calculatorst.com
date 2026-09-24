@@ -180,44 +180,44 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
 
   // Rebar
   "rebar-calculator": {
-    primary: ["rebar-weight-calculator", "rebar-spacing-calculator", "rebar-length-calculator"],
-    workflow: ["rebar-cost-calculator", "concrete-calculator"],
+    primary: ["rebar-quantity-calculator", "rebar-weight-calculator", "rebar-cost-calculator"],
+    workflow: ["rebar-grid-calculator", "rebar-spacing-calculator", "concrete-slab-calculator"],
   },
   "rebar-weight-calculator": {
-    primary: ["rebar-calculator", "rebar-cost-calculator", "rebar-quantity-calculator"],
-    workflow: ["rebar-length-calculator", "concrete-volume-calculator"],
+    primary: ["rebar-length-calculator", "rebar-quantity-calculator", "rebar-cost-calculator"],
+    workflow: ["rebar-calculator", "rebar-lap-length-calculator"],
   },
   "rebar-spacing-calculator": {
-    primary: ["rebar-calculator", "rebar-quantity-calculator", "rebar-length-calculator"],
-    workflow: ["rebar-grid-calculator", "concrete-slab-calculator"],
-  },
-  "rebar-length-calculator": {
-    primary: ["rebar-quantity-calculator", "rebar-cost-calculator", "rebar-calculator"],
-    workflow: ["rebar-lap-length-calculator", "rebar-weight-calculator"],
-  },
-  "rebar-quantity-calculator": {
-    primary: ["rebar-calculator", "rebar-length-calculator", "rebar-cost-calculator"],
-    workflow: ["rebar-weight-calculator", "concrete-calculator"],
-  },
-  "rebar-cost-calculator": {
-    primary: ["rebar-calculator", "rebar-quantity-calculator", "concrete-cost-calculator"],
-    workflow: ["rebar-weight-calculator", "rebar-length-calculator"],
-  },
-  "rebar-grid-calculator": {
-    primary: ["rebar-calculator", "rebar-spacing-calculator", "rebar-weight-calculator"],
+    primary: ["rebar-grid-calculator", "rebar-quantity-calculator", "rebar-calculator"],
     workflow: ["slab-reinforcement-calculator", "concrete-slab-calculator"],
   },
+  "rebar-length-calculator": {
+    primary: ["rebar-weight-calculator", "rebar-cost-calculator", "rebar-lap-length-calculator"],
+    workflow: ["rebar-quantity-calculator", "rebar-calculator"],
+  },
+  "rebar-quantity-calculator": {
+    primary: ["rebar-calculator", "rebar-grid-calculator", "rebar-length-calculator"],
+    workflow: ["rebar-weight-calculator", "rebar-cost-calculator"],
+  },
+  "rebar-cost-calculator": {
+    primary: ["rebar-quantity-calculator", "rebar-weight-calculator", "rebar-length-calculator"],
+    workflow: ["rebar-calculator", "concrete-cost-calculator"],
+  },
+  "rebar-grid-calculator": {
+    primary: ["rebar-spacing-calculator", "rebar-quantity-calculator", "rebar-calculator"],
+    workflow: ["slab-reinforcement-calculator", "rebar-weight-calculator"],
+  },
   "rebar-lap-length-calculator": {
-    primary: ["rebar-length-calculator", "rebar-calculator", "rebar-quantity-calculator"],
-    workflow: ["rebar-weight-calculator", "concrete-foundation-calculator"],
+    primary: ["rebar-length-calculator", "rebar-weight-calculator", "rebar-cost-calculator"],
+    workflow: ["rebar-calculator", "foundation-wall-calculator"],
   },
   "reinforcement-mesh-calculator": {
-    primary: ["rebar-grid-calculator", "rebar-calculator", "concrete-slab-calculator"],
-    workflow: ["slab-reinforcement-calculator", "rebar-weight-calculator"],
+    primary: ["rebar-chair-calculator", "rebar-grid-calculator", "slab-reinforcement-calculator"],
+    workflow: ["concrete-slab-calculator", "patio-concrete-calculator"],
   },
   "rebar-chair-calculator": {
-    primary: ["rebar-calculator", "rebar-grid-calculator", "concrete-slab-calculator"],
-    workflow: ["slab-reinforcement-calculator", "rebar-weight-calculator"],
+    primary: ["reinforcement-mesh-calculator", "rebar-grid-calculator", "slab-reinforcement-calculator"],
+    workflow: ["concrete-slab-calculator", "garage-slab-calculator"],
   },
 
   // Brick & Masonry
