@@ -366,9 +366,10 @@ const costs = fields.filter((f) => f.group === "Cost");
     calcElements.forEach((root) => {
       const slug = root.dataset.calculatorSlug;
       if (!slug || root.dataset.initialized) return;
+      const calculatorSlug = slug;
       root.dataset.initialized = 'true';
 
-      const model = getModelForSlug(slug);
+      const model = getModelForSlug(calculatorSlug);
       const form = root.querySelector<HTMLFormElement>(`#${slug}-form`);
       const primaryValEl = root.querySelector<HTMLElement>(".result-primary");
       const primaryUnitEl = root.querySelector<HTMLElement>(".result-primary-unit");
@@ -440,10 +441,10 @@ const costs = fields.filter((f) => f.group === "Cost");
             function buildShareUrl() {
               const url = new URL(window.location.href);
               url.search = "";
-              url.searchParams.set("cs_calc", slug);
+              url.searchParams.set("cs_calc", calculatorSlug);
               model.fields.forEach((field) => {
                 const control = form?.querySelector<HTMLInputElement | HTMLSelectElement>(`#${slug}-${field.id}`);
-                if (control?.value !== "") url.searchParams.set(sharedParam(field.id), control.value);
+                if (control && control.value !== "") url.searchParams.set(sharedParam(field.id), control.value);
                 const unitSelect = form?.querySelector<HTMLSelectElement>(`#${slug}-${field.id}-unit`);
                 if (unitSelect?.value) url.searchParams.set(sharedParam(`${field.id}_unit`), unitSelect.value);
               });
