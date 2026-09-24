@@ -297,7 +297,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "cmu-quantity-calculator": {
     primary: ["cmu-calculator", "concrete-block-calculator", "cmu-wall-calculator"],
-    workflow: ["cmu-cost-calculator", "cmu-mortar-calculator"],
+    workflow: ["cmu-cost-calculator", "concrete-block-mortar-calculator"],
   },
   "cmu-cost-calculator": {
     primary: ["cmu-calculator", "cmu-quantity-calculator", "concrete-cost-calculator"],
@@ -312,12 +312,12 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
     workflow: ["brick-weight-calculator", "cmu-cost-calculator"],
   },
   "concrete-block-mortar-calculator": {
-    primary: ["cmu-mortar-calculator", "mortar-calculator", "concrete-block-calculator"],
+    primary: ["cmu-grout-calculator", "mortar-calculator", "concrete-block-calculator"],
     workflow: ["cmu-calculator", "mortar-quantity-calculator"],
   },
   "cmu-grout-calculator": {
     primary: ["cmu-calculator", "concrete-block-calculator", "grout-calculator"],
-    workflow: ["cmu-wall-calculator", "rebar-calculator"],
+    workflow: ["cmu-wall-calculator", "cmu-reinforcement-calculator"],
   },
   "cmu-reinforcement-calculator": {
     primary: ["rebar-calculator", "cmu-calculator", "rebar-grid-calculator"],
