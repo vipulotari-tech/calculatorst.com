@@ -172,12 +172,12 @@ function weightModel(label:string,density:number):Model{
     fields:[
       {id:'mode',label:'Calculate from',value:0,min:0,max:2,integer:true,dimension:'number',options:[{value:0,label:'Length × width × depth'},{value:1,label:'Known area × depth'},{value:2,label:'Known volume'}]},
       {...length('length','Area length',20),visibleWhen:{field:'mode',equals:0}},{...length('width','Area width',10),visibleWhen:{field:'mode',equals:0}},{...area('area','Known surface area',200),visibleWhen:{field:'mode',equals:1}},{...length('depth','Material depth',4,'in'),visibleWhen:{field:'mode',in:[0,1]}},{...volume('volume','Known volume',2),visibleWhen:{field:'mode',equals:2}},
-      {...number('density','Bulk density (US tons / yd³)',density,0.01),unit:'ton/yd3'},allowance
+      {...number('density','Bulk density (US tons / yd³)',density,0.01),unit:'ton/yd3'}
     ],
-    formula:'Volume is converted to cubic yards; order weight = cubic yards × allowance factor × entered tons-per-cubic-yard density.',
-    assumptions:[`${label} density is editable because moisture, grading and compaction change bulk weight.`,'Dimensions and density should describe the same material state.'],
+    formula:'Measured volume is converted to cubic yards; estimated weight = cubic yards × entered tons-per-cubic-yard density.',
+    assumptions:[`${label} density is editable because moisture, grading and compaction change bulk weight.`,'Dimensions and density should describe the same material state.','This weight-only calculator does not add a purchasing overage; use the material calculator for order allowance.'],
     sources:[inchGravel],
-    calculate(v){const mode=Math.round(v.mode),ft3=mode===0?v.length*v.width*v.depth:mode===1?v.area*v.depth:v.volume,yd3=ft3/27,orderYd3=yd3*waste(v),tons=orderYd3*v.density,lb=tons*2000;return result([row('tons',`Estimated ${label.toLowerCase()} order weight`,tons,'US tons'),row('weight','Estimated order weight',lb,'lb'),row('kg','Estimated order weight',lb/LB_PER_KG,'kg'),row('tonnes','Estimated order weight',lb/LB_PER_KG/1000,'metric tonnes'),row('volume','Measured volume',yd3,'yd³'),row('order','Volume with allowance',orderYd3,'yd³')],[`${fmt(ft3)} ft³ ÷ 27 = ${fmt(yd3)} yd³.`,`${fmt(orderYd3)} yd³ × ${fmt(v.density)} = ${fmt(tons)} US tons.`]);}
+    calculate(v){const mode=Math.round(v.mode),ft3=mode===0?v.length*v.width*v.depth:mode===1?v.area*v.depth:v.volume,yd3=ft3/27,tons=yd3*v.density,lb=tons*2000;return result([row('tons',`Estimated ${label.toLowerCase()} weight`,tons,'US tons'),row('weight','Estimated weight',lb,'lb'),row('kg','Estimated weight',lb/LB_PER_KG,'kg'),row('tonnes','Estimated weight',lb/LB_PER_KG/1000,'metric tonnes'),row('volume','Measured volume',yd3,'yd³')],[`${fmt(ft3)} ft³ ÷ 27 = ${fmt(yd3)} yd³.`,`${fmt(yd3)} yd³ × ${fmt(v.density)} = ${fmt(tons)} US tons.`]);}
   };
 }
 
