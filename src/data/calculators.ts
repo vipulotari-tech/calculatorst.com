@@ -35,14 +35,14 @@ export const calculators: CalculatorMeta[] = [
   },
   {
     slug: "concrete-slab-calculator",
-    title: "Concrete Slab Calculator — Yards, Bags & Cost",
+    title: "Concrete Slab Calculator — Yards, 40–80 lb Bags & Cost",
     h1: "Concrete Slab Calculator",
-    description: "Calculate concrete for slabs in cubic yards and bags (40/60/80 lb). Includes waste and cost estimate.",
+    description: "Calculate slab concrete from length, width and thickness in cubic feet and yards, with 40/50/60/80-lb bag counts, waste allowance, weight and optional cost.",
     category: "Concrete",
     cluster: "concrete",
     iconPath: "M3 8h10M3 11h10M3 5h10",
     featured: true,
-    keywords: ["concrete slab calculator", "concrete slab yards calculator"],
+    keywords: ["concrete slab calculator", "concrete slab yards calculator", "concrete slab bag calculator", "how much concrete for a slab"],
   },
   {
     slug: "roof-pitch-calculator",
