@@ -79,6 +79,14 @@ const categorySeoOverrides: Record<string, { title: string; description: string 
     title: "Rebar & Reinforcement Calculators — Grid, Weight, Spacing & Cost",
     description: "Use 10 rebar calculators for grid layout, quantity, stock bars, weight, cost, spacing, total length, lap steel, reinforcement mesh and chair supports.",
   },
+  brick: {
+    title: "Brick & Masonry Calculators — Quantity, Mortar, Weight & Cost",
+    description: "Use 15 brick and masonry calculators for wall quantity, courses, cost, mortar, veneer, patios, pavers, generic masonry units, weight, waste and joint spacing.",
+  },
+  cmu: {
+    title: "Concrete Block & CMU Calculators — Blocks, Mortar, Grout & Rebar",
+    description: "Use 10 concrete-block and CMU calculators for block quantity, walls, cost, shipment weight, mortar, grout core fill and vertical/horizontal reinforcement takeoff.",
+  },
 };
 const categorySeo = categorySeoOverrides[cluster];
 const categoryTitle = categorySeo?.title ?? `${displayName} — Construction Calculators | Calculator Street`;
@@ -117,6 +125,24 @@ const taskLinks = cluster === "concrete" ? [
   { label: "Grid layout", href: "/rebar-grid-calculator/", text: "Rows, columns, usable grid dimensions, equalized spacing and total linear footage." },
   { label: "Lap steel", href: "/rebar-lap-length-calculator/", text: "Total only a lap length already specified on the drawings, plus weight and cost." },
   { label: "Mesh & supports", href: "/reinforcement-mesh-calculator/", text: "Mesh sheet orientation, overlap, purchasing quantity and cost; pair with chair supports." },
+] : cluster === "brick" ? [
+  { label: "General brick takeoff", href: "/brick-calculator/", text: "Bricks, wythes, waste, order weight and optional unit cost." },
+  { label: "Brick wall layout", href: "/brick-wall-calculator/", text: "Courses, bricks per course, openings and area-adjusted quantity." },
+  { label: "Quantity only", href: "/brick-quantity-calculator/", text: "Installed versus order bricks with waste and bricks per square foot." },
+  { label: "Brick + mortar cost", href: "/brick-cost-calculator/", text: "Brick and mortar materials plus tax, delivery and entered labor/equipment." },
+  { label: "Mortar bags", href: "/brick-mortar-calculator/", text: "Geometric joint volume, mixed-yield bag count and optional bag cost." },
+  { label: "Brick veneer", href: "/brick-veneer-calculator/", text: "Single-wythe veneer bricks plus a planning tie grid from entered spacing." },
+  { label: "Patio & pavers", href: "/brick-paver-calculator/", text: "Pavers, compacted base, bedding sand, perimeter and optional paver cost." },
+  { label: "Weight & logistics", href: "/brick-weight-calculator/", text: "Brick count × unit weight with tons, metric tonnes and optional pallets." },
+] : cluster === "cmu" ? [
+  { label: "Concrete block takeoff", href: "/concrete-block-calculator/", text: "Blocks, courses, blocks per course, weight and optional cost." },
+  { label: "CMU presets/custom", href: "/cmu-calculator/", text: "Standard nominal modules or custom specified block faces." },
+  { label: "Wall layout", href: "/cmu-wall-calculator/", text: "Courses, openings, block count and opening displacement." },
+  { label: "Quantity only", href: "/cmu-quantity-calculator/", text: "Installed versus order CMU count with waste and blocks per square foot." },
+  { label: "Block + mortar cost", href: "/cmu-cost-calculator/", text: "Block and mortar material cost plus tax, delivery and entered labor." },
+  { label: "Mortar", href: "/concrete-block-mortar-calculator/", text: "Mortar bags from installed blocks or wall geometry and entered product yield." },
+  { label: "Grout core fill", href: "/cmu-grout-calculator/", text: "Vertical cells plus bond-beam/lintel grout, bags and pricing." },
+  { label: "CMU reinforcement", href: "/cmu-reinforcement-calculator/", text: "Vertical locations, horizontal runs, rebar length, weight and cost." },
 ] : [];
 ---
 
@@ -153,7 +179,7 @@ const taskLinks = cluster === "concrete" ? [
 
         {taskLinks.length > 0 && (
           <section class="mt-6 rounded-xl border border-hairline bg-canvas p-5" aria-labelledby="choose-category-calculator">
-            <h2 id="choose-category-calculator" class="text-sm font-semibold text-ink">Choose the right {cluster === "concrete" ? "concrete" : cluster === "slab" ? "slab, patio or driveway" : cluster === "foundation" ? "foundation or footing" : "rebar or reinforcement"} calculator</h2>
+            <h2 id="choose-category-calculator" class="text-sm font-semibold text-ink">Choose the right {cluster === "concrete" ? "concrete" : cluster === "slab" ? "slab, patio or driveway" : cluster === "foundation" ? "foundation or footing" : cluster === "rebar" ? "rebar or reinforcement" : cluster === "brick" ? "brick or masonry" : "concrete block or CMU"} calculator</h2>
             <p class="mt-2 text-[13px] leading-5 text-body">These pages target different estimating tasks. Pick the one that matches the decision you are making instead of repeating the same inputs across several calculators.</p>
             <div class="mt-4 grid gap-3 sm:grid-cols-2">
               {taskLinks.map((item) => (
