@@ -90,15 +90,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "concrete-slab-calculator",
-    "title": "Concrete Slab Calculator — Yards, Bags & Cost",
+    "title": "Concrete Slab Calculator — Yards, 40–80 lb Bags & Cost",
     "h1": "Concrete Slab Calculator",
-    "description": "Calculate concrete slab volume, bags and weight — cubic yards/feet, 40/60/80-lb bags vs ready-mix, weight and cost with density and waste.",
+    "description": "Calculate slab concrete from length, width and thickness in cubic feet and yards, with 40/50/60/80-lb bag counts, waste allowance, weight and optional cost.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "concrete slab calculator",
-      "concrete yard calculator"
+      "concrete slab yards calculator",
+      "concrete slab bag calculator",
+      "how much concrete for a slab"
     ],
     "featured": true
   },
