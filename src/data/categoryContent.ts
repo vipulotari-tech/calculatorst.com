@@ -86,18 +86,20 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   rebar: {
-    intro: "Rebar (reinforcing bar) provides the tensile strength that concrete lacks. Get the spacing, weight, length or cost wrong and you either waste money on excess steel or compromise the structure. These calculators cover every common rebar task from grid layout to lap splice length.",
-    beforeYouCalculate: "Know your rebar size (#3 through #7 are most common for residential), the spacing layout (on-center in each direction), the total length of each mat, and whether the bars need lapping. For footings, measure the width and length to determine how many bars fit per row.",
+    intro: "Rebar estimating involves several different jobs: laying out a grid, converting that grid to purchasing quantity, checking nominal weight, pricing stock, solving equal center spacing, totaling specified lap steel, and estimating mesh or support chairs. These 10 calculators keep those intents separate while using consistent units and transparent formulas.",
+    beforeYouCalculate: "Use the bar size, center spacing, edge position, lap length and support layout shown on the approved structural or placing drawings. Measure edge offsets to bar centerline when the calculator asks for centerline offset, and use current supplier stock lengths and prices for purchasing estimates. These tools perform takeoff and layout math; they do not choose reinforcement design.",
     tips: [
-      "Lap splice length is not a universal multiple of bar diameter. Use the splice length shown on the approved reinforcement design or applicable detailing standard.",
-      "Rebar chairs or supports maintain the specified bar position and cover. Cover requirements depend on exposure, member type and reinforcement details.",
-      "Reinforcement coating and corrosion protection are specification choices tied to exposure conditions; use the material called for in the project documents.",
-      "Hook and bend dimensions vary with bar size, hook type and detailing requirements. Use the bend dimensions from the bar schedule or governing standard.",
+      "Bar spacing is center-to-center. Convert specified clear cover to bar-center offset before using a grid or spacing calculator.",
+      "Stock-bar counts based on total footage are minimum equivalents, not optimized cutting or splice schedules. Individual cut lengths and lap locations can require more stock.",
+      "Lap splice length is not a universal bar-diameter multiple. Enter the splice length shown on the approved drawings; concrete strength, bar grade, size, cover, spacing and confinement affect the required lap.",
+      "Nominal bar weights depend on the selected US bar designation. Use the material schedule and supplier data when ordering.",
+      "Chair type, height, load capacity and spacing come from the reinforcement support plan. The chair calculator only converts a specified support grid into quantity.",
     ],
     relatedCategories: [
-      { name: "Concrete", href: "/construction/concrete/", reason: "Concrete volume to cover the rebar you sized" },
-      { name: "Foundation & Footing", href: "/construction/foundation/", reason: "Footing rebar is the most common use case" },
-      { name: "Concrete Block & CMU", href: "/construction/concrete-block/", reason: "CMU grout and vertical reinforcement" },
+      { name: "Concrete", href: "/construction/concrete/", reason: "Concrete quantity, pour and slab tools around the reinforcement takeoff" },
+      { name: "Slab, Patio & Driveway", href: "/construction/slab-patio-driveway/", reason: "Slab reinforcement and concrete project workflows" },
+      { name: "Foundation & Footing", href: "/construction/foundation/", reason: "Footing, wall and foundation geometry before reinforcement takeoff" },
+      { name: "Concrete Block & CMU", href: "/construction/concrete-block/", reason: "Vertical and horizontal reinforcement for reinforced masonry" },
     ],
   },
 
