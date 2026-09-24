@@ -34,16 +34,16 @@ export const slugToModelKey: Record<string, string> = {
     "shed-foundation-calculator": "shed-foundation",
 
   // 3. Foundation (10)
-  "foundation-cost-calculator": "foundation-cost",
-  "foundation-excavation-calculator": "excavation",
-  "strip-footing-calculator": "concrete-footing",
-  "pad-footing-calculator": "concrete-footing",
-  "pier-footing-calculator": "concrete-column",
-  "footing-volume-calculator": "concrete-footing",
-  "footing-concrete-calculator": "concrete-footing",
-  "foundation-wall-calculator": "concrete-wall",
-  "basement-wall-calculator": "concrete-wall",
-  "crawl-space-calculator": "concrete-wall",
+  "foundation-cost-calculator": "foundation-cost-dedicated",
+  "foundation-excavation-calculator": "foundation-excavation-dedicated",
+  "strip-footing-calculator": "strip-footing-dedicated",
+  "pad-footing-calculator": "pad-footing-dedicated",
+  "pier-footing-calculator": "pier-footing-dedicated",
+  "footing-volume-calculator": "footing-volume-dedicated",
+  "footing-concrete-calculator": "footing-concrete-dedicated",
+  "foundation-wall-calculator": "foundation-wall-dedicated",
+  "basement-wall-calculator": "basement-wall-dedicated",
+  "crawl-space-calculator": "crawl-space-dedicated",
 
   // 4. Rebar (10)
   "rebar-calculator": "grid",
