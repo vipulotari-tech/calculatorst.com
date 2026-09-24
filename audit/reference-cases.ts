@@ -62,6 +62,7 @@ export const referenceCases:ReferenceCase[] = [
  {model:'slab-cost',input:{length:10,width:10,depth:4,quantity:1,waste:0,price:100,yield:0.6,density:150},expected:{order:1.2345679012345678,bags:56,materials:123.45679012345678}},
  {model:'patio-cost',input:{length:10,width:10,depth:4,quantity:1,waste:0,price:100,yield:0.6,density:150},expected:{order:1.2345679012345678,bags:56,materials:123.45679012345678}},
  {model:'driveway-cost',input:{length:10,width:10,depth:4,quantity:1,waste:0,price:100,yield:0.6,density:150},expected:{order:1.2345679012345678,bags:56,materials:123.45679012345678}},
+ {model:'foundation-cost',input:{foundationType:0,length:3,width:3,thickness:36,quantity:1,waste:0,priceYd3:100,delivery:20,labor:30,tax:10},expected:{total:160,yards:1,net:1,materials:100,tax:10,delivery:20,labor:30}},
  {model:'shed-foundation',input:{length:10,width:10,thickness:4,quantity:1,foundationType:0,waste:0,yield:0.6,density:150},expected:{order:1.2345679012345678,bags:56}},
  {model:'thickness',input:{length:20,width:10,mode:0,volume:1,waste:0},expected:{depth:1.62,area:200}},
  {model:'thickness',input:{length:10,width:10,mode:1,thickness:4,waste:0,yield:0.6,density:150},expected:{order:1.2345679012345678,bags:56}},
