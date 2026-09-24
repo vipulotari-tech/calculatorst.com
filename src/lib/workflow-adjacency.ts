@@ -96,44 +96,44 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
 
   // Slab / patio / driveway
   "slab-thickness-calculator": {
-    primary: ["concrete-slab-calculator", "gravel-calculator", "rebar-calculator"],
-    workflow: ["concrete-cost-calculator", "driveway-thickness-calculator"],
+    primary: ["slab-cost-calculator", "slab-reinforcement-calculator", "concrete-slab-calculator"],
+    workflow: ["gravel-calculator", "driveway-thickness-calculator"],
   },
   "slab-cost-calculator": {
-    primary: ["concrete-slab-calculator", "concrete-cost-calculator", "gravel-calculator"],
-    workflow: ["slab-thickness-calculator", "rebar-calculator"],
+    primary: ["slab-thickness-calculator", "slab-reinforcement-calculator", "concrete-slab-calculator"],
+    workflow: ["gravel-calculator", "concrete-cost-calculator"],
   },
   "slab-reinforcement-calculator": {
-    primary: ["rebar-calculator", "rebar-spacing-calculator", "rebar-weight-calculator", "concrete-slab-calculator"],
-    workflow: ["rebar-grid-calculator", "concrete-cost-calculator"],
+    primary: ["slab-thickness-calculator", "slab-cost-calculator", "rebar-weight-calculator"],
+    workflow: ["rebar-spacing-calculator", "rebar-grid-calculator", "concrete-slab-calculator"],
   },
   "patio-concrete-calculator": {
-    primary: ["concrete-slab-calculator", "gravel-calculator", "concrete-cost-calculator"],
-    workflow: ["slab-thickness-calculator", "rebar-calculator"],
+    primary: ["patio-cost-calculator", "slab-reinforcement-calculator", "slab-thickness-calculator"],
+    workflow: ["gravel-calculator", "concrete-slab-calculator"],
   },
   "patio-cost-calculator": {
-    primary: ["concrete-cost-calculator", "concrete-slab-calculator"],
+    primary: ["patio-concrete-calculator", "slab-reinforcement-calculator", "slab-thickness-calculator"],
     workflow: ["gravel-calculator", "paver-calculator"],
   },
   "driveway-concrete-calculator": {
-    primary: ["concrete-slab-calculator", "asphalt-calculator", "gravel-calculator"],
-    workflow: ["driveway-cost-calculator", "driveway-thickness-calculator", "rebar-calculator"],
+    primary: ["driveway-cost-calculator", "driveway-thickness-calculator", "slab-reinforcement-calculator"],
+    workflow: ["gravel-calculator", "asphalt-calculator", "concrete-slab-calculator"],
   },
   "driveway-cost-calculator": {
-    primary: ["concrete-cost-calculator", "driveway-concrete-calculator", "asphalt-cost-calculator"],
-    workflow: ["gravel-calculator", "driveway-thickness-calculator"],
+    primary: ["driveway-concrete-calculator", "driveway-thickness-calculator", "slab-reinforcement-calculator"],
+    workflow: ["gravel-calculator", "asphalt-cost-calculator", "concrete-cost-calculator"],
   },
   "driveway-thickness-calculator": {
-    primary: ["concrete-slab-calculator", "asphalt-calculator", "gravel-calculator"],
-    workflow: ["slab-thickness-calculator", "rebar-calculator"],
+    primary: ["driveway-concrete-calculator", "driveway-cost-calculator", "slab-reinforcement-calculator"],
+    workflow: ["slab-thickness-calculator", "gravel-calculator", "asphalt-calculator"],
   },
   "garage-slab-calculator": {
-    primary: ["concrete-slab-calculator", "concrete-cost-calculator", "rebar-calculator"],
-    workflow: ["gravel-calculator", "slab-thickness-calculator"],
+    primary: ["slab-thickness-calculator", "slab-reinforcement-calculator", "slab-cost-calculator"],
+    workflow: ["gravel-calculator", "concrete-slab-calculator"],
   },
   "shed-foundation-calculator": {
-    primary: ["concrete-slab-calculator", "gravel-calculator", "concrete-cost-calculator"],
-    workflow: ["strip-footing-calculator", "deck-footing-calculator"],
+    primary: ["slab-cost-calculator", "slab-reinforcement-calculator", "strip-footing-calculator"],
+    workflow: ["gravel-calculator", "concrete-foundation-calculator", "deck-footing-calculator"],
   },
 
   // Foundation
