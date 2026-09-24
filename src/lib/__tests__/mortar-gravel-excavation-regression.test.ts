@@ -65,6 +65,14 @@ describe("Mortar, grout & cement golden regressions",()=>{
     expect(r.rows.find(x=>x.key==="aggregate")?.value).toBeCloseTo(30,8);
     expect(r.rows.find(x=>x.key==="bags")?.value).toBe(11);
   });
+  it("Cement Bag Calculator can convert placed volume to dry batch volume",()=>{
+    const r=run("cement-bag-calculator",{batchMode:1,volume:60,dryFactor:1.5,cementParts:1,sandParts:2,aggregateParts:3,bagYield:1,waste:0,price:0},{volume:"ft3",bagYield:"ft3",price:"USD/bag"});
+    expect(r.rows.find(x=>x.key==="dryBatch")?.value).toBeCloseTo(90,8);
+    expect(r.rows.find(x=>x.key==="cement")?.value).toBeCloseTo(15,8);
+    expect(r.rows.find(x=>x.key==="sand")?.value).toBeCloseTo(30,8);
+    expect(r.rows.find(x=>x.key==="aggregate")?.value).toBeCloseTo(45,8);
+    expect(r.rows.find(x=>x.key==="bags")?.value).toBe(15);
+  });
   it("Cement Sand Ratio has zero coarse aggregate and material cost",()=>{
     const r=run("cement-sand-ratio-calculator",{volume:50,cementParts:1,sandParts:4,bagYield:1,sandDensity:100,waste:10,cementBagPrice:10,sandTonPrice:50},{volume:"ft3",bagYield:"ft3"});
     expect(r.rows.find(x=>x.key==="aggregateVol")?.value).toBe(0);
