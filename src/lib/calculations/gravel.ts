@@ -1,4 +1,4 @@
-import { toFeet, wasteFactor, ceilDiscrete } from "../../utils/units";
+import { toFeet, wasteFactor } from "../../utils/units";
 
 export const GRAVEL_DENSITY: Record<string, number> = {
   pea: 1.35,
