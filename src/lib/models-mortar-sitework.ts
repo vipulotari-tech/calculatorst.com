@@ -309,11 +309,47 @@ const earthwork:Model={
 };
 
 const cutFill:Model={
-  fields:[volume('cut','Available cut — bank volume',100),volume('fill','Required compacted fill volume',80),number('shrink','Bank-to-compacted reduction (%)',10,0),number('swell','Bank-to-loose swell (%)',20,0)],
-  formula:'Bank material required for fill = compacted fill ÷ (1 − shrink). Bank balance = available cut − required bank fill. Export/import loose volume applies swell to the magnitude of bank balance.',
-  assumptions:['Positive bank balance means export/excess; negative means additional bank material is required.','Assumes excavated material is suitable for the fill. Unsuitable material, topsoil and segregation require separate quantities.'],
+  fields:[
+    {id:'mode',label:'Enter cut and fill as',value:0,min:0,max:1,integer:true,dimension:'number',options:[{value:0,label:'Known volumes'},{value:1,label:'Area × average depth'}]},
+    {...volume('cut','Available cut — bank volume',100),visibleWhen:{field:'mode',equals:0}},
+    {...volume('fill','Required compacted fill volume',80),visibleWhen:{field:'mode',equals:0}},
+    {...area('cutArea','Cut area',1000),visibleWhen:{field:'mode',equals:1}},
+    {...length('cutDepth','Average cut depth',2),visibleWhen:{field:'mode',equals:1}},
+    {...area('fillArea','Fill area',1000),visibleWhen:{field:'mode',equals:1}},
+    {...length('fillDepth','Average compacted fill depth',1),visibleWhen:{field:'mode',equals:1}},
+    number('shrink','Bank-to-compacted reduction (%)',10,0),
+    number('swell','Bank-to-loose swell (%)',20,0)
+  ],
+  formula:'Known-volume mode uses entered bank cut and compacted fill. Quick mode uses area × average depth. Bank material required for fill = compacted fill ÷ (1 − shrink). Bank balance = available cut − required bank fill; loose haul equivalent applies swell.',
+  assumptions:[
+    'Area × average depth is a preliminary quantity method. Irregular grading should use surveyed surfaces, grid methods or cross-sections.',
+    'Positive bank balance means export/excess; negative means additional bank material is required.',
+    'Assumes excavated material is suitable for the fill. Unsuitable material, topsoil and segregation require separate quantities.'
+  ],
   sources:[fhwaEarthwork],
-  calculate(v){requireCondition(v.shrink<100,'shrink','Shrink must be less than 100%.');const required=v.fill/(1-v.shrink/100),balance=v.cut-required,loose=Math.abs(balance)*(1+v.swell/100),exportBank=Math.max(0,balance),importBank=Math.max(0,-balance);return result([row('balance','Net bank balance (+ export / − import)',balance/27,'yd³'),row('export','Bank excess to export',exportBank/27,'yd³'),row('import','Bank shortage to import',importBank/27,'yd³'),row('loose','Loose haul equivalent of imbalance',loose/27,'yd³'),row('required','Bank material required for compacted fill',required/27,'yd³')],[`Compacted fill ${fmt(v.fill/27)} ÷ ${fmt(1-v.shrink/100)} = ${fmt(required/27)} bank yd³ required.`,`Cut − required fill bank volume = ${fmt(balance/27)} yd³.`]);}
+  calculate(v){
+    requireCondition(v.shrink<100,'shrink','Shrink must be less than 100%.');
+    const mode=Math.round(v.mode);
+    const cutFt3=mode===0?v.cut:v.cutArea*v.cutDepth;
+    const fillFt3=mode===0?v.fill:v.fillArea*v.fillDepth;
+    const required=fillFt3/(1-v.shrink/100);
+    const balance=cutFt3-required;
+    const loose=Math.abs(balance)*(1+v.swell/100);
+    const exportBank=Math.max(0,balance),importBank=Math.max(0,-balance);
+    return result([
+      row('cut','Available bank cut',cutFt3/27,'yd³'),
+      row('fill','Required compacted fill',fillFt3/27,'yd³'),
+      row('required','Bank material required for compacted fill',required/27,'yd³'),
+      row('balance','Net bank balance (+ export / − import)',balance/27,'yd³'),
+      row('export','Bank excess to export',exportBank/27,'yd³'),
+      row('import','Bank shortage to import',importBank/27,'yd³'),
+      row('loose','Loose haul equivalent of imbalance',loose/27,'yd³')
+    ],[
+      mode===0?`Entered cut = ${fmt(cutFt3/27)} bank yd³; compacted fill = ${fmt(fillFt3/27)} yd³.`:`Cut = ${fmt(v.cutArea)} ft² × ${fmt(v.cutDepth)} ft; fill = ${fmt(v.fillArea)} ft² × ${fmt(v.fillDepth)} ft.`,
+      `Compacted fill ${fmt(fillFt3/27)} ÷ ${fmt(1-v.shrink/100)} = ${fmt(required/27)} bank yd³ required.`,
+      `Cut − required fill bank volume = ${fmt(balance/27)} yd³.`
+    ]);
+  }
 };
 
 const dirtRemoval:Model={
