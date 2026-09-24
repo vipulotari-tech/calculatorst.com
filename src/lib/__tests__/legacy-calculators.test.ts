@@ -47,6 +47,8 @@ afterEach(()=>vi.unstubAllGlobals());
 const cases: Array<{name:string;values:Record<string,string|number>;outputId:string;expected:string}> = [
   {name:'GravelCalculator',values:{'g-length':10,'g-width':10,'g-depth':12,'g-waste':0},outputId:'g-ft3',expected:'100.00'},
   {name:'ConcreteSlabCalculator',values:{'c-len':10,'c-wid':10,'c-depth':12,'c-depth-unit':'in','c-waste':5,'c-num':1},outputId:'c-ft3',expected:'100.00'},
+  {name:'ConcreteSlabCalculator',values:{'c-len':10,'c-wid':10,'c-depth':12,'c-depth-unit':'in','c-waste':0,'c-num':1},outputId:'c-b50',expected:'267'},
+  {name:'ConcreteSlabCalculator',values:{'c-mode':'curb','c-clen':10,'c-clen-unit':'ft','c-cht':12,'c-cht-unit':'in','c-cdepth':6,'c-cdepth-unit':'in','c-gw':18,'c-gw-unit':'in','c-flag':6,'c-flag-unit':'in','c-waste':0,'c-num':1},outputId:'c-ft3',expected:'12.50'},
   {name:'RoofPitchCalculator',values:{'rp-rise':6,'rp-run':12},outputId:'rp-x12',expected:'6 : 12'},
   {name:'PaverCalculator',values:{'pv-len':10,'pv-wid':10,'pv-waste':0},outputId:'pv-countw',expected:'100'},
   {name:'MulchCalculator',values:{'m-len':10,'m-wid':10,'m-depth':12,'m-waste':0},outputId:'m-ft3',expected:'100.00'},
