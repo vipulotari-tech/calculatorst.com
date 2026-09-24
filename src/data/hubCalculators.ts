@@ -398,136 +398,161 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "foundation-cost-calculator",
-    "title": "Foundation Cost Calculator — Concrete Yards & Cost",
+    "title": "Foundation Cost Calculator — Concrete & Entered Project Costs",
     "h1": "Foundation Cost Calculator",
-    "description": "Estimate concrete quantity and entered-scope foundation cost for a slab, concrete piers or continuous strip footing using dimensions, allowance, quoted concrete price, tax, delivery and labor/equipment.",
+    "description": "Estimate foundation concrete and quote-based cost for slabs, piers or strip footings, with bags, weight, tax, delivery, excavation, forms, reinforcement and labor.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "foundation cost calculator",
-      "foundation cost estimator",
       "concrete foundation cost calculator",
-      "foundation price calculator"
+      "foundation material cost calculator",
+      "foundation project cost calculator"
     ],
     "featured": false
   },
   {
     "slug": "foundation-excavation-calculator",
-    "title": "Foundation Excavation Calculator — Yards & Bank Volume",
+    "title": "Foundation Excavation Calculator — Bank & Loose Yards + Cost",
     "h1": "Foundation Excavation Calculator",
-    "description": "Calculate foundation excavation bank and loose volume from length, width, depth and swell, with optional cost per bank cubic yard.",
+    "description": "Calculate foundation excavation from footprint, working room and depth, with overbreak, bank cubic yards, soil swell, loose haul volume and quote-based excavation cost.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "foundation excavation calculator"
+      "foundation excavation calculator",
+      "foundation digging calculator",
+      "bank volume calculator foundation",
+      "excavation swell calculator"
     ],
     "featured": false
   },
   {
     "slug": "strip-footing-calculator",
-    "title": "Strip Footing Calculator — Yards, Bags & Cost",
+    "title": "Strip Footing Calculator — Linear Run, Yards, Bags & Cost",
     "h1": "Strip Footing Calculator",
-    "description": "Calculate strip footing concrete — linear footage, cross-section dimensions, cubic yards, 80/60/40-lb bags, weight and cost with waste.",
+    "description": "Calculate continuous strip-footing concrete from centerline run, width, depth and quantity, with cross-section area, cubic yards, bags, weight, waste and cost.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "strip footing calculator"
+      "strip footing calculator",
+      "continuous footing calculator",
+      "strip footing concrete calculator",
+      "footing linear feet calculator"
     ],
     "featured": false
   },
   {
     "slug": "pad-footing-calculator",
-    "title": "Pad Footing Calculator — Yards, Bags & Cost",
+    "title": "Pad Footing Calculator — Rectangular, Square & Round Pads",
     "h1": "Pad Footing Calculator",
-    "description": "Calculate pad footing concrete for posts and columns — enter length, width and depth, get cubic yards, bags, weight and cost per footing with waste.",
+    "description": "Calculate isolated pad-footing concrete for rectangular, square or round pads, including per-pad volume, total yards, bags, weight, waste and optional material cost.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "pad footing calculator"
+      "pad footing calculator",
+      "isolated footing calculator",
+      "square footing calculator",
+      "round pad footing calculator"
     ],
     "featured": false
   },
   {
     "slug": "pier-footing-calculator",
-    "title": "Pier Footing Calculator — Yards, Bags & Cost",
+    "title": "Pier Footing Calculator — Shaft, Bell Base, Yards & Bags",
     "h1": "Pier Footing Calculator",
-    "description": "Calculate pier footing concrete for decks, porches and post-frame buildings — diameter, depth, cubic yards, bags and cost per pier with waste.",
+    "description": "Calculate concrete for cylindrical foundation piers from diameter, depth and count, with optional enlarged bell-base volume, cubic yards, bags, weight, waste and cost.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "pier footing calculator"
+      "pier footing calculator",
+      "concrete pier calculator",
+      "pier concrete calculator",
+      "belled pier calculator"
     ],
     "featured": false
   },
   {
     "slug": "footing-volume-calculator",
-    "title": "Footing Volume Calculator — Cubic Yards",
+    "title": "Footing Volume Calculator — Cubic Feet, Yards & Meters",
     "h1": "Footing Volume Calculator",
-    "description": "Calculate footing volume in cubic yards and cubic feet — enter length, width and depth for spread, strip and pad footings with waste factor.",
+    "description": "Calculate pure footing volume for strip, rectangular, square or round foundations in cubic feet, cubic yards, cubic meters and liters with quantity and allowance.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "footing volume calculator",
-      "footing cubic yards calculator"
+      "footing cubic yards calculator",
+      "footing cubic feet calculator",
+      "footing volume cubic meters"
     ],
     "featured": false
   },
   {
     "slug": "footing-concrete-calculator",
-    "title": "Footing Concrete Calculator — Yards, Bags & Cost",
+    "title": "Footing Concrete Calculator — Yards, Bags, Weight & Cost",
     "h1": "Footing Concrete Calculator",
-    "description": "Calculate concrete for any footing type — spread, strip, pad or pier. Cubic yards, bags, weight and total cost with waste allowance.",
+    "description": "Calculate concrete for strip, rectangular, square or round footings with quantity, waste, cubic yards, bag rounding, density-based weight and optional material cost.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "footing concrete calculator",
-      "concrete for footings calculator"
+      "concrete for footings calculator",
+      "footing bag calculator",
+      "footing concrete yards calculator"
     ],
     "featured": false
   },
   {
     "slug": "foundation-wall-calculator",
-    "title": "Foundation Wall Calculator — Area, Units & Waste",
+    "title": "Foundation Wall Calculator — Openings, Forms, Yards & Bags",
     "h1": "Foundation Wall Calculator",
-    "description": "Calculate concrete for foundation walls — height, length, thickness with optional door/window deductions. Cubic yards, bags and cost with waste.",
+    "description": "Calculate cast-in-place foundation-wall concrete from centerline length, height, thickness and opening area, with gross/net volume, form area, bags, weight and cost.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "foundation wall calculator"
+      "foundation wall calculator",
+      "foundation wall concrete calculator",
+      "concrete wall yards calculator",
+      "foundation form area calculator"
     ],
     "featured": false
   },
   {
     "slug": "basement-wall-calculator",
-    "title": "Basement Wall Calculator — Area, Units & Waste",
+    "title": "Basement Wall Calculator — Perimeter, Openings, Forms & Yards",
     "h1": "Basement Wall Calculator",
-    "description": "Calculate concrete for basement walls — height, length, thickness with opening deductions. Cubic yards, bags, weight and cost with waste.",
+    "description": "Calculate rectangular basement-wall concrete from outside length, width, wall height and thickness, with openings, extra wall runs, form area, bags, weight and cost.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "basement wall calculator"
+      "basement wall calculator",
+      "basement concrete wall calculator",
+      "basement wall volume calculator",
+      "basement formwork calculator"
     ],
     "featured": false
   },
   {
     "slug": "crawl-space-calculator",
-    "title": "Crawl Space Calculator — Foundation Wall Concrete",
+    "title": "Crawl Space Foundation Calculator — Stem-Wall Concrete",
     "h1": "Crawl Space Calculator",
-    "description": "Estimate cast-in-place crawl-space foundation wall concrete from wall length, height, thickness and opening deductions, with waste and optional cost.",
+    "description": "Estimate crawl-space stem-wall concrete from outside length, width, wall height and thickness, with interior wall run, vent/access deductions, yards, bags and weight.",
     "category": "Foundation",
     "cluster": "foundation",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "crawl space calculator"
+      "crawl space calculator",
+      "crawl space foundation calculator",
+      "crawl space stem wall calculator",
+      "crawl space concrete calculator"
     ],
     "featured": false
   },
