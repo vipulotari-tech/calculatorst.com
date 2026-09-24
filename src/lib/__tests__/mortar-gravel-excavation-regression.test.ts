@@ -86,7 +86,22 @@ describe("Mortar, grout & cement golden regressions",()=>{
 });
 
 describe("Gravel, aggregate & dirt golden regressions",()=>{
-  const general=["gravel-calculator","crushed-stone-calculator","aggregate-calculator","sand-calculator","fill-dirt-calculator","topsoil-calculator"];
+  it("Gravel Calculator supports dimensions, presets, compaction and waste",()=>{
+    const r=run("gravel-calculator",{mode:0,length:10,width:10,depth:12,material:5,customDensity:1.5,compaction:10,waste:10,price:10},{...dims,customDensity:"ton/yd3",price:"USD/yd3"});
+    const measured=100/27, afterCompaction=measured*1.1, order=afterCompaction*1.1;
+    expect(r.rows.find(x=>x.key==="net")?.value).toBeCloseTo(measured,8);
+    expect(r.rows.find(x=>x.key==="compaction")?.value).toBeCloseTo(afterCompaction,8);
+    expect(r.rows.find(x=>x.key==="order")?.value).toBeCloseTo(order,8);
+    expect(r.rows.find(x=>x.key==="tons")?.value).toBeCloseTo(order*1.5,8);
+    expect(r.rows.find(x=>x.key==="cost")?.value).toBeCloseTo(order*10,8);
+  });
+  it("Gravel Calculator supports known area and known volume modes",()=>{
+    const byArea=run("gravel-calculator",{mode:1,area:100,depth:12,material:1,compaction:0,waste:0,price:0},{area:"ft2",depth:"in",price:"USD/yd3"});
+    const byVolume=run("gravel-calculator",{mode:2,volume:100,material:1,compaction:0,waste:0,price:0},{volume:"ft3",price:"USD/yd3"});
+    expect(byArea.rows.find(x=>x.key==="net")?.value).toBeCloseTo(100/27,8);
+    expect(byVolume.rows.find(x=>x.key==="net")?.value).toBeCloseTo(100/27,8);
+  });
+  const general=["crushed-stone-calculator","aggregate-calculator","sand-calculator","fill-dirt-calculator","topsoil-calculator"];
   for(const slug of general) it(slug+" computes order volume, weight and optional cost",()=>{
     const r=run(slug,{mode:0,length:10,width:10,depth:12,density:1.5,waste:10,price:10},{...dims,density:"ton/yd3",price:"USD/yd3"});
     expect(r.rows.find(x=>x.key==="order")?.value).toBeCloseTo((100/27)*1.1,8);
