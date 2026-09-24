@@ -138,44 +138,44 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
 
   // Foundation
   "foundation-cost-calculator": {
-    primary: ["concrete-cost-calculator", "concrete-foundation-calculator", "excavation-calculator"],
-    workflow: ["foundation-wall-calculator", "footing-concrete-calculator"],
+    primary: ["footing-concrete-calculator", "foundation-excavation-calculator", "foundation-wall-calculator"],
+    workflow: ["strip-footing-calculator", "pad-footing-calculator", "pier-footing-calculator"],
   },
   "foundation-excavation-calculator": {
-    primary: ["excavation-calculator", "foundation-wall-calculator", "fill-dirt-calculator"],
-    workflow: ["footing-concrete-calculator", "concrete-foundation-calculator"],
+    primary: ["foundation-cost-calculator", "strip-footing-calculator", "foundation-wall-calculator"],
+    workflow: ["excavation-calculator", "trench-backfill-calculator", "fill-dirt-calculator"],
   },
   "strip-footing-calculator": {
-    primary: ["footing-volume-calculator", "footing-concrete-calculator", "rebar-calculator"],
-    workflow: ["concrete-footing-calculator", "foundation-wall-calculator"],
+    primary: ["footing-concrete-calculator", "footing-volume-calculator", "foundation-wall-calculator"],
+    workflow: ["foundation-cost-calculator", "slab-reinforcement-calculator", "rebar-calculator"],
   },
   "pad-footing-calculator": {
-    primary: ["concrete-footing-calculator", "footing-volume-calculator", "rebar-calculator"],
-    workflow: ["deck-footing-calculator", "concrete-column-calculator"],
+    primary: ["pier-footing-calculator", "footing-concrete-calculator", "footing-volume-calculator"],
+    workflow: ["foundation-cost-calculator", "rebar-calculator", "deck-footing-calculator"],
   },
   "pier-footing-calculator": {
-    primary: ["concrete-column-calculator", "footing-volume-calculator", "rebar-calculator"],
-    workflow: ["deck-footing-calculator", "concrete-footing-calculator"],
+    primary: ["pad-footing-calculator", "footing-concrete-calculator", "footing-volume-calculator"],
+    workflow: ["foundation-cost-calculator", "rebar-calculator", "deck-footing-calculator"],
   },
   "footing-volume-calculator": {
-    primary: ["footing-concrete-calculator", "strip-footing-calculator", "rebar-calculator"],
-    workflow: ["concrete-footing-calculator", "concrete-volume-calculator"],
+    primary: ["footing-concrete-calculator", "strip-footing-calculator", "pad-footing-calculator"],
+    workflow: ["pier-footing-calculator", "concrete-volume-calculator"],
   },
   "footing-concrete-calculator": {
-    primary: ["concrete-volume-calculator", "concrete-cost-calculator", "rebar-calculator"],
-    workflow: ["foundation-wall-calculator", "concrete-slab-calculator"],
+    primary: ["strip-footing-calculator", "pad-footing-calculator", "pier-footing-calculator"],
+    workflow: ["footing-volume-calculator", "foundation-cost-calculator", "foundation-wall-calculator"],
   },
   "foundation-wall-calculator": {
-    primary: ["concrete-wall-calculator", "rebar-calculator", "concrete-volume-calculator"],
-    workflow: ["concrete-foundation-calculator", "basement-wall-calculator"],
+    primary: ["basement-wall-calculator", "crawl-space-calculator", "strip-footing-calculator"],
+    workflow: ["foundation-cost-calculator", "rebar-calculator", "concrete-foundation-calculator"],
   },
   "basement-wall-calculator": {
-    primary: ["concrete-wall-calculator", "foundation-wall-calculator", "concrete-volume-calculator"],
-    workflow: ["rebar-calculator", "concrete-foundation-calculator"],
+    primary: ["foundation-wall-calculator", "strip-footing-calculator", "foundation-cost-calculator"],
+    workflow: ["foundation-excavation-calculator", "rebar-calculator", "concrete-slab-calculator"],
   },
   "crawl-space-calculator": {
-    primary: ["concrete-volume-calculator", "gravel-calculator", "foundation-excavation-calculator"],
-    workflow: ["foundation-wall-calculator", "concrete-foundation-calculator"],
+    primary: ["foundation-wall-calculator", "strip-footing-calculator", "pier-footing-calculator"],
+    workflow: ["foundation-excavation-calculator", "foundation-cost-calculator", "gravel-calculator"],
   },
 
   // Rebar
