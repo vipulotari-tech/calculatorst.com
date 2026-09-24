@@ -12,6 +12,7 @@ const fhwaEarthwork='https://highways.fhwa.dot.gov/federal-lands/design/tools/cf
 const inchGravel='https://www.inchcalculator.com/gravel-calculator/';
 const omniGravel='https://www.omnicalculator.com/construction/gravel';
 const omniGrout='https://www.omnicalculator.com/construction/grout';
+const omniCement='https://www.omnicalculator.com/construction/cement';
 const omniMortar='https://www.omnicalculator.com/construction/mortar';
 
 function unitPriceRows(q:number, p:number, tax:number, delivery:number, labor:number){
@@ -130,7 +131,7 @@ const cementBag:Model={
     'The dry-volume factor is an estimating input, not a universal material constant. Use the factor required by the selected mix/design method.',
     'Bag volume is editable because package mass and bulk-volume conventions vary by market and product.'
   ],
-  sources:[omniGrout],
+  sources:[omniCement],
   calculate(v,u){
     const parts=v.cementParts+v.sandParts+v.aggregateParts;
     requireCondition(parts>0,'cementParts','Enter at least one non-zero mix part.');
