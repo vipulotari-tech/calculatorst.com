@@ -1168,15 +1168,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "gravel-weight-calculator",
-    "title": "Gravel Weight Calculator — Tons & Pounds",
+    "title": "Gravel Weight Calculator — Tons, Pounds & Volume",
     "h1": "Gravel Weight Calculator",
-    "description": "Convert gravel cubic yards to tons and pounds — for ordering by weight. Supports pea gravel, crushed stone, river rock and limestone densities.",
+    "description": "Calculate gravel weight from dimensions, known area or known volume using an editable bulk density. Get US tons, pounds, kilograms and metric tonnes.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "gravel weight calculator",
-      "gravel weight tons calculator"
+      "gravel tons calculator",
+      "gravel weight per cubic yard calculator",
+      "yards to tons gravel calculator"
     ],
     "featured": false
   },

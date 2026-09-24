@@ -1368,6 +1368,52 @@ const bulk: Model = {
   },
 };
 
+
+const gravelWeight: Model = {
+  fields: [
+    { ...number('mode','Calculate from',0,0), max:2, integer:true, options:[
+      {value:0,label:'Length × width × depth'},
+      {value:1,label:'Known area × depth'},
+      {value:2,label:'Known volume'}
+    ]},
+    { ...length('length','Area length',20), visibleWhen:{field:'mode',equals:0} },
+    { ...length('width','Area width',10), visibleWhen:{field:'mode',equals:0} },
+    { ...area('area','Known surface area',200), visibleWhen:{field:'mode',equals:1} },
+    { ...length('depth','Gravel depth',4,'in'), visibleWhen:{field:'mode',in:[0,1]} },
+    { ...volume('volume','Known gravel volume',1), visibleWhen:{field:'mode',equals:2} },
+    { ...number('density','Bulk density',1.4,0.01,'Enter the supplier or product bulk density for the same material state you are measuring.'), unit:'ton/yd3', group:'Material & assumptions' }
+  ],
+  formula:'Volume comes from length × width × depth, area × depth, or entered volume. US tons = cubic yards × entered bulk density; pounds = tons × 2,000.',
+  assumptions:[
+    'Bulk density varies with material type, grading, moisture and compaction, so it is an editable input rather than a universal gravel constant.',
+    'The dimensions and density must refer to the same loose or compacted state.',
+    'This calculator converts measured volume to estimated weight; it does not add a purchasing allowance.'
+  ],
+  sources:[],
+  calculate(v){
+    const mode=Math.round(v.mode);
+    const ft3=mode===0 ? v.length*v.width*v.depth : mode===1 ? v.area*v.depth : v.volume;
+    requireCondition(ft3>=0,'volume','Gravel volume cannot be negative.');
+    const yd3=ft3/27;
+    const tons=yd3*v.density;
+    const lb=tons*2000;
+    const kg=lb/LB_PER_KG;
+    return result([
+      row('tons','Estimated gravel weight',tons,'US tons'),
+      row('weight','Estimated gravel weight',lb,'lb'),
+      row('tonnes','Estimated gravel weight',kg/1000,'tonnes'),
+      row('kg','Estimated gravel weight',kg,'kg'),
+      row('volume','Gravel volume',yd3,'yd³')
+    ],[
+      mode===0 ? fmt(v.length)+' × '+fmt(v.width)+' × '+fmt(v.depth)+' = '+fmt(ft3)+' ft³.' :
+      mode===1 ? fmt(v.area)+' ft² × '+fmt(v.depth)+' ft = '+fmt(ft3)+' ft³.' :
+      'Entered volume = '+fmt(ft3)+' ft³.',
+      fmt(ft3)+' ÷ 27 = '+fmt(yd3)+' yd³.',
+      fmt(yd3)+' yd³ × '+fmt(v.density)+' ton/yd³ = '+fmt(tons)+' US tons.'
+    ]);
+  }
+};
+
 const weight: Model = {
   ...bulk,
   fields: [volume(), densityField, allowance, price('USD/ton', ['USD/ton', 'USD/yd3'])],
@@ -1713,6 +1759,7 @@ export const materialModels: Record<string, Model> = {
   // --- Non-concrete (unchanged) ---
   bulk,
   crushedStone,
+  gravelWeight,
   weight,
   depth,
   masonry,

@@ -46,6 +46,7 @@ export const referenceCases:ReferenceCase[] = [
  {model:'bulk',input:{length:3,width:3,depth:36,quantity:1,density:1.4},expected:{net:1,tons:1.4}},
  {model:'crushedStone',input:{mode:0,length:3,width:3,depth:36,density:1.5,waste:0},expected:{order:1,tons:1.5,pounds:3000,net:1}},
  {model:'weight',input:{volume:1,density:150},expected:{weight:4050,tons:2.025}},
+ {model:'gravelWeight',input:{mode:0,length:3,width:3,depth:36,density:1.5},expected:{volume:1,tons:1.5,weight:3000,tonnes:3000/2.2046226218487757/1000}},
  {model:'depth',input:{length:3,width:3,volume:1},expected:{depth:36}},
  {model:'concrete-mix',input:{volume:1,dryFactor:1.01,cementParts:1,sandParts:1,aggregateParts:0,cementDensity:1000,bagMass:50},units:{volume:'m3'},expected:{cementMass:505,cementBags:11,sandVol:0.505,aggregateVol:0,mixedVol:1,dryVol:1.01}},
  {model:'masonry',input:{length:10,width:10,openings:0,unitLength:11,unitHeight:11,joint:1,unitWeight:4},expected:{units:100,area:100,weight:400}},

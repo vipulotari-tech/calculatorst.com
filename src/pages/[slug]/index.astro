@@ -83,6 +83,10 @@ const ogClusterMap: Record<string, string> = {
 
 const ogImage = ogClusterMap[calc.cluster] ?? "/og.png";
 const faqEnhancements: Record<string, { q: string; a: string }[]> = {
+  "gravel-weight-calculator": [
+    { q: "Can I calculate gravel weight from square feet instead of cubic yards?", a: "Yes. Choose known area plus depth, or enter length, width and depth. If you already know the volume, choose the known-volume mode." },
+    { q: "Why does the gravel weight calculator ask for density?", a: "Weight per cubic yard changes with gravel type, grading, moisture and compaction. Enter a density that matches the material and condition you are estimating instead of relying on one universal value." },
+  ],
   "crushed-stone-calculator": [
     { q: "Can I calculate crushed stone from square feet or an existing cubic-yard volume?", a: "Yes. Choose dimensions, known surface area plus depth, or known volume. The calculator normalizes the selected measurements before applying your allowance and density." },
     { q: "What density should I use for crusher run, crushed concrete or crushed stone?", a: "Use the bulk density supplied for the exact material and condition you are ordering. Grading, moisture and compaction can change weight per cubic yard, so the density is editable instead of being hard-coded." },
@@ -108,6 +112,7 @@ const faqEnhancements: Record<string, { q: string; a: string }[]> = {
 const faq = [...content.faq, ...(faqEnhancements[calc.slug] ?? [])];
 const seoDescriptionOverrides: Record<string, string> = {
   "crushed-stone-calculator": calc.description,
+  "gravel-weight-calculator": calc.description,
   "concrete-cost-calculator": calc.description,
   "slab-cost-calculator": calc.description,
   "drywall-joint-compound-calculator": calc.description,

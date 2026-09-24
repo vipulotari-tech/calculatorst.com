@@ -134,3 +134,13 @@ describe('Roofing shingle intent separation', () => {
     expect(res.rows.find(r=>r.key==='total')?.value).toBeCloseTo(64,8);
   });
 });
+
+
+describe('Gravel weight traffic-priority calculator', () => {
+  it('calculates weight directly from measured dimensions', () => {
+    const res=calculate('gravel-weight-calculator',{mode:0,length:3,width:3,depth:36,density:1.5});
+    expect(res.rows.find(r=>r.key==='volume')?.value).toBeCloseTo(1,8);
+    expect(res.rows.find(r=>r.key==='tons')?.value).toBeCloseTo(1.5,8);
+    expect(res.rows.find(r=>r.key==='weight')?.value).toBeCloseTo(3000,8);
+  });
+});

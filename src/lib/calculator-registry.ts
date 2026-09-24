@@ -103,7 +103,7 @@ export const slugToModelKey: Record<string, string> = {
   // 8. Gravel & Aggregate (15)
   "gravel-calculator": "bulk",
   "gravel-cost-calculator": "bulk",
-  "gravel-weight-calculator": "weight",
+  "gravel-weight-calculator": "gravelWeight",
   "gravel-depth-calculator": "depth",
   "crushed-stone-calculator": "crushedStone",
   "crushed-stone-cost-calculator": "bulk",
