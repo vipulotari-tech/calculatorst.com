@@ -75,6 +75,10 @@ const categorySeoOverrides: Record<string, { title: string; description: string 
     title: "Foundation & Footing Calculators — Concrete, Excavation & Cost",
     description: "Use 10 foundation calculators for strip, pad and pier footings, footing volume, concrete, walls, basements, crawl spaces, excavation and project cost.",
   },
+  rebar: {
+    title: "Rebar & Reinforcement Calculators — Grid, Weight, Spacing & Cost",
+    description: "Use 10 rebar calculators for grid layout, quantity, stock bars, weight, cost, spacing, total length, lap steel, reinforcement mesh and chair supports.",
+  },
 };
 const categorySeo = categorySeoOverrides[cluster];
 const categoryTitle = categorySeo?.title ?? `${displayName} — Construction Calculators | Calculator Street`;
@@ -104,6 +108,15 @@ const taskLinks = cluster === "concrete" ? [
   { label: "Foundation walls", href: "/foundation-wall-calculator/", text: "Centerline wall concrete, opening deductions and form-contact area." },
   { label: "Basement walls", href: "/basement-wall-calculator/", text: "Rectangle perimeter, extra wall runs, openings, forms and concrete." },
   { label: "Foundation cost", href: "/foundation-cost-calculator/", text: "Concrete material plus entered excavation, forms, reinforcement, waterproofing and labor costs." },
+] : cluster === "rebar" ? [
+  { label: "Full rebar takeoff", href: "/rebar-calculator/", text: "Grid dimensions, bars, equal spacing, total footage, stock bars, weight and cost." },
+  { label: "Purchasing quantity", href: "/rebar-quantity-calculator/", text: "Convert a specified grid into installed bars, order footage and equivalent stock bars." },
+  { label: "Weight", href: "/rebar-weight-calculator/", text: "Nominal lb/ft, pounds, kilograms, US tons and metric tonnes for #3–#18 bars." },
+  { label: "Cost", href: "/rebar-cost-calculator/", text: "Price by foot, stock bar, pound or ton with tax and delivery." },
+  { label: "Spacing", href: "/rebar-spacing-calculator/", text: "Solve equal center spacing from bar count or bar count from a maximum spacing." },
+  { label: "Grid layout", href: "/rebar-grid-calculator/", text: "Rows, columns, usable grid dimensions, equalized spacing and total linear footage." },
+  { label: "Lap steel", href: "/rebar-lap-length-calculator/", text: "Total only a lap length already specified on the drawings, plus weight and cost." },
+  { label: "Mesh & supports", href: "/reinforcement-mesh-calculator/", text: "Mesh sheet orientation, overlap, purchasing quantity and cost; pair with chair supports." },
 ] : [];
 ---
 
@@ -140,7 +153,7 @@ const taskLinks = cluster === "concrete" ? [
 
         {taskLinks.length > 0 && (
           <section class="mt-6 rounded-xl border border-hairline bg-canvas p-5" aria-labelledby="choose-category-calculator">
-            <h2 id="choose-category-calculator" class="text-sm font-semibold text-ink">Choose the right {cluster === "concrete" ? "concrete" : cluster === "slab" ? "slab, patio or driveway" : "foundation or footing"} calculator</h2>
+            <h2 id="choose-category-calculator" class="text-sm font-semibold text-ink">Choose the right {cluster === "concrete" ? "concrete" : cluster === "slab" ? "slab, patio or driveway" : cluster === "foundation" ? "foundation or footing" : "rebar or reinforcement"} calculator</h2>
             <p class="mt-2 text-[13px] leading-5 text-body">These pages target different estimating tasks. Pick the one that matches the decision you are making instead of repeating the same inputs across several calculators.</p>
             <div class="mt-4 grid gap-3 sm:grid-cols-2">
               {taskLinks.map((item) => (
