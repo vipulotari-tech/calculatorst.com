@@ -84,6 +84,49 @@ describe("Concrete category golden-value regression suite", () => {
     )).toBeCloseTo(1.8370490985, 6);
   });
 
+  it("Concrete Weight: supports volume, area-depth, dimensions, presets and primary units", () => {
+    expect(value(
+      "concrete-weight-calculator", "primaryWeight",
+      { inputMode: 0, volume: 1, densityBasis: 0, density: 150, outputUnit: 0, waste: 0 },
+      { volume: "yd3", density: "lb/ft3" },
+    )).toBeCloseTo(4050, 6);
+
+    expect(value(
+      "concrete-weight-calculator", "netWeight",
+      { inputMode: 1, area: 100, areaThickness: 4, densityBasis: 0, density: 150, waste: 0 },
+      { area: "ft2", areaThickness: "in", density: "lb/ft3" },
+    )).toBeCloseTo(5000, 6);
+
+    expect(value(
+      "concrete-weight-calculator", "netWeight",
+      { inputMode: 2, length: 10, width: 10, thickness: 6, densityBasis: 0, density: 150, waste: 0 },
+      { length: "ft", width: "ft", thickness: "in", density: "lb/ft3" },
+    )).toBeCloseTo(7500, 6);
+
+    expect(value(
+      "concrete-weight-calculator", "netWeight",
+      { inputMode: 0, volume: 1, densityBasis: 2, density: 999, waste: 0 },
+      { volume: "yd3", density: "lb/ft3" },
+    )).toBeCloseTo(3105, 6);
+
+    expect(value(
+      "concrete-weight-calculator", "primaryWeight",
+      { inputMode: 0, volume: 1, densityBasis: 2, outputUnit: 3, waste: 0 },
+      { volume: "yd3" },
+    )).toBeCloseTo(1.40840430885, 8);
+  });
+
+  it("Concrete Weight: extra material allowance is separate from measured weight", () => {
+    const r = run(
+      "concrete-weight-calculator",
+      { inputMode: 0, volume: 1, densityBasis: 1, outputUnit: 0, waste: 10 },
+      { volume: "yd3" },
+    );
+    expect(r.rows.find(x => x.key === "netWeight")?.value).toBeCloseTo(4050, 6);
+    expect(r.rows.find(x => x.key === "orderWeight")?.value).toBeCloseTo(4455, 6);
+    expect(r.rows.find(x => x.key === "primaryWeight")?.value).toBeCloseTo(4050, 6);
+  });
+
   it("Concrete Cost: bag price uses rounded bag count", () => {
     const r = run(
       "concrete-cost-calculator",
