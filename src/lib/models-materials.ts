@@ -6,6 +6,8 @@ const quikrete = 'https://www.quikrete.com/calculator/main.asp';
 const cmha = 'https://www.cmha.org/resource/tek-04-02a/';
 const geometry = 'https://www.calculatorsoup.com/calculators/construction/concrete-calculator.php';
 const acicr = 'https://www.concrete.org/general/frequently-asked-concrete-questions-faqs';
+const nrmcaCip = 'https://www.nrmca.org/association-resources/research-and-engineering/cip/';
+const nistVolume = 'https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9';
 
 // Standard density for normal-weight concrete: 150 lb/ft³ (ACI 318 typical, QUIKRETE spec sheet)
 // Lightweight: ~110-115 lb/ft³, Heavyweight: up to 300+ lb/ft³
@@ -1088,17 +1090,15 @@ const concreteFootingFields: Field[] = [
       { value: 2, label: 'Rectangular isolated pad' },
       { value: 3, label: 'Round / circular' },
     ] },
-  // Strip
-  length('length', 'Footing length (centerline)', 20, 'ft'),
-  length('width', 'Footing width', 12, 'in'),
+  // Show only the geometry inputs used by the selected footing type. Field IDs,
+  // defaults and units remain unchanged so existing shared URLs stay compatible.
+  { ...length('length', 'Footing length (centerline)', 20, 'ft'), visibleWhen: { field: 'footingShape', equals: 0 } },
+  { ...length('width', 'Footing width', 12, 'in'), visibleWhen: { field: 'footingShape', equals: 0 } },
+  { ...positiveOrZero(length('sideWidth', 'Side width (square pad)', 24, 'in')), visibleWhen: { field: 'footingShape', equals: 1 } },
+  { ...positiveOrZero(length('padLength', 'Pad length (rectangular)', 30, 'in')), visibleWhen: { field: 'footingShape', equals: 2 } },
+  { ...positiveOrZero(length('padWidth', 'Pad width (rectangular)', 24, 'in')), visibleWhen: { field: 'footingShape', equals: 2 } },
+  { ...positiveOrZero(length('diameter', 'Diameter (round)', 24, 'in')), visibleWhen: { field: 'footingShape', equals: 3 } },
   length('depth', 'Footing depth', 12, 'in'),
-  // Square
-  positiveOrZero(length('sideWidth', 'Side width (square pad)', 24, 'in')),
-  // Rectangular
-  positiveOrZero(length('padLength', 'Pad length (rectangular)', 30, 'in')),
-  positiveOrZero(length('padWidth', 'Pad width (rectangular)', 24, 'in')),
-  // Round
-  positiveOrZero(length('diameter', 'Diameter (round)', 24, 'in')),
   count('quantity', 'Number of footings', 1),
   allowance,
   densityField,
@@ -1108,47 +1108,95 @@ const concreteFootingFields: Field[] = [
 
 const concreteFooting: Model = {
   fields: concreteFootingFields,
-  formula: 'Strip: V = length × width × depth. Square: V = s² × depth × Q. Rectangular: V = pl × pw × depth × Q. Round: V = π × (D/2)² × depth × Q.',
+  formula: 'Strip: V = length × width × depth × Q. Square: V = s² × depth × Q. Rectangular: V = pad length × pad width × depth × Q. Round: V = π × (D/2)² × depth × Q.',
   assumptions: [
     ...standardAssumptions,
-    'Strip footing length should use the centerline method so corners are not double-counted.',
-    'This estimates concrete volume only. Reinforcement, dowels, and keyways require separate measurement.',
-    'Footing size must come from the structural design; this tool does not size footings.',
-    'Stepped or belled footings require splitting into stacked prisms — calculate each section separately.',
+    'Strip footing length should use the centerline method so connected corners are not double-counted.',
+    'Quantity multiplies the complete selected footing geometry before the material allowance is applied once.',
+    'Bag counts round up only after the allowance-adjusted volume is divided by the entered mixed yield.',
+    'Footing size, bearing capacity and reinforcement must come from the project design; this material calculator does not size footings.',
+    'Stepped, tapered or belled footings should be split into non-overlapping simple sections and summed separately.',
   ],
-  sources: [geometry, 'https://www.iccsafe.org/', 'https://www.crsi.org/'],
+  // Primary/industry references support concrete practice and unit conversion.
+  // CalculatorSoup remains only as a product/geometry benchmark and is filtered
+  // from the public technical-reference block by the page template.
+  sources: [acicr, nrmcaCip, nistVolume, quikrete, geometry],
   calculate(v, u) {
     const shape = Math.round(v.footingShape);
     let cuFt: number;
     let steps: string[];
     let extra: { key: string; label: string; value: number; unit: string; discrete?: boolean }[] = [];
 
+    requireCondition(v.depth > 0, 'depth', 'Enter a footing depth greater than zero.');
+
     switch (shape) {
       case 0: {
-        cuFt = v.length * v.width * v.depth * v.quantity;
-        steps = [`Strip: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
+        requireCondition(v.length > 0, 'length', 'Enter a footing length greater than zero.');
+        requireCondition(v.width > 0, 'width', 'Enter a footing width greater than zero.');
+        const crossArea = v.width * v.depth;
+        const perFooting = v.length * crossArea;
+        cuFt = perFooting * v.quantity;
+        steps = [
+          `Strip cross-section: ${fmt(v.width)} × ${fmt(v.depth)} = ${fmt(crossArea)} ft².`,
+          `Strip volume: ${fmt(v.length)} × ${fmt(crossArea)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
+        ];
+        extra = [
+          row('crossArea', 'Footing cross-section area', crossArea, 'ft²'),
+          row('perFooting', 'Net concrete per footing/run', perFooting, 'ft³'),
+        ];
         break;
       }
       case 1: {
-        const s = v.sideWidth;
-        cuFt = s * s * v.depth * v.quantity;
-        steps = [`Square pad: ${fmt(s)} × ${fmt(s)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
+        requireCondition(v.sideWidth > 0, 'sideWidth', 'Enter a square footing side greater than zero.');
+        const footprint = v.sideWidth * v.sideWidth;
+        const perFooting = footprint * v.depth;
+        cuFt = perFooting * v.quantity;
+        steps = [
+          `Square footprint: ${fmt(v.sideWidth)}² = ${fmt(footprint)} ft².`,
+          `Square pad volume: ${fmt(footprint)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
+        ];
+        extra = [
+          row('footprint', 'Footprint area per footing', footprint, 'ft²'),
+          row('perFooting', 'Net concrete per footing', perFooting, 'ft³'),
+        ];
         break;
       }
       case 2: {
-        cuFt = v.padLength * v.padWidth * v.depth * v.quantity;
-        steps = [`Rectangular pad: ${fmt(v.padLength)} × ${fmt(v.padWidth)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
+        requireCondition(v.padLength > 0, 'padLength', 'Enter a rectangular pad length greater than zero.');
+        requireCondition(v.padWidth > 0, 'padWidth', 'Enter a rectangular pad width greater than zero.');
+        const footprint = v.padLength * v.padWidth;
+        const perFooting = footprint * v.depth;
+        cuFt = perFooting * v.quantity;
+        steps = [
+          `Rectangular footprint: ${fmt(v.padLength)} × ${fmt(v.padWidth)} = ${fmt(footprint)} ft².`,
+          `Rectangular pad volume: ${fmt(footprint)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
+        ];
+        extra = [
+          row('footprint', 'Footprint area per footing', footprint, 'ft²'),
+          row('perFooting', 'Net concrete per footing', perFooting, 'ft³'),
+        ];
         break;
       }
       case 3: {
+        requireCondition(v.diameter > 0, 'diameter', 'Enter a round footing diameter greater than zero.');
         const r = v.diameter / 2;
-        cuFt = Math.PI * r * r * v.depth * v.quantity;
-        steps = [`Round: π × (${fmt(v.diameter)}/2)² × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
+        const footprint = Math.PI * r * r;
+        const perFooting = footprint * v.depth;
+        cuFt = perFooting * v.quantity;
+        steps = [
+          `Round footprint: π × ${fmt(r)}² = ${fmt(footprint)} ft².`,
+          `Round footing volume: ${fmt(footprint)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
+        ];
+        extra = [
+          row('footprint', 'Footprint area per footing', footprint, 'ft²'),
+          row('perFooting', 'Net concrete per footing', perFooting, 'ft³'),
+        ];
         break;
       }
       default: {
+        requireCondition(false, 'footingShape', 'Select a supported footing type.');
         cuFt = 0;
-        steps = ['Select a footing type.'];
+        steps = [];
       }
     }
     return concreteResult(cuFt, v, u, steps, extra);
