@@ -27,7 +27,7 @@ describe("Complete 204 Calculator Logic Audit", () => {
   it("should keep worked examples human-readable and free of internal enum values", () => {
     const concrete = getModelForSlug("concrete-calculator");
     const content = getCalculatorContent("Concrete Calculator", concrete);
-    expect(content.inputs).toContain("Project type: Slab");
+    expect(content.inputs).toContain("Project type: Rectangular slab");
     expect(content.inputs).not.toContain("Project type: 0");
     expect(content.description).not.toMatch(/plus \d+ more/i);
   });
