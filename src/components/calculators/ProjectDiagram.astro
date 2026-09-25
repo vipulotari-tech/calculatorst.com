@@ -343,6 +343,12 @@ const show = !excluded && fields.length >= 2;
       root.addEventListener("change", update);
       root.addEventListener("calculator-state-restored", update);
       update();
+      // GenericCalculator may hydrate a shared URL in a sibling module during the
+      // same page-load turn. Re-read once after hydration order settles so the
+      // schematic always matches the restored project type on first paint.
+      queueMicrotask(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 0);
     });
   }
 
