@@ -207,20 +207,20 @@ export const slugToModelKey: Record<string, string> = {
   "deck-railing-calculator": "railing",
   "fence-calculator": "fence",
   "fence-cost-calculator": "material-cost",
-  "fence-post-calculator": "fence",
-  "fence-panel-calculator": "fence",
+  "fence-post-calculator": "fencePost",
+  "fence-panel-calculator": "fencePanel",
   "fence-picket-calculator": "pickets",
   "fence-concrete-calculator": "postConcrete",
   "gate-calculator": "gate",
   "gate-cost-calculator": "material-cost",
 
   // 15. Paver & Landscaping (10)
-  "paver-calculator": "tile",
+  "paver-calculator": "paver",
   "paver-cost-calculator": "material-cost",
   "paver-sand-calculator": "bulk",
   "paver-base-calculator": "bulk",
-  "paver-joint-sand-calculator": "jointFill",
-  "landscaping-calculator": "mulch",
+  "paver-joint-sand-calculator": "paverJointSand",
+  "landscaping-calculator": "landscapeMaterial",
   "landscaping-cost-calculator": "material-cost",
   "mulch-calculator": "mulch",
   "mulch-cost-calculator": "material-cost",
@@ -273,6 +273,42 @@ export function getModelForSlug(slug: string): Model {
     }
     if (slug === 'drywall-joint-compound-calculator') {
       overrides.coverage = { value: undefined, label: 'Finished drywall coverage per container', help: 'Enter manufacturer coverage for your finish level and container size. This estimates compound containers, not tape.' };
+    }
+    if (slug === 'retaining-wall-calculator') {
+      overrides.unitLength = { value: 12, label: 'Block face length', help: 'Editable example only. Use the actual face length of the retaining-wall block being installed.' };
+      overrides.unitHeight = { value: 4, label: 'Block face height', help: 'Editable example only. Use the actual exposed course height for the selected block system.' };
+      overrides.joint = { value: 0, label: 'Horizontal / vertical joint or gap', help: 'Use zero for tight dry-stack face layout unless the selected system specifies an installed gap.' };
+      overrides.unitWeight = { value: 30, label: 'Block weight (lb)', help: 'Editable example only. Use the manufacturer weight for the exact block.' };
+    }
+    if (['asphalt-calculator','asphalt-cost-calculator','asphalt-driveway-calculator','parking-lot-calculator'].includes(slug)) {
+      overrides.depth = { label: 'Compacted asphalt thickness' };
+      overrides.density = {
+        value: 145,
+        unit: 'lb/ft3',
+        units: ['lb/ft3','kg/m3','ton/yd3'],
+        label: 'Compacted asphalt density',
+        help: '145 lb/ft³ is an editable planning example. Use the supplier or mix-design compacted density when available.'
+      };
+    }
+    if (slug === 'asphalt-weight-calculator' || slug === 'asphalt-thickness-calculator') {
+      overrides.density = {
+        value: 145,
+        unit: 'lb/ft3',
+        units: ['lb/ft3','kg/m3','ton/yd3'],
+        label: 'Compacted asphalt density',
+        help: '145 lb/ft³ is an editable planning example. Use the supplier or mix-design compacted density when available.'
+      };
+    }
+    if (slug === 'paver-base-calculator') {
+      overrides.depth = { label: 'Compacted base depth' };
+      overrides.density = { label: 'Base-material bulk density', help: 'Use the supplier density for the same compacted or loose state represented by the entered dimensions.' };
+    }
+    if (slug === 'paver-sand-calculator') {
+      overrides.depth = { label: 'Bedding-sand depth' };
+      overrides.density = { label: 'Bedding-sand bulk density', help: 'Use the supplier density for the same material state represented by the entered dimensions.' };
+    }
+    if (slug === 'insulation-calculator') {
+      overrides.coverage = { label: 'Effective coverage per package', help: 'Use the manufacturer package coverage for the selected insulation product and thickness.' };
     }
     if (slug === 'roof-sheathing-calculator') overrides.coverage = { value: 32, label: 'Effective coverage per sheathing sheet' };
     if (slug === 'roofing-underlayment-calculator') overrides.coverage = { value: undefined, label: 'Net coverage per roll after overlaps' };
