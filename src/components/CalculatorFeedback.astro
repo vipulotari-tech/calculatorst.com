@@ -1,0 +1,101 @@
+---
+interface Props {
+  calculatorName: string;
+  canonicalUrl: string;
+}
+const { calculatorName, canonicalUrl } = Astro.props;
+const storageKey = `calculatorst:helpful:${canonicalUrl}`;
+---
+
+<section
+  class="rounded-xl border border-border bg-card p-5"
+  data-calculator-feedback
+  data-storage-key={storageKey}
+  data-calculator-name={calculatorName}
+  aria-labelledby="calculator-feedback-heading"
+>
+  <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div>
+      <h2 id="calculator-feedback-heading" class="text-sm font-semibold text-foreground">Was this calculator helpful?</h2>
+      <p class="mt-1 text-xs leading-5 text-muted-foreground">
+        Your choice is stored only on this device. No public vote count is shown.
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-2" role="group" aria-label="Calculator usefulness feedback">
+      <button
+        type="button"
+        data-feedback-value="yes"
+        aria-pressed="false"
+        class="feedback-btn inline-flex min-h-11 items-center justify-center rounded-lg border border-border bg-background px-4 text-sm font-medium text-foreground hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        Helpful
+      </button>
+      <button
+        type="button"
+        data-feedback-value="no"
+        aria-pressed="false"
+        class="feedback-btn inline-flex min-h-11 items-center justify-center rounded-lg border border-border bg-background px-4 text-sm font-medium text-foreground hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        Needs improvement
+      </button>
+    </div>
+  </div>
+  <p class="feedback-status mt-3 text-xs text-muted-foreground" role="status" aria-live="polite"></p>
+</section>
+
+<script>
+  function initCalculatorFeedback() {
+    document.querySelectorAll<HTMLElement>("[data-calculator-feedback]").forEach((root) => {
+      if (root.dataset.initialized) return;
+      root.dataset.initialized = "true";
+
+      const key = root.dataset.storageKey;
+      const calculatorName = root.dataset.calculatorName ?? "Calculator";
+      const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-feedback-value]"));
+      const status = root.querySelector<HTMLElement>(".feedback-status");
+
+      const render = (value: string | null) => {
+        buttons.forEach((button) => {
+          const selected = button.dataset.feedbackValue === value;
+          button.setAttribute("aria-pressed", String(selected));
+          button.classList.toggle("bg-foreground", selected);
+          button.classList.toggle("text-background", selected);
+          button.classList.toggle("border-foreground", selected);
+        });
+        if (status) {
+          status.textContent = value ? "Preference saved on this device. You can change it anytime." : "";
+        }
+      };
+
+      let saved: string | null = null;
+      try {
+        saved = key ? window.localStorage.getItem(key) : null;
+      } catch {
+        saved = null;
+      }
+      render(saved);
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const value = button.dataset.feedbackValue ?? "";
+          try {
+            if (key) window.localStorage.setItem(key, value);
+          } catch {
+            // The control still works for this page even when storage is blocked.
+          }
+          render(value);
+          window.dispatchEvent(new CustomEvent("calculator-feedback", {
+            detail: { calculatorName, value },
+          }));
+        });
+      });
+    });
+  }
+
+  document.addEventListener("astro:page-load", initCalculatorFeedback);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCalculatorFeedback, { once: true });
+  } else {
+    initCalculatorFeedback();
+  }
+</script>
