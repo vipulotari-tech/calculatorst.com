@@ -330,7 +330,7 @@ const roofPitch:Model={
     {...number('angleInput','Roof angle (degrees)',26.565,0),max:89.9,visibleWhen:{field:'mode',equals:1}},
     {...number('pitchInput','Pitch rise per 12',6,0,'Enter the rise for a standard 12-unit horizontal run, such as 6 for a 6:12 roof.'),max:120,visibleWhen:{field:'mode',equals:2}},
     {...length('referenceRun','Horizontal run for length outputs',12,'ft','Optional. Add a real horizontal run to also calculate vertical rise and sloped rafter length.'),value:undefined,optional:true,visibleWhen:{field:'mode',in:[1,2]}},
-    {...length('rafterLength','Sloped rafter length',13.416,'ft','Use the straight sloped length over the same horizontal run. This geometry does not include birdsmouth, ridge deductions or tail cuts.'),visibleWhen:{field:'mode',equals:3}}
+    {...length('rafterLength','Sloped rafter length',13.416,'in','Use the straight sloped length over the same horizontal run. This geometry does not include birdsmouth, ridge deductions or tail cuts.'),visibleWhen:{field:'mode',equals:3}}
   ],
   formula:'Slope = rise/run = tan(angle) = pitch/12. Angle = atan(slope). Surface multiplier = √(1+slope²). Rafter length = run × multiplier; reverse mode uses rise = √(rafter² − run²).',
   assumptions:[
