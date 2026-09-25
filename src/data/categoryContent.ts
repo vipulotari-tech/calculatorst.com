@@ -142,18 +142,20 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   "deck-fence": {
-    intro: "Decks and fences share structural logic — posts set in concrete, joists or rails spaced on-center, and boards spanning between — but the load profiles and code requirements differ. Deck calculators focus on floor systems and railings; fence calculators focus on post schedules, panels and privacy layouts.",
-    beforeYouCalculate: "For decks: measure the overall span, joist spacing (12 or 16 inches on-center typical), post locations and whether the deck is attached to the house or freestanding. For fences: measure the total linear footage, desired height, post spacing (6–8 feet typical), and whether you are using panels or individual pickets.",
+    intro: "These 15 deck, fence and gate calculators separate surface-board takeoff, joist count, post-hole concrete, stair and railing layout, fence posts, panels, pickets and gate geometry. Quantity calculators use the spacing and dimensions you specify; they do not choose structural spans, footing design or code limits.",
+    beforeYouCalculate: "Measure each deck surface or fence run separately. Gather the actual decking face width and stock length, specified joist or post spacing, post-hole geometry, selected stair and railing layout limits, fence panel or picket dimensions, gate opening and hardware clearances, plus current supplier prices where cost is needed.",
     tips: [
-      "Deck footing embedment and frost protection depend on local requirements, soil and the deck design; use the specified footing depth.",
-      "Fence-post hole diameter, embedment and concrete geometry depend on post size, soil, wind exposure and the fence system. Enter the dimensions selected for the project.",
-      "Joist span depends on species, grade, member size, spacing and load. Use an approved span table or engineered design rather than inferring capacity from spacing alone.",
-      "Guard height and opening limits are code requirements that vary by application and jurisdiction; verify the rules that apply to the project.",
+      "Use Deck Calculator for a combined surface takeoff; use Deck Board Calculator when the purchasing question is specifically rows, stock boards and linear footage.",
+      "Deck Joist and Fence Post calculators convert a specified maximum spacing into a count and equalized layout. They do not select an allowable span or post spacing.",
+      "Deck Footing Concrete and Fence Concrete estimate material from entered hole geometry and subtract the square post volume from a round hole.",
+      "Deck Stair and Railing calculators are geometry tools. Enter the project-approved riser, tread and opening limits and verify the completed layout against applicable requirements.",
+      "Fence Calculator combines posts and sections; Fence Panel and Fence Post calculators isolate those purchasing decisions so panel width, post spacing and spares are not conflated."
     ],
     relatedCategories: [
-      { name: "Concrete", href: "/construction/concrete/", reason: "Post footings and concrete pads" },
-      { name: "Foundation & Footing", href: "/construction/foundation/", reason: "Deck footing sizing" },
-      { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Gravel base under deck footings" },
+      { name: "Concrete", href: "/construction/concrete/", reason: "Concrete quantity for larger deck or fence footing scopes" },
+      { name: "Framing & Lumber", href: "/construction/framing/", reason: "Lumber, joist and beam takeoffs around deck framing" },
+      { name: "Foundation & Footing", href: "/construction/foundation/", reason: "Foundation geometry and excavation when the project extends beyond post-hole takeoff" },
+      { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Specified drainage or base material quantities" },
     ],
   },
 
@@ -178,17 +180,19 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   "drywall-paint": {
-    intro: "Interior finish work starts with drywall sheets and ends with paint. Getting the right number of drywall sheets, joint compound coats, screws, paint gallons and insulation batts requires accurate room measurements and waste factors for door and window openings.",
-    beforeYouCalculate: "Measure wall and ceiling lengths and heights. Count doors, windows and openings that reduce coverage. Note whether you are using 4×8 or 4×12 sheets (4×12 reduces seams and waste). For paint, note the number of coats needed — new drywall needs primer plus at least one finish coat.",
+    intro: "These 15 drywall, paint and insulation calculators separate room geometry, sheet purchasing, finishing materials, coating coverage and insulation package estimates. Use the focused tool that matches the quantity you actually know instead of forcing the same square-foot input into every finish calculation.",
+    beforeYouCalculate: "Measure wall, ceiling or floor areas as required by the selected calculator and record openings only where they are truly excluded. For purchased products, gather the actual drywall sheet size, joint-compound coverage, tape roll length, screw schedule, paint or primer coverage, container size, insulation package coverage, or spray-foam kit yield shown by the manufacturer.",
     tips: [
-      "Drywall sheets cover 32 or 48 sq ft each — calculate gross wall area, subtract openings, then add 5–10% waste for cuts.",
-      "Paint and primer coverage vary by product, surface and application. Enter the coverage printed on the selected product rather than relying on a generic rate.",
-      "Use the paint calculator's ceiling and wall separation feature — ceiling white and wall color usually need different gallons.",
-      "Spray-foam thermal performance varies by formulation and installed thickness. Use the product data sheet for coverage and thermal values.",
+      "Use Drywall Calculator when you know room dimensions; use Drywall Sheet Calculator when you already know the finished surface area and want a whole-sheet purchase count.",
+      "Joint-compound consumption depends on finish level, joint treatment and product. Enter manufacturer coverage for the exact container instead of using one universal mud-per-square-foot rate.",
+      "Drywall screw quantity should follow the fastening plan for the sheet size, orientation, framing and assembly. The screw calculator multiplies the schedule you enter; it does not select a fastening specification.",
+      "Paint and primer coverage, coat count and container size are product and surface inputs. Rough, porous or newly finished surfaces can differ from label coverage.",
+      "Insulation package coverage and spray-foam field yield are product-specific. These calculators estimate quantity; they do not determine required R-value, vapor control or assembly suitability."
     ],
     relatedCategories: [
-      { name: "Flooring & Tile", href: "/construction/flooring/", reason: "Flooring underlayment after drywall" },
-      { name: "Framing & Lumber", href: "/construction/framing/", reason: "Wall studs and framing behind drywall" },
+      { name: "Framing & Lumber", href: "/construction/framing/", reason: "Stud and joist layout behind drywall and insulation" },
+      { name: "Flooring & Tile", href: "/construction/flooring/", reason: "Interior finish quantities for floors and tile" },
+      { name: "Roofing", href: "/construction/roofing/", reason: "Roof and ceiling framing context for attic insulation projects" },
     ],
   },
 
@@ -298,18 +302,20 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   landscaping: {
-    intro: "Landscaping materials cover pavers, retaining walls, mulch and decorative rock. Unlike structural construction, landscaping is often about aesthetics as much as function — but the math is just as important. These calculators cover paver layouts, retaining wall blocks, mulch volume and edging.",
-    beforeYouCalculate: "Measure the area to be paved or mulched in square feet. Note the paver size and joint sand width. For retaining walls, measure the wall length and height, and note whether you need geogrid reinforcement for walls over 3–4 feet. For mulch, measure the area and desired depth (2–3 inches is typical for beds).",
+    intro: "These 10 paver and landscaping calculators separate surface paver layout, base and bedding layers, joint-sand fill, generic landscape-material volume, mulch and retaining-wall block quantity. Keeping each layer separate prevents the same waste, density or depth assumption from being applied twice.",
+    beforeYouCalculate: "Measure each non-overlapping area and gather the actual paver or block face dimensions, specified base and bedding depths, joint width and fill depth, supplier bulk density, bag size and quoted price required by the selected tool. For retaining walls, use the block system dimensions from the manufacturer and treat structural wall design as a separate task.",
     tips: [
-      "Paver base and bedding thickness depend on soil, climate, traffic and the selected paving system. Use the section specified for the project.",
-      "Retaining-wall design requirements depend on height, retained soil, surcharge, drainage and local rules. Taller or loaded walls may require engineered design.",
-      "Mulch at 3-inch depth covers about 108 sq ft per cubic yard — less if you need fewer inches, more for deeper beds.",
-      "Joint material should match the paver system and manufacturer instructions; climate alone is not enough to select a joint product.",
+      "Paver Calculator handles straight-layout paver count only. Use the dedicated Base, Bedding Sand and Joint Sand calculators for those separate layers.",
+      "Base and bedding quantities must use the material state represented by the entered dimensions and density. Do not mix compacted layer dimensions with an unrelated loose density.",
+      "Paver Joint Sand estimates joint volume and bag count from the geometry you enter; manufacturer coverage for the exact product and paver layout is preferable for final ordering.",
+      "Landscaping Material Calculator is intentionally generic for bagged or bulk landscape materials. Mulch has its own calculator so mulch-specific depth and bag assumptions do not leak into other materials.",
+      "Retaining Wall Block Calculator is a face-area material takeoff. Wall stability, drainage, setbacks, surcharge, reinforcement and foundation requirements remain design inputs."
     ],
     relatedCategories: [
-      { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Paver base gravel and drainage rock" },
-      { name: "Retaining Walls", href: "/construction/landscaping/", reason: "Retaining wall block calculators" },
-      { name: "Concrete", href: "/construction/concrete/", reason: "Concrete footings for retaining walls" },
+      { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Bulk aggregate, sand and drainage-rock volume, weight and cost" },
+      { name: "Slab, Patio & Driveway", href: "/construction/slab-patio-driveway/", reason: "Patio and driveway project geometry and concrete alternatives" },
+      { name: "Excavation & Earthwork", href: "/construction/excavation/", reason: "Excavation, cut/fill and soil-haul quantities before landscape construction" },
+      { name: "Concrete", href: "/construction/concrete/", reason: "Concrete footings or edging where the project design requires them" },
     ],
   },
 
@@ -332,18 +338,20 @@ export const categoryContent: Record<string, CategoryContent> = {
 
 
   asphalt: {
-    intro: "Asphalt paving calculations differ from concrete because the material is sold by weight (tons) rather than volume, and the compaction factor matters. These calculators cover asphalt volume, weight, cost, driveway thickness and parking lot sizing.",
-    beforeYouCalculate: "Measure the paved area and use the compacted asphalt thickness specified for the pavement section. Enter the mix density supplied for the material when available and keep aggregate base quantities as a separate layer.",
+    intro: "These 10 asphalt and surface calculators separate compacted asphalt quantity, weight, quote-based cost, reverse thickness, parking-lot material, road base and net surface area. The quantity tools convert measured geometry through an editable compacted density; the cost tools add only the prices and fixed charges you enter.",
+    beforeYouCalculate: "Measure the paved area and use the compacted asphalt thickness specified for the project. Obtain the mix or supplier density when available, and keep road-base or aggregate layers separate. For reverse thickness, start with a known asphalt mass and paved area. For cost estimates, use a quote whose unit basis matches the calculator.",
     tips: [
-      "Asphalt tonnage = compacted volume × the selected mix density. A planning density can be used for an early estimate, but supplier or mix-design density is better for ordering.",
-      "Asphalt and aggregate-base thicknesses are pavement-design inputs. Calculate each layer separately using the specified compacted thickness.",
-      "Coverage per ton depends on compacted thickness and mix density. Calculate it from those two inputs rather than using a fixed square-yard-per-ton rule.",
-      "Parking-lot pavement sections vary with traffic, subgrade and local specifications. Enter the designed asphalt and aggregate-base thicknesses rather than generic defaults.",
+      "Asphalt Calculator is the general quantity workflow; Asphalt Cost adds a quoted material price, while Asphalt Weight starts from a known volume.",
+      "Asphalt Thickness Calculator reverse-calculates average compacted depth from known mass, area and density. It does not recommend pavement thickness from traffic or subgrade.",
+      "Parking Lot Calculator is for asphalt quantity; Parking Lot Cost adds quoted material price, tax, trucking and entered fixed paving cost. Keeping these intents separate reduces double counting.",
+      "Density is editable because asphalt mixtures and field conditions vary. The planning default is not a substitute for supplier or mix-design data.",
+      "Road base is a separate layer with its own depth and density. Do not apply asphalt allowance or density to the aggregate-base quantity."
     ],
     relatedCategories: [
-      { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Crushed stone base under asphalt" },
-      { name: "Concrete", href: "/construction/concrete/", reason: "Concrete curbs and gutters adjacent to asphalt" },
-      { name: "Slab, Patio & Driveway", href: "/construction/slab-patio-driveway/", reason: "Driveway thickness and cost" },
+      { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Aggregate base and imported bulk material quantities" },
+      { name: "Excavation & Earthwork", href: "/construction/excavation/", reason: "Cut, subgrade excavation and haul quantities before paving" },
+      { name: "Slab, Patio & Driveway", href: "/construction/slab-patio-driveway/", reason: "Driveway geometry and concrete alternatives" },
+      { name: "Concrete", href: "/construction/concrete/", reason: "Curbs, gutters and concrete paving adjacent to asphalt" },
     ],
   },
 };
