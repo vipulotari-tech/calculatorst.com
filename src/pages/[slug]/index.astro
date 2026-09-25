@@ -265,18 +265,23 @@ const concreteSeo: Record<string, {
     ]
   },
   "concrete-mix-calculator": {
-    title: "Concrete Mix Calculator — Cement, Sand & Aggregate Ratio",
-    description: "Calculate cement, sand, coarse aggregate, water and whole cement bags from concrete volume and a custom mix ratio, dry-volume factor and water-cement ratio.",
+    title: "Concrete Mix Calculator — Cement, Sand, Aggregate & Water",
+    description: "Estimate cement bags, cement/sand/aggregate quantities and water from known volume or dimensions using preset/custom ratios, editable bulk densities and water-cement ratio.",
     guidance: [
-      "Enter the specified volumetric mix parts for cement, sand and coarse aggregate instead of assuming one ratio fits every application.",
-      "The dry-volume factor and bulk densities are estimating assumptions; actual batching by mass should follow the approved mix design.",
-      "The water result is an approximation from the entered water-cement ratio and does not account for aggregate moisture or admixtures."
+      "Start from a known mixed-concrete volume or enter length, width and depth. The calculator normalizes US or metric measurements before the material takeoff.",
+      "Choose a volumetric ratio shortcut or switch to Custom ratio. Preset ratios are proportion shortcuts only; they do not by themselves prove compressive strength or code compliance.",
+      "Dry-volume factor and loose bulk densities are editable because aggregate grading, moisture and packing can materially change the takeoff.",
+      "The large result is the whole cement-bag requirement. Cement, sand, coarse aggregate and water remain visible in both metric and US-friendly units.",
+      "For structural concrete, use the approved mix design and field moisture corrections rather than relying on a nominal ratio."
     ],
     faq: [
-      { q: "What does a 1:2:3 concrete mix ratio mean?", a: "It represents relative parts of cement, sand and coarse aggregate by the chosen volumetric basis. This calculator divides the dry material volume according to those entered parts." },
-      { q: "Why is a dry-volume factor used?", a: "Loose dry ingredients occupy a different volume than finished concrete. The factor expands the target mixed volume before the ingredient proportions are calculated." },
-      { q: "How are cement bags calculated?", a: "The calculator estimates cement volume, converts it to mass using the entered bulk density, divides by bag mass and rounds up to whole bags." },
-      { q: "Is this a structural concrete mix-design tool?", a: "No. It is a material-estimating calculator. Structural mix design must account for strength, durability, aggregate grading, moisture, admixtures and project specifications." }
+      { q: "What does a 1:2:3 concrete mix ratio mean?", a: "It means 1 volumetric part cement, 2 parts sand and 3 parts coarse aggregate before density and water adjustments. It is a proportion, not a guaranteed strength rating." },
+      { q: "Can I calculate a concrete mix from dimensions instead of entering volume first?", a: "Yes. Select Length × width × depth, enter the dimensions and quantity, and the calculator derives the mixed volume before applying allowance and the dry-volume factor." },
+      { q: "Why are sand and aggregate densities editable?", a: "Loose bulk density changes with material grading, moisture and compaction. Editable values prevent one hard-coded mass assumption from being presented as universal." },
+      { q: "How are cement bags calculated?", a: "The calculator converts cement volume to cement mass using the entered loose bulk density, divides that mass by the bag size you enter, then rounds up to a whole bag." },
+      { q: "How is water calculated?", a: "Water mass equals cement mass × the entered water/cement ratio. Water volume is shown using the estimating approximation that 1 kg of water is about 1 liter." },
+      { q: "Is the 1.54 dry-volume factor always correct?", a: "No. It is a common estimating convention, but the actual relationship depends on grading, moisture, packing and the mix. Replace it with project or trial-batch data when available." },
+      { q: "Is this a structural concrete mix-design tool?", a: "No. It is a material takeoff tool. Structural mix design must account for specified strength, durability, aggregate grading, moisture, admixtures, air content and project requirements." }
     ]
   },
   "concrete-pour-calculator": {
@@ -1805,7 +1810,7 @@ const newCalculatorSlugs = new Set([
   "concrete-crack-repair-calculator",
 ]);
 const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-08-29";
-const pageDateModified = ["concrete-calculator", "concrete-volume-calculator", "concrete-weight-calculator", "concrete-cost-calculator"].includes(calc.slug) || enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" : "2026-09-24";
+const pageDateModified = ["concrete-calculator", "concrete-volume-calculator", "concrete-weight-calculator", "concrete-cost-calculator", "concrete-mix-calculator"].includes(calc.slug) || enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" : "2026-09-24";
 ---
 
 <CalculatorLayout
@@ -1940,6 +1945,33 @@ const pageDateModified = ["concrete-calculator", "concrete-volume-calculator", "
           <div class="rounded-md bg-canvas-soft-2 p-3"><span class="font-mono font-semibold">60-lb bag ≈ 0.45 ft³*</span></div>
         </div>
         <p class="mt-3 text-xs leading-5 text-mute">*Manufacturer-published QUIKRETE Concrete Mix yields. For another product, enter the yield printed on its bag.</p>
+      </details>
+    )}
+    {calc.slug === "concrete-mix-calculator" && (
+      <details class="rounded-lg border border-hairline bg-canvas p-6">
+        <summary class="cursor-pointer font-semibold text-ink">Mix-ratio &amp; material-takeoff reference</summary>
+        <p class="mt-3 text-sm leading-6 text-body">These ratio shortcuts express cement : sand : coarse aggregate by loose volume. They are provided for takeoff convenience only and are not strength certifications.</p>
+        <div class="mt-4 overflow-x-auto rounded-md border border-hairline" role="region" aria-label="Concrete mix ratio shortcuts" tabindex="0">
+          <table class="w-full min-w-[620px] text-left text-sm">
+            <thead class="bg-canvas-soft font-mono text-[11px] text-mute">
+              <tr><th class="px-3 py-2">RATIO SHORTCUT</th><th class="px-3 py-2">TOTAL PARTS</th><th class="px-3 py-2">USE IN THIS TOOL</th></tr>
+            </thead>
+            <tbody class="divide-y divide-hairline">
+              <tr><td class="px-3 py-2 font-mono">1 : 2 : 3</td><td class="px-3 py-2 font-mono">6</td><td class="px-3 py-2">Volumetric takeoff shortcut</td></tr>
+              <tr><td class="px-3 py-2 font-mono">1 : 1.5 : 3</td><td class="px-3 py-2 font-mono">5.5</td><td class="px-3 py-2">Volumetric takeoff shortcut</td></tr>
+              <tr><td class="px-3 py-2 font-mono">1 : 2 : 4</td><td class="px-3 py-2 font-mono">7</td><td class="px-3 py-2">Volumetric takeoff shortcut</td></tr>
+              <tr><td class="px-3 py-2 font-mono">1 : 3 : 6</td><td class="px-3 py-2 font-mono">10</td><td class="px-3 py-2">Volumetric takeoff shortcut</td></tr>
+              <tr><td class="px-3 py-2 font-mono">1 : 4 : 8</td><td class="px-3 py-2 font-mono">13</td><td class="px-3 py-2">Volumetric takeoff shortcut</td></tr>
+              <tr><td class="px-3 py-2 font-mono">1 : 5 : 10</td><td class="px-3 py-2 font-mono">16</td><td class="px-3 py-2">Volumetric takeoff shortcut</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 grid gap-2 text-sm sm:grid-cols-3">
+          <div class="rounded-md bg-canvas-soft-2 p-3"><span class="font-mono font-semibold">Dry volume = mixed volume × factor</span></div>
+          <div class="rounded-md bg-canvas-soft-2 p-3"><span class="font-mono font-semibold">Ingredient volume = dry volume × part / total</span></div>
+          <div class="rounded-md bg-canvas-soft-2 p-3"><span class="font-mono font-semibold">Water mass = cement mass × w/c</span></div>
+        </div>
+        <p class="mt-3 text-xs leading-5 text-mute">Bulk density and moisture conditions should match the materials being batched. Use approved project proportions for structural work.</p>
       </details>
     )}
     <div class="rounded-lg border border-hairline bg-canvas p-6">
