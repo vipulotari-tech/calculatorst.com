@@ -27,7 +27,7 @@ function netArea(v:Record<string,number>){
 function memberCountModel(label:string):Model{
   return {
     fields:[
-      length('layout','Distance across member layout',20,'ft'),
+      length('length','Distance across member layout',20,'ft'),
       length('spacing','Specified maximum on-center spacing',16,'in'),
       length('memberLength',`${label} length`,8,'ft'),
       count('extra','Additional detail members',0,0),
@@ -42,7 +42,7 @@ function memberCountModel(label:string):Model{
     ],
     sources:[inchFraming,omniFraming],
     calculate(v,u){
-      const base=roundUp(v.layout/v.spacing)+1;
+      const base=roundUp(v.length/v.spacing)+1;
       const installed=base+v.extra;
       const order=roundUp(installed*waste(v));
       const linear=order*v.memberLength;
@@ -50,10 +50,10 @@ function memberCountModel(label:string):Model{
         row('order',`${label}s to order`,order,`${label.toLowerCase()}s`,true),
         row('installed',`Installed ${label.toLowerCase()}s`,installed,`${label.toLowerCase()}s`,true),
         row('base','Base layout members',base,'members',true),
-        row('spacing','Equalized base-member spacing',v.layout/(base-1)*12,'in'),
+        row('spacing','Equalized base-member spacing',v.length/(base-1)*12,'in'),
         row('linear','Purchased member length',linear,'ft')
       ],v.price,u.price,{'USD/unit':order,'USD/ft':linear}),[
-        `ceil(${fmt(v.layout)} ft ÷ ${fmt(v.spacing*12)} in) + 1 = ${base} base members.`,
+        `ceil(${fmt(v.length)} ft ÷ ${fmt(v.spacing*12)} in) + 1 = ${base} base members.`,
         `${base} + ${v.extra} detail members = ${installed} installed; allowance → ${order} to purchase.`,
         `${order} × ${fmt(v.memberLength)} ft = ${fmt(linear)} ft purchased length.`
       ]);
@@ -461,8 +461,8 @@ const roofTruss:Model={
   calculate(v,u){
     const base=roundUp(v.length/v.spacing)+1,installed=base+v.extra,order=roundUp(installed*waste(v));
     return result(withCost([
-      row('order','Trusses to order',order,'trusses',true),
       row('installed','Installed trusses',installed,'trusses',true),
+      row('order','Trusses to order',order,'trusses',true),
       row('base','Base layout trusses',base,'trusses',true),
       row('spacing','Equalized base spacing',v.length/(base-1)*12,'in')
     ],v.price,u.price,{'USD/unit':order}),[
@@ -561,7 +561,7 @@ function flooringCostModel(label:string):Model{
 const carpet=finishModels.carpet;
 const carpetCost:Model={
   ...finishModels.carpet,
-  fields:[...finishModels.carpet.fields,number('padPrice','Carpet pad price (USD/ft²)',0,0),number('tax','Material tax (%)',0,0),number('delivery','Delivery / fixed fee (USD)',0,0),number('labor','Labor / installation allowance (USD)',0,0)],
+  fields:[...finishModels.carpet.fields.filter(f=>f.id!=='price'),{...price('USD/ft2',['USD/ft2','USD/m2']),optional:false,value:0},number('padPrice','Carpet pad price (USD/ft²)',0,0),number('tax','Material tax (%)',0,0),number('delivery','Delivery / fixed fee (USD)',0,0),number('labor','Labor / installation allowance (USD)',0,0)],
   calculate(v,u){
     const strips=roundUp(v.width/v.rollWidth),linear=strips*v.length*waste(v),bought=linear*v.rollWidth,net=v.length*v.width;
     const carpetMat=(u.price==='USD/m2'?bought/FT_PER_M**2:bought)*v.price;
@@ -631,19 +631,21 @@ const tileGeneral:Model={
   calculate(v,u){
     const t=tileValues(v),order=roundUp(t.base*waste(v)),boxes=roundUp(order/v.tilesPerBox);
     const purchasedArea=order*t.tileArea;
-    const cost=(u.price==='USD/ft2'?purchasedArea:boxes)*v.price;
-    return result([
+    const rows=[
       row('tiles','Tiles to order',order,'tiles',true),
       row('boxes','Boxes to order',boxes,'boxes',true),
       row('area','Surface area',t.net,'ft²'),
       row('purchased','Approximate purchased tile face area',purchasedArea,'ft²'),
-      row('cost','Estimated tile material cost',cost,'USD'),
       row('rows','Layout rows',t.rows,'rows',true),
       row('columns','Layout columns',t.cols,'columns',true)
-    ],[
-      `Base quantity ${t.base}; allowance → ${order} tiles = ${boxes} boxes.`,
-      `Material cost = $${fmt(cost)}.`
-    ]);
+    ];
+    const steps=[`Base quantity ${t.base}; allowance → ${order} tiles = ${boxes} boxes.`];
+    if(Number.isFinite(v.price)){
+      const cost=(u.price==='USD/ft2'?purchasedArea:boxes)*v.price;
+      rows.push(row('cost','Estimated tile material cost',cost,'USD'));
+      steps.push(`Material cost = ${fmt(cost)}.`);
+    }
+    return result(rows,steps);
   }
 };
 
