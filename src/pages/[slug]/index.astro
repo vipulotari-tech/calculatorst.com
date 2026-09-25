@@ -230,16 +230,16 @@ const concreteSeo: Record<string, {
   },
   "concrete-weight-calculator": {
     title: "Concrete Weight Calculator — lb, kg, Tons from Volume or Dimensions",
-    description: "Calculate concrete weight from known volume, area × thickness, or length × width × thickness with editable density, presets and lb/kg/ton outputs.",
+    description: "Calculate concrete weight from known volume, rectangular or round dimensions, or area × thickness with editable density, presets and lb/kg/ton outputs.",
     guidance: [
-      "Choose whether you already know the concrete volume or want the calculator to derive it from area and thickness or from length, width and thickness.",
+      "Choose whether you already know the concrete volume or want the calculator to derive it from rectangular dimensions, round dimensions, or area and thickness.",
       "Use the actual density from the mix design or supplier whenever available. The normal-weight, lightweight and high-density choices are estimating references, not universal material constants.",
       "The large primary answer is the weight of the measured concrete volume. Extra material allowance defaults to 0% and is reported separately only when you intentionally add it.",
       "Use this as a material-mass estimate. Confirm structural loads, lifting plans, trailer or axle limits and equipment capacities separately."
     ],
     faq: [
       { q: "How much does one cubic yard of normal-weight concrete weigh?", a: "At the common 150 lb/ft³ estimating reference, one cubic yard weighs 4,050 lb, or 2.025 US tons. The actual mix can be lighter or heavier." },
-      { q: "Can I calculate concrete weight without knowing cubic yards first?", a: "Yes. Select area × thickness or length × width × thickness and enter the measurements. The calculator converts the geometry to volume before applying density." },
+      { q: "Can I calculate concrete weight without knowing cubic yards first?", a: "Yes. Use rectangular dimensions, round slab or cylinder dimensions, or area × thickness. The calculator converts the geometry to volume before applying density." },
       { q: "What density should I use for concrete?", a: "Use the project mix or supplier density when available. The preset values are planning references; lightweight and high-density concretes cover broad ranges rather than one exact density." },
       { q: "Why does extra material allowance default to zero?", a: "A weight calculator should first report the mass of the measured concrete itself. Add an allowance only when you also want to estimate the weight of extra material ordered for waste or contingency." },
       { q: "Can I switch the main answer between pounds, kilograms and tons?", a: "Yes. Choose pounds, kilograms, US tons or metric tonnes as the primary output. The results also show the equivalent weight units for cross-checking." },
