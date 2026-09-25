@@ -122,7 +122,7 @@ describe("Concrete category golden-value regression suite", () => {
       { weightMode: 0, volume: 1, densityBasis: 0, density: 150, outputUnit: 1, waste: 0 },
       { volume: "yd3", density: "lb/ft3" },
     );
-    expect(imperial.rows.find(x => x.key === "densityMetric")?.value).toBeCloseTo(2402.769038, 5);
+    expect(imperial.rows.find(x => x.key === "densityMetric")?.value).toBeCloseTo(2402.769506094, 6);
     expect(imperial.rows.find(x => x.key === "netL")?.value).toBeCloseTo(764.554858, 5);
     expect(imperial.rows.find(x => x.key === "primaryWeight")?.value).toBeCloseTo(1837.0490985, 5);
 
