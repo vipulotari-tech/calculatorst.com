@@ -196,14 +196,16 @@ const concreteSeo: Record<string, {
     title: "Concrete Calculator — Cubic Yards, Bags, Weight & Cost",
     description: "Calculate concrete for slabs, walls, footings and cylinders in cubic yards, bags and weight, with waste allowance and optional material cost.",
     guidance: [
-      "Use this broad calculator when you need one concrete estimator for common rectangular and cylindrical pours.",
-      "Choose the project shape first, then enter actual field dimensions. The calculator converts mixed US or metric units before applying quantity and waste.",
-      "For truck scheduling, mix proportions, wall openings or stair geometry, use the dedicated calculator linked below because those pages expose project-specific inputs."
+      "Use this broad calculator when you need one concrete estimator for common rectangular slabs, strip footings, walls or cylindrical columns.",
+      "Choose the project type first. Only the dimensions used by that geometry are shown, so inactive measurements cannot accidentally influence or confuse the estimate.",
+      "The calculator converts mixed US or metric units before applying quantity, material allowance, bag yield, density and optional material price.",
+      "For truck scheduling, short-load or pump charges, mix proportions, wall openings, stairs, tubes or detailed footing geometry, use the dedicated calculator linked below instead of overloading this general estimator."
     ],
     faq: [
-      { q: "How many cubic yards of concrete do I need?", a: "Select the shape and enter its dimensions. The calculator converts the geometric volume to cubic feet and cubic yards, then applies the waste allowance you enter." },
-      { q: "How many bags of concrete equal one cubic yard?", a: "Bag count depends on the product yield. This calculator uses the entered yield and also shows standard comparison counts. Always verify the yield printed on the exact bag you plan to buy." },
-      { q: "Should I use the Concrete Calculator or Concrete Volume Calculator?", a: "Use this page for a broad order estimate including bags, weight and optional cost. Use the Concrete Volume Calculator when you mainly want geometry and cubic-volume conversions across several shapes." },
+      { q: "How many cubic yards of concrete do I need?", a: "Select the project type and enter only the dimensions shown for that geometry. The calculator converts the geometric volume to cubic feet and cubic yards, then applies the material allowance you enter." },
+      { q: "Why do the dimension fields change when I select a project type?", a: "Each shape uses a different formula. Slabs and strip footings use length, width and thickness or depth; walls use length, height and wall thickness; cylinders use diameter and height. Hidden fields are not part of the active calculation." },
+      { q: "How many bags of concrete equal one cubic yard?", a: "Bag count depends on the product's mixed yield. Use the yield printed on the exact bag you plan to buy; the reference table below shows common planning values only." },
+      { q: "Should I use the Concrete Calculator or Concrete Volume Calculator?", a: "Use this page for a broad order estimate including bags, weight and optional material cost. Use the Concrete Volume Calculator when geometry and cubic-volume conversion across more shapes is the main task." },
       { q: "Does this calculator choose slab thickness or reinforcement?", a: "No. Thickness, reinforcement, subbase and structural requirements must come from the project plans, local requirements or a qualified designer. This tool converts those inputs into material quantity." }
     ]
   },
@@ -1793,7 +1795,7 @@ const newCalculatorSlugs = new Set([
   "concrete-crack-repair-calculator",
 ]);
 const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-08-29";
-const pageDateModified = enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" : "2026-09-24";
+const pageDateModified = calc.slug === "concrete-calculator" || enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" : "2026-09-24";
 ---
 
 <CalculatorLayout
@@ -1833,6 +1835,26 @@ const pageDateModified = enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" :
           {pageGuidance.map(item => <li>{item}</li>)}
         </ul>
       </div>
+    )}
+    {calc.slug === "concrete-calculator" && (
+      <details class="rounded-lg border border-hairline bg-canvas p-6">
+        <summary class="cursor-pointer font-semibold text-ink">Premixed concrete bag yield reference</summary>
+        <p class="mt-3 text-sm leading-6 text-body">These are common planning yields, not universal product guarantees. Use the mixed yield printed on the exact bag for the purchase calculation above.</p>
+        <div class="mt-4 overflow-x-auto rounded-md border border-hairline" role="region" aria-label="Premixed concrete bag yield reference" tabindex="0">
+          <table class="w-full min-w-[460px] text-left text-sm">
+            <thead class="bg-canvas-soft font-mono text-[11px] text-mute">
+              <tr><th class="px-3 py-2">BAG SIZE</th><th class="px-3 py-2">COMMON MIXED YIELD</th><th class="px-3 py-2">APPROX. BAGS / yd³</th></tr>
+            </thead>
+            <tbody class="divide-y divide-hairline font-mono tabular-nums">
+              <tr><td class="px-3 py-2">40 lb</td><td class="px-3 py-2">0.30 ft³</td><td class="px-3 py-2">90</td></tr>
+              <tr><td class="px-3 py-2">50 lb</td><td class="px-3 py-2">0.375 ft³</td><td class="px-3 py-2">72</td></tr>
+              <tr><td class="px-3 py-2">60 lb</td><td class="px-3 py-2">0.45 ft³</td><td class="px-3 py-2">60</td></tr>
+              <tr><td class="px-3 py-2">80 lb</td><td class="px-3 py-2">0.60 ft³</td><td class="px-3 py-2">45</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 text-xs leading-5 text-mute">For larger pours, ready-mix ordering is normally based on cubic yards or cubic meters rather than bag count. Supplier minimums, short-load fees and truck capacity belong in the dedicated Concrete Pour or Concrete Cost calculators.</p>
+      </details>
     )}
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Formula &amp; Method</h2>

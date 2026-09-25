@@ -44,7 +44,14 @@ export function getCalculatorContent(title: string, model: Model) {
     if (lastSpace > 120) cut = cut.slice(0, lastSpace);
     description = cut + '...';
   }
-  const fields = model.fields.filter(f => !f.optional);
+  const exampleFieldVisible = (field: Model['fields'][number]) => {
+    const rule = field.visibleWhen;
+    if (!rule) return true;
+    const controllingValue = raw[rule.field];
+    if (rule.equals !== undefined) return controllingValue === rule.equals;
+    return (rule.in ?? []).includes(controllingValue);
+  };
+  const fields = model.fields.filter(f => !f.optional && exampleFieldVisible(f));
   return {
     description,
     outputs,
