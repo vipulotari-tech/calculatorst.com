@@ -9,31 +9,46 @@ const related = [
   { title: "Rafter Length Calculator", href: "/rafter-length-calculator/", desc: "Common-rafter geometry from span and pitch" },
   { title: "Roofing Calculator", href: "/roofing-calculator/", desc: "Roof area, squares and material packages" },
 ];
+
 const faq = [
   {
-    "q": "How is roof pitch calculated?",
-    "a": "Divide vertical rise by horizontal run using matching units. Pitch per 12 = slope × 12; percent slope = slope × 100; angle = arctan(slope) in degrees."
+    q: "How is roof pitch calculated?",
+    a: "Divide vertical rise by horizontal run using matching units. Pitch per 12 = slope × 12; percent slope = slope × 100; angle = arctan(slope) in degrees."
   },
   {
-    "q": "Can the rise be zero?",
-    "a": "Yes. Zero rise gives zero pitch, zero degrees and zero percent slope. The horizontal run must be greater than zero."
+    q: "Can I calculate pitch from an angle or rafter length?",
+    a: "Yes. Angle mode converts degrees with tangent. Pitch-per-12 mode converts a known pitch directly, and rafter-length mode solves the right triangle from sloped rafter length plus horizontal run."
   },
   {
-    "q": "Is run the rafter length?",
-    "a": "No. Run is the horizontal distance, while the rafter follows the slope. Using the sloped length as run gives the wrong pitch."
+    q: "Can the rise be zero?",
+    a: "Yes. Zero rise gives 0:12 pitch, zero degrees and zero percent slope. Horizontal run must be greater than zero."
   },
   {
-    "q": "Does pitch determine roofing requirements?",
-    "a": "This tool converts geometry only. It does not choose a roofing system, structural span or installation specification."
+    q: "Is run the rafter length?",
+    a: "No. Run is the horizontal distance. Rafter length is the sloped right-triangle length and is longer than or equal to the run."
+  },
+  {
+    q: "Does roof pitch determine roofing or structural requirements?",
+    a: "No. This calculator converts geometry. Roofing-product slope limits, structural rafter sizing, wind and snow loads, and installation details require manufacturer instructions and project-specific design information."
   }
 ];
+
+const commonPitchRows = Array.from({ length: 25 }, (_, rise) => {
+  const slope = rise / 12;
+  return {
+    pitch: `${rise}:12`,
+    angle: Math.atan(slope) * 180 / Math.PI,
+    percent: slope * 100,
+    multiplier: Math.hypot(1, slope),
+  };
+});
 ---
 
 <CalculatorLayout
-  title="Roof Pitch Calculator — Ratio, Angle & Slope"
-  description="Convert rise and horizontal run or a roof angle into pitch per 12, degrees, percent slope, radians and roof-surface multiplier with US and metric units."
+  title="Roof Pitch Calculator — Pitch, Angle, Slope & Rafter Length"
+  description="Calculate roof pitch from rise and run, angle, pitch per 12, or rafter length. Get pitch ratio, degrees, slope percent, multiplier and rafter geometry in US or metric units."
   h1="Roof Pitch Calculator"
-  intro="Convert roof rise and horizontal run—or enter an angle directly—to pitch per 12, degrees, percent slope and surface multiplier. Measurements can use US or metric units."
+  intro="Convert roof geometry four ways: rise and horizontal run, angle, pitch per 12, or rafter length plus run. Get pitch, degrees, percent slope, surface multiplier and straight rafter geometry with US or metric units."
   breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Roofing Calculators", href: "/construction/roofing/" }, { label: "Roof Pitch Calculator" }]}
   related={related}
   faq={faq}
@@ -44,20 +59,110 @@ const faq = [
 >
   <Header slot="header" />
   <GenericCalculator slot="calculator" id="roof-pitch-calculator" resultTitle="ROOF PITCH RESULT" />
+
   <section class="space-y-6">
     <div class="rounded-lg border border-hairline bg-canvas p-6">
-      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
-      <div class="mt-3 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm "><p>Angle = arctan(rise ÷ run) × 180/π</p><p>Decimal slope = rise ÷ run</p><p>Pitch per 12 = slope × 12 : 12</p></div>
-      <p class="mt-3 text-sm leading-6 text-body">Rise and run are normalized before division, so equivalent US or metric measurements return the same slope. Angle mode uses slope = tan(angle).</p>
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Roof pitch formulas</h2>
+      <div class="mt-3 grid gap-2 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm sm:grid-cols-2">
+        <p>Slope = rise ÷ horizontal run</p>
+        <p>Pitch per 12 = slope × 12</p>
+        <p>Angle = arctan(slope)</p>
+        <p>Percent slope = slope × 100</p>
+        <p>Multiplier = √(1 + slope²)</p>
+        <p>Rafter length = run × multiplier</p>
+      </div>
+      <p class="mt-3 text-sm leading-6 text-body">All length inputs are normalized before calculation, so equivalent US and metric measurements return the same pitch. Angle mode uses slope = tan(angle). Reverse rafter mode uses the Pythagorean theorem to recover vertical rise.</p>
     </div>
+
     <div class="rounded-lg border border-hairline bg-canvas p-6">
-      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
-      <p class="mt-2 text-sm leading-6 text-body">Rise 6 in, run 12 in:</p>
-      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">OUTPUT</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">Slope</td><td class="px-3 py-2">0.50</td></tr><tr><td class="px-3 py-2">Angle</td><td class="px-3 py-2">26.6°</td></tr><tr><td class="px-3 py-2">Per 12</td><td class="px-3 py-2">6.00 : 12</td></tr></tbody></table></div>
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Verified example — 6:12 roof</h2>
+      <p class="mt-2 text-sm leading-6 text-body">For 6 in of rise over 12 in of horizontal run:</p>
+      <div class="mt-3 overflow-x-auto rounded-md border border-hairline">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-canvas-soft font-mono text-[11px] text-mute">
+            <tr><th class="px-3 py-2">OUTPUT</th><th class="px-3 py-2">VALUE</th></tr>
+          </thead>
+          <tbody class="divide-y divide-hairline font-mono tabular-nums">
+            <tr><td class="px-3 py-2">Decimal slope</td><td class="px-3 py-2">0.5000</td></tr>
+            <tr><td class="px-3 py-2">Pitch</td><td class="px-3 py-2">6:12</td></tr>
+            <tr><td class="px-3 py-2">Angle</td><td class="px-3 py-2">26.565°</td></tr>
+            <tr><td class="px-3 py-2">Percent slope</td><td class="px-3 py-2">50%</td></tr>
+            <tr><td class="px-3 py-2">Surface multiplier</td><td class="px-3 py-2">1.1180×</td></tr>
+            <tr><td class="px-3 py-2">Rafter over 12 ft horizontal run</td><td class="px-3 py-2">13.416 ft</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+
+    <details class="rounded-lg border border-hairline bg-canvas p-6">
+      <summary class="cursor-pointer font-semibold text-ink">Common roof pitch conversion table (0:12–24:12)</summary>
+      <p class="mt-3 text-sm leading-6 text-body">Use this as a quick reference. The calculator above keeps full internal precision and is better for non-standard pitches.</p>
+      <div class="mt-4 overflow-x-auto rounded-md border border-hairline">
+        <table class="w-full min-w-[560px] text-left text-sm">
+          <thead class="bg-canvas-soft font-mono text-[11px] text-mute">
+            <tr>
+              <th class="px-3 py-2">PITCH</th>
+              <th class="px-3 py-2">ANGLE</th>
+              <th class="px-3 py-2">SLOPE</th>
+              <th class="px-3 py-2">SURFACE MULTIPLIER</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline font-mono tabular-nums">
+            {commonPitchRows.map((row) => (
+              <tr>
+                <td class="px-3 py-2">{row.pitch}</td>
+                <td class="px-3 py-2">{row.angle.toFixed(2)}°</td>
+                <td class="px-3 py-2">{row.percent.toFixed(1)}%</td>
+                <td class="px-3 py-2">{row.multiplier.toFixed(4)}×</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </details>
+
     <div class="rounded-lg border border-hairline bg-canvas p-6">
-      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Pitch describes the slope of a roof plane; it does not determine allowable rafter span or select a roofing product.</li><li>Run is horizontal projection, not sloped rafter length. Use the Roof Area Calculator for surface area and the Rafter Length Calculator for common-rafter geometry.</li></ul>
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Ways to measure roof pitch</h2>
+      <div class="mt-3 grid gap-4 md:grid-cols-3">
+        <div class="rounded-md bg-canvas-soft-2 p-4">
+          <h3 class="font-medium text-ink">From plans or known dimensions</h3>
+          <p class="mt-1 text-sm leading-6 text-body">Enter a vertical rise and the matching horizontal run. This is the cleanest method when drawings or framing dimensions are available.</p>
+        </div>
+        <div class="rounded-md bg-canvas-soft-2 p-4">
+          <h3 class="font-medium text-ink">From an attic or accessible framing</h3>
+          <p class="mt-1 text-sm leading-6 text-body">Measure a level horizontal run and the corresponding vertical rise against a rafter, without using the sloped rafter length as the run.</p>
+        </div>
+        <div class="rounded-md bg-canvas-soft-2 p-4">
+          <h3 class="font-medium text-ink">From a measured angle</h3>
+          <p class="mt-1 text-sm leading-6 text-body">If a reliable angle is already known, use angle mode. The calculator converts degrees to pitch, percent slope and multiplier.</p>
+        </div>
+      </div>
+      <p class="mt-4 text-xs leading-5 text-mute">Do not access or walk a roof solely to obtain measurements. Work at height carries fall risk; use existing plans, accessible framing or a qualified professional when direct roof access would be required.</p>
+    </div>
+
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Roofing-system notes</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
+        <li>Pitch geometry does not determine whether a roofing product is permitted. Always follow the exact product manufacturer and local code requirements.</li>
+        <li>ARMA states that asphalt shingles on slopes from 2:12 to below 4:12 require special low-slope procedures, and it advises against asphalt shingles below 2:12.</li>
+        <li>ARMA also publishes special application guidance for asphalt shingles above 21:12.</li>
+        <li>Rafter sizing is structural design. The American Wood Council treats rafter span and loading separately from simple pitch conversion.</li>
+      </ul>
+      <div class="mt-4 flex flex-wrap gap-2 text-xs">
+        <a class="rounded-md border border-hairline px-3 py-2 text-ink hover:bg-canvas-soft" href="https://www.asphaltroofing.org/installation-of-asphalt-shingles-on-lower-sloped-roofs/" rel="noopener noreferrer">ARMA low-slope guidance</a>
+        <a class="rounded-md border border-hairline px-3 py-2 text-ink hover:bg-canvas-soft" href="https://www.asphaltroofing.org/recommendations-for-application-of-asphalt-shingles-on-steep-slopes-and-mansard-construction/" rel="noopener noreferrer">ARMA steep-slope guidance</a>
+        <a class="rounded-md border border-hairline px-3 py-2 text-ink hover:bg-canvas-soft" href="https://awc.org/resources/wood-products/roof/lumber-rafters/" rel="noopener noreferrer">American Wood Council — rafters</a>
+      </div>
+    </div>
+
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Scope and assumptions</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
+        <li>Run means horizontal projection, not sloped rafter length.</li>
+        <li>The rafter output is straight right-triangle geometry. It does not include birdsmouth geometry, ridge-board deductions, tail cuts, fascia details or stock-length optimization.</li>
+        <li>The calculator does not size rafters or evaluate snow, wind, dead or live loads.</li>
+        <li>For complex roofs, calculate each roof plane or framing condition separately.</li>
+      </ul>
     </div>
   </section>
   <Footer slot="footer" />
