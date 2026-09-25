@@ -18,6 +18,7 @@ const kind =
   lower === "concrete-cost-calculator" ? "concreteCost" :
   lower === "concrete-weight-calculator" ? "concreteWeight" :
   lower === "concrete-volume-calculator" ? "concreteVolume" :
+  lower === "concrete-footing-calculator" ? "concreteFooting" :
   lower === "concrete-calculator" ? "concrete" :
   lower === "roof-pitch-calculator" ? "roofPitch" :
   /roof|pitch|rafter/.test(lower) ? "roof" :
@@ -216,6 +217,40 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
           <text x="320" y="224" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-diagram-value="0">Measurement 1</text>
           <text x="92" y="138" text-anchor="middle" font-size="13" fill="var(--color-foreground)" transform="rotate(-90 92 138)" data-diagram-value="1">Measurement 2</text>
           <text x="470" y="52" text-anchor="middle" font-size="13" fill="var(--color-muted-foreground)" data-diagram-value="2">Measurement 3</text>
+        </>
+      )}
+
+      {kind === "concreteFooting" && (
+        <>
+          <text x="34" y="34" font-size="12" font-weight="600" fill="var(--color-muted-foreground)" data-concrete-footing-shape-name>Strip / continuous footing</text>
+
+          <g data-concrete-footing-shape="0">
+            <polygon points="90,118 470,118 550,150 170,150" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="170,150 550,150 550,190 170,190" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="470,118 550,150 550,190 470,158" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+
+          <g data-concrete-footing-shape="1" style="display:none">
+            <polygon points="205,92 390,92 465,128 280,128" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="280,128 465,128 465,182 280,182" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="390,92 465,128 465,182 390,146" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+
+          <g data-concrete-footing-shape="2" style="display:none">
+            <polygon points="150,102 425,102 500,136 225,136" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="225,136 500,136 500,186 225,186" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="425,102 500,136 500,186 425,152" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+
+          <g data-concrete-footing-shape="3" style="display:none">
+            <ellipse cx="320" cy="92" rx="112" ry="32" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <path d="M208 92 V166 C208 184 258 198 320 198 C382 198 432 184 432 166 V92" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <ellipse cx="320" cy="166" rx="112" ry="32" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1.5" />
+          </g>
+
+          <text x="320" y="222" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-diagram-value="0">Measurement 1</text>
+          <text x="92" y="142" text-anchor="middle" font-size="13" fill="var(--color-foreground)" transform="rotate(-90 92 142)" data-diagram-value="1">Measurement 2</text>
+          <text x="470" y="56" text-anchor="middle" font-size="13" fill="var(--color-muted-foreground)" data-diagram-value="2">Measurement 3</text>
         </>
       )}
 
@@ -579,6 +614,22 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         if (name) name.textContent = names[shape] ?? "Concrete volume shape";
       };
 
+      const updateConcreteFootingDiagram = () => {
+        if (figure.dataset.kind !== "concreteFooting") return;
+        const shape = Math.round(numericControl("footingShape"));
+        const names = [
+          "Strip / continuous footing",
+          "Square isolated pad",
+          "Rectangular isolated pad",
+          "Round / circular footing",
+        ];
+        figure.querySelectorAll<SVGGElement>("[data-concrete-footing-shape]").forEach((group) => {
+          group.style.display = group.dataset.concreteFootingShape === String(shape) ? "" : "none";
+        });
+        const name = figure.querySelector<SVGTextElement>("[data-concrete-footing-shape-name]");
+        if (name) name.textContent = names[shape] ?? "Concrete footing geometry";
+      };
+
       const updateConcreteDiagram = () => {
         if (figure.dataset.kind !== "concrete") return;
         const shape = Math.round(numericControl("shape"));
@@ -688,6 +739,7 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         updateConcreteCostDiagram();
         updateConcreteWeightDiagram();
         updateConcreteVolumeDiagram();
+        updateConcreteFootingDiagram();
         updateConcreteDiagram();
         if (updateRoofPitchDiagram()) return;
         const values = fields.map(readField).filter((item): item is { label: string; value: string; unit: string } => Boolean(item)).slice(0, 3);
