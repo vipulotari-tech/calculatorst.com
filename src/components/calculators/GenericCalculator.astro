@@ -346,6 +346,23 @@ const costs = fields.filter((f) => f.group === "Cost");
     <div class="result-rows-grid grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
     </div>
 
+    <details class="calc-estimate-worksheet rounded-lg border border-border bg-card p-4">
+      <summary class="cursor-pointer select-none text-xs font-mono font-semibold uppercase tracking-wider text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        Quantity &amp; cost worksheet
+      </summary>
+      <p class="mt-2 text-xs leading-5 text-muted-foreground">
+        A compact estimate table using only outputs this calculator actually computes. Whole-item rows stay rounded as shown above.
+      </p>
+      <div class="mt-3 overflow-x-auto" role="region" aria-label="Estimate worksheet" tabindex="0">
+        <table class="w-full min-w-[420px] text-left text-xs">
+          <thead class="border-b border-border text-muted-foreground">
+            <tr><th scope="col" class="py-2 pr-4 font-medium">Item</th><th scope="col" class="py-2 pr-4 font-medium">Quantity</th><th scope="col" class="py-2 font-medium">Unit</th></tr>
+          </thead>
+          <tbody class="calc-estimate-worksheet-body divide-y divide-border"></tbody>
+        </table>
+      </div>
+    </details>
+
     <!-- Step-by-Step Mathematical Derivation Card -->
     <div class="rounded-lg border border-border bg-card p-4 space-y-2.5">
       <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
@@ -401,6 +418,7 @@ const costs = fields.filter((f) => f.group === "Cost");
       const notesList = root.querySelector<HTMLElement>('.result-notes-list');
       const printInputs = root.querySelector<HTMLElement>('.calc-print-inputs');
       const printGenerated = root.querySelector<HTMLElement>('.calc-print-generated');
+      const worksheetBody = root.querySelector<HTMLTableSectionElement>('.calc-estimate-worksheet-body');
 
       if (!form || !primaryValEl || !rowsGridEl || !stepsListEl) return;
             const targetPrimaryValEl = primaryValEl;
@@ -454,6 +472,7 @@ const costs = fields.filter((f) => f.group === "Cost");
               li.textContent = 'Complete the required fields to see the calculation breakdown.';
               targetStepsListEl.appendChild(li);
               notesList?.replaceChildren();
+              worksheetBody?.replaceChildren();
               if (status) status.textContent = '';
             }
 
@@ -597,6 +616,24 @@ const costs = fields.filter((f) => f.group === "Cost");
               return `${field.label}: ${optionLabel ?? control.value}${displayUnit ? ` ${displayUnit}` : ""}`;
             })
             .filter((line): line is string => Boolean(line));
+
+          if (worksheetBody) {
+            worksheetBody.replaceChildren(...result.rows.map((row) => {
+              const tr = document.createElement("tr");
+              const label = document.createElement("th");
+              label.scope = "row";
+              label.className = "py-2 pr-4 font-normal text-muted-foreground";
+              label.textContent = row.label;
+              const qty = document.createElement("td");
+              qty.className = "py-2 pr-4 font-mono font-medium text-foreground tabular-nums";
+              qty.textContent = fmt(row.value);
+              const unit = document.createElement("td");
+              unit.className = "py-2 font-mono text-muted-foreground";
+              unit.textContent = unitLabels[row.unit] ?? row.unit;
+              tr.append(label, qty, unit);
+              return tr;
+            }));
+          }
 
           // Copy produces a self-contained estimate rather than a bare result list.
           root.dataset.lastCalculated = [
@@ -760,6 +797,14 @@ const costs = fields.filter((f) => f.group === "Cost");
     body.calc-print-mode [data-calculator-slug][data-printing="true"] .calc-print-summary {
       display: block !important;
       margin-bottom: 1.25rem !important;
+    }
+
+    body.calc-print-mode [data-calculator-slug][data-printing="true"] .calc-estimate-worksheet {
+      display: block !important;
+    }
+
+    body.calc-print-mode [data-calculator-slug][data-printing="true"] .calc-estimate-worksheet > summary {
+      display: none !important;
     }
 
     body.calc-print-mode [data-calculator-slug][data-printing="true"] .calc-results-panel {
