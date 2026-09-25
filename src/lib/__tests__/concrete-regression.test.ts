@@ -84,6 +84,69 @@ describe("Concrete category golden-value regression suite", () => {
     )).toBeCloseTo(1.8370490985, 6);
   });
 
+  it("Concrete Weight: supports volume, area-depth, dimensions, presets and primary units", () => {
+    expect(value(
+      "concrete-weight-calculator", "primaryWeight",
+      { weightMode: 0, volume: 1, densityBasis: 0, density: 150, outputUnit: 0, waste: 0 },
+      { volume: "yd3", density: "lb/ft3" },
+    )).toBeCloseTo(4050, 6);
+
+    expect(value(
+      "concrete-weight-calculator", "netWeight",
+      { weightMode: 3, area: 100, areaThickness: 4, quantity: 1, densityBasis: 0, density: 150, waste: 0 },
+      { area: "ft2", areaThickness: "in", density: "lb/ft3" },
+    )).toBeCloseTo(5000, 6);
+
+    expect(value(
+      "concrete-weight-calculator", "netWeight",
+      { weightMode: 1, length: 10, width: 10, depth: 6, quantity: 1, densityBasis: 0, density: 150, waste: 0 },
+      { length: "ft", width: "ft", depth: "in", density: "lb/ft3" },
+    )).toBeCloseTo(7500, 6);
+
+    expect(value(
+      "concrete-weight-calculator", "netWeight",
+      { weightMode: 0, volume: 1, densityBasis: 2, density: 999, waste: 0 },
+      { volume: "yd3", density: "lb/ft3" },
+    )).toBeCloseTo(3105, 6);
+
+    expect(value(
+      "concrete-weight-calculator", "primaryWeight",
+      { weightMode: 0, volume: 1, densityBasis: 2, outputUnit: 3, waste: 0 },
+      { volume: "yd3" },
+    )).toBeCloseTo(1.40840430885, 8);
+  });
+
+  it("Concrete Weight: metric density and liter conversions are dimensionally correct", () => {
+    const imperial = run(
+      "concrete-weight-calculator",
+      { weightMode: 0, volume: 1, densityBasis: 0, density: 150, outputUnit: 1, waste: 0 },
+      { volume: "yd3", density: "lb/ft3" },
+    );
+    expect(imperial.rows.find(x => x.key === "densityMetric")?.value).toBeCloseTo(2402.769506094, 6);
+    expect(imperial.rows.find(x => x.key === "netL")?.value).toBeCloseTo(764.554858, 5);
+    expect(imperial.rows.find(x => x.key === "primaryWeight")?.value).toBeCloseTo(1837.0490985, 5);
+
+    const metric = run(
+      "concrete-weight-calculator",
+      { weightMode: 0, volume: 1, densityBasis: 0, density: 2400, outputUnit: 1, waste: 0 },
+      { volume: "m3", density: "kg/m3" },
+    );
+    expect(metric.rows.find(x => x.key === "primaryWeight")?.value).toBeCloseTo(2400, 5);
+    expect(metric.rows.find(x => x.key === "densityMetric")?.value).toBeCloseTo(2400, 5);
+    expect(metric.rows.find(x => x.key === "netL")?.value).toBeCloseTo(1000, 5);
+  });
+
+  it("Concrete Weight: extra material allowance is separate from measured weight", () => {
+    const r = run(
+      "concrete-weight-calculator",
+      { weightMode: 0, volume: 1, densityBasis: 1, outputUnit: 0, waste: 10 },
+      { volume: "yd3" },
+    );
+    expect(r.rows.find(x => x.key === "netWeight")?.value).toBeCloseTo(4050, 6);
+    expect(r.rows.find(x => x.key === "orderWeight")?.value).toBeCloseTo(4455, 6);
+    expect(r.rows.find(x => x.key === "primaryWeight")?.value).toBeCloseTo(4050, 6);
+  });
+
   it("Concrete Cost: bag price uses rounded bag count", () => {
     const r = run(
       "concrete-cost-calculator",

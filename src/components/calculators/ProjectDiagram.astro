@@ -13,6 +13,7 @@ interface Props {
 const { slug, fields } = Astro.props;
 const lower = slug.toLowerCase();
 const kind =
+  lower === "concrete-weight-calculator" ? "concreteWeight" :
   lower === "concrete-volume-calculator" ? "concreteVolume" :
   lower === "concrete-calculator" ? "concrete" :
   lower === "roof-pitch-calculator" ? "roofPitch" :
@@ -23,7 +24,7 @@ const kind =
   "rect";
 
 const excluded = /(?:cost|weight|waste|price|bag|mix-ratio|board-foot|material-cost)/.test(lower);
-const show = !excluded && fields.length >= 2;
+const show = (kind === "concreteWeight" || !excluded) && fields.length >= 2;
 ---
 
 {show && (
@@ -31,6 +32,7 @@ const show = !excluded && fields.length >= 2;
     class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
     data-project-diagram
     data-kind={kind}
+    hidden={kind === "concreteWeight"}
     data-fields={JSON.stringify(fields)}
   >
     <div class="flex flex-wrap items-start justify-between gap-2">
@@ -50,6 +52,35 @@ const show = !excluded && fields.length >= 2;
       <title id={`${slug}-diagram-title`}>Live measurement schematic for this calculator</title>
       <desc id={`${slug}-diagram-desc`}>A not-to-scale construction sketch whose measurement labels update from the calculator inputs.</desc>
       <rect x="1" y="1" width="638" height="238" rx="14" fill="var(--color-background)" stroke="var(--color-border)" />
+
+      {kind === "concreteWeight" && (
+        <>
+          <text x="34" y="34" font-size="12" font-weight="600" fill="var(--color-muted-foreground)" data-concrete-weight-mode-name>Measured concrete dimensions</text>
+
+          <g data-concrete-weight-shape="1">
+            <polygon points="145,82 430,82 510,130 225,130" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="225,130 510,130 510,180 225,180" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="430,82 510,130 510,180 430,132" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+
+          <g data-concrete-weight-shape="2" style="display:none">
+            <ellipse cx="320" cy="78" rx="105" ry="30" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <path d="M215 78 V172 C215 190 262 204 320 204 C378 204 425 190 425 172 V78" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <ellipse cx="320" cy="172" rx="105" ry="30" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1.5" />
+          </g>
+
+          <g data-concrete-weight-shape="3" style="display:none">
+            <polygon points="145,105 430,105 510,145 225,145" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="225,145 510,145 510,172 225,172" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="430,105 510,145 510,172 430,132" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <text x="320" y="92" text-anchor="middle" font-size="12" fill="var(--color-muted-foreground)">Entered surface area</text>
+          </g>
+
+          <text x="320" y="216" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-diagram-value="0">Measurement 1</text>
+          <text x="118" y="124" text-anchor="middle" font-size="13" fill="var(--color-foreground)" transform="rotate(-32 118 124)" data-diagram-value="1">Measurement 2</text>
+          <text x="523" y="157" font-size="13" fill="var(--color-muted-foreground)" data-diagram-value="2">Measurement 3</text>
+        </>
+      )}
 
       {kind === "concreteVolume" && (
         <>
@@ -274,6 +305,23 @@ const show = !excluded && fields.length >= 2;
         return select?.value ?? "ft";
       };
 
+      const updateConcreteWeightDiagram = () => {
+        if (figure.dataset.kind !== "concreteWeight") return;
+        const mode = Math.round(numericControl("weightMode"));
+        figure.hidden = mode === 0;
+        figure.querySelectorAll<SVGGElement>("[data-concrete-weight-shape]").forEach((group) => {
+          group.style.display = group.dataset.concreteWeightShape === String(mode) ? "" : "none";
+        });
+        const name = figure.querySelector<SVGTextElement>("[data-concrete-weight-mode-name]");
+        if (name) {
+          name.textContent = mode === 2
+            ? "Round slab / cylinder dimensions"
+            : mode === 3
+              ? "Surface area × thickness"
+              : "Length × width × thickness";
+        }
+      };
+
       const updateConcreteVolumeDiagram = () => {
         if (figure.dataset.kind !== "concreteVolume") return;
         const shape = Math.round(numericControl("shape"));
@@ -399,6 +447,7 @@ const show = !excluded && fields.length >= 2;
       };
 
       const update = () => {
+        updateConcreteWeightDiagram();
         updateConcreteVolumeDiagram();
         updateConcreteDiagram();
         if (updateRoofPitchDiagram()) return;
