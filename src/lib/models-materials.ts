@@ -344,121 +344,137 @@ const concreteVolume: Model = {
 };
 
 // ==========================================================
-// 3.  Concrete Weight Calculator — known volume or common geometry
+// 3.  Concrete Weight Calculator — known volume or simple dimensions
 // ==========================================================
 const concreteWeightFields: Field[] = [
-  { id: 'weightMode', label: 'Calculate from', value: 0, unit: '', integer: true, min: 0, max: 2,
+  { id: 'inputMode', label: 'Calculate weight from', value: 0, unit: '', integer: true, min: 0, max: 2,
     options: [
       { value: 0, label: 'Known concrete volume' },
-      { value: 1, label: 'Rectangular slab / prism dimensions' },
-      { value: 2, label: 'Round slab / cylinder dimensions' },
+      { value: 1, label: 'Surface area × thickness' },
+      { value: 2, label: 'Length × width × thickness' },
     ] },
-  { ...volume('volume', 'Concrete volume', 1), units: ['yd3', 'ft3', 'm3', 'L'], help: 'Use this when you already know the placed concrete volume.', visibleWhen: { field: 'weightMode', equals: 0 } },
-  { ...length('length', 'Length', 10, 'ft'), visibleWhen: { field: 'weightMode', equals: 1 } },
-  { ...length('width', 'Width', 10, 'ft'), visibleWhen: { field: 'weightMode', equals: 1 } },
-  { ...length('depth', 'Thickness / depth', 4, 'in'), visibleWhen: { field: 'weightMode', equals: 1 } },
-  { ...length('diameter', 'Diameter', 24, 'in'), visibleWhen: { field: 'weightMode', equals: 2 } },
-  { ...length('height', 'Height / circular depth', 4, 'ft'), visibleWhen: { field: 'weightMode', equals: 2 } },
-  { ...count('quantity', 'Identical sections', 1), visibleWhen: { field: 'weightMode', in: [1, 2] } },
-  { ...densityField, value: DEFAULT_DENSITY, help: 'Use the density from the mix design, supplier or test data when available. ACI terminology describes normalweight concrete as approximately 150 lb/ft³ (2400 kg/m³).' },
-  { ...allowance, value: 0, help: 'Optional extra material allowance. Leave at 0% when you want the weight of the measured concrete itself.' },
+  { ...volume('volume', 'Concrete volume', 1), visibleWhen: { field: 'inputMode', equals: 0 } },
+  { ...area('area', 'Surface area', 100, 0), visibleWhen: { field: 'inputMode', equals: 1 }, help: 'Use the measured plan area before applying thickness.' },
+  { ...length('areaThickness', 'Thickness / depth', 4, 'in', 'Thickness used with the entered surface area.'), visibleWhen: { field: 'inputMode', equals: 1 } },
+  { ...length('length', 'Length', 20, 'ft'), visibleWhen: { field: 'inputMode', equals: 2 } },
+  { ...length('width', 'Width', 10, 'ft'), visibleWhen: { field: 'inputMode', equals: 2 } },
+  { ...length('thickness', 'Thickness / depth', 4, 'in'), visibleWhen: { field: 'inputMode', equals: 2 } },
+  { id: 'densityBasis', label: 'Concrete density basis', value: 0, unit: '', integer: true, min: 0, max: 3,
+    options: [
+      { value: 0, label: 'Use entered density' },
+      { value: 1, label: 'Normal-weight reference — 150 lb/ft³' },
+      { value: 2, label: 'Lightweight reference — 115 lb/ft³' },
+      { value: 3, label: 'High-density reference — 250 lb/ft³' },
+    ],
+    help: 'Presets are estimating references, not a substitute for the project mix design or supplier data.'
+  },
+  { ...densityField, value: DEFAULT_DENSITY, visibleWhen: { field: 'densityBasis', equals: 0 } },
+  { id: 'outputUnit', label: 'Primary weight unit', value: 0, unit: '', integer: true, min: 0, max: 3,
+    options: [
+      { value: 0, label: 'Pounds (lb)' },
+      { value: 1, label: 'Kilograms (kg)' },
+      { value: 2, label: 'US tons' },
+      { value: 3, label: 'Metric tonnes' },
+    ] },
+  { ...allowance, value: 0, label: 'Extra material allowance', help: 'Optional ordering allowance. Leave at 0% when you only want the weight of the measured concrete volume.' },
 ];
 
 const concreteWeight: Model = {
   fields: concreteWeightFields,
-  formula: 'Weight = volume × density. Known-volume mode uses the entered volume. Rectangular mode uses V = L × W × depth × quantity. Round mode uses V = π × (D/2)² × height × quantity. US tons = lb ÷ 2,000; kilograms = lb × 0.45359237; metric tonnes = kg ÷ 1,000.',
+  formula: 'Concrete mass = volume × density. Volume can be entered directly, calculated from area × thickness, or calculated from length × width × thickness. Unit conversions: 1 lb = 0.45359237 kg; 1 US ton = 2,000 lb; 1 metric tonne = 1,000 kg.',
   assumptions: [
-    `Default density ${DEFAULT_DENSITY} lb/ft³ ≈ 2400 kg/m³ for normalweight concrete.`,
-    'Concrete density varies with aggregate, reinforcement, air content and moisture condition. Use project-specific mix or supplier data when available.',
-    'The density field accepts lightweight, normalweight and heavyweight values; the calculator does not force a generic density class.',
-    'Material allowance is optional and defaults to 0% so the primary result represents the measured concrete. Add an allowance only when you intentionally want an order/logistics margin.',
-    'This is a material mass estimate, not a structural dead-load or lifting-capacity design check.',
-    '1 lb = 0.45359237 kg exactly; 1 US short ton = 2,000 lb; 1 metric tonne = 1,000 kg.',
+    'The primary result is the estimated mass of the measured concrete volume; extra material allowance is shown separately when entered.',
+    'The 150 lb/ft³ normal-weight preset is a common estimating reference. Use the actual project mix density when available.',
+    'The 115 lb/ft³ lightweight preset is an upper-end structural lightweight reference; lightweight concrete spans a broader density range.',
+    'The 250 lb/ft³ high-density preset is only a planning reference for heavyweight mixes; actual density depends on aggregate and mix design.',
+    'Dimensions describe a rectangular concrete volume. For complex geometry, calculate volume first with the Concrete Volume Calculator.',
+    'This calculator estimates material mass. It does not determine structural dead loads, reinforcement weight, lifting capacity, axle loads or equipment capacity.',
   ],
   sources: [
-    'https://www.concrete.org/portals/0/files/pdf/ACI_Concrete_Terminology.pdf',
-    'https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors',
+    acicr,
+    'https://www.concrete.org/frequentlyaskedquestions.aspx?faqid=670',
+    'https://www.concrete.org/frequentlyaskedquestions.aspx?faqid=707',
+    'https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9',
   ],
   calculate(v, u) {
-    const mode = Math.round(v.weightMode);
-    let cuFt: number;
-    let geometryStep: string;
+    const mode = Math.round(v.inputMode);
+    let cuFt = 0;
+    let volumeStep = '';
 
     if (mode === 1) {
+      requireCondition(v.area > 0, 'area', 'Enter a surface area greater than zero.');
+      requireCondition(v.areaThickness > 0, 'areaThickness', 'Enter a thickness greater than zero.');
+      cuFt = v.area * v.areaThickness;
+      volumeStep = `Area × thickness: ${fmt(v.area)} ft² × ${fmt(v.areaThickness)} ft = ${fmt(cuFt)} ft³.`;
+    } else if (mode === 2) {
       requireCondition(v.length > 0, 'length', 'Enter a length greater than zero.');
       requireCondition(v.width > 0, 'width', 'Enter a width greater than zero.');
-      requireCondition(v.depth > 0, 'depth', 'Enter a thickness or depth greater than zero.');
-      const each = v.length * v.width * v.depth;
-      cuFt = each * v.quantity;
-      geometryStep = `Rectangular volume: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`;
-    } else if (mode === 2) {
-      requireCondition(v.diameter > 0, 'diameter', 'Enter a diameter greater than zero.');
-      requireCondition(v.height > 0, 'height', 'Enter a height or circular depth greater than zero.');
-      const each = Math.PI * (v.diameter / 2) ** 2 * v.height;
-      cuFt = each * v.quantity;
-      geometryStep = `Round volume: π × (${fmt(v.diameter)}/2)² × ${fmt(v.height)} = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`;
+      requireCondition(v.thickness > 0, 'thickness', 'Enter a thickness greater than zero.');
+      cuFt = v.length * v.width * v.thickness;
+      volumeStep = `Length × width × thickness: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.thickness)} = ${fmt(cuFt)} ft³.`;
     } else {
       requireCondition(v.volume > 0, 'volume', 'Enter a concrete volume greater than zero.');
       cuFt = v.volume;
-      geometryStep = `Known volume: ${fmt(cuFt)} ft³ after unit conversion.`;
+      volumeStep = `Known volume: ${fmt(cuFt)} ft³.`;
     }
 
-    const density = densityLb(v.density, u.density);
-    requireCondition(density > 0, 'density', 'Enter a concrete density greater than zero.');
+    const basis = Math.round(v.densityBasis);
+    const density = basis === 1 ? 150 : basis === 2 ? 115 : basis === 3 ? 250 : densityLb(v.density, u.density);
+    const densityLabel = basis === 1 ? 'Normal-weight reference' : basis === 2 ? 'Lightweight reference' : basis === 3 ? 'High-density reference' : 'Entered density';
+    requireCondition(
+      density >= DENSITY_DENSITY_SAFETY_MIN && density <= DENSITY_DENSITY_SAFETY_MAX,
+      'density',
+      'Concrete density should be between 70 and 350 lb/ft³ for this estimator. Verify unusual mixes independently.',
+    );
 
-    const factor = waste(v);
-    const totalCuFt = cuFt * factor;
+    const allowanceFactor = waste(v);
+    const totalCuFt = cuFt * allowanceFactor;
     const netLb = cuFt * density;
     const totalLb = totalCuFt * density;
     const netKg = netLb / LB_PER_KG;
-    const totalKg = totalLb / LB_PER_KG;
-    const netM3 = cuFt / FT_PER_M ** 3;
-    const totalM3 = totalCuFt / FT_PER_M ** 3;
-    const densityKgM3 = density * FT_PER_M ** 3 / LB_PER_KG;
+    const netTons = netLb / 2000;
+    const netTonnes = netKg / 1000;
+    const outputUnit = Math.round(v.outputUnit);
+    const primaryValue = outputUnit === 1 ? netKg : outputUnit === 2 ? netTons : outputUnit === 3 ? netTonnes : netLb;
+    const primaryUnit = outputUnit === 1 ? 'kg' : outputUnit === 2 ? 'US tons' : outputUnit === 3 ? 'metric tonnes' : 'lb';
     const cuYd = cuFt / 27;
     const totalCuYd = totalCuFt / 27;
-
-    const metricPrimary = u.density === 'kg/m3';
-    const hasAllowance = v.waste > 0;
-    const primaryLb = hasAllowance ? totalLb : netLb;
-    const primaryKg = hasAllowance ? totalKg : netKg;
+    const netM3 = cuFt / FT_PER_M ** 3;
+    const totalM3 = totalCuFt / FT_PER_M ** 3;
 
     return result(
       [
-        row('primaryWeight', hasAllowance ? 'Weight with allowance' : 'Estimated concrete weight', metricPrimary ? primaryKg : primaryLb, metricPrimary ? 'kg' : 'lb'),
+        row('primaryWeight', 'Estimated concrete weight', primaryValue, primaryUnit),
         row('netWeight', 'Net weight (lb)', netLb, 'lb'),
         row('netKg', 'Net weight (kg)', netKg, 'kg'),
-        row('netTons', 'Net weight (US tons)', netLb / 2000, 'US tons'),
-        row('netTonnes', 'Net weight (metric tonnes)', netKg / 1000, 'metric tonnes'),
-        row('orderWeight', 'Weight with allowance (lb)', totalLb, 'lb'),
-        row('orderKg', 'Weight with allowance (kg)', totalKg, 'kg'),
-        row('orderTons', 'Weight with allowance (US tons)', totalLb / 2000, 'US tons'),
-        row('orderTonnes', 'Weight with allowance (metric tonnes)', totalKg / 1000, 'metric tonnes'),
-        row('netYd3', 'Net volume (yd³)', cuYd, 'yd³'),
-        row('netFt3', 'Net volume (ft³)', cuFt, 'ft³'),
-        row('netM3', 'Net volume (m³)', netM3, 'm³'),
-        row('netL', 'Net volume (L)', netM3 * 1000, 'L'),
-        row('orderYd3', 'Volume with allowance (yd³)', totalCuYd, 'yd³'),
-        row('orderFt3', 'Volume with allowance (ft³)', totalCuFt, 'ft³'),
-        row('orderM3', 'Volume with allowance (m³)', totalM3, 'm³'),
-        row('orderL', 'Volume with allowance (L)', totalM3 * 1000, 'L'),
-        row('densityUsed', 'Density applied (lb/ft³)', density, 'lb/ft³'),
-        row('densityKgM3', 'Density applied (kg/m³)', densityKgM3, 'kg/m³'),
-        row('lbPerYd3', 'Weight of 1 yd³ at this density', density * 27, 'lb/yd³'),
-        row('kgPerM3', 'Weight of 1 m³ at this density', densityKgM3, 'kg/m³'),
+        row('netTons', 'Net weight (US tons)', netTons, 'US tons'),
+        row('netTonnes', 'Net weight (metric tonnes)', netTonnes, 'metric tonnes'),
+        row('netYd3', 'Measured volume (yd³)', cuYd, 'yd³'),
+        row('netFt3', 'Measured volume (ft³)', cuFt, 'ft³'),
+        row('netM3', 'Measured volume (m³)', netM3, 'm³'),
+        ...(v.waste > 0 ? [
+          row('orderWeight', 'Weight with allowance (lb)', totalLb, 'lb'),
+          row('orderKg', 'Weight with allowance (kg)', totalLb / LB_PER_KG, 'kg'),
+          row('orderTons', 'Weight with allowance (US tons)', totalLb / 2000, 'US tons'),
+          row('orderTonnes', 'Weight with allowance (metric tonnes)', totalLb / LB_PER_KG / 1000, 'metric tonnes'),
+          row('orderYd3', 'Volume with allowance (yd³)', totalCuYd, 'yd³'),
+          row('orderM3', 'Volume with allowance (m³)', totalM3, 'm³'),
+        ] : []),
+        row('densityUsed', `${densityLabel} applied`, density, 'lb/ft³'),
+        row('densityMetric', 'Density applied (metric)', density * LB_PER_KG * FT_PER_M ** 3, 'kg/m³'),
+        row('lbPerYd3', 'Weight per cubic yard at this density', density * 27, 'lb/yd³'),
       ],
       [
-        geometryStep,
-        `Net weight: ${fmt(cuFt)} ft³ × ${fmt(density)} lb/ft³ = ${fmt(netLb)} lb (${fmt(netKg)} kg).`,
-        v.waste > 0
-          ? `With ${fmt(v.waste)}% allowance: ${fmt(totalCuFt)} ft³ × ${fmt(density)} lb/ft³ = ${fmt(totalLb)} lb (${fmt(totalKg)} kg).`
-          : 'No extra material allowance applied.',
-        `Density conversion: ${fmt(density)} lb/ft³ = ${fmt(densityKgM3)} kg/m³.`,
+        volumeStep,
+        `Density: ${fmt(density)} lb/ft³ (${densityLabel.toLowerCase()}).`,
+        `Weight: ${fmt(cuFt)} ft³ × ${fmt(density)} lb/ft³ = ${fmt(netLb)} lb.`,
+        `Metric mass: ${fmt(netLb)} lb ÷ ${fmt(LB_PER_KG)} = ${fmt(netKg)} kg.`,
+        ...(v.waste > 0 ? [`With ${fmt(v.waste)}% extra material allowance: ${fmt(totalLb)} lb for ${fmt(totalCuFt)} ft³.`] : []),
       ],
       [
-        'Use density for the same concrete condition you are estimating; fresh, cured and specialty mixes can differ.',
-        'Reinforcement is not added separately unless the density you enter already represents the composite material.',
-        'For transport, lifting or structural checks, verify actual loads and rated capacities independently.',
+        'Use the actual supplier or project density when available; concrete density varies by aggregate, air content, reinforcement assumptions and mix design.',
+        'A material allowance changes the amount ordered, not the physical density of the concrete.',
+        '1 yd³ = 27 ft³. The lb/yd³ check equals density × 27.',
       ]
     );
   },
