@@ -31,9 +31,16 @@ interface Props {
   datePublished?: string;
   dateModified?: string;
   noindex?: boolean;
+  reviewer?: {
+    name: string;
+    url?: string;
+    credentials?: string;
+    lastReviewed: string;
+    methodology?: string;
+  };
 }
 
-const { title, description, h1, intro, breadcrumbs, related = [], faq = [], canonical, ogImage, datePublished, dateModified, noindex } = Astro.props;
+const { title, description, h1, intro, breadcrumbs, related = [], faq = [], canonical, ogImage, datePublished, dateModified, noindex, reviewer } = Astro.props;
 
 const site = Astro.site?.toString() ?? "https://calculatorst.com";
 const siteNoSlash = site.replace(/\/$/, "");
@@ -54,6 +61,15 @@ const softwareSchema: any = {
   publisher: { "@type": "Organization", name: "Calculator Street", logo: { "@type": "ImageObject", url: new URL("/favicon.svg", site).href } },
   featureList: "Free in-browser calculation with input and result explanations",
 };
+
+if (reviewer) {
+  softwareSchema.reviewedBy = {
+    "@type": "Person",
+    name: reviewer.name,
+    ...(reviewer.url ? { url: new URL(reviewer.url, site).href } : {}),
+    ...(reviewer.credentials ? { description: reviewer.credentials } : {}),
+  };
+}
 
 
 
@@ -90,6 +106,18 @@ const softwareSchema: any = {
         {faq.length > 0 && <FAQ items={faq} />}
 
         <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} is:inline />
+
+        {reviewer && (
+          <div class="rounded-xl border border-border bg-card p-5">
+            <p class="font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-muted-foreground">Independent technical review</p>
+            <p class="mt-2 text-sm font-medium text-foreground">
+              Reviewed by {reviewer.url ? <a href={reviewer.url} class="underline underline-offset-2 decoration-border hover:decoration-foreground/40">{reviewer.name}</a> : reviewer.name}
+            </p>
+            {reviewer.credentials && <p class="mt-1 text-xs leading-5 text-muted-foreground">{reviewer.credentials}</p>}
+            <p class="mt-1 text-xs leading-5 text-muted-foreground">Last reviewed: {reviewer.lastReviewed}.</p>
+            {reviewer.methodology && <p class="mt-2 text-xs leading-5 text-muted-foreground">{reviewer.methodology}</p>}
+          </div>
+        )}
 
         <!-- Author attribution (factual, not verified claims) -->
         <div class="rounded-xl border border-border bg-card p-5">
