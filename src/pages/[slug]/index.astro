@@ -247,18 +247,21 @@ const concreteSeo: Record<string, {
     ]
   },
   "concrete-cost-calculator": {
-    title: "Concrete Cost Calculator — Ready-Mix & Bag Cost per Yard",
-    description: "Estimate concrete material cost from cubic yards or rounded bag quantities, with waste, tax, delivery, short-load, pump and other quoted project charges.",
+    title: "Concrete Cost Calculator — Total Project, Ready-Mix & Bag Cost",
+    description: "Estimate total concrete project cost from dimensions, known volume, area × thickness, or round geometry with ready-mix/bag pricing, allowance, tax and quoted project charges.",
     guidance: [
-      "Match the price unit to the supplier quote: per cubic yard, cubic meter, cubic foot, bag or ton.",
-      "Material tax is applied to the material subtotal; delivery, short-load, pumping and other project charges are entered separately.",
-      "Use quoted local prices rather than national averages because ready-mix, bag prices and delivery charges vary by supplier and project."
+      "Choose the geometry that matches what you already know: rectangular dimensions, known concrete volume, surface area × thickness, or round slab/cylinder dimensions.",
+      "Match the material-price unit to the actual quote: per cubic yard, cubic meter, cubic foot, bag or US ton. Per-bag pricing uses the rounded whole-bag count.",
+      "The large result becomes the estimated project total when a material price is entered; material subtotal, tax and other project charges remain visible separately.",
+      "Use quoted local prices rather than national averages. Delivery, short-load, pumping, reinforcement, formwork and labor are included only when you enter them."
     ],
     faq: [
-      { q: "How is concrete cost per cubic yard calculated?", a: "The calculator first finds the waste-adjusted order quantity, multiplies it by the selected price basis, then adds the entered tax and project charges." },
-      { q: "Can I price concrete by the bag instead of by the yard?", a: "Yes. Choose a per-bag price unit. The calculator uses the rounded whole-bag order count rather than multiplying by an unrounded fractional bag quantity." },
-      { q: "Does the estimate include delivery and short-load fees?", a: "Only when you enter those quoted charges. Supplier fee structures vary, so they are separate inputs rather than hidden assumptions." },
-      { q: "Does this include labor, rebar and formwork automatically?", a: "No. Add only the optional project charges shown in the form or estimate reinforcement, formwork and labor separately." }
+      { q: "What does the Concrete Cost Calculator include?", a: "It calculates the allowance-adjusted concrete quantity, material subtotal, material tax, entered delivery and project charges, all-in total, and normalized cost per cubic yard or cubic meter." },
+      { q: "Can I calculate cost without first knowing cubic yards?", a: "Yes. Use rectangular dimensions, surface area × thickness, or round slab/cylinder dimensions. The calculator derives volume before applying the selected price basis." },
+      { q: "Can I price concrete by the bag instead of by the yard?", a: "Yes. Choose the per-bag price unit. The calculator rounds the required bags up to a whole number before multiplying by the bag price." },
+      { q: "How are delivery and short-load fees handled?", a: "They are never guessed. Enter the quoted charges only when they apply; otherwise leave them at zero." },
+      { q: "Why is material tax separate from the other charges?", a: "This model applies the entered tax percentage only to concrete material. Local tax treatment can differ, so confirm the taxable basis on the supplier quote." },
+      { q: "Does the calculator show cost per square foot?", a: "Yes when the selected geometry provides a plan area. Known-volume mode cannot infer an area, so it does not invent a per-square-foot value." }
     ]
   },
   "concrete-mix-calculator": {
@@ -1802,7 +1805,7 @@ const newCalculatorSlugs = new Set([
   "concrete-crack-repair-calculator",
 ]);
 const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-08-29";
-const pageDateModified = ["concrete-calculator", "concrete-volume-calculator", "concrete-weight-calculator"].includes(calc.slug) || enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" : "2026-09-24";
+const pageDateModified = ["concrete-calculator", "concrete-volume-calculator", "concrete-weight-calculator", "concrete-cost-calculator"].includes(calc.slug) || enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" : "2026-09-24";
 ---
 
 <CalculatorLayout
@@ -1911,6 +1914,32 @@ const pageDateModified = ["concrete-calculator", "concrete-volume-calculator", "
           <div class="rounded-md bg-canvas-soft-2 p-3"><span class="font-mono font-semibold">1 lb = 0.45359237 kg</span></div>
         </div>
         <p class="mt-3 text-xs leading-5 text-mute">ACI describes structural low-density concrete as no more than 115 lb/ft³ and identifies high-density aggregate ranges extending to roughly 350 lb/ft³. Presets here are single estimating points, not definitions of every mix.</p>
+      </details>
+    )}
+
+    {calc.slug === "concrete-cost-calculator" && (
+      <details class="rounded-lg border border-hairline bg-canvas p-6">
+        <summary class="cursor-pointer font-semibold text-ink">How the cost estimate is built</summary>
+        <p class="mt-3 text-sm leading-6 text-body">The calculator keeps material price, material tax and project charges separate so a supplier quote can be audited instead of hidden behind one average price.</p>
+        <div class="mt-4 overflow-x-auto rounded-md border border-hairline" role="region" aria-label="Concrete cost calculation reference" tabindex="0">
+          <table class="w-full min-w-[720px] text-left text-sm">
+            <thead class="bg-canvas-soft font-mono text-[11px] text-mute">
+              <tr><th class="px-3 py-2">ITEM</th><th class="px-3 py-2">CALCULATION</th><th class="px-3 py-2">IMPORTANT DETAIL</th></tr>
+            </thead>
+            <tbody class="divide-y divide-hairline">
+              <tr><td class="px-3 py-2">Order quantity</td><td class="px-3 py-2 font-mono">net volume × (1 + allowance)</td><td class="px-3 py-2">Allowance is applied once before pricing.</td></tr>
+              <tr><td class="px-3 py-2">Bag pricing</td><td class="px-3 py-2 font-mono">ceil(order volume ÷ bag yield) × bag price</td><td class="px-3 py-2">Whole bags are rounded before cost is calculated.</td></tr>
+              <tr><td class="px-3 py-2">Material tax</td><td class="px-3 py-2 font-mono">material subtotal × tax %</td><td class="px-3 py-2">This model taxes concrete material only.</td></tr>
+              <tr><td class="px-3 py-2">Estimated total</td><td class="px-3 py-2 font-mono">material + tax + entered project charges</td><td class="px-3 py-2">Delivery and other fees are included only when entered.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 grid gap-2 text-sm sm:grid-cols-3">
+          <div class="rounded-md bg-canvas-soft-2 p-3"><span class="font-mono font-semibold">1 yd³ = 27 ft³</span></div>
+          <div class="rounded-md bg-canvas-soft-2 p-3"><span class="font-mono font-semibold">80-lb bag ≈ 0.60 ft³*</span></div>
+          <div class="rounded-md bg-canvas-soft-2 p-3"><span class="font-mono font-semibold">60-lb bag ≈ 0.45 ft³*</span></div>
+        </div>
+        <p class="mt-3 text-xs leading-5 text-mute">*Manufacturer-published QUIKRETE Concrete Mix yields. For another product, enter the yield printed on its bag.</p>
       </details>
     )}
     <div class="rounded-lg border border-hairline bg-canvas p-6">
