@@ -429,7 +429,7 @@ test.describe('Framing / roofing / flooring full browser audit', () => {
     await root.locator('#roof-pitch-calculator-rise').fill('6');
     await root.locator('#roof-pitch-calculator-run').fill('12');
     await root.getByRole('button',{name:/Calculate/i}).click();
-    await expect(root.locator('.result-primary')).toHaveText(/^6$/);
+    await expect(root.locator('.result-primary')).toHaveText(/^6:12$/);
     await expect(root).toContainText('Straight sloped rafter length');
     await expect(diagram).toContainText('6.00:12');
 
@@ -439,7 +439,7 @@ test.describe('Framing / roofing / flooring full browser audit', () => {
     await root.locator('#roof-pitch-calculator-angleInput').fill('45');
     await root.locator('#roof-pitch-calculator-referenceRun').fill('10');
     await root.getByRole('button',{name:/Calculate/i}).click();
-    await expect(root.locator('.result-primary')).toHaveText(/^12$/);
+    await expect(root.locator('.result-primary')).toHaveText(/^12:12$/);
     await expect(root).toContainText('14.1421');
 
     await mode.selectOption('2');
@@ -447,7 +447,7 @@ test.describe('Framing / roofing / flooring full browser audit', () => {
     await root.locator('#roof-pitch-calculator-pitchInput').fill('8');
     await root.locator('#roof-pitch-calculator-referenceRun').fill('12');
     await root.getByRole('button',{name:/Calculate/i}).click();
-    await expect(root.locator('.result-primary')).toHaveText(/^8$/);
+    await expect(root.locator('.result-primary')).toHaveText(/^8:12$/);
     await expect(root).toContainText('66.6667');
 
     await mode.selectOption('3');
@@ -461,7 +461,7 @@ test.describe('Framing / roofing / flooring full browser audit', () => {
 
     await root.locator('#roof-pitch-calculator-rafterLength').fill('13.416407865');
     await root.getByRole('button',{name:/Calculate/i}).click();
-    await expect(root.locator('.result-primary')).toHaveText(/^6$/);
+    await expect(root.locator('.result-primary')).toHaveText(/^6:12$/);
 
     await root.getByRole('button',{name:/Reset/i}).click();
     await expect(mode).toHaveValue('0');
