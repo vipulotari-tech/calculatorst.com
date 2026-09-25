@@ -13,6 +13,7 @@ interface Props {
 const { slug, fields } = Astro.props;
 const lower = slug.toLowerCase();
 const kind =
+  lower === "concrete-calculator" ? "concrete" :
   lower === "roof-pitch-calculator" ? "roofPitch" :
   /roof|pitch|rafter/.test(lower) ? "roof" :
   /rebar|mesh/.test(lower) ? "grid" :
@@ -48,6 +49,40 @@ const show = !excluded && fields.length >= 2;
       <title id={`${slug}-diagram-title`}>Live measurement schematic for this calculator</title>
       <desc id={`${slug}-diagram-desc`}>A not-to-scale construction sketch whose measurement labels update from the calculator inputs.</desc>
       <rect x="1" y="1" width="638" height="238" rx="14" fill="var(--color-background)" stroke="var(--color-border)" />
+
+      {kind === "concrete" && (
+        <>
+          <text x="34" y="34" font-size="12" font-weight="600" fill="var(--color-muted-foreground)" data-concrete-shape-name>Rectangular slab</text>
+
+          <g data-concrete-shape="0">
+            <polygon points="145,105 430,105 510,145 225,145" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="225,145 510,145 510,172 225,172" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="430,105 510,145 510,172 430,132" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+
+          <g data-concrete-shape="1" style="display:none">
+            <polygon points="105,105 470,105 535,135 170,135" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="170,135 535,135 535,180 170,180" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="470,105 535,135 535,180 470,150" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+
+          <g data-concrete-shape="2" style="display:none">
+            <polygon points="165,65 450,65 505,92 220,92" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="220,92 505,92 505,188 220,188" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="450,65 505,92 505,188 450,161" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+
+          <g data-concrete-shape="3" style="display:none">
+            <ellipse cx="320" cy="78" rx="105" ry="30" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <path d="M215 78 V172 C215 190 262 204 320 204 C378 204 425 190 425 172 V78" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <ellipse cx="320" cy="172" rx="105" ry="30" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1.5" />
+          </g>
+
+          <text x="320" y="224" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-diagram-value="0">Measurement 1</text>
+          <text x="92" y="138" text-anchor="middle" font-size="13" fill="var(--color-foreground)" transform="rotate(-90 92 138)" data-diagram-value="1">Measurement 2</text>
+          <text x="470" y="52" text-anchor="middle" font-size="13" fill="var(--color-muted-foreground)" data-diagram-value="2">Measurement 3</text>
+        </>
+      )}
 
       {kind === "roofPitch" && (
         <>
@@ -175,6 +210,17 @@ const show = !excluded && fields.length >= 2;
         return select?.value ?? "ft";
       };
 
+      const updateConcreteDiagram = () => {
+        if (figure.dataset.kind !== "concrete") return;
+        const shape = Math.round(numericControl("shape"));
+        const names = ["Rectangular slab", "Strip footing", "Wall", "Cylinder / column"];
+        figure.querySelectorAll<SVGGElement>("[data-concrete-shape]").forEach((group) => {
+          group.style.display = group.dataset.concreteShape === String(shape) ? "" : "none";
+        });
+        const name = figure.querySelector<SVGTextElement>("[data-concrete-shape-name]");
+        if (name) name.textContent = names[shape] ?? "Concrete shape";
+      };
+
       const updateRoofPitchDiagram = () => {
         if (figure.dataset.kind !== "roofPitch") return false;
 
@@ -268,6 +314,7 @@ const show = !excluded && fields.length >= 2;
       };
 
       const update = () => {
+        updateConcreteDiagram();
         if (updateRoofPitchDiagram()) return;
         const values = fields.map(readField).filter((item): item is { label: string; value: string; unit: string } => Boolean(item)).slice(0, 3);
 
