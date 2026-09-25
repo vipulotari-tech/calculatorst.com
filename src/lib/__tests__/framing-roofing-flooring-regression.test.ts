@@ -63,7 +63,7 @@ describe('Framing & lumber — independent regression cases', () => {
   });
 
   it('lumber calculator handles general repeated-member layouts', () => {
-    expect(value('lumber-calculator','installed',{ length:20, spacing:2, memberLength:8, extra:1, waste:0 })).toBe(12);
+    expect(value('lumber-calculator','installed',{ length:20, spacing:2, memberLength:8, extra:1, waste:0 },{ spacing:'ft' })).toBe(12);
   });
 
   it('lumber cost supports per-piece pricing with tax, delivery and labor', () => {
