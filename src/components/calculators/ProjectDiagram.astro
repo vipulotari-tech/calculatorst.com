@@ -13,6 +13,7 @@ interface Props {
 const { slug, fields } = Astro.props;
 const lower = slug.toLowerCase();
 const kind =
+  lower === "concrete-volume-calculator" ? "concreteVolume" :
   lower === "concrete-calculator" ? "concrete" :
   lower === "roof-pitch-calculator" ? "roofPitch" :
   /roof|pitch|rafter/.test(lower) ? "roof" :
@@ -49,6 +50,69 @@ const show = !excluded && fields.length >= 2;
       <title id={`${slug}-diagram-title`}>Live measurement schematic for this calculator</title>
       <desc id={`${slug}-diagram-desc`}>A not-to-scale construction sketch whose measurement labels update from the calculator inputs.</desc>
       <rect x="1" y="1" width="638" height="238" rx="14" fill="var(--color-background)" stroke="var(--color-border)" />
+
+      {kind === "concreteVolume" && (
+        <>
+          <text x="34" y="34" font-size="12" font-weight="600" fill="var(--color-muted-foreground)" data-concrete-volume-shape-name>Rectangular slab / prism</text>
+
+          <g data-concrete-volume-shape="0">
+            <polygon points="145,105 430,105 510,145 225,145" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="225,145 510,145 510,172 225,172" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="430,105 510,145 510,172 430,132" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+
+          <g data-concrete-volume-shape="1" style="display:none">
+            <ellipse cx="320" cy="78" rx="105" ry="30" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <path d="M215 78 V172 C215 190 262 204 320 204 C378 204 425 190 425 172 V78" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <ellipse cx="320" cy="172" rx="105" ry="30" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1.5" />
+          </g>
+
+          <g data-concrete-volume-shape="2" style="display:none">
+            <ellipse cx="320" cy="75" rx="112" ry="33" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <ellipse cx="320" cy="75" rx="55" ry="17" fill="var(--color-background)" stroke="var(--color-muted-foreground)" stroke-width="1.5" />
+            <path d="M208 75 V170 C208 190 258 205 320 205 C382 205 432 190 432 170 V75" fill="none" stroke="var(--color-foreground)" stroke-width="2" />
+            <ellipse cx="320" cy="170" rx="112" ry="33" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1.5" />
+            <ellipse cx="320" cy="170" rx="55" ry="17" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1.5" stroke-dasharray="5 4" />
+          </g>
+
+          <g data-concrete-volume-shape="3" style="display:none">
+            <path d="M100 175 H540 V145 H285 V82 H195 V145 H100 Z" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <line x1="100" y1="145" x2="540" y2="145" stroke="var(--color-muted-foreground)" stroke-width="1.5" stroke-dasharray="6 5" />
+          </g>
+
+          <g data-concrete-volume-shape="4" style="display:none">
+            <path d="M145 185 H495 V145 H425 V115 H355 V85 H285 V55 H215 V185 Z" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+
+          <g data-concrete-volume-shape="5" style="display:none">
+            <polygon points="145,175 355,175 355,80" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="355,80 500,120 500,175 355,175" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <line x1="145" y1="175" x2="500" y2="175" stroke="var(--color-muted-foreground)" stroke-width="1.5" />
+          </g>
+
+          <g data-concrete-volume-shape="6" style="display:none">
+            <polygon points="175,55 445,55 500,82 230,82" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="230,82 500,82 500,192 230,192" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="445,55 500,82 500,192 445,165" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+
+          <g data-concrete-volume-shape="7" style="display:none">
+            <polygon points="95,118 475,118 545,148 165,148" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="165,148 545,148 545,190 165,190" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="475,118 545,148 545,190 475,160" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+
+          <g data-concrete-volume-shape="8" style="display:none">
+            <polygon points="245,48 385,48 425,68 285,68" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="285,68 425,68 425,198 285,198" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="385,48 425,68 425,198 385,178" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+
+          <text x="320" y="224" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-diagram-value="0">Measurement 1</text>
+          <text x="92" y="138" text-anchor="middle" font-size="13" fill="var(--color-foreground)" transform="rotate(-90 92 138)" data-diagram-value="1">Measurement 2</text>
+          <text x="470" y="52" text-anchor="middle" font-size="13" fill="var(--color-muted-foreground)" data-diagram-value="2">Measurement 3</text>
+        </>
+      )}
 
       {kind === "concrete" && (
         <>
@@ -210,6 +274,27 @@ const show = !excluded && fields.length >= 2;
         return select?.value ?? "ft";
       };
 
+      const updateConcreteVolumeDiagram = () => {
+        if (figure.dataset.kind !== "concreteVolume") return;
+        const shape = Math.round(numericControl("shape"));
+        const names = [
+          "Rectangular slab / prism",
+          "Round slab / cylinder / column",
+          "Hollow tube / annular cylinder",
+          "Curb + gutter",
+          "Solid stairs (mass fill)",
+          "Triangle prism / wedge",
+          "Concrete wall",
+          "Strip footing",
+          "Square / rectangular column",
+        ];
+        figure.querySelectorAll<SVGGElement>("[data-concrete-volume-shape]").forEach((group) => {
+          group.style.display = group.dataset.concreteVolumeShape === String(shape) ? "" : "none";
+        });
+        const name = figure.querySelector<SVGTextElement>("[data-concrete-volume-shape-name]");
+        if (name) name.textContent = names[shape] ?? "Concrete volume shape";
+      };
+
       const updateConcreteDiagram = () => {
         if (figure.dataset.kind !== "concrete") return;
         const shape = Math.round(numericControl("shape"));
@@ -314,6 +399,7 @@ const show = !excluded && fields.length >= 2;
       };
 
       const update = () => {
+        updateConcreteVolumeDiagram();
         updateConcreteDiagram();
         if (updateRoofPitchDiagram()) return;
         const values = fields.map(readField).filter((item): item is { label: string; value: string; unit: string } => Boolean(item)).slice(0, 3);

@@ -79,6 +79,76 @@ describe("Complete 204 Calculator Logic Audit", () => {
       .toThrow(/greater than zero/i);
   });
 
+  it("should calculate all nine concrete volume shapes with quantity applied consistently", () => {
+    const model = getModelForSlug("concrete-volume-calculator");
+    const units = {
+      length: "ft", width: "ft", depth: "in", thickness: "in",
+      diameter: "in", height: "ft", innerDiameter: "in",
+      curbWidth: "in", curbHeight: "in", gutterWidth: "in", gutterDepth: "in",
+      stairWidth: "ft", rise: "in", run: "in", landing: "ft",
+      base: "in", triHeight: "in", wedgeLength: "ft",
+      density: "lb/ft3", yield: "ft3",
+    };
+    const base = {
+      shape: 0, length: 12, width: 8, depth: 5, thickness: 8,
+      diameter: 24, height: 10, innerDiameter: 12,
+      curbWidth: 6, curbHeight: 6, gutterWidth: 18, gutterDepth: 6,
+      stairWidth: 4, rise: 7, run: 11, steps: 4, landing: 0,
+      base: 36, triHeight: 12, wedgeLength: 10,
+      quantity: 1, waste: 0, density: 150, yield: 0.6,
+    };
+    const ft3 = (raw: Record<string, number>) => {
+      const res = model.calculate(readInputs(model.fields, raw, units), units);
+      return res.rows.find(r => r.key === "ft3")?.value ?? Number.NaN;
+    };
+
+    expect(ft3({ ...base, shape: 0, quantity: 2 })).toBeCloseTo(80, 8);
+    expect(ft3({ ...base, shape: 1, quantity: 3 })).toBeCloseTo(Math.PI * 30, 8);
+    expect(ft3({ ...base, shape: 2, quantity: 2 })).toBeCloseTo(Math.PI * 15, 8);
+    expect(ft3({ ...base, shape: 3, length: 20, curbHeight: 12, quantity: 2 })).toBeCloseTo(50, 8);
+    expect(ft3({ ...base, shape: 4, quantity: 2 })).toBeCloseTo(2 * 4 * (7 / 12) * (11 / 12) * 10, 8);
+    expect(ft3({ ...base, shape: 5, quantity: 2 })).toBeCloseTo(30, 8);
+    expect(ft3({ ...base, shape: 6, length: 30, height: 8, thickness: 8 })).toBeCloseTo(160, 8);
+    expect(ft3({ ...base, shape: 7, length: 50, width: 2, depth: 12 })).toBeCloseTo(100, 8);
+    expect(ft3({ ...base, shape: 8, length: 2, width: 2, height: 10, quantity: 3 })).toBeCloseTo(120, 8);
+  });
+
+  it("should reject invalid active concrete-volume geometry", () => {
+    const model = getModelForSlug("concrete-volume-calculator");
+    const units = {
+      length: "ft", width: "ft", depth: "in", thickness: "in",
+      diameter: "in", height: "ft", innerDiameter: "in",
+      curbWidth: "in", curbHeight: "in", gutterWidth: "in", gutterDepth: "in",
+      stairWidth: "ft", rise: "in", run: "in", landing: "ft",
+      base: "in", triHeight: "in", wedgeLength: "ft",
+      density: "lb/ft3", yield: "ft3",
+    };
+    const base = {
+      shape: 2, length: 12, width: 8, depth: 5, thickness: 8,
+      diameter: 24, height: 10, innerDiameter: 24,
+      curbWidth: 6, curbHeight: 6, gutterWidth: 18, gutterDepth: 6,
+      stairWidth: 4, rise: 7, run: 11, steps: 4, landing: 0,
+      base: 36, triHeight: 12, wedgeLength: 10,
+      quantity: 1, waste: 0, density: 150, yield: 0.6,
+    };
+    expect(() => model.calculate(readInputs(model.fields, base, units), units))
+      .toThrow(/smaller than outer diameter/i);
+    expect(() => model.calculate(readInputs(model.fields, { ...base, shape: 5, base: 0 }, units), units))
+      .toThrow(/greater than zero/i);
+  });
+
+  it("should keep the concrete volume worked example limited to the active rectangular shape", () => {
+    const model = getModelForSlug("concrete-volume-calculator");
+    const content = getCalculatorContent("Concrete Volume Calculator", model);
+    expect(content.inputs).toContain("Concrete shape: Rectangular slab / prism");
+    expect(content.inputs.some(input => input.startsWith("Length:"))).toBe(true);
+    expect(content.inputs.some(input => input.startsWith("Width:"))).toBe(true);
+    expect(content.inputs.some(input => input.startsWith("Slab thickness / footing depth:"))).toBe(true);
+    expect(content.inputs.some(input => input.startsWith("Outer diameter:"))).toBe(false);
+    expect(content.inputs.some(input => input.startsWith("Curb width:"))).toBe(false);
+    expect(content.inputs.some(input => input.startsWith("Stair width:"))).toBe(false);
+  });
+
   for (const slug of allSlugs) {
     it(`should successfully compute valid results for ${slug}`, () => {
       const model = getModelForSlug(slug);
