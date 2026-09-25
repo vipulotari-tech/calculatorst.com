@@ -1702,7 +1702,7 @@ const masonrySeo = masonrySeoEnhancements[calc.slug]
   ? { title: calc.title, description: calc.description, ...masonrySeoEnhancements[calc.slug] }
   : undefined;
 const pageSeo = concreteSeo[calc.slug] ?? slabSeo[calc.slug] ?? foundationSeo[calc.slug] ?? rebarSeo[calc.slug] ?? masonrySeo;
-const enhancedTradeCluster = new Set(["framing", "roofing", "flooring"]);
+const enhancedTradeCluster = new Set(["framing", "roofing", "flooring", "drywall", "deck-fence", "landscaping", "asphalt"]);
 const faq = pageSeo?.faq ?? [...content.faq, ...(faqEnhancements[calc.slug] ?? []), ...(tradeFaqEnhancements[calc.slug] ?? [])];
 const seoDescriptionOverrides: Record<string, string> = {
   "crushed-stone-calculator": calc.description,
