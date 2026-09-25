@@ -2955,21 +2955,35 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   }
 ];
 
-export const hubCategories = [
-  { name: "Concrete Calculators", slug: "concrete", desc: "Volume, slabs, walls, footings, cost and crack repair", count: 17 },
-  { name: "Slab, Patio & Driveway", slug: "slab-patio-driveway", desc: "Thickness, cost, reinforcement and garage/shed pads", count: 10 },
-  { name: "Foundation & Footing", slug: "foundation", desc: "Strip, pad, pier, excavation and basement walls", count: 10 },
-  { name: "Rebar & Reinforcement", slug: "rebar", desc: "Weight, spacing, laps, grids and chairs", count: 10 },
-  { name: "Brick & Masonry", slug: "brick-masonry", desc: "Quantity, mortar, veneer and joint", count: 15 },
-  { name: "Concrete Block & CMU", slug: "concrete-block", desc: "CMU walls, grout and reinforcement", count: 10 },
-  { name: "Mortar, Grout & Cement", slug: "mortar-grout-cement", desc: "Mortar, grout, deck mud, stucco, cement and mix ratios", count: 12 },
-  { name: "Gravel, Aggregate & Dirt", slug: "gravel", desc: "Gravel, crushed stone, sand, topsoil and fill dirt", count: 15 },
-  { name: "Excavation & Earthwork", slug: "excavation", desc: "Trenches, cut/fill and soil volume", count: 10 },
-  { name: "Framing & Lumber", slug: "framing", desc: "Studs, joists, beams and board feet", count: 15 },
-  { name: "Roofing Calculators", slug: "roofing", desc: "Area, pitch, shingles, rafters and sheathing", count: 15 },
-  { name: "Flooring & Tile", slug: "flooring", desc: "Hardwood, laminate, vinyl, carpet and tile", count: 15 },
-  { name: "Drywall, Paint & Insulation", slug: "drywall-paint", desc: "Sheets, screws, paint coverage and spray foam", count: 15 },
-  { name: "Deck, Fence & Outdoor", slug: "deck-fence", desc: "Boards, joists, posts, panels and gates", count: 15 },
-  { name: "Paver & Landscaping", slug: "landscaping", desc: "Pavers, base, sand and retaining walls", count: 10 },
-  { name: "Asphalt & Surface", slug: "asphalt", desc: "Driveways, parking lots, road base and surface area", count: 10 },
-];
+export const constructionCalculatorCount = hubCalculators.length;
+
+const hubCategoryDefinitions = [
+  { name: "Concrete Calculators", slug: "concrete", cluster: "concrete", desc: "Volume, slabs, walls, footings, cost and crack repair" },
+  { name: "Slab, Patio & Driveway", slug: "slab-patio-driveway", cluster: "slab", desc: "Thickness, cost, reinforcement and garage/shed pads" },
+  { name: "Foundation & Footing", slug: "foundation", cluster: "foundation", desc: "Strip, pad, pier, excavation and basement walls" },
+  { name: "Rebar & Reinforcement", slug: "rebar", cluster: "rebar", desc: "Weight, spacing, laps, grids and chairs" },
+  { name: "Brick & Masonry", slug: "brick-masonry", cluster: "brick", desc: "Quantity, mortar, veneer and joint" },
+  { name: "Concrete Block & CMU", slug: "concrete-block", cluster: "cmu", desc: "CMU walls, grout and reinforcement" },
+  { name: "Mortar, Grout & Cement", slug: "mortar-grout-cement", cluster: "mortar", desc: "Mortar, grout, deck mud, stucco, cement and mix ratios" },
+  { name: "Gravel, Aggregate & Dirt", slug: "gravel", cluster: "gravel", desc: "Gravel, crushed stone, sand, topsoil and fill dirt" },
+  { name: "Excavation & Earthwork", slug: "excavation", cluster: "excavation", desc: "Trenches, cut/fill and soil volume" },
+  { name: "Framing & Lumber", slug: "framing", cluster: "framing", desc: "Studs, joists, beams and board feet" },
+  { name: "Roofing Calculators", slug: "roofing", cluster: "roofing", desc: "Area, pitch, shingles, rafters and sheathing" },
+  { name: "Flooring & Tile", slug: "flooring", cluster: "flooring", desc: "Hardwood, laminate, vinyl, carpet and tile" },
+  { name: "Drywall, Paint & Insulation", slug: "drywall-paint", cluster: "drywall", desc: "Sheets, screws, paint coverage and spray foam" },
+  { name: "Deck, Fence & Outdoor", slug: "deck-fence", cluster: "deck-fence", desc: "Boards, joists, posts, panels and gates" },
+  { name: "Paver & Landscaping", slug: "landscaping", cluster: "landscaping", desc: "Pavers, base, sand and retaining walls" },
+  { name: "Asphalt & Surface", slug: "asphalt", cluster: "asphalt", desc: "Driveways, parking lots, road base and surface area" },
+] as const;
+
+export const constructionCategoryCounts: Record<string, number> = Object.fromEntries(
+  hubCategoryDefinitions.map(({ cluster }) => [
+    cluster,
+    hubCalculators.filter((calculator) => calculator.cluster === cluster).length,
+  ]),
+);
+
+export const hubCategories = hubCategoryDefinitions.map(({ cluster, ...category }) => ({
+  ...category,
+  count: constructionCategoryCounts[cluster] ?? 0,
+}));
