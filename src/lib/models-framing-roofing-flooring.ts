@@ -111,20 +111,22 @@ const framingGeneral:Model={
     const studFeet=studs*v.height;
     const plateFeet=v.length*(v.topPlates+v.bottomPlates);
     const net=studFeet+plateFeet;
-    const orderFeet=net*waste(v);
+    const requiredFeet=net*waste(v);
     const platePieces=roundUp(plateFeet*waste(v)/v.stockLength);
     const studOrder=roundUp(studs*waste(v));
+    const purchasedFeet=studOrder*v.height+platePieces*v.stockLength;
     return result(withCost([
       row('studs','Installed studs',studs,'studs',true),
       row('studOrder','Studs including allowance',studOrder,'studs',true),
       row('plateFeet','Net plate length',plateFeet,'ft'),
       row('platePieces','Equivalent plate stock pieces',platePieces,'pieces',true),
       row('net','Net framing lumber',net,'ft'),
-      row('order','Framing lumber with allowance',orderFeet,'ft')
-    ],v.price,u.price,{'USD/ft':orderFeet}),[
+      row('required','Required lumber with allowance',requiredFeet,'ft'),
+      row('order','Equivalent purchased stock length',purchasedFeet,'ft')
+    ],v.price,u.price,{'USD/ft':purchasedFeet}),[
       `ceil(${fmt(v.length)} ÷ ${fmt(v.spacing)}) + 1 = ${base} base studs; + ${v.extra} = ${studs}.`,
       `Stud footage ${fmt(studFeet)} + plate footage ${fmt(plateFeet)} = ${fmt(net)} ft.`,
-      `Allowance → ${fmt(orderFeet)} ft; equivalent plate stock = ${platePieces} pieces.`
+      `Allowance requires ${fmt(requiredFeet)} ft; whole studs and ${platePieces} plate stock pieces produce about ${fmt(purchasedFeet)} ft purchased.`
     ]);
   }
 };
@@ -537,8 +539,8 @@ function flooringCostModel(label:string):Model{
       number('delivery','Delivery / fixed fee (USD)',0,0),
       number('labor','Labor / installation allowance (USD)',0,0)
     ],
-    formula:'Order area = net area × pattern factor × waste factor. Flooring material plus optional underlayment, tax, delivery and entered labor produce the entered-scope total.',
-    assumptions:['Price is for material area, not package count.','Labor is user-entered; installation rates, demolition, trim and substrate repair are not inferred.','Avoid duplicating the same allowance in pattern and waste fields.'],
+    formula:'Flooring order area = net area × pattern factor × waste factor. Underlayment/pad cost uses net installed area; material tax, delivery and entered labor are then added.',
+    assumptions:['Flooring price is for material area, not package count. Underlayment/pad rate is applied to net installed area rather than flooring waste or pattern overage.','Labor is user-entered; installation rates, demolition, trim and substrate repair are not inferred.','Avoid duplicating the same allowance in pattern and waste fields.'],
     sources:[],
     calculate(v,u){
       const order=v.area*(1+v.pattern/100)*waste(v);
@@ -663,8 +665,8 @@ const tileCost:Model={
     {...price('USD/unit',['USD/unit','USD/ft2','USD/m2']),optional:false},
     number('tax','Material tax (%)',0,0),number('delivery','Delivery / fixed fee (USD)',0,0),number('labor','Labor / installation allowance (USD)',0,0)
   ],
-  formula:'Area-based tile count = ceil(net area / tile face area × allowance); boxes = ceil(tiles / tiles per box); material price can be per box or square foot.',
-  assumptions:['Area-based cost estimate; it does not optimize edge cuts or layout direction.','Labor, substrate repair, grout and adhesive are separate unless entered elsewhere.'],
+  formula:'Required tiles = ceil(net area / tile face area × allowance); boxes = ceil(required tiles / tiles per box); purchased area uses whole boxes; material price can be per box, ft² or m².',
+  assumptions:['Area-based tile requirement; it does not optimize edge cuts or layout direction. Cost by area uses the tile face area actually purchased in whole boxes.','Labor, substrate repair, grout and adhesive are separate unless entered elsewhere.'],
   sources:[calcNetTile,omniTile],
   calculate(v,u){
     const tileArea=v.tileLength*v.tileWidth,tiles=roundUp(v.area/tileArea*waste(v)),boxes=roundUp(tiles/v.tilesPerBox);
