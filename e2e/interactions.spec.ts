@@ -7,6 +7,7 @@ const calculators = [
   { slug: 'concrete-volume-calculator', type: 'generic' },
   { slug: 'concrete-weight-calculator', type: 'generic' },
   { slug: 'concrete-cost-calculator', type: 'generic' },
+  { slug: 'concrete-mix-calculator', type: 'generic' },
   { slug: 'gravel-calculator', type: 'handbuilt' },
   { slug: 'concrete-slab-calculator', type: 'handbuilt' },
   { slug: 'roof-pitch-calculator', type: 'handbuilt' },
@@ -372,6 +373,60 @@ test.describe('Calculator interactions', () => {
     await root.getByRole('button', { name: /^Calculate$/ }).click();
     await expect(root.locator('#concrete-cost-calculator-area-err')).toContainText('greater than zero');
     await expect(root.locator('.result-primary')).toHaveText('—');
+  });
+
+  test('Concrete mix calculator — bags-first result, ratios, dimensions and live mix guide', async ({ page }) => {
+    await page.goto('/concrete-mix-calculator/?cs_calc=concrete-mix-calculator&cs_mixInputMode=0&cs_volume=1&cs_volume_unit=m3&cs_mixPreset=1&cs_dryFactor=1.54&cs_cementDensity=1440&cs_sandDensity=1600&cs_aggregateDensity=1500&cs_bagMass=50&cs_waterRatio=0.5&cs_waste=0');
+    const root = page.locator('[data-calculator-slug="concrete-mix-calculator"]');
+    const inputMode = root.locator('#concrete-mix-calculator-mixInputMode');
+    const preset = root.locator('#concrete-mix-calculator-mixPreset');
+    const diagram = root.locator('[data-project-diagram]');
+
+    await expect(root.locator('.result-primary')).toHaveText('8');
+    await expect(root.locator('.result-primary-unit')).toHaveText('bags');
+    await expect(root.locator('.result-secondary')).toHaveText('Whole cement bags required');
+    await expect(root.locator('.result-rows-grid')).toContainText('369.6');
+    await expect(root.locator('.result-rows-grid')).toContainText('184.8');
+    await expect(diagram).toBeVisible();
+    await expect(diagram.locator('[data-concrete-mix-ratio]')).toHaveText('Ratio 1 : 2 : 3');
+
+    await preset.selectOption('0');
+    await expect(root.locator('#concrete-mix-calculator-field-cementParts')).toBeVisible();
+    await expect(root.locator('#concrete-mix-calculator-field-sandParts')).toBeVisible();
+    await expect(root.locator('#concrete-mix-calculator-field-aggregateParts')).toBeVisible();
+    await root.locator('#concrete-mix-calculator-cementParts').fill('1');
+    await root.locator('#concrete-mix-calculator-sandParts').fill('1.5');
+    await root.locator('#concrete-mix-calculator-aggregateParts').fill('3');
+    await expect(diagram.locator('[data-concrete-mix-ratio]')).toHaveText('Ratio 1 : 1.5 : 3');
+
+    await inputMode.selectOption('1');
+    await expect(root.locator('#concrete-mix-calculator-field-volume')).toBeHidden();
+    await expect(root.locator('#concrete-mix-calculator-field-mixLength')).toBeVisible();
+    await expect(root.locator('#concrete-mix-calculator-field-mixWidth')).toBeVisible();
+    await expect(root.locator('#concrete-mix-calculator-field-mixDepth')).toBeVisible();
+    await root.locator('#concrete-mix-calculator-mixLength').fill('10');
+    await root.locator('#concrete-mix-calculator-mixWidth').fill('10');
+    await root.locator('#concrete-mix-calculator-mixDepth').fill('4');
+    await root.locator('#concrete-mix-calculator-mixDepth-unit').selectOption('in');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
+  test('Concrete mix calculator rejects zero active dimensions and invalid custom ratio', async ({ page }) => {
+    await page.goto('/concrete-mix-calculator/');
+    const root = page.locator('[data-calculator-slug="concrete-mix-calculator"]');
+    await root.locator('#concrete-mix-calculator-mixInputMode').selectOption('1');
+    await root.locator('#concrete-mix-calculator-mixLength').fill('0');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('#concrete-mix-calculator-mixLength-err')).toContainText('greater than zero');
+
+    await root.locator('#concrete-mix-calculator-mixLength').fill('10');
+    await root.locator('#concrete-mix-calculator-mixPreset').selectOption('0');
+    await root.locator('#concrete-mix-calculator-cementParts').fill('1');
+    await root.locator('#concrete-mix-calculator-sandParts').fill('0');
+    await root.locator('#concrete-mix-calculator-aggregateParts').fill('0');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.calc-status')).toContainText(/aggregate component greater than zero/i);
   });
 
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
