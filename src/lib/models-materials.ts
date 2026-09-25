@@ -129,14 +129,13 @@ const concreteGenericFields: Field[] = [
       { value: 2, label: 'Wall (rectangular)' },
       { value: 3, label: 'Cylinder / column' },
     ] },
-  // Rectangular / slab
-  ...rectangle,
-  length('depth', 'Thickness / Depth', 4, 'in'),
-  length('thickness', 'Wall / footing thickness', 8, 'in'),
+  { ...rectangle[0], help: 'Use the actual formed or placed length.', visibleWhen: { field: 'shape', in: [0, 1, 2] } },
+  { ...rectangle[1], help: 'Used for slabs and strip footings only.', visibleWhen: { field: 'shape', in: [0, 1] } },
+  { ...length('depth', 'Slab thickness / footing depth', 4, 'in', 'For slabs enter thickness; for strip footings enter the footing depth.'), visibleWhen: { field: 'shape', in: [0, 1] } },
+  { ...length('thickness', 'Wall thickness', 8, 'in', 'Wall mode only. Enter the formed wall thickness from the project requirements.'), visibleWhen: { field: 'shape', equals: 2 } },
+  { ...length('diameter', 'Cylinder / column diameter', 12, 'in', 'Cylinder mode only. Enter the finished concrete diameter.'), visibleWhen: { field: 'shape', equals: 3 } },
+  { ...length('height', 'Wall / cylinder height', 8, 'ft', 'Used for wall and cylinder modes.'), visibleWhen: { field: 'shape', in: [2, 3] } },
   count('quantity', 'Identical sections', 1),
-  // Cylinder
-  positiveOrZero(length('diameter', 'Diameter (cylinder)', 12, 'in')),
-  positiveOrZero(length('height', 'Height (cylinder)', 8, 'ft')),
 ];
 
 const concreteGeneric: Model = {
@@ -155,22 +154,33 @@ const concreteGeneric: Model = {
     let steps: string[];
 
     if (shapeIdx === 2) {
+      requireCondition(v.length > 0, 'length', 'Enter a wall length greater than zero.');
+      requireCondition(v.height > 0, 'height', 'Enter a wall height greater than zero.');
+      requireCondition(v.thickness > 0, 'thickness', 'Enter a wall thickness greater than zero.');
       cuFt = v.length * v.height * v.thickness * v.quantity;
       steps = [
         `Wall: ${fmt(v.length)} × ${fmt(v.height)} × ${fmt(v.thickness)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
       ];
     } else if (shapeIdx === 1) {
+      requireCondition(v.length > 0, 'length', 'Enter a footing length greater than zero.');
+      requireCondition(v.width > 0, 'width', 'Enter a footing width greater than zero.');
+      requireCondition(v.depth > 0, 'depth', 'Enter a footing depth greater than zero.');
       cuFt = v.length * v.width * v.depth * v.quantity;
       steps = [
         `Footing: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
       ];
     } else if (shapeIdx === 3) {
+      requireCondition(v.diameter > 0, 'diameter', 'Enter a cylinder diameter greater than zero.');
+      requireCondition(v.height > 0, 'height', 'Enter a cylinder height greater than zero.');
       const r = v.diameter / 2;
       cuFt = Math.PI * r * r * v.height * v.quantity;
       steps = [
         `Cylinder: π × (${fmt(v.diameter)}/2)² × ${fmt(v.height)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
       ];
     } else {
+      requireCondition(v.length > 0, 'length', 'Enter a slab length greater than zero.');
+      requireCondition(v.width > 0, 'width', 'Enter a slab width greater than zero.');
+      requireCondition(v.depth > 0, 'depth', 'Enter a slab thickness greater than zero.');
       cuFt = v.length * v.width * v.depth * v.quantity;
       steps = [
         `Slab: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`,
