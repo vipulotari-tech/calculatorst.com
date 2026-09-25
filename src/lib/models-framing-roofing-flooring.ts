@@ -9,6 +9,8 @@ import { finishModels } from './models-finishes.ts';
 const awc='https://awc.org/codes-standards/calculators-software/';
 const awcRafters='https://awc.org/resources/wood-products/roof/lumber-rafters/';
 const arma='https://www.asphaltroofing.org/frequently-asked-questions/';
+const armaLowSlope='https://www.asphaltroofing.org/installation-of-asphalt-shingles-on-lower-sloped-roofs/';
+const armaSteepSlope='https://www.asphaltroofing.org/recommendations-for-application-of-asphalt-shingles-on-steep-slopes-and-mansard-construction/';
 const apaRoof='https://www.apawood.org/applications-systems/roof-systems/';
 const inchFraming='https://www.inchcalculator.com/framing-calculator/';
 const inchBoardFeet='https://www.inchcalculator.com/board-footage-calculator/';
@@ -317,29 +319,88 @@ const roofAreaDetailed:Model={
 
 const roofPitch:Model={
   fields:[
-    {...number('mode','Find pitch from',0,0),max:1,integer:true,options:[
+    {...number('mode','Find pitch from',0,0),max:3,integer:true,options:[
       {value:0,label:'Rise and horizontal run'},
-      {value:1,label:'Angle in degrees'}
+      {value:1,label:'Angle in degrees'},
+      {value:2,label:'Pitch rise per 12'},
+      {value:3,label:'Rafter length and horizontal run'}
     ]},
     {...positiveOrZero(length('rise','Vertical rise',6,'in')),visibleWhen:{field:'mode',equals:0}},
-    {...length('run','Horizontal run',12,'in'),visibleWhen:{field:'mode',equals:0}},
-    {...number('angleInput','Roof angle (degrees)',26.565,0),max:89.9,visibleWhen:{field:'mode',equals:1}}
+    {...length('run','Horizontal run',12,'in'),visibleWhen:{field:'mode',in:[0,3]}},
+    {...number('angleInput','Roof angle (degrees)',26.565,0),max:89.9,visibleWhen:{field:'mode',equals:1}},
+    {...number('pitchInput','Pitch rise per 12',6,0,'Enter the rise for a standard 12-unit horizontal run, such as 6 for a 6:12 roof.'),max:120,visibleWhen:{field:'mode',equals:2}},
+    {...length('referenceRun','Horizontal run for length outputs',12,'ft','Optional. Add a real horizontal run to also calculate vertical rise and sloped rafter length.'),value:undefined,optional:true,visibleWhen:{field:'mode',in:[1,2]}},
+    {...length('rafterLength','Sloped rafter length',13.416,'in','Use the straight sloped length over the same horizontal run. This geometry does not include birdsmouth, ridge deductions or tail cuts.'),visibleWhen:{field:'mode',equals:3}}
   ],
-  formula:'Slope = rise/run or tan(angle); pitch per 12 = 12 × slope; angle = atan(slope); multiplier = √(1+slope²).',
-  assumptions:['Run is horizontal distance, not sloped rafter length.','This converts roof geometry only; material minimum-slope requirements depend on the roofing system and manufacturer instructions.'],
-  sources:[arma,inchPitch],
+  formula:'Slope = rise/run = tan(angle) = pitch/12. Angle = atan(slope). Surface multiplier = √(1+slope²). Rafter length = run × multiplier; reverse mode uses rise = √(rafter² − run²).',
+  assumptions:[
+    'Run is horizontal distance, not sloped rafter length.',
+    'Rafter-length geometry is the straight right-triangle length only. Birdsmouth cuts, ridge-board deductions, tails, overhangs and structural sizing remain outside this calculator.',
+    'This converts roof geometry only; roofing-system slope limits and installation requirements must come from the product manufacturer and applicable code.',
+    'For asphalt shingles, ARMA publishes additional low-slope procedures from 2:12 to below 4:12 and special application guidance above 21:12.'
+  ],
+  sources:[awcRafters,armaLowSlope,armaSteepSlope,inchPitch],
   calculate(v){
-    const slope=Math.round(v.mode)===1?Math.tan(v.angleInput*Math.PI/180):v.rise/v.run;
+    const mode=Math.round(v.mode);
+    let slope=0;
+    let horizontalRun=Number.NaN;
+    let verticalRise=Number.NaN;
+    let rafterLength=Number.NaN;
+    let sourceStep='';
+
+    if(mode===1){
+      slope=Math.tan(v.angleInput*Math.PI/180);
+      sourceStep=`tan(${fmt(v.angleInput)}°) = ${fmt(slope)} slope.`;
+      if(Number.isFinite(v.referenceRun)){
+        horizontalRun=v.referenceRun;
+        verticalRise=horizontalRun*slope;
+        rafterLength=Math.hypot(horizontalRun,verticalRise);
+      }
+    }else if(mode===2){
+      slope=v.pitchInput/12;
+      sourceStep=`${fmt(v.pitchInput)} ÷ 12 = ${fmt(slope)} slope.`;
+      if(Number.isFinite(v.referenceRun)){
+        horizontalRun=v.referenceRun;
+        verticalRise=horizontalRun*slope;
+        rafterLength=Math.hypot(horizontalRun,verticalRise);
+      }
+    }else if(mode===3){
+      horizontalRun=v.run;
+      rafterLength=v.rafterLength;
+      requireCondition(rafterLength>=horizontalRun,'rafterLength','Rafter length must be at least as long as the horizontal run.');
+      verticalRise=Math.sqrt(Math.max(0,rafterLength*rafterLength-horizontalRun*horizontalRun));
+      slope=verticalRise/horizontalRun;
+      sourceStep=`√(${fmt(rafterLength)}² − ${fmt(horizontalRun)}²) = ${fmt(verticalRise)} rise; slope = ${fmt(slope)}.`;
+    }else{
+      horizontalRun=v.run;
+      verticalRise=v.rise;
+      slope=verticalRise/horizontalRun;
+      rafterLength=Math.hypot(horizontalRun,verticalRise);
+      sourceStep=`${fmt(verticalRise)} ÷ ${fmt(horizontalRun)} = ${fmt(slope)} slope.`;
+    }
+
     const angle=Math.atan(slope)*180/Math.PI;
-    return result([
+    const multiplier=Math.hypot(1,slope);
+    const rows=[
       row('pitch','Rise per 12 units of run',12*slope,':12'),
       row('angle','Angle above horizontal',angle,'°'),
       row('percent','Percent slope',slope*100,'%'),
+      row('slope','Decimal slope',slope,'rise/run'),
       row('radians','Angle',angle*Math.PI/180,'rad'),
-      row('multiplier','Roof surface multiplier',Math.hypot(1,slope),'×')
+      row('multiplier','Roof surface multiplier',multiplier,'×'),
+      row('slopedPer12','Sloped length per 12 horizontal units',12*multiplier,'units')
+    ];
+    if(Number.isFinite(horizontalRun)) rows.push(row('runUsed','Horizontal run used',horizontalRun,'ft'));
+    if(Number.isFinite(verticalRise)) rows.push(row('riseDerived','Vertical rise',verticalRise,'ft'));
+    if(Number.isFinite(rafterLength)) rows.push(row('rafter','Straight sloped rafter length',rafterLength,'ft'));
+
+    return result(rows,[
+      sourceStep,
+      `Pitch = ${fmt(12*slope)}:12; angle = ${fmt(angle)}°; slope = ${fmt(slope*100)}%.`,
+      Number.isFinite(rafterLength)?`Rafter geometry: ${fmt(horizontalRun)} ft run × ${fmt(multiplier)} = ${fmt(rafterLength)} ft sloped length.`:`Surface multiplier = √(1 + ${fmt(slope)}²) = ${fmt(multiplier)}.`
     ],[
-      Math.round(v.mode)===1?`tan(${fmt(v.angleInput)}°) = ${fmt(slope)} slope.`:`${fmt(v.rise)} ÷ ${fmt(v.run)} = ${fmt(slope)} slope.`,
-      `Pitch = ${fmt(12*slope)}:12; angle = ${fmt(angle)}°.`
+      'Use the same physical run for derived rise and rafter-length outputs.',
+      'Structural rafter sizing, snow/wind loading and roofing-product slope limits require project-specific design information.'
     ]);
   }
 };

@@ -72,6 +72,83 @@ describe("Complete 204 Calculator Logic Audit", () => {
     });
   }
 
+
+  it("should solve roof pitch accurately in forward and reverse modes", () => {
+    const roofPitch = getModelForSlug("roof-pitch-calculator");
+    const units = {
+      rise: "ft",
+      run: "ft",
+      referenceRun: "ft",
+      rafterLength: "ft",
+    };
+
+    const forwardValues = readInputs(roofPitch.fields, {
+      mode: 0,
+      rise: 6,
+      run: 12,
+      angleInput: 26.565,
+      pitchInput: 6,
+      rafterLength: 13.416,
+    }, units);
+    const forward = roofPitch.calculate(forwardValues, units);
+    expect(forward.rows.find(r => r.key === "pitch")?.value).toBeCloseTo(6, 8);
+    expect(forward.rows.find(r => r.key === "angle")?.value).toBeCloseTo(26.565051, 5);
+    expect(forward.rows.find(r => r.key === "percent")?.value).toBeCloseTo(50, 8);
+    expect(forward.rows.find(r => r.key === "rafter")?.value).toBeCloseTo(Math.hypot(12, 6), 6);
+
+    const angleValues = readInputs(roofPitch.fields, {
+      mode: 1,
+      rise: 6,
+      run: 12,
+      angleInput: 45,
+      pitchInput: 6,
+      referenceRun: 10,
+      rafterLength: 13.416,
+    }, units);
+    const angle = roofPitch.calculate(angleValues, units);
+    expect(angle.rows.find(r => r.key === "pitch")?.value).toBeCloseTo(12, 8);
+    expect(angle.rows.find(r => r.key === "rafter")?.value).toBeCloseTo(Math.sqrt(200), 6);
+
+    const pitchValues = readInputs(roofPitch.fields, {
+      mode: 2,
+      rise: 6,
+      run: 12,
+      angleInput: 26.565,
+      pitchInput: 8,
+      referenceRun: 12,
+      rafterLength: 13.416,
+    }, units);
+    const pitch = roofPitch.calculate(pitchValues, units);
+    expect(pitch.rows.find(r => r.key === "percent")?.value).toBeCloseTo(66.6666667, 5);
+    expect(pitch.rows.find(r => r.key === "riseDerived")?.value).toBeCloseTo(8, 6);
+
+    const reverseValues = readInputs(roofPitch.fields, {
+      mode: 3,
+      rise: 6,
+      run: 12,
+      angleInput: 26.565,
+      pitchInput: 6,
+      rafterLength: Math.hypot(12, 6),
+    }, units);
+    const reverse = roofPitch.calculate(reverseValues, units);
+    expect(reverse.rows.find(r => r.key === "pitch")?.value).toBeCloseTo(6, 6);
+    expect(reverse.rows.find(r => r.key === "riseDerived")?.value).toBeCloseTo(6, 6);
+  });
+
+  it("should reject impossible reverse roof geometry", () => {
+    const roofPitch = getModelForSlug("roof-pitch-calculator");
+    const units = { rise: "ft", run: "ft", referenceRun: "ft", rafterLength: "ft" };
+    const values = readInputs(roofPitch.fields, {
+      mode: 3,
+      rise: 6,
+      run: 12,
+      angleInput: 26.565,
+      pitchInput: 6,
+      rafterLength: 10,
+    }, units);
+    expect(() => roofPitch.calculate(values, units)).toThrow(/Rafter length must be at least as long as the horizontal run/);
+  });
+
   it("should correctly handle specialty calculators that previously had bugs", () => {
     // 1. Slab reinforcement: must produce bars / length / weight, NOT concrete volume
     const slabRebar = getModelForSlug("slab-reinforcement-calculator");
