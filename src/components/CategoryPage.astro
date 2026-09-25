@@ -99,6 +99,18 @@ const categorySeoOverrides: Record<string, { title: string; description: string 
     title: "Excavation & Earthwork Calculators — Bank, Loose, Fill & Hauling",
     description: "Use 10 excavation calculators for bank and loose volume, sloped cuts, trenches, backfill, cut/fill balance, truck trips, soil volume, weight and cost.",
   },
+  framing: {
+    title: "Framing & Lumber Calculators — Studs, Joists, Board Feet & Beams",
+    description: "Use 15 framing calculators for wall studs and plates, lumber count and cost, board feet, joist count and spacing, plus header and beam analysis.",
+  },
+  roofing: {
+    title: "Roofing Calculators — Area, Pitch, Shingles, Rafters & Materials",
+    description: "Use 15 roofing calculators for roof area and pitch, shingles, underlayment, sheathing, rafters, trusses, flashing, waste and material cost.",
+  },
+  flooring: {
+    title: "Flooring & Tile Calculators — Coverage, Boxes, Carpet & Cost",
+    description: "Use 15 flooring calculators for hardwood, laminate, vinyl, carpet and tile coverage, boxes, cost, grout, adhesive, underlayment and waste.",
+  },
 };
 const categorySeo = categorySeoOverrides[cluster];
 const categoryTitle = categorySeo?.title ?? `${displayName} — Construction Calculators | Calculator Street`;
@@ -183,6 +195,33 @@ const taskLinks = cluster === "concrete" ? [
   { label: "Cut / fill balance", href: "/cut-and-fill-calculator/", text: "Convert compacted fill to bank basis and show explicit export/import plus loose haul equivalent." },
   { label: "Dirt removal", href: "/dirt-removal-calculator/", text: "Bank and loose dirt volume, truck trips and entered haul/disposal cost." },
   { label: "Soil volume / weight", href: "/soil-volume-calculator/", text: "Area/depth or known volume for bank/loose soil; pair with Soil Weight for mass." },
+] : cluster === "framing" ? [
+  { label: "Wall framing takeoff", href: "/framing-calculator/", text: "Studs, plates, total lumber footage, stock-piece equivalents and optional cost." },
+  { label: "Wall studs & plates", href: "/wall-framing-calculator/", text: "Base studs, detail studs, plate footage and allowance-adjusted framing lumber." },
+  { label: "Stud count / spacing", href: "/stud-calculator/", text: "Count studs from specified maximum spacing; use Stud Spacing for equal-center layout." },
+  { label: "Joists", href: "/floor-joist-calculator/", text: "Floor-joist quantity from layout width and specified on-center spacing." },
+  { label: "Board feet", href: "/board-foot-calculator/", text: "Lumber volume from thickness, width, length and board count." },
+  { label: "Lumber cost", href: "/lumber-cost-calculator/", text: "Price pieces or linear footage with allowance, tax, delivery and entered handling/labor." },
+  { label: "Beam analysis", href: "/beam-calculator/", text: "Reactions, shear, moment and elastic deflection for idealized load cases." },
+  { label: "Header bending", href: "/header-size-calculator/", text: "Bending-only section modulus and equivalent rectangular depth; not member selection." },
+] : cluster === "roofing" ? [
+  { label: "Full roofing estimate", href: "/roofing-calculator/", text: "Roof area plus shingle packages, underlayment rolls, sheathing sheets and entered material cost." },
+  { label: "Roof area", href: "/roof-area-calculator/", text: "Measured sloped area, squares and material allowance from footprint/pitch or known area." },
+  { label: "Pitch / slope", href: "/roof-pitch-calculator/", text: "Pitch per 12, angle, percent slope and surface multiplier from rise/run or angle." },
+  { label: "Shingles", href: "/roofing-shingle-calculator/", text: "Shingle packages and roofing squares from measured area and exact product coverage." },
+  { label: "Underlayment", href: "/roofing-underlayment-calculator/", text: "Whole rolls from roof area, allowance and manufacturer net roll coverage." },
+  { label: "Sheathing", href: "/roof-sheathing-calculator/", text: "Whole plywood/OSB sheets from actual panel size and roof area." },
+  { label: "Rafters", href: "/roof-rafter-calculator/", text: "Common-rafter line length, pair count, total rafters and purchased linear footage." },
+  { label: "Trusses / flashing", href: "/roof-truss-calculator/", text: "Truss count from specified spacing; use Roof Flashing for linear stock-piece takeoff." },
+] : cluster === "flooring" ? [
+  { label: "General flooring", href: "/flooring-calculator/", text: "Net area, pattern allowance, waste, package coverage, purchased area and optional cost." },
+  { label: "Project cost", href: "/flooring-cost-calculator/", text: "Material area plus underlayment/pad, tax, delivery and entered installation labor." },
+  { label: "Hardwood", href: "/hardwood-flooring-calculator/", text: "Hardwood package count from room area, pattern allowance, waste and product coverage." },
+  { label: "Laminate / vinyl", href: "/laminate-flooring-calculator/", text: "Package-based coverage; pair with Vinyl Flooring for the same material-specific workflow." },
+  { label: "Carpet", href: "/carpet-calculator/", text: "Roll strips, linear roll length, purchased square yards and offcut area." },
+  { label: "Tile quantity", href: "/tile-quantity-calculator/", text: "Tile count, rows/columns and boxes from tile size, grout joint and allowance." },
+  { label: "Tile cost", href: "/tile-cost-calculator/", text: "Area-based tile and box quantity with quoted material price, tax, delivery and labor." },
+  { label: "Grout / adhesive", href: "/tile-grout-calculator/", text: "Joint-fill volume and bags; use Tile Adhesive for manufacturer-coverage containers." },
 ] : [];
 ---
 
@@ -219,7 +258,7 @@ const taskLinks = cluster === "concrete" ? [
 
         {taskLinks.length > 0 && (
           <section class="mt-6 rounded-xl border border-hairline bg-canvas p-5" aria-labelledby="choose-category-calculator">
-            <h2 id="choose-category-calculator" class="text-sm font-semibold text-ink">Choose the right {cluster === "concrete" ? "concrete" : cluster === "slab" ? "slab, patio or driveway" : cluster === "foundation" ? "foundation or footing" : cluster === "rebar" ? "rebar or reinforcement" : cluster === "brick" ? "brick or masonry" : cluster === "cmu" ? "concrete block or CMU" : cluster === "mortar" ? "mortar, grout or cement" : cluster === "gravel" ? "gravel, aggregate or dirt" : "excavation or earthwork"} calculator</h2>
+            <h2 id="choose-category-calculator" class="text-sm font-semibold text-ink">Choose the right {cluster === "concrete" ? "concrete" : cluster === "slab" ? "slab, patio or driveway" : cluster === "foundation" ? "foundation or footing" : cluster === "rebar" ? "rebar or reinforcement" : cluster === "brick" ? "brick or masonry" : cluster === "cmu" ? "concrete block or CMU" : cluster === "mortar" ? "mortar, grout or cement" : cluster === "gravel" ? "gravel, aggregate or dirt" : cluster === "excavation" ? "excavation or earthwork" : cluster === "framing" ? "framing or lumber" : cluster === "roofing" ? "roofing" : "flooring or tile"} calculator</h2>
             <p class="mt-2 text-[13px] leading-5 text-body">These pages target different estimating tasks. Pick the one that matches the decision you are making instead of repeating the same inputs across several calculators.</p>
             <div class="mt-4 grid gap-3 sm:grid-cols-2">
               {taskLinks.map((item) => (
