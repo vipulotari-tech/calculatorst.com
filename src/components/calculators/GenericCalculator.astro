@@ -732,6 +732,10 @@ const diagramFields = fields
               });
               clearSharedStateFromUrl();
               recalculateIfReady();
+              // Programmatic reset does not emit native input/change events.
+              // Reuse the state-restored event so live diagrams immediately
+              // re-read the reset defaults instead of showing stale geometry.
+              root.dispatchEvent(new CustomEvent("calculator-state-restored"));
             });
 
       // Copy handler
