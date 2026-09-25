@@ -4,6 +4,7 @@ import { test, expect } from '@playwright/test';
 const calculators = [
   { slug: 'rebar-calculator', type: 'generic' },
   { slug: 'concrete-calculator', type: 'generic' },
+  { slug: 'concrete-volume-calculator', type: 'generic' },
   { slug: 'gravel-calculator', type: 'handbuilt' },
   { slug: 'concrete-slab-calculator', type: 'handbuilt' },
   { slug: 'roof-pitch-calculator', type: 'handbuilt' },
@@ -191,6 +192,74 @@ test.describe('Calculator interactions', () => {
     await expect(diagram).toContainText('24 in');
     await expect(diagram).toContainText('10 ft');
     await expect(root.locator('.result-primary')).toHaveText('3.8397');
+  });
+
+  test('Concrete volume calculator — nine modes gate fields, diagram and validation', async ({ page }) => {
+    await page.goto('/concrete-volume-calculator/');
+    const root = page.locator('[data-calculator-slug="concrete-volume-calculator"]');
+    const shape = root.locator('#concrete-volume-calculator-shape');
+    const diagram = root.locator('[data-project-diagram]');
+
+    await expect(shape.locator('option')).toHaveCount(9);
+    await expect(root.locator('#concrete-volume-calculator-field-length')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-width')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-depth')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-diameter')).toBeHidden();
+    await expect(diagram.locator('[data-concrete-volume-shape-name]')).toHaveText('Rectangular slab / prism');
+
+    await shape.selectOption('2');
+    await expect(root.locator('#concrete-volume-calculator-field-diameter')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-innerDiameter')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-height')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-length')).toBeHidden();
+    await expect(diagram.locator('[data-concrete-volume-shape-name]')).toHaveText('Hollow tube / annular cylinder');
+
+    await root.locator('#concrete-volume-calculator-diameter').fill('24');
+    await root.locator('#concrete-volume-calculator-innerDiameter').fill('24');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('#concrete-volume-calculator-innerDiameter-err')).toContainText('smaller than outer diameter');
+
+    await root.locator('#concrete-volume-calculator-innerDiameter').fill('12');
+    await root.locator('#concrete-volume-calculator-height').fill('10');
+    await root.locator('#concrete-volume-calculator-quantity').fill('2');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+    await expect(diagram).toContainText('24');
+    await expect(diagram).toContainText('12');
+
+    await shape.selectOption('4');
+    await expect(root.locator('#concrete-volume-calculator-field-stairWidth')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-rise')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-run')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-diameter')).toBeHidden();
+    await expect(diagram.locator('[data-concrete-volume-shape-name]')).toHaveText('Solid stairs (mass fill)');
+
+    await shape.selectOption('6');
+    await expect(root.locator('#concrete-volume-calculator-field-length')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-thickness')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-height')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-width')).toBeHidden();
+    await expect(diagram.locator('[data-concrete-volume-shape-name]')).toHaveText('Concrete wall');
+
+    await shape.selectOption('8');
+    await expect(root.locator('#concrete-volume-calculator-field-length')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-width')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-height')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-depth')).toBeHidden();
+    await expect(diagram.locator('[data-concrete-volume-shape-name]')).toHaveText('Square / rectangular column');
+  });
+
+  test('Concrete volume shared link restores tube inputs and diagram', async ({ page }) => {
+    await page.goto('/concrete-volume-calculator/?cs_calc=concrete-volume-calculator&cs_shape=2&cs_diameter=24&cs_diameter_unit=in&cs_innerDiameter=12&cs_innerDiameter_unit=in&cs_height=10&cs_height_unit=ft&cs_quantity=2&cs_waste=0&cs_density=150&cs_density_unit=lb%2Fft3&cs_yield=0.6&cs_yield_unit=ft3');
+    const root = page.locator('[data-calculator-slug="concrete-volume-calculator"]');
+    const diagram = root.locator('[data-project-diagram]');
+    await expect(root.locator('#concrete-volume-calculator-shape')).toHaveValue('2');
+    await expect(root.locator('#concrete-volume-calculator-field-innerDiameter')).toBeVisible();
+    await expect(root.locator('#concrete-volume-calculator-field-length')).toBeHidden();
+    await expect(diagram.locator('[data-concrete-volume-shape-name]')).toHaveText('Hollow tube / annular cylinder');
+    await expect(diagram).toContainText('24 in');
+    await expect(diagram).toContainText('12 in');
+    await expect(root.locator('.result-primary')).toHaveText('1.7453');
   });
 
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
