@@ -2,12 +2,12 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import RoofPitchCalculator from "../../components/calculators/RoofPitchCalculator.astro";
+import GenericCalculator from "../../components/calculators/GenericCalculator.astro";
 
 const related = [
-  { title: "Roof Area Calculator", href: "/roof-area-calculator/", desc: "Area & roofing squares" },
-  { title: "Paver Calculator", href: "/paver-calculator/", desc: "Ground-level patios" },
-  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "Drainage around structure" },
+  { title: "Roof Area Calculator", href: "/roof-area-calculator/", desc: "Sloped surface area & roofing squares" },
+  { title: "Rafter Length Calculator", href: "/rafter-length-calculator/", desc: "Common-rafter geometry from span and pitch" },
+  { title: "Roofing Calculator", href: "/roofing-calculator/", desc: "Roof area, squares and material packages" },
 ];
 const faq = [
   {
@@ -31,24 +31,24 @@ const faq = [
 
 <CalculatorLayout
   title="Roof Pitch Calculator — Ratio, Angle & Slope"
-  description="Calculate roof pitch from rise and run — get pitch ratio, angle in degrees, slope & x:12. Enter rise & run in any units — instant results."
+  description="Convert rise and horizontal run or a roof angle into pitch per 12, degrees, percent slope, radians and roof-surface multiplier with US and metric units."
   h1="Roof Pitch Calculator"
-  intro="Calculate roof pitch — get ratio, angle, slope & x:12. Enter rise and run in inches, feet or cm — instant ratio, degrees & slope."
+  intro="Convert roof rise and horizontal run—or enter an angle directly—to pitch per 12, degrees, percent slope and surface multiplier. Measurements can use US or metric units."
   breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Roofing Calculators", href: "/construction/roofing/" }, { label: "Roof Pitch Calculator" }]}
   related={related}
   faq={faq}
   canonical="/roof-pitch-calculator/"
   ogImage="/og-roof-pitch.png"
   datePublished="2026-08-27"
-  dateModified="2026-09-24"
+  dateModified="2026-09-25"
 >
   <Header slot="header" />
-  <RoofPitchCalculator slot="calculator" />
+  <GenericCalculator slot="calculator" id="roof-pitch-calculator" resultTitle="ROOF PITCH RESULT" />
   <section class="space-y-6">
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
       <div class="mt-3 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm "><p>Angle = arctan(rise ÷ run) × 180/π</p><p>Decimal slope = rise ÷ run</p><p>Pitch per 12 = slope × 12 : 12</p></div>
-      <p class="mt-3 text-sm leading-6 text-body">Units convert to a common base (inches) before division, so you can mix feet and centimeters.</p>
+      <p class="mt-3 text-sm leading-6 text-body">Rise and run are normalized before division, so equivalent US or metric measurements return the same slope. Angle mode uses slope = tan(angle).</p>
     </div>
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
@@ -57,7 +57,7 @@ const faq = [
     </div>
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Straight gable — hips/valleys change area, not pitch.</li><li>Run is horizontal, not rafter length. Use square footage calculator for area.</li></ul>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Pitch describes the slope of a roof plane; it does not determine allowable rafter span or select a roofing product.</li><li>Run is horizontal projection, not sloped rafter length. Use the Roof Area Calculator for surface area and the Rafter Length Calculator for common-rafter geometry.</li></ul>
     </div>
   </section>
   <Footer slot="footer" />
