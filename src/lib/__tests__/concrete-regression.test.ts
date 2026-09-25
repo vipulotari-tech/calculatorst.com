@@ -269,6 +269,20 @@ describe("Concrete category golden-value regression suite", () => {
     expect(r.rows.find(x => x.key === "aggregateMass")?.value).toBeCloseTo((1.453598125056 * 3 / 6) * 1600, 6);
   });
 
+  it("Concrete Mix: cement bag mass accepts US pounds as well as kilograms", () => {
+    const r = run(
+      "concrete-mix-calculator",
+      {
+        mixInputMode: 0, volume: 1, mixPreset: 1,
+        dryFactor: 1.54, cementDensity: 1440, sandDensity: 1600, aggregateDensity: 1500,
+        bagMass: 94, waterRatio: 0.5, waste: 0,
+      },
+      { volume: "m3", bagMass: "lb" },
+    );
+    expect(r.rows.find(x => x.key === "cementMass")?.value).toBeCloseTo(369.6, 5);
+    expect(r.rows.find(x => x.key === "cementBags")?.value).toBe(9);
+  });
+
   it("Concrete Mix: custom ratio validates aggregate content and honors custom parts", () => {
     const custom = run(
       "concrete-mix-calculator",
