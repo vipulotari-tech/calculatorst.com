@@ -6,6 +6,7 @@ const calculators = [
   { slug: 'concrete-calculator', type: 'generic' },
   { slug: 'concrete-volume-calculator', type: 'generic' },
   { slug: 'concrete-weight-calculator', type: 'generic' },
+  { slug: 'concrete-cost-calculator', type: 'generic' },
   { slug: 'gravel-calculator', type: 'handbuilt' },
   { slug: 'concrete-slab-calculator', type: 'handbuilt' },
   { slug: 'roof-pitch-calculator', type: 'handbuilt' },
@@ -325,6 +326,52 @@ test.describe('Calculator interactions', () => {
     await root.locator('#concrete-weight-calculator-area').fill('0');
     await root.getByRole('button', { name: /^Calculate$/ }).click();
     await expect(root.locator('#concrete-weight-calculator-area-err')).toContainText('greater than zero');
+  });
+
+  test('Concrete cost calculator — total-cost primary, modes and live diagram', async ({ page }) => {
+    await page.goto('/concrete-cost-calculator/?cs_calc=concrete-cost-calculator&cs_costMode=0&cs_length=10&cs_length_unit=ft&cs_width=10&cs_width_unit=ft&cs_depth=6&cs_depth_unit=in&cs_quantity=1&cs_density=150&cs_density_unit=lb%2Fft3&cs_yield=0.6&cs_yield_unit=ft3&cs_price=160&cs_price_unit=USD%2Fyd3&cs_delivery=150&cs_shortLoadFee=75&cs_pumpFee=0&cs_reinforcement=200&cs_formwork=100&cs_finishing=400&cs_tax=8&cs_waste=10');
+    const root = page.locator('[data-calculator-slug="concrete-cost-calculator"]');
+    const mode = root.locator('#concrete-cost-calculator-costMode');
+    const diagram = root.locator('[data-project-diagram]');
+
+    await expect(root.locator('.result-primary')).toHaveText('1,277');
+    await expect(root.locator('.result-primary-unit')).toHaveText('USD');
+    await expect(root.locator('.result-secondary')).toHaveText('Estimated project total');
+    await expect(root.locator('.result-rows-grid')).toContainText('Concrete material subtotal');
+    await expect(root.locator('.result-rows-grid')).toContainText('325.9259');
+    await expect(root.locator('.result-rows-grid')).toContainText('Other entered project charges');
+    await expect(root.locator('.result-rows-grid')).toContainText('925');
+    await expect(root.locator('.result-rows-grid')).toContainText('All-in cost per square foot');
+    await expect(diagram).toBeVisible();
+    await expect(diagram.locator('[data-concrete-cost-mode-name]')).toHaveText('Length × width × thickness');
+
+    await mode.selectOption('2');
+    await expect(root.locator('#concrete-cost-calculator-field-length')).toBeHidden();
+    await expect(root.locator('#concrete-cost-calculator-field-area')).toBeVisible();
+    await expect(root.locator('#concrete-cost-calculator-field-areaThickness')).toBeVisible();
+    await expect(diagram).toBeVisible();
+    await expect(diagram.locator('[data-concrete-cost-mode-name]')).toHaveText('Surface area × thickness');
+
+    await mode.selectOption('3');
+    await expect(root.locator('#concrete-cost-calculator-field-diameter')).toBeVisible();
+    await expect(root.locator('#concrete-cost-calculator-field-height')).toBeVisible();
+    await expect(diagram.locator('[data-concrete-cost-mode-name]')).toHaveText('Round slab / cylinder dimensions');
+
+    await mode.selectOption('1');
+    await expect(root.locator('#concrete-cost-calculator-field-volume')).toBeVisible();
+    await expect(root.locator('#concrete-cost-calculator-field-diameter')).toBeHidden();
+    await expect(diagram).toBeHidden();
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
+  test('Concrete cost calculator rejects zero active geometry', async ({ page }) => {
+    await page.goto('/concrete-cost-calculator/');
+    const root = page.locator('[data-calculator-slug="concrete-cost-calculator"]');
+    await root.locator('#concrete-cost-calculator-costMode').selectOption('2');
+    await root.locator('#concrete-cost-calculator-area').fill('0');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('#concrete-cost-calculator-area-err')).toContainText('greater than zero');
+    await expect(root.locator('.result-primary')).toHaveText('—');
   });
 
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
