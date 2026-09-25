@@ -682,81 +682,157 @@ const concreteCost: Model = {
 };
 
 // ==========================================================
-// 5.  Concrete Mix Calculator — dry-volume nominal mix
+// 5.  Concrete Mix Calculator — nominal dry-volume material takeoff
 // ==========================================================
 const concreteMixFields: Field[] = [
-  volume('volume', 'Required mixed concrete volume', 1),
-  number('cementParts', 'Cement parts by volume', 1, 1, 'Editable example ratio only. Enter the proportions required by the mix design or trial batch.'),
-  number('sandParts', 'Sand (fine aggregate) parts by volume', 2, 1),
-  number('aggregateParts', 'Coarse aggregate parts by volume', 3, 0),
-  number('dryFactor', 'Dry volume / mixed volume factor', 1.54, 1.01, 'Editable dry-volume planning factor. Use trial-batch or project mix data; there is no single universal factor for every material combination.'),
-  number('cementDensity', 'Loose cement bulk density (kg/m³)', 1440, 100, 'Editable example bulk density. Use the cement/product data or measured loose bulk density for the material being batched.'),
-  number('bagMass', 'Cement bag mass (kg)', 50, 1, 'Common sizes: 40 kg, 50 kg. Check your product.'),
-  number('waterRatio', 'Water/cement ratio', 0.5, 0.1, 'Editable example only. Enter the water/cement ratio specified for the mix; this calculator does not choose strength, durability or workability requirements.'),
-  allowance,
+  { id: 'mixInputMode', label: 'Calculate mix from', value: 0, unit: '', integer: true, min: 0, max: 1,
+    options: [
+      { value: 0, label: 'Known mixed concrete volume' },
+      { value: 1, label: 'Length × width × depth' },
+    ] },
+  { ...volume('volume', 'Required mixed concrete volume', 1), visibleWhen: { field: 'mixInputMode', equals: 0 } },
+  { ...length('mixLength', 'Length', 10, 'ft'), visibleWhen: { field: 'mixInputMode', equals: 1 } },
+  { ...length('mixWidth', 'Width', 10, 'ft'), visibleWhen: { field: 'mixInputMode', equals: 1 } },
+  { ...length('mixDepth', 'Depth / thickness', 4, 'in'), visibleWhen: { field: 'mixInputMode', equals: 1 } },
+  { ...count('mixQuantity', 'Identical sections', 1), visibleWhen: { field: 'mixInputMode', equals: 1 } },
+
+  { id: 'mixPreset', label: 'Concrete mix ratio', value: 0, unit: '', integer: true, min: 0, max: 6,
+    options: [
+      { value: 0, label: 'Custom ratio (default 1 : 2 : 3)' },
+      { value: 1, label: '1 : 2 : 3' },
+      { value: 2, label: '1 : 1.5 : 3' },
+      { value: 3, label: '1 : 2 : 4' },
+      { value: 4, label: '1 : 3 : 6' },
+      { value: 5, label: '1 : 4 : 8' },
+      { value: 6, label: '1 : 5 : 10' },
+    ],
+    help: 'These are volumetric proportion shortcuts only. Select Custom when your project or trial batch specifies another cement:sand:coarse-aggregate ratio.'
+  },
+  { ...number('cementParts', 'Cement parts by volume', 1, 0, 'Used only for Custom ratio.'), visibleWhen: { field: 'mixPreset', equals: 0 } },
+  { ...number('sandParts', 'Sand parts by volume', 2, 0, 'Used only for Custom ratio.'), visibleWhen: { field: 'mixPreset', equals: 0 } },
+  { ...number('aggregateParts', 'Coarse aggregate parts by volume', 3, 0, 'Used only for Custom ratio.'), visibleWhen: { field: 'mixPreset', equals: 0 } },
+
+  number('dryFactor', 'Dry volume / mixed volume factor', 1.54, 1, 'Planning factor converting required mixed concrete volume to loose dry ingredient volume. Replace the default with project, trial-batch or supplier data when available.'),
+  number('cementDensity', 'Loose cement bulk density (kg/m³)', 1440, 100, 'Editable loose bulk density used to convert cement volume to mass.'),
+  number('sandDensity', 'Loose sand bulk density (kg/m³)', 1600, 100, 'Editable estimating density. Moisture, grading and compaction can materially change bulk density.'),
+  number('aggregateDensity', 'Loose coarse aggregate bulk density (kg/m³)', 1500, 100, 'Editable estimating density. Use supplier/test data when available.'),
+  number('bagMass', 'Cement bag mass (kg)', 50, 1, 'Enter the actual cement bag size available for the project.'),
+  { ...number('waterRatio', 'Water/cement ratio by mass', 0.5, 0.1, 'Water mass divided by cement mass. Enter the specified or trial-batch ratio; this calculator does not select structural strength or workability.'), max: 1.5 },
+  { ...allowance, label: 'Material allowance', help: 'Optional extra mixed-concrete volume for handling or contingency before the dry-volume takeoff.' },
 ];
 
 const concreteMix: Model = {
   fields: concreteMixFields,
-  formula: 'Dry volume = mixed × dry factor. Cement volume = dry × cement parts / total. Sand / aggregate similarly. Cement mass = cement volume × bulk density. Water = cement mass × w/c ratio.',
+  formula: 'Required mixed volume = entered volume or L × W × D × quantity, then allowance. Dry volume = mixed volume × dry-volume factor. Ingredient volume = dry volume × ingredient parts / total parts. Ingredient mass = ingredient volume × entered loose bulk density. Water mass = cement mass × water/cement ratio.',
   assumptions: [
-    'Ratios are by loose dry volume, not mass. A nominal ratio does not establish concrete strength, durability, or water/cement ratio.',
-    'The dry volume factor 1.54 accounts for void space in loose aggregate. Actual factor depends on grading, moisture and compaction.',
-    'This is a nominal mix estimation tool, not structural mix design. Use a specified mix design for structural concrete.',
-    'Cement bulk density 1,440 kg/m³ is for loose Portland cement. Clinker density is ~3,150 kg/m³.',
-    'Sand and aggregate are measured in dry-rodded volume; actual mass depends on moisture content.',
-    'Water content is approximate; absorption and admixtures alter actual mix water.',
+    'Mix ratios are loose dry volumetric proportions of cement : sand : coarse aggregate, not a structural mix design or guaranteed compressive strength.',
+    'Preset ratios are shortcuts only. Use the approved project mix, supplier batch proportions or trial-batch data when those are available.',
+    'The default 1.54 dry-volume factor is an estimating convention, not a universal material constant; grading, moisture and packing change the relationship between loose dry ingredients and mixed concrete.',
+    'Bulk densities for cement, sand and coarse aggregate are editable because moisture, grading and compaction can change mass substantially.',
+    'Water/cement ratio is by mass. The displayed water volume uses the estimating approximation 1 kg water ≈ 1 liter.',
+    'This calculator does not correct aggregate moisture, absorption, entrained air, admixtures or field water additions.',
+    'For structural concrete, batching and acceptance should follow the approved mix design and project specifications rather than a nominal ratio alone.',
   ],
-  sources: [quikrete, 'https://www.cement.org/learn', 'https://www.concrete.org/topics-in-concrete/concrete-mixes'],
+  sources: [
+    'https://www.cement.org/learn',
+    'https://www.concrete.org/topics-in-concrete/concrete-mixes',
+    'https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors',
+  ],
   calculate(v, u) {
-    const totalParts = v.cementParts + v.sandParts + v.aggregateParts;
-    if (totalParts === 0) {
-      requireCondition(false, 'mix', 'At least one mix ingredient must be specified.');
-    }
-    // readInputs converts volume input to ft³. Convert back to m³ for the metric-based mix math.
-    const cuFtPerM3 = FT_PER_M ** 3; // ≈ 35.3147
-    const mixedM3 = v.volume / cuFtPerM3 * waste(v);
-    const dryM3 = mixedM3 * v.dryFactor;
-    const cementVolM3 = dryM3 * v.cementParts / totalParts;
-    const sandVolM3 = dryM3 * v.sandParts / totalParts;
-    const aggVolM3 = dryM3 * v.aggregateParts / totalParts;
-    const cementMassKg = cementVolM3 * v.cementDensity;
-    const bags50 = roundUp(cementMassKg / v.bagMass);
-    // bag breakdown for common sizes — published in QUIKRETE/Sakrete spec sheets
-    const approxMass = cementMassKg;
-    const totalMixed = mixedM3;
-    const waterMassKg = cementMassKg * v.waterRatio;
-    const waterVolL = waterMassKg; // 1 kg water ≈ 1 L
+    const inputMode = Math.round(v.mixInputMode);
+    let netCuFt = 0;
+    let volumeStep = '';
 
-    // Assume sand at 1600 kg/m³ and aggregate at 1500 kg/m³ bulk density (typical dry-rodded)
-    const sandMassKg = sandVolM3 * 1600;
-    const aggMassKg = aggVolM3 * 1500;
+    if (inputMode === 1) {
+      requireCondition(v.mixLength > 0, 'mixLength', 'Enter a length greater than zero.');
+      requireCondition(v.mixWidth > 0, 'mixWidth', 'Enter a width greater than zero.');
+      requireCondition(v.mixDepth > 0, 'mixDepth', 'Enter a depth or thickness greater than zero.');
+      requireCondition(v.mixQuantity >= 1, 'mixQuantity', 'Enter at least one section.');
+      const each = v.mixLength * v.mixWidth * v.mixDepth;
+      netCuFt = each * v.mixQuantity;
+      volumeStep = `Geometry: ${fmt(v.mixLength)} × ${fmt(v.mixWidth)} × ${fmt(v.mixDepth)} = ${fmt(each)} ft³ each; × ${v.mixQuantity} = ${fmt(netCuFt)} ft³.`;
+    } else {
+      requireCondition(v.volume > 0, 'volume', 'Enter a required mixed concrete volume greater than zero.');
+      netCuFt = v.volume;
+      volumeStep = `Known mixed volume: ${fmt(netCuFt)} ft³ after unit conversion.`;
+    }
+
+    const preset = Math.round(v.mixPreset);
+    const presetParts: Record<number, [number, number, number]> = {
+      1: [1, 2, 3],
+      2: [1, 1.5, 3],
+      3: [1, 2, 4],
+      4: [1, 3, 6],
+      5: [1, 4, 8],
+      6: [1, 5, 10],
+    };
+    const [cementParts, sandParts, aggregateParts] = presetParts[preset] ?? [v.cementParts, v.sandParts, v.aggregateParts];
+
+    requireCondition(cementParts > 0, 'cementParts', 'Cement parts must be greater than zero.');
+    requireCondition(sandParts >= 0, 'sandParts', 'Sand parts cannot be negative.');
+    requireCondition(aggregateParts >= 0, 'aggregateParts', 'Aggregate parts cannot be negative.');
+    requireCondition(sandParts + aggregateParts > 0, 'mixPreset', 'Enter at least one aggregate component greater than zero.');
+    requireCondition(v.dryFactor >= 1, 'dryFactor', 'Dry-volume factor must be at least 1.');
+    requireCondition(v.cementDensity > 0, 'cementDensity', 'Enter a cement bulk density greater than zero.');
+    requireCondition(v.sandDensity > 0, 'sandDensity', 'Enter a sand bulk density greater than zero.');
+    requireCondition(v.aggregateDensity > 0, 'aggregateDensity', 'Enter an aggregate bulk density greater than zero.');
+    requireCondition(v.bagMass > 0, 'bagMass', 'Enter a cement bag mass greater than zero.');
+    requireCondition(v.waterRatio > 0 && v.waterRatio <= 1.5, 'waterRatio', 'Enter a water/cement ratio greater than zero and no more than 1.5.');
+
+    const cuFtPerM3 = FT_PER_M ** 3;
+    const netM3 = netCuFt / cuFtPerM3;
+    const mixedM3 = netM3 * waste(v);
+    const dryM3 = mixedM3 * v.dryFactor;
+    const totalParts = cementParts + sandParts + aggregateParts;
+    const cementVolM3 = dryM3 * cementParts / totalParts;
+    const sandVolM3 = dryM3 * sandParts / totalParts;
+    const aggregateVolM3 = dryM3 * aggregateParts / totalParts;
+
+    const cementMassKg = cementVolM3 * v.cementDensity;
+    const sandMassKg = sandVolM3 * v.sandDensity;
+    const aggregateMassKg = aggregateVolM3 * v.aggregateDensity;
+    const cementBags = roundUp(cementMassKg / v.bagMass);
+    const waterMassKg = cementMassKg * v.waterRatio;
+    const waterVolL = waterMassKg;
+    const usGalPerL = 0.264172052358;
 
     return result(
       [
-        row('mixedVol', 'Mixed concrete volume', mixedM3, 'm³'),
-        row('mixedFt3', 'Mixed concrete volume', mixedM3 * cuFtPerM3, 'ft³'),
-        row('mixedYd3', 'Mixed concrete volume', mixedM3 * cuFtPerM3 / 27, 'yd³'),
-        row('dryVol', 'Dry material volume', dryM3, 'm³'),
+        row('cementBags', 'Whole cement bags required', cementBags, 'bags', true),
+        row('cementMass', 'Cement mass', cementMassKg, 'kg'),
+        row('cementMassLb', 'Cement mass', cementMassKg * LB_PER_KG, 'lb'),
         row('cementVol', 'Cement volume', cementVolM3, 'm³'),
-        row('cementMass', 'Loose cement mass', cementMassKg, 'kg'),
-        row('cementBags', 'Whole cement bags', bags50, 'bags', true),
         row('sandVol', 'Dry sand volume', sandVolM3, 'm³'),
         row('sandMass', 'Sand mass (approx)', sandMassKg, 'kg'),
-        row('aggregateVol', 'Dry coarse aggregate volume', aggVolM3, 'm³'),
-        row('aggregateMass', 'Aggregate mass (approx)', aggMassKg, 'kg'),
-        row('waterMass', 'Approx water mass', waterMassKg, 'kg'),
+        row('sandMassLb', 'Sand mass (approx)', sandMassKg * LB_PER_KG, 'lb'),
+        row('aggregateVol', 'Dry coarse aggregate volume', aggregateVolM3, 'm³'),
+        row('aggregateMass', 'Aggregate mass (approx)', aggregateMassKg, 'kg'),
+        row('aggregateMassLb', 'Aggregate mass (approx)', aggregateMassKg * LB_PER_KG, 'lb'),
         row('waterVol', 'Approx water volume', waterVolL, 'L'),
-        row('totalParts', 'Total parts', totalParts, 'parts'),
+        row('waterGal', 'Approx water volume', waterVolL * usGalPerL, 'US gal'),
+        row('waterMass', 'Approx water mass', waterMassKg, 'kg'),
+        row('mixedVol', 'Mixed concrete volume with allowance', mixedM3, 'm³'),
+        row('mixedFt3', 'Mixed concrete volume with allowance', mixedM3 * cuFtPerM3, 'ft³'),
+        row('mixedYd3', 'Mixed concrete volume with allowance', mixedM3 * cuFtPerM3 / 27, 'yd³'),
+        row('netMixedVol', 'Net mixed concrete volume', netM3, 'm³'),
+        row('dryVol', 'Loose dry material volume', dryM3, 'm³'),
+        row('totalParts', 'Total ratio parts', totalParts, 'parts'),
         row('wcRatio', 'Water/cement ratio used', v.waterRatio, ''),
       ],
       [
-        `Parts: ${fmt(v.cementParts)} + ${fmt(v.sandParts)} + ${fmt(v.aggregateParts)} = ${totalParts}.`,
+        volumeStep,
+        `Allowance: ${fmt(netM3)} m³ × ${fmt(waste(v))} = ${fmt(mixedM3)} m³ mixed concrete.`,
+        `Ratio used: ${fmt(cementParts)} : ${fmt(sandParts)} : ${fmt(aggregateParts)} = ${fmt(totalParts)} total parts.`,
         `Dry material: ${fmt(mixedM3)} × ${fmt(v.dryFactor)} = ${fmt(dryM3)} m³.`,
-        `Cement volume: ${fmt(dryM3)} × ${fmt(v.cementParts)} / ${totalParts} = ${fmt(cementVolM3)} m³.`,
-        `Cement mass: ${fmt(cementVolM3)} × ${fmt(v.cementDensity)} kg/m³ = ${fmt(cementMassKg)} kg → ${bags50} bags of ${v.bagMass} kg.`,
-        `Sand: ${fmt(sandVolM3)} m³ ≈ ${fmt(sandMassKg)} kg; Aggregate: ${fmt(aggVolM3)} m³ ≈ ${fmt(aggMassKg)} kg.`,
-        `Approx water: ${fmt(cementMassKg)} × ${fmt(v.waterRatio)} = ${fmt(waterMassKg)} kg (${fmt(waterVolL)} L).`,
+        `Cement: ${fmt(dryM3)} × ${fmt(cementParts)} / ${fmt(totalParts)} = ${fmt(cementVolM3)} m³ × ${fmt(v.cementDensity)} kg/m³ = ${fmt(cementMassKg)} kg → ${cementBags} bags of ${fmt(v.bagMass)} kg.`,
+        `Sand: ${fmt(sandVolM3)} m³ × ${fmt(v.sandDensity)} kg/m³ ≈ ${fmt(sandMassKg)} kg.`,
+        `Coarse aggregate: ${fmt(aggregateVolM3)} m³ × ${fmt(v.aggregateDensity)} kg/m³ ≈ ${fmt(aggregateMassKg)} kg.`,
+        `Water: ${fmt(cementMassKg)} kg cement × w/c ${fmt(v.waterRatio)} = ${fmt(waterMassKg)} kg ≈ ${fmt(waterVolL)} L.`,
+      ],
+      [
+        'Cement bags are rounded up only after the calculated cement mass is divided by the bag mass.',
+        'Sand and aggregate masses are estimates from the entered loose bulk densities; use measured or supplier values when possible.',
+        'Nominal volumetric ratios should not be presented as proof of concrete strength or code compliance.',
       ]
     );
   },

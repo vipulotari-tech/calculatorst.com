@@ -231,16 +231,68 @@ describe("Concrete category golden-value regression suite", () => {
     expect(r.rows.find(x => x.key === "primaryCost")?.value).toBeCloseTo(200, 8);
   });
 
-  it("Concrete Mix: 1 m³, 1:2:3, dry factor 1.54 gives the expected cement and water", () => {
+  it("Concrete Mix: 1 m³, 1:2:3, dry factor 1.54 gives the expected material takeoff", () => {
     const r = run(
       "concrete-mix-calculator",
-      { volume: 1, cementParts: 1, sandParts: 2, aggregateParts: 3, dryFactor: 1.54, cementDensity: 1440, bagMass: 50, waterRatio: 0.5, waste: 0 },
+      {
+        mixInputMode: 0, volume: 1, mixPreset: 1,
+        dryFactor: 1.54, cementDensity: 1440, sandDensity: 1600, aggregateDensity: 1500,
+        bagMass: 50, waterRatio: 0.5, waste: 0,
+      },
       { volume: "m3" },
     );
+    expect(r.rows[0].key).toBe("cementBags");
     expect(r.rows.find(x => x.key === "cementVol")?.value).toBeCloseTo(1.54 / 6, 6);
     expect(r.rows.find(x => x.key === "cementMass")?.value).toBeCloseTo(369.6, 5);
     expect(r.rows.find(x => x.key === "cementBags")?.value).toBe(8);
+    expect(r.rows.find(x => x.key === "sandMass")?.value).toBeCloseTo(821.333333333, 5);
+    expect(r.rows.find(x => x.key === "aggregateMass")?.value).toBeCloseTo(1155, 5);
     expect(r.rows.find(x => x.key === "waterVol")?.value).toBeCloseTo(184.8, 5);
+    expect(r.rows.find(x => x.key === "waterGal")?.value).toBeCloseTo(48.818995276, 6);
+  });
+
+  it("Concrete Mix: dimensions mode and editable bulk densities stay dimensionally correct", () => {
+    const r = run(
+      "concrete-mix-calculator",
+      {
+        mixInputMode: 1, mixLength: 10, mixWidth: 10, mixDepth: 4, mixQuantity: 1,
+        mixPreset: 1, dryFactor: 1.54,
+        cementDensity: 1440, sandDensity: 1700, aggregateDensity: 1600,
+        bagMass: 50, waterRatio: 0.5, waste: 0,
+      },
+      { mixLength: "ft", mixWidth: "ft", mixDepth: "in" },
+    );
+    expect(r.rows.find(x => x.key === "netMixedVol")?.value).toBeCloseTo(0.9438948864, 8);
+    expect(r.rows.find(x => x.key === "cementMass")?.value).toBeCloseTo(348.863550013, 6);
+    expect(r.rows.find(x => x.key === "cementBags")?.value).toBe(7);
+    expect(r.rows.find(x => x.key === "sandMass")?.value).toBeCloseTo((1.453598125056 * 2 / 6) * 1700, 6);
+    expect(r.rows.find(x => x.key === "aggregateMass")?.value).toBeCloseTo((1.453598125056 * 3 / 6) * 1600, 6);
+  });
+
+  it("Concrete Mix: custom ratio validates aggregate content and honors custom parts", () => {
+    const custom = run(
+      "concrete-mix-calculator",
+      {
+        mixInputMode: 0, volume: 1, mixPreset: 0,
+        cementParts: 1, sandParts: 1.5, aggregateParts: 3,
+        dryFactor: 1.54, cementDensity: 1440, sandDensity: 1600, aggregateDensity: 1500,
+        bagMass: 50, waterRatio: 0.45, waste: 0,
+      },
+      { volume: "m3" },
+    );
+    expect(custom.rows.find(x => x.key === "totalParts")?.value).toBeCloseTo(5.5, 8);
+    expect(custom.rows.find(x => x.key === "cementMass")?.value).toBeCloseTo((1.54 / 5.5) * 1440, 6);
+
+    expect(() => run(
+      "concrete-mix-calculator",
+      {
+        mixInputMode: 0, volume: 1, mixPreset: 0,
+        cementParts: 1, sandParts: 0, aggregateParts: 0,
+        dryFactor: 1.54, cementDensity: 1440, sandDensity: 1600, aggregateDensity: 1500,
+        bagMass: 50, waterRatio: 0.5, waste: 0,
+      },
+      { volume: "m3" },
+    )).toThrow(/aggregate component greater than zero/i);
   });
 
   it("Concrete Pour: one sub-minimum truck gets short-load fee and selected price basis is honored", () => {
