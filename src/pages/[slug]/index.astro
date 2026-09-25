@@ -23,6 +23,57 @@ const { calc } = Astro.props;
 const model = getModelForSlug(calc.slug);
 const content = getCalculatorContent(calc.h1, model);
 
+// Competitor calculators are useful product benchmarks, not technical authorities.
+// Keep them out of the public References block when primary/industry sources exist.
+const benchmarkHosts = new Set([
+  "inchcalculator.com",
+  "www.inchcalculator.com",
+  "omnicalculator.com",
+  "www.omnicalculator.com",
+  "calculatorsoup.com",
+  "www.calculatorsoup.com",
+  "calculator.net",
+  "www.calculator.net",
+]);
+const technicalSources = model.sources.filter((url) => {
+  try {
+    return !benchmarkHosts.has(new URL(url).hostname.toLowerCase());
+  } catch {
+    return false;
+  }
+});
+const benchmarkSourceCount = model.sources.length - technicalSources.length;
+const sourceLabels: Record<string, string> = {
+  "www.concrete.org": "American Concrete Institute (ACI)",
+  "concrete.org": "American Concrete Institute (ACI)",
+  "www.crsi.org": "Concrete Reinforcing Steel Institute (CRSI)",
+  "crsi.org": "Concrete Reinforcing Steel Institute (CRSI)",
+  "www.fhwa.dot.gov": "Federal Highway Administration (FHWA)",
+  "fhwa.dot.gov": "Federal Highway Administration (FHWA)",
+  "highways.fhwa.dot.gov": "Federal Highway Administration (FHWA)",
+  "www.iccsafe.org": "International Code Council (ICC)",
+  "iccsafe.org": "International Code Council (ICC)",
+  "awc.org": "American Wood Council (AWC)",
+  "www.asphaltroofing.org": "Asphalt Roofing Manufacturers Association (ARMA)",
+  "asphaltroofing.org": "Asphalt Roofing Manufacturers Association (ARMA)",
+  "www.quikrete.com": "QUIKRETE technical documentation",
+  "quikrete.com": "QUIKRETE technical documentation",
+  "www.nrmca.org": "National Ready Mixed Concrete Association (NRMCA)",
+  "nrmca.org": "National Ready Mixed Concrete Association (NRMCA)",
+  "www.cmha.org": "Concrete Masonry & Hardscapes Association (CMHA)",
+  "cmha.org": "Concrete Masonry & Hardscapes Association (CMHA)",
+  "www.ada.gov": "U.S. Department of Justice — ADA",
+  "ada.gov": "U.S. Department of Justice — ADA",
+};
+function sourceLabel(url: string) {
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    return sourceLabels[host] ?? host.replace(/^www\./, "");
+  } catch {
+    return "Technical reference";
+  }
+}
+
 const clusterToSlug: Record<string, string> = {
   concrete: "concrete",
   slab: "slab-patio-driveway",
@@ -1806,7 +1857,8 @@ const pageDateModified = enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" :
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions &amp; Limitations</h2>
       <ul class="mt-3 list-disc pl-5 space-y-2 text-sm leading-6 text-body">{model.assumptions.map(a => <li>{a}</li>)}</ul>
-      {model.sources.length > 0 && <div class="mt-4"><h3 class="font-semibold text-ink">References</h3><ul class="mt-2 list-disc pl-5 text-sm space-y-2">{model.sources.map(url => <li><a class="text-primary underline break-words" href={url}>{new URL(url).hostname.replace(/^www\./, '')} — reference</a></li>)}</ul></div>}
+      {technicalSources.length > 0 && <div class="mt-4"><h3 class="font-semibold text-ink">Technical references</h3><ul class="mt-2 list-disc pl-5 text-sm space-y-2">{technicalSources.map(url => <li><a class="text-primary underline break-words" href={url} rel="noopener">{sourceLabel(url)}</a></li>)}</ul></div>}
+      {benchmarkSourceCount > 0 && <p class="mt-3 text-xs leading-5 text-mute">Competitor calculators were reviewed only for product/UX benchmarking and are not presented here as technical authorities.</p>}
       <p class="mt-4 text-sm leading-6 text-body">Use your product specifications and project measurements when ordering. These estimates do not select structural sizes or establish code compliance.</p>
     </div>
   </section>
