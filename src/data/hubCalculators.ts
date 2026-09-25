@@ -1618,7 +1618,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "framing-calculator",
-    "title": "Framing Calculator — Member Count & Spacing",
+    "title": "Framing Calculator — Studs, Plates, Lumber & Cost",
     "h1": "Framing Calculator",
     "description": "Estimate evenly spaced framing members from layout distance and a specified maximum on-center spacing, with detail pieces, purchasing allowance and optional unit cost.",
     "category": "Framing & Lumber",
@@ -1674,7 +1674,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "lumber-calculator",
-    "title": "Lumber Calculator — Piece Count & Spacing",
+    "title": "Lumber Layout Calculator — Piece Count, Spacing & Cost",
     "h1": "Lumber Calculator",
     "description": "Estimate evenly spaced lumber pieces from layout distance and specified maximum spacing, plus detail pieces, purchasing allowance and optional unit cost.",
     "category": "Framing & Lumber",
@@ -1728,7 +1728,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "joist-calculator",
-    "title": "Joist Calculator — Count from On-Center Spacing",
+    "title": "Joist Calculator — Count, Spacing & Purchasing",
     "h1": "Joist Calculator",
     "description": "Count joists across a layout distance from specified maximum on-center spacing, including end members, optional extras, purchasing allowance and cost.",
     "category": "Framing & Lumber",
@@ -1754,7 +1754,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "floor-joist-calculator",
-    "title": "Floor Joist Calculator — Count from On-Center Spacing",
+    "title": "Floor Joist Calculator — Count & On-Center Layout",
     "h1": "Floor Joist Calculator",
     "description": "Estimate floor-joist count across a layout from specified maximum on-center spacing, with end members, extras, purchasing allowance and optional cost.",
     "category": "Framing & Lumber",
@@ -1767,7 +1767,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "ceiling-joist-calculator",
-    "title": "Ceiling Joist Calculator — Count from On-Center Spacing",
+    "title": "Ceiling Joist Calculator — Count & On-Center Layout",
     "h1": "Ceiling Joist Calculator",
     "description": "Estimate ceiling-joist count across a layout from specified maximum on-center spacing, with end members, extras, purchasing allowance and optional cost.",
     "category": "Framing & Lumber",
@@ -1822,7 +1822,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "roofing-calculator",
-    "title": "Roofing Calculator — Area, Pitch & Materials",
+    "title": "Roofing Calculator — Roof Area, Squares & Material Packages",
     "h1": "Roofing Calculator",
     "description": "Calculate sloped roof surface from building footprint, overhang and pitch, then show allowance-adjusted material area, roofing squares and metric area.",
     "category": "Roofing",
@@ -1924,7 +1924,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "roofing-material-calculator",
-    "title": "Roofing Material Coverage Calculator — Area & Packages",
+    "title": "Roofing Material Calculator — Package Coverage & Cost",
     "h1": "Roofing Material Calculator",
     "description": "Estimate whole packages for one roofing material from roof dimensions, pitch, effective package coverage, allowance and optional package price.",
     "category": "Roofing",
@@ -1938,7 +1938,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "roofing-underlayment-calculator",
-    "title": "Roofing Underlayment Calculator — Area, Pitch & Materials",
+    "title": "Roofing Underlayment Calculator — Rolls, Coverage & Cost",
     "h1": "Roofing Underlayment Calculator",
     "description": "Estimate whole underlayment rolls from sloped roof area, project allowance and manufacturer net roll coverage after required overlaps, with optional cost.",
     "category": "Roofing",
@@ -1951,7 +1951,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "roof-sheathing-calculator",
-    "title": "Roof Sheathing Calculator — Area, Pitch & Materials",
+    "title": "Roof Sheathing Calculator — Plywood/OSB Sheets & Cost",
     "h1": "Roof Sheathing Calculator",
     "description": "Estimate whole roof-sheathing panels from sloped roof area, actual panel coverage and project allowance, with optional material cost.",
     "category": "Roofing",
@@ -1965,7 +1965,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "roof-rafter-calculator",
-    "title": "Roof Rafter Calculator — Area, Pitch & Materials",
+    "title": "Roof Rafter Calculator — Length, Count & Linear Feet",
     "h1": "Roof Rafter Calculator",
     "description": "Calculate common-rafter line length and rise for a symmetric gable roof from full building span, pitch and horizontal eave overhang.",
     "category": "Roofing",
@@ -1979,7 +1979,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "rafter-length-calculator",
-    "title": "Rafter Length Calculator — Area, Pitch & Materials",
+    "title": "Rafter Length Calculator — Span, Pitch & Overhang",
     "h1": "Rafter Length Calculator",
     "description": "Calculate common-rafter line length and rise for a symmetric gable roof from full span, pitch and horizontal overhang; this does not size the rafter.",
     "category": "Roofing",
@@ -1992,7 +1992,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "roof-truss-calculator",
-    "title": "Roof Truss Calculator — Area, Pitch & Materials",
+    "title": "Roof Truss Calculator — Count, Spacing & Cost",
     "h1": "Roof Truss Calculator",
     "description": "Count roof trusses across a layout from specified maximum on-center spacing, including end members, extras, purchasing allowance and optional unit cost.",
     "category": "Roofing",
@@ -2006,7 +2006,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "roof-flashing-calculator",
-    "title": "Roof Flashing Calculator — Area, Pitch & Materials",
+    "title": "Roof Flashing Calculator — Stock Pieces, Overlap & Cost",
     "h1": "Roof Flashing Calculator",
     "description": "Calculate installed and purchased flashing stock pieces from a continuous run, stock-piece length, overlap and purchasing allowance, with optional cost.",
     "category": "Roofing",
@@ -2020,7 +2020,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "roof-waste-calculator",
-    "title": "Roof Waste Calculator — Area, Pitch & Materials",
+    "title": "Roof Waste Calculator — Extra Area, Squares & Allowance",
     "h1": "Roof Waste Calculator",
     "description": "Apply a project-specific allowance to a known net roofing area and show extra area, total order area, roofing squares and metric area.",
     "category": "Roofing",
@@ -2061,7 +2061,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "hardwood-flooring-calculator",
-    "title": "Hardwood Flooring Calculator — Area, Coverage & Cost",
+    "title": "Hardwood Flooring Calculator — Packages, Coverage & Cost",
     "h1": "Hardwood Flooring Calculator",
     "description": "Estimate hardwood flooring coverage and whole packages from measured floor area, exact product coverage and project allowance, with optional material cost.",
     "category": "Flooring & Tile",
@@ -2088,7 +2088,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "laminate-flooring-calculator",
-    "title": "Laminate Flooring Calculator — Area, Coverage & Cost",
+    "title": "Laminate Flooring Calculator — Packages, Coverage & Cost",
     "h1": "Laminate Flooring Calculator",
     "description": "Estimate laminate flooring coverage and whole packages from room area, exact package coverage and project allowance, with optional material cost.",
     "category": "Flooring & Tile",
@@ -2101,7 +2101,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "vinyl-flooring-calculator",
-    "title": "Vinyl Flooring Calculator — Area, Coverage & Cost",
+    "title": "Vinyl Flooring Calculator — Packages, Coverage & Cost",
     "h1": "Vinyl Flooring Calculator",
     "description": "Estimate vinyl flooring coverage and whole packages from room area, exact product coverage and project allowance, with optional material cost.",
     "category": "Flooring & Tile",
@@ -2114,7 +2114,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "carpet-calculator",
-    "title": "Carpet Calculator — Area, Coverage & Cost",
+    "title": "Carpet Calculator — Roll Width, Square Yards & Cost",
     "h1": "Carpet Calculator",
     "description": "Calculate carpet purchase area, square yards, roll-strip layout, linear roll length, offcut area and optional cost from room dimensions and roll width.",
     "category": "Flooring & Tile",
@@ -2141,7 +2141,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "tile-calculator",
-    "title": "Tile Calculator — Area, Coverage & Cost",
+    "title": "Tile Calculator — Tiles, Boxes, Layout & Cost",
     "h1": "Tile Calculator",
     "description": "Calculate straight-layout tile rows, columns, whole-tile and whole-box quantity from surface and tile dimensions, with grout joint, allowance and optional box/area pricing.",
     "category": "Flooring & Tile",
@@ -2208,7 +2208,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "flooring-waste-calculator",
-    "title": "Flooring Waste Calculator — Area, Coverage & Cost",
+    "title": "Flooring Waste Calculator — Pattern, Cut Waste & Extra Area",
     "h1": "Flooring Waste Calculator",
     "description": "Apply separate pattern/layout and cut/damage allowances to a known net flooring area and show total order area, extra area and effective combined allowance.",
     "category": "Flooring & Tile",
