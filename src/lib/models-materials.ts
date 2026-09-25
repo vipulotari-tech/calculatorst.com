@@ -840,83 +840,169 @@ const concreteMix: Model = {
 };
 
 // ==========================================================
-// 6.  Concrete Pour Calculator — truck planning
+// 6.  Concrete Pour Calculator — ready-mix delivery and placement planning
 // ==========================================================
 const concretePourFields: Field[] = [
-  length('length', 'Pour length', 20, 'ft'),
-  length('width', 'Pour width', 10, 'ft'),
-  length('depth', 'Pour thickness', 4, 'in'),
-  count('quantity', 'Number of separate pours', 1),
+  { id: 'pourInputMode', label: 'Plan pour from', value: 0, unit: '', integer: true, min: 0, max: 2,
+    options: [
+      { value: 0, label: 'Length × width × thickness' },
+      { value: 1, label: 'Known concrete volume' },
+      { value: 2, label: 'Surface area × thickness' },
+    ] },
+  { ...length('length', 'Pour length', 20, 'ft'), visibleWhen: { field: 'pourInputMode', equals: 0 } },
+  { ...length('width', 'Pour width', 10, 'ft'), visibleWhen: { field: 'pourInputMode', equals: 0 } },
+  { ...length('depth', 'Pour thickness', 4, 'in'), visibleWhen: { field: 'pourInputMode', equals: 0 } },
+  { ...volume('volume', 'Concrete volume', 5), units: ['yd3', 'ft3', 'm3', 'L'], visibleWhen: { field: 'pourInputMode', equals: 1 } },
+  { ...area('area', 'Surface area', 500, 0), visibleWhen: { field: 'pourInputMode', equals: 2 } },
+  { ...length('areaThickness', 'Thickness / depth', 4, 'in'), visibleWhen: { field: 'pourInputMode', equals: 2 } },
+  { ...count('quantity', 'Identical pour sections', 1), visibleWhen: { field: 'pourInputMode', in: [0, 2] } },
+
   allowance,
   densityField,
   yieldField,
   price('USD/yd3', ['USD/yd3', 'USD/m3', 'USD/ft3', 'USD/bag', 'USD/ton']),
-  number('truckCapacity', 'Ready-mix truck capacity (yd³)', 10, 1, 'Typical transit mixer holds 9–11 yd³. Edit to your supplier\'s load.'),
-  number('minOrder', 'Supplier minimum order (yd³)', 1, 0.1, 'Below this, suppliers may add a short-load fee or refuse delivery.'),
-  number('shortLoadFee', 'Short-load fee ($)', 0, 0, 'Added when the final truck is below the supplier\'s minimum.'),
-  number('pumpRate', 'Pour rate (yd³/hr)', 30, 1, 'Planning example only. Enter the placement rate expected for the actual crew, access and equipment.'),
+
+  number('truckCapacity', 'Ready-mix truck capacity (yd³)', 10, 1, 'Enter the usable load size confirmed by the supplier. Truck capacities and legal loads vary.'),
+  number('minOrder', 'Supplier short-load threshold (yd³)', 5, 0.1, 'Enter the load size below which the supplier applies the quoted short-load rule.'),
+  number('shortLoadFee', 'Short-load fee ($)', 0, 0, 'Enter the quoted surcharge for a final load below the supplier threshold. Leave 0 when it does not apply.'),
+  number('deliveryFeePerTruck', 'Delivery fee per truck/load ($)', 0, 0, 'Optional quoted delivery charge per dispatched load.'),
+  number('pumpRate', 'Placement / pump rate (yd³/hr)', 30, 0.1, 'Enter the realistic sustained placement rate for the crew, access and equipment.'),
+  number('pumpSetupFee', 'Pump setup / mobilization ($)', 0, 0, 'Optional flat quoted pump setup or mobilization charge.'),
+  number('pumpHourlyRate', 'Pump / placement hourly rate ($/hr)', 0, 0, 'Optional hourly equipment or placement charge applied to the calculated active pour duration.'),
 ];
 
 const concretePour: Model = {
   fields: concretePourFields,
-  formula: 'Total = L × W × D × pours × (1 + waste/100). Loads = ceil(total yd³ / truckCapacity). Last load = total − (loads − 1) × capacity. Last truck under minimum triggers short-load fee.',
+  formula: 'Order volume = net concrete volume × (1 + allowance/100). Truck loads = ceil(order yd³ ÷ truck capacity). Final load = order yd³ − (loads − 1) × truck capacity. Active pour duration = order yd³ ÷ placement rate. Material cost uses the selected price basis; quoted short-load, delivery and pump charges are added separately.',
   assumptions: [
     ...standardAssumptions,
-    'Truck load count is a planning estimate. Actual capacity varies by supplier, distance, and mix type.',
-    'A "short load" is any delivery below the supplier\'s minimum. Confirm the threshold on your quote.',
-    'Pour rate depends on placement method. Chute is faster, line pump is slower, boom pump is intermediate.',
-    'Weather, traffic, slump, and crew size all affect the actual pour duration.',
+    'Truck capacity is an entered planning value, not a promise of what a supplier can legally or operationally deliver.',
+    'The short-load fee is applied once when the final calculated load is below the entered supplier threshold.',
+    'The full-truck dispatch interval is the time required to place one entered truck-capacity load at the entered sustained placement rate; it is not a supplier dispatch guarantee.',
+    'Calculated pour duration includes active placement only. Setup, washout, truck maneuvering, testing, weather, traffic and delays must be planned separately.',
+    'Delivery and pump charges are included only when entered from a quote; the calculator does not guess supplier fees.',
+    'For multiple independent pours that cannot be supplied as one continuous sequence, calculate each pour separately instead of combining them with Quantity.',
   ],
   sources: [quikrete, geometry, 'https://www.nrmca.org/'],
   calculate(v, u) {
-    const netCuFt = v.length * v.width * v.depth * v.quantity;
+    const mode = Math.round(v.pourInputMode);
+    let netCuFt = 0;
+    let geometryStep = '';
+
+    if (mode === 1) {
+      requireCondition(v.volume > 0, 'volume', 'Enter a concrete volume greater than zero.');
+      netCuFt = v.volume;
+      geometryStep = `Known concrete volume: ${fmt(netCuFt)} ft³ after unit conversion.`;
+    } else if (mode === 2) {
+      requireCondition(v.area > 0, 'area', 'Enter a surface area greater than zero.');
+      requireCondition(v.areaThickness > 0, 'areaThickness', 'Enter a thickness greater than zero.');
+      requireCondition(v.quantity >= 1, 'quantity', 'Enter at least one pour section.');
+      const each = v.area * v.areaThickness;
+      netCuFt = each * v.quantity;
+      geometryStep = `Area × thickness: ${fmt(v.area)} ft² × ${fmt(v.areaThickness)} ft = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(netCuFt)} ft³.`;
+    } else {
+      requireCondition(v.length > 0, 'length', 'Enter a pour length greater than zero.');
+      requireCondition(v.width > 0, 'width', 'Enter a pour width greater than zero.');
+      requireCondition(v.depth > 0, 'depth', 'Enter a pour thickness greater than zero.');
+      requireCondition(v.quantity >= 1, 'quantity', 'Enter at least one pour section.');
+      const each = v.length * v.width * v.depth;
+      netCuFt = each * v.quantity;
+      geometryStep = `Dimensions: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(netCuFt)} ft³.`;
+    }
+
+    requireCondition(v.yield > 0, 'yield', 'Enter a mixed bag yield greater than zero.');
+    const density = densityLb(v.density, u.density);
+    requireCondition(density > 0, 'density', 'Enter a concrete density greater than zero.');
+    requireCondition(v.truckCapacity > 0, 'truckCapacity', 'Enter a truck capacity greater than zero.');
+    requireCondition(v.minOrder > 0, 'minOrder', 'Enter a short-load threshold greater than zero.');
+    requireCondition(v.minOrder <= v.truckCapacity, 'minOrder', 'Short-load threshold cannot exceed the entered truck capacity.');
+    requireCondition(v.pumpRate > 0, 'pumpRate', 'Enter a placement rate greater than zero.');
+
     const totalCuFt = netCuFt * waste(v);
     const totalCuYd = totalCuFt / 27;
+    const totalM3 = totalCuFt / FT_PER_M ** 3;
     const bags = roundUp(totalCuFt / v.yield);
-    const lb = totalCuFt * densityLb(v.density, u.density);
+    const lb = totalCuFt * density;
 
-    // Load planning
     const trucks = Math.max(1, roundUp(totalCuYd / v.truckCapacity));
-    const lastTruckYd = Math.max(0, totalCuYd - (trucks - 1) * v.truckCapacity);
+    const fullLoadsBeforeFinal = Math.max(0, trucks - 1);
+    const lastTruckYd = Math.max(0, totalCuYd - fullLoadsBeforeFinal * v.truckCapacity);
+    const finalUtilizationPct = lastTruckYd / v.truckCapacity * 100;
     const isShortLoad = lastTruckYd > 0 && lastTruckYd < v.minOrder;
     const shortFee = isShortLoad && Number.isFinite(v.shortLoadFee) ? v.shortLoadFee : 0;
-    const priceQuantities: Record<string, number> = {
-      'USD/yd3': totalCuYd,
-      'USD/m3': totalCuFt / FT_PER_M ** 3,
-      'USD/ft3': totalCuFt,
-      'USD/bag': bags,
-      'USD/ton': lb / 2000,
-    };
-    const pricedQuantity = priceQuantities[u.price];
-    const totalCost = Number.isFinite(v.price) && pricedQuantity !== undefined
-      ? pricedQuantity * v.price + shortFee
-      : NaN;
 
-    // Pour duration
-    const durationHr = v.pumpRate > 0 ? totalCuYd / v.pumpRate : 0;
+    const durationHr = totalCuYd / v.pumpRate;
+    const fullTruckIntervalMin = v.truckCapacity / v.pumpRate * 60;
+    const finalTruckPlacementMin = lastTruckYd / v.pumpRate * 60;
+
+    const priceQuantities: Record<string, { value: number; unit: string; label: string }> = {
+      'USD/yd3': { value: totalCuYd, unit: 'yd³', label: 'cubic yards' },
+      'USD/m3': { value: totalM3, unit: 'm³', label: 'cubic meters' },
+      'USD/ft3': { value: totalCuFt, unit: 'ft³', label: 'cubic feet' },
+      'USD/bag': { value: bags, unit: 'bags', label: 'whole bags' },
+      'USD/ton': { value: lb / 2000, unit: 'US tons', label: 'US tons' },
+    };
+    const priced = priceQuantities[u.price] ?? priceQuantities['USD/yd3'];
+    const hasPrice = Number.isFinite(v.price);
+    const materialCost = hasPrice ? priced.value * v.price : Number.NaN;
+    const deliveryCost = Number.isFinite(v.deliveryFeePerTruck) ? trucks * v.deliveryFeePerTruck : 0;
+    const pumpCost = (Number.isFinite(v.pumpSetupFee) ? v.pumpSetupFee : 0)
+      + (Number.isFinite(v.pumpHourlyRate) ? durationHr * v.pumpHourlyRate : 0);
+    const logisticsCost = shortFee + deliveryCost + pumpCost;
+    const totalCost = hasPrice ? materialCost + logisticsCost : Number.NaN;
+
+    const rows = [
+      row('trucks', 'Ready-mix truck loads', trucks, 'loads', true),
+      row('order', 'Concrete to schedule', totalCuYd, 'yd³'),
+      row('net', 'Geometric concrete volume', netCuFt / 27, 'yd³'),
+      row('ft3', 'Order volume (ft³)', totalCuFt, 'ft³'),
+      row('m3', 'Order volume (m³)', totalM3, 'm³'),
+      row('L', 'Order volume (L)', totalM3 * 1000, 'L'),
+      row('fullLoads', 'Full loads before final truck', fullLoadsBeforeFinal, 'loads', true),
+      row('lastTruck', 'Final truck size', lastTruckYd, 'yd³'),
+      row('lastTruckUtilization', 'Final truck utilization', finalUtilizationPct, '%'),
+      row('shortLoad', 'Short-load surcharge', shortFee, 'USD'),
+      row('durationHr', 'Active pour duration', durationHr, 'hours'),
+      row('durationMin', 'Active pour duration', durationHr * 60, 'minutes'),
+      row('dispatchInterval', 'Full-truck placement interval', fullTruckIntervalMin, 'minutes'),
+      row('finalTruckMinutes', 'Final truck placement time', finalTruckPlacementMin, 'minutes'),
+      row('bags', `Bags at entered yield ${fmt(v.yield)} ft³`, bags, 'bags', true),
+      row('weight', 'Estimated order weight (lb)', lb, 'lb'),
+      row('weightKg', 'Estimated order weight (kg)', lb / LB_PER_KG, 'kg'),
+      row('tons', 'Estimated order weight (US tons)', lb / 2000, 'US tons'),
+    ];
+
+    if (hasPrice) {
+      rows.push(
+        row('materialCost', 'Concrete material cost', materialCost, 'USD'),
+        row('pricedQuantity', `Quantity priced as ${priced.label}`, priced.value, priced.unit),
+      );
+    }
+    if (deliveryCost > 0) rows.push(row('deliveryCost', 'Quoted delivery charges', deliveryCost, 'USD'));
+    if (pumpCost > 0) rows.push(row('pumpCost', 'Quoted pump / placement charges', pumpCost, 'USD'));
+    if (logisticsCost > 0) rows.push(row('logisticsCost', 'Quoted logistics charges', logisticsCost, 'USD'));
+    if (hasPrice) rows.push(row('totalCost', 'Material + entered logistics', totalCost, 'USD'));
 
     return result(
+      rows,
       [
-        row('order', 'Total concrete', totalCuYd, 'yd³'),
-        row('net', 'Geometric volume', netCuFt / 27, 'yd³'),
-        row('ft3', 'Total volume (ft³)', totalCuFt, 'ft³'),
-        row('m3', 'Total volume (m³)', totalCuFt / FT_PER_M ** 3, 'm³'),
-        row('bags', `Bags (entered yield ${fmt(v.yield)} ft³)`, bags, 'bags', true),
-        row('weight', 'Estimated order weight (lb)', lb, 'lb'),
-        row('tons', 'Estimated order weight (US tons)', lb / 2000, 'US tons'),
-        row('trucks', 'Ready-mix truck loads', trucks, 'loads', true),
-        row('lastTruck', 'Final truck size', lastTruckYd, 'yd³'),
-        row('shortLoad', 'Short-load fee', shortFee, 'USD'),
-        row('durationHr', 'Estimated pour duration', durationHr, 'hours'),
-        row('durationMin', 'Estimated pour duration', durationHr * 60, 'minutes'),
-        ...(Number.isFinite(totalCost) ? [row('totalCost', 'Material + short-load', totalCost, 'USD')] : []),
+        geometryStep,
+        `Allowance: ${fmt(netCuFt)} ft³ × ${fmt(waste(v))} = ${fmt(totalCuFt)} ft³ = ${fmt(totalCuYd)} yd³.`,
+        `Truck plan: ${fmt(totalCuYd)} yd³ ÷ ${fmt(v.truckCapacity)} yd³/load = ${trucks} load(s); final load = ${fmt(lastTruckYd)} yd³ (${fmt(finalUtilizationPct)}%).`,
+        isShortLoad
+          ? `Final load is below the entered ${fmt(v.minOrder)} yd³ short-load threshold; $${fmt(shortFee)} surcharge applied.`
+          : `Final load meets or exceeds the entered ${fmt(v.minOrder)} yd³ short-load threshold.`,
+        `Placement time: ${fmt(totalCuYd)} yd³ ÷ ${fmt(v.pumpRate)} yd³/hr = ${fmt(durationHr * 60)} minutes active placement.`,
+        `At the same sustained rate, one full ${fmt(v.truckCapacity)} yd³ load takes about ${fmt(fullTruckIntervalMin)} minutes to place.`,
+        ...(hasPrice ? [
+          `Material price: ${fmt(priced.value)} ${priced.unit} × $${fmt(v.price)} = $${fmt(materialCost)}.`,
+          `Entered logistics charges total $${fmt(logisticsCost)}; estimated material + logistics total = $${fmt(totalCost)}.`,
+        ] : []),
       ],
       [
-        `${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(netCuFt)} ft³.`,
-        `With ${fmt(v.waste)}% allowance: ${fmt(totalCuFt)} ft³ = ${fmt(totalCuYd)} yd³.`,
-        `${fmt(totalCuYd)} yd³ ÷ ${fmt(v.truckCapacity)} yd³/truck = ${trucks} truck loads (last = ${fmt(lastTruckYd)} yd³).`,
-        isShortLoad ? `Final truck is below ${fmt(v.minOrder)} yd³ minimum — short-load fee applied.` : `Final truck meets or exceeds ${fmt(v.minOrder)} yd³ minimum.`,
-        `Pour time: ${fmt(totalCuYd)} yd³ ÷ ${fmt(v.pumpRate)} yd³/hr ≈ ${fmt(durationHr * 60)} min.`,
+        'Use the actual supplier truck capacity, short-load policy and quote. Ready-mix fleets and legal payloads vary.',
+        'The dispatch interval is a placement-rate planning aid; coordinate actual truck spacing directly with the ready-mix dispatcher.',
+        'If the project is split into pours that cannot be supplied continuously, calculate those pours separately.',
       ]
     );
   },
