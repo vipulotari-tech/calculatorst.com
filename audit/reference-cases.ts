@@ -271,4 +271,10 @@ export const referenceCases:ReferenceCase[] = [
  {model:'dirt-removal-dedicated',input:{length:3,width:3,depth:3,swell:20,truckCapacity:1,haulRate:5,tripFee:10},expected:{bank:1,loose:1.2,trips:2,cost:26}},
  {model:'soil-volume-dedicated',input:{mode:0,length:3,width:3,depth:3,swell:20},expected:{bank:1,loose:1.2,ft3:27}},
  {model:'soil-weight-dedicated',input:{mode:0,length:3,width:3,depth:3,density:100,waste:0},expected:{weight:2700,tons:1.35,volume:1}},
+ {model:'fencePost',input:{length:80,spacing:8,extraPosts:0,waste:0},expected:{posts:11,order:11,sections:10,spacing:8}},
+ {model:'fencePanel',input:{length:80,panelWidth:8,extraPosts:0,waste:0},expected:{panels:10,order:10,posts:11,coverage:80,extra:0}},
+ {model:'paver',input:{length:10,width:10,paverLength:12,paverWidth:12,joint:0,waste:0},units:{paverLength:'in',paverWidth:'in',joint:'in'},expected:{order:100,installed:100,rows:10,columns:10,area:100,spares:0}},
+ {model:'paverJointSand',input:{length:10,width:10,paverLength:12,paverWidth:12,joint:0.25,depth:1,density:1600,bagMass:20,waste:0},units:{paverLength:'in',paverWidth:'in',joint:'in',depth:'in'},expected:{bags:1,weight:15.253278464106554,net:0.33666527835623883,fraction:4.039983340274866}},
+ {model:'landscapeMaterial',input:{length:10,width:10,depth:3,quantity:1,bag:2,waste:0},units:{depth:'in',bag:'ft3'},expected:{order:25/27,bags:13,net:25/27,ft3:25}},
+
 ];
