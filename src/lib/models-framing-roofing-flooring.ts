@@ -46,6 +46,7 @@ function memberCountModel(label:string):Model{
       const installed=base+v.extra;
       const order=roundUp(installed*waste(v));
       const memberLength=Number.isFinite(v.memberLength)?v.memberLength:0;
+      requireCondition(!(Number.isFinite(v.price) && u.price==='USD/ft') || memberLength>0,'memberLength','Enter member length when pricing by linear foot.');
       const linear=order*memberLength;
       return result(withCost([
         row('order',`${label}s to order`,order,`${label.toLowerCase()}s`,true),
@@ -95,7 +96,7 @@ const framingGeneral:Model={
     count('bottomPlates','Bottom plate layers',1,0),
     length('stockLength','Plate stock length',16,'ft'),
     allowance,
-    price('USD/ft',['USD/ft','USD/unit'])
+    price('USD/ft')
   ],
   formula:'Studs = ceil(wall length / spacing) + 1 + extras. Plate footage = wall length × plate layers. Total framing footage = studs × height + plates.',
   assumptions:[
@@ -113,7 +114,6 @@ const framingGeneral:Model={
     const orderFeet=net*waste(v);
     const platePieces=roundUp(plateFeet*waste(v)/v.stockLength);
     const studOrder=roundUp(studs*waste(v));
-    const totalPieces=studOrder+platePieces;
     return result(withCost([
       row('studs','Installed studs',studs,'studs',true),
       row('studOrder','Studs including allowance',studOrder,'studs',true),
@@ -121,7 +121,7 @@ const framingGeneral:Model={
       row('platePieces','Equivalent plate stock pieces',platePieces,'pieces',true),
       row('net','Net framing lumber',net,'ft'),
       row('order','Framing lumber with allowance',orderFeet,'ft')
-    ],v.price,u.price,{'USD/ft':orderFeet,'USD/unit':totalPieces}),[
+    ],v.price,u.price,{'USD/ft':orderFeet}),[
       `ceil(${fmt(v.length)} ÷ ${fmt(v.spacing)}) + 1 = ${base} base studs; + ${v.extra} = ${studs}.`,
       `Stud footage ${fmt(studFeet)} + plate footage ${fmt(plateFeet)} = ${fmt(net)} ft.`,
       `Allowance → ${fmt(orderFeet)} ft; equivalent plate stock = ${platePieces} pieces.`
@@ -172,7 +172,7 @@ const boardFoot:Model={
     length('length','Board length',8,'ft'),
     count('quantity','Number of boards',10,0),
     allowance,
-    price('USD/unit')
+    { ...number('price','Price per board foot (USD)',0,0), optional:true, group:'Cost' }
   ],
   formula:'Board feet = thickness(in) × width(in) × length(ft) × board count / 12.',
   assumptions:['One board foot is 144 in³. Use nominal or actual dimensions consistently with the seller’s pricing convention.','Allowance applies to board-foot purchasing volume, not to installed piece count.'],
@@ -181,12 +181,14 @@ const boardFoot:Model={
     const per=(v.thickness*12)*(v.width*12)*v.length/12;
     const net=per*v.quantity;
     const order=net*waste(v);
-    return result(withCost([
+    const rows=[
       row('order','Board feet including allowance',order,'board ft'),
       row('net','Net board feet',net,'board ft'),
       row('per','Board feet per board',per,'board ft'),
       row('linear','Net board length',v.quantity*v.length,'ft')
-    ],v.price,u.price,{'USD/unit':order}),[
+    ];
+    if(Number.isFinite(v.price)) rows.push(row('cost','Estimated lumber cost',order*v.price,'USD'));
+    return result(rows,[
       `${fmt(v.thickness*12)} in × ${fmt(v.width*12)} in × ${fmt(v.length)} ft ÷ 12 = ${fmt(per)} board ft/board.`,
       `${fmt(per)} × ${v.quantity} = ${fmt(net)} net board ft; allowance → ${fmt(order)}.`
     ]);
@@ -541,13 +543,13 @@ function flooringCostModel(label:string):Model{
     calculate(v,u){
       const order=v.area*(1+v.pattern/100)*waste(v);
       const material=(u.price==='USD/m2'?order/FT_PER_M**2:order)*v.price;
-      const under=order*v.underlayment;
+      const under=v.area*v.underlayment;
       const taxable=material+under,tax=taxable*v.tax/100,total=taxable+tax+v.delivery+v.labor;
       return result([
         row('total','Estimated entered-scope total',total,'USD'),
         row('order','Material area to purchase',order,'ft²'),
         row('materials',`${label} material subtotal`,material,'USD'),
-        row('underlayment','Underlayment / pad subtotal',under,'USD'),
+        row('underlayment','Underlayment / pad subtotal (net area)',under,'USD'),
         row('tax','Material tax',tax,'USD'),
         row('delivery','Delivery / fixed fee',v.delivery,'USD'),
         row('labor','Labor / installation',v.labor,'USD')
@@ -628,21 +630,23 @@ const tileQuantity:Model={
 
 const tileGeneral:Model={
   ...tileQuantity,
-  fields:[...tileQuantity.fields,price('USD/unit',['USD/unit','USD/ft2'])],
+  fields:[...tileQuantity.fields,price('USD/unit',['USD/unit','USD/ft2','USD/m2'])],
   calculate(v,u){
     const t=tileValues(v),order=roundUp(t.base*waste(v)),boxes=roundUp(order/v.tilesPerBox);
-    const purchasedArea=order*t.tileArea;
+    const purchasedTiles=boxes*v.tilesPerBox;
+    const purchasedArea=purchasedTiles*t.tileArea;
     const rows=[
       row('tiles','Tiles to order',order,'tiles',true),
       row('boxes','Boxes to order',boxes,'boxes',true),
       row('area','Surface area',t.net,'ft²'),
-      row('purchased','Approximate purchased tile face area',purchasedArea,'ft²'),
+      row('purchasedTiles','Tiles purchased in whole boxes',purchasedTiles,'tiles',true),
+      row('purchased','Purchased tile face area',purchasedArea,'ft²'),
       row('rows','Layout rows',t.rows,'rows',true),
       row('columns','Layout columns',t.cols,'columns',true)
     ];
     const steps=[`Base quantity ${t.base}; allowance → ${order} tiles = ${boxes} boxes.`];
     if(Number.isFinite(v.price)){
-      const cost=(u.price==='USD/ft2'?purchasedArea:boxes)*v.price;
+      const cost=(u.price==='USD/ft2'?purchasedArea:u.price==='USD/m2'?purchasedArea/FT_PER_M**2:boxes)*v.price;
       rows.push(row('cost','Estimated tile material cost',cost,'USD'));
       steps.push(`Material cost = ${fmt(cost)}.`);
     }
@@ -656,18 +660,20 @@ const tileCost:Model={
     length('tileLength','Tile length',12,'in'),length('tileWidth','Tile width',12,'in'),
     count('tilesPerBox','Tiles per box',10,1),
     allowance,
-    {...price('USD/unit',['USD/unit','USD/ft2']),optional:false},
+    {...price('USD/unit',['USD/unit','USD/ft2','USD/m2']),optional:false},
     number('tax','Material tax (%)',0,0),number('delivery','Delivery / fixed fee (USD)',0,0),number('labor','Labor / installation allowance (USD)',0,0)
   ],
   formula:'Area-based tile count = ceil(net area / tile face area × allowance); boxes = ceil(tiles / tiles per box); material price can be per box or square foot.',
   assumptions:['Area-based cost estimate; it does not optimize edge cuts or layout direction.','Labor, substrate repair, grout and adhesive are separate unless entered elsewhere.'],
   sources:[calcNetTile,omniTile],
   calculate(v,u){
-    const tileArea=v.tileLength*v.tileWidth,tiles=roundUp(v.area/tileArea*waste(v)),boxes=roundUp(tiles/v.tilesPerBox),purchased=tiles*tileArea;
-    const material=(u.price==='USD/ft2'?purchased:boxes)*v.price,tax=material*v.tax/100,total=material+tax+v.delivery+v.labor;
+    const tileArea=v.tileLength*v.tileWidth,tiles=roundUp(v.area/tileArea*waste(v)),boxes=roundUp(tiles/v.tilesPerBox);
+    const purchasedTiles=boxes*v.tilesPerBox,purchased=purchasedTiles*tileArea;
+    const material=(u.price==='USD/ft2'?purchased:u.price==='USD/m2'?purchased/FT_PER_M**2:boxes)*v.price,tax=material*v.tax/100,total=material+tax+v.delivery+v.labor;
     return result([
       row('total','Estimated entered-scope total',total,'USD'),
-      row('tiles','Tiles to order',tiles,'tiles',true),row('boxes','Boxes to order',boxes,'boxes',true),
+      row('tiles','Required tiles before box rounding',tiles,'tiles',true),row('boxes','Boxes to order',boxes,'boxes',true),
+      row('purchasedTiles','Tiles purchased in whole boxes',purchasedTiles,'tiles',true),row('purchased','Purchased tile face area',purchased,'ft²'),
       row('materials','Tile material subtotal',material,'USD'),row('tax','Material tax',tax,'USD'),row('delivery','Delivery',v.delivery,'USD'),row('labor','Labor / installation',v.labor,'USD')
     ],[`${fmt(v.area)} ft² → ${tiles} tiles / ${boxes} boxes; total = $${fmt(total)}.`]);
   }
