@@ -2,67 +2,80 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import PaverCalculator from "../../components/calculators/PaverCalculator.astro";
+import GenericCalculator from "../../components/calculators/GenericCalculator.astro";
 
 const related = [
-  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "Base gravel details" },
-  { title: "Concrete Slab Calculator", href: "/concrete-slab-calculator/", desc: "Poured alternative" },
-  { title: "Mulch Calculator", href: "/mulch-calculator/", desc: "For adjacent beds" },
-  { title: "Deck Calculator", href: "/deck-calculator/", desc: "Raised vs paver" },
+  { title: "Paver Base Calculator", href: "/paver-base-calculator/", desc: "Base aggregate yards & tons" },
+  { title: "Paver Sand Calculator", href: "/paver-sand-calculator/", desc: "Bedding sand volume & weight" },
+  { title: "Paver Joint Sand Calculator", href: "/paver-joint-sand-calculator/", desc: "Joint fill volume & bags" },
+  { title: "Paver Cost Calculator", href: "/paver-cost-calculator/", desc: "Price a known paver material quantity" },
 ];
+
 const faq = [
   {
-    "q": "How many pavers do I need?",
-    "a": "The base count is ceil(patio area ÷ paver area). The order count is ceil((patio area ÷ paver area) × (1 + waste ÷ 100)); waste is applied before rounding. For 200 ft² and 12 × 12 inch pavers, 10% waste gives 220 pavers."
+    q: "How does the paver count work?",
+    a: "The calculator lays a straight rectangular grid across the entered length and width. It divides by the paver face dimensions plus the entered joint width, rounds rows and columns up to whole pavers, then applies the purchasing allowance and rounds once more."
   },
   {
-    "q": "How are base and sand calculated?",
-    "a": "Each layer volume is patio area × entered depth, converted to cubic yards and multiplied by the waste factor. Enter zero depth to omit a layer. The calculator does not select a required depth or apply a separate compaction factor."
+    q: "Does the paver calculator include base gravel and bedding sand?",
+    a: "No. This page is intentionally focused on surface paver layout and purchasing quantity. Use the dedicated Paver Base and Paver Sand calculators so each layer can use its own specified depth, material density and price."
   },
   {
-    "q": "Does this calculate a laying pattern?",
-    "a": "No. It is an area-based takeoff for rectangular pavers, without joint spacing or cut optimization. Curves and patterns require a separate layout. Split irregular shapes into measured sections; a circle's bounding square is not its actual area."
+    q: "Does it optimize cuts or laying patterns?",
+    a: "No. The model assumes one paver orientation in a straight rectangular grid. Curves, borders, herringbone patterns, soldier courses and offcut reuse can change the real quantity."
   },
   {
-    "q": "Does this include patio cost?",
-    "a": "This form calculates quantities only. Multiply the paver order count by your supplier's unit quote and price base, sand, edging, delivery and labor separately."
+    q: "What paver size and joint width should I enter?",
+    a: "Use the actual face dimensions and intended installed joint width for the selected paver system. Manufacturer dimensions and project specifications are more reliable than a generic nominal size."
   }
 ];
 ---
 
 <CalculatorLayout
-  title="Paver Calculator — Pavers, Base & Sand"
-  description="Calculate pavers for patios & walkways. Enter area & paver size to get paver count, base gravel & sand in cubic yards with waste."
+  title="Paver Calculator — Paver Count, Rows, Columns & Cost"
+  description="Estimate straight-layout paver rows, columns, installed pavers and order quantity from area dimensions, paver size, joint width and purchasing allowance."
   h1="Paver Calculator"
-  intro="Calculate pavers for patios and walkways — get paver count, base gravel and bedding sand with waste. Enter area, paver size, base & sand depth — instant cubic yards."
-  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Landscaping Calculators", href: "/construction/landscaping/" }, { label: "Paver Calculator" }]}
+  intro="Calculate a straight rectangular paver layout from the measured area, actual paver face size and intended joint width. See installed rows and columns, whole pavers to order, spare quantity and optional per-paver material cost."
+  breadcrumbs={[
+    { label: "Home", href: "/" },
+    { label: "Construction", href: "/construction/" },
+    { label: "Paver & Landscaping Calculators", href: "/construction/landscaping/" },
+    { label: "Paver Calculator" },
+  ]}
   related={related}
   faq={faq}
   canonical="/paver-calculator/"
   ogImage="/og-paver.png"
   datePublished="2026-08-27"
-  dateModified="2026-09-24"
+  dateModified="2026-09-25"
 >
   <Header slot="header" />
-  <PaverCalculator slot="calculator" />
+  <GenericCalculator id="paver-calculator" resultTitle="Paver Estimate" slot="calculator" />
+
   <section class="space-y-6">
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
-      <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
-        <li>Area = Length × Width</li>
-        <li>Order pavers = ceil(area ÷ (paver length × paver width) × (1 + waste ÷ 100))</li>
-        <li>Base gravel yd³ = area × base depth ÷ 27</li>
-        <li>Sand yd³ = area × sand depth ÷ 27 (both × waste)</li>
+      <ol class="mt-3 list-decimal space-y-2 pl-5 text-sm leading-6 text-body">
+        <li>Normalize area length, area width, paver face dimensions and joint width to consistent units.</li>
+        <li><span class="font-mono text-xs">Rows = ceil((area width + joint) ÷ (paver width + joint))</span></li>
+        <li><span class="font-mono text-xs">Columns = ceil((area length + joint) ÷ (paver length + joint))</span></li>
+        <li><span class="font-mono text-xs">Installed pavers = rows × columns</span></li>
+        <li>Apply the entered purchasing allowance to the installed count and round up to whole pavers.</li>
       </ol>
     </div>
+
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">What this page intentionally keeps separate</h2>
+      <p class="mt-2 text-sm leading-6 text-body">
+        Base aggregate, bedding sand and joint sand are separate materials with different depths, densities and product coverage. Use their dedicated calculators rather than applying one shared paver allowance or density to every layer.
+      </p>
+    </div>
+
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
-      <p class="mt-2 text-sm leading-6 text-body">Patio 20×10 ft, 12×12 in pavers, 4 in base, 1 in sand, 10% waste:</p>
-      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">OUTPUT</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">Area</td><td class="px-3 py-2">200 ft²</td></tr><tr><td class="px-3 py-2">Pavers</td><td class="px-3 py-2">200 → 220 w/ waste</td></tr><tr><td class="px-3 py-2">Base</td><td class="px-3 py-2">2.47 yd³ → 2.72 w/ waste</td></tr><tr><td class="px-3 py-2">Sand</td><td class="px-3 py-2">0.62 → 0.68 yd³</td></tr></tbody></table></div>
-    </div>
-    <div class="rounded-lg border border-hairline bg-canvas p-6">
-      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Rectangular area; cuts add waste.</li><li>Entered layer depths; no separate compaction factor is applied.</li><li>Paver area excludes joints; laying pattern and cuts are not optimized.</li></ul>
+      <p class="mt-2 text-sm leading-6 text-body">
+        A 20 × 10 ft rectangle using 12 × 12 in pavers with a zero-width layout joint has 20 columns × 10 rows = 200 installed pavers. A 10% purchasing allowance gives 220 pavers to order.
+      </p>
     </div>
   </section>
   <Footer slot="footer" />
