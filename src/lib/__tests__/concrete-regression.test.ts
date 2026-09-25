@@ -153,7 +153,7 @@ describe("Concrete category golden-value regression suite", () => {
       { costMode: 0, length: 10, width: 10, depth: 12, quantity: 1, waste: 0, yield: 0.6, density: 150, price: 5, delivery: 0, shortLoadFee: 0, pumpFee: 0, reinforcement: 0, formwork: 0, finishing: 0, tax: 0 },
       { length: "ft", width: "ft", depth: "in", yield: "ft3", density: "lb/ft3", price: "USD/bag" },
     );
-    expect(r.rows.find(x => x.key === "bags")?.value).toBe(167);
+    expect(r.rows.find(x => x.key === "bags80")?.value).toBe(167);
     expect(r.rows.find(x => x.key === "pricedQuantity")?.value).toBe(167);
     expect(r.rows.find(x => x.key === "materials")?.value).toBeCloseTo(835, 6);
     expect(r.rows.find(x => x.key === "primaryCost")?.value).toBeCloseTo(835, 6);
