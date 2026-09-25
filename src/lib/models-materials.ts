@@ -194,97 +194,150 @@ const concreteGeneric: Model = {
 // 2.  Concrete Volume Calculator — geometry-focused
 // ==========================================================
 const concreteVolumeFields: Field[] = [
-  { id: 'shape', label: 'Shape', value: 0, unit: '', integer: true, min: 0, max: 5,
+  { id: 'shape', label: 'Concrete shape', value: 0, unit: '', integer: true, min: 0, max: 8,
     options: [
-      { value: 0, label: 'Rectangular slab' },
-      { value: 1, label: 'Cylinder / column' },
-      { value: 2, label: 'Hollow tube' },
+      { value: 0, label: 'Rectangular slab / prism' },
+      { value: 1, label: 'Round slab / cylinder / column' },
+      { value: 2, label: 'Hollow tube / annular cylinder' },
       { value: 3, label: 'Curb + gutter' },
       { value: 4, label: 'Solid stairs (mass fill)' },
       { value: 5, label: 'Triangle prism / wedge' },
+      { value: 6, label: 'Concrete wall' },
+      { value: 7, label: 'Strip footing' },
+      { value: 8, label: 'Square / rectangular column' },
     ] },
-  // Rectangular / slab
-  ...rectangle,
-  length('depth', 'Depth / Thickness', 4, 'in'),
+  { ...length('length', 'Length', 20, 'ft', 'Used for rectangular slabs/prisms, curbs, walls and strip footings.'), visibleWhen: { field: 'shape', in: [0, 3, 6, 7] } },
+  { ...length('width', 'Width', 10, 'ft', 'Used for rectangular slabs/prisms, strip footings and rectangular columns.'), visibleWhen: { field: 'shape', in: [0, 7, 8] } },
+  { ...length('depth', 'Slab thickness / footing depth', 4, 'in', 'For rectangular slabs enter thickness; for strip footings enter depth.'), visibleWhen: { field: 'shape', in: [0, 7] } },
+  { ...length('thickness', 'Wall thickness', 8, 'in', 'Wall mode only.'), visibleWhen: { field: 'shape', equals: 6 } },
+  { ...length('diameter', 'Outer diameter', 12, 'in', 'Used for round slabs/cylinders and hollow tubes.'), visibleWhen: { field: 'shape', in: [1, 2] } },
+  { ...length('height', 'Height / circular depth', 8, 'ft', 'Use the cylinder or column height, or the depth of a round slab.'), visibleWhen: { field: 'shape', in: [1, 2, 6, 8] } },
+  { ...positiveOrZero(length('innerDiameter', 'Inner diameter', 6, 'in', 'Hollow-tube mode only. Must be greater than zero and smaller than the outer diameter.')), visibleWhen: { field: 'shape', equals: 2 } },
+  { ...length('curbWidth', 'Curb width', 6, 'in', 'Horizontal width of the raised curb section.'), visibleWhen: { field: 'shape', equals: 3 } },
+  { ...length('curbHeight', 'Curb height above gutter', 6, 'in', 'Height of the curb above the gutter/flag surface.'), visibleWhen: { field: 'shape', equals: 3 } },
+  { ...length('gutterWidth', 'Gutter width beyond curb', 18, 'in', 'Horizontal gutter/flag width beyond the curb.'), visibleWhen: { field: 'shape', equals: 3 } },
+  { ...length('gutterDepth', 'Gutter / flag thickness', 6, 'in', 'Thickness of the gutter/flag, including the portion under the curb.'), visibleWhen: { field: 'shape', equals: 3 } },
+  { ...length('stairWidth', 'Stair width', 4, 'ft'), visibleWhen: { field: 'shape', equals: 4 } },
+  { ...length('rise', 'Rise per step', 7, 'in'), visibleWhen: { field: 'shape', equals: 4 } },
+  { ...length('run', 'Tread depth', 11, 'in'), visibleWhen: { field: 'shape', equals: 4 } },
+  { ...count('steps', 'Number of steps', 4), visibleWhen: { field: 'shape', equals: 4 } },
+  { ...positiveOrZero(length('landing', 'Additional top landing length', 0, 'ft', 'Optional solid landing extending beyond the top tread. Enter 0 for none.')), visibleWhen: { field: 'shape', equals: 4 } },
+  { ...length('base', 'Triangle base / run', 36, 'in', 'Horizontal base of the triangular cross-section.'), visibleWhen: { field: 'shape', equals: 5 } },
+  { ...length('triHeight', 'Triangle height / rise', 12, 'in', 'Vertical height of the triangular cross-section.'), visibleWhen: { field: 'shape', equals: 5 } },
+  { ...length('wedgeLength', 'Prism width / wedge length', 10, 'ft', 'Length perpendicular to the triangular cross-section.'), visibleWhen: { field: 'shape', equals: 5 } },
   count('quantity', 'Identical sections', 1),
-  // Cylinder
-  positiveOrZero(length('diameter', 'Diameter', 12, 'in')),
-  positiveOrZero(length('height', 'Height / Depth', 8, 'ft')),
-  // Tube
-  positiveOrZero(length('innerDiameter', 'Inner diameter (0 = solid)', 0, 'in')),
-  // Curb
-  positiveOrZero(length('curbWidth', 'Curb width', 6, 'in')),
-  positiveOrZero(length('curbHeight', 'Curb height', 12, 'in')),
-  positiveOrZero(length('gutterWidth', 'Gutter width beyond curb', 18, 'in')),
-  positiveOrZero(length('gutterDepth', 'Gutter thickness', 6, 'in')),
-  // Stairs
-  positiveOrZero(length('stairWidth', 'Stair width', 4, 'ft')),
-  positiveOrZero(length('rise', 'Rise per step', 7, 'in')),
-  positiveOrZero(length('run', 'Tread depth', 11, 'in')),
-  positiveOrZero(count('steps', 'Number of steps', 4)),
-  positiveOrZero(length('landing', 'Additional landing length', 0)),
-  // Triangle prism / wedge
-  positiveOrZero(length('base', 'Triangle base width', 0, 'in')),
-  positiveOrZero(length('triHeight', 'Triangle height', 0, 'in')),
-  positiveOrZero(length('wedgeLength', 'Wedge length', 0, 'ft')),
 ];
 
 const concreteVolume: Model = {
   fields: [...concreteVolumeFields, ...concreteSharedFields],
-  formula: 'Rectangular: V = L × W × D; Cylinder: V = π × (D/2)² × H; Tube: V = π/4 × (Dₒ² − Dᵢ²) × H; Curb: V = L × (Wc × Hc + Wg × Dg); Stairs: V = W × rise × run × n(n+1)/2; Triangle prism: V = 0.5 × base × height × length',
+  formula: 'Rectangular slab/prism, wall, footing and rectangular column: V = L × W × H using the active dimensions. Round slab/cylinder: V = π × (D/2)² × H. Hollow tube: V = π/4 × (Dₒ² − Dᵢ²) × H. Curb + gutter: V = L × [curb width × curb height + (curb width + gutter width) × gutter thickness]. Solid stairs: V = width × rise × run × n(n+1)/2 plus any solid top landing. Triangle prism/wedge: V = 0.5 × base × height × prism length. Every shape is multiplied by the number of identical sections.',
   assumptions: [
     ...standardAssumptions,
-    'For tubes, the inner diameter must be smaller than the outer diameter.',
-    'Curb and gutter cross-sections are treated as non-overlapping rectangles.',
-    'Stairs are filled solid from a level base; each succeeding tread is one riser taller.',
-    'Triangle prism mode is for ramp-like wedges; enter the triangle base × height × length.',
+    'Round slab, cylinder and round-column mode use the same circular-prism formula; the height field acts as slab depth when the shape is shallow.',
+    'For hollow tubes, the inner diameter must be greater than zero and smaller than the outer diameter.',
+    'Curb + gutter mode treats the raised curb and the full gutter/flag thickness as non-overlapping rectangles, including flag thickness below the curb.',
+    'Stairs are treated as solid mass-fill steps from a level base; each succeeding tread is one riser taller.',
+    'The optional top landing is treated as a solid rectangular extension at the full stair height.',
+    'Triangle prism / wedge mode uses a right-triangle cross-section and a constant perpendicular length.',
+    'Quantity multiplies the complete volume of the selected shape.',
   ],
-  sources: [geometry, quikrete],
+  sources: [quikrete, acicr, geometry],
   calculate(v, u) {
     const s = Math.round(v.shape);
     let cuFt = 0;
     let steps: string[] = [];
 
     if (s === 1) {
-      const r = v.diameter / 2; // readInputs already normalized the diameter to feet
-      cuFt = Math.PI * r * r * v.height * v.quantity;
-      steps = [`Cylinder: π × (${fmt(v.diameter)}/2)² × ${fmt(v.height)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
+      requireCondition(v.diameter > 0, 'diameter', 'Enter an outer diameter greater than zero.');
+      requireCondition(v.height > 0, 'height', 'Enter a circular depth or height greater than zero.');
+      const r = v.diameter / 2;
+      const each = Math.PI * r * r * v.height;
+      cuFt = each * v.quantity;
+      steps = [`Round slab / cylinder: π × (${fmt(v.diameter)}/2)² × ${fmt(v.height)} = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`];
     } else if (s === 2) {
+      requireCondition(v.diameter > 0, 'diameter', 'Enter an outer diameter greater than zero.');
+      requireCondition(v.innerDiameter > 0, 'innerDiameter', 'Enter an inner diameter greater than zero for a hollow tube.');
       requireCondition(v.innerDiameter < v.diameter, 'innerDiameter', 'Inner diameter must be smaller than outer diameter.');
+      requireCondition(v.height > 0, 'height', 'Enter a tube height greater than zero.');
       const ro = v.diameter / 2;
       const ri = v.innerDiameter / 2;
       const outerArea = Math.PI * ro * ro;
       const innerArea = Math.PI * ri * ri;
-      cuFt = (outerArea - innerArea) * v.height * v.quantity;
+      const each = (outerArea - innerArea) * v.height;
+      cuFt = each * v.quantity;
       steps = [
         `Outer area: π × (${fmt(v.diameter)}/2)² = ${fmt(outerArea)} ft².`,
-        v.innerDiameter > 0 ? `Inner area: π × (${fmt(v.innerDiameter)}/2)² = ${fmt(innerArea)} ft².` : 'Solid cylinder (no inner diameter).',
-        `Net annular area × H × Q = ${fmt(cuFt)} ft³.`,
+        `Inner area: π × (${fmt(v.innerDiameter)}/2)² = ${fmt(innerArea)} ft².`,
+        `Net annular area × ${fmt(v.height)} ft = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`,
       ];
     } else if (s === 3) {
-      const cw = v.curbWidth;
-      const ch = v.curbHeight;
-      const gw = v.gutterWidth;
-      const gd = v.gutterDepth;
-      cuFt = v.length * (cw * ch + gw * gd);
+      requireCondition(v.length > 0, 'length', 'Enter a curb length greater than zero.');
+      requireCondition(v.curbWidth > 0, 'curbWidth', 'Enter a curb width greater than zero.');
+      requireCondition(v.curbHeight > 0, 'curbHeight', 'Enter a curb height greater than zero.');
+      requireCondition(v.gutterWidth > 0, 'gutterWidth', 'Enter a gutter width greater than zero.');
+      requireCondition(v.gutterDepth > 0, 'gutterDepth', 'Enter a gutter thickness greater than zero.');
+      const raisedCurbArea = v.curbWidth * v.curbHeight;
+      const flagArea = (v.curbWidth + v.gutterWidth) * v.gutterDepth;
+      const each = v.length * (raisedCurbArea + flagArea);
+      cuFt = each * v.quantity;
       steps = [
-        `Curb cross-section: ${fmt(v.curbWidth)} × ${fmt(v.curbHeight)} = ${fmt(cw * ch)} ft².`,
-        `Gutter cross-section: ${fmt(v.gutterWidth)} × ${fmt(v.gutterDepth)} = ${fmt(gw * gd)} ft².`,
-        `Total area = ${fmt(cw * ch + gw * gd)} ft²; × ${fmt(v.length)} ft length = ${fmt(cuFt)} ft³.`,
+        `Raised curb area: ${fmt(v.curbWidth)} × ${fmt(v.curbHeight)} = ${fmt(raisedCurbArea)} ft².`,
+        `Gutter/flag area: (${fmt(v.curbWidth)} + ${fmt(v.gutterWidth)}) × ${fmt(v.gutterDepth)} = ${fmt(flagArea)} ft².`,
+        `Cross-section × ${fmt(v.length)} ft = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`,
       ];
     } else if (s === 4) {
-      cuFt = v.stairWidth * v.rise * v.run * v.steps * (v.steps + 1) / 2
-        + v.stairWidth * v.landing * v.steps * v.rise;
-      steps = [`Stairs (solid, ${v.steps} steps): ${fmt(cuFt)} ft³.`];
+      requireCondition(v.stairWidth > 0, 'stairWidth', 'Enter a stair width greater than zero.');
+      requireCondition(v.rise > 0, 'rise', 'Enter a rise greater than zero.');
+      requireCondition(v.run > 0, 'run', 'Enter a tread depth greater than zero.');
+      requireCondition(v.steps >= 1, 'steps', 'Enter at least one step.');
+      const steppedMass = v.stairWidth * v.rise * v.run * v.steps * (v.steps + 1) / 2;
+      const landingMass = v.stairWidth * v.landing * v.steps * v.rise;
+      const each = steppedMass + landingMass;
+      cuFt = each * v.quantity;
+      steps = [
+        `Stepped mass: ${fmt(v.stairWidth)} × ${fmt(v.rise)} × ${fmt(v.run)} × ${v.steps}×(${v.steps}+1)/2 = ${fmt(steppedMass)} ft³.`,
+        v.landing > 0 ? `Top landing: ${fmt(v.stairWidth)} × ${fmt(v.landing)} × ${fmt(v.steps * v.rise)} = ${fmt(landingMass)} ft³.` : 'No additional top landing length entered.',
+        `Total each = ${fmt(each)} ft³; × ${v.quantity} = ${fmt(cuFt)} ft³.`,
+      ];
     } else if (s === 5) {
-      const baseF = v.base;
-      const heightF = v.triHeight;
-      const area = 0.5 * baseF * heightF;
-      cuFt = area * v.wedgeLength;
-      steps = [`Triangle cross-section: 0.5 × ${fmt(baseF)} × ${fmt(heightF)} = ${fmt(area)} ft². × ${fmt(v.wedgeLength)} ft = ${fmt(cuFt)} ft³.`];
+      requireCondition(v.base > 0, 'base', 'Enter a triangle base greater than zero.');
+      requireCondition(v.triHeight > 0, 'triHeight', 'Enter a triangle height greater than zero.');
+      requireCondition(v.wedgeLength > 0, 'wedgeLength', 'Enter a prism length greater than zero.');
+      const area = 0.5 * v.base * v.triHeight;
+      const each = area * v.wedgeLength;
+      cuFt = each * v.quantity;
+      steps = [
+        `Triangle cross-section: 0.5 × ${fmt(v.base)} × ${fmt(v.triHeight)} = ${fmt(area)} ft².`,
+        `Cross-section × ${fmt(v.wedgeLength)} ft = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`,
+      ];
+    } else if (s === 6) {
+      requireCondition(v.length > 0, 'length', 'Enter a wall length greater than zero.');
+      requireCondition(v.height > 0, 'height', 'Enter a wall height greater than zero.');
+      requireCondition(v.thickness > 0, 'thickness', 'Enter a wall thickness greater than zero.');
+      const each = v.length * v.height * v.thickness;
+      cuFt = each * v.quantity;
+      steps = [`Wall: ${fmt(v.length)} × ${fmt(v.height)} × ${fmt(v.thickness)} = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`];
+    } else if (s === 7) {
+      requireCondition(v.length > 0, 'length', 'Enter a footing length greater than zero.');
+      requireCondition(v.width > 0, 'width', 'Enter a footing width greater than zero.');
+      requireCondition(v.depth > 0, 'depth', 'Enter a footing depth greater than zero.');
+      const each = v.length * v.width * v.depth;
+      cuFt = each * v.quantity;
+      steps = [`Strip footing: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`];
+    } else if (s === 8) {
+      requireCondition(v.width > 0, 'width', 'Enter a column width greater than zero.');
+      requireCondition(v.height > 0, 'height', 'Enter a column height greater than zero.');
+      requireCondition(v.length > 0, 'length', 'Enter a column length greater than zero.');
+      const each = v.length * v.width * v.height;
+      cuFt = each * v.quantity;
+      steps = [`Rectangular column: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.height)} = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`];
     } else {
-      cuFt = v.length * v.width * v.depth * v.quantity;
-      steps = [`Rectangular: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(cuFt)} ft³.`];
+      requireCondition(v.length > 0, 'length', 'Enter a slab length greater than zero.');
+      requireCondition(v.width > 0, 'width', 'Enter a slab width greater than zero.');
+      requireCondition(v.depth > 0, 'depth', 'Enter a slab thickness greater than zero.');
+      const each = v.length * v.width * v.depth;
+      cuFt = each * v.quantity;
+      steps = [`Rectangular slab / prism: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`];
     }
     return concreteResult(cuFt, v, u, steps);
   },
