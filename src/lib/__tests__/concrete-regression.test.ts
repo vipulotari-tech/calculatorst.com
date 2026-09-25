@@ -116,6 +116,26 @@ describe("Concrete category golden-value regression suite", () => {
     )).toBeCloseTo(1.40840430885, 8);
   });
 
+  it("Concrete Weight: metric density and liter conversions are dimensionally correct", () => {
+    const imperial = run(
+      "concrete-weight-calculator",
+      { weightMode: 0, volume: 1, densityBasis: 0, density: 150, outputUnit: 1, waste: 0 },
+      { volume: "yd3", density: "lb/ft3" },
+    );
+    expect(imperial.rows.find(x => x.key === "densityMetric")?.value).toBeCloseTo(2402.769038, 5);
+    expect(imperial.rows.find(x => x.key === "netL")?.value).toBeCloseTo(764.554858, 5);
+    expect(imperial.rows.find(x => x.key === "primaryWeight")?.value).toBeCloseTo(1837.0490985, 5);
+
+    const metric = run(
+      "concrete-weight-calculator",
+      { weightMode: 0, volume: 1, densityBasis: 0, density: 2400, outputUnit: 1, waste: 0 },
+      { volume: "m3", density: "kg/m3" },
+    );
+    expect(metric.rows.find(x => x.key === "primaryWeight")?.value).toBeCloseTo(2400, 5);
+    expect(metric.rows.find(x => x.key === "densityMetric")?.value).toBeCloseTo(2400, 5);
+    expect(metric.rows.find(x => x.key === "netL")?.value).toBeCloseTo(1000, 5);
+  });
+
   it("Concrete Weight: extra material allowance is separate from measured weight", () => {
     const r = run(
       "concrete-weight-calculator",
