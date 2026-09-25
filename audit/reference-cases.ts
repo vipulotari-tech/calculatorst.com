@@ -187,7 +187,7 @@ export const referenceCases:ReferenceCase[] = [
  {model:'masonry-arch',input:{wall:20,rise:3,span:10,height:8,units:2.7,wythes:2,waste:0},expected:{units:108,mortar:1.296,bags:3}},
  {model:'masonry-gravity-retaining-wall',input:{stem:8,base:6,length:20,units:1.8,waste:0},expected:{face:120,units:216}},
 
- {model:'mortar-general-dedicated',input:{mode:0,units:100,coverage:10,yield:0.6,bagWeight:80,waste:0,price:5},units:{yield:'ft3',price:'USD/bag'},expected:{bags:10,baseBags:10,mixedYield:6,weight:800,tons:0.4,cost:50}},
+ {model:'mortar-general-dedicated',input:{mode:1,units:100,coverage:10,volume:5,yield:0.5,bagWeight:80,waste:10,price:5},units:{volume:'ft3',yield:'ft3',price:'USD/bag'},expected:{bags:11,baseBags:10,mixedYield:5.5,weight:880,tons:0.44,cost:55}},
  {model:'mortar-mix-dedicated',input:{volume:1,cementParts:1,limeParts:1,sandParts:6},units:{volume:'ft3'},expected:{cement:0.125,lime:0.125,sand:0.75,total:1,parts:8}},
  {model:'mortar-quantity-dedicated',input:{length:10,height:10,openings:0,unitLength:11,unitHeight:11,joint:1,bedDepth:4,yield:1,waste:0},expected:{area:100,mortar:2300/432,order:2300/432,bags:6}},
  {model:'mortar-cost-dedicated',input:{bags:10,price:5,tax:10,delivery:20,labor:30},units:{price:'USD/bag'},expected:{total:105,bags:10,materials:50,tax:5,delivery:20,labor:30}},
