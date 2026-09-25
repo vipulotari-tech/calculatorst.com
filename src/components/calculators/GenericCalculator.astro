@@ -307,6 +307,21 @@ const costs = fields.filter((f) => f.group === "Cost");
     </div>
   </form>
 
+  <section class="calc-print-summary hidden" aria-label="Printable estimate summary">
+    <div class="border-b border-border pb-4">
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Calculator Street — Project Estimate</p>
+      <h2 class="mt-1 text-xl font-semibold text-foreground">{resultTitle || "Construction estimate"}</h2>
+      <p class="calc-print-generated mt-1 text-xs text-muted-foreground"></p>
+    </div>
+    <div class="mt-4">
+      <h3 class="text-sm font-semibold text-foreground">Project inputs</h3>
+      <dl class="calc-print-inputs mt-2 grid grid-cols-2 gap-x-6 gap-y-1 text-xs"></dl>
+    </div>
+    <p class="mt-4 border-t border-border pt-3 text-[11px] leading-5 text-muted-foreground">
+      Planning estimate only. Confirm field measurements, supplier yields and prices before ordering. Structural requirements, code compliance and project-specific design remain outside this material estimate.
+    </p>
+  </section>
+
   <!-- Output Results Panel -->
   <p class="calc-status mt-4 text-sm text-muted-foreground" role="status" aria-live="polite"></p>
   <div class="calc-results-panel mt-6 space-y-5 rounded-xl border border-border/80 bg-muted/20 p-5 sm:p-6">
@@ -384,6 +399,8 @@ const costs = fields.filter((f) => f.group === "Cost");
       const resetBtn = root.querySelector<HTMLButtonElement>(".calc-reset-btn");
       const status = root.querySelector<HTMLElement>('.calc-status');
       const notesList = root.querySelector<HTMLElement>('.result-notes-list');
+      const printInputs = root.querySelector<HTMLElement>('.calc-print-inputs');
+      const printGenerated = root.querySelector<HTMLElement>('.calc-print-generated');
 
       if (!form || !primaryValEl || !rowsGridEl || !stepsListEl) return;
             const targetPrimaryValEl = primaryValEl;
@@ -568,8 +585,45 @@ const costs = fields.filter((f) => f.group === "Cost");
             targetStepsListEl.appendChild(li);
           });
 
-          // Store for copying
-          root.dataset.lastCalculated = result.rows.map(r => `${r.label}: ${fmt(r.value)} ${unitLabels[r.unit] ?? r.unit}`).join('\n');
+          const inputLines = model.fields
+            .filter((field) => !field.visibleWhen || fieldVisible(field, state))
+            .map((field) => {
+              const control = form?.querySelector<HTMLInputElement | HTMLSelectElement>(`#${slug}-${field.id}`);
+              if (!control || control.value === "") return null;
+              const numericValue = Number(control.value);
+              const optionLabel = field.options?.find((option) => option.value === numericValue)?.label;
+              const unitSelect = form?.querySelector<HTMLSelectElement>(`#${slug}-${field.id}-unit`);
+              const displayUnit = optionLabel ? "" : (unitLabels[unitSelect?.value ?? field.unit ?? ""] ?? unitSelect?.value ?? field.unit ?? "");
+              return `${field.label}: ${optionLabel ?? control.value}${displayUnit ? ` ${displayUnit}` : ""}`;
+            })
+            .filter((line): line is string => Boolean(line));
+
+          // Copy produces a self-contained estimate rather than a bare result list.
+          root.dataset.lastCalculated = [
+            document.querySelector("h1")?.textContent?.trim() ?? "Construction estimate",
+            "",
+            "Inputs",
+            ...inputLines,
+            "",
+            "Results",
+            ...result.rows.map(r => `${r.label}: ${fmt(r.value)} ${unitLabels[r.unit] ?? r.unit}`),
+          ].join('\n');
+
+          if (printInputs) {
+            printInputs.replaceChildren(...inputLines.map((line) => {
+              const [label, ...valueParts] = line.split(": ");
+              const wrap = document.createElement("div");
+              wrap.className = "contents";
+              const dt = document.createElement("dt");
+              dt.className = "text-muted-foreground";
+              dt.textContent = label;
+              const dd = document.createElement("dd");
+              dd.className = "font-medium text-foreground";
+              dd.textContent = valueParts.join(": ");
+              wrap.append(dt, dd);
+              return wrap;
+            }));
+          }
         } catch (err: any) {
           delete root.dataset.lastCalculated;
           if (copyBtn) copyBtn.disabled = true;
@@ -652,6 +706,13 @@ const costs = fields.filter((f) => f.group === "Cost");
       });
 
       printBtn?.addEventListener("click", () => {
+        if (!root.dataset.lastCalculated) {
+          if (status) status.textContent = "Complete the required inputs before printing an estimate.";
+          return;
+        }
+        if (printGenerated) {
+          printGenerated.textContent = `Generated ${new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" }).format(new Date())}`;
+        }
         root.dataset.printing = "true";
         document.body.classList.add("calc-print-mode");
         window.print();
@@ -694,6 +755,11 @@ const costs = fields.filter((f) => f.group === "Cost");
     body.calc-print-mode [data-calculator-slug][data-printing="true"] form,
     body.calc-print-mode [data-calculator-slug][data-printing="true"] .calc-status {
       display: none !important;
+    }
+
+    body.calc-print-mode [data-calculator-slug][data-printing="true"] .calc-print-summary {
+      display: block !important;
+      margin-bottom: 1.25rem !important;
     }
 
     body.calc-print-mode [data-calculator-slug][data-printing="true"] .calc-results-panel {
