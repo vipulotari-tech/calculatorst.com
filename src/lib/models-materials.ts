@@ -456,6 +456,7 @@ const concreteWeight: Model = {
         row('netYd3', 'Measured volume (yd³)', cuFt / 27, 'yd³'),
         row('netFt3', 'Measured volume (ft³)', cuFt, 'ft³'),
         row('netM3', 'Measured volume (m³)', netM3, 'm³'),
+        row('netL', 'Measured volume (L)', netM3 * 1000, 'L'),
         ...(v.waste > 0 ? [
           row('orderWeight', 'Weight with allowance (lb)', totalLb, 'lb'),
           row('orderKg', 'Weight with allowance (kg)', totalLb / LB_PER_KG, 'kg'),
