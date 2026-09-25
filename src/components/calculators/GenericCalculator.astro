@@ -2,6 +2,7 @@
 import { getModelForSlug } from "../../lib/calculator-registry";
 import { unitLabels } from "../../lib/calculator-math";
 import type { Field } from "../../lib/calculator-types";
+import ProjectDiagram from "./ProjectDiagram.astro";
 
 interface Props {
   id: string; // The slug, e.g. "concrete-calculator"
@@ -28,6 +29,12 @@ function fieldVisible(f: Field, all: Field[]): boolean {
 const measurements = fields.filter((f) => !f.group || f.group === "Measurements");
 const assumptions = fields.filter((f) => f.group === "Material & assumptions");
 const costs = fields.filter((f) => f.group === "Cost");
+const diagramFields = fields
+  .filter((field) =>
+    !field.options
+    && (field.dimension === "length" || ["pitch", "rise", "run", "spacing"].includes(field.id))
+  )
+  .map((field) => ({ id: field.id, label: field.label, unit: field.unit }));
 ---
 
 <div
@@ -306,6 +313,12 @@ const costs = fields.filter((f) => f.group === "Cost");
       </div>
     </div>
   </form>
+
+  {diagramFields.length >= 2 && (
+    <div class="mt-6">
+      <ProjectDiagram slug={slug} fields={diagramFields} />
+    </div>
+  )}
 
   <section class="calc-print-summary hidden" aria-label="Printable estimate summary">
     <div class="border-b border-border pb-4">
