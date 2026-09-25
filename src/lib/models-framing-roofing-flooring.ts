@@ -7,6 +7,9 @@ import { structureModels } from './models-structure.ts';
 import { finishModels } from './models-finishes.ts';
 
 const awc='https://awc.org/codes-standards/calculators-software/';
+const awcRafters='https://awc.org/resources/wood-products/roof/lumber-rafters/';
+const arma='https://www.asphaltroofing.org/frequently-asked-questions/';
+const apaRoof='https://www.apawood.org/applications-systems/roof-systems/';
 const inchFraming='https://www.inchcalculator.com/framing-calculator/';
 const inchBoardFeet='https://www.inchcalculator.com/board-footage-calculator/';
 const inchRoof='https://www.inchcalculator.com/roofing-calculator/';
@@ -269,7 +272,7 @@ const roofingGeneral:Model={
     'Effective coverage must come from the exact shingle, underlayment and sheathing products. Overlaps are not added again when already reflected in net coverage.',
     'Starter, ridge cap, flashing, fasteners, ice barrier and ventilation remain separate unless represented in your entered product coverages/prices.'
   ],
-  sources:[inchRoof,omniShingle],
+  sources:[arma,inchRoof,omniShingle],
   calculate(v){
     const m=measuredRoof(v), order=m.roof*waste(v);
     const bundles=roundUp(order/v.shingleCoverage);
@@ -296,7 +299,7 @@ const roofAreaDetailed:Model={
   fields:[...roofMeasureFields,allowance],
   formula:'Measured roof surface comes from footprint × √(1 + (pitch/12)²) or a known sloped area; material area applies allowance separately.',
   assumptions:['Known-area mode expects true sloped roof surface area.','Footprint mode assumes one common pitch. Complex roofs should be split into non-overlapping sections.'],
-  sources:[inchRoof],
+  sources:[arma,inchRoof],
   calculate(v){
     const m=measuredRoof(v),order=m.roof*waste(v);
     return result([
@@ -324,7 +327,7 @@ const roofPitch:Model={
   ],
   formula:'Slope = rise/run or tan(angle); pitch per 12 = 12 × slope; angle = atan(slope); multiplier = √(1+slope²).',
   assumptions:['Run is horizontal distance, not sloped rafter length.','This converts roof geometry only; material minimum-slope requirements depend on the roofing system and manufacturer instructions.'],
-  sources:[inchPitch],
+  sources:[arma,inchPitch],
   calculate(v){
     const slope=Math.round(v.mode)===1?Math.tan(v.angleInput*Math.PI/180):v.rise/v.run;
     const angle=Math.atan(slope)*180/Math.PI;
@@ -359,7 +362,7 @@ function roofPackageModel(label:string,coverageDefault:number):Model{
     fields:[...roofMeasureFields,area('coverage',`Effective coverage per ${label.toLowerCase()}`,coverageDefault),allowance,price('USD/unit')],
     formula:'Packages = ceil(measured roof area × allowance factor / effective package coverage).',
     assumptions:['Use manufacturer net coverage after required overlaps.','Complex roofs should use known measured sloped area or separate roof sections.'],
-    sources:[inchRoof],
+    sources:[arma,inchRoof],
     calculate(v,u){
       const m=measuredRoof(v),order=m.roof*waste(v),packages=roundUp(order/v.coverage);
       return result(withCost([
@@ -379,7 +382,7 @@ const roofSheathing:Model={
   fields:[...roofMeasureFields,length('sheetLength','Sheet length',8,'ft'),length('sheetWidth','Sheet width',4,'ft'),allowance,price('USD/unit')],
   formula:'Sheathing sheets = ceil(roof surface × allowance factor / sheet area).',
   assumptions:['Area-based sheathing takeoff only; sheet orientation, panel-edge support, stagger, clips and offcut reuse are not optimized.','Panel thickness and span rating are project-design inputs.'],
-  sources:[inchRoof],
+  sources:[apaRoof,inchRoof],
   calculate(v,u){
     const m=measuredRoof(v),order=m.roof*waste(v),sheetArea=v.sheetLength*v.sheetWidth,sheets=roundUp(order/sheetArea);
     return result(withCost([
@@ -403,7 +406,7 @@ const rafterLength:Model={
   ],
   formula:'Horizontal run = (building span − ridge thickness)/2 + overhang; line length = run × √(1+(pitch/12)²).',
   assumptions:['Symmetric gable/common-rafter geometry. Ridge/beam thickness is subtracted from the building span before halving.','Line length excludes birdsmouth, plumb-cut, tail-cut and stock-length allowances.','This does not size or approve the rafter structurally.'],
-  sources:[inchRafter],
+  sources:[awcRafters,inchRafter],
   calculate(v){
     const run=(v.span-v.ridge)/2+v.overhang;
     requireCondition(run>0,'span','Span and ridge dimensions must produce a positive horizontal rafter run.');
@@ -436,7 +439,7 @@ const roofRafter:Model={
   ],
   formula:'Rafter line length uses span/pitch geometry. Rafter pair locations = ceil(building length / maximum spacing)+1; total rafters = pair locations ×2 + extra pairs ×2.',
   assumptions:['Common rafters for a simple symmetric gable roof. Hips, valleys, jack rafters, dormers and trimmers are separate.','Rafter spacing and member size come from the structural design.','Purchasing allowance adds spare rafters after installed count.'],
-  sources:[inchRafter],
+  sources:[awcRafters,inchRafter],
   calculate(v,u){
     const run=(v.span-v.ridge)/2+v.overhang;
     requireCondition(run>0,'span','Span and ridge dimensions must produce a positive run.');
@@ -481,7 +484,7 @@ const roofWaste:Model={
   fields:[area('area','Measured roof material area',1500),number('waste','Material allowance (%)',10,0)],
   formula:'Extra material = measured area × allowance%; total order area = measured area × (1 + allowance/100).',
   assumptions:['Allowance is a purchasing factor for cuts, breakage and complexity; use a project-specific value.','Do not apply this percentage again if another roofing calculator already includes the same allowance.'],
-  sources:[inchRoof],
+  sources:[arma,inchRoof],
   calculate(v){
     const extra=v.area*v.waste/100,total=v.area+extra;
     return result([
