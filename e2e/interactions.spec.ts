@@ -266,7 +266,7 @@ test.describe('Calculator interactions', () => {
   test('Concrete weight calculator — modes, density presets and primary result', async ({ page }) => {
     await page.goto('/concrete-weight-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-weight-calculator"]');
-    const mode = root.locator('#concrete-weight-calculator-inputMode');
+    const mode = root.locator('#concrete-weight-calculator-weightMode');
     const densityBasis = root.locator('#concrete-weight-calculator-densityBasis');
     const outputUnit = root.locator('#concrete-weight-calculator-outputUnit');
 
@@ -276,7 +276,7 @@ test.describe('Calculator interactions', () => {
     await expect(root.locator('#concrete-weight-calculator-field-area')).toBeHidden();
     await expect(root.locator('#concrete-weight-calculator-field-length')).toBeHidden();
 
-    await mode.selectOption('1');
+    await mode.selectOption('3');
     await expect(root.locator('#concrete-weight-calculator-field-volume')).toBeHidden();
     await expect(root.locator('#concrete-weight-calculator-field-area')).toBeVisible();
     await expect(root.locator('#concrete-weight-calculator-field-areaThickness')).toBeVisible();
@@ -287,15 +287,15 @@ test.describe('Calculator interactions', () => {
     await root.getByRole('button', { name: /^Calculate$/ }).click();
     await expect(root.locator('.result-primary')).toHaveText('5,000');
 
-    await mode.selectOption('2');
+    await mode.selectOption('1');
     await expect(root.locator('#concrete-weight-calculator-field-area')).toBeHidden();
     await expect(root.locator('#concrete-weight-calculator-field-length')).toBeVisible();
     await expect(root.locator('#concrete-weight-calculator-field-width')).toBeVisible();
-    await expect(root.locator('#concrete-weight-calculator-field-thickness')).toBeVisible();
+    await expect(root.locator('#concrete-weight-calculator-field-depth')).toBeVisible();
     await root.locator('#concrete-weight-calculator-length').fill('10');
     await root.locator('#concrete-weight-calculator-width').fill('10');
-    await root.locator('#concrete-weight-calculator-thickness').fill('6');
-    await root.locator('#concrete-weight-calculator-thickness-unit').selectOption('in');
+    await root.locator('#concrete-weight-calculator-depth').fill('6');
+    await root.locator('#concrete-weight-calculator-depth-unit').selectOption('in');
     await root.getByRole('button', { name: /^Calculate$/ }).click();
     await expect(root.locator('.result-primary')).toHaveText('7,500');
 
@@ -314,7 +314,7 @@ test.describe('Calculator interactions', () => {
   test('Concrete weight calculator rejects zero active geometry', async ({ page }) => {
     await page.goto('/concrete-weight-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-weight-calculator"]');
-    await root.locator('#concrete-weight-calculator-inputMode').selectOption('1');
+    await root.locator('#concrete-weight-calculator-weightMode').selectOption('1');
     await root.locator('#concrete-weight-calculator-area').fill('0');
     await root.getByRole('button', { name: /^Calculate$/ }).click();
     await expect(root.locator('#concrete-weight-calculator-area-err')).toContainText('greater than zero');
