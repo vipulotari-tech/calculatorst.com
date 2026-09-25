@@ -234,3 +234,165 @@ test.describe('Navigation and UI', () => {
     expect(filtered).toEqual([]);
   });
 });
+
+
+const framingRoofingFlooringSlugs = [
+  'framing-calculator',
+  'wall-framing-calculator',
+  'stud-calculator',
+  'stud-spacing-calculator',
+  'lumber-calculator',
+  'lumber-cost-calculator',
+  'board-foot-calculator',
+  'board-foot-cost-calculator',
+  'joist-calculator',
+  'joist-spacing-calculator',
+  'floor-joist-calculator',
+  'ceiling-joist-calculator',
+  'header-size-calculator',
+  'beam-calculator',
+  'beam-load-calculator',
+  'roofing-calculator',
+  'roof-area-calculator',
+  'roof-pitch-calculator',
+  'roof-slope-calculator',
+  'roofing-shingle-calculator',
+  'shingle-quantity-calculator',
+  'shingle-cost-calculator',
+  'roofing-material-calculator',
+  'roofing-underlayment-calculator',
+  'roof-sheathing-calculator',
+  'roof-rafter-calculator',
+  'rafter-length-calculator',
+  'roof-truss-calculator',
+  'roof-flashing-calculator',
+  'roof-waste-calculator',
+  'flooring-calculator',
+  'flooring-cost-calculator',
+  'hardwood-flooring-calculator',
+  'hardwood-flooring-cost-calculator',
+  'laminate-flooring-calculator',
+  'vinyl-flooring-calculator',
+  'carpet-calculator',
+  'carpet-cost-calculator',
+  'tile-calculator',
+  'tile-quantity-calculator',
+  'tile-cost-calculator',
+  'tile-grout-calculator',
+  'tile-adhesive-calculator',
+  'flooring-waste-calculator',
+  'underlayment-calculator',
+] as const;
+
+test.describe('Framing / roofing / flooring full browser audit', () => {
+  for (const slug of framingRoofingFlooringSlugs) {
+    test(`${slug} — render, calculate, unit switch and reset`, async ({ page }) => {
+      const consoleErrors: string[] = [];
+      page.on('pageerror', error => consoleErrors.push(error.message));
+      page.on('console', msg => {
+        if (msg.type() === 'error') consoleErrors.push(msg.text());
+      });
+
+      await page.goto(`/${slug}/`);
+      await expect(page.locator('h1')).toBeVisible();
+
+      const root = page.locator(`[data-calculator-slug="${slug}"]`);
+      await expect(root).toBeVisible();
+      await expect(root.locator('.calc-results-panel')).toHaveCount(1);
+
+      const calculate = root.getByRole('button', { name: /^Calculate$/ });
+      const reset = root.getByRole('button', { name: /^Reset$/ });
+      await expect(calculate).toBeVisible();
+      await expect(reset).toBeVisible();
+
+      await calculate.click();
+      let text = await root.innerText();
+      expect(text).not.toMatch(/NaN|Infinity|undefined|null/);
+
+      const firstVisibleNumber = root.locator('input[type="number"]:visible').first();
+      if (await firstVisibleNumber.count()) {
+        const original = await firstVisibleNumber.inputValue();
+        const min = Number(await firstVisibleNumber.getAttribute('min') ?? '0');
+        const step = await firstVisibleNumber.getAttribute('step');
+        const candidate = step === '1' ? String(Math.max(2, Math.ceil(min))) : String(Math.max(2.5, min || 0.1));
+        await firstVisibleNumber.fill(candidate);
+        await calculate.click();
+        text = await root.innerText();
+        expect(text).not.toMatch(/NaN|Infinity|undefined|null/);
+
+        await reset.click();
+        const resetValue = await firstVisibleNumber.inputValue();
+        expect(resetValue).toBe(original);
+      }
+
+      const firstUnit = root.locator('.calc-unit-select:visible').first();
+      if (await firstUnit.count()) {
+        const options = await firstUnit.locator('option').evaluateAll(options =>
+          options.map(option => (option as HTMLOptionElement).value)
+        );
+        if (options.length > 1) {
+          const originalUnit = await firstUnit.inputValue();
+          const alternate = options.find(option => option !== originalUnit);
+          if (alternate) {
+            await firstUnit.selectOption(alternate);
+            await calculate.click();
+            text = await root.innerText();
+            expect(text).not.toMatch(/NaN|Infinity|undefined|null/);
+            await reset.click();
+            expect(await firstUnit.inputValue()).toBe(originalUnit);
+          }
+        }
+      }
+
+      const relevantErrors = consoleErrors.filter(error =>
+        !error.includes('adtrafficquality') &&
+        !error.includes('googletag') &&
+        !error.includes('doubleclick') &&
+        !error.includes('google-analytics')
+      );
+      expect(relevantErrors).toEqual([]);
+    });
+  }
+
+  test('roofing calculator — known-area mode hides footprint fields and calculates', async ({ page }) => {
+    await page.goto('/roofing-calculator/');
+    const root=page.locator('[data-calculator-slug="roofing-calculator"]');
+    await root.locator('#roofing-calculator-mode').selectOption('1');
+    await expect(root.locator('#roofing-calculator-field-length')).toBeHidden();
+    await expect(root.locator('#roofing-calculator-field-roofArea')).toBeVisible();
+    await root.locator('#roofing-calculator-roofArea').fill('1000');
+    await root.locator('#roofing-calculator-waste').fill('0');
+    await root.getByRole('button',{name:/Calculate/i}).click();
+    await expect(root).toContainText('Measured roof surface');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity/);
+  });
+
+  test('roof pitch calculator — angle mode works and reset restores the mode', async ({ page }) => {
+    await page.goto('/roof-pitch-calculator/');
+    const root=page.locator('[data-calculator-slug="roof-pitch-calculator"]');
+    const mode=root.locator('#roof-pitch-calculator-mode');
+    await mode.selectOption('1');
+    await expect(root.locator('#roof-pitch-calculator-field-angleInput')).toBeVisible();
+    await expect(root.locator('#roof-pitch-calculator-field-rise')).toBeHidden();
+    await root.locator('#roof-pitch-calculator-angleInput').fill('45');
+    await root.getByRole('button',{name:/Calculate/i}).click();
+    await expect(root.locator('.result-primary')).toHaveText(/12/);
+    await root.getByRole('button',{name:/Reset/i}).click();
+    await expect(mode).toHaveValue('0');
+  });
+
+  test('tile calculator — known-area mode and whole-box purchase are visible', async ({ page }) => {
+    await page.goto('/tile-calculator/');
+    const root=page.locator('[data-calculator-slug="tile-calculator"]');
+    await root.locator('#tile-calculator-mode').selectOption('1');
+    await root.locator('#tile-calculator-area').fill('120');
+    await root.locator('#tile-calculator-tileLength').fill('12');
+    await root.locator('#tile-calculator-tileWidth').fill('12');
+    await root.locator('#tile-calculator-tilesPerBox').fill('10');
+    await root.locator('#tile-calculator-waste').fill('10');
+    await root.getByRole('button',{name:/Calculate/i}).click();
+    await expect(root).toContainText('Tiles purchased in whole boxes');
+    await expect(root).toContainText('Purchased tile face area');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity/);
+  });
+});
