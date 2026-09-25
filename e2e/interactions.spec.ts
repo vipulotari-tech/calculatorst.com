@@ -106,6 +106,33 @@ test.describe('Calculator interactions', () => {
     }
   });
 
+  test('Live project diagram reflects visible measurement inputs', async ({ page }) => {
+    await page.goto('/rebar-calculator/');
+    const root = page.locator('[data-calculator-slug="rebar-calculator"]');
+    const diagram = root.locator('[data-project-diagram]');
+    await expect(diagram).toBeVisible();
+
+    await root.locator('#rebar-calculator-length').fill('30');
+    await expect(diagram.locator('[data-diagram-value="0"]')).toContainText('30');
+
+    const width = root.locator('#rebar-calculator-width');
+    await width.fill('14.5');
+    await expect(diagram).toContainText('14.5');
+    expect(await diagram.innerText()).toContain('Schematic only');
+  });
+
+  test('Estimate worksheet is populated from real result rows', async ({ page }) => {
+    await page.goto('/concrete-calculator/');
+    const root = page.locator('[data-calculator-slug="concrete-calculator"]');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+
+    const worksheet = root.locator('.calc-estimate-worksheet');
+    await expect(worksheet).toBeVisible();
+    await expect(worksheet.locator('tbody tr')).not.toHaveCount(0);
+    await expect(worksheet).toContainText('Concrete to order');
+    expect(await worksheet.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Rapid clicks do not duplicate', async ({ page }) => {
     await page.goto('/rebar-calculator/');
     const btn = page.getByRole('button', { name: /Calculate/i }).first();
