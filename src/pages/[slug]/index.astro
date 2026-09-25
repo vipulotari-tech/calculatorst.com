@@ -210,18 +210,22 @@ const concreteSeo: Record<string, {
     ]
   },
   "concrete-volume-calculator": {
-    title: "Concrete Volume Calculator — Cubic Yards for 6 Shapes",
-    description: "Find concrete volume in cubic feet, cubic yards and cubic meters for rectangles, cylinders, tubes, curbs, stairs and wedges, with waste allowance.",
+    title: "Concrete Volume Calculator — Cubic Yards for 9 Shapes",
+    description: "Calculate concrete volume for slabs, cylinders, tubes, curbs, stairs, wedges, walls, footings and columns in yd³, ft³ and m³ with allowance.",
     guidance: [
-      "Use this page when geometry is the main question and you need volume conversions rather than truck logistics or a detailed cost breakdown.",
-      "The shape selector changes the required dimensions, so only measurements for the active geometry are used.",
-      "Break irregular pours into non-overlapping simple shapes, calculate each section separately, then add the order quantities."
+      "Use this page when geometry is the main question and you want one volume workflow for common concrete shapes before moving into delivery, mix-design or detailed cost planning.",
+      "Choose the concrete shape first. Only the dimensions used by that geometry stay visible, so inactive measurements cannot accidentally affect or confuse the result.",
+      "Nine modes cover rectangular slabs/prisms, round slabs/cylinders, hollow tubes, curb-and-gutter sections, solid stairs, triangular wedges, walls, strip footings and rectangular columns.",
+      "Quantity multiplies the complete selected shape consistently, including curbs, stairs and wedges.",
+      "For irregular pours, split the project into non-overlapping simple shapes, calculate each section separately, then add the order quantities."
     ],
     faq: [
-      { q: "What shapes can the concrete volume calculator handle?", a: "It supports rectangular prisms, solid cylinders, hollow tubes, curb-and-gutter sections, solid stair geometry and triangular wedges." },
-      { q: "How do I convert cubic feet of concrete to cubic yards?", a: "Divide cubic feet by 27. The calculator performs this conversion before applying your selected waste allowance." },
-      { q: "Can I mix inches, feet and metric units?", a: "Yes. Select the unit beside each measurement. The calculator normalizes the dimensions before evaluating the shape formula." },
-      { q: "How should I calculate an L-shaped or irregular slab?", a: "Split the pour into rectangles or other non-overlapping shapes, calculate each piece, and add the volumes. Do not count overlapping areas twice." }
+      { q: "What shapes can the concrete volume calculator handle?", a: "It supports rectangular slabs or prisms, round slabs/cylinders/columns, hollow tubes, curb-and-gutter sections, solid stairs, triangular wedges, concrete walls, strip footings and square or rectangular columns." },
+      { q: "Why do the input fields change when I choose a shape?", a: "Each geometry uses a different formula. The calculator shows only the measurements required by the active shape and ignores hidden dimensions." },
+      { q: "How do I convert cubic feet of concrete to cubic yards?", a: "Divide cubic feet by 27. The calculator also reports cubic meters and liters, then applies the material allowance to the order quantity." },
+      { q: "Can I mix inches, feet and metric units?", a: "Yes. Select the unit beside each measurement. The calculator normalizes the dimensions before evaluating the active shape formula." },
+      { q: "How should I calculate an L-shaped or irregular slab?", a: "Split the pour into rectangles or other non-overlapping shapes, calculate each piece, and add the volumes. Do not count overlapping areas twice." },
+      { q: "How does curb-and-gutter volume work?", a: "The calculator adds a raised-curb rectangle to the full gutter or flag thickness, including the thickness below the curb, then multiplies the combined cross-section by length and quantity." }
     ]
   },
   "concrete-weight-calculator": {
@@ -1795,7 +1799,7 @@ const newCalculatorSlugs = new Set([
   "concrete-crack-repair-calculator",
 ]);
 const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-08-29";
-const pageDateModified = calc.slug === "concrete-calculator" || enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" : "2026-09-24";
+const pageDateModified = ["concrete-calculator", "concrete-volume-calculator"].includes(calc.slug) || enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" : "2026-09-24";
 ---
 
 <CalculatorLayout
@@ -1854,6 +1858,32 @@ const pageDateModified = calc.slug === "concrete-calculator" || enhancedTradeClu
           </table>
         </div>
         <p class="mt-3 text-xs leading-5 text-mute">For larger pours, ready-mix ordering is normally based on cubic yards or cubic meters rather than bag count. Supplier minimums, short-load fees and truck capacity belong in the dedicated Concrete Pour or Concrete Cost calculators.</p>
+      </details>
+    )}
+    {calc.slug === "concrete-volume-calculator" && (
+      <details class="rounded-lg border border-hairline bg-canvas p-6">
+        <summary class="cursor-pointer font-semibold text-ink">Supported shapes, formulas &amp; volume conversions</summary>
+        <p class="mt-3 text-sm leading-6 text-body">The calculator converts every selected measurement to a consistent internal unit before applying these formulas, so equivalent US and metric inputs return the same volume.</p>
+        <div class="mt-4 overflow-x-auto rounded-md border border-hairline" role="region" aria-label="Concrete volume formulas" tabindex="0">
+          <table class="w-full min-w-[720px] text-left text-sm">
+            <thead class="bg-canvas-soft font-mono text-[11px] text-mute">
+              <tr><th class="px-3 py-2">SHAPE</th><th class="px-3 py-2">CORE FORMULA</th></tr>
+            </thead>
+            <tbody class="divide-y divide-hairline">
+              <tr><td class="px-3 py-2">Rectangular slab / footing / wall / rectangular column</td><td class="px-3 py-2 font-mono">V = length × width/height × thickness/depth</td></tr>
+              <tr><td class="px-3 py-2">Round slab / cylinder / round column</td><td class="px-3 py-2 font-mono">V = π × (diameter ÷ 2)² × height</td></tr>
+              <tr><td class="px-3 py-2">Hollow tube</td><td class="px-3 py-2 font-mono">V = π/4 × (outer D² − inner D²) × height</td></tr>
+              <tr><td class="px-3 py-2">Curb + gutter</td><td class="px-3 py-2 font-mono">V = length × [curb width × curb height + (curb width + gutter width) × flag thickness]</td></tr>
+              <tr><td class="px-3 py-2">Solid stairs</td><td class="px-3 py-2 font-mono">V = width × rise × run × n(n+1)/2 + optional solid landing</td></tr>
+              <tr><td class="px-3 py-2">Triangle prism / wedge</td><td class="px-3 py-2 font-mono">V = ½ × base × height × prism length</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 grid gap-2 text-sm sm:grid-cols-3">
+          <div class="rounded-md bg-canvas-soft-2 p-3"><span class="font-mono font-semibold">1 yd³ = 27 ft³</span></div>
+          <div class="rounded-md bg-canvas-soft-2 p-3"><span class="font-mono font-semibold">1 yd³ ≈ 0.7646 m³</span></div>
+          <div class="rounded-md bg-canvas-soft-2 p-3"><span class="font-mono font-semibold">1 m³ ≈ 35.3147 ft³</span></div>
+        </div>
       </details>
     )}
     <div class="rounded-lg border border-hairline bg-canvas p-6">
