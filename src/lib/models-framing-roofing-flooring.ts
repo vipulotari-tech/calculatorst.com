@@ -685,7 +685,7 @@ const adhesive:Model={
   fields:[length('length','Surface length',12,'ft'),length('width','Surface width',10,'ft'),positiveOrZero(area('openings','Excluded area',0,0)),area('coverage','Manufacturer coverage per bag / pail',50),allowance,price('USD/unit')],
   formula:'Containers = ceil(net tiled area × allowance factor / manufacturer coverage per bag or pail).',
   assumptions:['Coverage depends on trowel notch, tile size, substrate flatness and product. Enter manufacturer coverage for the actual installation.','This estimates adhesive containers only; grout is separate.'],
-  sources:[],
+  sources:['https://www.mapei.com/us/en-us/product-calculator/tile-mortars-and-adhesives','https://www.schluter.com/schluter-us/en_US/faq/trowel-notch-size-change-amount-thin-set'],
   calculate(v,u){
     const n=netArea(v),order=n.net*waste(v),bags=roundUp(order/v.coverage);
     return result(withCost([
