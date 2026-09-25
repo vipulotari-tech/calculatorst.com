@@ -8,6 +8,7 @@ const calculators = [
   { slug: 'concrete-weight-calculator', type: 'generic' },
   { slug: 'concrete-cost-calculator', type: 'generic' },
   { slug: 'concrete-mix-calculator', type: 'generic' },
+  { slug: 'concrete-pour-calculator', type: 'generic' },
   { slug: 'gravel-calculator', type: 'handbuilt' },
   { slug: 'concrete-slab-calculator', type: 'handbuilt' },
   { slug: 'roof-pitch-calculator', type: 'handbuilt' },
@@ -435,6 +436,51 @@ test.describe('Calculator interactions', () => {
     await root.locator('#concrete-mix-calculator-aggregateParts').fill('0');
     await root.getByRole('button', { name: /^Calculate$/ }).click();
     await expect(root.locator('.calc-status')).toContainText(/aggregate component greater than zero/i);
+  });
+
+  test('Concrete pour calculator — truck-first result, three input modes and live load plan', async ({ page }) => {
+    await page.goto('/concrete-pour-calculator/?cs_calc=concrete-pour-calculator&cs_pourInputMode=0&cs_length=20&cs_length_unit=ft&cs_width=10&cs_width_unit=ft&cs_depth=4&cs_depth_unit=in&cs_quantity=1&cs_waste=10&cs_density=150&cs_density_unit=lb%2Fft3&cs_yield=0.6&cs_yield_unit=ft3&cs_price=160&cs_price_unit=USD%2Fyd3&cs_truckCapacity=10&cs_minOrder=5&cs_shortLoadFee=75&cs_deliveryFeePerTruck=100&cs_pumpRate=30&cs_pumpSetupFee=200&cs_pumpHourlyRate=150');
+    const root = page.locator('[data-calculator-slug="concrete-pour-calculator"]');
+    const mode = root.locator('#concrete-pour-calculator-pourInputMode');
+    const diagram = root.locator('[data-project-diagram]');
+
+    await expect(root.locator('.result-primary')).toHaveText('1');
+    await expect(root.locator('.result-primary-unit')).toHaveText('loads');
+    await expect(root.locator('.result-secondary')).toHaveText('Ready-mix truck loads');
+    await expect(root.locator('.result-rows-grid')).toContainText('2.716');
+    await expect(root.locator('.result-rows-grid')).toContainText('27.1605');
+    await expect(root.locator('.result-rows-grid')).toContainText('823.1481');
+    await expect(diagram).toBeVisible();
+    await expect(diagram.locator('[data-pour-load-count]')).toContainText('1 ready-mix load');
+    await expect(diagram.locator('[data-pour-final-label]')).toContainText('27.2%');
+
+    await mode.selectOption('1');
+    await expect(root.locator('#concrete-pour-calculator-field-volume')).toBeVisible();
+    await expect(root.locator('#concrete-pour-calculator-field-length')).toBeHidden();
+    await expect(root.locator('#concrete-pour-calculator-field-area')).toBeHidden();
+
+    await mode.selectOption('2');
+    await expect(root.locator('#concrete-pour-calculator-field-volume')).toBeHidden();
+    await expect(root.locator('#concrete-pour-calculator-field-area')).toBeVisible();
+    await expect(root.locator('#concrete-pour-calculator-field-areaThickness')).toBeVisible();
+    await expect(root.locator('#concrete-pour-calculator-field-length')).toBeHidden();
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
+  test('Concrete pour calculator validates active geometry and supplier threshold', async ({ page }) => {
+    await page.goto('/concrete-pour-calculator/');
+    const root = page.locator('[data-calculator-slug="concrete-pour-calculator"]');
+
+    await root.locator('#concrete-pour-calculator-pourInputMode').selectOption('2');
+    await root.locator('#concrete-pour-calculator-area').fill('0');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('#concrete-pour-calculator-area-err')).toContainText('greater than zero');
+
+    await root.locator('#concrete-pour-calculator-area').fill('500');
+    await root.locator('#concrete-pour-calculator-truckCapacity').fill('8');
+    await root.locator('#concrete-pour-calculator-minOrder').fill('9');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('#concrete-pour-calculator-minOrder-err')).toContainText('cannot exceed');
   });
 
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {

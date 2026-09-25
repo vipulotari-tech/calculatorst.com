@@ -315,9 +315,75 @@ describe("Concrete category golden-value regression suite", () => {
       { length: 10, width: 10, depth: 12, quantity: 1, waste: 0, yield: 0.6, truckCapacity: 10, minOrder: 5, shortLoadFee: 50, pumpRate: 30, price: 2 },
       { length: "ft", width: "ft", depth: "in", price: "USD/ft3" },
     );
+    expect(r.rows[0].key).toBe("trucks");
     expect(r.rows.find(x => x.key === "trucks")?.value).toBe(1);
     expect(r.rows.find(x => x.key === "shortLoad")?.value).toBe(50);
     expect(r.rows.find(x => x.key === "totalCost")?.value).toBeCloseTo(250, 6);
+  });
+
+  it("Concrete Pour: truck utilization, placement timing and quoted logistics reconcile", () => {
+    const r = run(
+      "concrete-pour-calculator",
+      {
+        pourInputMode: 0,
+        length: 20, width: 10, depth: 4, quantity: 1,
+        waste: 10, density: 150, yield: 0.6,
+        price: 160, truckCapacity: 10, minOrder: 5, shortLoadFee: 75,
+        deliveryFeePerTruck: 100, pumpRate: 30, pumpSetupFee: 200, pumpHourlyRate: 150,
+      },
+      { length: "ft", width: "ft", depth: "in", density: "lb/ft3", price: "USD/yd3" },
+    );
+    expect(r.rows.find(x => x.key === "order")?.value).toBeCloseTo(2.7160493827, 8);
+    expect(r.rows.find(x => x.key === "trucks")?.value).toBe(1);
+    expect(r.rows.find(x => x.key === "lastTruck")?.value).toBeCloseTo(2.7160493827, 8);
+    expect(r.rows.find(x => x.key === "lastTruckUtilization")?.value).toBeCloseTo(27.160493827, 8);
+    expect(r.rows.find(x => x.key === "shortLoad")?.value).toBe(75);
+    expect(r.rows.find(x => x.key === "durationMin")?.value).toBeCloseTo(5.4320987654, 8);
+    expect(r.rows.find(x => x.key === "dispatchInterval")?.value).toBeCloseTo(20, 8);
+    expect(r.rows.find(x => x.key === "materialCost")?.value).toBeCloseTo(434.567901235, 8);
+    expect(r.rows.find(x => x.key === "deliveryCost")?.value).toBeCloseTo(100, 8);
+    expect(r.rows.find(x => x.key === "pumpCost")?.value).toBeCloseTo(213.580246914, 8);
+    expect(r.rows.find(x => x.key === "logisticsCost")?.value).toBeCloseTo(388.580246914, 8);
+    expect(r.rows.find(x => x.key === "totalCost")?.value).toBeCloseTo(823.148148148, 8);
+  });
+
+  it("Concrete Pour: known-volume and area-thickness modes produce the same logistics math", () => {
+    const known = run(
+      "concrete-pour-calculator",
+      {
+        pourInputMode: 1, volume: 12, waste: 0, density: 150, yield: 0.6,
+        truckCapacity: 10, minOrder: 5, shortLoadFee: 75, pumpRate: 30,
+      },
+      { volume: "yd3", density: "lb/ft3" },
+    );
+    expect(known.rows.find(x => x.key === "trucks")?.value).toBe(2);
+    expect(known.rows.find(x => x.key === "fullLoads")?.value).toBe(1);
+    expect(known.rows.find(x => x.key === "lastTruck")?.value).toBeCloseTo(2, 8);
+    expect(known.rows.find(x => x.key === "shortLoad")?.value).toBe(75);
+    expect(known.rows.find(x => x.key === "durationMin")?.value).toBeCloseTo(24, 8);
+
+    const area = run(
+      "concrete-pour-calculator",
+      {
+        pourInputMode: 2, area: 500, areaThickness: 4, quantity: 1,
+        waste: 0, density: 150, yield: 0.6,
+        truckCapacity: 10, minOrder: 5, shortLoadFee: 0, pumpRate: 30,
+      },
+      { area: "ft2", areaThickness: "in", density: "lb/ft3" },
+    );
+    expect(area.rows.find(x => x.key === "order")?.value).toBeCloseTo((500 * 4 / 12) / 27, 8);
+    expect(area.rows.find(x => x.key === "trucks")?.value).toBe(1);
+  });
+
+  it("Concrete Pour: rejects impossible logistics assumptions", () => {
+    expect(() => run(
+      "concrete-pour-calculator",
+      {
+        pourInputMode: 1, volume: 5, waste: 0, density: 150, yield: 0.6,
+        truckCapacity: 8, minOrder: 9, shortLoadFee: 0, pumpRate: 30,
+      },
+      { volume: "yd3", density: "lb/ft3" },
+    )).toThrow(/cannot exceed the entered truck capacity/i);
   });
 
   it("Concrete Slab model: thickened edge uses normalized feet and applies to every slab", () => {
