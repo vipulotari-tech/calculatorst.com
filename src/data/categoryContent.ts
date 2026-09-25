@@ -229,29 +229,31 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   flooring: {
-    intro: "Flooring estimates go well beyond room area. Waste factors, underlayment, transition strips, and subfloor preparation all affect the final material count and cost. These calculators cover hardwood, laminate, vinyl plank, carpet and tile with per-material waste rules.",
-    beforeYouCalculate: "Measure the room length and width, then subtract closets if they get a different flooring type. Note the flooring material — hardwood and tile have different waste factors (hardwood runs with the grain, tile needs cuts for pattern). Check subfloor flatness; major dips may need leveling compound before installation.",
+    intro: "Flooring estimating is more than room area: package coverage, pattern direction, cut waste, carpet roll width, tile module size, grout/adhesive coverage and underlayment all affect purchasing quantity. These 15 calculators separate those workflows for hardwood, laminate, vinyl, carpet and tile.",
+    beforeYouCalculate: "Measure each floor section and exclude only areas that truly receive a different finish. Use the exact product package coverage, tile dimensions, tiles per box, carpet roll width and manufacturer grout/adhesive coverage. Keep pattern/layout allowance separate from ordinary cut or damage waste.",
     tips: [
-      "Flooring allowance depends on board length, room geometry, pattern and manufacturer guidance. Set waste from the actual layout rather than a fixed percentage.",
-      "Tile allowance depends on layout, pattern, tile size, cuts and spare-stock requirements. Use a project-specific allowance.",
-      "Underlayment requirements vary by flooring product, substrate and installation method. Follow the flooring-system instructions.",
-      "Buy extra tile of the same batch number — manufacturing color shifts between batches are visible.",
+      "Pattern/layout allowance and cut/damage waste are separate assumptions. Do not enter the same extra percentage in both fields.",
+      "For carpet, roll width and seam direction can create significant offcut area even when room square footage is unchanged.",
+      "For tile, grout-joint width affects row/column layout. A nominal area-only estimate can understate whole edge tiles or boxes.",
+      "Adhesive and grout coverage depend on tile size, joint geometry, trowel notch, substrate and product. Manufacturer coverage tables are preferable for ordering.",
+      "Underlayment requirements vary by flooring system and substrate; use net package/roll coverage after any required overlaps."
     ],
     relatedCategories: [
-      { name: "Drywall & Paint", href: "/construction/drywall-paint/", reason: "Drywall sheets under flooring and paint above" },
-      { name: "Drywall & Paint", href: "/construction/drywall-paint/", reason: "Drywall sheets under flooring" },
+      { name: "Framing & Lumber", href: "/construction/framing/", reason: "Floor joists and supporting framing below the finish floor" },
+      { name: "Drywall & Paint", href: "/construction/drywall-paint/", reason: "Interior finish quantities after flooring work" },
       { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Sand or crushed stone base under tile" },
     ],
   },
 
   framing: {
-    intro: "Framing is the skeleton of any building — studs, plates, joists, headers and rafters. Getting it wrong means ordering too much lumber or, worse, building walls that are not square and level. These calculators cover wall framing layouts, board-foot estimates, joist spacing and beam sizing.",
-    beforeYouCalculate: "Measure wall length and height for stud counts and enter the on-center spacing specified for the wall. Joist, header and beam spans depend on species, grade, member size, spacing and loads, so use the applicable span table or engineered design.",
+    intro: "Framing estimating combines member layout, plate and stud takeoff, lumber volume, purchasing cost and structural analysis. These 15 calculators separate quantity tools from spacing geometry and from beam/header analysis so a material estimator does not accidentally imply structural approval.",
+    beforeYouCalculate: "Use the spacing, member sizes, loads and support conditions from the project drawings or applicable span/design information. For wall takeoffs, measure wall length and stud height and add opening/corner details explicitly. For board-foot pricing, use the same nominal or actual dimension convention as the seller.",
     tips: [
-      "Common wall layouts may use 16 or 24 inches on center, but the required spacing comes from the wall design. The calculator counts members from the spacing you enter.",
-      "Do not estimate beam capacity from nominal size alone. Span, load, species/grade or engineered-product properties and support conditions all matter.",
-      "Opening framing details, including king/jack studs and headers, depend on the wall design and load path; take them from the plans or applicable framing details.",
-      "Board-foot = thickness(in) × width(in) × length(ft) ÷ 12 — this is the lumber industry's standard unit and what sawmills price by.",
+      "Member-count calculators use your specified maximum on-center spacing and include end members. They do not choose a permitted framing spacing.",
+      "Wall-framing takeoffs keep base studs, detail studs, plate footage and purchasing allowance separate so openings and corners are not hidden in a generic waste percentage.",
+      "Beam and header calculators are analysis tools only. Shear, bearing, stability, connections, deflection limits, load combinations and material design values can govern final member selection.",
+      "One board foot is 144 in³: thickness(in) × width(in) × length(ft) ÷ 12. Use the seller's pricing convention consistently.",
+      "Equivalent stock-piece counts are purchasing approximations; individual cut lengths and offcut reuse need a real cutting schedule."
     ],
     relatedCategories: [
       { name: "Roofing", href: "/construction/roofing/", reason: "Rafter and truss calculators for roof framing" },
@@ -261,17 +263,18 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   roofing: {
-    intro: "A roof is geometry, slope and material waste combined. Roof pitch (rise over 12 inches of run) changes the actual surface area far more than the footprint suggests. These calculators cover roof area, pitch, shingle quantities, rafter lengths and truss sizing for gable, hip and shed roofs.",
-    beforeYouCalculate: "Measure the building footprint (length × width) and know the roof pitch (e.g., 6/12, 8/12). Determine the roof type — gable, hip, gambrel or shed — because each has a different pitch multiplier. Note the overhang (eaves) and any dormers or intersecting roofs. Check local code for minimum roof slope by material.",
+    intro: "Roofing estimating combines true sloped surface area, pitch, whole-package coverage and linear framing/accessory takeoffs. These 15 calculators separate roof area, shingles, underlayment, sheathing, rafters, trusses, flashing and material allowance instead of reusing one generic roof formula.",
+    beforeYouCalculate: "Use either a measured sloped roof area or a simple horizontal footprint with one known pitch. Complex roofs with dormers, valleys or differing pitches should be split into non-overlapping measured sections. Use exact manufacturer coverage for shingles and underlayment, actual panel dimensions for sheathing, and project-specified spacing for rafters or trusses.",
     tips: [
-      "Pitch multiplier = √(pitch² + 144) ÷ 12 — a 6/12 roof is 1.118× the footprint, an 8/12 is 1.205×.",
-      "A roofing square is 100 ft², but bundles per square and bundle coverage vary by shingle product. Use the manufacturer’s package coverage and a project-specific allowance.",
-      "Starter, ridge-cap, drip-edge and flashing quantities are separate linear takeoffs based on the measured eaves, rakes, ridges, hips and valleys.",
-      "Underlayment and ice-barrier requirements depend on roof system, climate and adopted code. Verify the required assembly for the project.",
+      "Pitch multiplier = √(1 + (rise/run)²). A 6:12 roof uses about 1.118× the horizontal footprint before overhang and material allowance.",
+      "A roofing square is 100 ft², but bundles/packages per square vary by product. Use the exact effective package coverage rather than assuming three bundles per square.",
+      "Underlayment coverage should be net coverage after required overlaps. Do not subtract overlap twice if the manufacturer already publishes net coverage.",
+      "Rafter and truss calculators are quantity/geometry tools. Member sizing and engineered truss design remain project-design inputs.",
+      "Starter, ridge cap, flashing, fasteners, ventilation and ice-barrier quantities are separate scopes unless explicitly represented by a calculator input."
     ],
     relatedCategories: [
       { name: "Framing & Lumber", href: "/construction/framing/", reason: "Rafters, trusses and framing lumber" },
-      { name: "Siding & Trim", href: "/construction/roofing/", reason: "Roof-to-siding transitions" },
+      { name: "Drywall & Paint", href: "/construction/drywall-paint/", reason: "Ceiling and interior finish takeoffs below the roof framing" },
       { name: "Gravel & Aggregate", href: "/construction/gravel/", reason: "Roof gravel for built-up or tar-and-gravel roofs" },
     ],
   },
