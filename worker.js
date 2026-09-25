@@ -55,7 +55,7 @@ export default {
       ) {
         return Response.redirect("https://calculatorst.com/gravel-calculator/", 301);
       }
-      if (norm === "/construction/drywall") {
+      if (norm === "/construction/drywall" || norm === "/construction/drywall-pain") {
         return Response.redirect("https://calculatorst.com/construction/drywall-paint/", 301);
       }
     } catch {
