@@ -27,6 +27,14 @@ describe("Mortar, grout & cement golden regressions",()=>{
     expect(r.rows.find(x=>x.key==="weight")?.value).toBe(880);
     expect(r.rows.find(x=>x.key==="cost")?.value).toBe(55);
   });
+  it("Mortar Calculator only reports mixed-yield capacity when yield is an active input",()=>{
+    const byUnits=run("mortar-calculator",{mode:0,units:100,coverage:10,waste:10,price:0},{price:"USD/bag"});
+    expect(byUnits.rows.find(x=>x.key==="mixedYield")).toBeUndefined();
+
+    const byVolume=run("mortar-calculator",{mode:1,volume:5,yield:0.5,waste:10,price:0},{volume:"ft3",yield:"ft3",price:"USD/bag"});
+    expect(byVolume.rows.find(x=>x.key==="bags")?.value).toBe(11);
+    expect(byVolume.rows.find(x=>x.key==="mixedYield")?.value).toBeCloseTo(5.5,8);
+  });
   it("Mortar Mix normalizes user ratio only",()=>{
     const r=run("mortar-mix-calculator",{volume:8,cementParts:1,limeParts:1,sandParts:6},{volume:"ft3"});
     expect(r.rows.find(x=>x.key==="cement")?.value).toBeCloseTo(1,8);
@@ -177,11 +185,21 @@ describe("Excavation & earthwork golden regressions",()=>{
     expect(r.rows.find(x=>x.key==="placed")?.value).toBeCloseTo(placed/27,8);
     expect(r.rows.find(x=>x.key==="order")?.value).toBeCloseTo(loose*1.1/27,8);
   });
+  it("Trench Backfill rejects pipe and bedding displacement that exceeds trench volume",()=>{
+    expect(()=>run("trench-backfill-calculator",{length:10,width:1,depth:1,pipeDiameter:12,pipeCount:2,beddingDepth:0,looseToPlacedShrink:0,waste:0},{length:"ft",width:"ft",depth:"ft",pipeDiameter:"in",beddingDepth:"in"}))
+      .toThrow(/Pipe displacement plus bedding cannot exceed the trench volume/i);
+  });
   it("Earthwork shows bank loose and compacted equivalents",()=>{
     const r=run("earthwork-calculator",{mode:0,length:10,width:10,depth:10,swell:20,shrink:10,price:2},{length:"ft",width:"ft",depth:"ft",price:"USD/yd3"});
     expect(r.rows.find(x=>x.key==="bank")?.value).toBeCloseTo(1000/27,8);
     expect(r.rows.find(x=>x.key==="loose")?.value).toBeCloseTo(1000/27*1.2,8);
     expect(r.rows.find(x=>x.key==="compacted")?.value).toBeCloseTo(1000/27*0.9,8);
+  });
+  it("Earthwork rejects shrink values that would produce zero or negative compacted volume",()=>{
+    expect(()=>run("earthwork-calculator",{mode:0,length:10,width:10,depth:10,swell:20,shrink:100,price:0},{length:"ft",width:"ft",depth:"ft",price:"USD/yd3"}))
+      .toThrow(/less than 100%/i);
+    expect(()=>run("earthwork-calculator",{mode:0,length:10,width:10,depth:10,swell:20,shrink:125,price:0},{length:"ft",width:"ft",depth:"ft",price:"USD/yd3"}))
+      .toThrow(/less than 100%/i);
   });
   it("Cut and Fill converts compacted fill to bank basis before balance",()=>{
     const r=run("cut-and-fill-calculator",{cut:1200,fill:800,shrink:20,swell:20},{cut:"ft3",fill:"ft3"});

@@ -42,14 +42,14 @@ const mortarGeneral:Model={
     const mode=Math.round(v.mode);
     const rawBags=mode===0?v.units/v.coverage:v.volume/v.yield;
     const bags=roundUp(rawBags*waste(v));
-    const purchasedVolume=bags*v.yield;
-    return result(withCost([
+    const rows=[
       row('bags','Mortar bags to order',bags,'bags',true),
       row('baseBags','Bags before allowance / rounding',rawBags,'bags'),
-      row('mixedYield','Purchased mixed-yield capacity',purchasedVolume,'ft³'),
+      ...(mode===1?[row('mixedYield','Purchased mixed-yield capacity',bags*v.yield,'ft³')]:[]),
       row('weight','Estimated bagged-product weight — lb',bags*v.bagWeight,'lb'),
       row('tons','Estimated bagged-product weight — US tons',bags*v.bagWeight/2000,'US tons')
-    ],v.price,u.price,{'USD/bag':bags}),[
+    ];
+    return result(withCost(rows,v.price,u.price,{'USD/bag':bags}),[
       mode===0
         ? `${v.units} installed units ÷ ${fmt(v.coverage)} units/bag = ${fmt(rawBags)} bags before allowance.`
         : `${fmt(v.volume)} ft³ ÷ ${fmt(v.yield)} ft³/bag = ${fmt(rawBags)} bags before allowance.`,
@@ -329,7 +329,7 @@ const trenchBackfill:Model={
   formula:'Placed backfill = trench volume − pipe displacement − bedding volume. Loose material before purchasing allowance = placed backfill ÷ (1 − loose-to-placed reduction).',
   assumptions:['Uniform rectangular trench and circular pipes extending the full length.','Bedding is deducted as a full-width layer. Manholes, ducts and structures need separate deductions.','Loose-to-placed reduction must come from project/material information; it is separate from purchasing allowance.'],
   sources:[fhwaEarthwork],
-  calculate(v){requireCondition(v.pipeDiameter<=v.width&&v.pipeDiameter<=v.depth,'pipeDiameter','Pipe diameter must fit in the trench.');requireCondition(v.beddingDepth<=v.depth,'beddingDepth','Bedding depth cannot exceed trench depth.');requireCondition(v.looseToPlacedShrink<100,'looseToPlacedShrink','Loose-to-placed reduction must be less than 100%.');const trench=v.length*v.width*v.depth,pipe=v.length*Math.PI*v.pipeDiameter**2/4*v.pipeCount,bedding=v.length*v.width*v.beddingDepth,placed=Math.max(0,trench-pipe-bedding),loose=placed/(1-v.looseToPlacedShrink/100),order=loose*waste(v);return result([row('order','Loose backfill to order',order/27,'yd³'),row('loose','Loose backfill before allowance',loose/27,'yd³'),row('placed','Placed/compacted backfill volume',placed/27,'yd³'),row('pipe','Pipe displacement',pipe/27,'yd³'),row('bedding','Bedding displacement',bedding/27,'yd³')],[`Trench ${fmt(trench)} − pipe ${fmt(pipe)} − bedding ${fmt(bedding)} = ${fmt(placed)} ft³ placed backfill.`,`Loose conversion and allowance → ${fmt(order/27)} yd³ to order.`]);}
+  calculate(v){requireCondition(v.pipeDiameter<=v.width&&v.pipeDiameter<=v.depth,'pipeDiameter','Pipe diameter must fit in the trench.');requireCondition(v.beddingDepth<=v.depth,'beddingDepth','Bedding depth cannot exceed trench depth.');requireCondition(v.looseToPlacedShrink<100,'looseToPlacedShrink','Loose-to-placed reduction must be less than 100%.');const trench=v.length*v.width*v.depth,pipe=v.length*Math.PI*v.pipeDiameter**2/4*v.pipeCount,bedding=v.length*v.width*v.beddingDepth;requireCondition(pipe+bedding<=trench,'pipeCount','Pipe displacement plus bedding cannot exceed the trench volume. Check pipe count, pipe diameter and bedding depth.');const placed=trench-pipe-bedding,loose=placed/(1-v.looseToPlacedShrink/100),order=loose*waste(v);return result([row('order','Loose backfill to order',order/27,'yd³'),row('loose','Loose backfill before allowance',loose/27,'yd³'),row('placed','Placed/compacted backfill volume',placed/27,'yd³'),row('pipe','Pipe displacement',pipe/27,'yd³'),row('bedding','Bedding displacement',bedding/27,'yd³')],[`Trench ${fmt(trench)} − pipe ${fmt(pipe)} − bedding ${fmt(bedding)} = ${fmt(placed)} ft³ placed backfill.`,`Loose conversion and allowance → ${fmt(order/27)} yd³ to order.`]);}
 };
 
 const earthwork:Model={
@@ -337,7 +337,7 @@ const earthwork:Model={
   formula:'Bank volume comes from dimensions or direct entry. Loose volume = bank × (1 + swell); compacted equivalent = bank × (1 − shrink).',
   assumptions:['Average-depth rectangular mode is an approximation; surveyed cross-sections or surfaces are preferable for irregular grading.','Shrink/swell factors are project-specific and should come from geotechnical/field information.'],
   sources:[fhwaEarthwork],
-  calculate(v,u){const bankFt3=Math.round(v.mode)===0?v.length*v.width*v.depth:v.volume,bank=bankFt3/27,loose=bank*(1+v.swell/100),compacted=bank*(1-v.shrink/100);return result(withCost([row('bank','Bank earthwork volume',bank,'yd³'),row('loose','Loose volume equivalent',loose,'yd³'),row('compacted','Compacted volume equivalent',compacted,'yd³'),row('m3','Bank volume',bankFt3/FT_PER_M**3,'m³')],v.price,u.price,{'USD/yd3':bank}),[`Bank volume = ${fmt(bank)} yd³.`,`Swell → ${fmt(loose)} loose yd³; shrink → ${fmt(compacted)} compacted yd³.`]);}
+  calculate(v,u){requireCondition(v.shrink<100,'shrink','Bank-to-compacted reduction must be less than 100%.');const bankFt3=Math.round(v.mode)===0?v.length*v.width*v.depth:v.volume,bank=bankFt3/27,loose=bank*(1+v.swell/100),compacted=bank*(1-v.shrink/100);return result(withCost([row('bank','Bank earthwork volume',bank,'yd³'),row('loose','Loose volume equivalent',loose,'yd³'),row('compacted','Compacted volume equivalent',compacted,'yd³'),row('m3','Bank volume',bankFt3/FT_PER_M**3,'m³')],v.price,u.price,{'USD/yd3':bank}),[`Bank volume = ${fmt(bank)} yd³.`,`Swell → ${fmt(loose)} loose yd³; shrink → ${fmt(compacted)} compacted yd³.`]);}
 };
 
 const cutFill:Model={
