@@ -2545,9 +2545,9 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "fence-cost-calculator",
-    "title": "Fence Material Cost Calculator — Quantity, Tax & Delivery",
+    "title": "Fence Cost Calculator — Posts, Panels, Concrete & Material Price",
     "h1": "Fence Cost Calculator",
-    "description": "Price one known fence material quantity from a matching unit quote, with purchasing allowance, material tax, delivery and entered labor.",
+    "description": "Estimate fence posts, sections or panels, rails, post-hole concrete bags and one selected material cost from run length, gates, spacing, hole geometry and allowance.",
     "category": "Deck & Fence",
     "cluster": "deck-fence",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
