@@ -300,16 +300,16 @@ const show = (kind === "concreteWeight" || !excluded) && fields.length >= 2;
 
       const updateConcreteWeightDiagram = () => {
         if (figure.dataset.kind !== "concreteWeight") return;
-        const mode = Math.round(numericControl("weightMode"));
+        const mode = Math.round(numericControl("inputMode"));
         figure.hidden = mode === 0;
         figure.querySelectorAll<SVGGElement>("[data-concrete-weight-shape]").forEach((group) => {
-          group.style.display = group.dataset.concreteWeightShape === String(mode) ? "" : "none";
+          group.style.display = group.dataset.concreteWeightShape === "1" ? "" : "none";
         });
         const name = figure.querySelector<SVGTextElement>("[data-concrete-weight-mode-name]");
         if (name) {
-          name.textContent = mode === 2
-            ? "Round slab / cylinder dimensions"
-            : "Rectangular slab / prism dimensions";
+          name.textContent = mode === 1
+            ? "Surface area × thickness"
+            : "Length × width × thickness";
         }
       };
 
