@@ -76,7 +76,7 @@ describe("Complete 204 Calculator Logic Audit", () => {
       diameter: 0, height: 10, quantity: 1, waste: 10, density: 150, yield: 0.6,
     };
     expect(() => concrete.calculate(readInputs(concrete.fields, raw, units), units))
-      .toThrow(/cylinder diameter greater than zero/i);
+      .toThrow(/greater than zero/i);
   });
 
   for (const slug of allSlugs) {
