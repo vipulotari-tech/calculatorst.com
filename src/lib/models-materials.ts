@@ -282,7 +282,7 @@ const concreteVolume: Model = {
       cuFt = each * v.quantity;
       steps = [
         `Curb area: ${fmt(v.curbWidth)} × ${fmt(v.curbHeight)} = ${fmt(curbArea)} ft².`,
-        `Gutter area beyond curb: ${fmt(v.gutterWidth)} × ${fmt(v.gutterDepth)} = ${fmt(gutterArea)} ft².`
+        `Gutter area beyond curb: ${fmt(v.gutterWidth)} × ${fmt(v.gutterDepth)} = ${fmt(gutterArea)} ft².`,
         `Cross-section × ${fmt(v.length)} ft = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`,
       ];
     } else if (s === 4) {
