@@ -453,7 +453,9 @@ test.describe('Framing / roofing / flooring full browser audit', () => {
     await mode.selectOption('3');
     await expect(root.locator('#roof-pitch-calculator-field-rafterLength')).toBeVisible();
     await root.locator('#roof-pitch-calculator-run').fill('12');
+    await root.locator('#roof-pitch-calculator-run-unit').selectOption('ft');
     await root.locator('#roof-pitch-calculator-rafterLength').fill('10');
+    await root.locator('#roof-pitch-calculator-rafterLength-unit').selectOption('ft');
     await root.getByRole('button',{name:/Calculate/i}).click();
     await expect(root.locator('#roof-pitch-calculator-rafterLength-err')).toContainText('Rafter length must be at least as long as the horizontal run');
 
