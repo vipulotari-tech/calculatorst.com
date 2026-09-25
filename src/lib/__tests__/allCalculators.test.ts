@@ -32,6 +32,53 @@ describe("Complete 204 Calculator Logic Audit", () => {
     expect(content.description).not.toMatch(/plus \d+ more/i);
   });
 
+  it("should keep the concrete worked example limited to the active slab inputs", () => {
+    const concrete = getModelForSlug("concrete-calculator");
+    const content = getCalculatorContent("Concrete Calculator", concrete);
+    expect(content.inputs).toContain("Project type: Rectangular slab");
+    expect(content.inputs.some(input => input.startsWith("Length:"))).toBe(true);
+    expect(content.inputs.some(input => input.startsWith("Width:"))).toBe(true);
+    expect(content.inputs.some(input => input.startsWith("Slab thickness / footing depth:"))).toBe(true);
+    expect(content.inputs.some(input => input.startsWith("Wall thickness:"))).toBe(false);
+    expect(content.inputs.some(input => input.startsWith("Cylinder / column diameter:"))).toBe(false);
+    expect(content.inputs.some(input => input.startsWith("Wall / cylinder height:"))).toBe(false);
+  });
+
+  it("should calculate concrete slab, wall and cylinder geometry independently", () => {
+    const concrete = getModelForSlug("concrete-calculator");
+    const units = {
+      length: "ft", width: "ft", depth: "in", thickness: "in",
+      diameter: "in", height: "ft", density: "lb/ft3", yield: "ft3", price: "USD/yd3",
+    };
+    const common = {
+      length: 12, width: 8, depth: 5, thickness: 8, diameter: 24, height: 8,
+      quantity: 1, waste: 0, density: 150, yield: 0.6,
+    };
+
+    const slab = concrete.calculate(readInputs(concrete.fields, { ...common, shape: 0 }, units), units);
+    expect(slab.rows.find(r => r.key === "net")?.value).toBeCloseTo((12 * 8 * (5 / 12)) / 27, 8);
+
+    const wall = concrete.calculate(readInputs(concrete.fields, { ...common, shape: 2, length: 30, height: 8, thickness: 8 }, units), units);
+    expect(wall.rows.find(r => r.key === "net")?.value).toBeCloseTo((30 * 8 * (8 / 12)) / 27, 8);
+
+    const cylinder = concrete.calculate(readInputs(concrete.fields, { ...common, shape: 3, diameter: 24, height: 10, quantity: 3 }, units), units);
+    expect(cylinder.rows.find(r => r.key === "net")?.value).toBeCloseTo((Math.PI * 1 * 1 * 10 * 3) / 27, 8);
+  });
+
+  it("should reject zero dimensions used by the active concrete shape", () => {
+    const concrete = getModelForSlug("concrete-calculator");
+    const units = {
+      length: "ft", width: "ft", depth: "in", thickness: "in",
+      diameter: "in", height: "ft", density: "lb/ft3", yield: "ft3",
+    };
+    const raw = {
+      shape: 3, length: 12, width: 8, depth: 5, thickness: 8,
+      diameter: 0, height: 10, quantity: 1, waste: 10, density: 150, yield: 0.6,
+    };
+    expect(() => concrete.calculate(readInputs(concrete.fields, raw, units), units))
+      .toThrow(/cylinder diameter greater than zero/i);
+  });
+
   for (const slug of allSlugs) {
     it(`should successfully compute valid results for ${slug}`, () => {
       const model = getModelForSlug(slug);
