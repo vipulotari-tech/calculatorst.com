@@ -4,6 +4,7 @@ import Breadcrumbs from "./Breadcrumbs.astro";
 import RelatedCalculators from "./RelatedCalculators.astro";
 import FAQ from "./FAQ.astro";
 import AdPlaceholder from "./AdPlaceholder.astro";
+import CalculatorFeedback from "./CalculatorFeedback.astro";
 
 interface BreadcrumbItem {
   label: string;
@@ -104,6 +105,8 @@ if (reviewer) {
         {related.length > 0 && <RelatedCalculators calculators={related} />}
 
         {faq.length > 0 && <FAQ items={faq} />}
+
+        <CalculatorFeedback calculatorName={h1} canonicalUrl={canonicalUrl} />
 
         <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} is:inline />
 

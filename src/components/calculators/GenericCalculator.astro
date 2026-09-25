@@ -119,11 +119,15 @@ const diagramFields = fields
 
     <!-- Section 2: Material & Assumptions (if any) -->
     {assumptions.length > 0 && (
-      <div class="space-y-3 pt-2 border-t border-border/60">
-        <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-muted-foreground">
-          2. Material Properties & Waste Allowance
-        </h3>
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <details class="group rounded-lg border border-border bg-muted/20">
+        <summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+          <span>
+            <span class="block text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Advanced material assumptions</span>
+            <span class="mt-0.5 block text-[11px] leading-4 text-muted-foreground">Waste, density, package yield and other editable material assumptions.</span>
+          </span>
+          <span aria-hidden="true" class="text-muted-foreground transition-transform group-open:rotate-180">⌄</span>
+        </summary>
+        <div class="grid gap-4 border-t border-border px-4 py-4 sm:grid-cols-2 lg:grid-cols-3">
           {assumptions.map((field) => (
                     <div class="calc-field" id={`${slug}-field-${field.id}`} hidden={!fieldVisible(field, model.fields)}>
                     <label class="block space-y-1.5" for={`${slug}-${field.id}`}>
@@ -190,16 +194,20 @@ const diagramFields = fields
                       </div>
                     ))}
         </div>
-      </div>
+      </details>
     )}
 
     <!-- Section 3: Cost Estimation (if any) -->
     {costs.length > 0 && (
-      <div class="space-y-3 pt-2 border-t border-border/60">
-        <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-muted-foreground">
-          3. Material Cost
-        </h3>
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <details class="group rounded-lg border border-border bg-muted/20">
+        <summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+          <span>
+            <span class="block text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Cost & project extras</span>
+            <span class="mt-0.5 block text-[11px] leading-4 text-muted-foreground">Optional pricing and project-cost inputs. Leave defaults unchanged for a quantity-only estimate.</span>
+          </span>
+          <span aria-hidden="true" class="text-muted-foreground transition-transform group-open:rotate-180">⌄</span>
+        </summary>
+        <div class="grid gap-4 border-t border-border px-4 py-4 sm:grid-cols-2 lg:grid-cols-3">
           {costs.map((field) => (
                     <div class="calc-field" id={`${slug}-field-${field.id}`} hidden={!fieldVisible(field, model.fields)}>
                     <label class="block space-y-1.5" for={`${slug}-${field.id}`}>
@@ -266,7 +274,7 @@ const diagramFields = fields
                       </div>
                     ))}
         </div>
-      </div>
+      </details>
     )}
 
     <!-- Form Actions -->

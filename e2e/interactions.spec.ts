@@ -133,6 +133,30 @@ test.describe('Calculator interactions', () => {
     expect(await worksheet.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+  test('Advanced assumptions stay collapsed until requested', async ({ page }) => {
+    await page.goto('/concrete-calculator/');
+    const root = page.locator('[data-calculator-slug="concrete-calculator"]');
+    const details = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await expect(details).not.toHaveAttribute('open', '');
+    await details.locator('summary').click();
+    await expect(details).toHaveAttribute('open', '');
+    await expect(root.locator('#concrete-calculator-waste')).toBeVisible();
+  });
+
+  test('Helpful feedback is truthful and persists only on the device', async ({ page }) => {
+    await page.goto('/concrete-calculator/');
+    const feedback = page.locator('[data-calculator-feedback]');
+    await expect(feedback).toBeVisible();
+    await expect(feedback).toContainText('stored only on this device');
+    const helpful = feedback.getByRole('button', { name: 'Helpful' });
+    await helpful.click();
+    await expect(helpful).toHaveAttribute('aria-pressed', 'true');
+    await expect(feedback.locator('.feedback-status')).toContainText('saved on this device');
+
+    await page.reload();
+    await expect(page.locator('[data-calculator-feedback]').getByRole('button', { name: 'Helpful' })).toHaveAttribute('aria-pressed', 'true');
+  });
+
   test('Rapid clicks do not duplicate', async ({ page }) => {
     await page.goto('/rebar-calculator/');
     const btn = page.getByRole('button', { name: /Calculate/i }).first();
@@ -388,6 +412,7 @@ test.describe('Framing / roofing / flooring full browser audit', () => {
     await expect(root.locator('#roofing-calculator-field-length')).toBeHidden();
     await expect(root.locator('#roofing-calculator-field-roofArea')).toBeVisible();
     await root.locator('#roofing-calculator-roofArea').fill('1000');
+    await root.getByText('Advanced material assumptions').click();
     await root.locator('#roofing-calculator-waste').fill('0');
     await root.getByRole('button',{name:/Calculate/i}).click();
     await expect(root).toContainText('Measured roof surface');
@@ -416,6 +441,7 @@ test.describe('Framing / roofing / flooring full browser audit', () => {
     await root.locator('#tile-calculator-tileLength').fill('12');
     await root.locator('#tile-calculator-tileWidth').fill('12');
     await root.locator('#tile-calculator-tilesPerBox').fill('10');
+    await root.getByText('Advanced material assumptions').click();
     await root.locator('#tile-calculator-waste').fill('10');
     await root.getByRole('button',{name:/Calculate/i}).click();
     await expect(root).toContainText('Tiles purchased in whole boxes');
@@ -593,6 +619,7 @@ test.describe('Drywall / deck / landscaping / asphalt full browser audit', () =>
     await root.locator('#paver-calculator-paverLength').fill('12');
     await root.locator('#paver-calculator-paverWidth').fill('12');
     await root.locator('#paver-calculator-joint').fill('0');
+    await root.getByText('Advanced material assumptions').click();
     await root.locator('#paver-calculator-waste').fill('10');
     await root.getByRole('button', { name: /^Calculate$/ }).click();
     await expect(root).toContainText('Pavers to order');
@@ -607,6 +634,7 @@ test.describe('Drywall / deck / landscaping / asphalt full browser audit', () =>
     await root.locator('#asphalt-thickness-calculator-length').fill('100');
     await root.locator('#asphalt-thickness-calculator-width').fill('10');
     await root.locator('#asphalt-thickness-calculator-mass').fill('10');
+    await root.getByText('Advanced material assumptions').click();
     await root.locator('#asphalt-thickness-calculator-density').fill('145');
     await root.getByRole('button', { name: /^Calculate$/ }).click();
     await expect(root).toContainText('Average depth');
