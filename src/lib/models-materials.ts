@@ -696,9 +696,9 @@ const concreteMixFields: Field[] = [
   { ...length('mixDepth', 'Depth / thickness', 4, 'in'), visibleWhen: { field: 'mixInputMode', equals: 1 } },
   { ...count('mixQuantity', 'Identical sections', 1), visibleWhen: { field: 'mixInputMode', equals: 1 } },
 
-  { id: 'mixPreset', label: 'Concrete mix ratio', value: 1, unit: '', integer: true, min: 0, max: 6,
+  { id: 'mixPreset', label: 'Concrete mix ratio', value: 0, unit: '', integer: true, min: 0, max: 6,
     options: [
-      { value: 0, label: 'Custom ratio' },
+      { value: 0, label: 'Custom ratio (default 1 : 2 : 3)' },
       { value: 1, label: '1 : 2 : 3' },
       { value: 2, label: '1 : 1.5 : 3' },
       { value: 3, label: '1 : 2 : 4' },
