@@ -51,7 +51,7 @@ export function concreteResult(
     row('ft3', 'Order volume (ft³)', total, 'ft³'),
     row('m3', 'Order volume (m³)', totalM3, 'm³'),
     row('L', 'Order volume (L)', totalM3 * 1000, 'L'),
-    row('bags', `Bags (entered yield ${fmt(v.yield)} ft³)`, bags, 'bags', true),
+    row('bags80', `Bags (entered yield ${fmt(v.yield)} ft³)`, bags, 'bags', true),
     row('bags60', 'Bags (60-lb @ 0.45 ft³)', roundUp(total / BAG_YIELD_60), 'bags', true),
     row('bags40', 'Bags (40-lb @ 0.30 ft³)', roundUp(total / BAG_YIELD_40), 'bags', true),
     row('weight', 'Estimated order weight (lb)', lb, 'lb'),
