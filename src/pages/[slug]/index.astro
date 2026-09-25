@@ -225,7 +225,7 @@ const concreteSeo: Record<string, {
       { q: "How do I convert cubic feet of concrete to cubic yards?", a: "Divide cubic feet by 27. The calculator also reports cubic meters and liters, then applies the material allowance to the order quantity." },
       { q: "Can I mix inches, feet and metric units?", a: "Yes. Select the unit beside each measurement. The calculator normalizes the dimensions before evaluating the active shape formula." },
       { q: "How should I calculate an L-shaped or irregular slab?", a: "Split the pour into rectangles or other non-overlapping shapes, calculate each piece, and add the volumes. Do not count overlapping areas twice." },
-      { q: "How does curb-and-gutter volume work?", a: "The calculator adds a raised-curb rectangle to the full gutter or flag thickness, including the thickness below the curb, then multiplies the combined cross-section by length and quantity." }
+      { q: "How does curb-and-gutter volume work?", a: "The calculator uses two non-overlapping rectangles: curb width × total curb height, plus the gutter width beyond the curb × gutter thickness. It then multiplies the combined cross-section by length and quantity." }
     ]
   },
   "concrete-weight-calculator": {
@@ -1873,7 +1873,7 @@ const pageDateModified = ["concrete-calculator", "concrete-volume-calculator"].i
               <tr><td class="px-3 py-2">Rectangular slab / footing / wall / rectangular column</td><td class="px-3 py-2 font-mono">V = length × width/height × thickness/depth</td></tr>
               <tr><td class="px-3 py-2">Round slab / cylinder / round column</td><td class="px-3 py-2 font-mono">V = π × (diameter ÷ 2)² × height</td></tr>
               <tr><td class="px-3 py-2">Hollow tube</td><td class="px-3 py-2 font-mono">V = π/4 × (outer D² − inner D²) × height</td></tr>
-              <tr><td class="px-3 py-2">Curb + gutter</td><td class="px-3 py-2 font-mono">V = length × [curb width × curb height + (curb width + gutter width) × flag thickness]</td></tr>
+              <tr><td class="px-3 py-2">Curb + gutter</td><td class="px-3 py-2 font-mono">V = length × (curb width × total curb height + gutter width beyond curb × gutter thickness)</td></tr>
               <tr><td class="px-3 py-2">Solid stairs</td><td class="px-3 py-2 font-mono">V = width × rise × run × n(n+1)/2 + optional solid landing</td></tr>
               <tr><td class="px-3 py-2">Triangle prism / wedge</td><td class="px-3 py-2 font-mono">V = ½ × base × height × prism length</td></tr>
             </tbody>
