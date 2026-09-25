@@ -2,65 +2,72 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import MulchCalculator from "../../components/calculators/MulchCalculator.astro";
+import GenericCalculator from "../../components/calculators/GenericCalculator.astro";
 
 const related = [
-  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "For drainage & paths" },
-  { title: "Paver Calculator", href: "/paver-calculator/", desc: "Patios near beds" },
-  { title: "Topsoil Calculator", href: "/topsoil-calculator/", desc: "Topsoil volume for beds & lawns" },
+  { title: "Landscaping Material Calculator", href: "/landscaping-calculator/", desc: "Generic bagged or bulk landscape material" },
+  { title: "Mulch Cost Calculator", href: "/mulch-cost-calculator/", desc: "Price a known mulch material quantity" },
+  { title: "Topsoil Calculator", href: "/topsoil-calculator/", desc: "Topsoil volume, weight & cost" },
+  { title: "Paver Calculator", href: "/paver-calculator/", desc: "Surface paver layout & count" },
 ];
+
 const faq = [
   {
-    "q": "How much mulch is needed?",
-    "a": "Volume = length × width × depth × number of identical areas, after converting dimensions to feet. Divide by 27 for cubic yards. For different beds, calculate each measured area separately."
+    q: "How much mulch is needed?",
+    a: "Net volume is length × width × placed depth × identical beds. The calculator converts that volume to cubic yards, applies the purchasing allowance once, and also shows cubic feet and cubic meters."
   },
   {
-    "q": "How many bags should I order?",
-    "a": "Divide unrounded volume including waste by the selected bag volume and round up. A 20 × 10 ft bed at 3 inches needs 50 ft³; with 10% waste and 2 ft³ bags, the order is 28 bags."
+    q: "How are whole mulch bags calculated?",
+    a: "Enter the labeled volume per bag. The allowance-adjusted order volume is divided by that bag volume and rounded up once to a whole-bag count."
   },
   {
-    "q": "How does bulk pricing work?",
-    "a": "Choose a per-yard quote for bulk mulch. Per-bag pricing requires a selected bag size. Cost includes the entered waste but excludes delivery and labor."
+    q: "Can I use a bulk-yard price or a bag price?",
+    a: "Yes. Choose the matching price basis. Bulk pricing uses the allowance-adjusted cubic-yard quantity; bag pricing uses the rounded whole-bag order."
   },
   {
-    "q": "Does the calculator account for settling?",
-    "a": "Only through the waste percentage you enter. It does not automatically add a settling factor or select an appropriate depth for your plants."
+    q: "Does the calculator choose the correct mulch depth?",
+    a: "No. Placed depth is an input because plant, soil, drainage and material needs vary. Use the depth appropriate to the actual project rather than treating a calculator default as a recommendation."
   }
 ];
 ---
 
 <CalculatorLayout
   title="Mulch Calculator — Cubic Yards, Bags & Cost"
-  description="Calculate mulch in cubic yards and bags for garden beds & paths. Enter length, width, depth & areas — get yards, bags & cost with waste."
+  description="Estimate mulch in cubic yards and whole bags from bed dimensions, placed depth, identical areas, bag volume, purchasing allowance and optional bulk or bag price."
   h1="Mulch Calculator"
-  intro="Calculate mulch for garden beds — get cubic yards and bag count with waste & cost. Enter length, width, depth per bed and number of areas — instant yards, bags & price."
-  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Landscaping Calculators", href: "/construction/landscaping/" }, { label: "Mulch Calculator" }]}
+  intro="Calculate mulch for rectangular beds using the placed depth you choose. See net and order volume, whole bags, metric volume and optional cost from either a bulk-yard or per-bag quote."
+  breadcrumbs={[
+    { label: "Home", href: "/" },
+    { label: "Construction", href: "/construction/" },
+    { label: "Paver & Landscaping Calculators", href: "/construction/landscaping/" },
+    { label: "Mulch Calculator" },
+  ]}
   related={related}
   faq={faq}
   canonical="/mulch-calculator/"
   ogImage="/og-mulch.png"
   datePublished="2026-08-27"
-  dateModified="2026-09-24"
+  dateModified="2026-09-25"
 >
   <Header slot="header" />
-  <MulchCalculator slot="calculator" />
+  <GenericCalculator id="mulch-calculator" resultTitle="Mulch Estimate" slot="calculator" />
+
   <section class="space-y-6">
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
-      <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
-        <li>All dimensions → feet, then cubic feet = L×W×D×areas</li>
-        <li>Cubic yards = cubic feet ÷ 27</li>
-        <li>Bags = ceil(cubic feet ÷ bag size). Waste multiplies first.</li>
+      <ol class="mt-3 list-decimal space-y-2 pl-5 text-sm leading-6 text-body">
+        <li><span class="font-mono text-xs">Net volume = length × width × placed depth × identical beds</span></li>
+        <li>Apply the entered purchasing allowance once to the unrounded net volume.</li>
+        <li><span class="font-mono text-xs">Whole bags = ceil(order ft³ ÷ labeled bag ft³)</span></li>
+        <li>For cost, use either the allowance-adjusted cubic yards or the rounded whole-bag count according to the supplier quote.</li>
       </ol>
     </div>
+
     <div class="rounded-lg border border-hairline bg-canvas p-6">
-      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
-      <p class="mt-2 text-sm leading-6 text-body">Bed 20×10 ft × 3 in, 1 area, 2 ft³ bags, 10% waste, $4.50/bag:</p>
-      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">OUTPUT</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">ft³</td><td class="px-3 py-2">50.00</td></tr><tr><td class="px-3 py-2">yd³</td><td class="px-3 py-2">1.85</td></tr><tr><td class="px-3 py-2">Bags</td><td class="px-3 py-2">25 → 28 w/ waste</td></tr><tr><td class="px-3 py-2">Cost</td><td class="px-3 py-2">$126</td></tr></tbody></table></div>
-    </div>
-    <div class="rounded-lg border border-hairline bg-canvas p-6">
-      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Rectangular beds. Irregular: break into rectangles.</li><li>Loose fill; settling is not modeled separately from entered waste.</li><li>2 ft³ bags cover ~8 ft² at 3 in.</li></ul>
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Measurement guidance</h2>
+      <p class="mt-2 text-sm leading-6 text-body">
+        Split irregular beds into non-overlapping measured rectangles and add the results. The calculator does not automatically add a settling factor or choose a horticultural depth; any extra material should be represented explicitly by the allowance you enter.
+      </p>
     </div>
   </section>
   <Footer slot="footer" />
