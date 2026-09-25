@@ -180,6 +180,19 @@ test.describe('Calculator interactions', () => {
     await expect(root.locator('.result-primary')).toHaveText('3.8397');
   });
 
+  test('Concrete shared URL hydrates the matching diagram on first render', async ({ page }) => {
+    await page.goto('/concrete-calculator/?cs_calc=concrete-calculator&cs_shape=3&cs_diameter=24&cs_diameter_unit=in&cs_height=10&cs_height_unit=ft&cs_quantity=3&cs_waste=10&cs_density=150&cs_density_unit=lb%2Fft3&cs_yield=0.6&cs_yield_unit=ft3');
+    const root = page.locator('[data-calculator-slug="concrete-calculator"]');
+    const diagram = root.locator('[data-project-diagram]');
+    await expect(root.locator('#concrete-calculator-shape')).toHaveValue('3');
+    await expect(root.locator('#concrete-calculator-field-diameter')).toBeVisible();
+    await expect(root.locator('#concrete-calculator-field-length')).toBeHidden();
+    await expect(diagram.locator('[data-concrete-shape-name]')).toHaveText('Cylinder / column');
+    await expect(diagram).toContainText('24 in');
+    await expect(diagram).toContainText('10 ft');
+    await expect(root.locator('.result-primary')).toHaveText('3.8397');
+  });
+
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
