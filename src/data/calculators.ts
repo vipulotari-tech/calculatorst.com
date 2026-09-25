@@ -13,14 +13,14 @@ export interface CalculatorMeta {
 export const calculators: CalculatorMeta[] = [
   {
     slug: "gravel-calculator",
-    title: "Gravel Calculator — Cubic Yards, Tons & Cost",
+    title: "Gravel Calculator — Yards, Tons, Metric Volume & Cost",
     h1: "Gravel Calculator",
-    description: "Calculate gravel in cubic yards, tons and cost for any rectangular area. Supports pea gravel, crushed stone and more with US & metric units.",
-    category: "Gravel",
+    description: "Calculate gravel from dimensions, known area or volume with density presets or custom density, separate compaction and waste allowances, metric/US outputs and optional cost.",
+    category: "Gravel & Aggregate",
     cluster: "gravel",
     iconPath: "M4 10l4-6 4 6H4ZM8 4v8",
     featured: true,
-    keywords: ["gravel calculator", "gravel calculator yards", "gravel tons"],
+    keywords: ["gravel calculator", "gravel yards and tons calculator", "how much gravel do i need"],
   },
   {
     slug: "fence-cost-calculator",
