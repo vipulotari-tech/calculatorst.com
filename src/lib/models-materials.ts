@@ -206,7 +206,7 @@ const concreteVolumeFields: Field[] = [
       { value: 7, label: 'Strip footing' },
       { value: 8, label: 'Square / rectangular column' },
     ] },
-  { ...length('length', 'Length', 20, 'ft', 'Used for rectangular slabs/prisms, curbs, walls and strip footings.'), visibleWhen: { field: 'shape', in: [0, 3, 6, 7] } },
+  { ...length('length', 'Length', 20, 'ft', 'Used for rectangular slabs/prisms, curbs, walls and strip footings.'), visibleWhen: { field: 'shape', in: [0, 3, 6, 7, 8] } },
   { ...length('width', 'Width', 10, 'ft', 'Used for rectangular slabs/prisms, strip footings and rectangular columns.'), visibleWhen: { field: 'shape', in: [0, 7, 8] } },
   { ...length('depth', 'Slab thickness / footing depth', 4, 'in', 'For rectangular slabs enter thickness; for strip footings enter depth.'), visibleWhen: { field: 'shape', in: [0, 7] } },
   { ...length('thickness', 'Wall thickness', 8, 'in', 'Wall mode only.'), visibleWhen: { field: 'shape', equals: 6 } },
