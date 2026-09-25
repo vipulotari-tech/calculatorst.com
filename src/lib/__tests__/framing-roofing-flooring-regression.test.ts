@@ -33,11 +33,14 @@ function value(slug: string, key: string, changes: Record<string, number> = {}, 
 describe('Framing & lumber — independent regression cases', () => {
   it('framing calculator separates studs, plates and total footage', () => {
     const r = calculate('framing-calculator',
-      { length:20, height:8, spacing:16, extra:2, topPlates:2, bottomPlates:1, stockLength:16, waste:0 },
-      { spacing:'in' });
+      { length:20, height:8, spacing:16, extra:2, topPlates:2, bottomPlates:1, stockLength:16, waste:0, price:1 },
+      { spacing:'in', price:'USD/ft' });
     expect(r.rows.find(x => x.key === 'studs')?.value).toBe(18);
     expect(r.rows.find(x => x.key === 'plateFeet')?.value).toBeCloseTo(60, 8);
     expect(r.rows.find(x => x.key === 'net')?.value).toBeCloseTo(204, 8);
+    expect(r.rows.find(x => x.key === 'required')?.value).toBeCloseTo(204, 8);
+    expect(r.rows.find(x => x.key === 'order')?.value).toBeCloseTo(208, 8);
+    expect(r.rows.find(x => x.key === 'cost')?.value).toBeCloseTo(208, 8);
   });
 
   it('wall framing calculator matches the same wall takeoff geometry', () => {
