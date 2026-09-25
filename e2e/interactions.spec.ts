@@ -121,6 +121,52 @@ test.describe('Calculator interactions', () => {
     expect(await diagram.innerText()).toContain('Schematic only');
   });
 
+  test('Concrete calculator — project type controls inputs, validation and diagram', async ({ page }) => {
+    await page.goto('/concrete-calculator/');
+    const root = page.locator('[data-calculator-slug="concrete-calculator"]');
+    const shape = root.locator('#concrete-calculator-shape');
+    const diagram = root.locator('[data-project-diagram]');
+
+    await expect(root.locator('#concrete-calculator-field-length')).toBeVisible();
+    await expect(root.locator('#concrete-calculator-field-width')).toBeVisible();
+    await expect(root.locator('#concrete-calculator-field-depth')).toBeVisible();
+    await expect(root.locator('#concrete-calculator-field-thickness')).toBeHidden();
+    await expect(root.locator('#concrete-calculator-field-diameter')).toBeHidden();
+    await expect(root.locator('#concrete-calculator-field-height')).toBeHidden();
+    await expect(diagram).toContainText('Rectangular slab');
+
+    await shape.selectOption('2');
+    await expect(root.locator('#concrete-calculator-field-length')).toBeVisible();
+    await expect(root.locator('#concrete-calculator-field-width')).toBeHidden();
+    await expect(root.locator('#concrete-calculator-field-depth')).toBeHidden();
+    await expect(root.locator('#concrete-calculator-field-thickness')).toBeVisible();
+    await expect(root.locator('#concrete-calculator-field-height')).toBeVisible();
+    await expect(root.locator('#concrete-calculator-field-diameter')).toBeHidden();
+    await expect(diagram).toContainText('Wall');
+
+    await shape.selectOption('3');
+    await expect(root.locator('#concrete-calculator-field-length')).toBeHidden();
+    await expect(root.locator('#concrete-calculator-field-width')).toBeHidden();
+    await expect(root.locator('#concrete-calculator-field-depth')).toBeHidden();
+    await expect(root.locator('#concrete-calculator-field-thickness')).toBeHidden();
+    await expect(root.locator('#concrete-calculator-field-diameter')).toBeVisible();
+    await expect(root.locator('#concrete-calculator-field-height')).toBeVisible();
+    await expect(diagram).toContainText('Cylinder / column');
+
+    await root.locator('#concrete-calculator-diameter').fill('0');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('#concrete-calculator-diameter-err')).toContainText('greater than zero');
+
+    await root.locator('#concrete-calculator-diameter').fill('24');
+    await root.locator('#concrete-calculator-diameter-unit').selectOption('in');
+    await root.locator('#concrete-calculator-height').fill('10');
+    await root.locator('#concrete-calculator-height-unit').selectOption('ft');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+    await expect(diagram).toContainText('24 in');
+    await expect(diagram).toContainText('10 ft');
+  });
+
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
