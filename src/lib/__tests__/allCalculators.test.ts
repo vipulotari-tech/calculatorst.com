@@ -1,7 +1,8 @@
 import { describe, it, expect } from "vitest";
 import { getModelForSlug } from "../calculator-registry.ts";
 import { readInputs } from "../calculator-math.ts";
-import { hubCalculators } from "../../data/hubCalculators.ts";
+import { constructionCalculatorCount, constructionCategoryCounts, hubCalculators, hubCategories } from "../../data/hubCalculators.ts";
+import { getCalculatorContent } from "../calculator-content.ts";
 import { calculators } from "../../data/calculators.ts";
 
 describe("Complete 204 Calculator Logic Audit", () => {
@@ -9,6 +10,26 @@ describe("Complete 204 Calculator Logic Audit", () => {
 
   it("should have exactly 204 unique calculator slugs", () => {
     expect(allSlugs.length).toBe(204);
+  });
+
+  it("should derive construction inventory counts from the canonical calculator list", () => {
+    expect(constructionCalculatorCount).toBe(hubCalculators.length);
+    expect(constructionCalculatorCount).toBe(204);
+    expect(hubCategories.reduce((sum, category) => sum + category.count, 0)).toBe(constructionCalculatorCount);
+    expect(constructionCategoryCounts.concrete).toBe(
+      hubCalculators.filter((calculator) => calculator.cluster === "concrete").length,
+    );
+    expect(constructionCategoryCounts.mortar).toBe(
+      hubCalculators.filter((calculator) => calculator.cluster === "mortar").length,
+    );
+  });
+
+  it("should keep worked examples human-readable and free of internal enum values", () => {
+    const concrete = getModelForSlug("concrete-calculator");
+    const content = getCalculatorContent("Concrete Calculator", concrete);
+    expect(content.inputs).toContain("Project type: Rectangular slab");
+    expect(content.inputs).not.toContain("Project type: 0");
+    expect(content.description).not.toMatch(/plus \d+ more/i);
   });
 
   for (const slug of allSlugs) {

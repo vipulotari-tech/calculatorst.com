@@ -1,0 +1,179 @@
+---
+interface DiagramField {
+  id: string;
+  label: string;
+  unit?: string;
+}
+
+interface Props {
+  slug: string;
+  fields: DiagramField[];
+}
+
+const { slug, fields } = Astro.props;
+const lower = slug.toLowerCase();
+const kind =
+  /roof|pitch|rafter/.test(lower) ? "roof" :
+  /rebar|mesh/.test(lower) ? "grid" :
+  /fence|gate|deck/.test(lower) ? "line" :
+  /column|tube|pier|post-hole/.test(lower) ? "cylinder" :
+  "rect";
+
+const excluded = /(?:cost|weight|waste|price|bag|mix-ratio|board-foot|material-cost)/.test(lower);
+const show = !excluded && fields.length >= 2;
+---
+
+{show && (
+  <figure
+    class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+    data-project-diagram
+    data-fields={JSON.stringify(fields)}
+  >
+    <div class="flex flex-wrap items-start justify-between gap-2">
+      <div>
+        <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Visual project measurements</h3>
+        <p class="mt-1 text-[11px] leading-5 text-muted-foreground">Updates from the visible measurement inputs. Schematic only — not to scale.</p>
+      </div>
+      <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE INPUT GUIDE</span>
+    </div>
+
+    <svg
+      viewBox="0 0 640 240"
+      class="mt-4 h-auto w-full"
+      role="img"
+      aria-labelledby={`${slug}-diagram-title ${slug}-diagram-desc`}
+    >
+      <title id={`${slug}-diagram-title`}>Live measurement schematic for this calculator</title>
+      <desc id={`${slug}-diagram-desc`}>A not-to-scale construction sketch whose measurement labels update from the calculator inputs.</desc>
+      <rect x="1" y="1" width="638" height="238" rx="14" fill="var(--color-background)" stroke="var(--color-border)" />
+
+      {kind === "roof" && (
+        <>
+          <path d="M115 175 L320 70 L525 175 Z" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          <line x1="115" y1="195" x2="525" y2="195" stroke="var(--color-muted-foreground)" stroke-width="1.5" />
+          <line x1="320" y1="70" x2="320" y2="175" stroke="var(--color-muted-foreground)" stroke-width="1.5" stroke-dasharray="6 5" />
+          <text x="320" y="218" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-diagram-value="0">Measurement 1</text>
+          <text x="335" y="125" font-size="13" fill="var(--color-foreground)" data-diagram-value="1">Measurement 2</text>
+          <text x="430" y="118" font-size="13" fill="var(--color-muted-foreground)" data-diagram-value="2">Measurement 3</text>
+        </>
+      )}
+
+      {kind === "grid" && (
+        <>
+          <rect x="115" y="45" width="410" height="150" rx="6" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          {[165,215,265,315,365,415,465].map((x) => <line x1={x} y1="45" x2={x} y2="195" stroke="var(--color-muted-foreground)" stroke-width="1" />)}
+          {[82,120,158].map((y) => <line x1="115" y1={y} x2="525" y2={y} stroke="var(--color-muted-foreground)" stroke-width="1" />)}
+          <text x="320" y="220" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-diagram-value="0">Measurement 1</text>
+          <text x="72" y="124" text-anchor="middle" font-size="13" fill="var(--color-foreground)" transform="rotate(-90 72 124)" data-diagram-value="1">Measurement 2</text>
+          <text x="430" y="34" font-size="13" fill="var(--color-muted-foreground)" data-diagram-value="2">Measurement 3</text>
+        </>
+      )}
+
+      {kind === "line" && (
+        <>
+          <line x1="90" y1="185" x2="550" y2="185" stroke="var(--color-muted-foreground)" stroke-width="2" />
+          {[120,220,320,420,520].map((x) => <rect x={x} y="70" width="10" height="115" rx="2" fill="var(--color-foreground)" />)}
+          <line x1="125" y1="52" x2="225" y2="52" stroke="var(--color-muted-foreground)" stroke-width="1.5" />
+          <text x="320" y="215" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-diagram-value="0">Measurement 1</text>
+          <text x="175" y="42" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-diagram-value="1">Measurement 2</text>
+          <text x="438" y="60" font-size="13" fill="var(--color-muted-foreground)" data-diagram-value="2">Measurement 3</text>
+        </>
+      )}
+
+      {kind === "cylinder" && (
+        <>
+          <ellipse cx="320" cy="65" rx="110" ry="32" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          <path d="M210 65 V175 C210 193 259 208 320 208 C381 208 430 193 430 175 V65" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          <ellipse cx="320" cy="175" rx="110" ry="32" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1.5" />
+          <line x1="210" y1="32" x2="430" y2="32" stroke="var(--color-muted-foreground)" stroke-width="1.5" />
+          <text x="320" y="23" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-diagram-value="0">Measurement 1</text>
+          <text x="452" y="125" font-size="13" fill="var(--color-foreground)" data-diagram-value="1">Measurement 2</text>
+          <text x="320" y="132" text-anchor="middle" font-size="13" fill="var(--color-muted-foreground)" data-diagram-value="2">Measurement 3</text>
+        </>
+      )}
+
+      {kind === "rect" && (
+        <>
+          <polygon points="145,75 445,75 520,125 220,125" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          <polygon points="220,125 520,125 520,180 220,180" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          <polygon points="445,75 520,125 520,180 445,130" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          <text x="370" y="210" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-diagram-value="0">Measurement 1</text>
+          <text x="145" y="115" text-anchor="middle" font-size="13" fill="var(--color-foreground)" transform="rotate(-34 145 115)" data-diagram-value="1">Measurement 2</text>
+          <text x="535" y="160" font-size="13" fill="var(--color-muted-foreground)" data-diagram-value="2">Measurement 3</text>
+        </>
+      )}
+    </svg>
+
+    <dl class="calc-project-diagram-values mt-3 grid gap-2 text-xs sm:grid-cols-3"></dl>
+  </figure>
+)}
+
+<script>
+  function initProjectDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-project-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>("[data-calculator-slug]");
+      if (!root) return;
+      const slug = root.dataset.calculatorSlug;
+      if (!slug) return;
+
+      let fields: Array<{ id: string; label: string; unit?: string }> = [];
+      try {
+        fields = JSON.parse(figure.dataset.fields ?? "[]");
+      } catch {
+        return;
+      }
+
+      const valueEls = Array.from(figure.querySelectorAll<SVGTextElement>("[data-diagram-value]"));
+      const list = figure.querySelector<HTMLElement>(".calc-project-diagram-values");
+
+      const readField = (field: { id: string; label: string; unit?: string }) => {
+        const wrapper = root.querySelector<HTMLElement>(`#${slug}-field-${field.id}`);
+        if (wrapper?.hidden) return null;
+        const control = root.querySelector<HTMLInputElement | HTMLSelectElement>(`#${slug}-${field.id}`);
+        if (!control || control.value === "") return null;
+
+        const unitSelect = root.querySelector<HTMLSelectElement>(`#${slug}-${field.id}-unit`);
+        const unit = unitSelect?.selectedOptions[0]?.textContent?.trim() || field.unit || "";
+        return { label: field.label, value: control.value, unit };
+      };
+
+      const update = () => {
+        const values = fields.map(readField).filter((item): item is { label: string; value: string; unit: string } => Boolean(item)).slice(0, 3);
+
+        valueEls.forEach((el, index) => {
+          const item = values[index];
+          el.textContent = item ? `${item.label}: ${item.value}${item.unit ? ` ${item.unit}` : ""}` : "";
+        });
+
+        if (list) {
+          list.replaceChildren(...values.map((item) => {
+            const wrap = document.createElement("div");
+            wrap.className = "rounded-md border border-border bg-muted/30 px-3 py-2";
+            const dt = document.createElement("dt");
+            dt.className = "text-muted-foreground";
+            dt.textContent = item.label;
+            const dd = document.createElement("dd");
+            dd.className = "mt-0.5 font-mono font-medium text-foreground tabular-nums";
+            dd.textContent = `${item.value}${item.unit ? ` ${item.unit}` : ""}`;
+            wrap.append(dt, dd);
+            return wrap;
+          }));
+        }
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      update();
+    });
+  }
+
+  document.addEventListener("astro:page-load", initProjectDiagrams);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initProjectDiagrams, { once: true });
+  } else {
+    initProjectDiagrams();
+  }
+</script>

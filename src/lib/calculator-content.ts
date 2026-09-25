@@ -22,10 +22,14 @@ export function getCalculatorContent(title: string, model: Model) {
   const uniqueOutputs = [...new Set(outputs.map(o => o.toLowerCase()))].map(l => outputs.find(o => o.toLowerCase() === l)!);
   const hasWaste = model.fields.some(f => f.id === 'waste');
   const hasPrice = model.fields.some(f => f.id === 'price');
-  const primary = uniqueOutputs.slice(0, 2).join(' and ').toLowerCase();
-  const extra = uniqueOutputs.length > 2 ? ` plus ${uniqueOutputs.length - 2} more` : '';
-  // Rich, specific, 130-160 chars, model-accurate — no invented prices or unsupported features
-  const baseDesc = `${title} — calculate ${primary}${extra} from your measurements${hasWaste ? ' with waste allowance' : ''}. US customary & metric units supported${hasPrice ? ' with optional cost estimate' : ''}.`;
+  const primaryOutputs = uniqueOutputs.slice(0, 3).map(output => output.toLowerCase());
+  const primary = primaryOutputs.length > 1
+    ? `${primaryOutputs.slice(0, -1).join(', ')} and ${primaryOutputs.at(-1)}`
+    : (primaryOutputs[0] ?? 'project quantities');
+  const outputScope = uniqueOutputs.length > 3 ? `${primary} and related estimates` : primary;
+  // Rich, specific, model-accurate — no invented prices or unsupported features.
+  // Avoid internal template phrasing such as "plus 10 more" in search snippets.
+  const baseDesc = `${title} — calculate ${outputScope} from your measurements${hasWaste ? ' with waste allowance' : ''}. US customary & metric units supported${hasPrice ? ' with optional cost estimate' : ''}.`;
   const tail = ' Formula, worked example & assumptions included.';
   let description = baseDesc + tail;
   // Ensure 130-160 chars: pad with field context if too short, truncate cleanly if too long
@@ -45,7 +49,12 @@ export function getCalculatorContent(title: string, model: Model) {
     description,
     outputs,
     fields,
-    inputs: fields.map(f => `${f.label}: ${fmt(raw[f.id])}${f.unit ? ` ${unitLabels[f.unit] ?? f.unit}` : ''}`),
+    inputs: fields.map((f) => {
+      const option = f.options?.find((item) => item.value === raw[f.id]);
+      const displayValue = option?.label ?? fmt(raw[f.id]);
+      const displayUnit = option ? '' : (f.unit ? ` ${unitLabels[f.unit] ?? f.unit}` : '');
+      return `${f.label}: ${displayValue}${displayUnit}`;
+    }),
     example: calculation,
     exampleNote: supplied.length ? `Illustrative inputs only: ${supplied.join(', ')}. Replace these with your product quote or project specification; they are not recommended values.` : 'This example uses the initial form values. Change the inputs above for your own project.',
     instructions: [

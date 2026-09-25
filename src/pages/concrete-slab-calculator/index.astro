@@ -2,7 +2,7 @@
 import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import ConcreteSlabCalculator from "../../components/calculators/ConcreteSlabCalculator.astro";
+import GenericCalculator from "../../components/calculators/GenericCalculator.astro";
 
 const related = [
   { title: "Concrete Calculator", href: "/concrete-calculator/", desc: "Broad concrete volume, bags, weight and cost estimate" },
@@ -54,7 +54,7 @@ const faq = [
   dateModified="2026-09-24"
 >
   <Header slot="header" />
-  <ConcreteSlabCalculator slot="calculator" />
+  <GenericCalculator slot="calculator" id="concrete-slab-calculator" resultTitle="CONCRETE SLAB ESTIMATE" />
   <section class="space-y-6">
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
