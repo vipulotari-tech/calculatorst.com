@@ -69,7 +69,7 @@ describe('Deck / fence / gate regressions', () => {
 describe('Paver / landscaping regressions', () => {
   it('paver calculator uses paver terminology and straight-layout rows and columns', () => {
     expect(value('paver-calculator', 'installed', { length: 10, width: 10, paverLength: 12, paverWidth: 12, joint: 0, waste: 0 }, { paverLength: 'in', paverWidth: 'in', joint: 'in' })).toBe(100);
-    expect(value('paver-calculator', 'order', { length: 10, width: 10, paverLength: 12, paverWidth: 12, joint: 0, waste: 10 }, { paverLength: 'in', paverWidth: 'in', joint: 'in' })).toBe(111);
+    expect(value('paver-calculator', 'order', { length: 10, width: 10, paverLength: 12, paverWidth: 12, joint: 0, waste: 10 }, { paverLength: 'in', paverWidth: 'in', joint: 'in' })).toBe(110);
   });
 
   it('generic landscaping material calculator is no longer mulch-specific', () => {
