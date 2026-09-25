@@ -596,10 +596,14 @@ const diagramFields = fields
           const primaryRow = result.rows[0];
           const remainingRows = result.rows.slice(1);
 
-          // Update primary hero badge
-          targetPrimaryValEl.textContent = fmt(primaryRow.value);
-          if (primaryUnitEl) {
-            primaryUnitEl.textContent = unitLabels[primaryRow.unit] ?? primaryRow.unit;
+          // Keep ratio-style results visually atomic (for example 6:12 rather than 6 :12).
+          const primaryUnit = unitLabels[primaryRow.unit] ?? primaryRow.unit;
+          if (primaryRow.unit === ':12') {
+            targetPrimaryValEl.textContent = `${fmt(primaryRow.value)}:12`;
+            if (primaryUnitEl) primaryUnitEl.textContent = '';
+          } else {
+            targetPrimaryValEl.textContent = fmt(primaryRow.value);
+            if (primaryUnitEl) primaryUnitEl.textContent = primaryUnit;
           }
           if (secondaryEl) {
             secondaryEl.textContent = primaryRow.label;
