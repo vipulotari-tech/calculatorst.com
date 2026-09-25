@@ -65,67 +65,67 @@ const primaryCalculator = calculators.find((c) => c.slug === primaryByCluster[cl
 const categorySeoOverrides: Record<string, { title: string; description: string }> = {
   concrete: {
     title: "Concrete Calculators — Yards, Bags, Cost & Project Tools",
-    description: "Use 17 concrete calculators for volume, slabs, footings, foundations, walls, columns, curbs, stairs, ramps, mix, weight, waste, cost and crack repair.",
+    description: `Use ${calculators.length} concrete calculators for volume, slabs, footings, foundations, walls, columns, curbs, stairs, ramps, mix, weight, waste, cost and crack repair.`,
   },
   slab: {
     title: "Slab, Patio & Driveway Calculators — Concrete & Cost Tools",
-    description: "Use 10 calculators for slab thickness, cost and rebar plus patio, driveway, garage-slab and shed-foundation concrete, base, bags, trucks and project cost.",
+    description: `Use ${calculators.length} calculators for slab thickness, cost and rebar plus patio, driveway, garage-slab and shed-foundation concrete, base, bags, trucks and project cost.`,
   },
   foundation: {
     title: "Foundation & Footing Calculators — Concrete, Excavation & Cost",
-    description: "Use 10 foundation calculators for strip, pad and pier footings, footing volume, concrete, walls, basements, crawl spaces, excavation and project cost.",
+    description: `Use ${calculators.length} foundation calculators for strip, pad and pier footings, footing volume, concrete, walls, basements, crawl spaces, excavation and project cost.`,
   },
   rebar: {
     title: "Rebar & Reinforcement Calculators — Grid, Weight, Spacing & Cost",
-    description: "Use 10 rebar calculators for grid layout, quantity, stock bars, weight, cost, spacing, total length, lap steel, reinforcement mesh and chair supports.",
+    description: `Use ${calculators.length} rebar calculators for grid layout, quantity, stock bars, weight, cost, spacing, total length, lap steel, reinforcement mesh and chair supports.`,
   },
   brick: {
     title: "Brick & Masonry Calculators — Quantity, Mortar, Weight & Cost",
-    description: "Use 15 brick and masonry calculators for wall quantity, courses, cost, mortar, veneer, patios, pavers, generic masonry units, weight, waste and joint spacing.",
+    description: `Use ${calculators.length} brick and masonry calculators for wall quantity, courses, cost, mortar, veneer, patios, pavers, generic masonry units, weight, waste and joint spacing.`,
   },
   cmu: {
     title: "Concrete Block & CMU Calculators — Blocks, Mortar, Grout & Rebar",
-    description: "Use 10 concrete-block and CMU calculators for block quantity, walls, cost, shipment weight, mortar, grout core fill and vertical/horizontal reinforcement takeoff.",
+    description: `Use ${calculators.length} concrete-block and CMU calculators for block quantity, walls, cost, shipment weight, mortar, grout core fill and vertical/horizontal reinforcement takeoff.`,
   },
   mortar: {
     title: "Mortar, Grout & Cement Calculators — Bags, Mixes, Cost & Stucco",
-    description: "Use 12 calculators for mortar bags, mix ratios, wall mortar, grout joints, grout/cement cost, cement bags, cement-sand ratios, deck mud and stucco.",
+    description: `Use ${calculators.length} calculators for mortar bags, mix ratios, wall mortar, grout joints, grout/cement cost, cement bags, cement-sand ratios, deck mud and stucco.`,
   },
   gravel: {
     title: "Gravel, Aggregate & Dirt Calculators — Yards, Tons, Depth & Cost",
-    description: "Use 15 calculators for gravel, crushed stone, aggregate, sand, fill dirt and topsoil volume, weight, coverage depth and quote-based project cost.",
+    description: `Use ${calculators.length} calculators for gravel, crushed stone, aggregate, sand, fill dirt and topsoil volume, weight, coverage depth and quote-based project cost.`,
   },
   excavation: {
     title: "Excavation & Earthwork Calculators — Bank, Loose, Fill & Hauling",
-    description: "Use 10 excavation calculators for bank and loose volume, sloped cuts, trenches, backfill, cut/fill balance, truck trips, soil volume, weight and cost.",
+    description: `Use ${calculators.length} excavation calculators for bank and loose volume, sloped cuts, trenches, backfill, cut/fill balance, truck trips, soil volume, weight and cost.`,
   },
   framing: {
     title: "Framing & Lumber Calculators — Studs, Joists, Board Feet & Beams",
-    description: "Use 15 framing calculators for wall studs and plates, lumber count and cost, board feet, joist count and spacing, plus header and beam analysis.",
+    description: `Use ${calculators.length} framing calculators for wall studs and plates, lumber count and cost, board feet, joist count and spacing, plus header and beam analysis.`,
   },
   roofing: {
     title: "Roofing Calculators — Area, Pitch, Shingles, Rafters & Materials",
-    description: "Use 15 roofing calculators for roof area and pitch, shingles, underlayment, sheathing, rafters, trusses, flashing, waste and material cost.",
+    description: `Use ${calculators.length} roofing calculators for roof area and pitch, shingles, underlayment, sheathing, rafters, trusses, flashing, waste and material cost.`,
   },
   flooring: {
     title: "Flooring & Tile Calculators — Coverage, Boxes, Carpet & Cost",
-    description: "Use 15 flooring calculators for hardwood, laminate, vinyl, carpet and tile coverage, boxes, cost, grout, adhesive, underlayment and waste.",
+    description: `Use ${calculators.length} flooring calculators for hardwood, laminate, vinyl, carpet and tile coverage, boxes, cost, grout, adhesive, underlayment and waste.`,
   },
   drywall: {
     title: "Drywall, Paint & Insulation Calculators — Sheets, Gallons & Cost",
-    description: "Use 15 calculators for drywall sheets, mud, screws and tape plus paint, primer, insulation packages and spray-foam board feet, quantities and cost.",
+    description: `Use ${calculators.length} calculators for drywall sheets, mud, screws and tape plus paint, primer, insulation packages and spray-foam board feet, quantities and cost.`,
   },
   "deck-fence": {
     title: "Deck & Fence Calculators — Boards, Posts, Footings & Cost",
-    description: "Use 15 deck, fence and gate calculators for boards, joists, post-hole concrete, stairs, railings, posts, panels, pickets, gate layout and material cost.",
+    description: `Use ${calculators.length} deck, fence and gate calculators for boards, joists, post-hole concrete, stairs, railings, posts, panels, pickets, gate layout and material cost.`,
   },
   landscaping: {
     title: "Paver & Landscaping Calculators — Pavers, Base, Sand, Mulch & Cost",
-    description: "Use 10 paver and landscaping calculators for paver layout, base, bedding and joint sand, landscape material, mulch, retaining-wall blocks and cost.",
+    description: `Use ${calculators.length} paver and landscaping calculators for paver layout, base, bedding and joint sand, landscape material, mulch, retaining-wall blocks and cost.`,
   },
   asphalt: {
     title: "Asphalt Calculators — Tons, Thickness, Parking Lots & Cost",
-    description: "Use 10 asphalt and surface calculators for tons, volume, weight, reverse thickness, driveways, parking lots, road base, surface area and quote-based cost.",
+    description: `Use ${calculators.length} asphalt and surface calculators for tons, volume, weight, reverse thickness, driveways, parking lots, road base, surface area and quote-based cost.`,
   },
 };
 const categorySeo = categorySeoOverrides[cluster];
