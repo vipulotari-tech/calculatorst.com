@@ -55,10 +55,20 @@ const show = (kind === "concreteWeight" || !excluded) && fields.length >= 2;
 
       {kind === "concreteWeight" && (
         <>
-          <text x="34" y="34" font-size="12" font-weight="600" fill="var(--color-muted-foreground)" data-concrete-weight-mode-name>Measured concrete dimensions</text>
-          <polygon points="145,82 430,82 510,130 225,130" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
-          <polygon points="225,130 510,130 510,180 225,180" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
-          <polygon points="430,82 510,130 510,180 430,132" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          <text x="34" y="34" font-size="12" font-weight="600" fill="var(--color-muted-foreground)" data-concrete-weight-mode-name>Rectangular slab / prism dimensions</text>
+
+          <g data-concrete-weight-shape="1">
+            <polygon points="145,82 430,82 510,130 225,130" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="225,130 510,130 510,180 225,180" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="430,82 510,130 510,180 430,132" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+
+          <g data-concrete-weight-shape="2" style="display:none">
+            <ellipse cx="320" cy="78" rx="105" ry="30" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <path d="M215 78 V172 C215 190 262 204 320 204 C378 204 425 190 425 172 V78" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <ellipse cx="320" cy="172" rx="105" ry="30" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1.5" />
+          </g>
+
           <text x="320" y="216" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-diagram-value="0">Measurement 1</text>
           <text x="118" y="124" text-anchor="middle" font-size="13" fill="var(--color-foreground)" transform="rotate(-32 118 124)" data-diagram-value="1">Measurement 2</text>
           <text x="523" y="157" font-size="13" fill="var(--color-muted-foreground)" data-diagram-value="2">Measurement 3</text>
@@ -290,10 +300,17 @@ const show = (kind === "concreteWeight" || !excluded) && fields.length >= 2;
 
       const updateConcreteWeightDiagram = () => {
         if (figure.dataset.kind !== "concreteWeight") return;
-        const mode = Math.round(numericControl("mode"));
+        const mode = Math.round(numericControl("weightMode"));
         figure.hidden = mode === 0;
+        figure.querySelectorAll<SVGGElement>("[data-concrete-weight-shape]").forEach((group) => {
+          group.style.display = group.dataset.concreteWeightShape === String(mode) ? "" : "none";
+        });
         const name = figure.querySelector<SVGTextElement>("[data-concrete-weight-mode-name]");
-        if (name) name.textContent = mode === 2 ? "Known area × concrete depth" : "Length × width × concrete depth";
+        if (name) {
+          name.textContent = mode === 2
+            ? "Round slab / cylinder dimensions"
+            : "Rectangular slab / prism dimensions";
+        }
       };
 
       const updateConcreteVolumeDiagram = () => {
