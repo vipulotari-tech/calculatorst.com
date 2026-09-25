@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { getCalculatorContent } from "../calculator-content.ts";
 import { getModelForSlug } from "../calculator-registry.ts";
 import { InputError, readInputs } from "../calculator-math.ts";
 
@@ -35,6 +36,15 @@ function value(
 }
 
 describe("Concrete Footing Calculator golden values", () => {
+  it("renders the worked-example footing type as a label and hides inactive geometry", () => {
+    const model = getModelForSlug(slug);
+    const content = getCalculatorContent("Concrete Footing Calculator", model);
+    expect(content.inputs).toContain("Footing type: Strip / continuous");
+    expect(content.inputs.some((input) => input.includes("Side width (square pad)"))).toBe(false);
+    expect(content.inputs.some((input) => input.includes("Pad length (rectangular)"))).toBe(false);
+    expect(content.inputs.some((input) => input.includes("Diameter (round)"))).toBe(false);
+  });
+
   it("strip footing: 20 ft × 12 in × 12 in × 2 = 40 ft³", () => {
     expect(value("ft3", {
       footingShape: 0,
