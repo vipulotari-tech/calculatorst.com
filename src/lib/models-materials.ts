@@ -214,9 +214,9 @@ const concreteVolumeFields: Field[] = [
   { ...length('height', 'Height / circular depth', 8, 'ft', 'Use the cylinder or column height, or the depth of a round slab.'), visibleWhen: { field: 'shape', in: [1, 2, 6, 8] } },
   { ...positiveOrZero(length('innerDiameter', 'Inner diameter', 6, 'in', 'Hollow-tube mode only. Must be greater than zero and smaller than the outer diameter.')), visibleWhen: { field: 'shape', equals: 2 } },
   { ...length('curbWidth', 'Curb width', 6, 'in', 'Horizontal width of the raised curb section.'), visibleWhen: { field: 'shape', equals: 3 } },
-  { ...length('curbHeight', 'Curb height above gutter', 6, 'in', 'Height of the curb above the gutter/flag surface.'), visibleWhen: { field: 'shape', equals: 3 } },
+  { ...length('curbHeight', 'Total curb height', 12, 'in', 'Total curb height measured from the bottom of the curb section.'), visibleWhen: { field: 'shape', equals: 3 } },
   { ...length('gutterWidth', 'Gutter width beyond curb', 18, 'in', 'Horizontal gutter/flag width beyond the curb.'), visibleWhen: { field: 'shape', equals: 3 } },
-  { ...length('gutterDepth', 'Gutter / flag thickness', 6, 'in', 'Thickness of the gutter/flag, including the portion under the curb.'), visibleWhen: { field: 'shape', equals: 3 } },
+  { ...length('gutterDepth', 'Gutter thickness', 6, 'in', 'Thickness of the gutter section beyond the curb.'), visibleWhen: { field: 'shape', equals: 3 } },
   { ...length('stairWidth', 'Stair width', 4, 'ft'), visibleWhen: { field: 'shape', equals: 4 } },
   { ...length('rise', 'Rise per step', 7, 'in'), visibleWhen: { field: 'shape', equals: 4 } },
   { ...length('run', 'Tread depth', 11, 'in'), visibleWhen: { field: 'shape', equals: 4 } },
@@ -230,12 +230,12 @@ const concreteVolumeFields: Field[] = [
 
 const concreteVolume: Model = {
   fields: [...concreteVolumeFields, ...concreteSharedFields],
-  formula: 'Rectangular slab/prism, wall, footing and rectangular column: V = L × W × H using the active dimensions. Round slab/cylinder: V = π × (D/2)² × H. Hollow tube: V = π/4 × (Dₒ² − Dᵢ²) × H. Curb + gutter: V = L × [curb width × curb height + (curb width + gutter width) × gutter thickness]. Solid stairs: V = width × rise × run × n(n+1)/2 plus any solid top landing. Triangle prism/wedge: V = 0.5 × base × height × prism length. Every shape is multiplied by the number of identical sections.',
+  formula: 'Rectangular slab/prism, wall, footing and rectangular column: V = L × W × H using the active dimensions. Round slab/cylinder: V = π × (D/2)² × H. Hollow tube: V = π/4 × (Dₒ² − Dᵢ²) × H. Curb + gutter: V = L × (curb width × total curb height + gutter width beyond curb × gutter thickness). Solid stairs: V = width × rise × run × n(n+1)/2 plus any solid top landing. Triangle prism/wedge: V = 0.5 × base × height × prism length. Every shape is multiplied by the number of identical sections.',
   assumptions: [
     ...standardAssumptions,
     'Round slab, cylinder and round-column mode use the same circular-prism formula; the height field acts as slab depth when the shape is shallow.',
     'For hollow tubes, the inner diameter must be greater than zero and smaller than the outer diameter.',
-    'Curb + gutter mode treats the raised curb and the full gutter/flag thickness as non-overlapping rectangles, including flag thickness below the curb.',
+    'Curb + gutter mode uses two non-overlapping rectangles: total curb width × total curb height, plus the gutter width beyond the curb × gutter thickness. This matches the dedicated Concrete Curb Calculator convention.',
     'Stairs are treated as solid mass-fill steps from a level base; each succeeding tread is one riser taller.',
     'The optional top landing is treated as a solid rectangular extension at the full stair height.',
     'Triangle prism / wedge mode uses a right-triangle cross-section and a constant perpendicular length.',
@@ -276,13 +276,13 @@ const concreteVolume: Model = {
       requireCondition(v.curbHeight > 0, 'curbHeight', 'Enter a curb height greater than zero.');
       requireCondition(v.gutterWidth > 0, 'gutterWidth', 'Enter a gutter width greater than zero.');
       requireCondition(v.gutterDepth > 0, 'gutterDepth', 'Enter a gutter thickness greater than zero.');
-      const raisedCurbArea = v.curbWidth * v.curbHeight;
-      const flagArea = (v.curbWidth + v.gutterWidth) * v.gutterDepth;
-      const each = v.length * (raisedCurbArea + flagArea);
+      const curbArea = v.curbWidth * v.curbHeight;
+      const gutterArea = v.gutterWidth * v.gutterDepth;
+      const each = v.length * (curbArea + gutterArea);
       cuFt = each * v.quantity;
       steps = [
-        `Raised curb area: ${fmt(v.curbWidth)} × ${fmt(v.curbHeight)} = ${fmt(raisedCurbArea)} ft².`,
-        `Gutter/flag area: (${fmt(v.curbWidth)} + ${fmt(v.gutterWidth)}) × ${fmt(v.gutterDepth)} = ${fmt(flagArea)} ft².`,
+        `Curb area: ${fmt(v.curbWidth)} × ${fmt(v.curbHeight)} = ${fmt(curbArea)} ft².`,
+        `Gutter area beyond curb: ${fmt(v.gutterWidth)} × ${fmt(v.gutterDepth)} = ${fmt(gutterArea)} ft².`
         `Cross-section × ${fmt(v.length)} ft = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`,
       ];
     } else if (s === 4) {
