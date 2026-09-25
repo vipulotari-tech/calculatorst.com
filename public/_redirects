@@ -68,6 +68,8 @@
 /construction/decking/ /construction/deck-fence/ 301
 /construction/drywall /construction/drywall-paint/ 301
 /construction/drywall/ /construction/drywall-paint/ 301
+/construction/drywall-pain /construction/drywall-paint/ 301
+/construction/drywall-pain/ /construction/drywall-paint/ 301
 /construction/drywall-paint /construction/drywall-paint/ 301
 /construction/excavation /construction/excavation/ 301
 /construction/fencing /construction/deck-fence/ 301
