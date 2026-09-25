@@ -105,7 +105,7 @@ describe("Complete 204 Calculator Logic Audit", () => {
     expect(ft3({ ...base, shape: 0, quantity: 2 })).toBeCloseTo(80, 8);
     expect(ft3({ ...base, shape: 1, quantity: 3 })).toBeCloseTo(Math.PI * 30, 8);
     expect(ft3({ ...base, shape: 2, quantity: 2 })).toBeCloseTo(Math.PI * 15, 8);
-    expect(ft3({ ...base, shape: 3, length: 20, quantity: 2 })).toBeCloseTo(50, 8);
+    expect(ft3({ ...base, shape: 3, length: 20, curbHeight: 12, quantity: 2 })).toBeCloseTo(50, 8);
     expect(ft3({ ...base, shape: 4, quantity: 2 })).toBeCloseTo(2 * 4 * (7 / 12) * (11 / 12) * 10, 8);
     expect(ft3({ ...base, shape: 5, quantity: 2 })).toBeCloseTo(30, 8);
     expect(ft3({ ...base, shape: 6, length: 30, height: 8, thickness: 8 })).toBeCloseTo(160, 8);
