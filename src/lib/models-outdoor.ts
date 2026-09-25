@@ -2,8 +2,161 @@ import type { Model } from './calculator-types.ts';
 import { FT_PER_M, allowance, count, fmt, length, positiveOrZero, price, rectangle, requireCondition, result, roundUp, row, volume, waste, withCost } from './calculator-math.ts';
 const deck:Model={fields:[...rectangle,length('boardWidth','Actual board face width',5.5,'in'),length('boardLength','Stock board length',16),positiveOrZero(length('gap','Gap between boards',0.125,'in')),length('spacing','Maximum joist spacing',16,'in'),count('fasteners','Fasteners per board / joist intersection',2),allowance,price('USD/board',['USD/board','USD/ft'])],formula:'Rows = ceil((deck width + gap)/(board width + gap)); boards per row = ceil(deck length / stock length); total boards = rows × boards per row.',assumptions:['Boards run along the entered deck length. Straight layout, no offcut reuse, no fascia, picture frame, stairs or railing.','Joists cross the boards. Fastener estimate includes both sides of each butt joint on supporting framing; the fastening system and blocking must come from the manufacturer and plans.','Spacing is an estimating input, not a span or structural approval.'],sources:[],calculate(v,u){const rows=roundUp((v.width+v.gap)/(v.boardWidth+v.gap)),perRow=roundUp(v.length/v.boardLength),boards=rows*perRow,order=roundUp(boards*waste(v)),joists=roundUp(v.length/v.spacing)+1,fasteners=roundUp(rows*(joists+perRow-1)*v.fasteners*waste(v));return result(withCost([row('boards','Stock boards with spares',order,'boards',true),row('base','Boards in layout',boards,'boards',true),row('rows','Decking rows',rows,'rows',true),row('joists','Estimated joist lines',joists,'lines',true),row('fasteners','Estimated fasteners with allowance',fasteners,'fasteners',true),row('length','Purchased board length',order*v.boardLength,'ft'),row('area','Deck surface',v.length*v.width,'ft²')],v.price,u.price,{'USD/board':order,'USD/ft':order*v.boardLength}),[`${rows} rows × ${perRow} stock boards per row = ${boards} boards.`,`Purchase ceil(${boards} × ${fmt(waste(v))}) = ${order} boards.`,`Fasteners: ${rows} × (${joists} joist lines + ${perRow-1} butt-joint sides) × ${v.fasteners}, plus allowance.`]);}};
 const fence:Model={fields:[length('length','One continuous fence run (excluding gates)',100),length('spacing','Maximum post center spacing',8),count('extraPosts','Additional gate / corner posts',0,0),allowance,{...price('USD/panel',['USD/panel','USD/ft']),label:'Panel price',help:'Panel material only. Per-panel pricing includes spare panels; per-foot pricing uses the measured run. Posts, gates, hardware, concrete, labor and delivery are excluded.'}],formula:'Sections = ceil(run length / maximum post spacing); posts = sections + 1 + additional posts.',assumptions:['One open, continuous run. For multiple disconnected runs, calculate each run separately. A closed loop does not need the extra end post.','Gate widths must already be deducted from the run. Add only posts not already counted as run endpoints; do not count shared corner or gate posts twice.','Panel quantity equals sections, and panels must be compatible with the entered spacing. Allowance buys spares; it does not change installed spacing.'],sources:[],calculate(v,u){const sections=roundUp(v.length/v.spacing),posts=sections+1+v.extraPosts,postOrder=roundUp(posts*waste(v)),panelOrder=roundUp(sections*waste(v));return result(withCost([row('posts','Installed posts',posts,'posts',true),row('panels','Installed sections / panels',sections,'panels',true),row('postOrder','Posts with spares',postOrder,'posts',true),row('panelOrder','Panels with spares',panelOrder,'panels',true),row('spacing','Equalized post center spacing',v.length/sections,'ft')],v.price,u.price,{'USD/panel':panelOrder,'USD/ft':v.length}).map(r=>r.key==='cost'?{...r,label:'Estimated panel material cost'}:r),[`ceil(${fmt(v.length)} / ${fmt(v.spacing)}) = ${sections} sections.`,`${sections} + 1 + ${v.extraPosts} = ${posts} installed posts.`]);}};
+
+const fencePost:Model={
+  fields:[
+    length('length','One continuous fence run (excluding gates)',100),
+    length('spacing','Maximum post center spacing',8),
+    count('extraPosts','Additional gate / corner posts',0,0),
+    allowance,
+    {...price('USD/post',['USD/post']),label:'Price per post'}
+  ],
+  formula:'Sections = ceil(run length / maximum post center spacing); installed posts = sections + 1 + additional posts; posts to order = ceil(installed posts × allowance factor).',
+  assumptions:[
+    'One open, continuous fence run. Calculate disconnected runs separately so each run receives its own end posts.',
+    'Gate openings must already be deducted from the measured run. Add only gate or corner posts that are not already counted as run endpoints.',
+    'Post spacing, post size, embedment and footing design are project inputs; this calculator performs layout and purchasing math only.'
+  ],
+  sources:[],
+  calculate(v,u){
+    const sections=roundUp(v.length/v.spacing);
+    const installed=sections+1+v.extraPosts;
+    const order=roundUp(installed*waste(v));
+    const equalSpacing=v.length/sections;
+    return result(
+      withCost([
+        row('posts','Installed posts',installed,'posts',true),
+        row('order','Posts with spares',order,'posts',true),
+        row('sections','Fence sections',sections,'sections',true),
+        row('spacing','Equalized center spacing across measured run',equalSpacing,'ft')
+      ],v.price,u.price,{'USD/post':order}),
+      [
+        `ceil(${fmt(v.length)} ÷ ${fmt(v.spacing)}) = ${sections} fence sections.`,
+        `${sections} + 1 + ${v.extraPosts} = ${installed} installed posts.`,
+        `ceil(${installed} × ${fmt(waste(v))}) = ${order} posts to order.`
+      ]
+    );
+  }
+};
+
+const fencePanel:Model={
+  fields:[
+    length('length','Fence run to cover (excluding gates)',100),
+    length('panelWidth','Nominal installed panel coverage',6),
+    count('extraPosts','Additional gate / corner posts',0,0),
+    allowance,
+    {...price('USD/panel',['USD/panel']),label:'Price per panel'}
+  ],
+  formula:'Whole panels = ceil(run length / panel coverage); supporting posts = panels + 1 + additional posts; panels to order = ceil(whole panels × allowance factor).',
+  assumptions:[
+    'One open, straight run using equal-width prefabricated panels. Gate openings must already be excluded.',
+    'The final panel may require trimming or a custom-width bay; confirm whether the selected fence system permits that installation.',
+    'Post size, embedment, wind design and footing requirements are outside this material takeoff.'
+  ],
+  sources:[],
+  calculate(v,u){
+    const panels=roundUp(v.length/v.panelWidth);
+    const posts=panels+1+v.extraPosts;
+    const order=roundUp(panels*waste(v));
+    const purchasedCoverage=panels*v.panelWidth;
+    return result(
+      withCost([
+        row('panels','Whole panels for measured run',panels,'panels',true),
+        row('order','Panels with spares',order,'panels',true),
+        row('posts','Supporting posts before post spares',posts,'posts',true),
+        row('coverage','Nominal coverage from installed panels',purchasedCoverage,'ft'),
+        row('extra','Nominal coverage beyond measured run',Math.max(0,purchasedCoverage-v.length),'ft')
+      ],v.price,u.price,{'USD/panel':order}),
+      [
+        `ceil(${fmt(v.length)} ÷ ${fmt(v.panelWidth)}) = ${panels} whole panels.`,
+        `${panels} + 1 + ${v.extraPosts} = ${posts} supporting posts.`,
+        `ceil(${panels} × ${fmt(waste(v))}) = ${order} panels to order.`
+      ]
+    );
+  }
+};
+
+const paver:Model={
+  fields:[
+    ...rectangle,
+    length('paverLength','Paver face length',8,'in'),
+    length('paverWidth','Paver face width',4,'in'),
+    positiveOrZero(length('joint','Joint width',0.125,'in')),
+    allowance,
+    price('USD/unit')
+  ],
+  formula:'Rows = ceil((area width + joint) / (paver width + joint)); columns = ceil((area length + joint) / (paver length + joint)); installed pavers = rows × columns; order quantity = ceil(installed pavers × allowance factor).',
+  assumptions:[
+    'Straight rectangular layout with one paver orientation. Curves, borders, patterns, soldier courses and offcut reuse can change the real quantity.',
+    'Use actual face dimensions and the intended installed joint width for the selected paver system.',
+    'Base aggregate, bedding sand and joint sand are separate scopes handled by their dedicated calculators.'
+  ],
+  sources:[],
+  calculate(v,u){
+    const moduleLength=v.paverLength+v.joint;
+    const moduleWidth=v.paverWidth+v.joint;
+    const columns=roundUp((v.length+v.joint)/moduleLength);
+    const rows=roundUp((v.width+v.joint)/moduleWidth);
+    const installed=rows*columns;
+    const order=roundUp(installed*waste(v));
+    const area=v.length*v.width;
+    return result(
+      withCost([
+        row('order','Pavers to order',order,'pavers',true),
+        row('installed','Pavers in straight layout',installed,'pavers',true),
+        row('rows','Paver rows',rows,'rows',true),
+        row('columns','Pavers per row',columns,'pavers',true),
+        row('area','Paved area',area,'ft²'),
+        row('spares','Allowance / spare pavers',order-installed,'pavers',true)
+      ],v.price,u.price,{'USD/unit':order}),
+      [
+        `Rows: ceil((${fmt(v.width)} + ${fmt(v.joint)}) ÷ (${fmt(v.paverWidth)} + ${fmt(v.joint)})) = ${rows}.`,
+        `Columns: ceil((${fmt(v.length)} + ${fmt(v.joint)}) ÷ (${fmt(v.paverLength)} + ${fmt(v.joint)})) = ${columns}.`,
+        `${rows} × ${columns} = ${installed} installed pavers; order ${order} with allowance.`
+      ]
+    );
+  }
+};
+
+const landscapeMaterial:Model={
+  fields:[
+    ...rectangle,
+    length('depth','Placed material depth',3,'in'),
+    count('quantity','Identical areas',1),
+    {...volume('bag','Volume per bag',2),unit:'ft3',help:'Enter the labeled bag volume for the material being purchased.'},
+    allowance,
+    price('USD/yd3',['USD/yd3','USD/bag'])
+  ],
+  formula:'Net material volume = length × width × placed depth × identical areas; order volume = net volume × allowance factor; bags = ceil(order volume / bag volume).',
+  assumptions:[
+    'Rectangular areas with a uniform placed depth. Split irregular beds or zones into non-overlapping rectangles and add the results.',
+    'Bag size and bulk material behavior vary by product. Use the labeled bag volume or supplier quote for the selected material.',
+    'This is a quantity calculator; it does not choose an agronomic, drainage or structural placement depth.'
+  ],
+  sources:[],
+  calculate(v,u){
+    const net=v.length*v.width*v.depth*v.quantity;
+    const order=net*waste(v);
+    const bags=roundUp(order/v.bag);
+    return result(
+      withCost([
+        row('order','Bulk material with allowance',order/27,'yd³'),
+        row('bags','Whole bags',bags,'bags',true),
+        row('net','Net placed volume',net/27,'yd³'),
+        row('ft3','Order volume',order,'ft³'),
+        row('m3','Order volume',order/FT_PER_M**3,'m³')
+      ],v.price,u.price,{'USD/yd3':order/27,'USD/bag':bags}),
+      [
+        `${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(net)} ft³ net.`,
+        `${fmt(net)} × ${fmt(waste(v))} = ${fmt(order)} ft³ with allowance.`,
+        `Round ${fmt(order)} ÷ ${fmt(v.bag)} up = ${bags} bags.`
+      ]
+    );
+  }
+};
+
 export const outdoorModels:Record<string,Model>={
-  deck,fence,
+  deck,fence,fencePost,fencePanel,paver,landscapeMaterial,
   pickets:{fields:[length('length','Clear distance covered by pickets',100),length('width','Picket face width',5.5,'in'),positiveOrZero(length('gap','Gap between pickets',0,'in')),allowance,price('USD/unit')],formula:'Pickets = ceil((covered length + gap) / (picket width + gap)).',assumptions:['Pickets at both ends, with gaps only between pickets. Gate openings, posts and overlap styles need separate treatment.'],sources:[],calculate(v,u){const base=roundUp((v.length+v.gap)/(v.width+v.gap)),n=roundUp(base*waste(v));return result(withCost([row('pickets','Pickets with spares',n,'pickets',true),row('installed','Pickets across run',base,'pickets',true)],v.price,u.price,{'USD/unit':n}),[`ceil((${fmt(v.length)} + ${fmt(v.gap)}) / (${fmt(v.width)} + ${fmt(v.gap)})) = ${base}.`]);}},
   postConcrete:{fields:[count('quantity','Number of posts',10),length('diameter','Round hole diameter',12,'in'),length('depth','Concrete fill depth',24,'in'),length('postWidth','Square post actual width',3.5,'in'),{...volume('yield','Mixed concrete yield per bag',0.375),unit:'ft3',help:'Example yield for a 50 lb standard mix. Check the exact product; this is not a bag-per-post rule.'},allowance,price('USD/unit')],formula:'Concrete = post count × fill depth × (π × hole diameter²/4 − square post width²); bags = ceil(concrete × allowance factor / bag yield).',assumptions:['A centered square post in a cylindrical hole. The post occupies the full concrete fill depth. Gravel below the concrete is excluded.','Hole size, embedment and suitability of concrete depend on the project design and local conditions; this tool only estimates material.'],sources:['https://www.quikrete.com/calculator/main.asp'],calculate(v,u){requireCondition(v.postWidth*Math.SQRT2<v.diameter,'postWidth','The square post diagonal must fit inside the round hole.');const net=v.quantity*v.depth*(Math.PI*v.diameter**2/4-v.postWidth**2),order=net*waste(v),bags=roundUp(order/v.yield);return result(withCost([row('bags','Concrete bags',bags,'bags',true),row('volume','Concrete with allowance',order/27,'yd³'),row('per','Net concrete per post',net/v.quantity,'ft³')],v.price,u.price,{'USD/unit':bags}),[`Per hole: (${fmt(Math.PI*v.diameter**2/4)} − ${fmt(v.postWidth**2)}) ft² × ${fmt(v.depth)} ft = ${fmt(net/v.quantity)} ft³.`,`Round ${fmt(order)} ft³ / ${fmt(v.yield)} ft³ per bag up = ${bags} bags.`]);}},
   stairsLayout:{fields:[length('rise','Total finished rise',30,'in'),length('maxRiser','Chosen maximum riser height',7.5,'in'),length('tread','Chosen tread run',10,'in')],formula:'Risers = ceil(total rise / chosen maximum riser); actual rise = total rise / risers; treads = risers − 1; run = treads × tread run.',assumptions:['The deck or landing is the top walking surface, so there is one fewer separate tread than risers.','The maximum entered is a planning input, not a statement of local code. Nosing, stringer cuts, landing size, handrails and headroom are excluded.'],sources:[],calculate(v){const n=roundUp(v.rise/v.maxRiser),treads=n-1,run=treads*v.tread;return result([row('risers','Number of risers',n,'risers',true),row('actual','Equal riser height',v.rise/n*12,'in'),row('treads','Separate treads',treads,'treads',true),row('run','Total horizontal tread run',run,'ft'),row('diagonal','Overall rise/run diagonal',Math.hypot(run,v.rise),'ft')],[`ceil(${fmt(v.rise*12)} / ${fmt(v.maxRiser*12)}) = ${n} risers.`,`${fmt(v.rise*12)} / ${n} = ${fmt(v.rise/n*12)} in per riser.`,`${treads} treads × ${fmt(v.tread)} ft = ${fmt(run)} ft of run.`]);}},
