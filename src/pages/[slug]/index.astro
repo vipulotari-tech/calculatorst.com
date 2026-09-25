@@ -62,6 +62,8 @@ const sourceLabels: Record<string, string> = {
   "quikrete.com": "QUIKRETE technical documentation",
   "www.nrmca.org": "National Ready Mixed Concrete Association (NRMCA)",
   "nrmca.org": "National Ready Mixed Concrete Association (NRMCA)",
+  "www.nist.gov": "National Institute of Standards and Technology (NIST)",
+  "nist.gov": "National Institute of Standards and Technology (NIST)",
   "www.cmha.org": "Concrete Masonry & Hardscapes Association (CMHA)",
   "cmha.org": "Concrete Masonry & Hardscapes Association (CMHA)",
   "www.ada.gov": "U.S. Department of Justice — ADA",
@@ -308,15 +310,19 @@ const concreteSeo: Record<string, {
     title: "Concrete Footing Calculator — Strip, Pad & Round Footings",
     description: "Calculate concrete for strip, square, rectangular and round footings in cubic yards, bags and weight, with quantity, waste allowance and optional material cost.",
     guidance: [
-      "Select the footing shape that matches the plans; strip, pad and round footings use different geometric formulas.",
-      "Quantity multiplies the full footing volume, so repeated pads or isolated footings can be estimated in one calculation.",
-      "This tool estimates concrete only; footing dimensions, bearing capacity and reinforcement must come from the project design."
+      "Select the footing geometry first. Only the dimensions used by that mode stay visible, which keeps unrelated measurements out of the calculation.",
+      "Mixed US customary and metric dimensions are normalized once before the geometry is evaluated; quantity then multiplies the complete footing.",
+      "Material allowance is applied once to the net concrete volume. Bag count is rounded up only after dividing the adjusted volume by the mixed yield you enter.",
+      "Use the dimensions from the project plans. This calculator estimates concrete quantity; it does not determine soil bearing capacity, footing size or reinforcement.",
+      "For truck loads, short-load thresholds, pump charges and dispatch planning, use the Concrete Pour Calculator. For broader project-cost scope, use the Concrete Cost Calculator."
     ],
     faq: [
-      { q: "How do I calculate concrete for a strip footing?", a: "Multiply footing length × width × depth × quantity, using consistent units, then convert cubic feet to cubic yards and apply the selected allowance." },
-      { q: "Can I calculate several identical pad footings at once?", a: "Yes. Enter the dimensions of one footing and set Quantity to the number of identical footings." },
-      { q: "How is a round footing calculated?", a: "The calculator uses cylinder volume: π × radius² × depth × quantity." },
-      { q: "Does the calculator size the footing for soil bearing capacity?", a: "No. It converts already-selected footing dimensions to concrete quantity. Footing width, depth and reinforcement are design inputs." }
+      { q: "How do I calculate concrete for a strip footing?", a: "Multiply centerline footing length × width × depth × quantity, using the selected units. The calculator then converts that net volume to cubic yards and applies the material allowance once." },
+      { q: "Can I calculate several identical pad footings at once?", a: "Yes. Enter the dimensions of one square, rectangular or round footing and set Number of footings to the repeated quantity." },
+      { q: "Can I mix feet, inches and metric units?", a: "Yes. Choose the unit beside each active dimension. The calculator normalizes the measurements before applying the selected footing formula." },
+      { q: "How is a round footing calculated?", a: "Round footing volume is π × radius² × depth × quantity. Diameter is converted to radius inside the formula." },
+      { q: "How are concrete bags calculated?", a: "The allowance-adjusted volume is divided by the mixed yield per bag that you enter, then rounded up to a whole bag. Use the yield printed for the exact product you plan to buy." },
+      { q: "Does the calculator size the footing for soil bearing capacity?", a: "No. It converts already-selected footing dimensions to material quantity. Bearing, frost depth, dimensions and reinforcement are project-design inputs." }
     ]
   },
   "concrete-foundation-calculator": {
