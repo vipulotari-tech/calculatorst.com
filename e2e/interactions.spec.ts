@@ -5,6 +5,7 @@ const calculators = [
   { slug: 'rebar-calculator', type: 'generic' },
   { slug: 'concrete-calculator', type: 'generic' },
   { slug: 'concrete-volume-calculator', type: 'generic' },
+  { slug: 'concrete-weight-calculator', type: 'generic' },
   { slug: 'gravel-calculator', type: 'handbuilt' },
   { slug: 'concrete-slab-calculator', type: 'handbuilt' },
   { slug: 'roof-pitch-calculator', type: 'handbuilt' },
@@ -260,6 +261,63 @@ test.describe('Calculator interactions', () => {
     await expect(diagram).toContainText('24 in');
     await expect(diagram).toContainText('12 in');
     await expect(root.locator('.result-primary')).toHaveText('1.7453');
+  });
+
+  test('Concrete weight calculator — modes, density presets and primary result', async ({ page }) => {
+    await page.goto('/concrete-weight-calculator/');
+    const root = page.locator('[data-calculator-slug="concrete-weight-calculator"]');
+    const mode = root.locator('#concrete-weight-calculator-inputMode');
+    const densityBasis = root.locator('#concrete-weight-calculator-densityBasis');
+    const outputUnit = root.locator('#concrete-weight-calculator-outputUnit');
+
+    await expect(root.locator('.result-primary')).toHaveText('4,050');
+    await expect(root.locator('.result-primary-unit')).toHaveText('lb');
+    await expect(root.locator('#concrete-weight-calculator-field-volume')).toBeVisible();
+    await expect(root.locator('#concrete-weight-calculator-field-area')).toBeHidden();
+    await expect(root.locator('#concrete-weight-calculator-field-length')).toBeHidden();
+
+    await mode.selectOption('1');
+    await expect(root.locator('#concrete-weight-calculator-field-volume')).toBeHidden();
+    await expect(root.locator('#concrete-weight-calculator-field-area')).toBeVisible();
+    await expect(root.locator('#concrete-weight-calculator-field-areaThickness')).toBeVisible();
+    await root.locator('#concrete-weight-calculator-area').fill('100');
+    await root.locator('#concrete-weight-calculator-area-unit').selectOption('ft2');
+    await root.locator('#concrete-weight-calculator-areaThickness').fill('4');
+    await root.locator('#concrete-weight-calculator-areaThickness-unit').selectOption('in');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-primary')).toHaveText('5,000');
+
+    await mode.selectOption('2');
+    await expect(root.locator('#concrete-weight-calculator-field-area')).toBeHidden();
+    await expect(root.locator('#concrete-weight-calculator-field-length')).toBeVisible();
+    await expect(root.locator('#concrete-weight-calculator-field-width')).toBeVisible();
+    await expect(root.locator('#concrete-weight-calculator-field-thickness')).toBeVisible();
+    await root.locator('#concrete-weight-calculator-length').fill('10');
+    await root.locator('#concrete-weight-calculator-width').fill('10');
+    await root.locator('#concrete-weight-calculator-thickness').fill('6');
+    await root.locator('#concrete-weight-calculator-thickness-unit').selectOption('in');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-primary')).toHaveText('7,500');
+
+    await mode.selectOption('0');
+    await root.locator('#concrete-weight-calculator-volume').fill('1');
+    await root.locator('#concrete-weight-calculator-volume-unit').selectOption('yd3');
+    await densityBasis.selectOption('2');
+    await expect(root.locator('#concrete-weight-calculator-field-density')).toBeHidden();
+    await outputUnit.selectOption('3');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-primary')).toHaveText('1.4084');
+    await expect(root.locator('.result-primary-unit')).toHaveText('metric tonnes');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
+  test('Concrete weight calculator rejects zero active geometry', async ({ page }) => {
+    await page.goto('/concrete-weight-calculator/');
+    const root = page.locator('[data-calculator-slug="concrete-weight-calculator"]');
+    await root.locator('#concrete-weight-calculator-inputMode').selectOption('1');
+    await root.locator('#concrete-weight-calculator-area').fill('0');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('#concrete-weight-calculator-area-err')).toContainText('greater than zero');
   });
 
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
