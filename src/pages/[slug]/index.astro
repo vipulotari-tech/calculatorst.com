@@ -1701,7 +1701,8 @@ const tradeFaqEnhancements: Record<string, { q: string; a: string }[]> = {
 const masonrySeo = masonrySeoEnhancements[calc.slug]
   ? { title: calc.title, description: calc.description, ...masonrySeoEnhancements[calc.slug] }
   : undefined;
-const pageSeo = concreteSeo[calc.slug] ?? slabSeo[calc.slug] ?? foundationSeo[calc.slug] ?? rebarSeo[calc.slug] ?? masonrySeo;\nconst enhancedTradeCluster = new Set(["framing", "roofing", "flooring"]);
+const pageSeo = concreteSeo[calc.slug] ?? slabSeo[calc.slug] ?? foundationSeo[calc.slug] ?? rebarSeo[calc.slug] ?? masonrySeo;
+const enhancedTradeCluster = new Set(["framing", "roofing", "flooring"]);
 const faq = pageSeo?.faq ?? [...content.faq, ...(faqEnhancements[calc.slug] ?? []), ...(tradeFaqEnhancements[calc.slug] ?? [])];
 const seoDescriptionOverrides: Record<string, string> = {
   "crushed-stone-calculator": calc.description,
@@ -1738,7 +1739,8 @@ const newCalculatorSlugs = new Set([
   "stucco-calculator",
   "concrete-crack-repair-calculator",
 ]);
-const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-08-29";\nconst pageDateModified = enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" : "2026-09-24";
+const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-08-29";
+const pageDateModified = enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" : "2026-09-24";
 ---
 
 <CalculatorLayout
