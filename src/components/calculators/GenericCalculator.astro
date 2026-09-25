@@ -34,7 +34,7 @@ const diagramFields = fields
     !field.options
     && (
       field.dimension === "length"
-      || (slug === "concrete-weight-calculator" && field.dimension === "area")
+      || (["concrete-weight-calculator", "concrete-cost-calculator"].includes(slug) && field.dimension === "area")
       || ["pitch", "rise", "run", "spacing"].includes(field.id)
     )
   )

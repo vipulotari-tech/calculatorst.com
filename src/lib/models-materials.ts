@@ -489,112 +489,195 @@ const concreteWeight: Model = {
 };
 
 // ==========================================================
-// 4.  Concrete Cost Calculator
+// 4.  Concrete Cost Calculator — quote-based cost from volume or common geometry
 // ==========================================================
 const concreteCostFields: Field[] = [
-  ...rectangle,
-  length('depth', 'Thickness / Depth', 4, 'in'),
-  count('quantity', 'Identical sections', 1),
+  { id: 'costMode', label: 'Calculate cost from', value: 0, unit: '', integer: true, min: 0, max: 3,
+    options: [
+      { value: 0, label: 'Length × width × thickness' },
+      { value: 1, label: 'Known concrete volume' },
+      { value: 2, label: 'Surface area × thickness' },
+      { value: 3, label: 'Round slab / cylinder dimensions' },
+    ] },
+  { ...length('length', 'Length', 10, 'ft'), visibleWhen: { field: 'costMode', equals: 0 } },
+  { ...length('width', 'Width', 10, 'ft'), visibleWhen: { field: 'costMode', equals: 0 } },
+  { ...length('depth', 'Thickness / depth', 4, 'in'), visibleWhen: { field: 'costMode', equals: 0 } },
+  { ...volume('volume', 'Concrete volume', 1), units: ['yd3', 'ft3', 'm3', 'L'], visibleWhen: { field: 'costMode', equals: 1 } },
+  { ...area('area', 'Surface area', 100, 0), visibleWhen: { field: 'costMode', equals: 2 } },
+  { ...length('areaThickness', 'Thickness / depth', 4, 'in'), visibleWhen: { field: 'costMode', equals: 2 } },
+  { ...length('diameter', 'Diameter', 24, 'in'), visibleWhen: { field: 'costMode', equals: 3 } },
+  { ...length('height', 'Height / circular depth', 4, 'ft'), visibleWhen: { field: 'costMode', equals: 3 } },
+  { ...count('quantity', 'Identical sections', 1), visibleWhen: { field: 'costMode', in: [0, 2, 3] } },
   { ...densityField },
   yieldField,
   price('USD/yd3', ['USD/yd3', 'USD/m3', 'USD/ft3', 'USD/bag', 'USD/ton']),
   number('delivery', 'Ready-mix delivery fee ($)', 0, 0, 'Enter the total quoted delivery charge for this order. If your supplier charges per truck, enter the combined delivery amount.'),
-  number('shortLoadFee', 'Short-load fee ($)', 0, 0, 'Enter the quoted short-load surcharge when it applies; otherwise enter 0.'),
-  number('pumpFee', 'Concrete pump fee ($)', 0, 0, 'Flat charge for a boom or line pump if placement requires one.'),
-  number('reinforcement', 'Reinforcement ($)', 0, 0, 'Rebar, mesh, chairs, ties — your supplier or takeoff value.'),
-  number('formwork', 'Formwork / subbase ($)', 0, 0, 'Forms, gravel base, vapor barrier, finishing prep. Optional.'),
-  number('finishing', 'Finishing / labor ($)', 0, 0, 'Screeding, troweling, sealing, curing compound if you are tracking separately.'),
-  number('tax', 'Material tax (%)', 0, 0, 'Sales tax on material only, not delivery.'),
+  number('shortLoadFee', 'Short-load fee ($)', 0, 0, 'Enter the quoted short-load surcharge only when it applies; otherwise leave 0.'),
+  number('pumpFee', 'Concrete pump fee ($)', 0, 0, 'Enter the quoted boom- or line-pump charge when placement requires it.'),
+  number('reinforcement', 'Reinforcement ($)', 0, 0, 'Optional rebar, mesh, chairs and ties from your project takeoff or quote.'),
+  number('formwork', 'Formwork / subbase ($)', 0, 0, 'Optional forms, gravel base, vapor barrier or preparation cost.'),
+  number('finishing', 'Finishing / labor ($)', 0, 0, 'Optional placing, screeding, finishing, sealing or labor cost.'),
+  { ...number('tax', 'Material tax (%)', 0, 0, 'Applied to the concrete material subtotal only. Enter a local rate only when that matches your quote/tax treatment.'), max: 100 },
   allowance,
 ];
 
 const concreteCost: Model = {
   fields: concreteCostFields,
-  formula: 'V = L × W × D × qty; total cost = materials + delivery + short-load + pump + reinforcement + formwork + finishing + tax',
+  formula: 'Volume is entered directly or derived from geometry. Order volume = net volume × (1 + allowance/100). Material subtotal = priced quantity × unit price. Total = material subtotal + material tax + entered project charges.',
   assumptions: [
-    ...standardAssumptions,
-    'Price and the selected price unit must describe the same basis (e.g. per cubic yard of ready-mix).',
-    'Bag pricing estimates material only; bag cost per yard varies by brand and location.',
-    'Delivery charging methods vary by supplier; enter the total delivery amount from the quote for this order.',
-    'Short-load and pump fees are supplier-specific. Enter the quoted surcharge when applicable, otherwise use zero.',
-    'Tax applies to material only unless explicitly added to other line items.',
-    'National price data is for context only. Get a local quote before ordering.',
+    'Use the actual supplier or retailer quote. The calculator does not assume a national concrete price.',
+    'Price and selected price unit must describe the same basis: cubic yard, cubic meter, cubic foot, bag or US ton.',
+    'Per-bag pricing uses the rounded whole-bag order quantity from the entered mixed yield.',
+    'Material tax is applied to concrete material only; delivery, pumping, reinforcement, formwork and labor are not taxed by this model.',
+    'Delivery, short-load and pump fees vary by supplier and project. Enter only charges that actually apply.',
+    'Cost per square foot or square meter is shown only when the selected geometry provides a plan area.',
+    'This is a project-cost estimate, not a structural design, bid, contract or tax determination.',
   ],
-  sources: [quikrete, geometry, 'https://www.homeadvisor.com/cost/landscape/concrete-driveway'],
+  sources: [
+    quikrete,
+    acicr,
+    'https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors',
+  ],
   calculate(v, u) {
-    const cuFt = v.length * v.width * v.depth * v.quantity;
-    const total = cuFt * waste(v);
-    const bags = roundUp(total / v.yield);
-    const lb = total * densityLb(v.density, u.density);
-    const volumes: Record<string, number> = {
-      'USD/yd3': total / 27,
-      'USD/m3': total / FT_PER_M ** 3,
-      'USD/ft3': total,
-      'USD/bag': bags,
-      'USD/ton': lb / 2000,
+    const mode = Math.round(v.costMode);
+    let cuFt = 0;
+    let planAreaSqFt = Number.NaN;
+    let geometryStep = '';
+
+    if (mode === 1) {
+      requireCondition(v.volume > 0, 'volume', 'Enter a concrete volume greater than zero.');
+      cuFt = v.volume;
+      geometryStep = `Known volume: ${fmt(cuFt)} ft³ after unit conversion.`;
+    } else if (mode === 2) {
+      requireCondition(v.area > 0, 'area', 'Enter a surface area greater than zero.');
+      requireCondition(v.areaThickness > 0, 'areaThickness', 'Enter a thickness greater than zero.');
+      requireCondition(v.quantity > 0, 'quantity', 'Enter at least one section.');
+      const each = v.area * v.areaThickness;
+      cuFt = each * v.quantity;
+      planAreaSqFt = v.area * v.quantity;
+      geometryStep = `Area × thickness: ${fmt(v.area)} ft² × ${fmt(v.areaThickness)} ft = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`;
+    } else if (mode === 3) {
+      requireCondition(v.diameter > 0, 'diameter', 'Enter a diameter greater than zero.');
+      requireCondition(v.height > 0, 'height', 'Enter a height or circular depth greater than zero.');
+      requireCondition(v.quantity > 0, 'quantity', 'Enter at least one section.');
+      const areaEach = Math.PI * (v.diameter / 2) ** 2;
+      const each = areaEach * v.height;
+      cuFt = each * v.quantity;
+      planAreaSqFt = areaEach * v.quantity;
+      geometryStep = `Round volume: π × (${fmt(v.diameter)}/2)² × ${fmt(v.height)} = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`;
+    } else {
+      requireCondition(v.length > 0, 'length', 'Enter a length greater than zero.');
+      requireCondition(v.width > 0, 'width', 'Enter a width greater than zero.');
+      requireCondition(v.depth > 0, 'depth', 'Enter a thickness or depth greater than zero.');
+      requireCondition(v.quantity > 0, 'quantity', 'Enter at least one section.');
+      const each = v.length * v.width * v.depth;
+      cuFt = each * v.quantity;
+      planAreaSqFt = v.length * v.width * v.quantity;
+      geometryStep = `Rectangular volume: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} = ${fmt(each)} ft³ each; × ${v.quantity} = ${fmt(cuFt)} ft³.`;
+    }
+
+    requireCondition(v.yield > 0, 'yield', 'Enter a mixed bag yield greater than zero.');
+    const density = densityLb(v.density, u.density);
+    requireCondition(density > 0, 'density', 'Enter a concrete density greater than zero.');
+
+    const totalCuFt = cuFt * waste(v);
+    const totalYd3 = totalCuFt / 27;
+    const totalM3 = totalCuFt / FT_PER_M ** 3;
+    const bags = roundUp(totalCuFt / v.yield);
+    const lb = totalCuFt * density;
+
+    const pricedQuantities: Record<string, { value: number; unit: string; label: string }> = {
+      'USD/yd3': { value: totalYd3, unit: 'yd³', label: 'cubic yards' },
+      'USD/m3': { value: totalM3, unit: 'm³', label: 'cubic meters' },
+      'USD/ft3': { value: totalCuFt, unit: 'ft³', label: 'cubic feet' },
+      'USD/bag': { value: bags, unit: 'bags', label: 'whole bags' },
+      'USD/ton': { value: lb / 2000, unit: 'US tons', label: 'US tons' },
     };
-    const qty = volumes[u.price] ?? total / 27;
+    const priced = pricedQuantities[u.price] ?? pricedQuantities['USD/yd3'];
 
-    const baseRows: { key: string; label: string; value: number; unit: string; discrete?: boolean }[] = [
-      row('order', 'Concrete to order', total / 27, 'yd³'),
-      row('net', 'Geometric volume', cuFt / 27, 'yd³'),
-      row('ft3', 'Order volume (ft³)', total, 'ft³'),
-      row('m3', 'Order volume (m³)', total / FT_PER_M ** 3, 'm³'),
-      row('bags80', `Bags (entered yield ${fmt(v.yield)} ft³)`, bags, 'bags', true),
-      row('bags60', 'Bags (60-lb @ 0.45 ft³)', roundUp(total / BAG_YIELD_60), 'bags', true),
-      row('bags40', 'Bags (40-lb @ 0.30 ft³)', roundUp(total / BAG_YIELD_40), 'bags', true),
-      row('weight', 'Estimated order weight (lb)', lb, 'lb'),
-    ];
+    const hasPrice = Number.isFinite(v.price);
+    const materials = hasPrice ? priced.value * v.price : Number.NaN;
+    const taxAmt = hasPrice ? materials * (v.tax / 100) : Number.NaN;
+    const delivery = Number.isFinite(v.delivery) ? v.delivery : 0;
+    const shortLoad = Number.isFinite(v.shortLoadFee) ? v.shortLoadFee : 0;
+    const pump = Number.isFinite(v.pumpFee) ? v.pumpFee : 0;
+    const reinforcement = Number.isFinite(v.reinforcement) ? v.reinforcement : 0;
+    const formwork = Number.isFinite(v.formwork) ? v.formwork : 0;
+    const finishing = Number.isFinite(v.finishing) ? v.finishing : 0;
+    const projectCharges = delivery + shortLoad + pump + reinforcement + formwork + finishing;
+    const subtotalBeforeTax = hasPrice ? materials + projectCharges : Number.NaN;
+    const totalCost = hasPrice ? subtotalBeforeTax + taxAmt : Number.NaN;
 
-    const materials = Number.isFinite(v.price) ? qty * v.price : NaN;
-    const taxAmt = Number.isFinite(materials) ? materials * (v.tax / 100) : NaN;
-    const subtotal = Number.isFinite(materials)
-      ? materials
-        + (Number.isFinite(v.delivery) ? v.delivery : 0)
-        + (Number.isFinite(v.shortLoadFee) ? v.shortLoadFee : 0)
-        + (Number.isFinite(v.pumpFee) ? v.pumpFee : 0)
-        + (Number.isFinite(v.reinforcement) ? v.reinforcement : 0)
-        + (Number.isFinite(v.formwork) ? v.formwork : 0)
-        + (Number.isFinite(v.finishing) ? v.finishing : 0)
-      : NaN;
-    const totalCost = subtotal + taxAmt;
+    const baseRows: { key: string; label: string; value: number; unit: string; discrete?: boolean }[] = [];
 
-    // Cost per square foot
-    const sqft = v.length * v.width * v.quantity;
-    const costPerSqFt = Number.isFinite(totalCost) && sqft > 0 ? totalCost / sqft : NaN;
-    const effectivePerYd3 = Number.isFinite(totalCost) ? totalCost / (total / 27) : NaN;
-
-    if (Number.isFinite(materials)) {
+    if (hasPrice) {
       baseRows.push(
-        row('materials', 'Material subtotal', materials, 'USD'),
+        row('primaryCost', 'Estimated project total', totalCost, 'USD'),
+        row('materials', 'Concrete material subtotal', materials, 'USD'),
         row('tax', 'Material tax', taxAmt, 'USD'),
-        row('delivery', 'Delivery fee', v.delivery, 'USD'),
-        row('shortLoad', 'Short-load fee', v.shortLoadFee, 'USD'),
-        row('pump', 'Pump fee', v.pumpFee, 'USD'),
-        row('reinforcement', 'Reinforcement', v.reinforcement, 'USD'),
-        row('formwork', 'Formwork / subbase', v.formwork, 'USD'),
-        row('finishing', 'Finishing / labor', v.finishing, 'USD'),
-        row('total', 'Estimated total', totalCost, 'USD'),
+        row('projectCharges', 'Other entered project charges', projectCharges, 'USD'),
+        row('subtotalBeforeTax', 'Subtotal before material tax', subtotalBeforeTax, 'USD'),
+        row('pricedQuantity', `Quantity priced as ${priced.label}`, priced.value, priced.unit),
       );
+    } else {
+      baseRows.push(row('order', 'Concrete to order', totalYd3, 'yd³'));
     }
 
-    if (Number.isFinite(costPerSqFt)) {
-      baseRows.push(row('costPerSqFt', 'Cost per square foot', costPerSqFt, 'USD/ft²'));
-    }
-    if (Number.isFinite(effectivePerYd3)) {
-      baseRows.push(row('effectivePerYd3', 'Effective cost per yd³', effectivePerYd3, 'USD/yd³'));
+    baseRows.push(
+      ...(hasPrice ? [row('order', 'Concrete to order', totalYd3, 'yd³')] : []),
+      row('net', 'Geometric volume', cuFt / 27, 'yd³'),
+      row('ft3', 'Order volume (ft³)', totalCuFt, 'ft³'),
+      row('m3', 'Order volume (m³)', totalM3, 'm³'),
+      row('L', 'Order volume (L)', totalM3 * 1000, 'L'),
+      row('bags80', `Bags (entered yield ${fmt(v.yield)} ft³)`, bags, 'bags', true),
+      row('bags60', 'Bags (60-lb @ 0.45 ft³)', roundUp(totalCuFt / BAG_YIELD_60), 'bags', true),
+      row('bags40', 'Bags (40-lb @ 0.30 ft³)', roundUp(totalCuFt / BAG_YIELD_40), 'bags', true),
+      row('weight', 'Estimated order weight (lb)', lb, 'lb'),
+      row('weightKg', 'Estimated order weight (kg)', lb / LB_PER_KG, 'kg'),
+    );
+
+    if (hasPrice) {
+      baseRows.push(
+        row('delivery', 'Delivery fee', delivery, 'USD'),
+        row('shortLoad', 'Short-load fee', shortLoad, 'USD'),
+        row('pump', 'Pump fee', pump, 'USD'),
+        row('reinforcement', 'Reinforcement', reinforcement, 'USD'),
+        row('formwork', 'Formwork / subbase', formwork, 'USD'),
+        row('finishing', 'Finishing / labor', finishing, 'USD'),
+        row('effectivePerYd3', 'All-in cost per yd³', totalCost / totalYd3, 'USD/yd³'),
+        row('effectivePerM3', 'All-in cost per m³', totalCost / totalM3, 'USD/m³'),
+      );
+      if (Number.isFinite(planAreaSqFt) && planAreaSqFt > 0) {
+        baseRows.push(
+          row('costPerSqFt', 'All-in cost per square foot', totalCost / planAreaSqFt, 'USD/ft²'),
+          row('costPerM2', 'All-in cost per square meter', totalCost / (planAreaSqFt / 10.7639104167), 'USD/m²'),
+        );
+      }
     }
 
     const stepLines = [
-      `Volume: ${fmt(cuFt)} ft³ → ${fmt(total / 27)} yd³ (with allowance).`,
-      `${fmt(bags)} bags or ${fmt(total / 27)} yd³ of ready-mix.`,
+      geometryStep,
+      `Allowance: ${fmt(cuFt)} ft³ × ${fmt(waste(v))} = ${fmt(totalCuFt)} ft³ = ${fmt(totalYd3)} yd³.`,
+      `Whole bags at entered yield: round ${fmt(totalCuFt)} ÷ ${fmt(v.yield)} up to ${bags}.`,
     ];
-    if (Number.isFinite(materials)) {
-      stepLines.push(`Material: ${fmt(qty)} × $${fmt(v.price)} = $${fmt(materials)}.`);
-      stepLines.push(`Subtotal: $${fmt(subtotal)}; total with tax: $${fmt(totalCost)}.`);
+    if (hasPrice) {
+      stepLines.push(
+        `Material price basis: ${fmt(priced.value)} ${priced.unit} × $${fmt(v.price)} = $${fmt(materials)}.`,
+        `Other entered project charges: $${fmt(projectCharges)}.`,
+        `Material tax: $${fmt(materials)} × ${fmt(v.tax)}% = $${fmt(taxAmt)}.`,
+        `Estimated total: $${fmt(materials)} + $${fmt(projectCharges)} + $${fmt(taxAmt)} = $${fmt(totalCost)}.`,
+      );
     }
 
-    return result(baseRows, stepLines);
+    return result(
+      baseRows,
+      stepLines,
+      [
+        'Per-bag pricing uses a rounded whole-bag quantity; ready-mix volume pricing uses the allowance-adjusted continuous volume.',
+        'Short-load, delivery and pump charges are never guessed. They are included only when you enter them.',
+        'Use local supplier quotes and verify which charges are taxable in your jurisdiction.',
+      ]
+    );
   },
 };
 

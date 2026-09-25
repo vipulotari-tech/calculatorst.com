@@ -147,15 +147,88 @@ describe("Concrete category golden-value regression suite", () => {
     expect(r.rows.find(x => x.key === "primaryWeight")?.value).toBeCloseTo(4050, 6);
   });
 
-  it("Concrete Cost: bag price uses rounded bag count", () => {
+  it("Concrete Cost: bag price uses rounded whole-bag quantity before pricing", () => {
     const r = run(
       "concrete-cost-calculator",
-      { length: 10, width: 10, depth: 12, quantity: 1, waste: 0, yield: 0.6, price: 5, delivery: 0, shortLoadFee: 0, pumpFee: 0, reinforcement: 0, formwork: 0, finishing: 0, tax: 0 },
-      { length: "ft", width: "ft", depth: "in", yield: "ft3", price: "USD/bag" },
+      { costMode: 0, length: 10, width: 10, depth: 12, quantity: 1, waste: 0, yield: 0.6, density: 150, price: 5, delivery: 0, shortLoadFee: 0, pumpFee: 0, reinforcement: 0, formwork: 0, finishing: 0, tax: 0 },
+      { length: "ft", width: "ft", depth: "in", yield: "ft3", density: "lb/ft3", price: "USD/bag" },
     );
     expect(r.rows.find(x => x.key === "bags80")?.value).toBe(167);
+    expect(r.rows.find(x => x.key === "pricedQuantity")?.value).toBe(167);
     expect(r.rows.find(x => x.key === "materials")?.value).toBeCloseTo(835, 6);
-    expect(r.rows.find(x => x.key === "total")?.value).toBeCloseTo(835, 6);
+    expect(r.rows.find(x => x.key === "primaryCost")?.value).toBeCloseTo(835, 6);
+  });
+
+  it("Concrete Cost: total keeps material tax and quoted project charges explicit", () => {
+    const r = run(
+      "concrete-cost-calculator",
+      {
+        costMode: 0, length: 10, width: 10, depth: 6, quantity: 1,
+        waste: 10, yield: 0.6, density: 150, price: 160,
+        delivery: 150, shortLoadFee: 75, pumpFee: 0,
+        reinforcement: 200, formwork: 100, finishing: 400, tax: 8,
+      },
+      { length: "ft", width: "ft", depth: "in", yield: "ft3", density: "lb/ft3", price: "USD/yd3" },
+    );
+    expect(r.rows[0].key).toBe("primaryCost");
+    expect(r.rows.find(x => x.key === "order")?.value).toBeCloseTo(55 / 27, 8);
+    expect(r.rows.find(x => x.key === "materials")?.value).toBeCloseTo(325.925925926, 8);
+    expect(r.rows.find(x => x.key === "tax")?.value).toBeCloseTo(26.074074074, 8);
+    expect(r.rows.find(x => x.key === "projectCharges")?.value).toBeCloseTo(925, 8);
+    expect(r.rows.find(x => x.key === "primaryCost")?.value).toBeCloseTo(1277, 8);
+    expect(r.rows.find(x => x.key === "costPerSqFt")?.value).toBeCloseTo(12.77, 8);
+  });
+
+  it("Concrete Cost: all four geometry modes normalize to the expected volume", () => {
+    const common = {
+      waste: 0, yield: 0.6, density: 150, price: 100,
+      delivery: 0, shortLoadFee: 0, pumpFee: 0,
+      reinforcement: 0, formwork: 0, finishing: 0, tax: 0,
+    };
+
+    const rectangular = run(
+      "concrete-cost-calculator",
+      { ...common, costMode: 0, length: 10, width: 10, depth: 6, quantity: 1 },
+      { length: "ft", width: "ft", depth: "in", yield: "ft3", density: "lb/ft3", price: "USD/yd3" },
+    );
+    expect(rectangular.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(50, 8);
+
+    const known = run(
+      "concrete-cost-calculator",
+      { ...common, costMode: 1, volume: 2 },
+      { volume: "yd3", yield: "ft3", density: "lb/ft3", price: "USD/yd3" },
+    );
+    expect(known.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(54, 8);
+    expect(known.rows.find(x => x.key === "costPerSqFt")).toBeUndefined();
+
+    const areaDepth = run(
+      "concrete-cost-calculator",
+      { ...common, costMode: 2, area: 100, areaThickness: 4, quantity: 1 },
+      { area: "ft2", areaThickness: "in", yield: "ft3", density: "lb/ft3", price: "USD/yd3" },
+    );
+    expect(areaDepth.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(100 / 3, 8);
+
+    const round = run(
+      "concrete-cost-calculator",
+      { ...common, costMode: 3, diameter: 24, height: 10, quantity: 3 },
+      { diameter: "in", height: "ft", yield: "ft3", density: "lb/ft3", price: "USD/yd3" },
+    );
+    expect(round.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(30 * Math.PI, 8);
+  });
+
+  it("Concrete Cost: metric volume and metric price basis remain dimensionally correct", () => {
+    const r = run(
+      "concrete-cost-calculator",
+      {
+        costMode: 1, volume: 1, waste: 0, yield: 0.017, density: 2400, price: 200,
+        delivery: 0, shortLoadFee: 0, pumpFee: 0,
+        reinforcement: 0, formwork: 0, finishing: 0, tax: 0,
+      },
+      { volume: "m3", yield: "m3", density: "kg/m3", price: "USD/m3" },
+    );
+    expect(r.rows.find(x => x.key === "m3")?.value).toBeCloseTo(1, 8);
+    expect(r.rows.find(x => x.key === "pricedQuantity")?.value).toBeCloseTo(1, 8);
+    expect(r.rows.find(x => x.key === "primaryCost")?.value).toBeCloseTo(200, 8);
   });
 
   it("Concrete Mix: 1 m³, 1:2:3, dry factor 1.54 gives the expected cement and water", () => {
