@@ -45,6 +45,7 @@ test.describe("Concrete Footing Calculator", () => {
     await root.locator(`#${slug}-depth`).fill("12");
     await root.locator(`#${slug}-depth-unit`).selectOption("in");
     await root.locator(`#${slug}-quantity`).fill("3");
+    await root.getByText("Advanced material assumptions", { exact: true }).click();
     await root.locator(`#${slug}-waste`).fill("0");
 
     await expect(root.locator(".result-primary")).toHaveText("0.3491");
