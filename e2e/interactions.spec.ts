@@ -396,3 +396,193 @@ test.describe('Framing / roofing / flooring full browser audit', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity/);
   });
 });
+
+
+const gscHubGenericSlugs = [
+  'drywall-calculator',
+  'drywall-sheet-calculator',
+  'drywall-cost-calculator',
+  'drywall-joint-compound-calculator',
+  'drywall-screw-calculator',
+  'drywall-tape-calculator',
+  'paint-calculator',
+  'paint-coverage-calculator',
+  'paint-cost-calculator',
+  'primer-calculator',
+  'ceiling-paint-calculator',
+  'wall-paint-calculator',
+  'insulation-calculator',
+  'insulation-cost-calculator',
+  'spray-foam-calculator',
+  'deck-calculator',
+  'deck-cost-calculator',
+  'deck-board-calculator',
+  'deck-joist-calculator',
+  'deck-footing-calculator',
+  'deck-stair-calculator',
+  'deck-railing-calculator',
+  'fence-calculator',
+  'fence-post-calculator',
+  'fence-panel-calculator',
+  'fence-picket-calculator',
+  'fence-concrete-calculator',
+  'gate-calculator',
+  'gate-cost-calculator',
+  'paver-calculator',
+  'paver-cost-calculator',
+  'paver-sand-calculator',
+  'paver-base-calculator',
+  'paver-joint-sand-calculator',
+  'landscaping-calculator',
+  'landscaping-cost-calculator',
+  'mulch-calculator',
+  'mulch-cost-calculator',
+  'retaining-wall-calculator',
+  'asphalt-calculator',
+  'asphalt-cost-calculator',
+  'asphalt-driveway-calculator',
+  'asphalt-weight-calculator',
+  'asphalt-thickness-calculator',
+  'parking-lot-calculator',
+  'parking-lot-cost-calculator',
+  'road-base-calculator',
+  'surface-area-calculator',
+  'construction-material-cost-calculator',
+] as const;
+
+test.describe('Drywall / deck / landscaping / asphalt full browser audit', () => {
+  for (const slug of gscHubGenericSlugs) {
+    test(`${slug} — render, calculate, unit switch and reset`, async ({ page }) => {
+      const consoleErrors: string[] = [];
+      page.on('pageerror', error => consoleErrors.push(error.message));
+      page.on('console', msg => {
+        if (msg.type() === 'error') consoleErrors.push(msg.text());
+      });
+
+      await page.goto(`/${slug}/`);
+      await expect(page.locator('h1')).toBeVisible();
+
+      const root = page.locator(`[data-calculator-slug="${slug}"]`);
+      await expect(root).toBeVisible();
+      await expect(root.locator('.calc-results-panel')).toHaveCount(1);
+
+      const calculate = root.getByRole('button', { name: /^Calculate$/ });
+      const reset = root.getByRole('button', { name: /^Reset$/ });
+      await expect(calculate).toBeVisible();
+      await expect(reset).toBeVisible();
+
+      await calculate.click();
+      let text = await root.innerText();
+      expect(text).not.toMatch(/NaN|Infinity|undefined|null/);
+
+      const firstVisibleNumber = root.locator('input[type="number"]:visible').first();
+      if (await firstVisibleNumber.count()) {
+        const original = await firstVisibleNumber.inputValue();
+        const min = Number(await firstVisibleNumber.getAttribute('min') ?? '0');
+        const step = await firstVisibleNumber.getAttribute('step');
+        const candidate = step === '1'
+          ? String(Math.max(2, Math.ceil(min)))
+          : String(Math.max(2.5, Number.isFinite(min) ? min : 0.1));
+        await firstVisibleNumber.fill(candidate);
+        await calculate.click();
+        text = await root.innerText();
+        expect(text).not.toMatch(/NaN|Infinity|undefined|null/);
+
+        await reset.click();
+        expect(await firstVisibleNumber.inputValue()).toBe(original);
+      }
+
+      const firstUnit = root.locator('.calc-unit-select:visible').first();
+      if (await firstUnit.count()) {
+        const options = await firstUnit.locator('option').evaluateAll(options =>
+          options.map(option => (option as HTMLOptionElement).value)
+        );
+        if (options.length > 1) {
+          const originalUnit = await firstUnit.inputValue();
+          const alternate = options.find(option => option !== originalUnit);
+          if (alternate) {
+            await firstUnit.selectOption(alternate);
+            await calculate.click();
+            text = await root.innerText();
+            expect(text).not.toMatch(/NaN|Infinity|undefined|null/);
+            await reset.click();
+            expect(await firstUnit.inputValue()).toBe(originalUnit);
+          }
+        }
+      }
+
+      const relevantErrors = consoleErrors.filter(error =>
+        !error.includes('adtrafficquality') &&
+        !error.includes('googletag') &&
+        !error.includes('doubleclick') &&
+        !error.includes('google-analytics')
+      );
+      expect(relevantErrors).toEqual([]);
+    });
+  }
+
+  test('fence cost calculator — dedicated layout, concrete and selected material cost work', async ({ page }) => {
+    await page.goto('/fence-cost-calculator/');
+    const root = page.locator('#fence-calc');
+    await expect(root).toBeVisible();
+    await root.locator('#f-len').fill('100');
+    await root.locator('#f-price').fill('35');
+    await root.locator('#f-price-unit').selectOption('panel');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('#f-results')).toBeVisible();
+    await expect(root.locator('#f-posts')).not.toHaveText('—');
+    await expect(root.locator('#f-panels')).not.toHaveText('—');
+    await expect(root.locator('#f-concrete')).not.toHaveText('—');
+    await expect(root.locator('#f-cost')).not.toHaveText('—');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined|null/);
+    await root.getByRole('button', { name: /^Reset$/ }).click();
+    await expect(root.locator('#f-results')).toBeHidden();
+  });
+
+  const hubs = [
+    { path: '/construction/drywall-paint/', count: 15, phrase: /drywall, paint or insulation/i },
+    { path: '/construction/deck-fence/', count: 15, phrase: /deck, fence or gate/i },
+    { path: '/construction/landscaping/', count: 10, phrase: /paver, mulch or landscaping/i },
+    { path: '/construction/asphalt/', count: 10, phrase: /asphalt, parking-lot or road-base/i },
+  ] as const;
+
+  for (const hub of hubs) {
+    test(`${hub.path} — GSC-led task navigation is complete`, async ({ page }) => {
+      await page.goto(hub.path);
+      await expect(page.locator('h1')).toBeVisible();
+      await expect(page.locator('body')).toContainText(`${hub.count} calculators`);
+      await expect(page.getByText(hub.phrase)).toBeVisible();
+      const taskSection = page.getByRole('heading', { name: /Choose the right/i }).locator('..');
+      await expect(taskSection.locator('a')).toHaveCount(hub.count);
+    });
+  }
+
+  test('paver page uses dedicated paver model and separate layer guidance', async ({ page }) => {
+    await page.goto('/paver-calculator/');
+    const root = page.locator('[data-calculator-slug="paver-calculator"]');
+    await expect(root).toBeVisible();
+    await root.locator('#paver-calculator-length').fill('20');
+    await root.locator('#paver-calculator-width').fill('10');
+    await root.locator('#paver-calculator-paverLength').fill('12');
+    await root.locator('#paver-calculator-paverWidth').fill('12');
+    await root.locator('#paver-calculator-joint').fill('0');
+    await root.locator('#paver-calculator-waste').fill('10');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root).toContainText('Pavers to order');
+    await expect(root).toContainText('Paver rows');
+    await expect(page.locator('main')).toContainText('Paver Base Calculator');
+    expect(await root.innerText()).not.toMatch(/Tile|NaN|Infinity/);
+  });
+
+  test('asphalt thickness page clearly behaves as a reverse calculation', async ({ page }) => {
+    await page.goto('/asphalt-thickness-calculator/');
+    const root = page.locator('[data-calculator-slug="asphalt-thickness-calculator"]');
+    await root.locator('#asphalt-thickness-calculator-length').fill('100');
+    await root.locator('#asphalt-thickness-calculator-width').fill('10');
+    await root.locator('#asphalt-thickness-calculator-mass').fill('10');
+    await root.locator('#asphalt-thickness-calculator-density').fill('145');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root).toContainText('Average depth');
+    expect(await root.innerText()).not.toMatch(/recommended|traffic type|NaN|Infinity/i);
+  });
+});
