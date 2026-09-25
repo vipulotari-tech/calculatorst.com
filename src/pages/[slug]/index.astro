@@ -1062,11 +1062,647 @@ const masonrySeoEnhancements: Record<string, {
   }
 };
 
+const tradeGuidance: Record<string, string[]> = {
+  "framing-calculator": [
+    "Use this layout calculator when the member spacing is already specified and you need installed count, equalized spacing, spare pieces and optional cost.",
+    "Add corners, openings, blocking, headers and other detail members explicitly; do not hide required framing details inside the purchasing allowance."
+  ],
+  "wall-framing-calculator": [
+    "Use this wall-specific takeoff when you need both stud count and top/bottom plate footage rather than a generic repeated-member count.",
+    "Enter opening, corner and junction detail studs from the plans; this calculator estimates lumber quantity and does not choose permitted spacing or member size."
+  ],
+  "stud-calculator": [
+    "Use this page for stud count from a specified maximum on-center spacing plus known extra detail studs.",
+    "Spacing is a project input. The calculator does not determine whether 12, 16, 19.2 or 24 inches on center is appropriate for the wall."
+  ],
+  "stud-spacing-calculator": [
+    "Use this page when the installed stud count is already known and you want equal center-to-center spacing across the usable layout distance.",
+    "Measure between the centers of the two end studs. This is layout geometry, not a code or structural spacing recommendation."
+  ],
+  "lumber-calculator": [
+    "Use this general repeated-member calculator for non-wall layouts when the maximum spacing and any extra pieces are already known.",
+    "Equivalent piece counts are planning quantities; a real cut list may require additional stock because offcuts cannot always be reused."
+  ],
+  "lumber-cost-calculator": [
+    "Use the same quantity basis as the supplier quote and include only charges that actually apply to the order.",
+    "Keep material allowance separate from tax, delivery and labor or handling so the cost breakdown remains auditable."
+  ],
+  "board-foot-calculator": [
+    "Use one dimension convention consistently: match nominal or surfaced dimensions to the convention used by the lumber seller.",
+    "Board feet measure volume, not structural capacity, and do not replace a cut list or grade/species selection."
+  ],
+  "board-foot-cost-calculator": [
+    "Use this page when the board-foot quantity is already known and the supplier quote is expressed per board foot.",
+    "Do not mix per-piece or per-linear-foot pricing into a board-foot rate without converting the quote first."
+  ],
+  "joist-calculator": [
+    "Use this for joist quantity after the joist spacing has been specified by the project design or span information.",
+    "The calculator counts layout members; it does not check span, species, grade, depth, bearing, blocking or deflection."
+  ],
+  "joist-spacing-calculator": [
+    "Use this when the installed joist count is known and you need equal center spacing between the end-member centers.",
+    "Do not use the resulting spacing as a design recommendation; verify the allowable joist spacing separately."
+  ],
+  "floor-joist-calculator": [
+    "Use this for floor-joist takeoff from a specified on-center spacing across the joist layout width.",
+    "Joist span runs perpendicular to the layout direction. Span sizing, bearing and deflection remain separate design checks."
+  ],
+  "ceiling-joist-calculator": [
+    "Use this for ceiling-joist count from an already-specified spacing across the layout distance.",
+    "This is a quantity estimator only; ceiling loads, attic storage, rafter ties and allowable spans are not selected here."
+  ],
+  "header-size-calculator": [
+    "Use this as a transparent bending-only section-modulus check when span, uniform load, allowable bending stress and section breadth are already defined.",
+    "Final header selection can also be governed by shear, deflection, bearing, load combinations, built-up-member action, connections and material design values."
+  ],
+  "beam-calculator": [
+    "Use the load case that matches the idealized support and loading condition before reading reactions, shear, moment or elastic deflection.",
+    "This is analysis, not member selection: capacity, stability, bearing, connections, lateral restraint and code load combinations are not automatically checked."
+  ],
+  "beam-load-calculator": [
+    "Use tributary width and area from the actual framing geometry, then enter the project dead, live or snow loads on a consistent area basis.",
+    "The result is applied load and line load for later analysis; it does not determine beam size or allowable capacity."
+  ],
+  "roofing-calculator": [
+    "Use this page for simple uniform-pitch roof surface area and roofing squares from the building footprint, overhang and pitch.",
+    "For dormers, intersecting roofs or multiple pitches, divide the roof into non-overlapping measured sections instead of forcing one footprint/pitch calculation."
+  ],
+  "roof-area-calculator": [
+    "Use this dedicated area workflow when the question is roof surface and squares, not package count for a particular roofing product.",
+    "Material allowance is added to the measured roof surface; do not treat the allowance-adjusted area as the physical roof area."
+  ],
+  "roof-pitch-calculator": [
+    "Use the measurement mode that matches what you know, and keep rise and horizontal run in consistent length units.",
+    "Pitch, angle and percent slope describe geometry; roofing-product minimum slopes and code requirements must be checked separately."
+  ],
+  "roof-slope-calculator": [
+    "Use this focused rise/run conversion when you want pitch per 12, angle, percent slope and the surface multiplier.",
+    "Horizontal run is not the sloping rafter length. A flat plane with zero rise is a valid geometric input where supported."
+  ],
+  "roofing-shingle-calculator": [
+    "Use the manufacturer effective coverage for the exact shingle package instead of assuming a universal number of bundles per square.",
+    "Apply project allowance once for cuts, hips, ridges and complexity; do not add another waste factor to an area that already includes allowance."
+  ],
+  "shingle-quantity-calculator": [
+    "Use this page when the sloped roof area is already known and you only need package quantity from product coverage and allowance.",
+    "Whole packages are rounded up at the end; keep the unrounded material area visible for audit and comparison."
+  ],
+  "shingle-cost-calculator": [
+    "Use the package coverage and price from the same shingle product so package count and cost use one consistent basis.",
+    "Tax and delivery are separate entered charges; labor, tear-off, flashing and disposal are not implied unless explicitly entered."
+  ],
+  "roofing-material-calculator": [
+    "Use this generic package calculator for a roofing material that has a known effective coverage per package.",
+    "Enter net/effective coverage after product-specific laps or overlaps when the manufacturer publishes that value."
+  ],
+  "roofing-underlayment-calculator": [
+    "Use manufacturer net roll coverage after required laps, not the gross roll dimensions, when estimating whole rolls.",
+    "Underlayment type, fastening, ice-barrier requirements and overlap rules are product/project inputs rather than calculator-selected defaults."
+  ],
+  "roof-sheathing-calculator": [
+    "Use actual panel dimensions or effective panel coverage and the measured roof area for the sheathing takeoff.",
+    "Panel thickness, span rating, fastening pattern, edge support and structural suitability are design/specification inputs."
+  ],
+  "roof-rafter-calculator": [
+    "Use this for common-rafter line geometry on a symmetric gable roof from full span, pitch and horizontal eave overhang.",
+    "The line length excludes cut details and does not select rafter size, allowable span, ridge deduction, birdsmouth or hip/valley geometry."
+  ],
+  "rafter-length-calculator": [
+    "Use this focused geometry page when the primary question is common-rafter line length rather than rafter quantity or structural sizing.",
+    "For roofs with different slopes, unequal spans, ridge offsets or hips/valleys, calculate the appropriate geometry separately."
+  ],
+  "roof-truss-calculator": [
+    "Use this page to count truss positions across a specified layout distance and on-center spacing.",
+    "Truss profile, loading, bracing, reactions and engineering must come from the truss design; this calculator does not design a truss."
+  ],
+  "roof-flashing-calculator": [
+    "Use one continuous flashing run with the actual stock-piece length and required overlap to calculate installed and purchased pieces.",
+    "Step flashing, corners, bends, end laps and different flashing types should be measured as separate runs when their geometry differs."
+  ],
+  "roof-waste-calculator": [
+    "Use this only when you already know the net roofing quantity and want to add one explicit project allowance.",
+    "Do not apply this allowance to a quantity that already includes waste or package-rounding overage."
+  ],
+  "flooring-calculator": [
+    "Use the exact effective coverage printed for the flooring package and subtract excluded areas only once.",
+    "Keep pattern/layout allowance distinct from damage, spare-stock or cut waste when the project uses separate assumptions."
+  ],
+  "flooring-cost-calculator": [
+    "Match the quantity and price unit to the supplier or installer quote, then add only applicable tax, delivery and labor.",
+    "This page prices entered scope; removal, subfloor repair, trim, transitions and floor preparation are not automatic inclusions."
+  ],
+  "hardwood-flooring-calculator": [
+    "Use actual package coverage and the measured installation area; product dimensions and coverage vary by species, width and manufacturer.",
+    "Direction changes, borders, herringbone or other patterns can require a higher project-specific allowance than a straight layout."
+  ],
+  "hardwood-flooring-cost-calculator": [
+    "Use the same hardwood quantity basis and quote unit throughout the estimate, including whether the seller prices by package or area.",
+    "Finishing, acclimation loss, subfloor repair, trim and installation are separate costs unless you explicitly enter them."
+  ],
+  "laminate-flooring-calculator": [
+    "Use the product's net package coverage and a project allowance that reflects room shape and plank layout.",
+    "Underlayment may be integrated with the product or purchased separately; avoid counting it twice."
+  ],
+  "vinyl-flooring-calculator": [
+    "Use the coverage basis that matches the actual vinyl product, whether plank/tile packages or a sheet-material workflow supported by the form.",
+    "Pattern repeat, seam placement and room shape can add material beyond simple net square footage."
+  ],
+  "carpet-calculator": [
+    "Use the actual carpet roll width and planned seam direction because roll layout can create offcuts even when room square footage is unchanged.",
+    "Calculate irregular rooms as separate non-overlapping sections and keep pad, transitions and stairs as separate takeoffs unless included."
+  ],
+  "carpet-cost-calculator": [
+    "Use the purchased carpet area produced by the roll-width layout rather than pricing only the net room area.",
+    "Confirm whether the quote is per square foot or square yard and whether pad, installation, removal and stairs are included."
+  ],
+  "tile-calculator": [
+    "Use actual tile dimensions and grout-joint width because the installed module controls rows, columns and whole edge pieces.",
+    "Straight-grid output does not model diagonal layouts, mosaics or complex patterns; use a project-specific allowance for those layouts."
+  ],
+  "tile-quantity-calculator": [
+    "Use this focused quantity page when you mainly need whole tile count from surface dimensions, tile size, joint width and allowance.",
+    "Whole edge cuts are counted conservatively; reusable offcuts and layout optimization can change real purchasing quantity."
+  ],
+  "tile-cost-calculator": [
+    "Price the rounded material quantity using the quote unit actually offered by the supplier, then add tax, delivery and labor separately.",
+    "Trim pieces, membranes, grout, adhesive and substrate preparation are separate scopes unless explicitly included in the entered price."
+  ],
+  "tile-grout-calculator": [
+    "Joint width, joint depth, tile dimensions and product yield all affect grout usage; use manufacturer coverage/yield data when available.",
+    "Do not assume one bag size or grout density for every product, and keep cleanup loss or spare material as an explicit allowance."
+  ],
+  "tile-adhesive-calculator": [
+    "Use manufacturer coverage for the selected mortar/adhesive and trowel/substrate combination rather than a universal coverage value.",
+    "Back-buttering, substrate flatness, tile size and trowel notch can materially change real coverage."
+  ],
+  "flooring-waste-calculator": [
+    "Use this page to add one explicit allowance to a known net flooring quantity and keep extra material visible.",
+    "Do not stack the same waste percentage on top of another calculator result that already includes a purchasing allowance."
+  ],
+  "underlayment-calculator": [
+    "Use net/effective roll or package coverage after required overlaps when the product instructions specify laps.",
+    "Confirm compatibility, vapor requirements and integrated-pad conditions before ordering so underlayment is not double-counted."
+  ]
+};
+
+const tradeFaqEnhancements: Record<string, { q: string; a: string }[]> = {
+  "framing-calculator": [
+    {
+      "q": "Does the framing calculator choose the correct stud or member spacing?",
+      "a": "No. Enter the maximum on-center spacing from the project requirements. The calculator converts that spacing and layout distance into member count and equalized centers."
+    },
+    {
+      "q": "What should I enter as additional framing pieces?",
+      "a": "Use the count required by the plans for corners, openings, backing or other details that are not captured by the repeated spacing layout."
+    }
+  ],
+  "wall-framing-calculator": [
+    {
+      "q": "Does the wall framing calculator include plates as well as studs?",
+      "a": "Yes. It separates stud count from top and bottom plate footage so the wall takeoff is not reduced to a single stud count."
+    },
+    {
+      "q": "Are doors and windows automatically framed?",
+      "a": "No. Opening details such as king studs, jack studs and headers depend on the wall design and must be added from the project plan."
+    }
+  ],
+  "stud-calculator": [
+    {
+      "q": "How is stud count calculated from on-center spacing?",
+      "a": "The layout distance is divided by the maximum spacing, rounded up to whole intervals, then an end stud and any entered detail studs are included."
+    },
+    {
+      "q": "Is 16 inches on center always the correct stud spacing?",
+      "a": "No. Stud spacing depends on the wall system and project requirements. The calculator uses the spacing you specify rather than recommending one."
+    }
+  ],
+  "stud-spacing-calculator": [
+    {
+      "q": "What distance should I enter for equal stud spacing?",
+      "a": "Enter the distance between the centers of the two end studs, then enter the installed stud count for that span."
+    },
+    {
+      "q": "Does equalized spacing prove the wall is structurally adequate?",
+      "a": "No. It only solves layout geometry. Structural spacing and member requirements must be established separately."
+    }
+  ],
+  "lumber-calculator": [
+    {
+      "q": "What does the lumber calculator count?",
+      "a": "It counts evenly spaced pieces across a layout, adds any entered detail pieces, then applies the purchasing allowance and optional unit price."
+    },
+    {
+      "q": "Is the piece count a cutting optimization?",
+      "a": "No. It is a quantity estimate. Different cut lengths and offcut reuse can change the stock actually required."
+    }
+  ],
+  "lumber-cost-calculator": [
+    {
+      "q": "What costs are included in the lumber estimate?",
+      "a": "The calculator uses the quantity and unit price you enter, then adds the selected allowance, material tax, delivery and entered labor or handling."
+    },
+    {
+      "q": "Can I use a per-board-foot price in a per-piece field?",
+      "a": "Only after converting the quote to the same basis. Keep quantity and price units consistent to avoid a mismatched estimate."
+    }
+  ],
+  "board-foot-calculator": [
+    {
+      "q": "What is one board foot?",
+      "a": "One board foot is 144 cubic inches of lumber. With length in feet, board feet equal thickness in inches × width in inches × length in feet ÷ 12."
+    },
+    {
+      "q": "Should I use nominal or actual lumber dimensions?",
+      "a": "Use the same convention used by the seller or project takeoff. Mixing nominal dimensions with actual-dimension pricing can distort the result."
+    }
+  ],
+  "board-foot-cost-calculator": [
+    {
+      "q": "When should I use the Board Foot Cost Calculator?",
+      "a": "Use it when you already know total board feet and have a supplier price expressed per board foot."
+    },
+    {
+      "q": "Does it compare lumber species or grades automatically?",
+      "a": "No. Enter the rate for the exact species, grade and condition you are pricing."
+    }
+  ],
+  "joist-calculator": [
+    {
+      "q": "How many joists do I need?",
+      "a": "Enter the layout distance and specified maximum on-center spacing. The calculator rounds to whole intervals and includes the end members and any extras you enter."
+    },
+    {
+      "q": "Does this calculator tell me what joist size will span the distance?",
+      "a": "No. Joist sizing and allowable span depend on species, grade, depth, loads, spacing and support conditions."
+    }
+  ],
+  "joist-spacing-calculator": [
+    {
+      "q": "Can I calculate equal joist spacing from a fixed joist count?",
+      "a": "Yes. Enter the distance between end-member centers and the installed joist count to solve equal center spacing."
+    },
+    {
+      "q": "Is the calculated spacing a recommended structural spacing?",
+      "a": "No. It is geometry only and must be checked against the project requirements."
+    }
+  ],
+  "floor-joist-calculator": [
+    {
+      "q": "What direction is the layout distance for floor joists?",
+      "a": "Use the distance across the joist positions, perpendicular to the joist span. The joist span itself is a separate design dimension."
+    },
+    {
+      "q": "Does the floor joist calculator check deflection or span tables?",
+      "a": "No. It estimates member count from specified spacing only."
+    }
+  ],
+  "ceiling-joist-calculator": [
+    {
+      "q": "Does the ceiling joist calculator size the joists?",
+      "a": "No. It counts positions from the spacing you enter. Member size and allowable span must be established separately."
+    },
+    {
+      "q": "Are attic-storage or rafter-tie loads included?",
+      "a": "Not automatically. Those are project design conditions, not quantity inputs in this takeoff calculator."
+    }
+  ],
+  "header-size-calculator": [
+    {
+      "q": "Does this calculator select a safe header size?",
+      "a": "No. It performs a bending-only section-modulus calculation from your inputs. Other limit states and material-specific design checks can govern."
+    },
+    {
+      "q": "What does equivalent rectangular depth mean?",
+      "a": "It is the depth a rectangular section of the entered breadth would need to provide the calculated section modulus in bending; it is not a product recommendation."
+    }
+  ],
+  "beam-calculator": [
+    {
+      "q": "Which beam results are calculated?",
+      "a": "Depending on the selected idealized load case, the calculator reports reactions, maximum shear, maximum bending moment and elastic deflection."
+    },
+    {
+      "q": "Can I use the result as final beam sizing?",
+      "a": "No. Final design also requires material capacity, stability, bearing, connections, load combinations and applicable serviceability limits."
+    }
+  ],
+  "beam-load-calculator": [
+    {
+      "q": "What is tributary area?",
+      "a": "It is the floor or roof area whose load is carried by the beam. The calculator converts the entered area loads over that tributary geometry into beam load."
+    },
+    {
+      "q": "Does beam self-weight get included?",
+      "a": "Yes when you enter it. Keep its line-load units consistent with the other load inputs."
+    }
+  ],
+  "roofing-calculator": [
+    {
+      "q": "How is sloped roof area calculated from a footprint?",
+      "a": "The footprint including horizontal overhang is multiplied by the roof pitch multiplier, then by the number of identical sections where applicable."
+    },
+    {
+      "q": "Should I use this calculator for a roof with dormers or several pitches?",
+      "a": "Use separate non-overlapping sections for materially different roof planes. One footprint and one pitch can oversimplify complex roofs."
+    }
+  ],
+  "roof-area-calculator": [
+    {
+      "q": "What is a roofing square?",
+      "a": "One roofing square equals 100 square feet of roof surface. The calculator reports squares after applying the selected material allowance."
+    },
+    {
+      "q": "Is the allowance-adjusted area the actual physical roof area?",
+      "a": "No. Measured roof surface and purchasing area are shown separately so waste is not confused with geometry."
+    }
+  ],
+  "roof-pitch-calculator": [
+    {
+      "q": "How do pitch ratio, percent slope and angle relate?",
+      "a": "They describe the same roof slope in different forms: rise/run, rise divided by run as a percentage, and the arctangent of rise/run in degrees."
+    },
+    {
+      "q": "Does a pitch result tell me which roofing material is permitted?",
+      "a": "No. Product and code minimum slopes must be checked separately for the roof assembly."
+    }
+  ],
+  "roof-slope-calculator": [
+    {
+      "q": "What is the roof surface multiplier?",
+      "a": "It is the ratio of sloped length to horizontal run, calculated from the rise/run slope and used to convert horizontal projected area to sloped surface area."
+    },
+    {
+      "q": "Is horizontal run the same as rafter length?",
+      "a": "No. Run is horizontal. Rafter line length is the sloped hypotenuse."
+    }
+  ],
+  "roofing-shingle-calculator": [
+    {
+      "q": "How many bundles are in one roofing square?",
+      "a": "There is no universal bundle count. Enter the effective package coverage for the exact shingle product, and the calculator rounds the required area to whole packages."
+    },
+    {
+      "q": "Can I start from a known roof area?",
+      "a": "Yes where the calculator provides that mode; otherwise use footprint plus pitch to determine sloped roof surface first."
+    }
+  ],
+  "shingle-quantity-calculator": [
+    {
+      "q": "When should I use the Shingle Quantity Calculator?",
+      "a": "Use it when the sloped roof area is already known and the remaining task is converting area plus allowance into whole product packages."
+    },
+    {
+      "q": "Why does package coverage matter?",
+      "a": "Different shingle products can cover different areas per package, so package count should come from manufacturer effective coverage rather than a fixed bundles-per-square assumption."
+    }
+  ],
+  "shingle-cost-calculator": [
+    {
+      "q": "Is shingle cost based on fractional packages?",
+      "a": "No. The material cost should use the rounded whole-package quantity because suppliers do not normally sell a fraction of a package."
+    },
+    {
+      "q": "Does this include roof replacement labor?",
+      "a": "Only if a labor amount is explicitly available and entered. Tear-off, disposal, flashing and installation scope should not be assumed from material cost."
+    }
+  ],
+  "roofing-material-calculator": [
+    {
+      "q": "What can I use the Roofing Material Calculator for?",
+      "a": "Use it for a roofing product sold in packages, rolls or sheets when you know the effective coverage per package."
+    },
+    {
+      "q": "Should I enter gross or net package coverage?",
+      "a": "Use effective coverage after required laps or overlaps when the manufacturer publishes that value."
+    }
+  ],
+  "roofing-underlayment-calculator": [
+    {
+      "q": "Why should underlayment use net roll coverage?",
+      "a": "Required side and end laps reduce effective installed coverage. Using manufacturer net coverage avoids counting the same overlap twice."
+    },
+    {
+      "q": "Does the calculator choose felt versus synthetic underlayment?",
+      "a": "No. Product type and installation requirements are project inputs."
+    }
+  ],
+  "roof-sheathing-calculator": [
+    {
+      "q": "How are roof sheathing sheets estimated?",
+      "a": "The calculator divides allowance-adjusted roof area by the effective panel coverage and rounds up to whole panels."
+    },
+    {
+      "q": "Does it select plywood or OSB thickness and span rating?",
+      "a": "No. Panel specification, thickness, rating, fastening and edge support must come from the project requirements."
+    }
+  ],
+  "roof-rafter-calculator": [
+    {
+      "q": "How is common-rafter line length calculated?",
+      "a": "For a symmetric gable, the horizontal run is half the full building span plus the horizontal overhang, then the pitch factor converts that run to sloped line length."
+    },
+    {
+      "q": "Does the result include birdsmouth and ridge deductions?",
+      "a": "No. The result is geometric line length and intentionally excludes cut-detail allowances unless explicitly provided."
+    }
+  ],
+  "rafter-length-calculator": [
+    {
+      "q": "Is this different from structural rafter sizing?",
+      "a": "Yes. This calculator solves geometric line length; it does not check allowable span, species, grade, depth or loading."
+    },
+    {
+      "q": "Can it calculate hip and valley rafters?",
+      "a": "Not from the common-rafter inputs alone. Hip and valley geometry should be calculated separately."
+    }
+  ],
+  "roof-truss-calculator": [
+    {
+      "q": "How is roof truss count estimated?",
+      "a": "The layout distance is divided by the specified maximum on-center spacing, rounded up to whole intervals, then end positions and any extras are included."
+    },
+    {
+      "q": "Does it design the roof truss?",
+      "a": "No. Engineered truss profile, loading, bracing and reactions must come from the truss manufacturer or project design."
+    }
+  ],
+  "roof-flashing-calculator": [
+    {
+      "q": "How does flashing overlap affect stock-piece count?",
+      "a": "After the first piece, each additional stock piece contributes its length minus the required overlap, so greater overlap can increase the number of pieces."
+    },
+    {
+      "q": "Can one calculation cover valleys, walls and chimneys together?",
+      "a": "Only if they use the same flashing type, stock length and overlap. Different runs are clearer and safer to estimate separately."
+    }
+  ],
+  "roof-waste-calculator": [
+    {
+      "q": "What quantity should I enter in the roof waste calculator?",
+      "a": "Enter the net roofing quantity before any waste allowance. The calculator adds the single percentage you specify."
+    },
+    {
+      "q": "Should I add waste again after using a shingle calculator?",
+      "a": "Not if that shingle result already includes a material allowance. Adding the same allowance twice would overstate the order."
+    }
+  ],
+  "flooring-calculator": [
+    {
+      "q": "How many flooring packages do I need?",
+      "a": "The calculator finds net floor area, applies the selected allowance, divides by the effective package coverage and rounds up to whole packages."
+    },
+    {
+      "q": "Should I subtract closets or openings?",
+      "a": "Subtract only areas that will not receive the flooring, and subtract them once. Areas receiving the same finish should remain included."
+    }
+  ],
+  "flooring-cost-calculator": [
+    {
+      "q": "What does the flooring cost estimate include?",
+      "a": "It prices the entered flooring quantity and any allowance, then adds the tax, delivery and labor values you enter. Other scope is not assumed."
+    },
+    {
+      "q": "Should I use a national average price?",
+      "a": "A current supplier or installer quote is more useful because material and installation prices vary by product and location."
+    }
+  ],
+  "hardwood-flooring-calculator": [
+    {
+      "q": "How much extra hardwood should I order?",
+      "a": "Use a project-specific allowance based on room shape, board layout, pattern and desired spare stock rather than assuming one universal percentage."
+    },
+    {
+      "q": "Does the calculator choose hardwood board width or direction?",
+      "a": "No. Those are product and layout choices that affect the allowance and installation plan."
+    }
+  ],
+  "hardwood-flooring-cost-calculator": [
+    {
+      "q": "Does hardwood cost include finishing and installation?",
+      "a": "Only entered cost items are included. Site finishing, trim, subfloor work and installation should be added separately when they are part of the project."
+    },
+    {
+      "q": "Can I use package pricing and square-foot pricing interchangeably?",
+      "a": "Only after converting them to one consistent basis using the actual package coverage."
+    }
+  ],
+  "laminate-flooring-calculator": [
+    {
+      "q": "How are laminate packages rounded?",
+      "a": "The allowance-adjusted coverage is divided by the actual package coverage, then rounded up to a whole package count."
+    },
+    {
+      "q": "Should attached pad be counted as separate underlayment?",
+      "a": "Not automatically. Check the product system so integrated underlayment is not duplicated in the takeoff."
+    }
+  ],
+  "vinyl-flooring-calculator": [
+    {
+      "q": "Can I use this for both vinyl plank and sheet vinyl?",
+      "a": "Use the workflow and coverage unit that matches the product shown in the form. Sheet layouts may require seam and pattern-repeat planning beyond simple area."
+    },
+    {
+      "q": "Why can purchased vinyl exceed net room area?",
+      "a": "Package rounding, pattern repeat, seams, room shape and the selected allowance can all increase the purchased quantity."
+    }
+  ],
+  "carpet-calculator": [
+    {
+      "q": "Why does carpet need roll width?",
+      "a": "Carpet is cut from a fixed-width roll, so strip layout and seam direction can create offcut area that a simple square-foot calculation misses."
+    },
+    {
+      "q": "Is carpet pad included?",
+      "a": "Only when the calculator explicitly provides pad inputs or outputs. Treat pad, stairs, transitions and installation as separate scope otherwise."
+    }
+  ],
+  "carpet-cost-calculator": [
+    {
+      "q": "Should carpet cost use net room area or purchased roll area?",
+      "a": "Use the purchased quantity based on roll layout because offcuts are still part of the material bought."
+    },
+    {
+      "q": "How do I handle a quote per square yard?",
+      "a": "Use the matching price unit or convert the purchase area consistently; one square yard equals nine square feet."
+    }
+  ],
+  "tile-calculator": [
+    {
+      "q": "Does grout-joint width change tile count?",
+      "a": "Yes. The tile plus joint creates the installed module used for row and column layout, so joint width can affect whole edge-piece counts."
+    },
+    {
+      "q": "Does the calculator optimize reusable tile offcuts?",
+      "a": "No. Straight-grid counting is conservative at edges and does not perform a cutting-layout optimization."
+    }
+  ],
+  "tile-quantity-calculator": [
+    {
+      "q": "When should I use Tile Quantity instead of Tile Calculator?",
+      "a": "Use Tile Quantity when the main goal is whole-tile purchasing count from surface and tile dimensions; use the broader Tile Calculator when you want the fuller layout outputs."
+    },
+    {
+      "q": "Can it model diagonal or patterned tile layouts?",
+      "a": "Not directly. Those layouts usually need a project-specific allowance and a separate layout plan."
+    }
+  ],
+  "tile-cost-calculator": [
+    {
+      "q": "Does tile cost include grout and adhesive?",
+      "a": "Not unless those items are explicitly entered. Tile, grout, adhesive, membrane, trim and labor are separate scopes on many projects."
+    },
+    {
+      "q": "Should material cost use whole boxes?",
+      "a": "When the supplier sells only whole boxes, base cost on the rounded purchasing quantity rather than an unpurchasable fractional box."
+    }
+  ],
+  "tile-grout-calculator": [
+    {
+      "q": "What measurements affect grout quantity?",
+      "a": "Tile length and width, joint width, joint depth, tiled area and the product yield or density basis all influence the result."
+    },
+    {
+      "q": "Should I rely on a generic grout coverage number?",
+      "a": "Manufacturer coverage for the exact grout product is preferable because formulation, joint geometry and installation loss vary."
+    }
+  ],
+  "tile-adhesive-calculator": [
+    {
+      "q": "Why does thinset coverage vary so much?",
+      "a": "Trowel notch, tile size, substrate flatness, mortar consistency and back-buttering can change coverage significantly."
+    },
+    {
+      "q": "What coverage should I enter?",
+      "a": "Use the manufacturer's coverage for the selected product and installation method when available."
+    }
+  ],
+  "flooring-waste-calculator": [
+    {
+      "q": "What is the difference between net flooring and waste allowance?",
+      "a": "Net quantity is the measured requirement before overage. The allowance is the extra material added for cuts, damage, pattern matching or spare stock."
+    },
+    {
+      "q": "Can I use this after another calculator already added waste?",
+      "a": "Only after removing that prior allowance. Otherwise the same overage would be applied twice."
+    }
+  ],
+  "underlayment-calculator": [
+    {
+      "q": "How are underlayment rolls or packages estimated?",
+      "a": "The floor area plus allowance is divided by effective net package coverage and rounded up to whole packages."
+    },
+    {
+      "q": "Should overlap be included in the coverage value?",
+      "a": "Use manufacturer net coverage after required overlap when available so overlap is not deducted twice."
+    }
+  ]
+};
+
 const masonrySeo = masonrySeoEnhancements[calc.slug]
   ? { title: calc.title, description: calc.description, ...masonrySeoEnhancements[calc.slug] }
   : undefined;
-const pageSeo = concreteSeo[calc.slug] ?? slabSeo[calc.slug] ?? foundationSeo[calc.slug] ?? rebarSeo[calc.slug] ?? masonrySeo;
-const faq = pageSeo?.faq ?? [...content.faq, ...(faqEnhancements[calc.slug] ?? [])];
+const pageSeo = concreteSeo[calc.slug] ?? slabSeo[calc.slug] ?? foundationSeo[calc.slug] ?? rebarSeo[calc.slug] ?? masonrySeo;\nconst enhancedTradeCluster = new Set(["framing", "roofing", "flooring"]);
+const faq = pageSeo?.faq ?? [...content.faq, ...(faqEnhancements[calc.slug] ?? []), ...(tradeFaqEnhancements[calc.slug] ?? [])];
 const seoDescriptionOverrides: Record<string, string> = {
   "crushed-stone-calculator": calc.description,
   "gravel-weight-calculator": calc.description,
@@ -1094,15 +1730,15 @@ const seoDescriptionOverrides: Record<string, string> = {
   "brick-cost-calculator": calc.description,
   "cmu-cost-calculator": calc.description,
 };
-const seoDescription = pageSeo?.description ?? seoDescriptionOverrides[calc.slug] ?? content.description;
+const seoDescription = pageSeo?.description ?? (enhancedTradeCluster.has(calc.cluster) ? calc.description : (seoDescriptionOverrides[calc.slug] ?? content.description));
 const seoTitle = pageSeo?.title ?? calc.title;
-const pageGuidance = pageSeo?.guidance ?? [];
+const pageGuidance = pageSeo?.guidance ?? tradeGuidance[calc.slug] ?? [];
 const newCalculatorSlugs = new Set([
   "deck-mud-calculator",
   "stucco-calculator",
   "concrete-crack-repair-calculator",
 ]);
-const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-08-29";
+const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-08-29";\nconst pageDateModified = enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" : "2026-09-24";
 ---
 
 <CalculatorLayout
@@ -1116,7 +1752,7 @@ const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-0
   canonical={`/${calc.slug}/`}
   ogImage={ogImage}
   datePublished={datePublished}
-  dateModified="2026-09-24"
+  dateModified={pageDateModified}
   noindex={false}
 >
   <Header slot="header" />
