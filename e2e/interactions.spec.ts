@@ -385,6 +385,14 @@ test.describe('Calculator interactions', () => {
     await expect(root.locator('.result-primary')).toHaveText('8');
     await expect(root.locator('.result-primary-unit')).toHaveText('bags');
     await expect(root.locator('.result-secondary')).toHaveText('Whole cement bags required');
+
+    const advanced = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await expect(advanced).not.toHaveAttribute('open', '');
+    await expect(root.locator('#concrete-mix-calculator-bagMass-unit')).toHaveValue('kg');
+    await root.locator('#concrete-mix-calculator-bagMass').fill('94');
+    await root.locator('#concrete-mix-calculator-bagMass-unit').selectOption('lb');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-primary')).toHaveText('9');
     await expect(root.locator('.result-rows-grid')).toContainText('369.6');
     await expect(root.locator('.result-rows-grid')).toContainText('184.8');
     await expect(diagram).toBeVisible();
