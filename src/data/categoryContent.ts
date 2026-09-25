@@ -149,7 +149,7 @@ export const categoryContent: Record<string, CategoryContent> = {
       "Deck Joist and Fence Post calculators convert a specified maximum spacing into a count and equalized layout. They do not select an allowable span or post spacing.",
       "Deck Footing Concrete and Fence Concrete estimate material from entered hole geometry and subtract the square post volume from a round hole.",
       "Deck Stair and Railing calculators are geometry tools. Enter the project-approved riser, tread and opening limits and verify the completed layout against applicable requirements.",
-      "Fence Calculator combines posts and sections; Fence Panel and Fence Post calculators isolate those purchasing decisions so panel width, post spacing and spares are not conflated."
+      "Fence Calculator combines posts and sections; Fence Panel and Fence Post isolate those purchasing decisions, while Fence Cost adds gate-aware layout, rails, post-hole concrete and one selected material price."
     ],
     relatedCategories: [
       { name: "Concrete", href: "/construction/concrete/", reason: "Concrete quantity for larger deck or fence footing scopes" },
