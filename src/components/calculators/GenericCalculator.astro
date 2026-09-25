@@ -785,6 +785,7 @@ const diagramFields = fields
       // Restore a calculation from a shared URL before the first render.
             hydrateSharedState();
             recalculateIfReady();
+            root.dispatchEvent(new CustomEvent("calculator-state-restored"));
     });
   }
 
