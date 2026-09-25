@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { hubCalculators } from "../../data/hubCalculators";
+import { calculators as legacyCalculators } from "../../data/calculators";
 
 function checkMeta(cluster:string,count:number){
   const pages=hubCalculators.filter(p=>p.cluster===cluster);
@@ -57,6 +58,14 @@ describe("Gravel, aggregate & dirt SEO quality",()=>{
     expect(p.get("topsoil-calculator")!.description).toMatch(/topsoil|bulk density/i);
   });
   it("owns keywords cleanly inside the category",()=>expectUniqueKeywords(checkMeta("gravel",15)));
+  it("keeps the featured legacy Gravel Calculator metadata aligned with the upgraded hub entry",()=>{
+    const hub=hubCalculators.find(p=>p.slug==="gravel-calculator");
+    const legacy=legacyCalculators.find(p=>p.slug==="gravel-calculator");
+    expect(legacy?.title).toBe(hub?.title);
+    expect(legacy?.description).toBe(hub?.description);
+    expect(legacy?.category).toBe(hub?.category);
+    expect(legacy?.keywords).toEqual(hub?.keywords);
+  });
   it("does not present density or depth as structural recommendations",()=>{
     const text=checkMeta("gravel",15).map(x=>x.title+" "+x.description).join("\n").toLowerCase();
     expect(text).not.toContain("required base depth");
