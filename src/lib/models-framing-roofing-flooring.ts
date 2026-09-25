@@ -29,7 +29,7 @@ function memberCountModel(label:string):Model{
     fields:[
       length('length','Distance across member layout',20,'ft'),
       length('spacing','Specified maximum on-center spacing',16,'in'),
-      length('memberLength',`${label} length`,8,'ft'),
+      {...length('memberLength',`${label} length`,8,'ft'),optional:true},
       count('extra','Additional detail members',0,0),
       allowance,
       price('USD/unit',['USD/unit','USD/ft'])
@@ -45,7 +45,8 @@ function memberCountModel(label:string):Model{
       const base=roundUp(v.length/v.spacing)+1;
       const installed=base+v.extra;
       const order=roundUp(installed*waste(v));
-      const linear=order*v.memberLength;
+      const memberLength=Number.isFinite(v.memberLength)?v.memberLength:0;
+      const linear=order*memberLength;
       return result(withCost([
         row('order',`${label}s to order`,order,`${label.toLowerCase()}s`,true),
         row('installed',`Installed ${label.toLowerCase()}s`,installed,`${label.toLowerCase()}s`,true),
@@ -55,7 +56,7 @@ function memberCountModel(label:string):Model{
       ],v.price,u.price,{'USD/unit':order,'USD/ft':linear}),[
         `ceil(${fmt(v.length)} ft ÷ ${fmt(v.spacing*12)} in) + 1 = ${base} base members.`,
         `${base} + ${v.extra} detail members = ${installed} installed; allowance → ${order} to purchase.`,
-        `${order} × ${fmt(v.memberLength)} ft = ${fmt(linear)} ft purchased length.`
+        memberLength>0?`${order} × ${fmt(memberLength)} ft = ${fmt(linear)} ft purchased length.`:'Member length not supplied; piece count is still valid.'
       ]);
     }
   };
