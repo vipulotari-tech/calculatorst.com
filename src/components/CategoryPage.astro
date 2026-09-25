@@ -57,7 +57,7 @@ const primaryByCluster: Record<string, string> = {
   roofing: "roofing-calculator",
   flooring: "flooring-calculator",
   drywall: "drywall-calculator",
-  "deck-fence": "fence-calculator",
+  "deck-fence": "deck-calculator",
   landscaping: "paver-calculator",
   asphalt: "asphalt-calculator",
 };
@@ -110,6 +110,22 @@ const categorySeoOverrides: Record<string, { title: string; description: string 
   flooring: {
     title: "Flooring & Tile Calculators — Coverage, Boxes, Carpet & Cost",
     description: "Use 15 flooring calculators for hardwood, laminate, vinyl, carpet and tile coverage, boxes, cost, grout, adhesive, underlayment and waste.",
+  },
+  drywall: {
+    title: "Drywall, Paint & Insulation Calculators — Sheets, Gallons & Cost",
+    description: "Use 15 calculators for drywall sheets, mud, screws and tape plus paint, primer, insulation packages and spray-foam board feet, quantities and cost.",
+  },
+  "deck-fence": {
+    title: "Deck & Fence Calculators — Boards, Posts, Footings & Cost",
+    description: "Use 15 deck, fence and gate calculators for boards, joists, post-hole concrete, stairs, railings, posts, panels, pickets, gate layout and material cost.",
+  },
+  landscaping: {
+    title: "Paver & Landscaping Calculators — Pavers, Base, Sand, Mulch & Cost",
+    description: "Use 10 paver and landscaping calculators for paver layout, base, bedding and joint sand, landscape material, mulch, retaining-wall blocks and cost.",
+  },
+  asphalt: {
+    title: "Asphalt Calculators — Tons, Thickness, Parking Lots & Cost",
+    description: "Use 10 asphalt and surface calculators for tons, volume, weight, reverse thickness, driveways, parking lots, road base, surface area and quote-based cost.",
   },
 };
 const categorySeo = categorySeoOverrides[cluster];
@@ -243,6 +259,60 @@ const taskLinks = cluster === "concrete" ? [
   { label: "Tile adhesive", href: "/tile-adhesive-calculator/", text: "Estimate thinset or adhesive containers from tiled area and manufacturer coverage, with allowance and optional cost." },
   { label: "Flooring waste", href: "/flooring-waste-calculator/", text: "Apply a chosen allowance to a known net flooring quantity and keep extra material separate from the net requirement." },
   { label: "Underlayment", href: "/underlayment-calculator/", text: "Estimate whole rolls or packages from floor area, effective net coverage/overlap and purchasing allowance." },
+] : cluster === "drywall" ? [
+  { label: "Room drywall", href: "/drywall-calculator/", text: "Room walls plus optional ceiling → whole drywall sheets from entered sheet coverage and allowance." },
+  { label: "Known-area sheets", href: "/drywall-sheet-calculator/", text: "Known finished area → whole sheets from actual sheet length and width, allowance and optional sheet price." },
+  { label: "Drywall material cost", href: "/drywall-cost-calculator/", text: "Price one known drywall material line with allowance, tax, delivery and entered labor." },
+  { label: "Joint compound / mud", href: "/drywall-joint-compound-calculator/", text: "Finished drywall area ÷ manufacturer coverage → whole compound containers." },
+  { label: "Drywall screws", href: "/drywall-screw-calculator/", text: "Installed sheets × fastening-plan screws per sheet → screw count and whole boxes." },
+  { label: "Drywall tape", href: "/drywall-tape-calculator/", text: "Measured seams and taped corners → tape length and whole rolls." },
+  { label: "Wall paint", href: "/paint-calculator/", text: "Room-wall area, openings, coats and product coverage → gallons and whole containers." },
+  { label: "Paint coverage", href: "/paint-coverage-calculator/", text: "Known paint quantity and coat count → surface area that can receive all coats." },
+  { label: "Paint cost", href: "/paint-cost-calculator/", text: "Wall-paint quantity plus optional per-container material cost." },
+  { label: "Primer", href: "/primer-calculator/", text: "Primer gallons and containers from wall geometry, coats, coverage and allowance." },
+  { label: "Ceiling paint", href: "/ceiling-paint-calculator/", text: "Flat ceiling area → gallons and containers from coats and product coverage." },
+  { label: "Wall-only paint", href: "/wall-paint-calculator/", text: "Four-wall paint quantity from room perimeter, height, openings, coats and coverage." },
+  { label: "Insulation packages", href: "/insulation-calculator/", text: "Measured area and exact package coverage → whole insulation packages." },
+  { label: "Insulation cost", href: "/insulation-cost-calculator/", text: "Price one known insulation material line with allowance, tax, delivery and entered labor." },
+  { label: "Spray foam", href: "/spray-foam-calculator/", text: "Area × installed thickness → board feet and whole kits from usable field yield." },
+] : cluster === "deck-fence" ? [
+  { label: "General deck takeoff", href: "/deck-calculator/", text: "Deck surface → stock boards, rows, joist lines, fasteners, purchased length and optional board cost." },
+  { label: "Deck material cost", href: "/deck-cost-calculator/", text: "Price one known deck material line with allowance, tax, delivery and entered labor." },
+  { label: "Deck boards", href: "/deck-board-calculator/", text: "Focus on decking rows, stock-board quantity and purchased linear footage." },
+  { label: "Deck joists", href: "/deck-joist-calculator/", text: "Layout distance + specified maximum on-center spacing → joist count and spares." },
+  { label: "Deck footing concrete", href: "/deck-footing-calculator/", text: "Post-hole diameter, fill depth and post width → net concrete volume and whole bags." },
+  { label: "Deck stairs", href: "/deck-stair-calculator/", text: "Total rise and chosen layout limits → equal risers, treads, total run and diagonal." },
+  { label: "Deck railing", href: "/deck-railing-calculator/", text: "Clear rail length, baluster width and chosen maximum gap → baluster count and equal gap." },
+  { label: "General fence", href: "/fence-calculator/", text: "Continuous run + specified maximum post spacing → posts, sections/panels, spares and equalized spacing." },
+  { label: "Fence material cost", href: "/fence-cost-calculator/", text: "Price one known fence material line with allowance, tax, delivery and entered labor." },
+  { label: "Fence posts", href: "/fence-post-calculator/", text: "Focused post count, equalized spacing and spare-post purchasing from a measured run." },
+  { label: "Fence panels", href: "/fence-panel-calculator/", text: "Run length + installed panel coverage → whole panels, supporting posts and nominal extra coverage." },
+  { label: "Fence pickets", href: "/fence-picket-calculator/", text: "Clear run, picket face width and gap → installed and spare pickets." },
+  { label: "Fence concrete", href: "/fence-concrete-calculator/", text: "Round post-hole geometry minus square post displacement → concrete volume and bags." },
+  { label: "Gate size", href: "/gate-calculator/", text: "Clear opening and hinge/latch clearances → equal gate-leaf width and face area." },
+  { label: "Gate material cost", href: "/gate-cost-calculator/", text: "Price one known gate material line with allowance, tax, delivery and entered labor." },
+] : cluster === "landscaping" ? [
+  { label: "Paver layout", href: "/paver-calculator/", text: "Area dimensions, paver face size and joint width → rows, columns, installed pavers and order quantity." },
+  { label: "Paver material cost", href: "/paver-cost-calculator/", text: "Price one known paver material line with allowance, tax, delivery and entered labor." },
+  { label: "Bedding sand", href: "/paver-sand-calculator/", text: "Paved area + bedding depth and density → sand volume, tons and optional bulk cost." },
+  { label: "Paver base", href: "/paver-base-calculator/", text: "Area + compacted base depth and density → base volume, tons and optional bulk cost." },
+  { label: "Joint sand", href: "/paver-joint-sand-calculator/", text: "Paver and joint geometry → filled joint volume, estimated weight and whole bags." },
+  { label: "General landscape material", href: "/landscaping-calculator/", text: "Area × placed depth → bulk yards or whole bags for a generic landscape material." },
+  { label: "Landscape material cost", href: "/landscaping-cost-calculator/", text: "Price one known landscaping material line with allowance, tax, delivery and entered labor." },
+  { label: "Mulch quantity", href: "/mulch-calculator/", text: "Bed dimensions and placed depth → bulk mulch yards and whole bags." },
+  { label: "Mulch cost", href: "/mulch-cost-calculator/", text: "Price one known mulch material line with allowance, tax, delivery and entered labor." },
+  { label: "Retaining-wall blocks", href: "/retaining-wall-calculator/", text: "Wall face and actual block face dimensions → block count, estimated order weight and optional unit cost." },
+] : cluster === "asphalt" ? [
+  { label: "General asphalt quantity", href: "/asphalt-calculator/", text: "Area × compacted thickness with editable mix density → volume, tons and optional material cost." },
+  { label: "Asphalt material cost", href: "/asphalt-cost-calculator/", text: "Asphalt volume and tons plus a matching per-yard, per-meter or per-ton material quote." },
+  { label: "Asphalt driveway", href: "/asphalt-driveway-calculator/", text: "Driveway area × compacted thickness → asphalt yards and tons using editable density." },
+  { label: "Asphalt weight", href: "/asphalt-weight-calculator/", text: "Known asphalt volume × editable compacted density → pounds, US tons and metric tonnes." },
+  { label: "Reverse thickness", href: "/asphalt-thickness-calculator/", text: "Known asphalt mass + paved area + density → average compacted thickness; this is not pavement design." },
+  { label: "Parking-lot quantity", href: "/parking-lot-calculator/", text: "Parking-lot area × compacted thickness → asphalt volume and tons without project-cost scope." },
+  { label: "Parking-lot cost", href: "/parking-lot-cost-calculator/", text: "Parking-lot tons plus quoted material rate, tax, trucking and entered fixed paving cost." },
+  { label: "Road base", href: "/road-base-calculator/", text: "Base area, placed depth and density → aggregate volume, weight and optional material cost." },
+  { label: "Surface area", href: "/surface-area-calculator/", text: "Net rectangular surface area after excluded area, with US and metric area outputs." },
+  { label: "Generic material cost", href: "/construction-material-cost-calculator/", text: "Price a known construction material quantity with allowance, tax, delivery and entered labor." },
 ] : [];
 ---
 
@@ -279,7 +349,7 @@ const taskLinks = cluster === "concrete" ? [
 
         {taskLinks.length > 0 && (
           <section class="mt-6 rounded-xl border border-hairline bg-canvas p-5" aria-labelledby="choose-category-calculator">
-            <h2 id="choose-category-calculator" class="text-sm font-semibold text-ink">Choose the right {cluster === "concrete" ? "concrete" : cluster === "slab" ? "slab, patio or driveway" : cluster === "foundation" ? "foundation or footing" : cluster === "rebar" ? "rebar or reinforcement" : cluster === "brick" ? "brick or masonry" : cluster === "cmu" ? "concrete block or CMU" : cluster === "mortar" ? "mortar, grout or cement" : cluster === "gravel" ? "gravel, aggregate or dirt" : cluster === "excavation" ? "excavation or earthwork" : cluster === "framing" ? "framing or lumber" : cluster === "roofing" ? "roofing" : "flooring or tile"} calculator</h2>
+            <h2 id="choose-category-calculator" class="text-sm font-semibold text-ink">Choose the right {cluster === "concrete" ? "concrete" : cluster === "slab" ? "slab, patio or driveway" : cluster === "foundation" ? "foundation or footing" : cluster === "rebar" ? "rebar or reinforcement" : cluster === "brick" ? "brick or masonry" : cluster === "cmu" ? "concrete block or CMU" : cluster === "mortar" ? "mortar, grout or cement" : cluster === "gravel" ? "gravel, aggregate or dirt" : cluster === "excavation" ? "excavation or earthwork" : cluster === "framing" ? "framing or lumber" : cluster === "roofing" ? "roofing" : cluster === "flooring" ? "flooring or tile" : cluster === "drywall" ? "drywall, paint or insulation" : cluster === "deck-fence" ? "deck, fence or gate" : cluster === "landscaping" ? "paver, mulch or landscaping" : cluster === "asphalt" ? "asphalt, parking-lot or road-base" : "construction"} calculator</h2>
             <p class="mt-2 text-[13px] leading-5 text-body">These pages target different estimating tasks. Pick the one that matches the decision you are making instead of repeating the same inputs across several calculators.</p>
             <div class="mt-4 grid gap-3 sm:grid-cols-2">
               {taskLinks.map((item) => (
