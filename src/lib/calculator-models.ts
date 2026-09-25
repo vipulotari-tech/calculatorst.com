@@ -8,6 +8,7 @@ import { foundationModels } from './models-foundation.ts';
 import { rebarModels } from './models-rebar.ts';
 import { masonryDedicatedModels } from './models-masonry-dedicated.ts';
 import { mortarSiteworkModels } from './models-mortar-sitework.ts';
+import { framingRoofingFlooringModels } from './models-framing-roofing-flooring.ts';
 
 export const allModels: Record<string, Model> = {
   ...structureModels,
@@ -19,6 +20,7 @@ export const allModels: Record<string, Model> = {
   ...rebarModels,
   ...masonryDedicatedModels,
   ...mortarSiteworkModels,
+  ...framingRoofingFlooringModels,
 };
 
 export function getModel(key: string): Model {
