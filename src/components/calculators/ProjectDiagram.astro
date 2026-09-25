@@ -341,6 +341,7 @@ const show = !excluded && fields.length >= 2;
 
       root.addEventListener("input", update);
       root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
       update();
     });
   }
