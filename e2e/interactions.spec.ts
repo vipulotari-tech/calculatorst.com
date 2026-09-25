@@ -419,16 +419,48 @@ test.describe('Framing / roofing / flooring full browser audit', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity/);
   });
 
-  test('roof pitch calculator — angle mode works and reset restores the mode', async ({ page }) => {
+  test('roof pitch calculator — all solver modes, validation and live diagram work', async ({ page }) => {
     await page.goto('/roof-pitch-calculator/');
     const root=page.locator('[data-calculator-slug="roof-pitch-calculator"]');
     const mode=root.locator('#roof-pitch-calculator-mode');
+    const diagram=root.locator('[data-project-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await root.locator('#roof-pitch-calculator-rise').fill('6');
+    await root.locator('#roof-pitch-calculator-run').fill('12');
+    await root.getByRole('button',{name:/Calculate/i}).click();
+    await expect(root.locator('.result-primary')).toHaveText(/^6$/);
+    await expect(root).toContainText('Straight sloped rafter length');
+    await expect(diagram).toContainText('6.00:12');
+
     await mode.selectOption('1');
     await expect(root.locator('#roof-pitch-calculator-field-angleInput')).toBeVisible();
     await expect(root.locator('#roof-pitch-calculator-field-rise')).toBeHidden();
     await root.locator('#roof-pitch-calculator-angleInput').fill('45');
+    await root.locator('#roof-pitch-calculator-referenceRun').fill('10');
     await root.getByRole('button',{name:/Calculate/i}).click();
-    await expect(root.locator('.result-primary')).toHaveText(/12/);
+    await expect(root.locator('.result-primary')).toHaveText(/^12$/);
+    await expect(root).toContainText('14.1421');
+
+    await mode.selectOption('2');
+    await expect(root.locator('#roof-pitch-calculator-field-pitchInput')).toBeVisible();
+    await root.locator('#roof-pitch-calculator-pitchInput').fill('8');
+    await root.locator('#roof-pitch-calculator-referenceRun').fill('12');
+    await root.getByRole('button',{name:/Calculate/i}).click();
+    await expect(root.locator('.result-primary')).toHaveText(/^8$/);
+    await expect(root).toContainText('66.6667');
+
+    await mode.selectOption('3');
+    await expect(root.locator('#roof-pitch-calculator-field-rafterLength')).toBeVisible();
+    await root.locator('#roof-pitch-calculator-run').fill('12');
+    await root.locator('#roof-pitch-calculator-rafterLength').fill('10');
+    await root.getByRole('button',{name:/Calculate/i}).click();
+    await expect(root.locator('#roof-pitch-calculator-rafterLength-err')).toContainText('Rafter length must be at least as long as the horizontal run');
+
+    await root.locator('#roof-pitch-calculator-rafterLength').fill('13.416407865');
+    await root.getByRole('button',{name:/Calculate/i}).click();
+    await expect(root.locator('.result-primary')).toHaveText(/^6$/);
+
     await root.getByRole('button',{name:/Reset/i}).click();
     await expect(mode).toHaveValue('0');
   });
