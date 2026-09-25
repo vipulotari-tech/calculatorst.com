@@ -172,7 +172,7 @@ const boardFoot:Model={
     length('length','Board length',8,'ft'),
     count('quantity','Number of boards',10,0),
     allowance,
-    { ...number('price','Price per board foot (USD)',0,0), optional:true, group:'Cost' }
+    { ...number('price','Price per board foot (USD)',undefined,0), optional:true, group:'Cost' }
   ],
   formula:'Board feet = thickness(in) × width(in) × length(ft) × board count / 12.',
   assumptions:['One board foot is 144 in³. Use nominal or actual dimensions consistently with the seller’s pricing convention.','Allowance applies to board-foot purchasing volume, not to installed piece count.'],
