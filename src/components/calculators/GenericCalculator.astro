@@ -54,7 +54,7 @@ const costs = fields.filter((f) => f.group === "Cost");
                   id={`${slug}-${field.id}`}
                   name={field.id}
                   required={!field.optional}
-                  aria-describedby={`${slug}-${field.id}-err`}
+                  aria-describedby={`${slug}-${field.id}-err${field.help ? ` ${slug}-${field.id}-help` : ""}`}
                   class="calc-input h-11 w-full rounded-lg border border-border bg-muted/40 px-3.5 text-[14px] text-foreground focus:border-ring focus:bg-background focus:outline-none focus:ring-2 focus:ring-ring/20 transition-all font-mono cursor-pointer"
                 >
                   {field.options.map((opt) => (
@@ -76,7 +76,7 @@ const costs = fields.filter((f) => f.group === "Cost");
                 value={field.value ?? ""}
                 placeholder={field.help ? field.label : ""}
                 required={!field.optional}
-                aria-describedby={`${slug}-${field.id}-err`}
+                aria-describedby={`${slug}-${field.id}-err${field.help ? ` ${slug}-${field.id}-help` : ""}`}
                 class="calc-input h-11 w-full rounded-l-lg border border-border bg-muted/40 px-3.5 text-[14px] text-foreground placeholder:text-muted-foreground/50 focus:border-ring focus:bg-background focus:outline-none focus:ring-2 focus:ring-ring/20 transition-all font-mono"
               />
               {field.units && field.units.length > 1 ? (
@@ -101,7 +101,7 @@ const costs = fields.filter((f) => f.group === "Cost");
               )}
             </div>
             {field.help && (
-              <p class="text-[11px] text-muted-foreground leading-normal">{field.help}</p>
+              <p id={`${slug}-${field.id}-help`} class="text-[11px] text-muted-foreground leading-normal">{field.help}</p>
             )}
             <span id={`${slug}-${field.id}-err`} class="hidden text-xs text-destructive font-medium" role="alert"></span>
           </label>
@@ -129,7 +129,7 @@ const costs = fields.filter((f) => f.group === "Cost");
                     id={`${slug}-${field.id}`}
                     name={field.id}
                     required={!field.optional}
-                    aria-describedby={`${slug}-${field.id}-err`}
+                    aria-describedby={`${slug}-${field.id}-err${field.help ? ` ${slug}-${field.id}-help` : ""}`}
                     class="calc-input h-11 w-full rounded-lg border border-border bg-muted/40 px-3.5 text-[14px] text-foreground focus:border-ring focus:bg-background focus:outline-none focus:ring-2 focus:ring-ring/20 transition-all font-mono cursor-pointer"
                   >
                     {field.options.map((opt) => (
@@ -151,7 +151,7 @@ const costs = fields.filter((f) => f.group === "Cost");
                   value={field.value ?? ""}
                   placeholder={field.label}
                   required={!field.optional}
-                  aria-describedby={`${slug}-${field.id}-err`}
+                  aria-describedby={`${slug}-${field.id}-err${field.help ? ` ${slug}-${field.id}-help` : ""}`}
                   class="calc-input h-11 w-full rounded-l-lg border border-border bg-muted/40 px-3.5 text-[14px] text-foreground placeholder:text-muted-foreground/50 focus:border-ring focus:bg-background focus:outline-none focus:ring-2 focus:ring-ring/20 transition-all font-mono"
                 />
                 {field.units && field.units.length > 1 ? (
@@ -176,7 +176,7 @@ const costs = fields.filter((f) => f.group === "Cost");
                 )}
               </div>
               {field.help && (
-                <p class="text-[11px] text-muted-foreground leading-normal">{field.help}</p>
+                <p id={`${slug}-${field.id}-help`} class="text-[11px] text-muted-foreground leading-normal">{field.help}</p>
               )}
               <span id={`${slug}-${field.id}-err`} class="hidden text-xs text-destructive font-medium" role="alert"></span>
             </label>
@@ -205,7 +205,7 @@ const costs = fields.filter((f) => f.group === "Cost");
                     id={`${slug}-${field.id}`}
                     name={field.id}
                     required={!field.optional}
-                    aria-describedby={`${slug}-${field.id}-err`}
+                    aria-describedby={`${slug}-${field.id}-err${field.help ? ` ${slug}-${field.id}-help` : ""}`}
                     class="calc-input h-11 w-full rounded-lg border border-border bg-muted/40 px-3.5 text-[14px] text-foreground focus:border-ring focus:bg-background focus:outline-none focus:ring-2 focus:ring-ring/20 transition-all font-mono cursor-pointer"
                   >
                     {field.options.map((opt) => (
@@ -227,7 +227,7 @@ const costs = fields.filter((f) => f.group === "Cost");
                   value={field.value ?? ""}
                   placeholder="0.00"
                   required={!field.optional}
-                  aria-describedby={`${slug}-${field.id}-err`}
+                  aria-describedby={`${slug}-${field.id}-err${field.help ? ` ${slug}-${field.id}-help` : ""}`}
                   class="calc-input h-11 w-full rounded-l-lg border border-border bg-muted/40 px-3.5 text-[14px] text-foreground placeholder:text-muted-foreground/50 focus:border-ring focus:bg-background focus:outline-none focus:ring-2 focus:ring-ring/20 transition-all font-mono"
                 />
                 {field.units && field.units.length > 1 ? (
@@ -252,7 +252,7 @@ const costs = fields.filter((f) => f.group === "Cost");
                 )}
               </div>
               {field.help && (
-                <p class="text-[11px] text-muted-foreground leading-normal">{field.help}</p>
+                <p id={`${slug}-${field.id}-help`} class="text-[11px] text-muted-foreground leading-normal">{field.help}</p>
               )}
               <span id={`${slug}-${field.id}-err`} class="hidden text-xs text-destructive font-medium" role="alert"></span>
             </label>
@@ -267,13 +267,13 @@ const costs = fields.filter((f) => f.group === "Cost");
       <div class="flex items-center gap-2">
         <button
           type="submit"
-          class="calc-calc-btn inline-flex h-10 items-center justify-center rounded-lg bg-foreground px-5 text-[13px] font-medium text-background transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
+          class="calc-calc-btn inline-flex h-11 items-center justify-center rounded-lg bg-foreground px-5 text-[13px] font-medium text-background transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
         >
           Calculate
         </button>
         <button
           type="button"
-          class="calc-reset-btn inline-flex h-10 items-center justify-center rounded-lg border border-border bg-background px-4 text-[13px] font-medium text-muted-foreground hover:bg-muted/60 hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
+          class="calc-reset-btn inline-flex h-11 items-center justify-center rounded-lg border border-border bg-background px-4 text-[13px] font-medium text-muted-foreground hover:bg-muted/60 hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
         >
           Reset
         </button>
@@ -282,7 +282,7 @@ const costs = fields.filter((f) => f.group === "Cost");
         <button
           type="button"
           aria-label="Copy Result"
-          class="calc-copy-btn inline-flex h-10 items-center justify-center rounded-lg border border-border bg-background px-3.5 text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
+          class="calc-copy-btn inline-flex h-11 items-center justify-center rounded-lg border border-border bg-background px-3.5 text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy shrink-0"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
           <span class="copy-status" role="status">Copy Result</span>
@@ -290,7 +290,7 @@ const costs = fields.filter((f) => f.group === "Cost");
         <button
           type="button"
           aria-label="Share this calculation"
-          class="calc-share-btn inline-flex h-10 items-center justify-center rounded-lg border border-border bg-background px-3.5 text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
+          class="calc-share-btn inline-flex h-11 items-center justify-center rounded-lg border border-border bg-background px-3.5 text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4"/><path d="m15.4 6.5-6.8 4"/></svg>
           <span class="share-status" role="status">Share</span>
@@ -298,7 +298,7 @@ const costs = fields.filter((f) => f.group === "Cost");
         <button
           type="button"
           aria-label="Print calculation results"
-          class="calc-print-btn inline-flex h-10 items-center justify-center rounded-lg border border-border bg-background px-3.5 text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
+          class="calc-print-btn inline-flex h-11 items-center justify-center rounded-lg border border-border bg-background px-3.5 text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
           <span>Print</span>
@@ -414,6 +414,36 @@ const costs = fields.filter((f) => f.group === "Cost");
                 const wrap = root.querySelector<HTMLElement>(`#${slug}-field-${f.id}`);
                 if (wrap) wrap.hidden = !fieldVisible(f, state);
               });
+            }
+
+            function hasCompleteVisibleRequiredInputs() {
+              const state = readControlValues();
+              return model.fields.every((field) => {
+                if (field.optional || !fieldVisible(field, state)) return true;
+                const control = form?.querySelector<HTMLInputElement | HTMLSelectElement>(`#${slug}-${field.id}`);
+                return Boolean(control && control.value.trim() !== "");
+              });
+            }
+
+            function showAwaitingInput() {
+              delete root.dataset.lastCalculated;
+              if (copyBtn) copyBtn.disabled = true;
+              targetPrimaryValEl.textContent = '--';
+              if (primaryUnitEl) primaryUnitEl.textContent = '';
+              if (secondaryEl) secondaryEl.textContent = 'Enter the required values above to calculate';
+              targetRowsGridEl.replaceChildren();
+              targetStepsListEl.replaceChildren();
+              const li = document.createElement('li');
+              li.textContent = 'Complete the required fields to see the calculation breakdown.';
+              targetStepsListEl.appendChild(li);
+              notesList?.replaceChildren();
+              if (status) status.textContent = '';
+            }
+
+            function recalculateIfReady() {
+              updateVisibility();
+              if (hasCompleteVisibleRequiredInputs()) calculate();
+              else showAwaitingInput();
             }
 
             const sharedParam = (id: string) => `cs_${id}`;
@@ -564,8 +594,8 @@ const costs = fields.filter((f) => f.group === "Cost");
       }
 
       // Live calculation on input change
-            form.addEventListener("input", () => { updateVisibility(); calculate(); });
-            form.addEventListener("change", () => { updateVisibility(); calculate(); });
+            form.addEventListener("input", recalculateIfReady);
+            form.addEventListener("change", recalculateIfReady);
             form.addEventListener('submit', event => { event.preventDefault(); updateVisibility(); calculate(true); });
 
             // Reset handler
@@ -581,8 +611,7 @@ const costs = fields.filter((f) => f.group === "Cost");
                 }
               });
               clearSharedStateFromUrl();
-              updateVisibility();
-              calculate();
+              recalculateIfReady();
             });
 
       // Copy handler
@@ -632,8 +661,7 @@ const costs = fields.filter((f) => f.group === "Cost");
 
       // Restore a calculation from a shared URL before the first render.
             hydrateSharedState();
-            updateVisibility();
-            calculate();
+            recalculateIfReady();
     });
   }
 
