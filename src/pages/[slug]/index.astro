@@ -286,18 +286,22 @@ const concreteSeo: Record<string, {
     ]
   },
   "concrete-pour-calculator": {
-    title: "Concrete Pour Calculator — Truck Loads, Short-Load & Pump Time",
-    description: "Plan a concrete pour with cubic yards, truck-load count, final-load size, short-load fee, pump duration, bags, weight and price in multiple units.",
+    title: "Concrete Pour Calculator — Truck Loads, Dispatch Spacing & Pour Time",
+    description: "Plan ready-mix delivery from dimensions, area or known volume with truck loads, final-load utilization, short-load rules, pour time, dispatch spacing and quoted logistics cost.",
     guidance: [
-      "Use this page after the pour dimensions are known and the next question is delivery logistics rather than geometry alone.",
-      "Truck count is rounded up from order yards ÷ truck capacity, while the final-load size shows how much material remains on the last load.",
-      "Short-load rules vary by supplier; enter the supplier minimum and surcharge from the actual quote."
+      "Start from rectangular dimensions, surface area × thickness, or a known concrete volume. The calculator applies the material allowance before scheduling trucks.",
+      "The large result is the number of ready-mix loads. Order volume, final-truck size and final-load utilization stay visible so the delivery plan can be checked quickly.",
+      "Enter the supplier's usable truck capacity and short-load threshold from the actual quote; the calculator does not assume every fleet can deliver the same load.",
+      "Placement rate drives active pour time and a full-truck placement interval. Treat that interval as a dispatcher-planning aid, not a guaranteed arrival schedule.",
+      "Delivery and pump charges are included only when you enter quoted amounts. Use the dedicated Concrete Cost Calculator for broader project costing."
     ],
     faq: [
-      { q: "How many concrete trucks do I need?", a: "The calculator divides the waste-adjusted cubic yards by the truck capacity you enter and rounds up to a whole number of loads." },
-      { q: "What is a short-load concrete fee?", a: "It is a supplier surcharge that may apply when a delivery is below a minimum load size. Enter your supplier's minimum order and quoted surcharge." },
-      { q: "How is concrete pump time estimated?", a: "Estimated duration equals total cubic yards divided by the pumping rate you enter. Setup, cleanup, repositioning and delays are not included." },
-      { q: "Can I price a pour by cubic foot, bag or ton?", a: "Yes. Select the matching price unit. The calculator converts the order quantity to that basis before adding any short-load surcharge." }
+      { q: "How many ready-mix trucks do I need?", a: "The calculator divides allowance-adjusted order volume by the truck capacity you enter and rounds up to a whole number of loads." },
+      { q: "What does final truck utilization mean?", a: "It is the final calculated load divided by the entered truck capacity. A low percentage can help identify a potential short-load delivery." },
+      { q: "What is a short-load concrete fee?", a: "It is a supplier surcharge that may apply when a load is below the supplier's threshold. The calculator applies the entered surcharge once when the final load falls below that threshold." },
+      { q: "How is concrete pour time estimated?", a: "Active pour duration equals scheduled cubic yards divided by the placement rate you enter. Setup, washout, testing, truck maneuvering, weather and delays are not included." },
+      { q: "What is the truck dispatch interval?", a: "It is the approximate time needed to place one full entered-capacity truck at the sustained placement rate. Coordinate actual delivery spacing with the ready-mix dispatcher." },
+      { q: "Can I include delivery and pump charges?", a: "Yes. Enter a delivery fee per load plus any flat pump setup and hourly pump or placement charge. The calculator keeps those quote-based logistics charges separate from material price." }
     ]
   },
   "concrete-footing-calculator": {
@@ -1811,7 +1815,7 @@ const newCalculatorSlugs = new Set([
   "concrete-crack-repair-calculator",
 ]);
 const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-08-29";
-const pageDateModified = ["concrete-calculator", "concrete-volume-calculator", "concrete-weight-calculator", "concrete-cost-calculator", "concrete-mix-calculator"].includes(calc.slug) || enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" : "2026-09-24";
+const pageDateModified = ["concrete-calculator", "concrete-volume-calculator", "concrete-weight-calculator", "concrete-cost-calculator", "concrete-mix-calculator", "concrete-pour-calculator"].includes(calc.slug) || enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" : "2026-09-24";
 ---
 
 <CalculatorLayout
@@ -1973,6 +1977,27 @@ const pageDateModified = ["concrete-calculator", "concrete-volume-calculator", "
           <div class="rounded-md bg-canvas-soft-2 p-3"><span class="font-mono font-semibold">Water mass = cement mass × w/c</span></div>
         </div>
         <p class="mt-3 text-xs leading-5 text-mute">Bulk density and moisture conditions should match the materials being batched. Use approved project proportions for structural work.</p>
+      </details>
+    )}
+    {calc.slug === "concrete-pour-calculator" && (
+      <details class="rounded-lg border border-hairline bg-canvas p-6">
+        <summary class="cursor-pointer font-semibold text-ink">Ready-mix load &amp; pour-planning reference</summary>
+        <p class="mt-3 text-sm leading-6 text-body">Truck capacity, minimum-load policies, delivery charges and pump rates are supplier/project inputs. The calculator exposes them instead of hiding logistics assumptions.</p>
+        <div class="mt-4 overflow-x-auto rounded-md border border-hairline" role="region" aria-label="Concrete pour planning formulas" tabindex="0">
+          <table class="w-full min-w-[720px] text-left text-sm">
+            <thead class="bg-canvas-soft font-mono text-[11px] text-mute">
+              <tr><th class="px-3 py-2">PLANNING ITEM</th><th class="px-3 py-2">CALCULATION</th><th class="px-3 py-2">USE</th></tr>
+            </thead>
+            <tbody class="divide-y divide-hairline">
+              <tr><td class="px-3 py-2">Order volume</td><td class="px-3 py-2 font-mono">net volume × (1 + allowance)</td><td class="px-3 py-2">Concrete scheduled with the supplier</td></tr>
+              <tr><td class="px-3 py-2">Truck loads</td><td class="px-3 py-2 font-mono">ceil(order yd³ ÷ truck capacity)</td><td class="px-3 py-2">Whole dispatched loads</td></tr>
+              <tr><td class="px-3 py-2">Final load</td><td class="px-3 py-2 font-mono">order yd³ − full prior loads</td><td class="px-3 py-2">Checks final-load size and utilization</td></tr>
+              <tr><td class="px-3 py-2">Active pour time</td><td class="px-3 py-2 font-mono">order yd³ ÷ placement rate</td><td class="px-3 py-2">Placement only; excludes setup/delays</td></tr>
+              <tr><td class="px-3 py-2">Full-truck interval</td><td class="px-3 py-2 font-mono">truck capacity ÷ placement rate</td><td class="px-3 py-2">Approximate continuous-pour spacing aid</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 text-xs leading-5 text-mute">Ready-mix truck capacities and supplier policies vary. InchCalculator notes that many trucks commonly carry roughly 8–10 yd³, but this tool intentionally uses the capacity you enter rather than hard-coding a fleet assumption.</p>
       </details>
     )}
     <div class="rounded-lg border border-hairline bg-canvas p-6">
