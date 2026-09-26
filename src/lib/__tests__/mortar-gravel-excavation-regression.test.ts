@@ -161,6 +161,14 @@ describe("Gravel, aggregate & dirt golden regressions",()=>{
     expect(r.rows.find(x=>x.key==="depth")?.value).toBeCloseTo(12,8);
     expect(r.rows.find(x=>x.key==="volume")?.value).toBeCloseTo(100/27,8);
   });
+  it("Gravel Depth converts known weight through editable density",()=>{
+    const r=run("gravel-depth-calculator",{areaMode:1,area:200,supplyMode:1,tons:2.8,density:1.4},{area:"ft2",density:"ton/yd3"});
+    expect(r.rows.find(x=>x.key==="volume")?.value).toBeCloseTo(2,8);
+    expect(r.rows.find(x=>x.key==="depth")?.value).toBeCloseTo(3.24,8);
+  });
+  it("Gravel Depth rejects zero density in weight mode",()=>{
+    expect(()=>run("gravel-depth-calculator",{areaMode:1,area:200,supplyMode:1,tons:3,density:0},{area:"ft2",density:"ton/yd3"})).toThrow(/density must be greater than zero/i);
+  });
 });
 
 describe("Excavation & earthwork golden regressions",()=>{
