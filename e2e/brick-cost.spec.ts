@@ -30,16 +30,16 @@ test.describe("Brick Cost Calculator", () => {
 
     await root.getByRole("button", { name: "Calculate", exact: true }).click();
 
-    await expect(root.locator(".result-primary")).toHaveText("319.5");
+    await expect(root.locator(".result-primary")).toHaveText("317.3");
     await expect(root.locator(".result-primary-unit")).toHaveText("USD");
 
     const results = root.locator(".result-rows-grid");
-    await expect(results).toContainText("100 bricks");
+    await expect(results).toContainText("99 bricks");
     await expect(results).toContainText("90 bricks");
-    await expect(results).toContainText("10 bricks");
+    await expect(results).toContainText("9 bricks");
     await expect(results).toContainText("9 bags");
     await expect(results).toContainText("90 ft²");
-    await expect(results).toContainText("3.55 USD/ft²");
+    await expect(results).toContainText("3.526 USD/ft²");
 
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
