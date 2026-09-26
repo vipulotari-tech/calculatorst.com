@@ -63,3 +63,22 @@ test.describe("Gravel Cost Calculator", () => {
     await expect(page).not.toHaveURL(/cs_calc=/);
   });
 });
+
+
+test("Crushed Stone calculator browser regression", async ({ page }) => {
+  await page.goto("/crushed-stone-calculator/");
+  const root = page.locator('[data-calculator-slug="crushed-stone-calculator"]');
+  await root.locator("#crushed-stone-calculator-mode").selectOption("0");
+  await root.locator("#crushed-stone-calculator-length").fill("10");
+  await root.locator("#crushed-stone-calculator-width").fill("10");
+  await root.locator("#crushed-stone-calculator-depth").fill("12");
+  await root.getByText("Advanced material assumptions", { exact: true }).click();
+  await root.locator("#crushed-stone-calculator-material").selectOption("1");
+  await root.locator("#crushed-stone-calculator-compaction").fill("20");
+  await root.locator("#crushed-stone-calculator-waste").fill("10");
+  await root.getByRole("button", { name: "Calculate", exact: true }).click();
+  await expect(root.locator(".result-rows-grid")).toContainText("Volume after compaction allowance");
+  expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  await root.getByRole("button", { name: "Reset", exact: true }).click();
+  await expect(root.locator("#crushed-stone-calculator-compaction")).toHaveValue("0");
+});
