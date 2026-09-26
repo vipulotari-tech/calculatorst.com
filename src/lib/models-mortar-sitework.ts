@@ -333,6 +333,73 @@ const gravelCost:Model={
   }
 };
 
+const fillDirtCost:Model={
+  fields:[
+    {id:'mode',label:'Calculate fill volume from',value:0,min:0,max:2,integer:true,dimension:'number',options:[{value:0,label:'Length × width × depth'},{value:1,label:'Known area × depth'},{value:2,label:'Known volume'}]},
+    {...length('length','Area length',20),visibleWhen:{field:'mode',equals:0}},
+    {...length('width','Area width',10),visibleWhen:{field:'mode',equals:0}},
+    {...area('area','Known surface area',200),visibleWhen:{field:'mode',equals:1}},
+    {...length('depth','Finished / compacted depth',4,'in'),visibleWhen:{field:'mode',in:[0,1]}},
+    {...volume('volume','Known finished / compacted volume',2),visibleWhen:{field:'mode',equals:2}},
+    {id:'material',label:'Fill material / density preset',value:0,min:0,max:5,integer:true,dimension:'number',group:'Material & assumptions',options:[
+      {value:0,label:'Clean fill — 1.10 US tons/yd³'},
+      {value:1,label:'Structural fill — 1.20 US tons/yd³'},
+      {value:2,label:'Screened fill — 1.05 US tons/yd³'},
+      {value:3,label:'Sandy fill — 1.00 US tons/yd³'},
+      {value:4,label:'Clay fill — 1.25 US tons/yd³'},
+      {value:5,label:'Custom / supplier density'}
+    ]},
+    {...number('density','Custom bulk density (US tons / yd³)',1.2,0.01,'Use supplier data for the same moisture and loose/compacted state.'),unit:'ton/yd3',group:'Material & assumptions',visibleWhen:{field:'material',equals:5}},
+    {...number('compaction','Loose-volume / compaction allowance (%)',15,0,'Extra loose delivered material needed to reach the finished compacted volume. Keep separate from purchasing waste.'),max:100,group:'Material & assumptions'},
+    allowance,
+    {...price('USD/yd3',['USD/yd3','USD/m3','USD/ton']),optional:false,group:undefined},
+    {...number('tax','Material tax (%)',0,0),max:100,group:'Cost'},
+    {...number('delivery','Delivery / trucking (USD)',0,0),group:'Cost'},
+    {...number('labor','Spreading / compaction allowance (USD)',0,0),group:'Cost'}
+  ],
+  formula:'Finished fill volume comes from dimensions, known area × depth or known volume. Loose order volume = finished volume × (1 + compaction allowance) × (1 + purchasing waste). Weight = order cubic yards × selected or custom bulk density. Total = priced order quantity + material tax + delivery + entered spreading/compaction cost.',
+  assumptions:[
+    'Density presets are planning values only. Soil composition, moisture and compaction state can materially change weight; supplier or geotechnical data is preferred.',
+    'Compaction/loose-volume allowance and purchasing waste are separate inputs and are applied once each.',
+    'Price can be entered per cubic yard, cubic meter or US ton; the matching computed quantity is priced without premature rounding.',
+    'Delivery and spreading/compaction are entered quote allowances. Supplier minimum-load, truck capacity and distance charges should be included in those entered amounts when applicable.',
+    'This calculator estimates quantity and cost; it does not select engineered fill, lift thickness or a required compaction specification.'
+  ],
+  sources:[fhwaEarthwork],
+  calculate(v,u){
+    const mode=Math.round(v.mode);
+    const finishedFt3=mode===0?v.length*v.width*v.depth:mode===1?v.area*v.depth:v.volume;
+    requireCondition(finishedFt3>=0,'volume','Fill volume cannot be negative.');
+    const presets=[1.10,1.20,1.05,1.00,1.25];
+    const material=Math.round(v.material);
+    const density=material===5?v.density:(presets[material]??1.10);
+    requireCondition(density>0,'density','Bulk density must be greater than zero.');
+    const finishedYd3=finishedFt3/27,compactionFactor=1+v.compaction/100,looseYd3=finishedYd3*compactionFactor,orderYd3=looseYd3*waste(v);
+    const tons=orderYd3*density,lb=tons*2000,m3=orderYd3*27/(FT_PER_M**3);
+    const pricedQty=u.price==='USD/ton'?tons:u.price==='USD/m3'?m3:orderYd3;
+    const materials=pricedQty*v.price,tax=materials*v.tax/100,total=materials+tax+v.delivery+v.labor;
+    return result([
+      row('total','Estimated entered-scope total',total,'USD'),
+      row('order','Loose fill dirt to order',orderYd3,'yd³'),
+      row('tons','Estimated order weight — US tons',tons,'US tons'),
+      row('materials','Material subtotal',materials,'USD'),
+      row('tax','Material tax',tax,'USD'),
+      row('delivery','Delivery / trucking',v.delivery,'USD'),
+      row('labor','Spreading / compaction allowance',v.labor,'USD'),
+      row('net','Finished / compacted volume',finishedYd3,'yd³'),
+      row('compaction','Loose volume after compaction allowance',looseYd3,'yd³'),
+      row('m3','Order volume',m3,'m³'),
+      row('pounds','Estimated order weight — lb',lb,'lb'),
+      row('tonnes','Estimated order weight — metric tonnes',lb/LB_PER_KG/1000,'metric tonnes')
+    ],[
+      mode===0?`${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} = ${fmt(finishedFt3)} ft³ finished volume.`:mode===1?`${fmt(v.area)} ft² × ${fmt(v.depth)} = ${fmt(finishedFt3)} ft³ finished volume.`:`Entered finished volume = ${fmt(finishedFt3)} ft³.`,
+      `${fmt(finishedYd3)} yd³ × ${fmt(compactionFactor)} compaction factor × ${fmt(waste(v))} waste factor = ${fmt(orderYd3)} yd³ to order.`,
+      `${fmt(orderYd3)} yd³ × ${fmt(density)} ton/yd³ = ${fmt(tons)} US tons.`,
+      `${fmt(pricedQty)} ${u.price} × ${fmt(v.price)} + tax + delivery + spreading/compaction = ${fmt(total)}.`
+    ]);
+  }
+};
+
 function weightModel(label:string,density:number):Model{
   return {
     fields:[
@@ -505,7 +572,7 @@ export const mortarSiteworkModels:Record<string,Model>={
   'sand-weight-dedicated':weightModel('Sand',1.4),
   'sand-cost-dedicated':bulkModel({label:'Sand',density:1.4,costMode:true}),
   'fill-dirt-dedicated':bulkModel({label:'Fill dirt',density:1.2}),
-  'fill-dirt-cost-dedicated':bulkModel({label:'Fill dirt',density:1.2,costMode:true}),
+  'fill-dirt-cost-dedicated':fillDirtCost,
   'topsoil-dedicated':bulkModel({label:'Topsoil',density:1.1}),
   'topsoil-cost-dedicated':bulkModel({label:'Topsoil',density:1.1,costMode:true}),
 
