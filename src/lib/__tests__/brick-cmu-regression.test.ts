@@ -47,13 +47,13 @@ describe("Brick & Masonry + CMU golden-value regression suite",()=>{
     const r=run("brick-quantity-calculator",{length:10,height:10,openings:0,brickLength:11,brickHeight:11,joint:1,wythes:1,waste:10},{length:"ft",height:"ft",openings:"ft2",brickLength:"in",brickHeight:"in",joint:"in"});
     expect(r.rows.find(x=>x.key==="installed")?.value).toBe(100);
     expect(r.rows.find(x=>x.key==="order")?.value).toBe(110);
-    expect(r.rows.find(x=>x.key==="extra")?.value).toBe(9);
+    expect(r.rows.find(x=>x.key==="extra")?.value).toBe(10);
   });
   it("Brick Cost prices opening-adjusted bricks, mortar, tax, delivery and labor explicitly",()=>{
     const r=run("brick-cost-calculator",{length:10,height:10,openings:10,brickLength:11,brickHeight:11,brickDepth:4,joint:1,wythes:1,waste:10,price:2,blocksPerMortarBag:10,mortarBagPrice:5,tax:10,delivery:20,labor:30},{...brickUnits,price:"USD/unit"});
     expect(r.rows.find(x=>x.key==="installed")?.value).toBe(90);
     expect(r.rows.find(x=>x.key==="order")?.value).toBe(99);
-    expect(r.rows.find(x=>x.key==="extra")?.value).toBe(10);
+    expect(r.rows.find(x=>x.key==="extra")?.value).toBe(9);
     expect(r.rows.find(x=>x.key==="mortarBags")?.value).toBe(9);
     expect(r.rows.find(x=>x.key==="netArea")?.value).toBe(90);
     expect(r.rows.find(x=>x.key==="materials")?.value).toBe(243);
