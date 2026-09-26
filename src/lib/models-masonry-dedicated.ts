@@ -132,12 +132,22 @@ const brickWall:Model={
 };
 
 const brickQuantity:Model={
-  fields:[length('length','Wall length',20),length('height','Wall height',8),area('openings','Excluded area',0,0),...brickDims.slice(0,2),positiveOrZero(length('joint','Mortar joint',0.375,'in')),{id:'wythes',label:'Wythes / layers',value:1,min:1,max:4,integer:true,dimension:'number'},allowance],
-  formula:'Bricks = net wall area ÷ installed brick module face × wythes; order count = ceil(bricks × allowance factor).',
-  assumptions:['Quantity-only takeoff using face geometry.','Openings are deducted once. Special units, corners and bond-pattern cuts are separate.'],
+  fields:[
+    {id:'mode',label:'Quantity source',value:0,min:0,max:1,integer:true,dimension:'number',options:[{value:0,label:'Wall dimensions'},{value:1,label:'Known net wall area'}]},
+    {...length('length','Wall length',20),visibleWhen:{field:'mode',equals:0}},
+    {...length('height','Wall height',8),visibleWhen:{field:'mode',equals:0}},
+    {...area('openings','Excluded area',0,0),visibleWhen:{field:'mode',equals:0}},
+    {...area('knownArea','Known net wall area',160),visibleWhen:{field:'mode',equals:1}},
+    ...brickDims.slice(0,2),positiveOrZero(length('joint','Mortar joint',0.375,'in')),
+    {id:'wythes',label:'Wythes / layers',value:1,min:1,max:4,integer:true,dimension:'number'},allowance
+  ],
+  formula:'Bricks = net wall area ÷ installed brick module face × wythes; order count = ceil(raw brick quantity × allowance factor). Net wall area can come from wall dimensions minus openings or a directly entered known net area.',
+  assumptions:['Quantity-only takeoff using face geometry.','In wall-dimensions mode, openings are deducted once. Known-area mode expects area after opening deductions.','Special units, corners and bond-pattern cuts are separate.'],
   sources:brickSources,
   calculate(v){
-    const net=netWall(v).net,t=unitTakeoff(net,v.brickLength,v.brickHeight,v.joint,v.wythes),installed=roundUp(t.raw),order=roundUp(t.raw*waste(v));
+    const net=Math.round(v.mode)===1?v.knownArea:netWall(v).net;
+    requireCondition(net>0,'knownArea','Net wall area must be greater than zero.');
+    const t=unitTakeoff(net,v.brickLength,v.brickHeight,v.joint,v.wythes),installed=roundUp(t.raw),order=roundUp(t.raw*waste(v));
     return result([row('order','Bricks to order',order,'bricks',true),row('installed','Estimated installed bricks',installed,'bricks',true),row('extra','Allowance / spare bricks',order-installed,'bricks',true),row('area','Net wall area',net,'ft²'),row('perArea','Bricks per square foot per wythe',1/t.face,'bricks/ft²')],[`${fmt(net)} ft² ÷ ${fmt(t.face)} ft²/module × ${v.wythes} = ${fmt(t.raw)} bricks.`,`Allowance → ${order} whole bricks.`]);
   }
 };
