@@ -39,7 +39,7 @@ test.describe("Brick Cost Calculator", () => {
     await expect(results).toContainText("9 bricks");
     await expect(results).toContainText("9 bags");
     await expect(results).toContainText("90 ft²");
-    await expect(results).toContainText("3.526 USD/ft²");
+    await expect(results).toContainText("3.5256 USD/ft²");
 
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
