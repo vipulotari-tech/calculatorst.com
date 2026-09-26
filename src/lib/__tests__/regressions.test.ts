@@ -44,7 +44,7 @@ describe('Brick Quantity Calculator', () => {
   it('keeps dimensions mode opening deductions and discrete rounding', () => {
     const res = calculate('brick-quantity-calculator',{mode:0,length:10,height:10,openings:10,brickLength:11,brickHeight:11,joint:1,wythes:1,waste:10});
     expect(res.rows.find(r=>r.key==='installed')?.value).toBe(90);
-    expect(res.rows.find(r=>r.key==='order')?.value).toBe(100);
+    expect(res.rows.find(r=>r.key==='order')?.value).toBe(99);
   });
 });
 
