@@ -287,7 +287,7 @@ export function getModelForSlug(slug: string): Model {
         unit: 'lb/ft3',
         units: ['lb/ft3','kg/m3','ton/yd3'],
         label: 'Compacted asphalt density',
-        help: '145 lb/ft³ is an editable planning example. Use the supplier or mix-design compacted density when available.'
+        help: '145 lb/ft³ is an editable planning value (FHWA estimating reference for hot asphalt mix: 145.2 lb/ft³). Actual compacted density varies by mix and compaction, so use the supplier or mix-design density when available.'
       };
     }
     if (slug === 'asphalt-weight-calculator' || slug === 'asphalt-thickness-calculator') {
@@ -296,7 +296,14 @@ export function getModelForSlug(slug: string): Model {
         unit: 'lb/ft3',
         units: ['lb/ft3','kg/m3','ton/yd3'],
         label: 'Compacted asphalt density',
-        help: '145 lb/ft³ is an editable planning example. Use the supplier or mix-design compacted density when available.'
+        help: '145 lb/ft³ is an editable planning value (FHWA estimating reference for hot asphalt mix: 145.2 lb/ft³). Actual compacted density varies by mix and compaction, so use the supplier or mix-design density when available.'
+      };
+    }
+    if (slug === 'road-base-calculator') {
+      overrides.depth = { label: 'Placed road-base thickness' };
+      overrides.density = {
+        label: 'Road-base bulk density',
+        help: 'Road-base density varies with aggregate type, gradation, moisture and compaction. Use supplier or project density for the same loose or compacted state represented by the dimensions; the default is an editable planning value.'
       };
     }
     if (slug === 'paver-base-calculator') {
