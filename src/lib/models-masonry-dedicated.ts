@@ -11,6 +11,7 @@ const cmhaWeight='https://www.masonryandhardscapes.org/resource/cmu-tec-002/';
 const inchBrick='https://www.inchcalculator.com/brick-calculator/';
 const inchBlock='https://www.inchcalculator.com/concrete-block-calculator/';
 const inchMortar='https://www.inchcalculator.com/block-mortar-calculator/';
+const quikreteMortarMix='https://www.quikrete.com/PDFs/DATA_SHEET-MortarMix.pdf';
 const omniBrick='https://www.omnicalculator.com/construction/brick';
 const omniBlock='https://www.omnicalculator.com/construction/concrete-block';
 const omniFill='https://www.omnicalculator.com/construction/concrete-block-fill';
@@ -100,26 +101,32 @@ const brickWall:Model={
     length('length','Wall length',20,'ft'),length('height','Wall height',8,'ft'),
     area('openings','Doors / windows / excluded area',0,0),
     ...brickDims,{id:'wythes',label:'Brick wythes / layers',value:1,min:1,max:4,integer:true,dimension:'number'},
-    allowance,number('unitWeight','Brick unit weight (lb)',4.3,0),price('USD/unit')
+    allowance,
+    {...number('mortarCoverage','Installed bricks per mortar bag',37,0.01,'Planning yield only. The default is an 80-lb standard-brick example; replace it with the exact mortar product coverage.'),group:'Material & assumptions'},
+    number('unitWeight','Brick unit weight (lb)',4.3,0),price('USD/unit')
   ],
-  formula:'Net wall area = length × height − openings. Installed bricks = net area ÷ installed module face × wythes; order quantity applies allowance once.',
+  formula:'Net wall area = length × height − openings. Installed bricks = net area ÷ installed module face × wythes; brick order applies allowance once. Planning mortar bags = ceil(installed bricks ÷ entered bricks-per-bag coverage).',
   assumptions:[
     'Courses and bricks-per-course are gross layout checks; opening deductions are handled by net area.',
     'Actual bond pattern, cut units, corners, returns and lintels can change individual-course counts.',
-    'Use actual brick dimensions and the specified joint rather than assuming one universal brick size.'
+    'Use actual brick dimensions and the specified joint rather than assuming one universal brick size.',
+    'Mortar bags are a planning estimate from installed bricks and entered product coverage; brick spare allowance is not applied to mortar bags.'
   ],
-  sources:brickSources,
+  sources:[...brickSources,quikreteMortarMix],
   calculate(v,u){
     const {gross,net}=netWall(v),t=unitTakeoff(net,v.brickLength,v.brickHeight,v.joint,v.wythes),ci=courseInfo(v.length,v.height,v.brickLength,v.brickHeight,v.joint);
-    const installed=roundUp(t.raw),order=roundUp(t.raw*waste(v));
+    const installed=roundUp(t.raw),order=roundUp(t.raw*waste(v)),mortarBags=roundUp(installed/v.mortarCoverage),orderWeight=order*v.unitWeight;
     return result(withCost([
       row('order','Bricks to order',order,'bricks',true),row('installed','Estimated installed bricks',installed,'bricks',true),
+      row('mortarBags','Planning mortar bags',mortarBags,'bags',true),
       row('courses','Gross wall courses',ci.courses,'courses',true),row('perCourse','Gross bricks per course',ci.grossPerCourse,'bricks',true),
-      row('grossArea','Gross wall area',gross,'ft²'),row('netArea','Net wall area',net,'ft²'),row('weight','Estimated order weight',order*v.unitWeight,'lb')
+      row('grossArea','Gross wall area',gross,'ft²'),row('netArea','Net wall area',net,'ft²'),
+      row('weight','Estimated order weight — lb',orderWeight,'lb'),row('tons','Estimated order weight — US tons',orderWeight/2000,'US tons')
     ],v.price,u.price,{'USD/unit':order}),[
       `Gross area ${fmt(gross)} − openings ${fmt(v.openings)} = ${fmt(net)} ft².`,
       `Approximate gross layout: ${ci.courses} courses × ${ci.grossPerCourse} bricks/course before opening/bond adjustments.`,
-      `Area-based installed quantity = ${fmt(t.raw)}; allowance gives ${order} bricks to order.`
+      `Area-based installed quantity = ${fmt(t.raw)}; allowance gives ${order} bricks to order.`,
+      `Planning mortar = ceil(${installed} installed bricks ÷ ${fmt(v.mortarCoverage)} bricks/bag) = ${mortarBags} bags.`
     ]);
   }
 };
