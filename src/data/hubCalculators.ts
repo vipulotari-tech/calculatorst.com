@@ -733,9 +733,9 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "brick-wall-calculator",
-    "title": "Brick Wall Calculator — Courses, Bricks & Openings",
+    "title": "Brick Wall Calculator — Bricks, Mortar Bags & Courses",
     "h1": "Brick Wall Calculator",
-    "description": "Calculate bricks for a wall from length, height, openings, actual brick dimensions, mortar joint and wythes, with gross courses, bricks per course, waste, weight and cost.",
+    "description": "Calculate bricks and planning mortar bags from wall size, openings, actual brick dimensions, joint and wythes, with courses, waste, shipment weight and brick cost.",
     "category": "Brick & Masonry",
     "cluster": "brick",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
