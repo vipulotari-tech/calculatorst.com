@@ -1260,7 +1260,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "gravel-cost-calculator",
     "title": "Gravel Cost Calculator — Yards/Tons, Tax, Delivery & Labor",
     "h1": "Gravel Cost Calculator",
-    "description": "Estimate gravel volume, tons and entered-scope cost from geometry, density and waste, with price by yard, cubic meter or ton plus tax, delivery and spreading.",
+    "description": "Estimate gravel cost from dimensions, area or known volume with density presets or custom density, separate compaction and waste, price by yard, cubic meter or ton, tax, delivery and labor.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
