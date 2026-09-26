@@ -103,6 +103,24 @@ describe("Mortar, grout & cement golden regressions",()=>{
 });
 
 describe("Gravel, aggregate & dirt golden regressions",()=>{
+  it("Gravel Cost keeps compaction separate and prices the selected quantity basis",()=>{
+    const r=run("gravel-cost-calculator",{mode:0,length:10,width:10,depth:12,material:1,density:1.4,compaction:20,waste:10,price:50,tax:5,delivery:75,labor:100},{...dims,density:"ton/yd3",price:"USD/ton"});
+    const measured=100/27,afterCompaction=measured*1.2,order=afterCompaction*1.1,tons=order*1.4,materials=tons*50,tax=materials*0.05,total=materials+tax+75+100;
+    expect(r.rows.find(x=>x.key==="order")?.value).toBeCloseTo(order,8);
+    expect(r.rows.find(x=>x.key==="tons")?.value).toBeCloseTo(tons,8);
+    expect(r.rows.find(x=>x.key==="materials")?.value).toBeCloseTo(materials,8);
+    expect(r.rows.find(x=>x.key==="total")?.value).toBeCloseTo(total,8);
+  });
+  it("Gravel Cost preserves legacy custom density and supports metric quote units",()=>{
+    const legacy=run("gravel-cost-calculator",{mode:2,volume:27,material:5,density:1.6,compaction:0,waste:0,price:10,tax:0,delivery:0,labor:0},{volume:"ft3",density:"ton/yd3",price:"USD/yd3"});
+    expect(legacy.rows.find(x=>x.key==="order")?.value).toBeCloseTo(1,8);
+    expect(legacy.rows.find(x=>x.key==="tons")?.value).toBeCloseTo(1.6,8);
+    expect(legacy.rows.find(x=>x.key==="total")?.value).toBeCloseTo(10,8);
+
+    const metric=run("gravel-cost-calculator",{mode:2,volume:1,material:1,density:1.4,compaction:0,waste:0,price:100,tax:0,delivery:0,labor:0},{volume:"m3",density:"ton/yd3",price:"USD/m3"});
+    expect(metric.rows.find(x=>x.key==="m3")?.value).toBeCloseTo(1,8);
+    expect(metric.rows.find(x=>x.key==="total")?.value).toBeCloseTo(100,8);
+  });
   it("Gravel Calculator supports dimensions, presets, compaction and waste",()=>{
     const r=run("gravel-calculator",{mode:0,length:10,width:10,depth:12,material:5,customDensity:1.5,compaction:10,waste:10,price:10},{...dims,customDensity:"ton/yd3",price:"USD/yd3"});
     const measured=100/27, afterCompaction=measured*1.1, order=afterCompaction*1.1;
