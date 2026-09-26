@@ -33,6 +33,21 @@ describe('Page intent regression cases', () => {
   it('retains nonzero tiny results', () => { expect(fmt(1e-8)).not.toBe('0'); });
 });
 
+describe('Brick Quantity Calculator', () => {
+  it('supports a directly entered known net wall area', () => {
+    const res = calculate('brick-quantity-calculator',{mode:1,knownArea:100,brickLength:11,brickHeight:11,joint:1,wythes:2,waste:10});
+    expect(res.rows.find(r=>r.key==='installed')?.value).toBe(200);
+    expect(res.rows.find(r=>r.key==='order')?.value).toBe(220);
+    expect(res.rows.find(r=>r.key==='extra')?.value).toBe(20);
+    expect(res.rows.find(r=>r.key==='area')?.value).toBeCloseTo(100,8);
+  });
+  it('keeps dimensions mode opening deductions and discrete rounding', () => {
+    const res = calculate('brick-quantity-calculator',{mode:0,length:10,height:10,openings:10,brickLength:11,brickHeight:11,joint:1,wythes:1,waste:10});
+    expect(res.rows.find(r=>r.key==='installed')?.value).toBe(90);
+    expect(res.rows.find(r=>r.key==='order')?.value).toBe(100);
+  });
+});
+
 describe('Every registered model: input contract and equivalent units', () => {
   for (const slug of Object.keys(slugToModelKey)) {
     it(slug, () => {
