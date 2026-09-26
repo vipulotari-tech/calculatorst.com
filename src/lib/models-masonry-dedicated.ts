@@ -245,11 +245,29 @@ const masonryBlock:Model={
 };
 
 const brickWeight:Model={
-  fields:[count('quantity','Net brick count',500,0),number('unitWeight','Brick unit weight (lb)',4.3,0),allowance,positiveOrZero(count('palletCapacity','Bricks per pallet (0 = skip)',500,0))],
-  formula:'Order bricks = ceil(net count × allowance factor); order weight = order bricks × entered unit weight.',
-  assumptions:['Use manufacturer unit weight for the exact brick.','Pallet count is a purchasing/logistics estimate only and uses the entered pallet capacity.'],
+  fields:[count('quantity','Net brick count',500,1),number('unitWeight','Brick unit weight (lb)',4.3,0.01),allowance,positiveOrZero(count('palletCapacity','Bricks per pallet (0 = skip)',500,0))],
+  formula:'Order bricks = ceil(net count × allowance factor). Net brick weight = net count × manufacturer unit weight; shipment brick weight = order bricks × manufacturer unit weight.',
+  assumptions:['Use manufacturer unit weight for the exact brick; brick weight varies by size, material and manufacturer.','Shipment brick weight includes the purchasing allowance but excludes pallet tare, packaging, mortar, grout and reinforcement.','Pallet count is a purchasing/logistics estimate only and uses the entered pallet capacity; confirm pallet configuration and vehicle payload with the supplier/carrier.'],
   sources:[inchBrick],
-  calculate(v){const order=roundUp(v.quantity*waste(v)),lb=order*v.unitWeight,pallets=v.palletCapacity>0?roundUp(order/v.palletCapacity):0;return result([row('order','Bricks including allowance',order,'bricks',true),row('weight','Estimated order weight',lb,'lb'),row('kg','Estimated order weight',lb*0.45359237,'kg'),row('tons','Estimated order weight',lb/2000,'US tons'),row('tonnes','Estimated order weight',lb*0.45359237/1000,'metric tonnes'),row('pallets','Estimated pallets',pallets,'pallets',true)],[`${v.quantity} × ${fmt(waste(v))} → ${order} bricks.`,`${order} × ${fmt(v.unitWeight)} lb = ${fmt(lb)} lb.`]);}
+  calculate(v){
+    requireCondition(v.quantity>0,'quantity','Net brick count must be greater than zero.');
+    requireCondition(v.unitWeight>0,'unitWeight','Brick unit weight must be greater than zero.');
+    const order=roundUp(v.quantity*waste(v)),spares=order-v.quantity,netLb=v.quantity*v.unitWeight,lb=order*v.unitWeight,pallets=v.palletCapacity>0?roundUp(order/v.palletCapacity):0;
+    return result([
+      row('weight','Estimated shipment brick weight',lb,'lb'),
+      row('order','Bricks including allowance',order,'bricks',true),
+      row('spares','Allowance / spare bricks',spares,'bricks',true),
+      row('netWeight','Net brick weight before allowance',netLb,'lb'),
+      row('kg','Estimated shipment brick weight',lb*0.45359237,'kg'),
+      row('tons','Estimated shipment brick weight',lb/2000,'US tons'),
+      row('tonnes','Estimated shipment brick weight',lb*0.45359237/1000,'metric tonnes'),
+      row('pallets','Estimated pallets',pallets,'pallets',true)
+    ],[
+      `${v.quantity} net bricks × ${fmt(waste(v))} allowance factor → ${order} bricks to order (${spares} spare/allowance bricks).`,
+      `Net brick weight: ${v.quantity} × ${fmt(v.unitWeight)} lb = ${fmt(netLb)} lb.`,
+      `Shipment brick weight: ${order} × ${fmt(v.unitWeight)} lb = ${fmt(lb)} lb.`
+    ]);
+  }
 };
 const brickWaste:Model={
   fields:[count('quantity','Net brick quantity',1000,0),allowance],
