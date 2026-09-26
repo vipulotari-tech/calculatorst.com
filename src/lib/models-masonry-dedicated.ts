@@ -156,8 +156,10 @@ const brickCost:Model={
   fields:[
     length('length','Wall length',20),length('height','Wall height',8),area('openings','Excluded area',0,0),
     ...brickDims,{id:'wythes',label:'Wythes / layers',value:1,min:1,max:4,integer:true,dimension:'number'},allowance,
-    {...price('USD/unit'),optional:false},number('blocksPerMortarBag','Installed bricks per mortar bag',36,0,'Use the mortar manufacturer or project-specific yield.'),number('mortarBagPrice','Mortar bag price (USD)',0,0),
-    number('tax','Material tax (%)',0,0),number('delivery','Delivery / fixed material fee (USD)',0,0),number('labor','Labor / equipment allowance (USD)',0,0)
+    {...price('USD/unit'),optional:false},
+    {...number('blocksPerMortarBag','Installed bricks per mortar bag',36,0.01,'Use the mortar manufacturer or project-specific yield. Must be greater than zero.'),group:'Material & assumptions'},
+    {...number('mortarBagPrice','Mortar bag price (USD)',0,0),group:'Cost'},
+    {...number('tax','Material tax (%)',0,0),group:'Cost'},{...number('delivery','Delivery / fixed material fee (USD)',0,0),group:'Cost'},{...number('labor','Labor / equipment allowance (USD)',0,0),group:'Cost'}
   ],
   formula:'Brick material = order bricks × unit price. Mortar bags = ceil(installed bricks ÷ entered bricks-per-bag). Total = brick + mortar material + tax + delivery + labor.',
   assumptions:['Mortar coverage is user-entered because yield varies with brick size, joint geometry and workmanship.','Labor is an entered allowance, not a productivity estimate.','Other accessories and structural components are excluded unless included in entered costs.'],
@@ -166,9 +168,9 @@ const brickCost:Model={
     const net=netWall(v).net,t=unitTakeoff(net,v.brickLength,v.brickHeight,v.joint,v.wythes),installed=roundUp(t.raw),order=roundUp(t.raw*waste(v));
     const mortarBags=roundUp(installed/v.blocksPerMortarBag),brickMat=order*v.price,mortarMat=mortarBags*v.mortarBagPrice,materials=brickMat+mortarMat,tax=materials*v.tax/100,total=materials+tax+v.delivery+v.labor;
     return result([
-      row('total','Estimated entered-scope total',total,'USD'),row('order','Bricks to order',order,'bricks',true),row('mortarBags','Mortar bags',mortarBags,'bags',true),
-      row('brickMaterial','Brick subtotal',brickMat,'USD'),row('mortarMaterial','Mortar subtotal',mortarMat,'USD'),row('materials','Material subtotal',materials,'USD'),row('tax','Material tax',tax,'USD'),row('delivery','Delivery / fixed fee',v.delivery,'USD'),row('labor','Labor / equipment',v.labor,'USD')
-    ],[`${order} bricks × $${fmt(v.price)} = $${fmt(brickMat)}.`,`ceil(${installed} installed bricks ÷ ${fmt(v.blocksPerMortarBag)}) = ${mortarBags} mortar bags.`,`Materials + tax + delivery + labor = $${fmt(total)}.`]);
+      row('total','Estimated entered-scope total',total,'USD'),row('order','Bricks to order',order,'bricks',true),row('installed','Estimated installed bricks',installed,'bricks',true),row('extra','Allowance / spare bricks',order-installed,'bricks',true),row('mortarBags','Mortar bags',mortarBags,'bags',true),
+      row('netArea','Net wall area',net,'ft²'),row('costPerArea','Entered-scope cost per net ft²',total/net,'USD/ft²'),row('brickMaterial','Brick subtotal',brickMat,'USD'),row('mortarMaterial','Mortar subtotal',mortarMat,'USD'),row('materials','Material subtotal',materials,'USD'),row('tax','Material tax',tax,'USD'),row('delivery','Delivery / fixed fee',v.delivery,'USD'),row('labor','Labor / equipment',v.labor,'USD')
+    ],[`${fmt(net)} ft² net wall area gives ${fmt(t.raw)} bricks before allowance; order ${order} whole bricks.`,`${order} bricks × ${fmt(v.price)} = ${fmt(brickMat)}.`,`ceil(${installed} installed bricks ÷ ${fmt(v.blocksPerMortarBag)}) = ${mortarBags} mortar bags.`,`Materials + tax + delivery + labor = ${fmt(total)} (${fmt(total/net)} per net ft²).`]);
   }
 };
 

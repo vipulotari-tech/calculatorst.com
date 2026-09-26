@@ -49,12 +49,19 @@ describe("Brick & Masonry + CMU golden-value regression suite",()=>{
     expect(r.rows.find(x=>x.key==="order")?.value).toBe(110);
     expect(r.rows.find(x=>x.key==="extra")?.value).toBe(10);
   });
-  it("Brick Cost prices bricks, mortar, tax, delivery and labor explicitly",()=>{
-    const r=run("brick-cost-calculator",{length:10,height:10,openings:0,brickLength:11,brickHeight:11,brickDepth:4,joint:1,wythes:1,waste:0,price:2,blocksPerMortarBag:10,mortarBagPrice:5,tax:10,delivery:20,labor:30},{...brickUnits,price:"USD/unit"});
-    expect(r.rows.find(x=>x.key==="order")?.value).toBe(100);
-    expect(r.rows.find(x=>x.key==="mortarBags")?.value).toBe(10);
-    expect(r.rows.find(x=>x.key==="materials")?.value).toBe(250);
-    expect(r.rows.find(x=>x.key==="total")?.value).toBe(325);
+  it("Brick Cost prices opening-adjusted bricks, mortar, tax, delivery and labor explicitly",()=>{
+    const r=run("brick-cost-calculator",{length:10,height:10,openings:10,brickLength:11,brickHeight:11,brickDepth:4,joint:1,wythes:1,waste:10,price:2,blocksPerMortarBag:10,mortarBagPrice:5,tax:10,delivery:20,labor:30},{...brickUnits,price:"USD/unit"});
+    expect(r.rows.find(x=>x.key==="installed")?.value).toBe(90);
+    expect(r.rows.find(x=>x.key==="order")?.value).toBe(99);
+    expect(r.rows.find(x=>x.key==="extra")?.value).toBe(9);
+    expect(r.rows.find(x=>x.key==="mortarBags")?.value).toBe(9);
+    expect(r.rows.find(x=>x.key==="netArea")?.value).toBe(90);
+    expect(r.rows.find(x=>x.key==="materials")?.value).toBe(243);
+    expect(r.rows.find(x=>x.key==="total")?.value).toBe(317.3);
+    expect(r.rows.find(x=>x.key==="costPerArea")?.value).toBeCloseTo(317.3/90,8);
+  });
+  it("Brick Cost rejects zero mortar coverage before division",()=>{
+    expect(()=>run("brick-cost-calculator",{blocksPerMortarBag:0})).toThrow();
   });
   it("Brick Mortar derives geometric joint volume and bag quantity",()=>{
     const r=run("brick-mortar-calculator",{length:10,height:10,openings:0,brickLength:11,brickHeight:11,brickDepth:4,joint:1,wythes:1,bagYield:0.5,waste:0,price:0},brickUnits);
