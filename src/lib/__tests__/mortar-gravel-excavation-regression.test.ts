@@ -136,7 +136,24 @@ describe("Gravel, aggregate & dirt golden regressions",()=>{
     expect(byArea.rows.find(x=>x.key==="net")?.value).toBeCloseTo(100/27,8);
     expect(byVolume.rows.find(x=>x.key==="net")?.value).toBeCloseTo(100/27,8);
   });
-  const general=["crushed-stone-calculator","aggregate-calculator","sand-calculator","fill-dirt-calculator","topsoil-calculator"];
+  it("Crushed Stone separates compaction from waste and supports density presets",()=>{
+    const r=run("crushed-stone-calculator",{mode:0,length:10,width:10,depth:12,material:1,density:1.5,compaction:20,waste:10,price:50},{...dims,density:"ton/yd3",price:"USD/ton"});
+    const measured=100/27,afterCompaction=measured*1.2,order=afterCompaction*1.1,tons=order*1.6;
+    expect(r.rows.find(x=>x.key==="net")?.value).toBeCloseTo(measured,8);
+    expect(r.rows.find(x=>x.key==="compaction")?.value).toBeCloseTo(afterCompaction,8);
+    expect(r.rows.find(x=>x.key==="order")?.value).toBeCloseTo(order,8);
+    expect(r.rows.find(x=>x.key==="tons")?.value).toBeCloseTo(tons,8);
+    expect(r.rows.find(x=>x.key==="cost")?.value).toBeCloseTo(tons*50,8);
+  });
+  it("Crushed Stone supports metric known-volume pricing and custom density",()=>{
+    const r=run("crushed-stone-calculator",{mode:2,volume:1,material:4,density:1.5,compaction:0,waste:0,price:100},{volume:"m3",density:"ton/yd3",price:"USD/m3"});
+    expect(r.rows.find(x=>x.key==="m3")?.value).toBeCloseTo(1,8);
+    expect(r.rows.find(x=>x.key==="cost")?.value).toBeCloseTo(100,8);
+  });
+  it("Crushed Stone rejects zero custom bulk density",()=>{
+    expect(()=>run("crushed-stone-calculator",{mode:2,volume:27,material:4,density:0,compaction:0,waste:0,price:0},{volume:"ft3",density:"ton/yd3",price:"USD/yd3"})).toThrow();
+  });
+  const general=["aggregate-calculator","sand-calculator","fill-dirt-calculator","topsoil-calculator"];
   for(const slug of general) it(slug+" computes order volume, weight and optional cost",()=>{
     const r=run(slug,{mode:0,length:10,width:10,depth:12,density:1.5,waste:10,price:10},{...dims,density:"ton/yd3",price:"USD/yd3"});
     expect(r.rows.find(x=>x.key==="order")?.value).toBeCloseTo((100/27)*1.1,8);
