@@ -28,12 +28,20 @@ describe("Brick & Masonry + CMU golden-value regression suite",()=>{
     expect(r.rows.find(x=>x.key==="weight")?.value).toBe(1100);
     expect(r.rows.find(x=>x.key==="cost")?.value).toBe(440);
   });
-  it("Brick Wall reports courses and area-adjusted brick quantity",()=>{
-    const r=run("brick-wall-calculator",{length:10,height:10,openings:10,brickLength:11,brickHeight:11,brickDepth:4,joint:1,wythes:1,waste:0,unitWeight:5,price:0},brickUnits);
+  it("Brick Wall reports courses, opening-adjusted quantity, mortar and shipment weight",()=>{
+    const r=run("brick-wall-calculator",{length:10,height:10,openings:10,brickLength:11,brickHeight:11,brickDepth:4,joint:1,wythes:1,waste:0,mortarCoverage:10,unitWeight:5,price:0},brickUnits);
     expect(r.rows.find(x=>x.key==="courses")?.value).toBe(10);
     expect(r.rows.find(x=>x.key==="perCourse")?.value).toBe(10);
     expect(r.rows.find(x=>x.key==="installed")?.value).toBe(90);
+    expect(r.rows.find(x=>x.key==="mortarBags")?.value).toBe(9);
     expect(r.rows.find(x=>x.key==="netArea")?.value).toBe(90);
+    expect(r.rows.find(x=>x.key==="weight")?.value).toBe(450);
+    expect(r.rows.find(x=>x.key==="tons")?.value).toBeCloseTo(0.225,8);
+  });
+  it("Brick Wall preserves mixed-unit geometry",()=>{
+    const r=run("brick-wall-calculator",{length:3.048,height:3.048,openings:0,brickLength:279.4,brickHeight:27.94,brickDepth:4,joint:25.4,wythes:1,waste:0,mortarCoverage:10,unitWeight:5,price:0},{length:"m",height:"m",openings:"m2",brickLength:"mm",brickHeight:"cm",brickDepth:"in",joint:"mm"});
+    expect(r.rows.find(x=>x.key==="installed")?.value).toBe(100);
+    expect(r.rows.find(x=>x.key==="mortarBags")?.value).toBe(10);
   });
   it("Brick Quantity separates installed bricks from allowance",()=>{
     const r=run("brick-quantity-calculator",{length:10,height:10,openings:0,brickLength:11,brickHeight:11,joint:1,wythes:1,waste:10},{length:"ft",height:"ft",openings:"ft2",brickLength:"in",brickHeight:"in",joint:"in"});
