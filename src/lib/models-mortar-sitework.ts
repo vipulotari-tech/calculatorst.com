@@ -262,6 +262,77 @@ const gravelGeneral:Model={
   }
 };
 
+const gravelCost:Model={
+  fields:[
+    {id:'mode',label:'Calculate volume from',value:0,min:0,max:2,integer:true,dimension:'number',options:[
+      {value:0,label:'Length × width × depth'},
+      {value:1,label:'Known area × depth'},
+      {value:2,label:'Known volume'}
+    ]},
+    {...length('length','Area length',20),visibleWhen:{field:'mode',equals:0}},
+    {...length('width','Area width',10),visibleWhen:{field:'mode',equals:0}},
+    {...area('area','Known surface area',200),visibleWhen:{field:'mode',equals:1}},
+    {...length('depth','Placed / measured depth',4,'in'),visibleWhen:{field:'mode',in:[0,1]}},
+    {...volume('volume','Known material volume',2),visibleWhen:{field:'mode',equals:2}},
+    {id:'material',label:'Gravel material / density preset',value:5,min:0,max:5,integer:true,dimension:'number',group:'Material & assumptions',options:[
+      {value:0,label:'Pea gravel — 1.35 US tons/yd³'},
+      {value:1,label:'Crushed stone — 1.40 US tons/yd³'},
+      {value:2,label:'River rock — 1.33 US tons/yd³'},
+      {value:3,label:'Limestone — 1.60 US tons/yd³'},
+      {value:4,label:'Granite — 1.42 US tons/yd³'},
+      {value:5,label:'Custom / supplier density'}
+    ]},
+    {...number('density','Custom bulk density (US tons / yd³)',1.4,0.01,'Use supplier data for the same moisture and loose/compacted state.'),unit:'ton/yd3',group:'Material & assumptions',visibleWhen:{field:'material',equals:5}},
+    {...number('compaction','Compaction allowance (%)',0,0,'Optional extra loose material needed to achieve the intended placed layer. Keep separate from purchasing waste.'),max:100,group:'Material & assumptions'},
+    allowance,
+    {...price('USD/yd3',['USD/yd3','USD/m3','USD/ton']),optional:false,group:undefined},
+    {...number('tax','Material tax (%)',0,0),max:100,group:'Cost'},
+    {...number('delivery','Delivery / trucking (USD)',0,0),group:'Cost'},
+    {...number('labor','Spreading / labor allowance (USD)',0,0),group:'Cost'}
+  ],
+  formula:'Measured volume comes from dimensions, known area × depth or known volume. Order volume = measured volume × compaction factor × material allowance. Weight = order cubic yards × selected or custom density. Total = priced order quantity + material tax + delivery + entered labor.',
+  assumptions:[
+    'Density presets are planning values; use supplier scale-ticket or product data for the exact grading, moisture and material state.',
+    'Compaction allowance and purchasing waste are separate inputs and are applied once each.',
+    'Price can be entered per cubic yard, cubic meter or US ton; the calculator prices the corresponding computed quantity without premature rounding.',
+    'Delivery and spreading/labor are entered quote allowances; supplier minimum-load or distance pricing should be included in those entered amounts when applicable.',
+    'US tons are short tons of 2,000 lb; metric tonnes are reported separately.'
+  ],
+  sources:[inchGravel,omniGravel],
+  calculate(v,u){
+    const mode=Math.round(v.mode);
+    const netFt3=mode===0?v.length*v.width*v.depth:mode===1?v.area*v.depth:v.volume;
+    requireCondition(netFt3>=0,'volume','Material volume cannot be negative.');
+    const presets=[1.35,1.40,1.33,1.60,1.42];
+    const material=Math.round(v.material);
+    const density=material===5?v.density:(presets[material]??1.40);
+    requireCondition(density>0,'density','Bulk density must be greater than zero.');
+    const netYd3=netFt3/27,compactionFactor=1+v.compaction/100,afterCompaction=netYd3*compactionFactor,orderYd3=afterCompaction*waste(v);
+    const tons=orderYd3*density,lb=tons*2000,m3=orderYd3*27/(FT_PER_M**3);
+    const pricedQty=u.price==='USD/ton'?tons:u.price==='USD/m3'?m3:orderYd3;
+    const materials=pricedQty*v.price,tax=materials*v.tax/100,total=materials+tax+v.delivery+v.labor;
+    return result([
+      row('total','Estimated entered-scope total',total,'USD'),
+      row('order','Gravel to order',orderYd3,'yd³'),
+      row('tons','Estimated order weight — US tons',tons,'US tons'),
+      row('materials','Material subtotal',materials,'USD'),
+      row('tax','Material tax',tax,'USD'),
+      row('delivery','Delivery / trucking',v.delivery,'USD'),
+      row('labor','Spreading / labor allowance',v.labor,'USD'),
+      row('net','Measured / placed volume',netYd3,'yd³'),
+      row('compaction','Volume after compaction allowance',afterCompaction,'yd³'),
+      row('m3','Order volume',m3,'m³'),
+      row('pounds','Estimated order weight — lb',lb,'lb'),
+      row('tonnes','Estimated order weight — metric tonnes',lb/LB_PER_KG/1000,'metric tonnes')
+    ],[
+      mode===0?`${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} = ${fmt(netFt3)} ft³.`:mode===1?`${fmt(v.area)} ft² × ${fmt(v.depth)} = ${fmt(netFt3)} ft³.`:`Entered volume = ${fmt(netFt3)} ft³.`,
+      `${fmt(netYd3)} yd³ × ${fmt(compactionFactor)} compaction factor × ${fmt(waste(v))} allowance factor = ${fmt(orderYd3)} yd³ to order.`,
+      `${fmt(orderYd3)} yd³ × ${fmt(density)} ton/yd³ = ${fmt(tons)} US tons.`,
+      `${fmt(pricedQty)} ${u.price} × ${fmt(v.price)} + tax + delivery + labor = ${fmt(total)}.`
+    ]);
+  }
+};
+
 function weightModel(label:string,density:number):Model{
   return {
     fields:[
@@ -423,7 +494,7 @@ export const mortarSiteworkModels:Record<string,Model>={
   'stucco-dedicated':finishModels.stucco,
 
   'gravel-general-dedicated':gravelGeneral,
-  'gravel-cost-dedicated':bulkModel({label:'Gravel',density:1.4,costMode:true}),
+  'gravel-cost-dedicated':gravelCost,
   'gravel-weight-dedicated':weightModel('Gravel',1.4),
   'gravel-depth-dedicated':gravelDepth,
   'crushed-stone-dedicated':bulkModel({label:'Crushed stone',density:1.5}),
