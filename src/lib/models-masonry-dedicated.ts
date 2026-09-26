@@ -79,6 +79,7 @@ const brickGeneral:Model={
   sources:brickSources,
   calculate(v,u){
     const net=Math.round(v.mode)===1?v.knownArea:netWall(v).net;
+    requireCondition(net>0,'knownArea','Net wall area must be greater than zero.');
     const t=unitTakeoff(net,v.brickLength,v.brickHeight,v.joint,v.wythes);
     const installed=roundUp(t.raw), order=roundUp(t.raw*waste(v));
     return result(withCost([
