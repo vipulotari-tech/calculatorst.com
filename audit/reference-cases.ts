@@ -258,7 +258,7 @@ export const referenceCases:ReferenceCase[] = [
  {model:'sand-weight-dedicated',input:{mode:0,length:3,width:3,depth:36,density:1.5},expected:{volume:1,tons:1.5,weight:3000}},
  {model:'sand-cost-dedicated',input:{mode:0,length:3,width:3,depth:36,density:1.5,waste:0,price:10,tax:10,delivery:20,labor:30},units:{price:'USD/yd3'},expected:{order:1,net:1,tons:1.5,materials:10,tax:1,total:61}},
  {model:'fill-dirt-dedicated',input:{mode:0,length:3,width:3,depth:36,density:1.5,waste:0},expected:{order:1,net:1,tons:1.5,pounds:3000}},
- {model:'fill-dirt-cost-dedicated',input:{mode:0,length:3,width:3,depth:36,density:1.5,waste:0,price:10,tax:10,delivery:20,labor:30},units:{price:'USD/yd3'},expected:{order:1,net:1,tons:1.5,materials:10,tax:1,total:61}},
+ {model:'fill-dirt-cost-dedicated',input:{mode:0,length:3,width:3,depth:36,density:1.5,compaction:0,waste:0,price:10,tax:10,delivery:20,labor:30},units:{price:'USD/yd3'},expected:{order:1,net:1,tons:1.5,materials:10,tax:1,total:61}},
  {model:'topsoil-dedicated',input:{mode:0,length:3,width:3,depth:36,density:1.5,waste:0},expected:{order:1,net:1,tons:1.5,pounds:3000}},
  {model:'topsoil-cost-dedicated',input:{mode:0,length:3,width:3,depth:36,density:1.5,waste:0,price:10,tax:10,delivery:20,labor:30},units:{price:'USD/yd3'},expected:{order:1,net:1,tons:1.5,materials:10,tax:1,total:61}},
  {model:'excavation-general-dedicated',input:{length:3,width:3,depth:3,sideSlope:0,swell:20},expected:{bank:1,loose:1.2,topLength:3,topWidth:3}},
