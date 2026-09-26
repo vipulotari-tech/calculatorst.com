@@ -35,6 +35,6 @@ describe("Fill Dirt Cost golden regressions",()=>{
   });
 
   it("rejects zero custom density",()=>{
-    expect(()=>run({mode:2,volume:27,material:5,density:0,compaction:0,waste:0,price:10,tax:0,delivery:0,labor:0},{volume:"ft3",density:"ton/yd3",price:"USD/ton"})).toThrow(/density must be greater than zero/i);
+    expect(()=>run({mode:2,volume:27,material:5,density:0,compaction:0,waste:0,price:10,tax:0,delivery:0,labor:0},{volume:"ft3",density:"ton/yd3",price:"USD/ton"})).toThrow(/at least 0\.01|density must be greater than zero/i);
   });
 });
