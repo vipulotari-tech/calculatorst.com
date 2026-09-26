@@ -156,8 +156,10 @@ const brickCost:Model={
   fields:[
     length('length','Wall length',20),length('height','Wall height',8),area('openings','Excluded area',0,0),
     ...brickDims,{id:'wythes',label:'Wythes / layers',value:1,min:1,max:4,integer:true,dimension:'number'},allowance,
-    {...price('USD/unit'),optional:false},number('blocksPerMortarBag','Installed bricks per mortar bag',36,0.01,'Use the mortar manufacturer or project-specific yield. Must be greater than zero.'),number('mortarBagPrice','Mortar bag price (USD)',0,0),
-    number('tax','Material tax (%)',0,0),number('delivery','Delivery / fixed material fee (USD)',0,0),number('labor','Labor / equipment allowance (USD)',0,0)
+    {...price('USD/unit'),optional:false},
+    {...number('blocksPerMortarBag','Installed bricks per mortar bag',36,0.01,'Use the mortar manufacturer or project-specific yield. Must be greater than zero.'),group:'Material & assumptions'},
+    {...number('mortarBagPrice','Mortar bag price (USD)',0,0),group:'Cost'},
+    {...number('tax','Material tax (%)',0,0),group:'Cost'},{...number('delivery','Delivery / fixed material fee (USD)',0,0),group:'Cost'},{...number('labor','Labor / equipment allowance (USD)',0,0),group:'Cost'}
   ],
   formula:'Brick material = order bricks × unit price. Mortar bags = ceil(installed bricks ÷ entered bricks-per-bag). Total = brick + mortar material + tax + delivery + labor.',
   assumptions:['Mortar coverage is user-entered because yield varies with brick size, joint geometry and workmanship.','Labor is an entered allowance, not a productivity estimate.','Other accessories and structural components are excluded unless included in entered costs.'],
