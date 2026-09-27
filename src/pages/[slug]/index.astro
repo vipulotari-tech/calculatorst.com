@@ -386,18 +386,21 @@ const concreteSeo: Record<string, {
     ]
   },
   "concrete-stair-calculator": {
-    title: "Concrete Stair Calculator — Solid & Waist-Slab Volume",
-    description: "Calculate straight concrete stair volume using riser, tread, width and step count. Compare solid-step and waist-slab models, with landing, yards, bags and weight.",
+    title: "Concrete Stair Calculator — Solid Steps, Waist Slab, Bags & Cost",
+    description: "Calculate straight concrete stair volume from riser, tread, width and step count. Compare solid mass-fill and waist-slab RCC models with landing/platform, yards, bags, weight and cost.",
     guidance: [
-      "Use the solid model for a fully filled stepped mass and the waist-slab model when the stair is formed over an inclined structural slab.",
-      "The calculator reports total rise, total run and slope from the entered riser, tread and number of steps.",
-      "Landing volume is added separately from the stair flight so its dimensions and thickness remain explicit."
+      "Choose Solid / mass concrete when the stepped profile is fully filled. Choose Waist-slab RCC when the steps are cast over an inclined structural slab.",
+      "The entered step count represents the repeated tread/riser units in the flight. The calculator reports total rise, total run, nosing-line length and slope from those inputs.",
+      "A top landing is model-specific: solid mode treats it as full-height mass concrete to the stair top elevation; waist-slab mode treats it as a landing slab using the entered landing thickness or the waist thickness.",
+      "Use project drawings for riser, tread, waist thickness, reinforcement and landing details. This calculator estimates concrete quantity; it does not design stair-code or structural compliance."
     ],
     faq: [
-      { q: "What is the difference between solid and waist-slab concrete stairs?", a: "A solid stair estimate treats the stepped profile as a filled mass. A waist-slab estimate includes an inclined slab plus the concrete step wedges above it." },
-      { q: "How are total stair rise and run calculated?", a: "Total rise equals riser height × number of steps. Total run equals tread run × number of steps." },
-      { q: "Can I include a landing?", a: "Yes. Enter landing length, width and thickness when a concrete landing is part of the pour." },
-      { q: "Does this calculator design stair code compliance?", a: "No. It estimates geometry and concrete quantity. Riser/tread limits, handrails, reinforcement, headroom and structural requirements must be checked separately." }
+      { q: "What is the difference between solid and waist-slab concrete stairs?", a: "Solid mode treats the stepped flight as a fully filled concrete mass. Waist-slab mode calculates the inclined slab, the triangular step wedges above it and any landing slab separately." },
+      { q: "How is solid concrete stair volume calculated?", a: "The stepped flight is width × riser height × tread run × n(n+1)/2. If a top platform extends beyond the final tread, solid mode adds platform length × platform width × total stair rise." },
+      { q: "How is waist-slab stair volume calculated?", a: "The calculator adds inclined waist-slab volume, n triangular step wedges of 0.5 × tread run × riser height × stair width, and an optional landing slab." },
+      { q: "How are total stair rise and run calculated?", a: "Total rise equals riser height × number of entered steps. Total run equals tread run × number of entered steps." },
+      { q: "Can I include a top landing or platform?", a: "Yes. Enter its length and width. In solid mode it is full-height mass concrete; in waist-slab mode it is a slab and can use an override thickness." },
+      { q: "Does this calculator design stair code compliance?", a: "No. It estimates geometry and concrete quantity. Riser/tread limits, landings, handrails, reinforcement, headroom and structural requirements must be checked separately." }
     ]
   },
   "concrete-ramp-calculator": {

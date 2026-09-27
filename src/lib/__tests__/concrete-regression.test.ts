@@ -498,23 +498,46 @@ describe("Concrete category golden-value regression suite", () => {
     )).toBeCloseTo(21.6, 6);
   });
 
-  it("Concrete Stair: solid dimensions and waist-slab wedge are correct", () => {
-    const solid = run(
+  it("Concrete Stair: solid flight geometry and full-height top platform are correct", () => {
+    const flight = run(
       "concrete-stair-calculator",
-      { stairModel: 0, width: 4, rise: 7, run: 11, steps: 4, landingLength: 0, landingWidth: 4, landingThickness: 0, waistThickness: 6, waste: 0 },
-      { width: "ft", rise: "in", run: "in", waistThickness: "in", landingLength: "ft", landingWidth: "ft", landingThickness: "in" },
+      { stairModel: 0, width: 4, rise: 7, run: 11, steps: 4, landingLength: 0, landingWidth: 4, waste: 0 },
+      { width: "ft", rise: "in", run: "in", landingLength: "ft", landingWidth: "ft" },
     );
-    expect(solid.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(21.388888889, 6);
-    expect(solid.rows.find(x => x.key === "totalRise")?.value).toBeCloseTo(2.333333333, 6);
-    expect(solid.rows.find(x => x.key === "totalRun")?.value).toBeCloseTo(3.666666667, 6);
+    expect(flight.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(21.388888889, 6);
+    expect(flight.rows.find(x => x.key === "totalRise")?.value).toBeCloseTo(2.333333333, 6);
+    expect(flight.rows.find(x => x.key === "totalRun")?.value).toBeCloseTo(3.666666667, 6);
+    expect(flight.rows.find(x => x.key === "slopedLength")?.value).toBeCloseTo(Math.hypot(2.333333333, 3.666666667), 6);
 
+    const withPlatform = run(
+      "concrete-stair-calculator",
+      { stairModel: 0, width: 4, rise: 7, run: 11, steps: 4, landingLength: 2, landingWidth: 4, waste: 0 },
+      { width: "ft", rise: "in", run: "in", landingLength: "ft", landingWidth: "ft" },
+    );
+    expect(withPlatform.rows.find(x => x.key === "landing")?.value).toBeCloseTo(18.666666667, 6);
+    expect(withPlatform.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(40.055555556, 6);
+    expect(withPlatform.steps.join(" ")).toMatch(/full-height top platform/i);
+  });
+
+  it("Concrete Stair: waist slab, wedges and landing slab reconcile independently", () => {
     const waist = run(
       "concrete-stair-calculator",
-      { stairModel: 1, width: 4, rise: 7, run: 11, steps: 4, waistThickness: 6, landingLength: 0, landingWidth: 4, landingThickness: 0, waste: 0 },
-      { width: "ft", rise: "in", run: "in", waistThickness: "in" },
+      { stairModel: 1, width: 4, rise: 7, run: 11, steps: 4, waistThickness: 6, landingLength: 2, landingWidth: 4, landingThickness: 0, waste: 0 },
+      { width: "ft", rise: "in", run: "in", waistThickness: "in", landingLength: "ft", landingWidth: "ft", landingThickness: "in" },
     );
     expect(waist.rows.find(x => x.key === "wedge")?.value).toBeCloseTo(4.277777778, 6);
-    expect(waist.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(12.970047651, 6);
+    expect(waist.rows.find(x => x.key === "landing")?.value).toBeCloseTo(4, 6);
+    expect(waist.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(16.970047651, 6);
+    expect(waist.steps.join(" ")).toMatch(/Step wedges: 0\.5 × 4 ×/i);
+    expect(waist.steps.join(" ")).not.toMatch(/0\.5 × 3\.6667 × 2\.3333/i);
+  });
+
+  it("Concrete Stair: waist-slab mode requires a positive waist thickness", () => {
+    expect(() => run(
+      "concrete-stair-calculator",
+      { stairModel: 1, width: 4, rise: 7, run: 11, steps: 4, waistThickness: 0, waste: 0 },
+      { width: "ft", rise: "in", run: "in", waistThickness: "in" },
+    )).toThrow(/waist slab thickness greater than zero/i);
   });
 
   it("Concrete Ramp: trapezoid volume and 1:12 slope magnitude are correct", () => {
