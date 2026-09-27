@@ -631,7 +631,7 @@ describe("Concrete category golden-value regression suite", () => {
     const target = 110 / 27;
     expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(net, 6);
     expect(r.rows.find(x => x.key === "allowance")?.value).toBeCloseTo(10 / 27, 6);
-    expect(r.rows.find(x => x.key === "target")?.value).toBeCloseTo(target, 6);
+    expect(r.rows.find(x => x.key === "order")?.value).toBeCloseTo(target, 6);
     expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(4.25, 6);
     expect(r.rows.find(x => x.key === "roundingOverage")?.value).toBeCloseTo(4.25 - target, 6);
     expect(r.rows.find(x => x.key === "totalOverage")?.value).toBeCloseTo(4.25 - net, 6);
@@ -644,7 +644,7 @@ describe("Concrete category golden-value regression suite", () => {
       { volume: "yd3" },
     );
     expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(2.5, 8);
-    expect(r.rows.find(x => x.key === "target")?.value).toBeCloseTo(2.7, 8);
+    expect(r.rows.find(x => x.key === "order")?.value).toBeCloseTo(2.7, 8);
     expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(2.75, 8);
     expect(r.rows.find(x => x.key === "roundingOverage")?.value).toBeCloseTo(0.05, 8);
     expect(r.rows.find(x => x.key === "totalOverage")?.value).toBeCloseTo(0.25, 8);
