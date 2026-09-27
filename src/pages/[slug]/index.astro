@@ -1060,11 +1060,19 @@ const masonrySeoEnhancements: Record<string, {
     ]
   },
   "brick-joint-calculator": {
-    guidance: ["Use this as a geometric course-fit calculator, not as permission to exceed specified joint tolerances.", "The formula correctly uses one fewer internal joint than the number of bricks."],
+    guidance: [
+      "Choose the mode that matches the unknown: solve equal joint width, fit whole bricks at a target joint, or calculate the required course length.",
+      "Use actual brick length along the course. Do not enter a nominal brick module as the brick length because nominal dimensions already include the intended mortar joint.",
+      "A straight course with N bricks has N−1 internal head joints. End conditions, returns, cut units, bond patterns and movement joints should be laid out separately.",
+      "Treat the result as a geometric layout check. Use the project documents and applicable masonry requirements for the specified joint and workmanship tolerances."
+    ],
     faq: [
-      { q: "Why does the formula use brick count minus one?", a: "A straight course of N bricks has N−1 internal joints between adjacent bricks." },
-      { q: "Can I use it to set a code-allowed joint?", a: "No. It only solves the geometric equal joint width for the dimensions entered." },
-      { q: "Does it return metric units?", a: "Yes. The result is shown in inches and millimeters." }
+      { q: "Why does the formula use brick count minus one?", a: "A straight course of N bricks has N−1 internal joints between adjacent bricks. For example, 15 bricks create 14 internal head joints." },
+      { q: "Can I calculate how many whole bricks fit a fixed course?", a: "Yes. Choose the target-joint mode. The calculator uses the actual brick length plus target joint module and reports the maximum whole bricks, used length and leftover course length." },
+      { q: "Can I calculate the required course length from brick count?", a: "Yes. Choose the required-course-length mode. It adds N actual brick lengths plus N−1 target joints." },
+      { q: "Should I enter actual or nominal brick length?", a: "Enter the actual manufactured brick length along the course. Nominal dimensions include the intended joint module and should not be used as the actual brick length." },
+      { q: "Can this calculator choose a permitted mortar joint for my project?", a: "No. It solves geometry only. Use the joint thickness and tolerances specified by the project documents and applicable masonry requirements." },
+      { q: "Does it support metric units?", a: "Yes. Inputs can use ft, in, yd, m, cm or mm, and key layout results include both US customary and metric values." }
     ]
   },
   "concrete-block-calculator": {
