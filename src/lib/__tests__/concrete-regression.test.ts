@@ -762,12 +762,12 @@ describe("Concrete category golden-value regression suite", () => {
     expect(r.rows.find(x => x.key === "finalPartial")?.value).toBeCloseTo(5, 8);
     expect(r.rows.find(x => x.key === "shortLoadDeficit")?.value).toBeCloseTo(1, 8);
     expect(r.rows.find(x => x.key === "pourDuration")?.value).toBeCloseTo(2, 8);
-    expect(r.rows.find(x => x.key === "materialCost")?.value).toBeCloseTo(1000, 8);
+    expect(r.rows.find(x => x.key === "orderCost")?.value).toBeCloseTo(1000, 8);
     expect(r.rows.find(x => x.key === "deliveryCost")?.value).toBeCloseTo(70, 8);
     expect(r.rows.find(x => x.key === "shortLoadCharge")?.value).toBeCloseTo(100, 8);
     expect(r.rows.find(x => x.key === "pumpPlacementCost")?.value).toBeCloseTo(300, 8);
     expect(r.rows.find(x => x.key === "salesTaxCost")?.value).toBeCloseTo(100, 8);
-    expect(r.rows.find(x => x.key === "orderCost")?.value).toBeCloseTo(1570, 8);
+    expect(r.rows.find(x => x.key === "supplyTotal")?.value).toBeCloseTo(1570, 8);
   });
 
   it("Concrete Waste: per-volume short-load fee charges only the threshold deficit", () => {
@@ -821,7 +821,7 @@ describe("Concrete category golden-value regression suite", () => {
     expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(twoM3Yd3, 8);
     expect(r.rows.find(x => x.key === "truckLoads")?.value).toBe(1);
     expect(r.rows.find(x => x.key === "pourDuration")?.value).toBeCloseTo(0.5, 8);
-    expect(r.rows.find(x => x.key === "materialCost")?.value).toBeCloseTo(300, 8);
+    expect(r.rows.find(x => x.key === "orderCost")?.value).toBeCloseTo(300, 8);
   });
 
   it("Concrete Crack Repair: 25 ft × 0.25 in × 0.5 in + 10% = 3 × 10.1 fl oz cartridges", () => {
