@@ -1910,6 +1910,18 @@ const concreteWasteFields: Field[] = [
     group: 'Material & assumptions',
   },
   {
+    ...number('dispatchInterval', 'Planned truck arrival interval', undefined, 0, 'Optional supplier dispatch cadence between scheduled truck arrivals.'),
+    optional: true,
+    unit: 'minutes',
+    group: 'Material & assumptions',
+  },
+  {
+    ...number('unloadTime', 'Planned unload / placement time per truck', undefined, 0, 'Optional expected time from a truck arrival until that truck is cleared from the active placement position.'),
+    optional: true,
+    unit: 'minutes',
+    group: 'Material & assumptions',
+  },
+  {
     id: 'customBagYield',
     label: 'Custom bag mixed yield',
     unit: 'ft3',
@@ -2039,6 +2051,7 @@ const concreteWaste: Model = {
     'Bag counts and bagged-mix comparisons use the waste-adjusted required placement volume before ready-mix supplier rounding or minimums because truck-order rules do not apply to bagged concrete.',
     'Truck capacity, short-load thresholds, delivery fees, taxes, waiting-time rules and dispatch policies vary by producer. Enter only values taken from the supplier quote or order terms.',
     'Pour duration uses the waste-adjusted placement target divided by the entered placement rate. Approximate full-load truck spacing is truck capacity divided by placement rate; dispatch, travel, queueing and discharge conditions can require different arrival times.',
+    'Optional arrival interval and unload-time inputs create a simple dispatch schedule. A negative cadence delta indicates trucks are scheduled faster than the full-load placement rate; a positive delta indicates a potential placement gap if no buffer or queue exists.',
     'Cost outputs are quote-based planning estimates and exclude labor, excavation, forms, reinforcement, finishing, permits and any charges not entered here.',
   ],
   sources: [
@@ -2263,6 +2276,30 @@ const concreteWaste: Model = {
       }
     }
 
+    const dispatchInterval = Number.isFinite(v.dispatchInterval) ? Math.max(0, v.dispatchInterval) : 0;
+    const unloadTime = Number.isFinite(v.unloadTime) ? Math.max(0, v.unloadTime) : 0;
+    let arrivalWindow = 0;
+    let lastTruckClearTime = 0;
+    if ((dispatchInterval > 0 || unloadTime > 0) && truckVisits > 0) {
+      requireCondition(dispatchInterval > 0 || truckVisits === 1, 'dispatchInterval', 'Enter an arrival interval greater than zero when more than one truck visit is planned.');
+      arrivalWindow = truckVisits > 1 ? (truckVisits - 1) * dispatchInterval : 0;
+      lastTruckClearTime = arrivalWindow + unloadTime;
+      rows.push(
+        row('arrivalWindow', 'First-to-last scheduled arrival window', arrivalWindow, 'minutes'),
+        row('lastTruckClearTime', 'First arrival to final truck clear', lastTruckClearTime, 'minutes'),
+      );
+      if (unloadTime > 0 && truckVisits > 1) {
+        rows.push(
+          row('truckOverlap', 'Scheduled truck overlap / queue risk', Math.max(0, unloadTime - dispatchInterval), 'minutes'),
+        );
+      }
+      if (truckSpacingMinutes > 0 && dispatchInterval > 0) {
+        rows.push(
+          row('cadenceDelta', 'Arrival interval minus placement interval', dispatchInterval - truckSpacingMinutes, 'minutes'),
+        );
+      }
+    }
+
     const concretePrice = Number.isFinite(v.price)
       ? (u.price === 'USD/m3' ? v.price * 27 / (FT_PER_M ** 3) : v.price)
       : 0;
@@ -2364,6 +2401,28 @@ const concreteWaste: Model = {
         orderSteps.push(
           `Approximate full-load placement interval = ${fmt(capacity)} yd³ ÷ ${fmt(pourRate)} yd³/hour × 60 = ${fmt(truckSpacingMinutes)} minutes; adjust dispatch for travel, queueing, pump rate and site conditions.`,
           `Approximate final-delivery placement time = ${fmt(finalDelivery)} yd³ ÷ ${fmt(pourRate)} yd³/hour × 60 = ${fmt(finalDeliveryMinutes)} minutes.`,
+        );
+      }
+    }
+
+    if ((dispatchInterval > 0 || unloadTime > 0) && truckVisits > 0) {
+      orderSteps.push(
+        truckVisits > 1
+          ? `Scheduled arrivals: ${truckVisits} visits at ${fmt(dispatchInterval)}-minute intervals create a ${fmt(arrivalWindow)}-minute first-to-last arrival window.`
+          : 'Scheduled arrivals: one truck visit, so the first-to-last arrival window is 0 minutes.',
+        `If each truck clears the active placement point in ${fmt(unloadTime)} minutes, the final truck clears about ${fmt(lastTruckClearTime)} minutes after the first scheduled arrival.`,
+      );
+      if (unloadTime > dispatchInterval && truckVisits > 1) {
+        orderSteps.push(`Queue warning: unload time exceeds arrival spacing by ${fmt(unloadTime - dispatchInterval)} minutes, so overlapping truck arrivals are possible.`);
+      }
+      if (truckSpacingMinutes > 0 && dispatchInterval > 0) {
+        const cadenceDelta = dispatchInterval - truckSpacingMinutes;
+        orderSteps.push(
+          cadenceDelta < 0
+            ? `Dispatch cadence is ${fmt(Math.abs(cadenceDelta))} minutes faster than the full-load placement interval, which can create a truck queue unless site placement is faster than planned.`
+            : cadenceDelta > 0
+              ? `Dispatch cadence is ${fmt(cadenceDelta)} minutes slower than the full-load placement interval, which can create placement idle time unless a truck buffer is available.`
+              : 'Dispatch cadence matches the calculated full-load placement interval.',
         );
       }
     }
