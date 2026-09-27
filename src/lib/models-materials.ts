@@ -1920,8 +1920,43 @@ const concreteWasteFields: Field[] = [
     group: 'Material & assumptions',
     help: 'Optional mixed yield per bag from the product label. Fixed 40/50/60/80-lb reference counts remain shown separately.',
   },
+  {
+    id: 'customBagWeight',
+    label: 'Custom bag dry weight',
+    unit: 'lb',
+    units: ['lb', 'kg'],
+    dimension: 'weight',
+    min: 0.01,
+    optional: true,
+    group: 'Material & assumptions',
+    visibleWhen: { field: 'bagCompareSize', equals: 2 },
+    help: 'Optional dry bag weight for a custom-yield product. Used only for the selected bagged-mix comparison.',
+  },
 
   price('USD/yd3', ['USD/yd3', 'USD/m3']),
+  {
+    id: 'bagCompareSize',
+    label: 'Bagged-mix comparison',
+    value: 1,
+    min: 1,
+    dimension: 'number',
+    options: [
+      { value: 1, label: 'Off' },
+      { value: 40, label: '40-lb bag' },
+      { value: 50, label: '50-lb bag' },
+      { value: 60, label: '60-lb bag' },
+      { value: 80, label: '80-lb bag' },
+      { value: 2, label: 'Custom product yield' },
+    ],
+    group: 'Cost',
+    help: 'Select a bag size to compare bagged concrete with the ready-mix plan. Custom mode uses the product-label mixed yield entered above.',
+  },
+  {
+    ...number('bagUnitPrice', 'Selected bag price', undefined, 0, 'Optional retail price per bag for a direct bagged-vs-ready-mix cost comparison.'),
+    optional: true,
+    group: 'Cost',
+    unit: 'USD/bag',
+  },
   {
     ...number('deliveryCharge', 'Delivery / fuel charge', undefined, 0, 'Use the supplier quote.'),
     optional: true,
@@ -2001,9 +2036,9 @@ const concreteWaste: Model = {
     'There is no universal waste percentage. Select an allowance from actual formwork, subgrade, placement method, handling risk and supplier guidance.',
     'Supplier increment rounding and supplier minimums are purchasing rules applied after the requested allowance; both remain visible separately from the geometric requirement.',
     'Some producers treat a minimum as a billing rule rather than a physically delivered volume. Confirm whether the quoted minimum changes the delivered quantity before using it for dispatch planning.',
-    'Bag counts use the waste-adjusted required volume before ready-mix supplier rounding or minimums because truck-order rules do not apply to bagged concrete.',
+    'Bag counts and bagged-mix comparisons use the waste-adjusted required placement volume before ready-mix supplier rounding or minimums because truck-order rules do not apply to bagged concrete.',
     'Truck capacity, short-load thresholds, delivery fees, taxes, waiting-time rules and dispatch policies vary by producer. Enter only values taken from the supplier quote or order terms.',
-    'Pour duration uses the waste-adjusted placement target divided by the entered placement rate; it is a scheduling estimate, not a discharge-time guarantee.',
+    'Pour duration uses the waste-adjusted placement target divided by the entered placement rate. Approximate full-load truck spacing is truck capacity divided by placement rate; dispatch, travel, queueing and discharge conditions can require different arrival times.',
     'Cost outputs are quote-based planning estimates and exclude labor, excavation, forms, reinforcement, finishing, permits and any charges not entered here.',
   ],
   sources: [
@@ -2131,6 +2166,38 @@ const concreteWaste: Model = {
       rows.push(row('customBags', 'Bags at custom mixed yield', roundUp(targetCuFt / v.customBagYield), 'bags', true));
     }
 
+    const bagCompareSize = Math.round(v.bagCompareSize);
+    let selectedBagCount = 0;
+    let selectedBagDryLb = 0;
+    let selectedBagLabel = '';
+    if (bagCompareSize !== 1) {
+      let selectedYieldFt3 = 0;
+      let selectedDryWeightLb = 0;
+      if (bagCompareSize === 40) { selectedYieldFt3 = BAG_YIELD_40; selectedDryWeightLb = 40; selectedBagLabel = '40-lb'; }
+      else if (bagCompareSize === 50) { selectedYieldFt3 = BAG_YIELD_50; selectedDryWeightLb = 50; selectedBagLabel = '50-lb'; }
+      else if (bagCompareSize === 60) { selectedYieldFt3 = BAG_YIELD_60; selectedDryWeightLb = 60; selectedBagLabel = '60-lb'; }
+      else if (bagCompareSize === 80) { selectedYieldFt3 = BAG_YIELD_80; selectedDryWeightLb = 80; selectedBagLabel = '80-lb'; }
+      else if (bagCompareSize === 2) {
+        requireCondition(Number.isFinite(v.customBagYield) && v.customBagYield > 0, 'customBagYield', 'Enter the product-label mixed yield for a custom bag comparison.');
+        selectedYieldFt3 = v.customBagYield;
+        selectedDryWeightLb = Number.isFinite(v.customBagWeight) && v.customBagWeight > 0 ? v.customBagWeight : 0;
+        selectedBagLabel = 'custom-yield';
+      } else {
+        requireCondition(false, 'bagCompareSize', 'Choose a supported bag comparison option.');
+      }
+      selectedBagCount = roundUp(targetCuFt / selectedYieldFt3);
+      selectedBagDryLb = selectedDryWeightLb > 0 ? selectedBagCount * selectedDryWeightLb : 0;
+      rows.push(
+        row('selectedBagCount', `Selected ${selectedBagLabel} bag estimate`, selectedBagCount, 'bags', true),
+      );
+      if (selectedBagDryLb > 0) {
+        rows.push(
+          row('selectedBagDryWeight', 'Approximate selected-bag dry weight', selectedBagDryLb, 'lb'),
+          row('selectedBagDryKg', 'Approximate selected-bag dry weight', selectedBagDryLb / LB_PER_KG, 'kg'),
+        );
+      }
+    }
+
     const capacity = Math.max(0, v.truckCapacity / 27);
     const deliveryMode = Math.round(v.deliveryChargeMode);
     const shortMode = Math.round(v.shortLoadFeeMode);
@@ -2178,12 +2245,22 @@ const concreteWaste: Model = {
     }
 
     const pourRate = Math.max(0, u.pourRate === 'm3/h' ? v.pourRate * (FT_PER_M ** 3) / 27 : v.pourRate);
+    let truckSpacingMinutes = 0;
+    let finalDeliveryMinutes = 0;
     if (pourRate > 0) {
       const pourHours = targetCuYd / pourRate;
       rows.push(
         row('pourDuration', 'Estimated placement duration', pourHours, 'hours'),
         row('pourMinutes', 'Estimated placement duration', pourHours * 60, 'minutes'),
       );
+      if (capacity > 0 && truckVisits > 0) {
+        truckSpacingMinutes = capacity / pourRate * 60;
+        finalDeliveryMinutes = finalDelivery / pourRate * 60;
+        rows.push(
+          row('truckSpacing', 'Approx. full-load placement interval', truckSpacingMinutes, 'minutes'),
+          row('finalLoadPlacementTime', 'Approx. final-delivery placement time', finalDeliveryMinutes, 'minutes'),
+        );
+      }
     }
 
     const concretePrice = Number.isFinite(v.price)
@@ -2193,7 +2270,8 @@ const concreteWaste: Model = {
     const shortLoadFee = Number.isFinite(v.shortLoadFee) ? v.shortLoadFee : 0;
     const pumpPlacement = Number.isFinite(v.pumpPlacement) ? v.pumpPlacement : 0;
     const taxPct = Number.isFinite(v.salesTax) ? v.salesTax : 0;
-    const hasCostInputs = [v.price, v.deliveryCharge, v.shortLoadFee, v.pumpPlacement, v.salesTax].some(Number.isFinite);
+    const bagUnitPrice = Number.isFinite(v.bagUnitPrice) ? v.bagUnitPrice : 0;
+    const hasReadyMixCostInputs = [v.price, v.deliveryCharge, v.shortLoadFee, v.pumpPlacement, v.salesTax].some(Number.isFinite);
 
     let materialCost = 0;
     let deliveryCost = 0;
@@ -2201,7 +2279,7 @@ const concreteWaste: Model = {
     let taxAmount = 0;
     let supplyTotal = 0;
 
-    if (hasCostInputs) {
+    if (hasReadyMixCostInputs) {
       materialCost = plannedOrderYd * concretePrice;
       deliveryCost = deliveryCharge * (deliveryMode === 1 ? 1 : truckVisits);
 
@@ -2237,6 +2315,18 @@ const concreteWaste: Model = {
       );
     }
 
+    if (bagCompareSize !== 1 && bagUnitPrice > 0) {
+      const baggedCost = selectedBagCount * bagUnitPrice;
+      rows.push(row('selectedBagCost', 'Selected bagged-mix material cost', baggedCost, 'USD'));
+      if (hasReadyMixCostInputs) {
+        const bagVsReadyDifference = baggedCost - supplyTotal;
+        rows.push(
+          row('bagVsReadyDifference', 'Bagged minus ready-mix estimated cost', bagVsReadyDifference, 'USD'),
+          row('bagVsReadyPercent', 'Bagged cost difference vs ready-mix', supplyTotal > 0 ? bagVsReadyDifference / supplyTotal * 100 : 0, '%'),
+        );
+      }
+    }
+
     const orderSteps = [
       ...geometrySteps,
       `Allowance: ${fmt(netCuYd)} yd³ × ${fmt(wastePct)}% = ${fmt(allowanceCuYd)} yd³.`,
@@ -2270,12 +2360,29 @@ const concreteWaste: Model = {
       orderSteps.push(
         `Placement duration = ${fmt(targetCuYd)} yd³ ÷ ${fmt(pourRate)} yd³/hour = ${fmt(targetCuYd / pourRate)} hours.`,
       );
+      if (capacity > 0 && truckVisits > 0) {
+        orderSteps.push(
+          `Approximate full-load placement interval = ${fmt(capacity)} yd³ ÷ ${fmt(pourRate)} yd³/hour × 60 = ${fmt(truckSpacingMinutes)} minutes; adjust dispatch for travel, queueing, pump rate and site conditions.`,
+          `Approximate final-delivery placement time = ${fmt(finalDelivery)} yd³ ÷ ${fmt(pourRate)} yd³/hour × 60 = ${fmt(finalDeliveryMinutes)} minutes.`,
+        );
+      }
     }
 
-    if (hasCostInputs) {
+    if (hasReadyMixCostInputs) {
       orderSteps.push(
         `Estimated total = material ${fmt(materialCost)} + delivery/fuel ${fmt(deliveryCost)} + short-load ${fmt(shortLoadCharge)} + pump/placement ${fmt(pumpPlacement)} + tax ${fmt(taxAmount)} = ${fmt(supplyTotal)} USD.`,
       );
+    }
+    if (bagCompareSize !== 1 && bagUnitPrice > 0) {
+      const baggedCost = selectedBagCount * bagUnitPrice;
+      orderSteps.push(
+        `Selected bag comparison = ${selectedBagCount} bags × ${fmt(bagUnitPrice)} USD/bag = ${fmt(baggedCost)} USD.`,
+      );
+      if (hasReadyMixCostInputs) {
+        orderSteps.push(
+          `Bagged minus ready-mix estimate = ${fmt(baggedCost)} − ${fmt(supplyTotal)} = ${fmt(baggedCost - supplyTotal)} USD.`,
+        );
+      }
     }
 
     return result(rows, orderSteps);

@@ -804,6 +804,66 @@ describe("Concrete category golden-value regression suite", () => {
     expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(3, 8);
   });
 
+  it("Concrete Waste: selected bag comparison shows bag count, dry weight and cost delta", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 1, volume: 1, wastePercent: 0,
+        orderIncrement: 0.25, supplierMinimum: 0, truckCapacity: 10,
+        price: 180, deliveryCharge: 60, deliveryChargeMode: 1,
+        bagCompareSize: 80, bagUnitPrice: 6.5,
+      },
+      {
+        volume: "yd3", orderIncrement: "yd3", supplierMinimum: "yd3",
+        truckCapacity: "yd3", price: "USD/yd3",
+      },
+    );
+    expect(r.rows.find(x => x.key === "selectedBagCount")?.value).toBe(45);
+    expect(r.rows.find(x => x.key === "selectedBagDryWeight")?.value).toBeCloseTo(3600, 8);
+    expect(r.rows.find(x => x.key === "selectedBagDryKg")?.value).toBeCloseTo(3600 / 2.2046226218487757, 8);
+    expect(r.rows.find(x => x.key === "selectedBagCost")?.value).toBeCloseTo(292.5, 8);
+    expect(r.rows.find(x => x.key === "supplyTotal")?.value).toBeCloseTo(240, 8);
+    expect(r.rows.find(x => x.key === "bagVsReadyDifference")?.value).toBeCloseTo(52.5, 8);
+    expect(r.rows.find(x => x.key === "bagVsReadyPercent")?.value).toBeCloseTo(21.875, 8);
+  });
+
+  it("Concrete Waste: custom bag comparison uses custom yield and dry weight", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 1, volume: 1, wastePercent: 0,
+        orderIncrement: 0.25, supplierMinimum: 0, truckCapacity: 10,
+        bagCompareSize: 2, customBagYield: 0.5, customBagWeight: 70, bagUnitPrice: 7,
+      },
+      {
+        volume: "yd3", orderIncrement: "yd3", supplierMinimum: "yd3",
+        truckCapacity: "yd3", customBagYield: "ft3", customBagWeight: "lb",
+      },
+    );
+    expect(r.rows.find(x => x.key === "selectedBagCount")?.value).toBe(54);
+    expect(r.rows.find(x => x.key === "selectedBagDryWeight")?.value).toBeCloseTo(3780, 8);
+    expect(r.rows.find(x => x.key === "selectedBagCost")?.value).toBeCloseTo(378, 8);
+  });
+
+  it("Concrete Waste: pour rate converts truck capacity into an approximate spacing interval", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 1, volume: 18, wastePercent: 10,
+        orderIncrement: 0.25, supplierMinimum: 0, truckCapacity: 9,
+        pourRate: 6,
+      },
+      {
+        volume: "yd3", orderIncrement: "yd3", supplierMinimum: "yd3",
+        truckCapacity: "yd3", pourRate: "yd3/h",
+      },
+    );
+    expect(r.rows.find(x => x.key === "truckLoads")?.value).toBe(3);
+    expect(r.rows.find(x => x.key === "truckSpacing")?.value).toBeCloseTo(90, 8);
+    expect(r.rows.find(x => x.key === "finalLoadPlacementTime")?.value).toBeCloseTo(20, 8);
+    expect(r.steps.join(" ")).toMatch(/Approximate full-load placement interval/);
+  });
+
   it("Concrete Waste: metric supplier rules, placement rate and price convert consistently", () => {
     const r = run(
       "concrete-waste-calculator",
