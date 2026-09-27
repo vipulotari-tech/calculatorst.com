@@ -530,16 +530,19 @@ const diagramFields = fields
               : value;
 
             function multiPourStateFromCard(card: HTMLElement): MultiPourState {
-              const read = (selector: string) => card.querySelector<HTMLInputElement | HTMLSelectElement>(selector)?.value ?? "";
+              const kind = (card.querySelector<HTMLSelectElement>("[data-mp-kind]")?.value as MultiPourKind) || "rect";
+              const groupSelector = kind === "round" ? "[data-mp-round]" : kind === "known" ? "[data-mp-known]" : "[data-mp-rect]";
+              const group = card.querySelector<HTMLElement>(groupSelector);
+              const read = (selector: string) => group?.querySelector<HTMLInputElement | HTMLSelectElement>(selector)?.value ?? "";
               return {
-                kind: (read("[data-mp-kind]") as MultiPourKind) || "rect",
+                kind,
                 a: read("[data-mp-a]"),
-                aUnit: read("[data-mp-a-unit]") || "ft",
+                aUnit: read("[data-mp-a-unit]") || (kind === "known" ? "yd3" : "ft"),
                 b: read("[data-mp-b]"),
                 bUnit: read("[data-mp-b-unit]") || "ft",
                 c: read("[data-mp-c]"),
                 cUnit: read("[data-mp-c-unit]") || "in",
-                qty: read("[data-mp-qty]") || "1",
+                qty: card.querySelector<HTMLInputElement>("[data-mp-qty]")?.value || "1",
               };
             }
 
@@ -548,7 +551,7 @@ const diagramFields = fields
               const b = Number(data.b);
               const c = Number(data.c);
               const qty = Number(data.qty);
-              if (!Number.isFinite(a) || a <= 0 || !Number.isFinite(qty) || qty < 1) return Number.NaN;
+              if (!Number.isFinite(a) || a <= 0 || !Number.isFinite(qty) || qty < 1 || !Number.isInteger(qty)) return Number.NaN;
               if (data.kind === "known") return volumeToFt3(a, data.aUnit) * qty;
               if (!Number.isFinite(b) || b <= 0) return Number.NaN;
               if (data.kind === "round") {
@@ -577,7 +580,7 @@ const diagramFields = fields
               const volumes = schedule.map(multiPourFt3);
               const valid = schedule.length > 0 && volumes.every(v => Number.isFinite(v) && v > 0);
               const totalFt3 = valid ? volumes.reduce((sum, value) => sum + value, 0) : Number.NaN;
-              multiPourVolume.value = valid ? String(totalFt3 / 27) : "";
+              multiPourVolume.value = valid ? String(totalFt3) : "";
               multiPourCount.value = String(schedule.length || 1);
               root.dataset.multiPourSchedule = JSON.stringify(schedule);
               if (multiPourTotal) multiPourTotal.textContent = valid ? `${fmt(totalFt3 / 27)} yd³ · ${fmt(totalFt3 / (1 / 0.3048) ** 3)} m³` : "Complete every visible pour";
@@ -684,7 +687,7 @@ const diagramFields = fields
               if (!encoded) return;
               try {
                 const parsed = JSON.parse(encoded);
-                if (!Array.isArray(parsed) || parsed.length < 1 || parsed.length > 12) return;
+                if (!Array.isArray(parsed) || parsed.length < 1 || parsed.length > 20) return;
                 const clean = parsed
                   .filter((item): item is MultiPourState => item && ["rect", "round", "known"].includes(item.kind))
                   .map(item => ({
@@ -718,7 +721,7 @@ const diagramFields = fields
             }
 
             multiPourAdd?.addEventListener("click", () => {
-              if (!multiPourRows || multiPourRows.querySelectorAll("[data-mp-row]").length >= 12) return;
+              if (!multiPourRows || multiPourRows.querySelectorAll("[data-mp-row]").length >= 20) return;
               createMultiPourCard(defaultMultiPour());
               syncMultiPourSchedule();
             });
@@ -914,6 +917,7 @@ const diagramFields = fields
           });
 
           let inputLines = model.fields
+            .filter((field) => !["multiPourVolume", "multiPourCount"].includes(field.id))
             .filter((field) => !field.visibleWhen || fieldVisible(field, state))
             .map((field) => {
               const control = form?.querySelector<HTMLInputElement | HTMLSelectElement>(`#${slug}-${field.id}`);
