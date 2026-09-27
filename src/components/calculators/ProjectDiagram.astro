@@ -18,6 +18,7 @@ const kind =
   lower === "concrete-cost-calculator" ? "concreteCost" :
   lower === "concrete-weight-calculator" ? "concreteWeight" :
   lower === "concrete-volume-calculator" ? "concreteVolume" :
+  lower === "concrete-slab-calculator" ? "concreteSlab" :
   lower === "concrete-footing-calculator" ? "concreteFooting" :
   lower === "concrete-calculator" ? "concrete" :
   lower === "roof-pitch-calculator" ? "roofPitch" :
@@ -217,6 +218,45 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
           <text x="320" y="224" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-diagram-value="0">Measurement 1</text>
           <text x="92" y="138" text-anchor="middle" font-size="13" fill="var(--color-foreground)" transform="rotate(-90 92 138)" data-diagram-value="1">Measurement 2</text>
           <text x="470" y="52" text-anchor="middle" font-size="13" fill="var(--color-muted-foreground)" data-diagram-value="2">Measurement 3</text>
+        </>
+      )}
+
+      {kind === "concreteSlab" && (
+        <>
+          <text x="34" y="34" font-size="12" font-weight="600" fill="var(--color-muted-foreground)" data-concrete-slab-shape-name>Rectangular slab</text>
+
+          <g data-concrete-slab-shape="0">
+            <g data-concrete-slab-subbase style="display:none">
+              <polygon points="130,122 438,122 520,166 212,166" fill="var(--color-muted)" opacity="0.28" stroke="var(--color-muted-foreground)" stroke-width="1.2" stroke-dasharray="5 4" />
+              <polygon points="212,166 520,166 520,194 212,194" fill="var(--color-muted)" opacity="0.22" stroke="var(--color-muted-foreground)" stroke-width="1.2" stroke-dasharray="5 4" />
+            </g>
+            <polygon points="145,88 430,88 510,130 225,130" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="225,130 510,130 510,162 225,162" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <polygon points="430,88 510,130 510,162 430,120" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <g data-concrete-slab-edge style="display:none">
+              <path d="M225 148 H510 V174 H225 Z" fill="var(--color-foreground)" opacity="0.12" stroke="var(--color-foreground)" stroke-width="1.4" />
+              <path d="M145 88 L225 130 V174" fill="none" stroke="var(--color-foreground)" stroke-width="2.2" />
+              <path d="M430 88 L510 130 V174" fill="none" stroke="var(--color-foreground)" stroke-width="2.2" />
+            </g>
+          </g>
+
+          <g data-concrete-slab-shape="1" style="display:none">
+            <g data-concrete-slab-subbase style="display:none">
+              <ellipse cx="320" cy="160" rx="126" ry="38" fill="var(--color-muted)" opacity="0.25" stroke="var(--color-muted-foreground)" stroke-width="1.2" stroke-dasharray="5 4" />
+              <path d="M194 160 V184 C194 204 250 219 320 219 C390 219 446 204 446 184 V160" fill="var(--color-muted)" opacity="0.18" stroke="var(--color-muted-foreground)" stroke-width="1.2" stroke-dasharray="5 4" />
+            </g>
+            <ellipse cx="320" cy="94" rx="112" ry="33" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <path d="M208 94 V151 C208 169 258 184 320 184 C382 184 432 169 432 151 V94" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <ellipse cx="320" cy="151" rx="112" ry="33" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1.4" />
+            <g data-concrete-slab-edge style="display:none">
+              <path d="M208 146 V174 C208 194 258 208 320 208 C382 208 432 194 432 174 V146" fill="var(--color-foreground)" opacity="0.10" stroke="var(--color-foreground)" stroke-width="1.6" />
+              <ellipse cx="320" cy="174" rx="112" ry="33" fill="none" stroke="var(--color-foreground)" stroke-width="1.6" />
+            </g>
+          </g>
+
+          <text x="320" y="222" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-concrete-slab-primary>Length × width</text>
+          <text x="34" y="214" font-size="12" fill="var(--color-muted-foreground)" data-concrete-slab-thickness>Thickness</text>
+          <text x="606" y="214" text-anchor="end" font-size="12" fill="var(--color-muted-foreground)" data-concrete-slab-detail>Uniform slab</text>
         </>
       )}
 
@@ -614,6 +654,91 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         if (name) name.textContent = names[shape] ?? "Concrete volume shape";
       };
 
+      const updateConcreteSlabDiagram = () => {
+        if (figure.dataset.kind !== "concreteSlab") return false;
+
+        const shape = Math.round(numericControl("slabShape"));
+        figure.querySelectorAll<SVGGElement>("[data-concrete-slab-shape]").forEach((group) => {
+          group.style.display = group.dataset.concreteSlabShape === String(shape) ? "" : "none";
+        });
+
+        const fieldById = (id: string) => fields.find((field) => field.id === id);
+        const readById = (id: string) => {
+          const field = fieldById(id);
+          return field ? readField(field) : null;
+        };
+        const printable = (item: { value: string; unit: string } | null) =>
+          item ? `${item.value}${item.unit ? ` ${item.unit}` : ""}` : "—";
+
+        const length = readById("length");
+        const width = readById("width");
+        const diameter = readById("diameter");
+        const thickness = readById("thickness");
+        const edgeDepth = readById("thickenedEdgeDepth");
+        const edgeWidth = readById("thickenedEdgeWidth");
+        const subbase = readById("subbaseDepth");
+
+        const edgeActive = (numericControl("thickenedEdgeDepth") || 0) > 0 && (numericControl("thickenedEdgeWidth") || 0) > 0;
+        const subbaseActive = (numericControl("subbaseDepth") || 0) > 0;
+
+        figure.querySelectorAll<SVGGElement>("[data-concrete-slab-edge]").forEach((group) => {
+          group.style.display = edgeActive ? "" : "none";
+        });
+        figure.querySelectorAll<SVGGElement>("[data-concrete-slab-subbase]").forEach((group) => {
+          group.style.display = subbaseActive ? "" : "none";
+        });
+
+        const name = figure.querySelector<SVGTextElement>("[data-concrete-slab-shape-name]");
+        const primary = figure.querySelector<SVGTextElement>("[data-concrete-slab-primary]");
+        const thick = figure.querySelector<SVGTextElement>("[data-concrete-slab-thickness]");
+        const detail = figure.querySelector<SVGTextElement>("[data-concrete-slab-detail]");
+
+        if (name) name.textContent = shape === 1 ? "Circular slab" : "Rectangular slab";
+        if (primary) {
+          primary.textContent = shape === 1
+            ? `Diameter: ${printable(diameter)}`
+            : `Length × width: ${printable(length)} × ${printable(width)}`;
+        }
+        if (thick) thick.textContent = `Slab thickness: ${printable(thickness)}`;
+
+        const detailParts: string[] = [];
+        if (edgeActive) detailParts.push(`edge ${printable(edgeWidth)} wide × ${printable(edgeDepth)} deep`);
+        if (subbaseActive) detailParts.push(`base ${printable(subbase)} deep`);
+        if (detail) detail.textContent = detailParts.length ? detailParts.join(" · ") : "Uniform slab";
+
+        if (list) {
+          const metrics = [
+            {
+              label: shape === 1 ? "Diameter" : "Footprint",
+              value: shape === 1 ? printable(diameter) : `${printable(length)} × ${printable(width)}`,
+            },
+            { label: "Slab thickness", value: printable(thickness) },
+            {
+              label: edgeActive ? "Thickened edge" : subbaseActive ? "Gravel subbase" : "Detail",
+              value: edgeActive
+                ? `${printable(edgeWidth)} wide × ${printable(edgeDepth)} total depth`
+                : subbaseActive
+                  ? `${printable(subbase)} compacted depth`
+                  : "Uniform field thickness",
+            },
+          ];
+          list.replaceChildren(...metrics.map((item) => {
+            const wrap = document.createElement("div");
+            wrap.className = "rounded-md border border-border bg-muted/30 px-3 py-2";
+            const dt = document.createElement("dt");
+            dt.className = "text-muted-foreground";
+            dt.textContent = item.label;
+            const dd = document.createElement("dd");
+            dd.className = "mt-0.5 font-mono font-medium text-foreground tabular-nums";
+            dd.textContent = item.value;
+            wrap.append(dt, dd);
+            return wrap;
+          }));
+        }
+
+        return true;
+      };
+
       const updateConcreteFootingDiagram = () => {
         if (figure.dataset.kind !== "concreteFooting") return;
         const shape = Math.round(numericControl("footingShape"));
@@ -739,6 +864,7 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         updateConcreteCostDiagram();
         updateConcreteWeightDiagram();
         updateConcreteVolumeDiagram();
+        if (updateConcreteSlabDiagram()) return;
         updateConcreteFootingDiagram();
         updateConcreteDiagram();
         if (updateRoofPitchDiagram()) return;
