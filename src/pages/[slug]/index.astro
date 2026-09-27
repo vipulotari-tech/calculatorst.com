@@ -437,18 +437,21 @@ const concreteSeo: Record<string, {
     ]
   },
   "concrete-waste-calculator": {
-    title: "Concrete Waste Calculator — Order Yards, Extra & Rounding",
-    description: "Calculate net concrete, waste allowance, required order yards and supplier-increment rounding, plus unused volume, effective waste and whole bag counts.",
+    title: "Concrete Waste Calculator — Waste Allowance, Order Rounding & Cost",
+    description: "Calculate concrete waste allowance from slab dimensions or a known net volume, then compare target yards, supplier-rounded ready-mix order, effective overage, 40/50/60/80-lb bags and optional material cost.",
     guidance: [
-      "Enter the measured geometric volume first, then apply a project-specific allowance for uneven subgrade, form tolerances, spillage or handling loss.",
-      "Supplier-increment rounding is applied after waste so the displayed ordered quantity matches the purchasing step.",
-      "The calculator separates requested waste from effective waste after rounding, making over-order caused by supplier increments visible."
+      "Start from true net geometric concrete. Use slab dimensions here, or choose known-volume mode when another calculator has already produced the net cubic yards or cubic meters.",
+      "Apply the project-specific allowance once. Supplier increment rounding is a separate purchasing step after the allowance and can increase the final effective overage.",
+      "The results separate requested allowance volume from extra volume caused only by supplier rounding, so you can see why the final ready-mix order exceeds the geometric quantity.",
+      "Bag counts use the waste-adjusted target before ready-mix supplier rounding. Optional ready-mix price shows how much the selected allowance and supplier rounding add to material cost."
     ],
     faq: [
-      { q: "What concrete waste percentage should I use?", a: "There is no universal percentage. Choose an allowance based on form accuracy, subgrade variation, placement method, supplier guidance and project risk." },
-      { q: "Why is the ordered volume higher than net volume plus waste?", a: "Ready-mix may be ordered in fixed increments. The calculator rounds the waste-adjusted requirement up to the supplier increment you enter." },
-      { q: "What is effective waste?", a: "It is the difference between net geometric volume and the final rounded order, expressed as a percentage of net volume." },
-      { q: "Does the calculator assume returned concrete can be reused?", a: "No. The unused/returned figure only shows the mathematical excess created by order rounding; handling or disposal depends on the supplier and jobsite." }
+      { q: "What concrete waste percentage should I use?", a: "There is no universal percentage. Published concrete estimating guidance often discusses roughly 5–10% extra for spillage and jobsite variation, but the correct allowance depends on form accuracy, subgrade variation, placement method, supplier guidance and project risk." },
+      { q: "Can I enter a concrete volume from another calculator?", a: "Yes. Choose known net concrete volume and enter the geometric volume before waste. Do not enter a number that already includes an allowance unless you set the allowance here to zero." },
+      { q: "Why can the final order be higher than net volume plus the entered allowance?", a: "Ready-mix suppliers may sell in fixed increments. The calculator first applies your allowance, then rounds that target up to the supplier increment you enter." },
+      { q: "What is effective overage?", a: "It is the final supplier-rounded order minus the net geometric volume, expressed as a percentage of the net volume. It includes both your requested allowance and any extra created by supplier rounding." },
+      { q: "What does extra caused by supplier rounding mean?", a: "It is only the difference between the waste-adjusted target and the supplier-rounded order. It is not an assumption that leftover concrete can be returned, reused or disposed of without restrictions." },
+      { q: "Do the bag counts use the rounded ready-mix order?", a: "No. Bag counts use the waste-adjusted target volume before truck-order rounding, because supplier cubic-yard increments do not apply to bagged concrete." }
     ]
   },
   "concrete-crack-repair-calculator": {
