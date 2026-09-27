@@ -472,6 +472,7 @@ const diagramFields = fields
       const shareBtn = root.querySelector<HTMLButtonElement>(".calc-share-btn");
       const shareStatus = root.querySelector<HTMLElement>(".share-status");
       const printBtn = root.querySelector<HTMLButtonElement>(".calc-print-btn");
+      const pdfBtn = root.querySelector<HTMLButtonElement>(".calc-pdf-btn");
       const resetBtn = root.querySelector<HTMLButtonElement>(".calc-reset-btn");
       const status = root.querySelector<HTMLElement>('.calc-status');
       const notesList = root.querySelector<HTMLElement>('.result-notes-list');
@@ -483,6 +484,244 @@ const diagramFields = fields
             const targetPrimaryValEl = primaryValEl;
             const targetRowsGridEl = rowsGridEl;
             const targetStepsListEl = stepsListEl;
+
+            const multiPourPanel = root.querySelector<HTMLElement>(".concrete-waste-multipour");
+            const multiPourRows = root.querySelector<HTMLElement>(".multi-pour-rows");
+            const multiPourAdd = root.querySelector<HTMLButtonElement>(".multi-pour-add");
+            const multiPourTotal = root.querySelector<HTMLElement>(".multi-pour-total");
+            const multiPourVolume = form.querySelector<HTMLInputElement>(`#${slug}-multiPourVolume`);
+            const multiPourCount = form.querySelector<HTMLInputElement>(`#${slug}-multiPourCount`);
+            let multiPourSerial = 0;
+
+            type MultiPourKind = "rect" | "round" | "known";
+            type MultiPourState = {
+              kind: MultiPourKind;
+              a: string;
+              aUnit: string;
+              b: string;
+              bUnit: string;
+              c: string;
+              cUnit: string;
+              qty: string;
+            };
+
+            const defaultMultiPour = (): MultiPourState => ({
+              kind: "rect",
+              a: "10",
+              aUnit: "ft",
+              b: "10",
+              bUnit: "ft",
+              c: "4",
+              cUnit: "in",
+              qty: "1",
+            });
+
+            const lengthToFeet = (value: number, unit: string) =>
+              unit === "in" ? value / 12
+              : unit === "yd" ? value * 3
+              : unit === "m" ? value / 0.3048
+              : unit === "cm" ? value / 30.48
+              : unit === "mm" ? value / 304.8
+              : value;
+
+            const volumeToFt3 = (value: number, unit: string) =>
+              unit === "yd3" ? value * 27
+              : unit === "m3" ? value / (0.3048 ** 3)
+              : value;
+
+            function multiPourStateFromCard(card: HTMLElement): MultiPourState {
+              const read = (selector: string) => card.querySelector<HTMLInputElement | HTMLSelectElement>(selector)?.value ?? "";
+              return {
+                kind: (read("[data-mp-kind]") as MultiPourKind) || "rect",
+                a: read("[data-mp-a]"),
+                aUnit: read("[data-mp-a-unit]") || "ft",
+                b: read("[data-mp-b]"),
+                bUnit: read("[data-mp-b-unit]") || "ft",
+                c: read("[data-mp-c]"),
+                cUnit: read("[data-mp-c-unit]") || "in",
+                qty: read("[data-mp-qty]") || "1",
+              };
+            }
+
+            function multiPourFt3(data: MultiPourState) {
+              const a = Number(data.a);
+              const b = Number(data.b);
+              const c = Number(data.c);
+              const qty = Number(data.qty);
+              if (!Number.isFinite(a) || a <= 0 || !Number.isFinite(qty) || qty < 1) return Number.NaN;
+              if (data.kind === "known") return volumeToFt3(a, data.aUnit) * qty;
+              if (!Number.isFinite(b) || b <= 0) return Number.NaN;
+              if (data.kind === "round") {
+                const diameter = lengthToFeet(a, data.aUnit);
+                const depth = lengthToFeet(b, data.bUnit);
+                return Math.PI * (diameter / 2) ** 2 * depth * qty;
+              }
+              if (!Number.isFinite(c) || c <= 0) return Number.NaN;
+              return lengthToFeet(a, data.aUnit) * lengthToFeet(b, data.bUnit) * lengthToFeet(c, data.cUnit) * qty;
+            }
+
+            function updateMultiPourCard(card: HTMLElement) {
+              const data = multiPourStateFromCard(card);
+              card.querySelectorAll<HTMLElement>("[data-mp-rect]").forEach(el => { el.hidden = data.kind !== "rect"; });
+              card.querySelectorAll<HTMLElement>("[data-mp-round]").forEach(el => { el.hidden = data.kind !== "round"; });
+              card.querySelectorAll<HTMLElement>("[data-mp-known]").forEach(el => { el.hidden = data.kind !== "known"; });
+              const subtotal = card.querySelector<HTMLElement>("[data-mp-subtotal]");
+              const ft3 = multiPourFt3(data);
+              if (subtotal) subtotal.textContent = Number.isFinite(ft3) ? `${fmt(ft3 / 27)} yd³` : "Check inputs";
+            }
+
+            function syncMultiPourSchedule(dispatch = true) {
+              if (!multiPourRows || !multiPourVolume || !multiPourCount) return;
+              const cards = [...multiPourRows.querySelectorAll<HTMLElement>("[data-mp-row]")];
+              const schedule = cards.map(multiPourStateFromCard);
+              const volumes = schedule.map(multiPourFt3);
+              const valid = schedule.length > 0 && volumes.every(v => Number.isFinite(v) && v > 0);
+              const totalFt3 = valid ? volumes.reduce((sum, value) => sum + value, 0) : Number.NaN;
+              multiPourVolume.value = valid ? String(totalFt3 / 27) : "";
+              multiPourCount.value = String(schedule.length || 1);
+              root.dataset.multiPourSchedule = JSON.stringify(schedule);
+              if (multiPourTotal) multiPourTotal.textContent = valid ? `${fmt(totalFt3 / 27)} yd³ · ${fmt(totalFt3 / (1 / 0.3048) ** 3)} m³` : "Complete every visible pour";
+              cards.forEach(updateMultiPourCard);
+              if (dispatch) multiPourVolume.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+
+            function createMultiPourCard(data: MultiPourState = defaultMultiPour()) {
+              if (!multiPourRows) return;
+              const index = ++multiPourSerial;
+              const card = document.createElement("div");
+              card.dataset.mpRow = "true";
+              card.className = "rounded-lg border border-border bg-card p-3";
+              card.innerHTML = `
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <label class="text-xs font-medium text-foreground" for="${slug}-mp-kind-${index}">Pour type</label>
+                  <div class="flex items-center gap-2">
+                    <span data-mp-subtotal class="font-mono text-xs text-muted-foreground">—</span>
+                    <button type="button" data-mp-remove class="rounded-md border border-border px-2 py-1 text-[11px] text-muted-foreground hover:text-foreground">Remove</button>
+                  </div>
+                </div>
+                <select id="${slug}-mp-kind-${index}" data-mp-kind class="mt-2 h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground">
+                  <option value="rect">Rectangular slab / wall / footing</option>
+                  <option value="round">Round pier / footing</option>
+                  <option value="known">Known net volume</option>
+                </select>
+                <div class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                  <label data-mp-rect class="text-[11px] text-muted-foreground">Length
+                    <span class="mt-1 flex"><input data-mp-a type="number" step="any" min="0" class="h-10 min-w-0 flex-1 rounded-l-lg border border-border bg-muted/30 px-2 font-mono text-sm text-foreground"><select data-mp-a-unit class="h-10 rounded-r-lg border border-l-0 border-border bg-muted px-2 text-xs"><option>ft</option><option>in</option><option>yd</option><option>m</option><option>cm</option><option>mm</option></select></span>
+                  </label>
+                  <label data-mp-rect class="text-[11px] text-muted-foreground">Width
+                    <span class="mt-1 flex"><input data-mp-b type="number" step="any" min="0" class="h-10 min-w-0 flex-1 rounded-l-lg border border-border bg-muted/30 px-2 font-mono text-sm text-foreground"><select data-mp-b-unit class="h-10 rounded-r-lg border border-l-0 border-border bg-muted px-2 text-xs"><option>ft</option><option>in</option><option>yd</option><option>m</option><option>cm</option><option>mm</option></select></span>
+                  </label>
+                  <label data-mp-rect class="text-[11px] text-muted-foreground">Thickness / depth
+                    <span class="mt-1 flex"><input data-mp-c type="number" step="any" min="0" class="h-10 min-w-0 flex-1 rounded-l-lg border border-border bg-muted/30 px-2 font-mono text-sm text-foreground"><select data-mp-c-unit class="h-10 rounded-r-lg border border-l-0 border-border bg-muted px-2 text-xs"><option>in</option><option>ft</option><option>yd</option><option>m</option><option>cm</option><option>mm</option></select></span>
+                  </label>
+
+                  <label data-mp-round hidden class="text-[11px] text-muted-foreground">Diameter
+                    <span class="mt-1 flex"><input data-mp-a type="number" step="any" min="0" class="h-10 min-w-0 flex-1 rounded-l-lg border border-border bg-muted/30 px-2 font-mono text-sm text-foreground"><select data-mp-a-unit class="h-10 rounded-r-lg border border-l-0 border-border bg-muted px-2 text-xs"><option>in</option><option>ft</option><option>yd</option><option>m</option><option>cm</option><option>mm</option></select></span>
+                  </label>
+                  <label data-mp-round hidden class="text-[11px] text-muted-foreground">Depth / height
+                    <span class="mt-1 flex"><input data-mp-b type="number" step="any" min="0" class="h-10 min-w-0 flex-1 rounded-l-lg border border-border bg-muted/30 px-2 font-mono text-sm text-foreground"><select data-mp-b-unit class="h-10 rounded-r-lg border border-l-0 border-border bg-muted px-2 text-xs"><option>ft</option><option>in</option><option>yd</option><option>m</option><option>cm</option><option>mm</option></select></span>
+                  </label>
+
+                  <label data-mp-known hidden class="text-[11px] text-muted-foreground">Known volume
+                    <span class="mt-1 flex"><input data-mp-a type="number" step="any" min="0" class="h-10 min-w-0 flex-1 rounded-l-lg border border-border bg-muted/30 px-2 font-mono text-sm text-foreground"><select data-mp-a-unit class="h-10 rounded-r-lg border border-l-0 border-border bg-muted px-2 text-xs"><option value="yd3">yd³</option><option value="ft3">ft³</option><option value="m3">m³</option></select></span>
+                  </label>
+
+                  <label class="text-[11px] text-muted-foreground">Quantity
+                    <input data-mp-qty type="number" step="1" min="1" max="1000000" class="mt-1 h-10 w-full rounded-lg border border-border bg-muted/30 px-2 font-mono text-sm text-foreground">
+                  </label>
+                </div>
+              `;
+
+              const kind = card.querySelector<HTMLSelectElement>("[data-mp-kind]");
+              if (kind) kind.value = data.kind;
+
+              const assignVisibleGroup = (selector: string, key: "a" | "b" | "c", unitKey: "aUnit" | "bUnit" | "cUnit") => {
+                const groups = [...card.querySelectorAll<HTMLElement>(selector)];
+                groups.forEach(group => {
+                  const input = group.querySelector<HTMLInputElement>(`[data-mp-${key}]`);
+                  const unit = group.querySelector<HTMLSelectElement>(`[data-mp-${key}-unit]`);
+                  if (input) input.value = data[key];
+                  if (unit && [...unit.options].some(opt => opt.value === data[unitKey])) unit.value = data[unitKey];
+                });
+              };
+              assignVisibleGroup("[data-mp-rect]", "a", "aUnit");
+              assignVisibleGroup("[data-mp-rect]", "b", "bUnit");
+              assignVisibleGroup("[data-mp-rect]", "c", "cUnit");
+              assignVisibleGroup("[data-mp-round]", "a", "aUnit");
+              assignVisibleGroup("[data-mp-round]", "b", "bUnit");
+              assignVisibleGroup("[data-mp-known]", "a", "aUnit");
+              const qty = card.querySelector<HTMLInputElement>("[data-mp-qty]");
+              if (qty) qty.value = data.qty;
+
+              card.addEventListener("input", () => syncMultiPourSchedule());
+              card.addEventListener("change", () => {
+                updateMultiPourCard(card);
+                syncMultiPourSchedule();
+              });
+              card.querySelector<HTMLButtonElement>("[data-mp-remove]")?.addEventListener("click", () => {
+                const count = multiPourRows.querySelectorAll("[data-mp-row]").length;
+                if (count <= 1) return;
+                card.remove();
+                syncMultiPourSchedule();
+              });
+
+              multiPourRows.appendChild(card);
+              updateMultiPourCard(card);
+            }
+
+            function resetMultiPourSchedule(dispatch = false) {
+              if (!multiPourRows) return;
+              multiPourRows.replaceChildren();
+              createMultiPourCard(defaultMultiPour());
+              syncMultiPourSchedule(dispatch);
+            }
+
+            function hydrateMultiPourSchedule() {
+              if (!multiPourRows) return;
+              const params = new URLSearchParams(window.location.search);
+              if (params.get("cs_calc") !== slug) return;
+              const encoded = params.get("cs_pours");
+              if (!encoded) return;
+              try {
+                const parsed = JSON.parse(encoded);
+                if (!Array.isArray(parsed) || parsed.length < 1 || parsed.length > 12) return;
+                const clean = parsed
+                  .filter((item): item is MultiPourState => item && ["rect", "round", "known"].includes(item.kind))
+                  .map(item => ({
+                    kind: item.kind,
+                    a: String(item.a ?? ""),
+                    aUnit: String(item.aUnit ?? (item.kind === "known" ? "yd3" : "ft")),
+                    b: String(item.b ?? ""),
+                    bUnit: String(item.bUnit ?? "ft"),
+                    c: String(item.c ?? ""),
+                    cUnit: String(item.cUnit ?? "in"),
+                    qty: String(item.qty ?? "1"),
+                  }));
+                if (!clean.length) return;
+                multiPourRows.replaceChildren();
+                clean.forEach(createMultiPourCard);
+                syncMultiPourSchedule(false);
+              } catch {
+                // Ignore malformed shared schedules; the normal calculator validation remains authoritative.
+              }
+            }
+
+            function multiPourInputLines() {
+              if (!multiPourRows) return [] as string[];
+              return [...multiPourRows.querySelectorAll<HTMLElement>("[data-mp-row]")].map((card, index) => {
+                const d = multiPourStateFromCard(card);
+                const subtotal = multiPourFt3(d);
+                if (d.kind === "known") return `Pour ${index + 1}: known ${d.a} ${d.aUnit} × ${d.qty} = ${fmt(subtotal / 27)} yd³`;
+                if (d.kind === "round") return `Pour ${index + 1}: round Ø ${d.a} ${d.aUnit} × ${d.b} ${d.bUnit} × ${d.qty} = ${fmt(subtotal / 27)} yd³`;
+                return `Pour ${index + 1}: ${d.a} ${d.aUnit} × ${d.b} ${d.bUnit} × ${d.c} ${d.cUnit} × ${d.qty} = ${fmt(subtotal / 27)} yd³`;
+              });
+            }
+
+            multiPourAdd?.addEventListener("click", () => {
+              if (!multiPourRows || multiPourRows.querySelectorAll("[data-mp-row]").length >= 12) return;
+              createMultiPourCard(defaultMultiPour());
+              syncMultiPourSchedule();
+            });
 
             // Mode-gated field visibility: fields hidden by visibleWhen resolve to
             // their default value so calculations stay valid in every mode.
@@ -508,6 +747,7 @@ const diagramFields = fields
                 const wrap = root.querySelector<HTMLElement>(`#${slug}-field-${f.id}`);
                 if (wrap) wrap.hidden = !fieldVisible(f, state);
               });
+              if (multiPourPanel) multiPourPanel.hidden = Math.round(state.wasteMode) !== 4;
             }
 
             function hasCompleteVisibleRequiredInputs() {
@@ -522,6 +762,7 @@ const diagramFields = fields
             function showAwaitingInput() {
               delete root.dataset.lastCalculated;
               if (copyBtn) copyBtn.disabled = true;
+              if (pdfBtn) pdfBtn.disabled = true;
               targetPrimaryValEl.textContent = '--';
               if (primaryUnitEl) primaryUnitEl.textContent = '';
               if (secondaryEl) secondaryEl.textContent = 'Enter the required values above to calculate';
@@ -573,6 +814,10 @@ const diagramFields = fields
                 const unitSelect = form?.querySelector<HTMLSelectElement>(`#${slug}-${field.id}-unit`);
                 if (unitSelect?.value) url.searchParams.set(sharedParam(`${field.id}_unit`), unitSelect.value);
               });
+              const mode = Number(form?.querySelector<HTMLSelectElement>(`#${slug}-wasteMode`)?.value);
+              if (calculatorSlug === "concrete-waste-calculator" && mode === 4 && root.dataset.multiPourSchedule) {
+                url.searchParams.set("cs_pours", root.dataset.multiPourSchedule);
+              }
               return url;
             }
 
@@ -621,6 +866,7 @@ const diagramFields = fields
           const result = model.calculate(parsed, rawUnits);
           if (status) status.textContent = 'Results updated.';
           if (copyBtn) copyBtn.disabled = false;
+          if (pdfBtn) pdfBtn.disabled = false;
           if (notesList) {
             notesList.replaceChildren(...result.notes.map(note => {
               const li = document.createElement('li');
@@ -667,7 +913,7 @@ const diagramFields = fields
             targetStepsListEl.appendChild(li);
           });
 
-          const inputLines = model.fields
+          let inputLines = model.fields
             .filter((field) => !field.visibleWhen || fieldVisible(field, state))
             .map((field) => {
               const control = form?.querySelector<HTMLInputElement | HTMLSelectElement>(`#${slug}-${field.id}`);
@@ -679,6 +925,9 @@ const diagramFields = fields
               return `${field.label}: ${optionLabel ?? control.value}${displayUnit ? ` ${displayUnit}` : ""}`;
             })
             .filter((line): line is string => Boolean(line));
+          if (calculatorSlug === "concrete-waste-calculator" && Math.round(state.wasteMode) === 4) {
+            inputLines = [...inputLines, ...multiPourInputLines()];
+          }
 
           if (worksheetBody) {
             worksheetBody.replaceChildren(...result.rows.map((row) => {
@@ -727,6 +976,7 @@ const diagramFields = fields
         } catch (err: any) {
           delete root.dataset.lastCalculated;
           if (copyBtn) copyBtn.disabled = true;
+          if (pdfBtn) pdfBtn.disabled = true;
           targetPrimaryValEl.textContent = '—';
           if (primaryUnitEl) primaryUnitEl.textContent = '';
           if (secondaryEl) secondaryEl.textContent = 'Check the inputs to calculate a new result.';
@@ -765,6 +1015,7 @@ const diagramFields = fields
                 }
               });
               clearSharedStateFromUrl();
+              resetMultiPourSchedule(false);
               recalculateIfReady();
               // Programmatic reset does not emit native input/change events.
               // Reuse the state-restored event so live diagrams immediately
@@ -809,7 +1060,103 @@ const diagramFields = fields
         }
       });
 
-      printBtn?.addEventListener("click", () => {
+      function pdfSafeText(value: string) {
+        return value
+          .replaceAll("³", "^3")
+          .replaceAll("²", "^2")
+          .replaceAll("×", "x")
+          .replaceAll("÷", "/")
+          .replace(/[–—]/g, "-")
+          .replace(/[“”]/g, '"')
+          .replace(/[‘’]/g, "'")
+          .normalize("NFKD")
+          .replace(/[^\x20-\x7E\n]/g, "");
+      }
+
+      function wrapPdfText(text: string, width = 88) {
+        const output: string[] = [];
+        pdfSafeText(text).split("\n").forEach(raw => {
+          if (!raw) { output.push(""); return; }
+          const words = raw.split(/\s+/);
+          let line = "";
+          words.forEach(word => {
+            const next = line ? `${line} ${word}` : word;
+            if (next.length > width && line) {
+              output.push(line);
+              line = word;
+            } else {
+              line = next;
+            }
+          });
+          if (line) output.push(line);
+        });
+        return output;
+      }
+
+      function buildSimplePdf(text: string) {
+        const lines = wrapPdfText(text);
+        const perPage = 48;
+        const pages = Array.from({ length: Math.max(1, Math.ceil(lines.length / perPage)) }, (_, index) =>
+          lines.slice(index * perPage, (index + 1) * perPage)
+        );
+        const objectCount = 3 + pages.length * 2;
+        const objects: string[] = Array(objectCount + 1).fill("");
+        const pageIds = pages.map((_, index) => 4 + index * 2);
+        objects[1] = "<< /Type /Catalog /Pages 2 0 R >>";
+        objects[2] = `<< /Type /Pages /Count ${pages.length} /Kids [${pageIds.map(id => `${id} 0 R`).join(" ")}] >>`;
+        objects[3] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>";
+
+        const escapePdf = (line: string) => line.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
+        pages.forEach((pageLines, index) => {
+          const pageId = 4 + index * 2;
+          const contentId = pageId + 1;
+          objects[pageId] = `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents ${contentId} 0 R >>`;
+          const body = [
+            "BT",
+            "/F1 10 Tf",
+            "48 744 Td",
+            "13 TL",
+            ...pageLines.flatMap((line, lineIndex) => lineIndex === 0 ? [`(${escapePdf(line)}) Tj`] : ["T*", `(${escapePdf(line)}) Tj`]),
+            "ET",
+          ].join("\n");
+          objects[contentId] = `<< /Length ${body.length} >>\nstream\n${body}\nendstream`;
+        });
+
+        let pdf = "%PDF-1.4\n";
+        const offsets: number[] = Array(objectCount + 1).fill(0);
+        for (let id = 1; id <= objectCount; id += 1) {
+          offsets[id] = pdf.length;
+          pdf += `${id} 0 obj\n${objects[id]}\nendobj\n`;
+        }
+        const xref = pdf.length;
+        pdf += `xref\n0 ${objectCount + 1}\n0000000000 65535 f \n`;
+        for (let id = 1; id <= objectCount; id += 1) {
+          pdf += `${String(offsets[id]).padStart(10, "0")} 00000 n \n`;
+        }
+        pdf += `trailer\n<< /Size ${objectCount + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
+        return new Blob([pdf], { type: "application/pdf" });
+      }
+
+      pdfBtn?.addEventListener("click", () => {
+        const estimate = root.dataset.lastCalculated;
+        if (!estimate) {
+          if (status) status.textContent = "Complete the required inputs before downloading a PDF.";
+          return;
+        }
+        const generated = new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" }).format(new Date());
+        const blob = buildSimplePdf(`${estimate}\n\nGenerated: ${generated}\nCalculatorSt planning estimate - confirm supplier quote and project requirements before ordering.`);
+        const href = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = href;
+        link.download = "calculatorst-concrete-waste-order-plan.pdf";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(href), 1000);
+        if (status) status.textContent = "PDF order plan downloaded.";
+      });
+
+            printBtn?.addEventListener("click", () => {
         if (!root.dataset.lastCalculated) {
           if (status) status.textContent = "Complete the required inputs before printing an estimate.";
           return;
@@ -825,7 +1172,9 @@ const diagramFields = fields
       });
 
       // Restore a calculation from a shared URL before the first render.
+            resetMultiPourSchedule(false);
             hydrateSharedState();
+            hydrateMultiPourSchedule();
             recalculateIfReady();
             root.dispatchEvent(new CustomEvent("calculator-state-restored"));
     });
