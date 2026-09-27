@@ -231,6 +231,64 @@ test.describe("Concrete Waste Calculator", () => {
     await expect(root).toContainText("100 %");
   });
 
+  test("bagged-mix comparison shows selected bag cost and ready-mix difference", async ({ page }) => {
+    await page.goto(path);
+    const root = page.locator(`[data-calculator-slug="${slug}"]`);
+
+    await root.locator(`#${slug}-wasteMode`).selectOption("1");
+    await root.locator(`#${slug}-volume`).fill("1");
+    await root.locator(`#${slug}-volume-unit`).selectOption("yd3");
+    await root.locator(`#${slug}-wastePercent`).fill("0");
+
+    const supplier = root.locator("details").filter({ hasText: "Supplier & order settings" });
+    await supplier.locator("summary").click();
+    await root.locator(`#${slug}-orderIncrement`).fill("0.25");
+    await root.locator(`#${slug}-truckCapacity`).fill("10");
+
+    const costs = root.locator("details").filter({ hasText: "Cost & project extras" });
+    await costs.locator("summary").click();
+    await root.locator(`#${slug}-price`).fill("180");
+    await root.locator(`#${slug}-deliveryCharge`).fill("60");
+    await root.locator(`#${slug}-deliveryChargeMode`).selectOption("1");
+    await root.locator(`#${slug}-bagCompareSize`).selectOption("80");
+    await root.locator(`#${slug}-bagUnitPrice`).fill("6.5");
+
+    await root.getByRole("button", { name: "Calculate", exact: true }).click();
+
+    await expect(root).toContainText("Selected 80-lb bag estimate");
+    await expect(root).toContainText("45 bags");
+    await expect(root).toContainText("Approximate selected-bag dry weight");
+    await expect(root).toContainText("3,600 lb");
+    await expect(root).toContainText("Selected bagged-mix material cost");
+    await expect(root).toContainText("292.5");
+    await expect(root).toContainText("Bagged minus ready-mix estimated cost");
+    await expect(root).toContainText("52.5");
+  });
+
+  test("placement rate produces numeric truck-spacing guidance", async ({ page }) => {
+    await page.goto(path);
+    const root = page.locator(`[data-calculator-slug="${slug}"]`);
+
+    await root.locator(`#${slug}-wasteMode`).selectOption("1");
+    await root.locator(`#${slug}-volume`).fill("18");
+    await root.locator(`#${slug}-volume-unit`).selectOption("yd3");
+    await root.locator(`#${slug}-wastePercent`).fill("10");
+
+    const supplier = root.locator("details").filter({ hasText: "Supplier & order settings" });
+    await supplier.locator("summary").click();
+    await root.locator(`#${slug}-orderIncrement`).fill("0.25");
+    await root.locator(`#${slug}-truckCapacity`).fill("9");
+    await root.locator(`#${slug}-pourRate`).fill("6");
+
+    await root.getByRole("button", { name: "Calculate", exact: true }).click();
+
+    await expect(root).toContainText("Approx. full-load placement interval");
+    await expect(root).toContainText("90 minutes");
+    await expect(root).toContainText("Approx. final-delivery placement time");
+    await expect(root).toContainText("20 minutes");
+    await expect(root).toContainText("adjust dispatch for travel, queueing, pump rate and site conditions");
+  });
+
   test("metric supplier settings and metric ready-mix price remain consistent", async ({ page }) => {
     await page.goto(path);
     const root = page.locator(`[data-calculator-slug="${slug}"]`);
