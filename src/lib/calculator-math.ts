@@ -10,7 +10,16 @@ export const factors: Record<Dimension, Record<string, number>> = {
   weight: {lb:1, kg:LB_PER_KG, ton:2000, tonne:LB_PER_KG*1000},
   number: {},
 };
-export const unitLabels: Record<string,string> = {ft2:'ft²',yd2:'yd²',m2:'m²',in2:'in²',ft3:'ft³',yd3:'yd³',m3:'m³',ton:'US ton',tonne:'metric tonne',L:'liters',gal:'US gal','yd3/h':'yd³/h','m3/h':'m³/h','ft3/bag':'ft³/bag','USD':'
+export const unitLabels: Record<string,string> = {
+  ft2:'ft²', yd2:'yd²', m2:'m²', in2:'in²',
+  ft3:'ft³', yd3:'yd³', m3:'m³', L:'liters', gal:'US gal',
+  ton:'US ton', tonne:'metric tonne',
+  'yd3/h':'yd³/h', 'm3/h':'m³/h', 'ft3/bag':'ft³/bag',
+  USD:'$', '%':'%', hours:'hr', minutes:'min', loads:'loads', pours:'pours', flag:'',
+  'USD/yd3':'$/yd³', 'USD/m3':'$/m³', 'USD/ft3':'$/ft³', 'USD/ton':'$/US ton',
+  'USD/bag':'$/bag', 'USD/unit':'$/unit', 'USD/ft2':'$/ft²', 'USD/m2':'$/m²',
+  'USD/ft':'$/ft', 'USD/board':'$/board', 'USD/panel':'$/panel'
+};
 export class InputError extends Error { constructor(public field:string,message:string){super(message);this.name='InputError';} }
 export function requireCondition(ok:boolean,field:string,message:string):asserts ok {if(!ok)throw new InputError(field,message);}
 export function convert(value:number,unit:string,dimension:Dimension){
