@@ -7,6 +7,7 @@ const cmha = 'https://www.cmha.org/resource/tek-04-02a/';
 const geometry = 'https://www.calculatorsoup.com/calculators/construction/concrete-calculator.php';
 const acicr = 'https://www.concrete.org/general/frequently-asked-concrete-questions-faqs';
 const nrmcaCip = 'https://www.nrmca.org/association-resources/research-and-engineering/cip/';
+const astmC94 = 'https://store.astm.org/c0094_c0094m-26b.html';
 const nistVolume = 'https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9';
 
 // Standard density for normal-weight concrete: 150 lb/ft³ (ACI 318 typical, QUIKRETE spec sheet)
@@ -1825,7 +1826,7 @@ const concreteWasteFields: Field[] = [
     label: 'Project / volume source',
     value: 0,
     min: 0,
-    max: 3,
+    max: 4,
     integer: true,
     dimension: 'number',
     options: [
@@ -1833,8 +1834,9 @@ const concreteWasteFields: Field[] = [
       { value: 1, label: 'Known net concrete volume' },
       { value: 2, label: 'Round footing / pier' },
       { value: 3, label: 'Wall / rectangular footing' },
+      { value: 4, label: 'Combine multiple pours' },
     ],
-    help: 'Choose the finished concrete geometry you are measuring. Use known-volume mode when another calculator already produced the net geometric volume.',
+    help: 'Choose one finished geometry, enter a known volume, or combine several rectangular, round and known-volume pours into one ready-mix order.',
   },
 
   { ...length('length', 'Slab length', 20, 'ft'), visibleWhen: { field: 'wasteMode', equals: 0 } },
@@ -1853,32 +1855,99 @@ const concreteWasteFields: Field[] = [
   { ...length('sectionThickness', 'Thickness / width', 8, 'in'), visibleWhen: { field: 'wasteMode', equals: 3 } },
   { ...count('sectionQuantity', 'Identical sections', 1), visibleWhen: { field: 'wasteMode', equals: 3 } },
 
+  { ...volume('multiPourVolume', 'Combined multi-pour net volume', 1), visibleWhen: { field: 'wasteMode', equals: 4 } },
+  { ...count('multiPourCount', 'Combined pour count', 1), visibleWhen: { field: 'wasteMode', equals: 4 } },
+
   {
     ...number('wastePercent', 'Waste / ordering allowance (%)', 10, 0,
-      'Project-specific allowance for form tolerances, uneven subgrade, spillage, handling loss or other measured ordering risk.'),
+      'Project-specific allowance for form tolerances, uneven subgrade, spillage, handling loss, pump priming or other measured ordering risk.'),
     max: 100,
+    group: 'Material & assumptions',
+    unit: '%',
   },
-  positiveOrZero(number('orderIncrement', 'Supplier ordering increment (yd³)', 0.25, 0),
-    { help: 'Round ready-mix up to this supplier increment. Enter 0 to skip supplier rounding.' }),
-  positiveOrZero(number('truckCapacity', 'Ready-mix truck capacity (yd³)', 10, 0),
-    { help: 'Optional load-planning check. Enter the supplier truck capacity, or 0 to hide truck-load planning.' }),
-  price('USD/yd3'),
+  positiveOrZero(
+    { ...volume('orderIncrement', 'Supplier ordering increment', 0.25), group: 'Material & assumptions' },
+    { help: 'Round ready-mix up to the producer\'s accepted order step. Enter 0 to skip supplier rounding.' },
+  ),
+  positiveOrZero(
+    { ...volume('supplierMinimum', 'Supplier minimum order / billed volume', 0), group: 'Material & assumptions' },
+    { help: 'Applied after the order increment. Enter 0 when the supplier has no minimum. Confirm whether the quoted minimum changes delivered volume or only billing.' },
+  ),
+  positiveOrZero(
+    { ...volume('truckCapacity', 'Ready-mix truck capacity', 10), group: 'Material & assumptions' },
+    { help: 'Use the capacity stated by the supplier. Enter 0 to disable truck-load planning.' },
+  ),
+  positiveOrZero(
+    { ...volume('shortLoadThreshold', 'Short-load threshold', 0), group: 'Material & assumptions' },
+    { help: 'If the final delivery is below this supplier threshold, the short-load rule is triggered. Enter 0 to disable.' },
+  ),
+  {
+    ...number('pourRate', 'Planned placement rate', 0, 0, 'Optional placed-concrete rate used to estimate pour duration. Enter 0 to hide duration.'),
+    unit: 'yd3/h',
+    units: ['yd3/h', 'm3/h'],
+    group: 'Material & assumptions',
+  },
+  {
+    ...number('customBagYield', 'Custom mixed yield per bag', 0.6, 0.001, 'Use the mixed yield printed on the product label. Common bag-size estimates remain visible separately.'),
+    unit: 'ft3/bag',
+    group: 'Material & assumptions',
+  },
+
+  price('USD/yd3', ['USD/yd3', 'USD/m3']),
+  { ...number('deliveryFeePerTruck', 'Delivery / dispatch fee per truck', 0, 0), unit: 'USD/load', group: 'Cost' },
+  { ...number('fuelSurcharge', 'Fuel / environmental surcharge', 0, 0), unit: 'USD', group: 'Cost' },
+  {
+    ...number('shortLoadFeeMethod', 'Short-load fee method', 0, 0),
+    max: 1,
+    integer: true,
+    options: [
+      { value: 0, label: 'Flat fee when triggered' },
+      { value: 1, label: 'Rate per yd³ below threshold' },
+    ],
+    group: 'Cost',
+  },
+  {
+    ...number('shortLoadFlatFee', 'Short-load flat fee', 0, 0),
+    unit: 'USD',
+    group: 'Cost',
+    visibleWhen: { field: 'shortLoadFeeMethod', equals: 0 },
+  },
+  {
+    ...number('shortLoadRate', 'Short-load rate per missing yd³', 0, 0),
+    unit: 'USD/yd3',
+    group: 'Cost',
+    visibleWhen: { field: 'shortLoadFeeMethod', equals: 1 },
+  },
+  { ...number('pumpPlacement', 'Pump / placement allowance', 0, 0), unit: 'USD', group: 'Cost' },
+  { ...number('salesTax', 'Sales tax (%)', 0, 0), max: 100, unit: '%', group: 'Cost' },
+  {
+    ...number('taxBasis', 'Sales-tax basis', 0, 0),
+    max: 2,
+    integer: true,
+    options: [
+      { value: 0, label: 'Concrete material only' },
+      { value: 1, label: 'Material + delivery / fuel' },
+      { value: 2, label: 'Material + delivery / fuel + short-load' },
+    ],
+    group: 'Cost',
+    help: 'Tax treatment varies by jurisdiction and supplier. Choose the basis that matches the quote; pump / placement is kept outside this tax basis.',
+  },
 ];
 
 const concreteWaste: Model = {
   fields: concreteWasteFields,
-  formula: 'Net volume is calculated from the selected finished geometry or entered known volume. Target order = net × (1 + allowance%). Supplier-rounded order = ceil(target / increment) × increment. Truck loads = ceil(rounded order / truck capacity).',
+  formula: 'Net volume comes from one geometry, a known volume, or the combined multi-pour schedule. Target = net × (1 + allowance%). Rounded requirement = ceil(target ÷ supplier increment) × increment. Planned supplier volume = max(rounded requirement, supplier minimum). Truck and short-load planning then use the planned supplier volume.',
   assumptions: [
     'Use finished concrete dimensions, not excavation dimensions that include base material, drainage, form space or working room.',
-    'Waste / ordering allowance is added once to the net geometric volume. Do not apply it again if a known volume already includes waste.',
-    'There is no universal waste percentage. Select an allowance from actual formwork, subgrade, placement method, handling risk and supplier guidance.',
-    'Supplier rounding is a separate purchasing effect applied after the requested allowance. It can raise effective overage above the percentage entered.',
-    'Bag counts use the waste-adjusted target before ready-mix supplier rounding because truck-order increments do not apply to bagged concrete.',
-    'Truck-load planning uses the rounded ready-mix order and entered truck capacity only; dispatch rules, axle limits, short-load fees and supplier scheduling remain supplier-specific.',
-    'Optional cost rows use only the entered ready-mix price per cubic yard and exclude delivery, short-load, pump, tax, labor and disposal charges.',
+    'Waste / ordering allowance is added once to net geometry. Multi-pour mode totals all pours first and applies the allowance once to the combined order.',
+    'Supplier order increments, minimums, truck capacities, short-load rules, fees and tax treatment vary by producer and quote; all related inputs are editable and default to zero where no universal rule exists.',
+    'The supplier minimum is treated as the planned supplier volume when it exceeds the rounded requirement. If a producer only bills a minimum but will deliver less, leave this input at zero for physical load planning and account for the billing rule separately.',
+    'Bag counts use the waste-adjusted target before ready-mix supplier rules because truck increments and minimums do not apply to bagged concrete.',
+    'Pour duration is volume ÷ entered placement rate. It does not model truck spacing, batch-plant travel, waiting time, finishing productivity or cold-joint risk.',
+    'Cost rows are quote-based planning values. Labor, excavation, formwork, reinforcement, testing, permits and disposal remain outside this supply estimate unless explicitly entered as pump / placement allowance.',
   ],
-  sources: [geometry, 'https://www.inchcalculator.com/concrete-calculator/'],
-  calculate(v) {
+  sources: [geometry, nrmcaCip, astmC94, quikrete],
+  calculate(v, u) {
     const mode = Math.round(v.wasteMode);
     let netCuFt = 0;
     let geometrySteps: string[] = [];
@@ -1922,6 +1991,12 @@ const concreteWaste: Model = {
         `One section = ${fmt(v.sectionLength)} × ${fmt(crossArea)} = ${fmt(oneSection)} ft³.`,
         `Net volume = ${fmt(oneSection)} × ${v.sectionQuantity} = ${fmt(netCuFt)} ft³ = ${fmt(netCuFt / 27)} yd³.`,
       ];
+    } else if (mode === 4) {
+      requireCondition(v.multiPourVolume > 0, 'multiPourVolume', 'Add at least one valid pour with a volume greater than zero.');
+      requireCondition(v.multiPourCount >= 1, 'multiPourCount', 'Add at least one pour.');
+      netCuFt = v.multiPourVolume;
+      geometryRows = [row('pourCount', 'Combined pour schedule', v.multiPourCount, v.multiPourCount === 1 ? 'pour' : 'pours', true)];
+      geometrySteps = [`Combined ${v.multiPourCount} pour${v.multiPourCount === 1 ? '' : 's'} = ${fmt(netCuFt / 27)} yd³ net before allowance.`];
     } else {
       requireCondition(v.length > 0, 'length', 'Enter a slab length greater than zero.');
       requireCondition(v.width > 0, 'width', 'Enter a slab width greater than zero.');
@@ -1942,80 +2017,188 @@ const concreteWaste: Model = {
     }
 
     const netCuYd = netCuFt / 27;
+    const netM3 = netCuFt / FT_PER_M ** 3;
     const wastePct = v.wastePercent;
     const targetCuFt = netCuFt * (1 + wastePct / 100);
     const targetCuYd = targetCuFt / 27;
+    const targetM3 = targetCuFt / FT_PER_M ** 3;
     const allowanceCuFt = targetCuFt - netCuFt;
     const allowanceCuYd = allowanceCuFt / 27;
 
-    const incrementYd = Math.max(0, v.orderIncrement);
-    const orderedYd = incrementYd > 0
+    const incrementYd = Math.max(0, v.orderIncrement / 27);
+    const roundedYd = incrementYd > 0
       ? Math.ceil((targetCuYd - 1e-12) / incrementYd) * incrementYd
       : targetCuYd;
-    const roundingOverageYd = Math.max(0, orderedYd - targetCuYd);
-    const totalOverageYd = Math.max(0, orderedYd - netCuYd);
+    const supplierMinimumYd = Math.max(0, v.supplierMinimum / 27);
+    const plannedYd = Math.max(roundedYd, supplierMinimumYd);
+    const plannedM3 = plannedYd * 27 / FT_PER_M ** 3;
+    const roundingOverageYd = Math.max(0, roundedYd - targetCuYd);
+    const minimumUpliftYd = Math.max(0, plannedYd - roundedYd);
+    const totalOverageYd = Math.max(0, plannedYd - netCuYd);
     const effectiveOveragePct = netCuYd > 0 ? totalOverageYd / netCuYd * 100 : 0;
 
-    const rows = [
+    const customYieldFt3 = v.customBagYield;
+    requireCondition(customYieldFt3 > 0, 'customBagYield', 'Enter a mixed bag yield greater than zero.');
+
+    const rows: ResultRow[] = [
       row('net', 'Net geometric volume', netCuYd, 'yd³'),
       row('netFt3', 'Net geometric volume', netCuFt, 'ft³'),
-      row('netM3', 'Net geometric volume', netCuFt / FT_PER_M ** 3, 'm³'),
+      row('netM3', 'Net geometric volume', netM3, 'm³'),
       ...geometryRows,
       row('wastePercent', 'Allowance entered', wastePct, '%'),
       row('allowance', 'Allowance volume', allowanceCuYd, 'yd³'),
       row('allowanceFt3', 'Allowance volume', allowanceCuFt, 'ft³'),
-      row('order', 'Waste-adjusted target order', targetCuYd, 'yd³'),
-      row('targetFt3', 'Waste-adjusted target order', targetCuFt, 'ft³'),
-      row('targetM3', 'Waste-adjusted target order', targetCuFt / FT_PER_M ** 3, 'm³'),
-      row('ordered', `Supplier-rounded ready-mix order${incrementYd > 0 ? ` (to ${fmt(incrementYd)} yd³)` : ''}`, orderedYd, 'yd³'),
-      row('roundingOverage', 'Extra caused by supplier rounding', roundingOverageYd, 'yd³'),
-      row('totalOverage', 'Total order above net volume', totalOverageYd, 'yd³'),
-      row('effectiveWaste', 'Effective overage after rounding', effectiveOveragePct, '%'),
+      row('order', 'Waste-adjusted requirement', targetCuYd, 'yd³'),
+      row('targetFt3', 'Waste-adjusted requirement', targetCuFt, 'ft³'),
+      row('targetM3', 'Waste-adjusted requirement', targetM3, 'm³'),
+      row('rounded', `Supplier-rounded requirement${incrementYd > 0 ? ` (to ${fmt(incrementYd)} yd³)` : ''}`, roundedYd, 'yd³'),
+      row('roundingOverage', 'Extra caused by supplier increment', roundingOverageYd, 'yd³'),
+      row('supplierMinimum', 'Supplier minimum applied', supplierMinimumYd, 'yd³'),
+      row('minimumUplift', 'Extra caused by supplier minimum', minimumUpliftYd, 'yd³'),
+      row('ordered', 'Planned supplier / billable volume', plannedYd, 'yd³'),
+      row('plannedM3', 'Planned supplier / billable volume', plannedM3, 'm³'),
+      row('totalOverage', 'Total supplier volume above net', totalOverageYd, 'yd³'),
+      row('effectiveWaste', 'Effective overage after supplier rules', effectiveOveragePct, '%'),
+      row('customBags', `Bags at entered yield (${fmt(customYieldFt3)} ft³)`, roundUp(targetCuFt / customYieldFt3), 'bags', true),
       row('bags80', '80-lb bags (0.60 ft³ each)', roundUp(targetCuFt / BAG_YIELD_80), 'bags', true),
       row('bags60', '60-lb bags (0.45 ft³ each)', roundUp(targetCuFt / BAG_YIELD_60), 'bags', true),
       row('bags50', '50-lb bags (0.375 ft³ each)', roundUp(targetCuFt / BAG_YIELD_50), 'bags', true),
       row('bags40', '40-lb bags (0.30 ft³ each)', roundUp(targetCuFt / BAG_YIELD_40), 'bags', true),
     ];
 
-    const capacity = Math.max(0, v.truckCapacity);
-    if (capacity > 0) {
-      const loads = Math.max(1, Math.ceil(orderedYd / capacity));
-      const finalLoad = Math.max(0, orderedYd - (loads - 1) * capacity);
-      const finalUtilization = finalLoad / capacity * 100;
+    const steps = [
+      ...geometrySteps,
+      `Allowance: ${fmt(netCuYd)} yd³ × ${fmt(wastePct)}% = ${fmt(allowanceCuYd)} yd³.`,
+      `Waste-adjusted requirement = ${fmt(netCuYd)} + ${fmt(allowanceCuYd)} = ${fmt(targetCuYd)} yd³.`,
+      incrementYd > 0
+        ? `Supplier rounding: ceil(${fmt(targetCuYd)} ÷ ${fmt(incrementYd)}) × ${fmt(incrementYd)} = ${fmt(roundedYd)} yd³.`
+        : `No supplier increment — rounded requirement remains ${fmt(roundedYd)} yd³.`,
+      supplierMinimumYd > roundedYd
+        ? `Supplier minimum: max(${fmt(roundedYd)}, ${fmt(supplierMinimumYd)}) = ${fmt(plannedYd)} yd³.`
+        : `Supplier minimum does not increase the rounded requirement; planned supplier volume = ${fmt(plannedYd)} yd³.`,
+      `Final supplier volume is ${fmt(totalOverageYd)} yd³ (${fmt(effectiveOveragePct)}%) above net geometry.`,
+    ];
+
+    let visits = 0;
+    let fullLoads = 0;
+    let finalPartialYd = 0;
+    let finalTruckYd = 0;
+    let finalUtilization = 0;
+    let shortLoadTriggered = false;
+    let shortLoadDeficitYd = 0;
+
+    const capacityYd = Math.max(0, v.truckCapacity / 27);
+    const shortThresholdYd = Math.max(0, v.shortLoadThreshold / 27);
+    requireCondition(shortThresholdYd === 0 || capacityYd > 0, 'truckCapacity', 'Enter truck capacity to evaluate a short-load threshold.');
+    requireCondition(capacityYd === 0 || shortThresholdYd <= capacityYd + 1e-12, 'shortLoadThreshold', 'Short-load threshold cannot exceed the entered truck capacity.');
+    requireCondition(v.deliveryFeePerTruck === 0 || capacityYd > 0, 'truckCapacity', 'Enter truck capacity to calculate a per-truck delivery fee.');
+
+    if (capacityYd > 0) {
+      const ratio = plannedYd / capacityYd;
+      const nearWhole = Math.abs(ratio - Math.round(ratio)) < 1e-10;
+      fullLoads = nearWhole ? Math.round(ratio) : Math.floor(ratio);
+      finalPartialYd = nearWhole ? 0 : Math.max(0, plannedYd - fullLoads * capacityYd);
+      visits = fullLoads + (finalPartialYd > 1e-10 ? 1 : 0);
+      finalTruckYd = finalPartialYd > 1e-10 ? finalPartialYd : (visits > 0 ? capacityYd : 0);
+      finalUtilization = visits > 0 ? finalTruckYd / capacityYd * 100 : 0;
+      shortLoadTriggered = shortThresholdYd > 0 && finalPartialYd > 1e-10 && finalPartialYd < shortThresholdYd - 1e-10;
+      shortLoadDeficitYd = shortLoadTriggered ? shortThresholdYd - finalPartialYd : 0;
+
       rows.push(
-        row('truckLoads', 'Ready-mix truck loads', loads, 'loads', true),
-        row('finalLoad', 'Final truck load', finalLoad, 'yd³'),
+        row('fullLoads', 'Full ready-mix truck loads', fullLoads, fullLoads === 1 ? 'load' : 'loads', true),
+        row('finalPartial', 'Final partial load', finalPartialYd, 'yd³'),
+        row('truckLoads', 'Total truck visits', visits, visits === 1 ? 'load' : 'loads', true),
+        row('finalLoad', 'Final truck quantity', finalTruckYd, 'yd³'),
         row('finalUtilization', 'Final truck utilization', finalUtilization, '%'),
+        row('shortLoadDeficit', 'Volume below short-load threshold', shortLoadDeficitYd, 'yd³'),
       );
-      geometrySteps.push(
-        `Truck plan: ceil(${fmt(orderedYd)} ÷ ${fmt(capacity)}) = ${loads} load${loads === 1 ? '' : 's'}; final load ${fmt(finalLoad)} yd³ (${fmt(finalUtilization)}% of entered capacity).`,
+      steps.push(
+        `Truck plan: ${fullLoads} full load${fullLoads === 1 ? '' : 's'} + ${fmt(finalPartialYd)} yd³ final partial = ${visits} visit${visits === 1 ? '' : 's'}; final-truck utilization ${fmt(finalUtilization)}%.`,
       );
     }
 
-    if (Number.isFinite(v.price)) {
-      const netCost = netCuYd * v.price;
-      const targetCost = targetCuYd * v.price;
-      const roundedCost = orderedYd * v.price;
+    const pourRateYdPerHour = u.pourRate === 'm3/h'
+      ? v.pourRate * FT_PER_M ** 3 / 27
+      : v.pourRate;
+    if (pourRateYdPerHour > 0) {
+      const durationHours = plannedYd / pourRateYdPerHour;
+      rows.push(row('pourDuration', 'Estimated placement duration', durationHours, 'hours'));
+      steps.push(`Placement duration = ${fmt(plannedYd)} yd³ ÷ ${fmt(pourRateYdPerHour)} yd³/h = ${fmt(durationHours)} h.`);
+    }
+
+    const shortMethod = Math.round(v.shortLoadFeeMethod);
+    const shortLoadCharge = shortLoadTriggered
+      ? shortMethod === 1 ? shortLoadDeficitYd * v.shortLoadRate : v.shortLoadFlatFee
+      : 0;
+    const deliveryCost = visits * v.deliveryFeePerTruck;
+    const fuelCost = v.fuelSurcharge;
+    const pumpCost = v.pumpPlacement;
+
+    const hasMaterialPrice = Number.isFinite(v.price);
+    const materialCost = hasMaterialPrice
+      ? (u.price === 'USD/m3' ? plannedM3 * v.price : plannedYd * v.price)
+      : 0;
+    const netMaterialCost = hasMaterialPrice
+      ? (u.price === 'USD/m3' ? netM3 * v.price : netCuYd * v.price)
+      : 0;
+    const targetMaterialCost = hasMaterialPrice
+      ? (u.price === 'USD/m3' ? targetM3 * v.price : targetCuYd * v.price)
+      : 0;
+    const roundedM3 = roundedYd * 27 / FT_PER_M ** 3;
+    const roundedMaterialCost = hasMaterialPrice
+      ? (u.price === 'USD/m3' ? roundedM3 * v.price : roundedYd * v.price)
+      : 0;
+
+    const taxMode = Math.round(v.taxBasis);
+    const taxBase = taxMode === 2
+      ? materialCost + deliveryCost + fuelCost + shortLoadCharge
+      : taxMode === 1
+        ? materialCost + deliveryCost + fuelCost
+        : materialCost;
+    const taxCost = taxBase * v.salesTax / 100;
+    const supplyTotal = materialCost + deliveryCost + fuelCost + shortLoadCharge + taxCost + pumpCost;
+    const anyCostInput = hasMaterialPrice
+      || v.deliveryFeePerTruck > 0
+      || v.fuelSurcharge > 0
+      || v.shortLoadFlatFee > 0
+      || v.shortLoadRate > 0
+      || v.pumpPlacement > 0
+      || v.salesTax > 0;
+
+    if (anyCostInput) {
+      if (hasMaterialPrice) {
+        rows.push(
+          row('netCost', 'Net-volume concrete material cost', netMaterialCost, 'USD'),
+          row('allowanceCost', 'Added material cost from allowance', targetMaterialCost - netMaterialCost, 'USD'),
+          row('roundingCost', 'Added material cost from supplier rounding', roundedMaterialCost - targetMaterialCost, 'USD'),
+          row('minimumCost', 'Added material cost from supplier minimum', materialCost - roundedMaterialCost, 'USD'),
+          row('materialCost', 'Concrete material cost at planned supplier volume', materialCost, 'USD'),
+        );
+      }
       rows.push(
-        row('netCost', 'Net-volume concrete cost', netCost, 'USD'),
-        row('allowanceCost', 'Added cost from allowance', targetCost - netCost, 'USD'),
-        row('roundingCost', 'Added cost from supplier rounding', roundedCost - targetCost, 'USD'),
-        row('orderCost', 'Rounded ready-mix material cost', roundedCost, 'USD'),
+        row('deliveryCost', 'Delivery / dispatch cost', deliveryCost, 'USD'),
+        row('fuelCost', 'Fuel / environmental surcharge', fuelCost, 'USD'),
+        row('shortLoadCost', 'Short-load charge', shortLoadCharge, 'USD'),
+        row('taxCost', 'Sales tax on selected basis', taxCost, 'USD'),
+        row('pumpCost', 'Pump / placement allowance', pumpCost, 'USD'),
+        row('supplyTotal', 'Estimated ready-mix supply / placement total', supplyTotal, 'USD'),
       );
+      if (plannedYd > 0) rows.push(row('avgCost', 'Average estimated cost per planned yd³', supplyTotal / plannedYd, 'USD/yd3'));
     }
 
-    return result(
-      rows,
-      [
-        ...geometrySteps,
-        `Allowance: ${fmt(netCuYd)} yd³ × ${fmt(wastePct)}% = ${fmt(allowanceCuYd)} yd³.`,
-        `Waste-adjusted target = ${fmt(netCuYd)} + ${fmt(allowanceCuYd)} = ${fmt(targetCuYd)} yd³.`,
-        incrementYd > 0
-          ? `Supplier rounding: ceil(${fmt(targetCuYd)} ÷ ${fmt(incrementYd)}) × ${fmt(incrementYd)} = ${fmt(orderedYd)} yd³.`
-          : `No supplier rounding increment — ready-mix order remains ${fmt(orderedYd)} yd³.`,
-        `Rounding adds ${fmt(roundingOverageYd)} yd³ beyond the requested allowance; final order is ${fmt(totalOverageYd)} yd³ (${fmt(effectiveOveragePct)}%) above net volume.`,
-      ],
-    );
+    const notes = [
+      shortThresholdYd > 0
+        ? shortLoadTriggered
+          ? `Short-load rule triggered: final partial load ${fmt(finalPartialYd)} yd³ is ${fmt(shortLoadDeficitYd)} yd³ below the entered ${fmt(shortThresholdYd)} yd³ threshold.`
+          : 'Entered short-load threshold is not triggered by the planned final delivery.'
+        : 'Short-load threshold is disabled; confirm any supplier small-load rules before ordering.',
+      supplierMinimumYd > roundedYd
+        ? 'The entered supplier minimum increases the planned supplier volume above the rounded requirement.'
+        : 'The entered supplier minimum does not increase this order.',
+      'NRMCA CIP 31 and ASTM C94/C94M are ordering / delivery references; project specifications and the producer quote govern the actual ready-mix order.',
+    ];
+
+    return result(rows, steps, notes);
   },
 };
 
