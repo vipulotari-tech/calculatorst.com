@@ -532,8 +532,7 @@ const diagramFields = fields
             function multiPourStateFromCard(card: HTMLElement): MultiPourState {
               const kind = (card.querySelector<HTMLSelectElement>("[data-mp-kind]")?.value as MultiPourKind) || "rect";
               const groupSelector = kind === "round" ? "[data-mp-round]" : kind === "known" ? "[data-mp-known]" : "[data-mp-rect]";
-              const group = card.querySelector<HTMLElement>(groupSelector);
-              const read = (selector: string) => group?.querySelector<HTMLInputElement | HTMLSelectElement>(selector)?.value ?? "";
+              const read = (selector: string) => card.querySelector<HTMLInputElement | HTMLSelectElement>(`${groupSelector} ${selector}`)?.value ?? "";
               return {
                 kind,
                 a: read("[data-mp-a]"),
