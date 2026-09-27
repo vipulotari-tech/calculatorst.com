@@ -437,29 +437,29 @@ const concreteSeo: Record<string, {
     ]
   },
   "concrete-waste-calculator": {
-    title: "Concrete Waste & Ready-Mix Order Calculator — Multi-Pour, Trucks, Fees & Cost",
-    description: "Plan concrete waste and ready-mix ordering for slabs, round piers, walls/footings, known volumes, or multiple pours. Model supplier increments, minimums, short-load rules, trucks, bags, delivery, tax, pump cost and pour duration.",
+    title: "Concrete Waste Calculator — Multi-Pour, Trucks, Short-Load Fees & Cost",
+    description: "Plan one or multiple concrete pours, waste allowance, supplier increment/minimum, full and partial truckloads, short-load fees, delivery, tax, pump allowance, bag alternatives and total ready-mix cost.",
     guidance: [
-      "Use a single geometry for a quick estimate, or choose Combine multiple pours to build one supplier order from rectangular, round and known-volume placements.",
-      "Apply the project-specific waste / ordering allowance once to net concrete. Supplier increment and minimum rules are applied afterward and shown separately so their extra volume is visible.",
-      "Open Supplier & order settings to enter the producer's order increment, minimum, truck capacity, short-load threshold, placement rate and actual mixed bag yield. These values vary by producer and quote.",
-      "Open Cost & project extras for ready-mix price, delivery / dispatch fee per truck, fuel or environmental surcharge, short-load fee method, pump / placement allowance, sales tax and tax basis.",
-      "Truck results distinguish full loads, final partial load, total visits, final-truck quantity and utilization. Pour duration is volume divided by the entered placement rate and is a scheduling aid, not a guarantee of discharge timing.",
-      "Use Download PDF for a direct order-plan file, Print / Save PDF for the browser print workflow, or Share to preserve inputs and the multi-pour schedule in a restorable link."
+      "Choose a single slab, round pier, wall/footing, known net volume, or Multi-pour schedule. Multi-pour mode combines rectangular, round and known-volume rows before the allowance is applied.",
+      "Enter the supplier's actual order increment and minimum. The calculator keeps geometric volume, requested allowance, supplier rounding and minimum-order uplift separate instead of hiding them in one yardage number.",
+      "Truck planning separates full loads from an optional final partial load, reports truck visits and final-delivery utilization, and checks the final delivery against the quoted short-load threshold.",
+      "Optional quote fields estimate concrete material, delivery/fuel, short-load surcharge, pump/placement allowance and tax. Choose the delivery-fee basis, short-load-fee basis and taxable scope that match the supplier quote.",
+      "Supplier increment, minimum, truck capacity and short-load threshold support yd³ or m³. Placement rate supports yd³/h or m³/h; concrete price supports $/yd³ or $/m³.",
+      "Use the product-label custom bag yield when a bagged mix differs from the fixed 40/50/60/80-lb reference yields.",
+      "Share preserves the multi-pour schedule and calculator inputs. Print / Save PDF uses the browser print workflow, and Download PDF creates a direct text estimate file from the calculated inputs and results."
     ],
     faq: [
-      { q: "Can I combine several concrete pours into one order?", a: "Yes. Choose Combine multiple pours and add rectangular, round or known-volume rows. The calculator totals the net concrete first, then applies the allowance and supplier rules once to the combined order." },
-      { q: "What concrete waste percentage should I use?", a: "There is no universal percentage. General estimating guidance often discusses roughly 5–10% extra, but the correct allowance depends on field measurements, form accuracy, subgrade variation, placement method, pump priming, handling loss and supplier guidance." },
-      { q: "How does supplier minimum order work?", a: "The calculator compares the supplier-rounded requirement with the minimum you enter and uses the larger value for the planned supplier volume. Confirm whether your producer's minimum changes the delivered volume or only the billable amount." },
-      { q: "How is a short-load fee calculated?", a: "Enter the supplier's short-load threshold and choose either a flat fee or a rate per cubic yard below that threshold. The charge is applied only when the final partial delivery is below the entered threshold." },
-      { q: "Can I estimate delivery, fuel, tax and pump cost?", a: "Yes. Optional cost inputs include ready-mix price, delivery / dispatch per truck, fuel or environmental surcharge, short-load fee, pump / placement allowance and sales tax. Tax basis is selectable because local tax treatment varies." },
-      { q: "Can I calculate waste for round piers and footings?", a: "Yes. Round footing / pier mode uses cylinder volume from diameter × depth or height × quantity before allowance and supplier rules are applied." },
-      { q: "Can I calculate waste for a wall or rectangular footing?", a: "Yes. Enter length, height or depth, thickness or width and quantity in Wall / rectangular footing mode." },
-      { q: "Can I enter a concrete volume from another calculator or plan?", a: "Yes. Known net concrete volume accepts cubic yards, cubic feet or cubic meters. Enter the geometric volume before waste unless you intentionally set the allowance here to zero." },
-      { q: "How does truck-load planning work?", a: "The calculator uses the planned supplier volume and entered truck capacity to separate full loads from a final partial load, calculate truck visits and show final-load utilization." },
-      { q: "What does estimated pour duration mean?", a: "It is planned supplier volume divided by the placement rate you enter. It does not include travel delays, truck spacing, waiting time, finishing productivity or other site constraints." },
-      { q: "Can I use an actual bag yield instead of a generic bag size?", a: "Yes. Enter the mixed yield printed on the product label for a custom bag count. The calculator also keeps 40, 50, 60 and 80-lb reference estimates visible." },
-      { q: "Can I download the result as a PDF?", a: "Yes. Download PDF creates a direct order-plan PDF. Print / Save PDF opens the browser print workflow for a formatted printable estimate." }
+      { q: "Can I combine multiple concrete pours in one order?", a: "Yes. Choose Multi-pour schedule and add rectangular, round or known-volume rows. The calculator totals the net volume first, then applies the allowance and supplier rules once to the combined order." },
+      { q: "How does the supplier minimum affect the order?", a: "The calculator first adds the selected allowance, rounds the requirement up to the supplier increment, then compares that value with the supplier minimum. The planned/billable order is the greater value, and the minimum-order uplift is shown separately." },
+      { q: "How is a short-load fee detected?", a: "Enter the supplier's short-load threshold and truck capacity. If the final delivery is below the threshold, the calculator flags the condition and can apply either a flat surcharge or a fee per cubic yard below the threshold." },
+      { q: "How are full and partial truckloads calculated?", a: "The planned supplier order is divided by the entered truck capacity. Whole-capacity deliveries are shown as full loads; any remainder becomes the final partial load and one additional truck visit." },
+      { q: "What does final-delivery utilization mean?", a: "It is the final delivery quantity divided by the entered truck capacity. If the order divides evenly into full loads, the final delivery is shown at 100% utilization with no partial-load remainder." },
+      { q: "Can I estimate delivery, tax and pump costs?", a: "Yes. Add the ready-mix price, delivery/fuel charge, optional short-load fee, pump/placement allowance and sales-tax rate. You can choose whether delivery is per truck or flat per order and select the taxable-cost scope." },
+      { q: "How is pour duration estimated?", a: "Enter a planned placement rate. The calculator divides the waste-adjusted required placement volume by that rate. Supplier minimum or billing-only excess is not treated as required placement volume." },
+      { q: "Can I use metric supplier quotes?", a: "Yes. Supplier volume rules can be entered in cubic metres, placement rate in m³/h, and ready-mix price in $/m³. Geometry inputs also support metric and US customary units." },
+      { q: "Can I enter a custom bag yield?", a: "Yes. Enter the mixed yield printed on the product label. The calculator shows a custom-yield bag count in addition to the fixed 40/50/60/80-lb reference counts." },
+      { q: "What concrete waste percentage should I use?", a: "There is no universal percentage. General estimating guidance often discusses roughly 5–10% extra, but the correct allowance depends on form accuracy, excavation or subgrade variation, placement method, pump priming, spillage and project risk." },
+      { q: "Can I save or share the order plan?", a: "Yes. Share creates a restorable calculation link, including the multi-pour schedule. Print / Save PDF opens the browser print workflow, and Download PDF creates a direct estimate file after a valid calculation." }
     ]
   },
   "concrete-crack-repair-calculator": {
@@ -1846,7 +1846,11 @@ const newCalculatorSlugs = new Set([
   "concrete-crack-repair-calculator",
 ]);
 const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-08-29";
-const pageDateModified = ["concrete-calculator", "concrete-volume-calculator", "concrete-weight-calculator", "concrete-cost-calculator", "concrete-mix-calculator", "concrete-pour-calculator"].includes(calc.slug) || enhancedTradeCluster.has(calc.cluster) ? "2026-09-25" : "2026-09-24";
+const pageDateModified = calc.slug === "concrete-waste-calculator"
+  ? "2026-09-27"
+  : ["concrete-calculator", "concrete-volume-calculator", "concrete-weight-calculator", "concrete-cost-calculator", "concrete-mix-calculator", "concrete-pour-calculator"].includes(calc.slug) || enhancedTradeCluster.has(calc.cluster)
+    ? "2026-09-25"
+    : "2026-09-24";
 ---
 
 <CalculatorLayout
