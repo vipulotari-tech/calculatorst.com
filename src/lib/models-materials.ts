@@ -1897,7 +1897,7 @@ const concreteWasteFields: Field[] = [
     ...volume('shortLoadThreshold', 'Short-load threshold', 0),
     min: 0,
     units: ['yd3', 'm3'],
-    help: 'If the final delivery is below this quoted threshold, the calculator can estimate a short-load surcharge. Enter 0 to disable.',
+    help: 'If the final delivery is below this quoted threshold, the calculator can estimate a short-load surcharge. Enter 0 to disable. The selected unit also controls a per-volume short-load fee basis.',
   },
   {
     ...number('pourRate', 'Planned placement rate', 0, 0, 'Optional scheduling input. Enter 0 to hide pour-duration planning.'),
@@ -1953,7 +1953,7 @@ const concreteWasteFields: Field[] = [
     dimension: 'number',
     options: [
       { value: 0, label: 'Flat surcharge' },
-      { value: 1, label: 'Per yd³ below threshold' },
+      { value: 1, label: 'Per selected volume unit below threshold' },
     ],
     group: 'Cost',
   },
@@ -2056,7 +2056,7 @@ const concreteWaste: Model = {
       requireCondition(v.multiPourCount >= 1, 'multiPourCount', 'Add at least one pour row.');
       netCuFt = v.multiPourVolume;
       geometryRows = [
-        row('pourRows', 'Combined pour rows', v.multiPourCount, 'pours', true),
+        row('pourRows', 'Combined pour rows', v.multiPourCount, v.multiPourCount === 1 ? 'pour' : 'pours', true),
       ];
       geometrySteps = [
         `Combined multi-pour net volume = ${fmt(netCuFt)} ft³ = ${fmt(netCuFt / 27)} yd³ across ${v.multiPourCount} pour row${v.multiPourCount === 1 ? '' : 's'}.`,
@@ -2127,6 +2127,18 @@ const concreteWaste: Model = {
     }
 
     const capacity = Math.max(0, v.truckCapacity / 27);
+    const deliveryMode = Math.round(v.deliveryChargeMode);
+    const shortMode = Math.round(v.shortLoadFeeMode);
+    if (v.shortLoadThreshold > 0) {
+      requireCondition(capacity > 0, 'truckCapacity', 'Enter truck capacity to evaluate the short-load threshold.');
+    }
+    if (Number.isFinite(v.deliveryCharge) && v.deliveryCharge > 0 && deliveryMode === 0) {
+      requireCondition(capacity > 0, 'truckCapacity', 'Enter truck capacity when delivery / fuel is charged per truck visit.');
+    }
+    if (Number.isFinite(v.shortLoadFee) && v.shortLoadFee > 0) {
+      requireCondition(v.shortLoadThreshold > 0, 'shortLoadThreshold', 'Enter the supplier short-load threshold before adding a short-load fee.');
+      requireCondition(capacity > 0, 'truckCapacity', 'Enter truck capacity before adding a short-load fee.');
+    }
     let truckVisits = 0;
     let fullLoads = 0;
     let finalPartial = 0;
@@ -2140,9 +2152,9 @@ const concreteWaste: Model = {
       finalDelivery = finalPartial > 0 ? finalPartial : (truckVisits > 0 ? capacity : 0);
       finalUtilization = capacity > 0 && finalDelivery > 0 ? finalDelivery / capacity * 100 : 0;
       rows.push(
-        row('fullLoads', 'Full truck loads', fullLoads, 'loads', true),
+        row('fullLoads', 'Full truck loads', fullLoads, fullLoads === 1 ? 'load' : 'loads', true),
         row('finalPartial', 'Final partial load', finalPartial, 'yd³'),
-        row('truckLoads', 'Total truck visits', truckVisits, 'loads', true),
+        row('truckLoads', 'Total truck visits', truckVisits, truckVisits === 1 ? 'visit' : 'visits', true),
         row('finalLoad', 'Final delivery quantity', finalDelivery, 'yd³'),
         row('finalUtilization', 'Final delivery utilization', finalUtilization, '%'),
       );
@@ -2186,12 +2198,13 @@ const concreteWaste: Model = {
 
     if (hasCostInputs) {
       materialCost = plannedOrderYd * concretePrice;
-      const deliveryMode = Math.round(v.deliveryChargeMode);
-      deliveryCost = deliveryCharge * (deliveryMode === 1 ? (truckVisits > 0 ? 1 : 0) : truckVisits);
+      deliveryCost = deliveryCharge * (deliveryMode === 1 ? 1 : truckVisits);
 
-      const shortMode = Math.round(v.shortLoadFeeMode);
+      const shortLoadDeficitForFee = u.shortLoadThreshold === 'm3'
+        ? shortLoadDeficit * 27 / (FT_PER_M ** 3)
+        : shortLoadDeficit;
       shortLoadCharge = isShortLoad
-        ? shortLoadFee * (shortMode === 1 ? shortLoadDeficit : 1)
+        ? shortLoadFee * (shortMode === 1 ? shortLoadDeficitForFee : 1)
         : 0;
 
       const taxScope = Math.round(v.taxScope);
@@ -2208,13 +2221,14 @@ const concreteWaste: Model = {
         row('allowanceCost', 'Added material cost from allowance', allowanceCuYd * concretePrice, 'USD'),
         row('roundingCost', 'Added material cost from supplier rounding', roundingOverageYd * concretePrice, 'USD'),
         row('minimumCost', 'Added material cost from supplier minimum', minimumUpliftYd * concretePrice, 'USD'),
-        row('materialCost', 'Planned ready-mix material cost', materialCost, 'USD'),
+        row('orderCost', 'Planned ready-mix material cost', materialCost, 'USD'),
         row('deliveryCost', 'Delivery / fuel cost', deliveryCost, 'USD'),
         row('shortLoadCharge', 'Short-load charge', shortLoadCharge, 'USD'),
         row('pumpPlacementCost', 'Pump / placement allowance', pumpPlacement, 'USD'),
         row('salesTaxCost', 'Estimated sales tax', taxAmount, 'USD'),
-        row('orderCost', 'Estimated supply / placement total', supplyTotal, 'USD'),
+        row('supplyTotal', 'Estimated supply / placement total', supplyTotal, 'USD'),
         row('averageCost', 'Average cost per planned yd³', plannedOrderYd > 0 ? supplyTotal / plannedOrderYd : 0, 'USD/yd3'),
+        row('averageCostM3', 'Average cost per planned m³', plannedOrderYd > 0 ? supplyTotal / (plannedOrderYd * 27 / (FT_PER_M ** 3)) : 0, 'USD/m3'),
       );
     }
 
