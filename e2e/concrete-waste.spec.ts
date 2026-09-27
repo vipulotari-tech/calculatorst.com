@@ -285,7 +285,7 @@ test.describe("Concrete Waste Calculator", () => {
     await expect(root).toContainText("Approx. full-load placement interval");
     await expect(root).toContainText("90 minutes");
     await expect(root).toContainText("Approx. final-delivery placement time");
-    await expect(root).toContainText("20 minutes");
+    await expect(root).toContainText("20min");
     await expect(root).toContainText("adjust dispatch for travel, queueing, pump rate and site conditions");
   });
 
