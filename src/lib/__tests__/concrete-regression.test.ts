@@ -621,33 +621,40 @@ describe("Concrete category golden-value regression suite", () => {
     )).toThrow(/Wall thickness must be less than half/);
   });
 
-  it("Concrete Waste: allowance and supplier rounding stay separate for dimension mode", () => {
+  it("Concrete Waste: dimension mode separates allowance, rounding and planned order", () => {
     const r = run(
       "concrete-waste-calculator",
-      { wasteMode: 0, length: 10, width: 10, depth: 12, quantity: 1, wastePercent: 10, orderIncrement: 0.25 },
-      { length: "ft", width: "ft", depth: "in", volume: "yd3" },
+      {
+        wasteMode: 0, length: 10, width: 10, depth: 12, quantity: 1,
+        wastePercent: 10, orderIncrement: 0.25, supplierMinimum: 0, truckCapacity: 10,
+      },
+      { length: "ft", width: "ft", depth: "in", orderIncrement: "yd3", supplierMinimum: "yd3", truckCapacity: "yd3" },
     );
     const net = 100 / 27;
-    const target = 110 / 27;
-    expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(net, 6);
-    expect(r.rows.find(x => x.key === "allowance")?.value).toBeCloseTo(10 / 27, 6);
-    expect(r.rows.find(x => x.key === "order")?.value).toBeCloseTo(target, 6);
-    expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(4.25, 6);
-    expect(r.rows.find(x => x.key === "roundingOverage")?.value).toBeCloseTo(4.25 - target, 6);
-    expect(r.rows.find(x => x.key === "totalOverage")?.value).toBeCloseTo(4.25 - net, 6);
+    const required = 110 / 27;
+    expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(net, 8);
+    expect(r.rows.find(x => x.key === "allowance")?.value).toBeCloseTo(10 / 27, 8);
+    expect(r.rows.find(x => x.key === "order")?.value).toBeCloseTo(required, 8);
+    expect(r.rows.find(x => x.key === "roundedRequirement")?.value).toBeCloseTo(4.25, 8);
+    expect(r.rows.find(x => x.key === "minimumUplift")?.value).toBeCloseTo(0, 8);
+    expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(4.25, 8);
+    expect(r.rows.find(x => x.key === "roundingOverage")?.value).toBeCloseTo(4.25 - required, 8);
   });
 
-  it("Concrete Waste: known-volume mode supports supplier rounding and all common bag sizes", () => {
+  it("Concrete Waste: known-volume mode keeps bag demand independent of supplier rounding", () => {
     const r = run(
       "concrete-waste-calculator",
-      { wasteMode: 1, volume: 2.5, wastePercent: 8, orderIncrement: 0.25 },
-      { volume: "yd3" },
+      {
+        wasteMode: 1, volume: 2.5, wastePercent: 8,
+        orderIncrement: 0.25, supplierMinimum: 0, truckCapacity: 10,
+      },
+      { volume: "yd3", orderIncrement: "yd3", supplierMinimum: "yd3", truckCapacity: "yd3" },
     );
     expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(2.5, 8);
     expect(r.rows.find(x => x.key === "order")?.value).toBeCloseTo(2.7, 8);
+    expect(r.rows.find(x => x.key === "roundedRequirement")?.value).toBeCloseTo(2.75, 8);
     expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(2.75, 8);
     expect(r.rows.find(x => x.key === "roundingOverage")?.value).toBeCloseTo(0.05, 8);
-    expect(r.rows.find(x => x.key === "totalOverage")?.value).toBeCloseTo(0.25, 8);
     expect(r.rows.find(x => x.key === "effectiveWaste")?.value).toBeCloseTo(10, 8);
     expect(r.rows.find(x => x.key === "bags80")?.value).toBe(122);
     expect(r.rows.find(x => x.key === "bags60")?.value).toBe(162);
@@ -655,58 +662,166 @@ describe("Concrete category golden-value regression suite", () => {
     expect(r.rows.find(x => x.key === "bags40")?.value).toBe(243);
   });
 
-  it("Concrete Waste: optional ready-mix price isolates allowance and rounding cost", () => {
-    const r = run(
-      "concrete-waste-calculator",
-      { wasteMode: 1, volume: 2.5, wastePercent: 8, orderIncrement: 0.25, price: 150 },
-      { volume: "yd3", price: "USD/yd3" },
-    );
-    expect(r.rows.find(x => x.key === "netCost")?.value).toBeCloseTo(375, 8);
-    expect(r.rows.find(x => x.key === "allowanceCost")?.value).toBeCloseTo(30, 8);
-    expect(r.rows.find(x => x.key === "roundingCost")?.value).toBeCloseTo(7.5, 8);
-    expect(r.rows.find(x => x.key === "orderCost")?.value).toBeCloseTo(412.5, 8);
-  });
-
-  it("Concrete Waste: round footing / pier mode uses cylinder geometry", () => {
-    const r = run(
+  it("Concrete Waste: round pier and wall modes use independent geometry", () => {
+    const pier = run(
       "concrete-waste-calculator",
       {
         wasteMode: 2, diameter: 18, pierDepth: 4, pierQuantity: 4,
-        wastePercent: 10, orderIncrement: 0.25, truckCapacity: 10,
+        wastePercent: 10, orderIncrement: 0.25, supplierMinimum: 0, truckCapacity: 10,
       },
-      { diameter: "in", pierDepth: "ft" },
+      { diameter: "in", pierDepth: "ft", orderIncrement: "yd3", supplierMinimum: "yd3", truckCapacity: "yd3" },
     );
-    expect(r.rows.find(x => x.key === "circleArea")?.value).toBeCloseTo(Math.PI * 0.75 ** 2, 8);
-    expect(r.rows.find(x => x.key === "onePier")?.value).toBeCloseTo(Math.PI * 0.75 ** 2 * 4, 8);
-    expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(Math.PI * 0.75 ** 2 * 4 * 4 / 27, 8);
-    expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(1.25, 8);
-  });
+    expect(pier.rows.find(x => x.key === "circleArea")?.value).toBeCloseTo(Math.PI * 0.75 ** 2, 8);
+    expect(pier.rows.find(x => x.key === "onePier")?.value).toBeCloseTo(Math.PI * 0.75 ** 2 * 4, 8);
+    expect(pier.rows.find(x => x.key === "net")?.value).toBeCloseTo(Math.PI * 0.75 ** 2 * 4 * 4 / 27, 8);
+    expect(pier.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(1.25, 8);
 
-  it("Concrete Waste: wall / rectangular footing mode uses section geometry", () => {
-    const r = run(
+    const wall = run(
       "concrete-waste-calculator",
       {
         wasteMode: 3, sectionLength: 40, sectionHeight: 2, sectionThickness: 8, sectionQuantity: 1,
-        wastePercent: 10, orderIncrement: 0.25, truckCapacity: 10,
+        wastePercent: 10, orderIncrement: 0.25, supplierMinimum: 0, truckCapacity: 10,
       },
-      { sectionLength: "ft", sectionHeight: "ft", sectionThickness: "in" },
+      { sectionLength: "ft", sectionHeight: "ft", sectionThickness: "in", orderIncrement: "yd3", supplierMinimum: "yd3", truckCapacity: "yd3" },
     );
-    expect(r.rows.find(x => x.key === "crossArea")?.value).toBeCloseTo(4 / 3, 8);
-    expect(r.rows.find(x => x.key === "oneSection")?.value).toBeCloseTo(160 / 3, 8);
-    expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(160 / 81, 8);
-    expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(2.25, 8);
+    expect(wall.rows.find(x => x.key === "crossArea")?.value).toBeCloseTo(4 / 3, 8);
+    expect(wall.rows.find(x => x.key === "oneSection")?.value).toBeCloseTo(160 / 3, 8);
+    expect(wall.rows.find(x => x.key === "net")?.value).toBeCloseTo(160 / 81, 8);
+    expect(wall.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(2.25, 8);
   });
 
-  it("Concrete Waste: truck planning uses supplier-rounded order and final-load utilization", () => {
+  it("Concrete Waste: multi-pour total is treated as internal cubic feet and rounded once", () => {
     const r = run(
       "concrete-waste-calculator",
-      { wasteMode: 1, volume: 18, wastePercent: 10, orderIncrement: 0.25, truckCapacity: 9 },
-      { volume: "yd3" },
+      {
+        wasteMode: 4, multiPourVolume: 94.5, multiPourCount: 3,
+        wastePercent: 10, orderIncrement: 0.25, supplierMinimum: 0, truckCapacity: 10,
+      },
+      { multiPourVolume: "ft3", orderIncrement: "yd3", supplierMinimum: "yd3", truckCapacity: "yd3" },
     );
-    expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(20, 8);
-    expect(r.rows.find(x => x.key === "truckLoads")?.value).toBe(3);
-    expect(r.rows.find(x => x.key === "finalLoad")?.value).toBeCloseTo(2, 8);
-    expect(r.rows.find(x => x.key === "finalUtilization")?.value).toBeCloseTo(200 / 9, 8);
+    expect(r.rows.find(x => x.key === "pourRows")?.value).toBe(3);
+    expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(3.5, 8);
+    expect(r.rows.find(x => x.key === "order")?.value).toBeCloseTo(3.85, 8);
+    expect(r.rows.find(x => x.key === "roundedRequirement")?.value).toBeCloseTo(4, 8);
+    expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(4, 8);
+  });
+
+  it("Concrete Waste: supplier minimum raises planned order without inflating bag demand", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 1, volume: 1, wastePercent: 0,
+        orderIncrement: 0.25, supplierMinimum: 3, truckCapacity: 10,
+      },
+      { volume: "yd3", orderIncrement: "yd3", supplierMinimum: "yd3", truckCapacity: "yd3" },
+    );
+    expect(r.rows.find(x => x.key === "roundedRequirement")?.value).toBeCloseTo(1, 8);
+    expect(r.rows.find(x => x.key === "minimumUplift")?.value).toBeCloseTo(2, 8);
+    expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(3, 8);
+    expect(r.rows.find(x => x.key === "effectiveWaste")?.value).toBeCloseTo(200, 8);
+    expect(r.rows.find(x => x.key === "bags80")?.value).toBe(45);
+    expect(r.rows.find(x => x.key === "fullLoads")?.value).toBe(0);
+    expect(r.rows.find(x => x.key === "truckLoads")?.value).toBe(1);
+    expect(r.rows.find(x => x.key === "finalLoad")?.value).toBeCloseTo(3, 8);
+    expect(r.rows.find(x => x.key === "finalUtilization")?.value).toBeCloseTo(30, 8);
+  });
+
+  it("Concrete Waste: exact truck multiples show full loads and a 100% final delivery", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 1, volume: 20, wastePercent: 0,
+        orderIncrement: 0, supplierMinimum: 0, truckCapacity: 10,
+      },
+      { volume: "yd3", orderIncrement: "yd3", supplierMinimum: "yd3", truckCapacity: "yd3" },
+    );
+    expect(r.rows.find(x => x.key === "fullLoads")?.value).toBe(2);
+    expect(r.rows.find(x => x.key === "finalPartial")?.value).toBeCloseTo(0, 8);
+    expect(r.rows.find(x => x.key === "truckLoads")?.value).toBe(2);
+    expect(r.rows.find(x => x.key === "finalLoad")?.value).toBeCloseTo(10, 8);
+    expect(r.rows.find(x => x.key === "finalUtilization")?.value).toBeCloseTo(100, 8);
+  });
+
+  it("Concrete Waste: short-load flat fee, delivery, pump, tax and duration form one supplier estimate", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 1, volume: 5, wastePercent: 0,
+        orderIncrement: 0.25, supplierMinimum: 0, truckCapacity: 10,
+        shortLoadThreshold: 6, pourRate: 2.5,
+        price: 200, deliveryCharge: 70, deliveryChargeMode: 0,
+        shortLoadFee: 100, shortLoadFeeMode: 0,
+        pumpPlacement: 300, salesTax: 10, taxScope: 0,
+      },
+      {
+        volume: "yd3", orderIncrement: "yd3", supplierMinimum: "yd3", truckCapacity: "yd3",
+        shortLoadThreshold: "yd3", pourRate: "yd3/h", price: "USD/yd3",
+      },
+    );
+    expect(r.rows.find(x => x.key === "fullLoads")?.value).toBe(0);
+    expect(r.rows.find(x => x.key === "finalPartial")?.value).toBeCloseTo(5, 8);
+    expect(r.rows.find(x => x.key === "shortLoadDeficit")?.value).toBeCloseTo(1, 8);
+    expect(r.rows.find(x => x.key === "pourDuration")?.value).toBeCloseTo(2, 8);
+    expect(r.rows.find(x => x.key === "orderCost")?.value).toBeCloseTo(1000, 8);
+    expect(r.rows.find(x => x.key === "deliveryCost")?.value).toBeCloseTo(70, 8);
+    expect(r.rows.find(x => x.key === "shortLoadCharge")?.value).toBeCloseTo(100, 8);
+    expect(r.rows.find(x => x.key === "pumpPlacementCost")?.value).toBeCloseTo(300, 8);
+    expect(r.rows.find(x => x.key === "salesTaxCost")?.value).toBeCloseTo(100, 8);
+    expect(r.rows.find(x => x.key === "supplyTotal")?.value).toBeCloseTo(1570, 8);
+  });
+
+  it("Concrete Waste: per-volume short-load fee charges only the threshold deficit", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 1, volume: 4, wastePercent: 0,
+        orderIncrement: 0.25, supplierMinimum: 0, truckCapacity: 10,
+        shortLoadThreshold: 6, shortLoadFee: 25, shortLoadFeeMode: 1,
+      },
+      {
+        volume: "yd3", orderIncrement: "yd3", supplierMinimum: "yd3",
+        truckCapacity: "yd3", shortLoadThreshold: "yd3",
+      },
+    );
+    expect(r.rows.find(x => x.key === "shortLoadDeficit")?.value).toBeCloseTo(2, 8);
+    expect(r.rows.find(x => x.key === "shortLoadCharge")?.value).toBeCloseTo(50, 8);
+  });
+
+  it("Concrete Waste: custom bag yield uses the waste-adjusted placement target", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 1, volume: 1, wastePercent: 0,
+        orderIncrement: 0.25, supplierMinimum: 3, truckCapacity: 10,
+        customBagYield: 0.5,
+      },
+      {
+        volume: "yd3", orderIncrement: "yd3", supplierMinimum: "yd3",
+        truckCapacity: "yd3", customBagYield: "ft3",
+      },
+    );
+    expect(r.rows.find(x => x.key === "customBags")?.value).toBe(54);
+    expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(3, 8);
+  });
+
+  it("Concrete Waste: metric supplier rules, placement rate and price convert consistently", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 1, volume: 2, wastePercent: 0,
+        orderIncrement: 0.25, supplierMinimum: 0, truckCapacity: 8,
+        shortLoadThreshold: 0, pourRate: 4, price: 150,
+      },
+      {
+        volume: "m3", orderIncrement: "m3", supplierMinimum: "m3",
+        truckCapacity: "m3", shortLoadThreshold: "m3", pourRate: "m3/h", price: "USD/m3",
+      },
+    );
+    const twoM3Yd3 = 2 * (1 / 0.3048) ** 3 / 27;
+    expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(twoM3Yd3, 8);
+    expect(r.rows.find(x => x.key === "truckLoads")?.value).toBe(1);
+    expect(r.rows.find(x => x.key === "pourDuration")?.value).toBeCloseTo(0.5, 8);
+    expect(r.rows.find(x => x.key === "orderCost")?.value).toBeCloseTo(300, 8);
   });
 
   it("Concrete Crack Repair: 25 ft × 0.25 in × 0.5 in + 10% = 3 × 10.1 fl oz cartridges", () => {
