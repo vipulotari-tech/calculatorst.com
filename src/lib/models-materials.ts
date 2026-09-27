@@ -2363,6 +2363,7 @@ const concreteWaste: Model = {
       if (capacity > 0 && truckVisits > 0) {
         orderSteps.push(
           `Approximate full-load placement interval = ${fmt(capacity)} yd³ ÷ ${fmt(pourRate)} yd³/hour × 60 = ${fmt(truckSpacingMinutes)} minutes; adjust dispatch for travel, queueing, pump rate and site conditions.`,
+          `Approximate final-delivery placement time = ${fmt(finalDelivery)} yd³ ÷ ${fmt(pourRate)} yd³/hour × 60 = ${fmt(finalDeliveryMinutes)} minutes.`,
         );
       }
     }
