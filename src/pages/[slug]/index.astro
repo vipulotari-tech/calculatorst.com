@@ -437,25 +437,29 @@ const concreteSeo: Record<string, {
     ]
   },
   "concrete-waste-calculator": {
-    title: "Concrete Waste Calculator — Slabs, Piers, Walls, Order Rounding & Cost",
-    description: "Plan concrete waste for slabs, round piers, walls/footings or a known net volume. Compare allowance, supplier rounding, 40/50/60/80-lb bags, ready-mix cost and truck-load utilization.",
+    title: "Concrete Waste & Ready-Mix Order Calculator — Multi-Pour, Trucks, Fees & Cost",
+    description: "Plan concrete waste and ready-mix ordering for slabs, round piers, walls/footings, known volumes, or multiple pours. Model supplier increments, minimums, short-load rules, trucks, bags, delivery, tax, pump cost and pour duration.",
     guidance: [
-      "Choose the finished concrete geometry: slab/patio/driveway, round footing/pier, wall/rectangular footing, or known net volume. Inputs support US customary and metric units.",
-      "Apply the project-specific allowance once. Supplier increment rounding is a separate purchasing step after the allowance and can increase the final effective overage.",
-      "The results separate requested allowance, supplier-rounding-only extra and total order above net volume, then show common bag counts and optional material-cost impact.",
-      "Enter your supplier truck capacity to estimate ready-mix load count, final-load quantity and final-truck utilization. Set capacity to zero when truck planning is not needed.",
-      "Use Print / Save PDF after calculating for a clean project estimate, or Share to preserve the entered calculation in a link."
+      "Use a single geometry for a quick estimate, or choose Combine multiple pours to build one supplier order from rectangular, round and known-volume placements.",
+      "Apply the project-specific waste / ordering allowance once to net concrete. Supplier increment and minimum rules are applied afterward and shown separately so their extra volume is visible.",
+      "Open Supplier & order settings to enter the producer's order increment, minimum, truck capacity, short-load threshold, placement rate and actual mixed bag yield. These values vary by producer and quote.",
+      "Open Cost & project extras for ready-mix price, delivery / dispatch fee per truck, fuel or environmental surcharge, short-load fee method, pump / placement allowance, sales tax and tax basis.",
+      "Truck results distinguish full loads, final partial load, total visits, final-truck quantity and utilization. Pour duration is volume divided by the entered placement rate and is a scheduling aid, not a guarantee of discharge timing.",
+      "Use Download PDF for a direct order-plan file, Print / Save PDF for the browser print workflow, or Share to preserve inputs and the multi-pour schedule in a restorable link."
     ],
     faq: [
-      { q: "What concrete waste percentage should I use?", a: "There is no universal percentage. A 5–10% planning range is common in general concrete estimating guidance, but the correct allowance depends on form accuracy, subgrade variation, placement method, supplier guidance and project risk." },
-      { q: "Can I calculate waste for round piers and footings?", a: "Yes. Choose Round footing / pier. The calculator uses cylinder volume from diameter × depth/height × quantity before applying allowance and supplier rounding." },
-      { q: "Can I calculate waste for a wall or rectangular footing?", a: "Yes. Choose Wall / rectangular footing and enter length, height/depth, thickness/width and quantity." },
-      { q: "Can I enter a concrete volume from another calculator?", a: "Yes. Choose Known net concrete volume and enter the geometric volume before waste. Do not enter a value that already includes an allowance unless you set the allowance here to zero." },
-      { q: "Why can the final order be higher than net volume plus the entered allowance?", a: "Ready-mix suppliers may sell in fixed increments. The calculator first applies your allowance, then rounds that target up to the supplier increment you enter." },
-      { q: "What is effective overage?", a: "It is the final supplier-rounded order minus the net geometric volume, expressed as a percentage of net volume. It includes both requested allowance and extra created by supplier rounding." },
-      { q: "How does truck-load planning work?", a: "The calculator divides the supplier-rounded order by the truck capacity you enter, rounds up to whole loads, and reports the final truck quantity and utilization. Supplier dispatch rules and short-load fees remain supplier-specific." },
-      { q: "Do bag counts use the rounded ready-mix order?", a: "No. Bag counts use the waste-adjusted target before truck-order rounding because supplier cubic-yard increments do not apply to bagged concrete." },
-      { q: "Can I save the result as a PDF?", a: "Yes. Use Print / Save PDF after calculating, then choose Save as PDF in your browser or device print dialog." }
+      { q: "Can I combine several concrete pours into one order?", a: "Yes. Choose Combine multiple pours and add rectangular, round or known-volume rows. The calculator totals the net concrete first, then applies the allowance and supplier rules once to the combined order." },
+      { q: "What concrete waste percentage should I use?", a: "There is no universal percentage. General estimating guidance often discusses roughly 5–10% extra, but the correct allowance depends on field measurements, form accuracy, subgrade variation, placement method, pump priming, handling loss and supplier guidance." },
+      { q: "How does supplier minimum order work?", a: "The calculator compares the supplier-rounded requirement with the minimum you enter and uses the larger value for the planned supplier volume. Confirm whether your producer's minimum changes the delivered volume or only the billable amount." },
+      { q: "How is a short-load fee calculated?", a: "Enter the supplier's short-load threshold and choose either a flat fee or a rate per cubic yard below that threshold. The charge is applied only when the final partial delivery is below the entered threshold." },
+      { q: "Can I estimate delivery, fuel, tax and pump cost?", a: "Yes. Optional cost inputs include ready-mix price, delivery / dispatch per truck, fuel or environmental surcharge, short-load fee, pump / placement allowance and sales tax. Tax basis is selectable because local tax treatment varies." },
+      { q: "Can I calculate waste for round piers and footings?", a: "Yes. Round footing / pier mode uses cylinder volume from diameter × depth or height × quantity before allowance and supplier rules are applied." },
+      { q: "Can I calculate waste for a wall or rectangular footing?", a: "Yes. Enter length, height or depth, thickness or width and quantity in Wall / rectangular footing mode." },
+      { q: "Can I enter a concrete volume from another calculator or plan?", a: "Yes. Known net concrete volume accepts cubic yards, cubic feet or cubic meters. Enter the geometric volume before waste unless you intentionally set the allowance here to zero." },
+      { q: "How does truck-load planning work?", a: "The calculator uses the planned supplier volume and entered truck capacity to separate full loads from a final partial load, calculate truck visits and show final-load utilization." },
+      { q: "What does estimated pour duration mean?", a: "It is planned supplier volume divided by the placement rate you enter. It does not include travel delays, truck spacing, waiting time, finishing productivity or other site constraints." },
+      { q: "Can I use an actual bag yield instead of a generic bag size?", a: "Yes. Enter the mixed yield printed on the product label for a custom bag count. The calculator also keeps 40, 50, 60 and 80-lb reference estimates visible." },
+      { q: "Can I download the result as a PDF?", a: "Yes. Download PDF creates a direct order-plan PDF. Print / Save PDF opens the browser print workflow for a formatted printable estimate." }
     ]
   },
   "concrete-crack-repair-calculator": {
