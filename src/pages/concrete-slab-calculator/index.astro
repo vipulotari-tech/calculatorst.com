@@ -34,6 +34,18 @@ const faq = [
     "a": "Use this page when the project is specifically a slab and you want square feet, bag counts and slab-focused ordering output. Use the general Concrete Calculator when the pour shape may be a wall, footing or cylinder."
   },
   {
+    "q": "How are thickened slab edges estimated?",
+    "a": "Enter both the total edge depth and edge width. The calculator adds a perimeter-band volume based on the extra depth below the field slab. This is a planning approximation; use the actual structural edge or footing detail when its shape extends beyond the slab footprint."
+  },
+  {
+    "q": "Can I include a gravel subbase?",
+    "a": "Yes. Enter an optional gravel subbase depth to estimate compacted in-place cubic yards below the slab. Delivered loose aggregate can be higher, so apply the supplier's compaction or swell factor separately."
+  },
+  {
+    "q": "How does supplier order rounding work?",
+    "a": "Enter the supplier's ready-mix order increment, such as 0.25 yd³, and the calculator rounds the waste-adjusted order up to that increment. Leave the field at 0 when your supplier does not require an increment or you do not know it yet."
+  },
+  {
     "q": "Can this design a slab?",
     "a": "No. This is a quantity estimate. Slab thickness, reinforcement, joints, vapor control and subbase requirements must be determined from the project requirements or a qualified designer."
   }
@@ -41,17 +53,17 @@ const faq = [
 ---
 
 <CalculatorLayout
-  title="Concrete Slab Calculator — Yards, 40–80 lb Bags & Cost"
-  description="Calculate slab concrete from length, width and thickness in cubic feet and yards, with 40/50/60/80-lb bag counts, waste allowance, weight and optional cost."
+  title="Concrete Slab Calculator — Yards, Bags, Cost & Thickened Edges"
+  description="Calculate rectangular or circular slab concrete, 40/50/60/80-lb bags, waste, weight, thickened edges, gravel base and supplier-rounded ready-mix quantity."
   h1="Concrete Slab Calculator"
-  intro="Estimate a concrete slab from finished length, width and thickness. Get square feet, cubic feet, cubic yards, 40/50/60/80-lb bag counts, waste-adjusted order quantity, weight and optional material cost."
+  intro="Estimate rectangular or circular concrete slabs from finished dimensions and thickness. Get area, form perimeter, cubic feet, cubic yards, 40/50/60/80-lb bags, waste-adjusted order quantity, weight, optional thickened edges, gravel subbase and material cost."
   breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Concrete Calculators", href: "/construction/concrete/" }, { label: "Concrete Slab Calculator" }]}
   related={related}
   faq={faq}
   canonical="/concrete-slab-calculator/"
   ogImage="/og-concrete.png"
   datePublished="2026-08-27"
-  dateModified="2026-09-24"
+  dateModified="2026-09-27"
 >
   <Header slot="header" />
   <GenericCalculator slot="calculator" id="concrete-slab-calculator" resultTitle="CONCRETE SLAB ESTIMATE" />
@@ -59,20 +71,31 @@ const faq = [
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
       <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
-        <li>Sq ft = Length × Width × number of slabs</li>
-        <li>Cubic feet = Sq ft × thickness (in feet)</li>
-        <li>Cubic yards = Cubic feet ÷ 27 (waste multiplies after)</li>
-        <li>Bags = ceil(cubic feet with waste ÷ coverage per bag)</li>
+        <li>Rectangle area = length × width; circle area = π × (diameter ÷ 2)².</li>
+        <li>Field concrete = footprint area × slab thickness × number of identical slabs.</li>
+        <li>Optional thickened edge adds perimeter × edge width × extra depth below the field slab.</li>
+        <li>Waste/material allowance is applied once to the geometric concrete volume.</li>
+        <li>Bags = ceil(waste-adjusted cubic feet ÷ mixed yield per bag).</li>
+        <li>Optional supplier rounding rounds the waste-adjusted ready-mix order up to the increment you enter.</li>
       </ol>
-      <div class="mt-3 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm "><p>Comparison yields: 80-lb = 0.60 ft³, 60-lb = 0.45 ft³, 50-lb = 0.375 ft³, 40-lb = 0.30 ft³</p></div>
+      <div class="mt-3 rounded-md bg-canvas-soft-2 p-4 font-mono text-sm "><p>Comparison yields: 80-lb = 0.60 ft³, 60-lb = 0.45 ft³, 50-lb = 0.375 ft³, 40-lb = 0.30 ft³. Verify the yield printed on your product.</p></div>
+    </div>
+    <div class="rounded-lg border border-hairline bg-canvas p-6">
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Slab-specific planning outputs</h2>
+      <div class="mt-3 grid gap-3 sm:grid-cols-2">
+        <div class="rounded-md border border-hairline bg-canvas-soft p-4"><p class="font-medium text-ink">Area & form perimeter</p><p class="mt-1 text-sm leading-6 text-body">Use the footprint area to cross-check measurements and the total perimeter as a planning quantity for edge forms.</p></div>
+        <div class="rounded-md border border-hairline bg-canvas-soft p-4"><p class="font-medium text-ink">40/50/60/80-lb bags</p><p class="mt-1 text-sm leading-6 text-body">Compare standard bag counts alongside the editable mixed-yield result. Whole bags are always rounded up.</p></div>
+        <div class="rounded-md border border-hairline bg-canvas-soft p-4"><p class="font-medium text-ink">Thickened edge & gravel base</p><p class="mt-1 text-sm leading-6 text-body">Optionally include a perimeter thickening and compacted subbase volume without mixing those quantities into the field-slab geometry.</p></div>
+        <div class="rounded-md border border-hairline bg-canvas-soft p-4"><p class="font-medium text-ink">Supplier order rounding</p><p class="mt-1 text-sm leading-6 text-body">Enter the actual ready-mix increment from your supplier to see the rounded order and how much that rounding adds above the calculated quantity.</p></div>
+      </div>
     </div>
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">When to Use This Slab Calculator</h2>
       <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
-        <li>Use it for uniform-thickness concrete slabs such as patios, pads, garage floors and similar rectangular pours.</li>
-        <li>Measure the finished concrete dimensions, not the excavation or subbase footprint, unless those dimensions are intentionally the same.</li>
-        <li>For slabs with different thickness zones, thickened edges or irregular outlines, split the project into non-overlapping sections or use the dedicated project calculator.</li>
-        <li>Use the product yield printed on the bag or the supplier quote when purchasing; the displayed bag yields are comparison values.</li>
+        <li>Use it for rectangular or circular slabs such as patios, equipment pads, garage floors, sheds and similar uniform field pours.</li>
+        <li>Measure the finished concrete dimensions, not the excavation or gravel footprint, unless those dimensions are intentionally the same.</li>
+        <li>Use the optional thickened-edge inputs only when you know the edge width and total depth from the project detail. Split more complex stepped or irregular slabs into non-overlapping sections.</li>
+        <li>Use the product yield printed on the bag and the actual ready-mix supplier increment when purchasing; displayed defaults are comparison and planning values.</li>
       </ul>
     </div>
     <div class="rounded-lg border border-hairline bg-canvas p-6">
@@ -82,7 +105,7 @@ const faq = [
     </div>
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Rectangular slabs. L-shapes: calculate as two rectangles.</li><li>No subbase gravel — add via gravel calculator if needed.</li><li>Verify product yield. The entered waste is already included in the order count.</li></ul>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Rectangular and circular slabs are supported directly. Split L-shapes and other irregular footprints into non-overlapping simple sections.</li><li>Optional subbase output is compacted in-place volume; loose delivery quantity depends on the material and supplier compaction factor.</li><li>The thickened-edge calculation is a perimeter-band planning approximation, not a structural design.</li><li>Verify bag yield, ready-mix ordering increment and project dimensions with the product label, supplier and project documents. The entered waste allowance is applied once.</li></ul>
     </div>
   </section>
   <Footer slot="footer" />

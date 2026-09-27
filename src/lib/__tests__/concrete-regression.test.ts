@@ -394,6 +394,61 @@ describe("Concrete category golden-value regression suite", () => {
     )).toBeCloseTo(93.333333333, 6);
   });
 
+  it("Concrete Slab: exposes area, perimeter and all standard bag sizes", () => {
+    const r = run(
+      "concrete-slab-calculator",
+      { slabShape: 0, length: 10, width: 10, thickness: 4, quantity: 1, waste: 0, yield: 0.6, density: 150 },
+      { length: "ft", width: "ft", thickness: "in", yield: "ft3", density: "lb/ft3" },
+    );
+    expect(r.rows.find(x => x.key === "area")?.value).toBeCloseTo(100, 8);
+    expect(r.rows.find(x => x.key === "totalArea")?.value).toBeCloseTo(100, 8);
+    expect(r.rows.find(x => x.key === "perimeter")?.value).toBeCloseTo(40, 8);
+    expect(r.rows.find(x => x.key === "bags80")?.value).toBe(56);
+    expect(r.rows.find(x => x.key === "bags60")?.value).toBe(75);
+    expect(r.rows.find(x => x.key === "bags50")?.value).toBe(89);
+    expect(r.rows.find(x => x.key === "bags40")?.value).toBe(112);
+  });
+
+  it("Concrete Slab: optional compacted subbase and supplier rounding are explicit", () => {
+    const r = run(
+      "concrete-slab-calculator",
+      {
+        slabShape: 0, length: 10, width: 10, thickness: 4, quantity: 1,
+        subbaseDepth: 4, orderIncrement: 0.25, waste: 0, yield: 0.6, density: 150,
+      },
+      {
+        length: "ft", width: "ft", thickness: "in", subbaseDepth: "in",
+        yield: "ft3", density: "lb/ft3",
+      },
+    );
+    expect(r.rows.find(x => x.key === "subbase")?.value).toBeCloseTo(100 / 3 / 27, 8);
+    expect(r.rows.find(x => x.key === "order")?.value).toBeCloseTo(100 / 3 / 27, 8);
+    expect(r.rows.find(x => x.key === "roundedOrder")?.value).toBeCloseTo(1.25, 8);
+    expect(r.rows.find(x => x.key === "roundingExtra")?.value).toBeCloseTo(1.25 - (100 / 3 / 27), 8);
+  });
+
+  it("Concrete Slab: circle mode rejects zero diameter instead of returning a zero-volume estimate", () => {
+    expect(() => run(
+      "concrete-slab-calculator",
+      { slabShape: 1, diameter: 0, thickness: 4, quantity: 1, waste: 0 },
+      { diameter: "ft", thickness: "in" },
+    )).toThrow(/diameter greater than zero/i);
+  });
+
+  it("Concrete Slab: thickened-edge inputs must be paired and deeper than the field slab", () => {
+    expect(() => run(
+      "concrete-slab-calculator",
+      { slabShape: 0, length: 10, width: 10, thickness: 4, thickenedEdgeWidth: 6, thickenedEdgeDepth: 0, waste: 0 },
+      { length: "ft", width: "ft", thickness: "in", thickenedEdgeWidth: "in", thickenedEdgeDepth: "in" },
+    )).toThrow(/both thickened-edge depth and width/i);
+
+    expect(() => run(
+      "concrete-slab-calculator",
+      { slabShape: 0, length: 10, width: 10, thickness: 6, thickenedEdgeWidth: 6, thickenedEdgeDepth: 4, waste: 0 },
+      { length: "ft", width: "ft", thickness: "in", thickenedEdgeWidth: "in", thickenedEdgeDepth: "in" },
+    )).toThrow(/depth must be greater than the slab thickness/i);
+  });
+
   it("Concrete Footing: strip quantity multiplies volume", () => {
     expect(value(
       "concrete-footing-calculator", "ft3",
