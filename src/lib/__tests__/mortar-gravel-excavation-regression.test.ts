@@ -145,7 +145,7 @@ describe("Gravel, aggregate & dirt golden regressions",()=>{
   });
   const costs=["gravel-cost-calculator","crushed-stone-cost-calculator","sand-cost-calculator","fill-dirt-cost-calculator","topsoil-cost-calculator"];
   for(const slug of costs) it(slug+" includes tax delivery and labor",()=>{
-    const r=run(slug,{mode:0,length:10,width:10,depth:12,density:1.5,waste:10,price:10,tax:10,delivery:20,labor:30},{...dims,density:"ton/yd3",price:"USD/yd3"});
+    const r=run(slug,{mode:0,length:10,width:10,depth:12,density:1.5,compaction:0,waste:10,price:10,tax:10,delivery:20,labor:30},{...dims,density:"ton/yd3",price:"USD/yd3"});
     const materials=(100/27)*1.1*10;
     expect(r.rows.find(x=>x.key==="materials")?.value).toBeCloseTo(materials,8);
     expect(r.rows.find(x=>x.key==="total")?.value).toBeCloseTo(materials*1.1+50,8);
