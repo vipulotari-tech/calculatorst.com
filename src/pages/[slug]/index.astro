@@ -371,18 +371,21 @@ const concreteSeo: Record<string, {
     ]
   },
   "concrete-curb-calculator": {
-    title: "Concrete Curb Calculator — Curb & Gutter Yards + Linear Feet",
-    description: "Calculate curb-and-gutter concrete from length and cross-section, or reverse-calculate linear feet from available concrete. Includes yards, bags, waste and cost.",
+    title: "Concrete Curb Calculator — Curb & Gutter Yards, Bags + Linear Feet",
+    description: "Calculate rectangular or tapered curb-and-gutter concrete from length and cross-section, or reverse-calculate linear feet from available concrete. Includes yards, bags, weight, cost and per-100-ft quantities.",
     guidance: [
-      "Forward mode converts curb and gutter cross-sectional area × length into concrete volume.",
-      "Reverse mode answers the purchasing question in the opposite direction: how many linear feet can a known concrete volume place?",
-      "Use dimensions from the curb detail because barrier, mountable and combined gutter sections can have different profiles."
+      "Choose Curb + gutter or Curb only, then select a rectangular/vertical or trapezoidal/tapered curb profile to match the project detail.",
+      "Forward mode multiplies the total curb-and-gutter cross-sectional area by run length. Reverse mode divides a known usable concrete volume by that same cross-section to estimate linear feet.",
+      "The gutter width is measured beyond the curb base so the two section areas do not overlap. The calculator also reports concrete per 100 linear ft and linear ft per cubic yard as cross-checks.",
+      "Use the actual agency or project cross-section for roll curbs, mountable curbs, barrier curbs, transitions and radiused profiles. This calculator estimates quantity; it does not design drainage or roadway geometry."
     ],
     faq: [
-      { q: "How is curb-and-gutter concrete volume calculated?", a: "The calculator adds the curb and gutter cross-sectional areas, multiplies by length, then converts the result to cubic yards." },
-      { q: "How do I calculate linear feet from one cubic yard of concrete?", a: "Use reverse mode. The calculator converts the available volume to cubic feet and divides by the entered cross-sectional area." },
-      { q: "Does the calculator support a curb without a gutter?", a: "Yes. Use a curb-only style or set the applicable gutter configuration according to the available options." },
-      { q: "Does this account for transitions, radii and curb returns?", a: "Not automatically. Measure special sections separately when their cross-section differs materially from the standard run." }
+      { q: "How is rectangular curb-and-gutter concrete volume calculated?", a: "Rectangular curb area equals curb width × full curb height. The gutter area equals gutter width beyond the curb × gutter thickness. The calculator adds those areas and multiplies by run length." },
+      { q: "How does the tapered or trapezoidal curb option work?", a: "The curb area equals (top width + base width) ÷ 2 × full curb height. The optional gutter pan is then added as a separate non-overlapping rectangular area." },
+      { q: "How do I calculate linear feet from one cubic yard of concrete?", a: "Use reverse mode. The calculator converts the available concrete to cubic feet and divides by the selected total cross-sectional area. It also reports linear feet per cubic yard." },
+      { q: "Does the calculator support a curb without a gutter?", a: "Yes. Choose Curb only. Gutter inputs are hidden and excluded from the cross-section." },
+      { q: "Does this account for roll curb, curb returns or transitions?", a: "Not automatically. Use the actual shaped cross-section from the project drawing, or split materially different sections into separate estimates." },
+      { q: "Is the material allowance applied in reverse mode?", a: "No. Reverse mode treats the concrete volume you enter as the usable volume already available for placement, avoiding a second allowance deduction." }
     ]
   },
   "concrete-stair-calculator": {
