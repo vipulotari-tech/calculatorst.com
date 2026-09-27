@@ -1888,7 +1888,7 @@ const concreteWaste: Model = {
       row('wastePercent', 'Allowance entered', wastePct, '%'),
       row('allowance', 'Allowance volume', allowanceCuYd, 'yd³'),
       row('allowanceFt3', 'Allowance volume', allowanceCuFt, 'ft³'),
-      row('target', 'Waste-adjusted target order', targetCuYd, 'yd³'),
+      row('order', 'Waste-adjusted target order', targetCuYd, 'yd³'),
       row('targetFt3', 'Waste-adjusted target order', targetCuFt, 'ft³'),
       row('targetM3', 'Waste-adjusted target order', targetCuFt / FT_PER_M ** 3, 'm³'),
       row('ordered', `Supplier-rounded ready-mix order${incrementYd > 0 ? ` (to ${fmt(incrementYd)} yd³)` : ''}`, orderedYd, 'yd³'),
