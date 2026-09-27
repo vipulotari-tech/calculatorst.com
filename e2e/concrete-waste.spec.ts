@@ -215,7 +215,7 @@ test.describe("Concrete Waste Calculator", () => {
     await expect(root).toContainText("Final partial load");
     await expect(root).toContainText("2 yd³");
     await expect(root).toContainText("Total truck visits");
-    await expect(root).toContainText("3 loads");
+    await expect(root).toContainText("3 visits");
     await expect(root).toContainText("Final delivery utilization");
     await expect(diagram.locator("[data-waste-truck-plan]")).toContainText("3 truck visits");
 
