@@ -1535,17 +1535,22 @@ const concreteStairFields: Field[] = [
       { value: 0, label: 'Solid / mass concrete' },
       { value: 1, label: 'Waist-slab RCC (inclined slab + steps)' },
     ],
-    help: 'Solid stairs use full concrete fill from base to top tread. Waist-slab stairs have a thin inclined structural slab with triangular step wedges cast on top.' },
+    help: 'Solid stairs use full concrete fill under the stepped profile. Waist-slab stairs use an inclined structural slab with triangular step wedges cast above it.' },
   length('width', 'Stair width', 4, 'ft'),
   length('rise', 'Riser height', 7, 'in'),
-  length('run', 'Tread depth', 11, 'in'),
-  count('steps', 'Number of steps', 4),
-  positiveOrZero(length('waistThickness', 'Waist slab thickness', 6, 'in'),
-    { help: 'Required when stair model = Waist-slab RCC. Ignored for solid stairs.' }),
-  positiveOrZero(length('landingLength', 'Landing length (beyond top tread)', 0, 'ft')),
-  positiveOrZero(length('landingWidth', 'Landing width', 4, 'ft')),
-  positiveOrZero(length('landingThickness', 'Landing thickness (override)', 0, 'in'),
-    { help: 'Leave 0 to use waist slab thickness. Otherwise enter the design thickness.' }),
+  length('run', 'Tread depth / run', 11, 'in'),
+  { ...count('steps', 'Number of concrete steps', 4),
+    help: 'Count the stepped tread/riser units in the flight. A separate top landing or platform is entered below.' },
+  { ...positiveOrZero(length('waistThickness', 'Waist slab thickness', 6, 'in'),
+      { help: 'Required only for Waist-slab RCC mode. Enter the structural waist thickness from the design drawings.' }),
+    visibleWhen: { field: 'stairModel', equals: 1 } },
+  positiveOrZero(length('landingLength', 'Top landing / platform length (beyond top tread)', 0, 'ft'),
+    { help: 'Solid mode treats this as full-height mass concrete to the top elevation. Waist-slab mode treats it as a landing slab.' }),
+  positiveOrZero(length('landingWidth', 'Landing / platform width', 4, 'ft'),
+    { help: 'Enter 0 to use the stair width.' }),
+  { ...positiveOrZero(length('landingThickness', 'Landing slab thickness (override)', 0, 'in'),
+      { help: 'Waist-slab mode only. Leave 0 to use the entered waist slab thickness.' }),
+    visibleWhen: { field: 'stairModel', equals: 1 } },
   allowance,
   densityField,
   yieldField,
@@ -1554,14 +1559,15 @@ const concreteStairFields: Field[] = [
 
 const concreteStair: Model = {
   fields: concreteStairFields,
-  formula: 'Solid: V = W × rise × run × n(n+1)/2 + landing. Waist-slab: slab V = √(totalRun² + totalRise²) × W × T_w; step wedges V = 0.5 × n × run × rise × W; landing V = L × W × T.',
+  formula: 'Solid flight: V_steps = W × rise × run × n(n+1)/2. Solid top platform: V_platform = L × W_platform × total_rise. Waist-slab: V_waist = √(totalRun² + totalRise²) × W × T_w; V_wedges = 0.5 × n × run × rise × W; V_landing = L × W_landing × T_l.',
   assumptions: [
     ...standardAssumptions,
-    'Solid stairs use full concrete fill; each tread section is one riser taller than the one below it.',
-    'Waist-slab stairs have an inclined structural slab (waist slab) with triangular step wedges cast on top.',
-    'The waist slab thickness and step geometry must come from structural drawings. This tool estimates volume only; it does not establish structural adequacy.',
-    'The landing is at the top elevation and does NOT include the top tread (which is part of the steps).',
-    'For open-riser, spiral, or soil-filled stairs, use the actual section from the design drawing.',
+    'Solid stairs use full concrete fill under the stepped profile; each tread section is one riser taller than the section below it.',
+    'In solid mode, an optional top platform is also treated as mass concrete from the base elevation up to the full stair rise.',
+    'Waist-slab stairs have an inclined structural slab with triangular step wedges cast above it.',
+    'In waist-slab mode, the optional landing is a slab using the entered landing thickness or, when that override is 0, the waist slab thickness.',
+    'Riser height, tread run, waist thickness, reinforcement and landing details must come from the project design. This tool estimates quantity only and does not establish structural or code compliance.',
+    'For open-riser, spiral, winders, soil-filled stairs or nonuniform step geometry, use the actual section from the design drawings.',
   ],
   sources: [geometry, 'https://www.iccsafe.org/'],
   calculate(v, u) {
@@ -1572,69 +1578,73 @@ const concreteStair: Model = {
     const n = v.steps;
     const totalRiseFt = n * Rise;
     const totalRunFt = n * Run;
+    const slopedLength = Math.hypot(totalRunFt, totalRiseFt);
+    const slopeAngle = totalRunFt > 0 ? Math.atan(totalRiseFt / totalRunFt) * 180 / Math.PI : 90;
+    const landingW = v.landingWidth > 0 ? v.landingWidth : Wf;
+
+    requireCondition(Wf > 0, 'width', 'Enter a stair width greater than zero.');
+    requireCondition(Rise > 0, 'rise', 'Enter a riser height greater than zero.');
+    requireCondition(Run > 0, 'run', 'Enter a tread depth greater than zero.');
+    requireCondition(n > 0, 'steps', 'Enter at least one concrete step.');
 
     if (model === 1) {
-      const slopedLength = Math.sqrt(totalRunFt ** 2 + totalRiseFt ** 2);
+      requireCondition(v.waistThickness > 0, 'waistThickness', 'Enter a waist slab thickness greater than zero.');
+
       const waistT = v.waistThickness;
       const landingT = v.landingThickness > 0 ? v.landingThickness : waistT;
-      const landingW = v.landingWidth > 0 ? v.landingWidth : Wf;
-
       const waistSlabVol = slopedLength * Wf * waistT;
       const wedgeArea = 0.5 * n * Run * Rise;
       const wedgeVol = wedgeArea * Wf;
-      const landingVol = v.landingLength > 0 && landingW > 0
+      const landingVol = v.landingLength > 0
         ? v.landingLength * landingW * landingT
         : 0;
 
       const cuFt = waistSlabVol + wedgeVol + landingVol;
-      const slopedLengthRatio = totalRunFt === 0 ? 0 : totalRunFt / slopedLength;
 
       return concreteResult(cuFt, v, u, [
-        `Waist-slab RCC mode:`,
-        `  Total run × rise: ${fmt(totalRunFt)} × ${fmt(totalRiseFt)} ft.`,
+        'Waist-slab RCC mode:',
+        `  Total run = ${n} × ${fmt(Run)} = ${fmt(totalRunFt)} ft; total rise = ${n} × ${fmt(Rise)} = ${fmt(totalRiseFt)} ft.`,
         `  Sloped length = √(${fmt(totalRunFt)}² + ${fmt(totalRiseFt)}²) = ${fmt(slopedLength)} ft.`,
         `  Waist slab: ${fmt(slopedLength)} × ${fmt(Wf)} × ${fmt(waistT)} = ${fmt(waistSlabVol)} ft³.`,
-        `  Step wedges (above slab): 0.5 × ${fmt(totalRunFt)} × ${fmt(totalRiseFt)} × ${fmt(Wf)} = ${fmt(wedgeVol)} ft³.`,
+        `  Step wedges: 0.5 × ${n} × ${fmt(Run)} × ${fmt(Rise)} × ${fmt(Wf)} = ${fmt(wedgeVol)} ft³.`,
         landingVol > 0
-          ? `  Landing: ${fmt(v.landingLength)} × ${fmt(landingW)} × ${fmt(landingT)} = ${fmt(landingVol)} ft³.`
-          : '  No landing.',
+          ? `  Landing slab: ${fmt(v.landingLength)} × ${fmt(landingW)} × ${fmt(landingT)} = ${fmt(landingVol)} ft³.`
+          : '  No landing slab.',
         `  Total: ${fmt(cuFt)} ft³.`,
       ], [
         row('waistSlab', 'Waist slab (inclined)', waistSlabVol, 'ft³'),
-        row('wedge', 'Step wedges (above slab)', wedgeVol, 'ft³'),
-        row('landing', 'Landing', landingVol, 'ft³'),
-        row('slopedLength', 'Sloped length', slopedLength, 'ft'),
+        row('wedge', 'Step wedges above slab', wedgeVol, 'ft³'),
+        row('landing', 'Landing slab volume', landingVol, 'ft³'),
+        row('slopedLength', 'Sloped flight length', slopedLength, 'ft'),
         row('totalRun', 'Total run', totalRunFt, 'ft'),
         row('totalRise', 'Total rise', totalRiseFt, 'ft'),
-        row('slopeRatio', 'Slope (rise/run)', totalRunFt === 0 ? NaN : totalRiseFt / totalRunFt, ''),
+        row('slopeRatio', 'Slope (rise/run)', totalRiseFt / totalRunFt, ''),
+        row('slopeAngle', 'Slope angle', slopeAngle, '°'),
       ]);
     }
 
     // Solid / mass concrete
     const stepVol = Wf * Rise * Run * n * (n + 1) / 2;
-    const landingT = v.landingThickness > 0 ? v.landingThickness : v.waistThickness;
-    const landingW = v.landingWidth > 0 ? v.landingWidth : Wf;
-    const landingVol = v.landingLength > 0 && landingW > 0
-      ? v.landingLength * landingW * landingT
+    const landingVol = v.landingLength > 0
+      ? v.landingLength * landingW * totalRiseFt
       : 0;
     const cuFt = stepVol + landingVol;
-    const totalRise = totalRiseFt;
-    const totalRun = totalRunFt;
 
     return concreteResult(cuFt, v, u, [
       `Solid stairs (mass concrete): ${n} steps.`,
-      `  W ${fmt(Wf)} × rise ${fmt(Rise)} × run ${fmt(Run)} × ${n}(${n}+1)/2 = ${fmt(stepVol)} ft³.`,
-      `  Total rise = ${fmt(totalRise)} ft, total run = ${fmt(totalRun)} ft.`,
+      `  Step mass: ${fmt(Wf)} × ${fmt(Rise)} × ${fmt(Run)} × ${n}(${n}+1)/2 = ${fmt(stepVol)} ft³.`,
+      `  Total rise = ${n} × ${fmt(Rise)} = ${fmt(totalRiseFt)} ft; total run = ${n} × ${fmt(Run)} = ${fmt(totalRunFt)} ft.`,
       landingVol > 0
-        ? `  Landing: ${fmt(v.landingLength)} × ${fmt(landingW)} × ${fmt(landingT)} = ${fmt(landingVol)} ft³.`
-        : '  No landing.',
+        ? `  Full-height top platform: ${fmt(v.landingLength)} × ${fmt(landingW)} × ${fmt(totalRiseFt)} = ${fmt(landingVol)} ft³.`
+        : '  No top platform beyond the final tread.',
       `  Total: ${fmt(cuFt)} ft³.`,
     ], [
-      row('step', 'Step volume', stepVol, 'ft³'),
-      row('landing', 'Landing volume', landingVol, 'ft³'),
-      row('totalRise', 'Total rise', totalRise, 'ft'),
-      row('totalRun', 'Total run', totalRun, 'ft'),
-      row('slopeAngle', 'Slope angle', totalRun === 0 ? 90 : Math.atan(totalRise / totalRun) * 180 / Math.PI, '°'),
+      row('step', 'Step mass volume', stepVol, 'ft³'),
+      row('landing', 'Top platform mass volume', landingVol, 'ft³'),
+      row('slopedLength', 'Nosing-line flight length', slopedLength, 'ft'),
+      row('totalRise', 'Total rise', totalRiseFt, 'ft'),
+      row('totalRun', 'Total run', totalRunFt, 'ft'),
+      row('slopeAngle', 'Slope angle', slopeAngle, '°'),
     ]);
   },
 };
