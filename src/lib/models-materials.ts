@@ -1,4 +1,4 @@
-import type { Field, Model } from './calculator-types.ts';
+import type { Field, Model, ResultRow } from './calculator-types.ts';
 import { FT_PER_M, LB_PER_KG, allowance, count, fmt, length, netArea, number, openings, positiveOrZero, price, rectangle, requireCondition, result, roundUp, row, volume, waste, withCost, area } from './calculator-math.ts';
 
 // --- Shared concrete configuration ---
@@ -1882,7 +1882,7 @@ const concreteWaste: Model = {
     const mode = Math.round(v.wasteMode);
     let netCuFt = 0;
     let geometrySteps: string[] = [];
-    let geometryRows = [];
+    let geometryRows: ResultRow[] = [];
 
     if (mode === 1) {
       requireCondition(v.volume > 0, 'volume', 'Enter a known net concrete volume greater than zero.');
