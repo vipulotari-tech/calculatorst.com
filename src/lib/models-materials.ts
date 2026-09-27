@@ -54,7 +54,9 @@ export function concreteResult(
     row('m3', 'Order volume (m³)', totalM3, 'm³'),
     row('L', 'Order volume (L)', totalM3 * 1000, 'L'),
     row('bags', `Bags (entered yield ${fmt(v.yield)} ft³)`, bags, 'bags', true),
+    row('bags80', 'Bags (80-lb @ 0.60 ft³)', roundUp(total / BAG_YIELD_80), 'bags', true),
     row('bags60', 'Bags (60-lb @ 0.45 ft³)', roundUp(total / BAG_YIELD_60), 'bags', true),
+    row('bags50', 'Bags (50-lb @ 0.375 ft³)', roundUp(total / BAG_YIELD_50), 'bags', true),
     row('bags40', 'Bags (40-lb @ 0.30 ft³)', roundUp(total / BAG_YIELD_40), 'bags', true),
     row('weight', 'Estimated order weight (lb)', lb, 'lb'),
     row('kg', 'Estimated order weight (kg)', lb / LB_PER_KG, 'kg'),
@@ -1019,19 +1021,19 @@ const concreteSlabFields: Field[] = [
       { value: 0, label: 'Rectangle' },
       { value: 1, label: 'Circle' },
     ] },
-  // Rectangle
   { ...length('length', 'Slab length', 10, 'ft'), visibleWhen: { field: 'slabShape', equals: 0 } },
   { ...length('width', 'Slab width', 10, 'ft'), visibleWhen: { field: 'slabShape', equals: 0 } },
-  // Circle
   { ...positiveOrZero(length('diameter', 'Slab diameter (circle)', 0, 'ft')), visibleWhen: { field: 'slabShape', equals: 1 } },
-  // Common
   length('thickness', 'Slab thickness', 4, 'in'),
   count('quantity', 'Identical slabs', 1),
-  // Advanced
   positiveOrZero(length('thickenedEdgeDepth', 'Thickened-edge depth at perimeter (optional)', 0, 'in'),
-    { help: 'Leave 0 for a uniform slab. A typical thickened edge adds width × extra depth around the perimeter.' }),
-  positiveOrZero(length('thickenedEdgeWidth', 'Thickened-edge width around perimeter (optional)', 0, 'in')),
-  // Material
+    { help: 'Enter both edge depth and edge width, or leave both at 0. Depth is the total edge depth, not only the extra depth below the slab.' }),
+  positiveOrZero(length('thickenedEdgeWidth', 'Thickened-edge width around perimeter (optional)', 0, 'in'),
+    { help: 'Planning width for the thickened perimeter band. Use the actual detail from the project drawings.' }),
+  positiveOrZero(length('subbaseDepth', 'Gravel subbase depth (optional)', 0, 'in'),
+    { help: 'Optional compacted gravel depth below the slab. Delivered loose volume can be higher depending on compaction.' }),
+  positiveOrZero(number('orderIncrement', 'Supplier order increment (yd³, optional)', 0, undefined,
+    'Enter the ready-mix supplier rounding increment, such as 0.25 yd³. Leave 0 to show only the calculated order volume.')),
   allowance,
   densityField,
   yieldField,
@@ -1040,41 +1042,87 @@ const concreteSlabFields: Field[] = [
 
 const concreteSlab: Model = {
   fields: concreteSlabFields,
-  formula: 'Rectangle: V = L × W × T × Q. Circle: V = π × (D/2)² × T × Q. Thickened edge: V_edge = perimeter × edge_width × (edge_depth − T), added when edge_depth > T.',
+  formula: 'Rectangle: V = L × W × T × Q. Circle: V = π × (D/2)² × T × Q. Thickened edge (planning approximation): V_edge = perimeter × edge_width × (edge_depth − T) × Q. Optional subbase: V_base = footprint area × base depth × Q. Supplier rounding: ceil(order ÷ increment) × increment.',
   assumptions: [
     ...standardAssumptions,
-    'Slab thickness is a design input. Enter the thickness specified for the project; this volume calculator does not determine structural adequacy.',
-    'The thickened edge is treated as an additional perimeter band of (edge_depth − slab_thickness) × edge_width.',
+    'The slab may be rectangular or circular and is assumed to have uniform field thickness.',
+    'Slab thickness is a design input. Enter the thickness specified for the project; this quantity calculator does not determine structural adequacy.',
+    'The thickened-edge result is a planning approximation based on a perimeter band. Use the actual footing/edge cross-section when the structural detail extends outside the slab footprint or has a different shape.',
+    'Subbase volume is compacted in-place volume. Loose delivered aggregate can require an additional supplier-specific compaction factor.',
+    'Supplier order rounding is optional and uses only the increment you enter; the calculator does not assume a universal ready-mix ordering increment.',
   ],
   sources: [geometry, quikrete, 'https://www.concrete.org/tools/frequently-asked-questions'],
   calculate(v, u) {
     const isCircle = Math.round(v.slabShape) === 1;
-    let slabCuFt: number;
-    let steps: string[];
+
     if (isCircle) {
-      const r = v.diameter / 2;
-      slabCuFt = Math.PI * r * r * v.thickness * v.quantity;
-      steps = [
-        `Circle: π × (${fmt(v.diameter)}/2)² × ${fmt(v.thickness)} × ${v.quantity} = ${fmt(slabCuFt)} ft³.`,
-      ];
+      requireCondition(v.diameter > 0, 'diameter', 'Enter a slab diameter greater than zero.');
     } else {
-      slabCuFt = v.length * v.width * v.thickness * v.quantity;
-      steps = [
-        `Rectangle: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.thickness)} × ${v.quantity} = ${fmt(slabCuFt)} ft³.`,
-      ];
+      requireCondition(v.length > 0, 'length', 'Enter a slab length greater than zero.');
+      requireCondition(v.width > 0, 'width', 'Enter a slab width greater than zero.');
     }
-    const edgeAdded = v.thickenedEdgeDepth > v.thickness && v.thickenedEdgeWidth > 0
-      ? (isCircle
-          ? Math.PI * v.diameter * v.thickenedEdgeWidth * (v.thickenedEdgeDepth - v.thickness) * v.quantity
-          : 2 * (v.length + v.width) * v.thickenedEdgeWidth * (v.thickenedEdgeDepth - v.thickness) * v.quantity)
+    requireCondition(v.thickness > 0, 'thickness', 'Enter a slab thickness greater than zero.');
+
+    const hasEdgeDepth = v.thickenedEdgeDepth > 0;
+    const hasEdgeWidth = v.thickenedEdgeWidth > 0;
+    requireCondition(
+      hasEdgeDepth === hasEdgeWidth,
+      hasEdgeDepth ? 'thickenedEdgeWidth' : 'thickenedEdgeDepth',
+      'Enter both thickened-edge depth and width, or leave both at 0.'
+    );
+    if (hasEdgeDepth && hasEdgeWidth) {
+      requireCondition(
+        v.thickenedEdgeDepth > v.thickness,
+        'thickenedEdgeDepth',
+        'Thickened-edge depth must be greater than the slab thickness.'
+      );
+    }
+
+    const area = isCircle ? Math.PI * (v.diameter / 2) ** 2 : v.length * v.width;
+    const perimeter = isCircle ? Math.PI * v.diameter : 2 * (v.length + v.width);
+    const slabCuFt = area * v.thickness * v.quantity;
+    const steps: string[] = [
+      isCircle
+        ? `Circle: π × (${fmt(v.diameter)}/2)² × ${fmt(v.thickness)} × ${v.quantity} = ${fmt(slabCuFt)} ft³.`
+        : `Rectangle: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.thickness)} × ${v.quantity} = ${fmt(slabCuFt)} ft³.`,
+    ];
+
+    const edgeAdded = hasEdgeDepth && hasEdgeWidth
+      ? perimeter * v.thickenedEdgeWidth * (v.thickenedEdgeDepth - v.thickness) * v.quantity
       : 0;
     const cuFt = slabCuFt + edgeAdded;
 
-    const extraRows: { key: string; label: string; value: number; unit: string; discrete?: boolean }[] = [];
+    const extraRows: { key: string; label: string; value: number; unit: string; discrete?: boolean }[] = [
+      row('area', 'Slab area per section', area, 'ft²'),
+      row('totalArea', 'Total slab area', area * v.quantity, 'ft²'),
+      row('perimeter', 'Total form perimeter', perimeter * v.quantity, 'ft'),
+    ];
+
     if (edgeAdded > 0) {
-      steps.push(`Thickened edge: ≈ ${fmt(edgeAdded)} ft³ added.`);
+      steps.push(
+        `Thickened edge: ${fmt(perimeter)} ft perimeter × ${fmt(v.thickenedEdgeWidth)} ft width × ${fmt(v.thickenedEdgeDepth - v.thickness)} ft extra depth × ${v.quantity} = ${fmt(edgeAdded)} ft³ added.`
+      );
       extraRows.push(row('thickenedEdge', 'Thickened-edge contribution', edgeAdded, 'ft³'));
     }
+
+    if (v.subbaseDepth > 0) {
+      const subbaseFt3 = area * v.subbaseDepth * v.quantity;
+      extraRows.push(row('subbase', 'Compacted gravel subbase volume', subbaseFt3 / 27, 'yd³'));
+      steps.push(
+        `Subbase: ${fmt(area)} ft² × ${fmt(v.subbaseDepth)} ft × ${v.quantity} = ${fmt(subbaseFt3 / 27)} yd³ compacted.`
+      );
+    }
+
+    if (v.orderIncrement > 0) {
+      const calculatedOrderYd3 = cuFt * waste(v) / 27;
+      const roundedOrderYd3 = Math.ceil((calculatedOrderYd3 - 1e-12) / v.orderIncrement) * v.orderIncrement;
+      extraRows.push(row('roundedOrder', 'Supplier-rounded ready-mix order', roundedOrderYd3, 'yd³'));
+      extraRows.push(row('roundingExtra', 'Rounding above calculated order', Math.max(0, roundedOrderYd3 - calculatedOrderYd3), 'yd³'));
+      steps.push(
+        `Supplier rounding: ceil(${fmt(calculatedOrderYd3)} ÷ ${fmt(v.orderIncrement)}) × ${fmt(v.orderIncrement)} = ${fmt(roundedOrderYd3)} yd³.`
+      );
+    }
+
     return concreteResult(cuFt, v, u, steps, extraRows);
   },
 };
