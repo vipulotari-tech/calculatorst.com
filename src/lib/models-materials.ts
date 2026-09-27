@@ -1875,16 +1875,35 @@ const concreteWasteFields: Field[] = [
       'Project-specific allowance for form tolerances, uneven subgrade, spillage, handling loss or other measured ordering risk.'),
     max: 100,
   },
-  positiveOrZero(number('orderIncrement', 'Supplier ordering increment (yd³)', 0.25, 0),
-    { help: 'Round the waste-adjusted requirement up to the supplier increment. Enter 0 to skip increment rounding.' }),
-  positiveOrZero(number('supplierMinimum', 'Supplier minimum order / billed volume (yd³)', 0, 0),
-    { help: 'Enter the quoted supplier minimum. The calculator applies the greater of the rounded requirement or this minimum.' }),
-  positiveOrZero(number('truckCapacity', 'Ready-mix truck capacity (yd³)', 10, 0),
-    { help: 'Enter the supplier truck capacity, or 0 to disable truck-load planning.' }),
-  positiveOrZero(number('shortLoadThreshold', 'Short-load threshold (yd³)', 0, 0),
-    { help: 'If the final delivery is below this quoted threshold, the calculator can estimate a short-load surcharge. Enter 0 to disable.' }),
-  positiveOrZero(number('pourRate', 'Planned placement rate (yd³/hour)', 0, 0),
-    { help: 'Optional scheduling input. Enter 0 to hide pour-duration planning.' }),
+  {
+    ...volume('orderIncrement', 'Supplier ordering increment', 0.25),
+    min: 0,
+    units: ['yd3', 'm3'],
+    help: 'Round the waste-adjusted requirement up to the supplier increment. Enter 0 to skip increment rounding.',
+  },
+  {
+    ...volume('supplierMinimum', 'Supplier minimum order / billed volume', 0),
+    min: 0,
+    units: ['yd3', 'm3'],
+    help: 'Enter the quoted supplier minimum. The calculator applies the greater of the rounded requirement or this minimum.',
+  },
+  {
+    ...volume('truckCapacity', 'Ready-mix truck capacity', 10),
+    min: 0,
+    units: ['yd3', 'm3'],
+    help: 'Enter the supplier truck capacity, or 0 to disable truck-load planning.',
+  },
+  {
+    ...volume('shortLoadThreshold', 'Short-load threshold', 0),
+    min: 0,
+    units: ['yd3', 'm3'],
+    help: 'If the final delivery is below this quoted threshold, the calculator can estimate a short-load surcharge. Enter 0 to disable.',
+  },
+  {
+    ...number('pourRate', 'Planned placement rate', 0, 0, 'Optional scheduling input. Enter 0 to hide pour-duration planning.'),
+    unit: 'yd3/h',
+    units: ['yd3/h', 'm3/h'],
+  },
   {
     id: 'customBagYield',
     label: 'Custom bag mixed yield',
@@ -1897,7 +1916,7 @@ const concreteWasteFields: Field[] = [
     help: 'Optional mixed yield per bag from the product label. Fixed 40/50/60/80-lb reference counts remain shown separately.',
   },
 
-  price('USD/yd3'),
+  price('USD/yd3', ['USD/yd3', 'USD/m3']),
   {
     ...number('deliveryCharge', 'Delivery / fuel charge', undefined, 0, 'Use the supplier quote.'),
     optional: true,
@@ -1988,7 +2007,7 @@ const concreteWaste: Model = {
     'https://www.astm.org/c0094_c0094m-26.html',
     'https://www.inchcalculator.com/concrete-calculator/',
   ],
-  calculate(v) {
+  calculate(v, u) {
     const mode = Math.round(v.wasteMode);
     let netCuFt = 0;
     let geometrySteps: string[] = [];
@@ -2068,13 +2087,13 @@ const concreteWaste: Model = {
     const allowanceCuFt = targetCuFt - netCuFt;
     const allowanceCuYd = allowanceCuFt / 27;
 
-    const incrementYd = Math.max(0, v.orderIncrement);
+    const incrementYd = Math.max(0, v.orderIncrement / 27);
     const roundedRequirementYd = incrementYd > 0
       ? Math.ceil((targetCuYd - 1e-12) / incrementYd) * incrementYd
       : targetCuYd;
     const roundingOverageYd = Math.max(0, roundedRequirementYd - targetCuYd);
 
-    const supplierMinimumYd = Math.max(0, v.supplierMinimum);
+    const supplierMinimumYd = Math.max(0, v.supplierMinimum / 27);
     const plannedOrderYd = Math.max(roundedRequirementYd, supplierMinimumYd);
     const minimumUpliftYd = Math.max(0, plannedOrderYd - roundedRequirementYd);
     const totalOverageYd = Math.max(0, plannedOrderYd - netCuYd);
@@ -2107,7 +2126,7 @@ const concreteWaste: Model = {
       rows.push(row('customBags', 'Bags at custom mixed yield', roundUp(targetCuFt / v.customBagYield), 'bags', true));
     }
 
-    const capacity = Math.max(0, v.truckCapacity);
+    const capacity = Math.max(0, v.truckCapacity / 27);
     let truckVisits = 0;
     let fullLoads = 0;
     let finalPartial = 0;
@@ -2129,7 +2148,7 @@ const concreteWaste: Model = {
       );
     }
 
-    const shortLoadThreshold = Math.max(0, v.shortLoadThreshold);
+    const shortLoadThreshold = Math.max(0, v.shortLoadThreshold / 27);
     const shortLoadDeficit = capacity > 0 && shortLoadThreshold > 0 && finalDelivery > 0
       ? Math.max(0, shortLoadThreshold - finalDelivery)
       : 0;
@@ -2141,7 +2160,7 @@ const concreteWaste: Model = {
       );
     }
 
-    const pourRate = Math.max(0, v.pourRate);
+    const pourRate = Math.max(0, u.pourRate === 'm3/h' ? v.pourRate * (FT_PER_M ** 3) / 27 : v.pourRate);
     if (pourRate > 0) {
       const pourHours = targetCuYd / pourRate;
       rows.push(
@@ -2150,7 +2169,9 @@ const concreteWaste: Model = {
       );
     }
 
-    const concretePrice = Number.isFinite(v.price) ? v.price : 0;
+    const concretePrice = Number.isFinite(v.price)
+      ? (u.price === 'USD/m3' ? v.price * 27 / (FT_PER_M ** 3) : v.price)
+      : 0;
     const deliveryCharge = Number.isFinite(v.deliveryCharge) ? v.deliveryCharge : 0;
     const shortLoadFee = Number.isFinite(v.shortLoadFee) ? v.shortLoadFee : 0;
     const pumpPlacement = Number.isFinite(v.pumpPlacement) ? v.pumpPlacement : 0;
@@ -2395,7 +2416,7 @@ const depth: Model = {
     'Volume and area must refer to the same placed or compacted condition.',
   ],
   sources: [geometry],
-  calculate(v) {
+  calculate(v, u) {
     const area = v.length * v.width;
     const depth = v.volume / area;
     return result(
