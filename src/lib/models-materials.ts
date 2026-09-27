@@ -1929,7 +1929,7 @@ const concreteWasteFields: Field[] = [
     min: 0.01,
     optional: true,
     group: 'Material & assumptions',
-    visibleWhen: { field: 'bagCompareSize', equals: 0 },
+    visibleWhen: { field: 'bagCompareSize', equals: 2 },
     help: 'Optional dry bag weight for a custom-yield product. Used only for the selected bagged-mix comparison.',
   },
 
@@ -1937,15 +1937,16 @@ const concreteWasteFields: Field[] = [
   {
     id: 'bagCompareSize',
     label: 'Bagged-mix comparison',
-    value: -1,
+    value: 1,
+    min: 1,
     dimension: 'number',
     options: [
-      { value: -1, label: 'Off' },
+      { value: 1, label: 'Off' },
       { value: 40, label: '40-lb bag' },
       { value: 50, label: '50-lb bag' },
       { value: 60, label: '60-lb bag' },
       { value: 80, label: '80-lb bag' },
-      { value: 0, label: 'Custom product yield' },
+      { value: 2, label: 'Custom product yield' },
     ],
     group: 'Cost',
     help: 'Select a bag size to compare bagged concrete with the ready-mix plan. Custom mode uses the product-label mixed yield entered above.',
@@ -2169,18 +2170,20 @@ const concreteWaste: Model = {
     let selectedBagCount = 0;
     let selectedBagDryLb = 0;
     let selectedBagLabel = '';
-    if (bagCompareSize !== -1) {
+    if (bagCompareSize !== 1) {
       let selectedYieldFt3 = 0;
       let selectedDryWeightLb = 0;
       if (bagCompareSize === 40) { selectedYieldFt3 = BAG_YIELD_40; selectedDryWeightLb = 40; selectedBagLabel = '40-lb'; }
       else if (bagCompareSize === 50) { selectedYieldFt3 = BAG_YIELD_50; selectedDryWeightLb = 50; selectedBagLabel = '50-lb'; }
       else if (bagCompareSize === 60) { selectedYieldFt3 = BAG_YIELD_60; selectedDryWeightLb = 60; selectedBagLabel = '60-lb'; }
       else if (bagCompareSize === 80) { selectedYieldFt3 = BAG_YIELD_80; selectedDryWeightLb = 80; selectedBagLabel = '80-lb'; }
-      else {
+      else if (bagCompareSize === 2) {
         requireCondition(Number.isFinite(v.customBagYield) && v.customBagYield > 0, 'customBagYield', 'Enter the product-label mixed yield for a custom bag comparison.');
         selectedYieldFt3 = v.customBagYield;
         selectedDryWeightLb = Number.isFinite(v.customBagWeight) && v.customBagWeight > 0 ? v.customBagWeight : 0;
         selectedBagLabel = 'custom-yield';
+      } else {
+        requireCondition(false, 'bagCompareSize', 'Choose a supported bag comparison option.');
       }
       selectedBagCount = roundUp(targetCuFt / selectedYieldFt3);
       selectedBagDryLb = selectedDryWeightLb > 0 ? selectedBagCount * selectedDryWeightLb : 0;
@@ -2312,7 +2315,7 @@ const concreteWaste: Model = {
       );
     }
 
-    if (bagCompareSize !== -1 && bagUnitPrice > 0) {
+    if (bagCompareSize !== 1 && bagUnitPrice > 0) {
       const baggedCost = selectedBagCount * bagUnitPrice;
       rows.push(row('selectedBagCost', 'Selected bagged-mix material cost', baggedCost, 'USD'));
       if (hasReadyMixCostInputs) {
@@ -2369,7 +2372,7 @@ const concreteWaste: Model = {
         `Estimated total = material ${fmt(materialCost)} + delivery/fuel ${fmt(deliveryCost)} + short-load ${fmt(shortLoadCharge)} + pump/placement ${fmt(pumpPlacement)} + tax ${fmt(taxAmount)} = ${fmt(supplyTotal)} USD.`,
       );
     }
-    if (bagCompareSize !== -1 && bagUnitPrice > 0) {
+    if (bagCompareSize !== 1 && bagUnitPrice > 0) {
       const baggedCost = selectedBagCount * bagUnitPrice;
       orderSteps.push(
         `Selected bag comparison = ${selectedBagCount} bags × ${fmt(bagUnitPrice)} USD/bag = ${fmt(baggedCost)} USD.`,
