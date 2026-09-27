@@ -709,6 +709,92 @@ describe("Concrete category golden-value regression suite", () => {
     expect(r.rows.find(x => x.key === "finalUtilization")?.value).toBeCloseTo(200 / 9, 8);
   });
 
+  it("Concrete Waste: supplier minimum increases planned and effective overage but not bag demand", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      { wasteMode: 1, volume: 1, wastePercent: 0, orderIncrement: 0.25, supplierMinimum: 3, truckCapacity: 10 },
+      { volume: "yd3", orderIncrement: "yd3", supplierMinimum: "yd3", truckCapacity: "yd3" },
+    );
+    expect(r.rows.find(x => x.key === "rounded")?.value).toBeCloseTo(1, 8);
+    expect(r.rows.find(x => x.key === "minimumUplift")?.value).toBeCloseTo(2, 8);
+    expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(3, 8);
+    expect(r.rows.find(x => x.key === "effectiveWaste")?.value).toBeCloseTo(200, 8);
+    expect(r.rows.find(x => x.key === "bags80")?.value).toBe(45);
+    expect(r.rows.find(x => x.key === "truckLoads")?.value).toBe(1);
+    expect(r.rows.find(x => x.key === "finalUtilization")?.value).toBeCloseTo(30, 8);
+  });
+
+  it("Concrete Waste: flat short-load fee, delivery, tax, pump and pour duration form a complete supplier estimate", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 1, volume: 5, wastePercent: 0, orderIncrement: 0.25, supplierMinimum: 0,
+        truckCapacity: 10, shortLoadThreshold: 6, pourRate: 2.5, price: 200,
+        deliveryFeePerTruck: 50, fuelSurcharge: 20, shortLoadFeeMethod: 0, shortLoadFlatFee: 100,
+        pumpPlacement: 300, salesTax: 10, taxBasis: 0,
+      },
+      { volume: "yd3", price: "USD/yd3" },
+    );
+    expect(r.rows.find(x => x.key === "fullLoads")?.value).toBe(0);
+    expect(r.rows.find(x => x.key === "finalPartial")?.value).toBeCloseTo(5, 8);
+    expect(r.rows.find(x => x.key === "shortLoadDeficit")?.value).toBeCloseTo(1, 8);
+    expect(r.rows.find(x => x.key === "pourDuration")?.value).toBeCloseTo(2, 8);
+    expect(r.rows.find(x => x.key === "orderCost")?.value).toBeCloseTo(1000, 8);
+    expect(r.rows.find(x => x.key === "deliveryCost")?.value).toBeCloseTo(50, 8);
+    expect(r.rows.find(x => x.key === "fuelCost")?.value).toBeCloseTo(20, 8);
+    expect(r.rows.find(x => x.key === "shortLoadCost")?.value).toBeCloseTo(100, 8);
+    expect(r.rows.find(x => x.key === "taxCost")?.value).toBeCloseTo(100, 8);
+    expect(r.rows.find(x => x.key === "pumpCost")?.value).toBeCloseTo(300, 8);
+    expect(r.rows.find(x => x.key === "supplyTotal")?.value).toBeCloseTo(1570, 8);
+  });
+
+  it("Concrete Waste: short-load per-yard method charges only the deficit below threshold", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 1, volume: 4, wastePercent: 0, orderIncrement: 0.25, truckCapacity: 10,
+        shortLoadThreshold: 6, shortLoadFeeMethod: 1, shortLoadRate: 25,
+      },
+      { volume: "yd3" },
+    );
+    expect(r.rows.find(x => x.key === "shortLoadDeficit")?.value).toBeCloseTo(2, 8);
+    expect(r.rows.find(x => x.key === "shortLoadCost")?.value).toBeCloseTo(50, 8);
+  });
+
+  it("Concrete Waste: custom bag yield and multi-pour totals remain independent of supplier minimums", () => {
+    const bags = run(
+      "concrete-waste-calculator",
+      { wasteMode: 1, volume: 1, wastePercent: 0, customBagYield: 0.5, supplierMinimum: 3 },
+      { volume: "yd3" },
+    );
+    expect(bags.rows.find(x => x.key === "customBags")?.value).toBe(54);
+
+    const multi = run(
+      "concrete-waste-calculator",
+      { wasteMode: 4, multiPourVolume: 3.5, multiPourCount: 3, wastePercent: 10, orderIncrement: 0.25 },
+      { multiPourVolume: "yd3" },
+    );
+    expect(multi.rows.find(x => x.key === "pourCount")?.value).toBe(3);
+    expect(multi.rows.find(x => x.key === "net")?.value).toBeCloseTo(3.5, 8);
+    expect(multi.rows.find(x => x.key === "order")?.value).toBeCloseTo(3.85, 8);
+    expect(multi.rows.find(x => x.key === "rounded")?.value).toBeCloseTo(4, 8);
+  });
+
+  it("Concrete Waste: supplier rule units accept metric increments, capacity and pour rate", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 1, volume: 2, wastePercent: 0, orderIncrement: 0.25, supplierMinimum: 0,
+        truckCapacity: 8, pourRate: 4,
+      },
+      { volume: "m3", orderIncrement: "m3", supplierMinimum: "m3", truckCapacity: "m3", pourRate: "m3/h" },
+    );
+    const twoM3Yd3 = 2 * (1 / 0.3048) ** 3 / 27;
+    expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(twoM3Yd3, 8);
+    expect(r.rows.find(x => x.key === "truckLoads")?.value).toBe(1);
+    expect(r.rows.find(x => x.key === "pourDuration")?.value).toBeCloseTo(0.5, 8);
+  });
+
   it("Concrete Crack Repair: 25 ft × 0.25 in × 0.5 in + 10% = 3 × 10.1 fl oz cartridges", () => {
     const r = run(
       "concrete-crack-repair-calculator",
