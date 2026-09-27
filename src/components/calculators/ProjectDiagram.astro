@@ -47,7 +47,7 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
     <div class="flex flex-wrap items-start justify-between gap-2">
       <div>
         <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">{kind === "concreteMix" ? "Live mix proportion guide" : kind === "concretePour" ? "Live ready-mix load plan" : kind === "concreteWaste" ? "Live concrete order buildup" : kind === "concreteStair" ? "Live stair section guide" : kind === "brickJoint" ? "Live brick course layout" : "Visual project measurements"}</h3>
-        <p class="mt-1 text-[11px] leading-5 text-muted-foreground">{kind === "concreteMix" ? "Updates from the selected cement : sand : coarse-aggregate ratio. Proportion guide only — not a mix-design approval." : kind === "concretePour" ? "Updates from order inputs, truck capacity, short-load threshold and placement rate. Scheduling aid only." : kind === "concreteWaste" ? "Separates net volume, requested allowance and supplier-rounding overage so the final order buildup stays visible." : kind === "concreteStair" ? "Switches between solid mass-fill and waist-slab stair sections and updates from the entered geometry. Schematic only — not to scale." : kind === "brickJoint" ? "Shows the repeating brick module and N−1 internal-joint relationship for the selected layout mode. Schematic only — not to scale." : "Updates from the visible measurement inputs. Schematic only — not to scale."}</p>
+        <p class="mt-1 text-[11px] leading-5 text-muted-foreground">{kind === "concreteMix" ? "Updates from the selected cement : sand : coarse-aggregate ratio. Proportion guide only — not a mix-design approval." : kind === "concretePour" ? "Updates from order inputs, truck capacity, short-load threshold and placement rate. Scheduling aid only." : kind === "concreteWaste" ? "Shows geometry or multi-pour net volume, allowance, supplier rounding/minimum rules, and the resulting truck plan." : kind === "concreteStair" ? "Switches between solid mass-fill and waist-slab stair sections and updates from the entered geometry. Schematic only — not to scale." : kind === "brickJoint" ? "Shows the repeating brick module and N−1 internal-joint relationship for the selected layout mode. Schematic only — not to scale." : "Updates from the visible measurement inputs. Schematic only — not to scale."}</p>
       </div>
       <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE INPUT GUIDE</span>
     </div>
@@ -107,31 +107,30 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
             <rect x="499" y="60" width="66" height="7" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.5" />
           </g>
           <g data-waste-geometry="4" style="display:none">
-            <rect x="498" y="22" width="24" height="16" rx="2" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.3" />
-            <ellipse cx="542" cy="29" rx="12" ry="6" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.3" />
-            <rect x="530" y="29" width="24" height="14" fill="var(--color-card)" stroke="none" />
-            <line x1="530" y1="29" x2="530" y2="43" stroke="var(--color-foreground)" stroke-width="1.3" />
-            <line x1="554" y1="29" x2="554" y2="43" stroke="var(--color-foreground)" stroke-width="1.3" />
-            <ellipse cx="542" cy="43" rx="12" ry="6" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.3" />
-            <path d="M488 53h78" stroke="var(--color-muted-foreground)" stroke-width="1.2" stroke-dasharray="3 3" />
-            <text x="527" y="64" text-anchor="middle" font-size="9" fill="var(--color-muted-foreground)">combined pours</text>
+            <rect x="496" y="24" width="22" height="20" rx="2" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.3" />
+            <ellipse cx="535" cy="27" rx="11" ry="4" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.3" />
+            <line x1="524" y1="27" x2="524" y2="44" stroke="var(--color-foreground)" stroke-width="1.3" />
+            <line x1="546" y1="27" x2="546" y2="44" stroke="var(--color-foreground)" stroke-width="1.3" />
+            <ellipse cx="535" cy="44" rx="11" ry="4" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.3" />
+            <rect x="553" y="24" width="18" height="20" rx="2" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.3" />
           </g>
 
           <text x="34" y="82" font-size="11" fill="var(--color-muted-foreground)" data-waste-truck-plan>Final order buildup</text>
           <rect x="34" y="96" width="500" height="44" rx="8" fill="var(--color-muted)" opacity="0.24" />
-          <rect x="34" y="96" width="350" height="44" rx="8" fill="var(--color-foreground)" opacity="0.62" data-waste-net-bar />
-          <rect x="384" y="96" width="80" height="44" fill="var(--color-foreground)" opacity="0.36" data-waste-allowance-bar />
-          <rect x="464" y="96" width="45" height="44" fill="var(--color-foreground)" opacity="0.18" data-waste-rounding-bar />
-          <rect x="509" y="96" width="25" height="44" rx="0 8 8 0" fill="var(--color-foreground)" opacity="0.10" data-waste-minimum-bar />
+          <rect x="34" y="96" width="340" height="44" rx="8" fill="var(--color-foreground)" opacity="0.62" data-waste-net-bar />
+          <rect x="374" y="96" width="70" height="44" fill="var(--color-foreground)" opacity="0.38" data-waste-allowance-bar />
+          <rect x="444" y="96" width="45" height="44" fill="var(--color-foreground)" opacity="0.22" data-waste-rounding-bar />
+          <rect x="489" y="96" width="45" height="44" rx="0 8 8 0" fill="var(--color-foreground)" opacity="0.12" data-waste-minimum-bar />
 
           <text x="34" y="161" font-size="11" fill="var(--color-foreground)" data-waste-net-label>Net</text>
-          <text x="250" y="161" text-anchor="middle" font-size="11" fill="var(--color-foreground)" data-waste-target-label>Target + allowance</text>
-          <text x="534" y="161" text-anchor="end" font-size="11" fill="var(--color-foreground)" data-waste-order-label>Supplier-rounded order</text>
+          <text x="250" y="161" text-anchor="middle" font-size="11" fill="var(--color-foreground)" data-waste-target-label>Required + allowance</text>
+          <text x="534" y="161" text-anchor="end" font-size="11" fill="var(--color-foreground)" data-waste-order-label>Planned supplier order</text>
 
           <line x1="34" y1="186" x2="534" y2="186" stroke="var(--color-border)" stroke-width="2" />
-          <text x="34" y="209" font-size="11" fill="var(--color-muted-foreground)" data-waste-allowance-label>Allowance</text>
-          <text x="320" y="209" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)" data-waste-rounding-label>Supplier rounding</text>
-          <text x="606" y="209" text-anchor="end" font-size="11" fill="var(--color-foreground)" data-waste-effective-label>Effective overage</text>
+          <text x="34" y="209" font-size="10.5" fill="var(--color-muted-foreground)" data-waste-allowance-label>Allowance</text>
+          <text x="215" y="209" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-waste-rounding-label>Rounding</text>
+          <text x="405" y="209" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-waste-minimum-label>Minimum</text>
+          <text x="606" y="209" text-anchor="end" font-size="10.5" fill="var(--color-foreground)" data-waste-effective-label>Effective overage</text>
         </>
       )}
 
@@ -725,7 +724,7 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
           const quantity = Math.max(1, numericControl("sectionQuantity") || 1);
           netFt3 = length * height * thickness * quantity;
         } else if (mode === 4) {
-          netFt3 = toCubicFeet(numericControl("multiPourVolume"), "yd3");
+          netFt3 = numericControl("multiPourVolume");
         } else {
           const length = toFeet(numericControl("length"), unitControl("length"));
           const width = toFeet(numericControl("width"), unitControl("width"));
@@ -747,16 +746,24 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         const roundedYd3 = Number.isFinite(targetYd3)
           ? (incrementYd3 > 0 ? Math.ceil((targetYd3 - 1e-12) / incrementYd3) * incrementYd3 : targetYd3)
           : Number.NaN;
-        const orderedYd3 = Number.isFinite(roundedYd3) ? Math.max(roundedYd3, supplierMinimumYd3) : Number.NaN;
+        const plannedYd3 = Number.isFinite(roundedYd3) ? Math.max(roundedYd3, supplierMinimumYd3) : Number.NaN;
         const roundingYd3 = Number.isFinite(roundedYd3) && Number.isFinite(targetYd3) ? Math.max(0, roundedYd3 - targetYd3) : Number.NaN;
-        const minimumYd3 = Number.isFinite(orderedYd3) && Number.isFinite(roundedYd3) ? Math.max(0, orderedYd3 - roundedYd3) : Number.NaN;
-        const effectivePct = Number.isFinite(orderedYd3) && Number.isFinite(netYd3) && netYd3 > 0
-          ? (orderedYd3 - netYd3) / netYd3 * 100
+        const minimumYd3 = Number.isFinite(plannedYd3) && Number.isFinite(roundedYd3) ? Math.max(0, plannedYd3 - roundedYd3) : Number.NaN;
+        const effectivePct = Number.isFinite(plannedYd3) && Number.isFinite(netYd3) && netYd3 > 0
+          ? (plannedYd3 - netYd3) / netYd3 * 100
           : Number.NaN;
-        const loads = truckCapacityYd3 > 0 && Number.isFinite(orderedYd3) ? Math.max(1, Math.ceil(orderedYd3 / truckCapacityYd3)) : Number.NaN;
-        const finalLoad = Number.isFinite(loads) ? Math.max(0, orderedYd3 - (loads - 1) * truckCapacityYd3) : Number.NaN;
 
-        const scale = Number.isFinite(orderedYd3) && orderedYd3 > 0 ? 500 / orderedYd3 : 0;
+        const fullLoads = truckCapacityYd3 > 0 && Number.isFinite(plannedYd3)
+          ? Math.floor((plannedYd3 + 1e-12) / truckCapacityYd3)
+          : Number.NaN;
+        let finalPartial = Number.isFinite(fullLoads) ? plannedYd3 - fullLoads * truckCapacityYd3 : Number.NaN;
+        if (Number.isFinite(finalPartial) && Math.abs(finalPartial) < 1e-9) finalPartial = 0;
+        const visits = Number.isFinite(fullLoads) ? fullLoads + (finalPartial > 0 ? 1 : 0) : Number.NaN;
+        const finalDelivery = Number.isFinite(visits) && visits > 0
+          ? (finalPartial > 0 ? finalPartial : truckCapacityYd3)
+          : Number.NaN;
+
+        const scale = Number.isFinite(plannedYd3) && plannedYd3 > 0 ? 500 / plannedYd3 : 0;
         const netWidth = Number.isFinite(netYd3) ? Math.max(0, Math.min(500, netYd3 * scale)) : 0;
         const allowanceWidth = Number.isFinite(targetYd3) && Number.isFinite(netYd3) ? Math.max(0, Math.min(500 - netWidth, (targetYd3 - netYd3) * scale)) : 0;
         const roundingWidth = Number.isFinite(roundingYd3) ? Math.max(0, Math.min(500 - netWidth - allowanceWidth, roundingYd3 * scale)) : 0;
@@ -780,6 +787,7 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         const orderLabel = figure.querySelector<SVGTextElement>("[data-waste-order-label]");
         const allowanceLabel = figure.querySelector<SVGTextElement>("[data-waste-allowance-label]");
         const roundingLabel = figure.querySelector<SVGTextElement>("[data-waste-rounding-label]");
+        const minimumLabel = figure.querySelector<SVGTextElement>("[data-waste-minimum-label]");
         const effectiveLabel = figure.querySelector<SVGTextElement>("[data-waste-effective-label]");
         const truckPlanLabel = figure.querySelector<SVGTextElement>("[data-waste-truck-plan]");
 
@@ -791,33 +799,30 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
               : mode === 3
                 ? "Wall / rectangular footing"
                 : mode === 4
-                  ? "Combined multi-pour order"
+                  ? "Combined multi-pour schedule"
                   : "Slab / patio / driveway";
         }
         if (truckPlanLabel) {
-          truckPlanLabel.textContent = Number.isFinite(loads)
-            ? `Final order buildup · ${loads} truck load${loads === 1 ? "" : "s"}`
+          truckPlanLabel.textContent = Number.isFinite(visits)
+            ? `Final order buildup · ${visits} truck visit${visits === 1 ? "" : "s"}`
             : "Final order buildup";
         }
         if (netLabel) netLabel.textContent = Number.isFinite(netYd3) ? `Net ${netYd3.toFixed(3)} yd³` : "Net";
-        if (targetLabel) targetLabel.textContent = Number.isFinite(targetYd3) ? `Target ${targetYd3.toFixed(3)} yd³` : "Target + allowance";
-        if (orderLabel) orderLabel.textContent = Number.isFinite(orderedYd3) ? `Order ${orderedYd3.toFixed(3)} yd³` : "Supplier-rounded order";
+        if (targetLabel) targetLabel.textContent = Number.isFinite(targetYd3) ? `Required ${targetYd3.toFixed(3)} yd³` : "Required + allowance";
+        if (orderLabel) orderLabel.textContent = Number.isFinite(plannedYd3) ? `Planned ${plannedYd3.toFixed(3)} yd³` : "Planned supplier order";
         if (allowanceLabel) allowanceLabel.textContent = `Allowance ${allowance.toFixed(2)}%`;
-        if (roundingLabel) {
-          roundingLabel.textContent = Number.isFinite(roundingYd3) && Number.isFinite(minimumYd3)
-            ? `Rounding +${roundingYd3.toFixed(3)} · minimum +${minimumYd3.toFixed(3)} yd³`
-            : "Supplier rules";
-        }
+        if (roundingLabel) roundingLabel.textContent = Number.isFinite(roundingYd3) ? `Round +${roundingYd3.toFixed(3)} yd³` : "Rounding";
+        if (minimumLabel) minimumLabel.textContent = Number.isFinite(minimumYd3) ? `Minimum +${minimumYd3.toFixed(3)} yd³` : "Minimum";
         if (effectiveLabel) effectiveLabel.textContent = Number.isFinite(effectivePct) ? `Effective +${effectivePct.toFixed(2)}%` : "Effective overage";
 
         if (list) {
           const metrics = [
             { label: "Net volume", value: Number.isFinite(netYd3) ? `${netYd3.toFixed(3)} yd³` : "—" },
-            { label: "Rounded order", value: Number.isFinite(orderedYd3) ? `${orderedYd3.toFixed(3)} yd³` : "—" },
+            { label: "Planned order", value: Number.isFinite(plannedYd3) ? `${plannedYd3.toFixed(3)} yd³` : "—" },
             {
               label: "Truck plan",
-              value: Number.isFinite(loads)
-                ? `${loads} load${loads === 1 ? "" : "s"} · final ${finalLoad.toFixed(2)} yd³`
+              value: Number.isFinite(visits)
+                ? `${visits} visit${visits === 1 ? "" : "s"} · final ${finalDelivery.toFixed(2)} yd³`
                 : "Capacity disabled",
             },
           ];
