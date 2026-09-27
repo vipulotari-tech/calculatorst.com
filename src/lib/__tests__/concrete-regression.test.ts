@@ -667,6 +667,48 @@ describe("Concrete category golden-value regression suite", () => {
     expect(r.rows.find(x => x.key === "orderCost")?.value).toBeCloseTo(412.5, 8);
   });
 
+  it("Concrete Waste: round footing / pier mode uses cylinder geometry", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 2, diameter: 18, pierDepth: 4, pierQuantity: 4,
+        wastePercent: 10, orderIncrement: 0.25, truckCapacity: 10,
+      },
+      { diameter: "in", pierDepth: "ft" },
+    );
+    expect(r.rows.find(x => x.key === "circleArea")?.value).toBeCloseTo(Math.PI * 0.75 ** 2, 8);
+    expect(r.rows.find(x => x.key === "onePier")?.value).toBeCloseTo(Math.PI * 0.75 ** 2 * 4, 8);
+    expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(Math.PI * 0.75 ** 2 * 4 * 4 / 27, 8);
+    expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(1.25, 8);
+  });
+
+  it("Concrete Waste: wall / rectangular footing mode uses section geometry", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 3, sectionLength: 40, sectionHeight: 2, sectionThickness: 8, sectionQuantity: 1,
+        wastePercent: 10, orderIncrement: 0.25, truckCapacity: 10,
+      },
+      { sectionLength: "ft", sectionHeight: "ft", sectionThickness: "in" },
+    );
+    expect(r.rows.find(x => x.key === "crossArea")?.value).toBeCloseTo(4 / 3, 8);
+    expect(r.rows.find(x => x.key === "oneSection")?.value).toBeCloseTo(160 / 3, 8);
+    expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(160 / 81, 8);
+    expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(2.25, 8);
+  });
+
+  it("Concrete Waste: truck planning uses supplier-rounded order and final-load utilization", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      { wasteMode: 1, volume: 18, wastePercent: 10, orderIncrement: 0.25, truckCapacity: 9 },
+      { volume: "yd3" },
+    );
+    expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(20, 8);
+    expect(r.rows.find(x => x.key === "truckLoads")?.value).toBe(3);
+    expect(r.rows.find(x => x.key === "finalLoad")?.value).toBeCloseTo(2, 8);
+    expect(r.rows.find(x => x.key === "finalUtilization")?.value).toBeCloseTo(200 / 9, 8);
+  });
+
   it("Concrete Crack Repair: 25 ft × 0.25 in × 0.5 in + 10% = 3 × 10.1 fl oz cartridges", () => {
     const r = run(
       "concrete-crack-repair-calculator",
