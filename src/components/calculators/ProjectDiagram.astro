@@ -19,6 +19,7 @@ const kind =
   lower === "concrete-weight-calculator" ? "concreteWeight" :
   lower === "concrete-volume-calculator" ? "concreteVolume" :
   lower === "concrete-slab-calculator" ? "concreteSlab" :
+  lower === "concrete-curb-calculator" ? "concreteCurb" :
   lower === "concrete-stair-calculator" ? "concreteStair" :
   lower === "concrete-footing-calculator" ? "concreteFooting" :
   lower === "concrete-calculator" ? "concrete" :
@@ -258,6 +259,33 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
           <text x="320" y="222" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-concrete-slab-primary>Length × width</text>
           <text x="34" y="214" font-size="12" fill="var(--color-muted-foreground)" data-concrete-slab-thickness>Thickness</text>
           <text x="606" y="214" text-anchor="end" font-size="12" fill="var(--color-muted-foreground)" data-concrete-slab-detail>Uniform slab</text>
+        </>
+      )}
+
+      {kind === "concreteCurb" && (
+        <>
+          <text x="34" y="34" font-size="12" font-weight="600" fill="var(--color-muted-foreground)" data-concrete-curb-title>Curb + gutter · rectangular curb</text>
+
+          <g data-concrete-curb-profile="0">
+            <rect x="220" y="78" width="104" height="104" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+          <g data-concrete-curb-profile="1" style="display:none">
+            <polygon points="238,78 306,78 324,182 220,182" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+          </g>
+
+          <g data-concrete-curb-gutter>
+            <rect x="324" y="142" width="210" height="40" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <line x1="324" y1="142" x2="534" y2="142" stroke="var(--color-muted-foreground)" stroke-width="1.2" stroke-dasharray="6 5" />
+          </g>
+
+          <line x1="220" y1="202" x2="534" y2="202" stroke="var(--color-muted-foreground)" stroke-width="1.2" />
+          <text x="272" y="66" text-anchor="middle" font-size="11" fill="var(--color-foreground)" data-concrete-curb-top>Top width</text>
+          <text x="272" y="218" text-anchor="middle" font-size="11" fill="var(--color-foreground)" data-concrete-curb-base>Base width</text>
+          <text x="185" y="132" text-anchor="middle" font-size="11" fill="var(--color-foreground)" transform="rotate(-90 185 132)" data-concrete-curb-height>Full height</text>
+          <text x="430" y="132" text-anchor="middle" font-size="11" fill="var(--color-foreground)" data-concrete-curb-gutter-width>Gutter width</text>
+          <text x="552" y="164" font-size="11" fill="var(--color-muted-foreground)" data-concrete-curb-gutter-thickness>Thickness</text>
+          <text x="34" y="224" font-size="12" fill="var(--color-muted-foreground)" data-concrete-curb-mode>Forward · run length</text>
+          <text x="606" y="224" text-anchor="end" font-size="12" fill="var(--color-foreground)" data-concrete-curb-summary>Cross-section guide</text>
         </>
       )}
 
@@ -770,6 +798,88 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         return true;
       };
 
+      const updateConcreteCurbDiagram = () => {
+        if (figure.dataset.kind !== "concreteCurb") return false;
+
+        const mode = Math.round(numericControl("curbMode"));
+        const style = Math.round(numericControl("curbStyle"));
+        const profile = Math.round(numericControl("curbProfile"));
+
+        figure.querySelectorAll<SVGGElement>("[data-concrete-curb-profile]").forEach((group) => {
+          group.style.display = group.dataset.concreteCurbProfile === String(profile) ? "" : "none";
+        });
+
+        const gutterGroup = figure.querySelector<SVGGElement>("[data-concrete-curb-gutter]");
+        if (gutterGroup) gutterGroup.style.display = style === 0 ? "" : "none";
+
+        const fieldById = (id: string) => fields.find((field) => field.id === id);
+        const readById = (id: string) => {
+          const field = fieldById(id);
+          return field ? readField(field) : null;
+        };
+        const printable = (item: { value: string; unit: string } | null) =>
+          item ? `${item.value}${item.unit ? ` ${item.unit}` : ""}` : "—";
+
+        const top = readById("curbWidth");
+        const base = profile === 1 ? readById("curbBaseWidth") : top;
+        const height = readById("curbHeight");
+        const gutterWidth = readById("gutterWidth");
+        const gutterThickness = readById("gutterThickness");
+        const runLength = readById("length");
+        const volume = readById("volume");
+
+        const title = figure.querySelector<SVGTextElement>("[data-concrete-curb-title]");
+        const topLabel = figure.querySelector<SVGTextElement>("[data-concrete-curb-top]");
+        const baseLabel = figure.querySelector<SVGTextElement>("[data-concrete-curb-base]");
+        const heightLabel = figure.querySelector<SVGTextElement>("[data-concrete-curb-height]");
+        const gutterWidthLabel = figure.querySelector<SVGTextElement>("[data-concrete-curb-gutter-width]");
+        const gutterThicknessLabel = figure.querySelector<SVGTextElement>("[data-concrete-curb-gutter-thickness]");
+        const modeLabel = figure.querySelector<SVGTextElement>("[data-concrete-curb-mode]");
+        const summary = figure.querySelector<SVGTextElement>("[data-concrete-curb-summary]");
+
+        if (title) title.textContent = `${style === 0 ? "Curb + gutter" : "Curb only"} · ${profile === 1 ? "tapered curb" : "rectangular curb"}`;
+        if (topLabel) topLabel.textContent = `Top: ${printable(top)}`;
+        if (baseLabel) baseLabel.textContent = `Base: ${printable(base)}`;
+        if (heightLabel) heightLabel.textContent = `Height: ${printable(height)}`;
+        if (gutterWidthLabel) gutterWidthLabel.textContent = style === 0 ? `Gutter: ${printable(gutterWidth)}` : "";
+        if (gutterThicknessLabel) gutterThicknessLabel.textContent = style === 0 ? `T: ${printable(gutterThickness)}` : "";
+        if (modeLabel) modeLabel.textContent = mode === 1 ? `Reverse · available ${printable(volume)}` : `Forward · run ${printable(runLength)}`;
+        if (summary) summary.textContent = style === 0 ? "Non-overlapping curb + gutter section" : "Curb section only";
+
+        const topFt = toFeet(numericControl("curbWidth"), unitControl("curbWidth"));
+        const baseFt = profile === 1 ? toFeet(numericControl("curbBaseWidth"), unitControl("curbBaseWidth")) : topFt;
+        const heightFt = toFeet(numericControl("curbHeight"), unitControl("curbHeight"));
+        const gutterWFt = style === 0 ? toFeet(numericControl("gutterWidth"), unitControl("gutterWidth")) : 0;
+        const gutterTFt = style === 0 ? toFeet(numericControl("gutterThickness"), unitControl("gutterThickness")) : 0;
+        const curbArea = Number.isFinite(topFt) && Number.isFinite(baseFt) && Number.isFinite(heightFt)
+          ? (profile === 1 ? (topFt + baseFt) / 2 * heightFt : topFt * heightFt)
+          : Number.NaN;
+        const gutterArea = Number.isFinite(gutterWFt) && Number.isFinite(gutterTFt) ? gutterWFt * gutterTFt : 0;
+        const totalArea = curbArea + gutterArea;
+
+        if (list) {
+          const metrics = [
+            { label: "Curb profile", value: profile === 1 ? `${printable(top)} top · ${printable(base)} base` : `${printable(top)} wide` },
+            { label: "Section height", value: printable(height) },
+            { label: "Cross-section", value: Number.isFinite(totalArea) ? `${totalArea.toFixed(4)} ft²` : "—" },
+          ];
+          list.replaceChildren(...metrics.map((item) => {
+            const wrap = document.createElement("div");
+            wrap.className = "rounded-md border border-border bg-muted/30 px-3 py-2";
+            const dt = document.createElement("dt");
+            dt.className = "text-muted-foreground";
+            dt.textContent = item.label;
+            const dd = document.createElement("dd");
+            dd.className = "mt-0.5 font-mono font-medium text-foreground tabular-nums";
+            dd.textContent = item.value;
+            wrap.append(dt, dd);
+            return wrap;
+          }));
+        }
+
+        return true;
+      };
+
       const updateConcreteStairDiagram = () => {
         if (figure.dataset.kind !== "concreteStair") return false;
 
@@ -988,6 +1098,7 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         updateConcreteWeightDiagram();
         updateConcreteVolumeDiagram();
         if (updateConcreteSlabDiagram()) return;
+        if (updateConcreteCurbDiagram()) return;
         if (updateConcreteStairDiagram()) return;
         updateConcreteFootingDiagram();
         updateConcreteDiagram();
