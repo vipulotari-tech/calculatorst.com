@@ -833,7 +833,7 @@ describe("Concrete category golden-value regression suite", () => {
       {
         wasteMode: 1, volume: 1, wastePercent: 0,
         orderIncrement: 0.25, supplierMinimum: 0, truckCapacity: 10,
-        bagCompareSize: 0, customBagYield: 0.5, customBagWeight: 70, bagUnitPrice: 7,
+        bagCompareSize: 2, customBagYield: 0.5, customBagWeight: 70, bagUnitPrice: 7,
       },
       {
         volume: "yd3", orderIncrement: "yd3", supplierMinimum: "yd3",
