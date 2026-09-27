@@ -26,7 +26,10 @@ function fieldVisible(f: Field, all: Field[]): boolean {
   return (vw.in ?? []).includes(ctrlValue);
 }
 
-const measurements = fields.filter((f) => !f.group || f.group === "Measurements");
+const measurements = fields.filter((f) =>
+  (!f.group || f.group === "Measurements")
+  && !(slug === "concrete-waste-calculator" && ["multiPourVolume", "multiPourCount"].includes(f.id))
+);
 const assumptions = fields.filter((f) => f.group === "Material & assumptions");
 const costs = fields.filter((f) => f.group === "Cost");
 const diagramFields = fields
@@ -120,6 +123,26 @@ const diagramFields = fields
                   ))}
       </div>
     </div>
+
+    {slug === "concrete-waste-calculator" && (
+      <section class="concrete-waste-multipour rounded-lg border border-border bg-muted/20 p-4" hidden>
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Multi-pour schedule</h3>
+            <p class="mt-1 text-[11px] leading-5 text-muted-foreground">Combine rectangular pours, round piers/footings, and already-known volumes into one supplier order. The allowance is applied once to the combined net volume.</p>
+          </div>
+          <button type="button" class="multi-pour-add inline-flex h-9 items-center justify-center rounded-lg border border-border bg-background px-3 text-xs font-medium text-foreground hover:bg-muted/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">+ Add pour</button>
+        </div>
+        <div class="multi-pour-rows mt-4 space-y-3"></div>
+        <div class="mt-4 flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border bg-card px-3 py-2 text-xs">
+          <span class="text-muted-foreground">Combined net concrete</span>
+          <strong class="multi-pour-total font-mono text-foreground">—</strong>
+        </div>
+        <input id={`${slug}-multiPourVolume`} name="multiPourVolume" type="hidden" value="1" />
+        <input id={`${slug}-multiPourCount`} name="multiPourCount" type="hidden" value="1" />
+        <span id={`${slug}-multiPourVolume-err`} class="hidden text-xs text-destructive font-medium" role="alert"></span>
+      </section>
+    )}
 
     <!-- Section 2: Material & Assumptions (if any) -->
     {assumptions.length > 0 && (
@@ -322,6 +345,17 @@ const diagramFields = fields
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
           <span>{slug === "concrete-waste-calculator" ? "Print / Save PDF" : "Print"}</span>
         </button>
+        {slug === "concrete-waste-calculator" && (
+          <button
+            type="button"
+            aria-label="Download concrete order plan PDF"
+            class="calc-pdf-btn inline-flex h-11 items-center justify-center rounded-lg border border-border bg-background px-3.5 text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
+            disabled
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            <span>Download PDF</span>
+          </button>
+        )}
       </div>
     </div>
   </form>
