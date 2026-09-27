@@ -490,12 +490,69 @@ describe("Concrete category golden-value regression suite", () => {
     )).toBeCloseTo(6 * Math.PI, 6);
   });
 
+  it("Concrete Curb: rectangular curb + gutter forward geometry is correct", () => {
+    const r = run(
+      "concrete-curb-calculator",
+      {
+        curbMode: 0, curbStyle: 0, curbProfile: 0, length: 20,
+        curbWidth: 6, curbHeight: 12, gutterWidth: 18, gutterThickness: 6, waste: 0,
+      },
+      { length: "ft", curbWidth: "in", curbHeight: "in", gutterWidth: "in", gutterThickness: "in" },
+    );
+    expect(r.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(25, 8);
+    expect(r.rows.find(x => x.key === "crossArea")?.value).toBeCloseTo(1.25, 8);
+    expect(r.rows.find(x => x.key === "curbSection")?.value).toBeCloseTo(0.5, 8);
+    expect(r.rows.find(x => x.key === "gutterSection")?.value).toBeCloseTo(0.75, 8);
+    expect(r.rows.find(x => x.key === "yd3Per100Ft")?.value).toBeCloseTo(125 / 27, 8);
+    expect(r.rows.find(x => x.key === "ftPerYd3")?.value).toBeCloseTo(21.6, 8);
+  });
+
+  it("Concrete Curb: tapered curb uses trapezoid area once", () => {
+    const r = run(
+      "concrete-curb-calculator",
+      {
+        curbMode: 0, curbStyle: 0, curbProfile: 1, length: 20,
+        curbWidth: 6, curbBaseWidth: 8, curbHeight: 12, gutterWidth: 18, gutterThickness: 6, waste: 0,
+      },
+      { length: "ft", curbWidth: "in", curbBaseWidth: "in", curbHeight: "in", gutterWidth: "in", gutterThickness: "in" },
+    );
+    expect(r.rows.find(x => x.key === "curbSection")?.value).toBeCloseTo(7 / 12, 8);
+    expect(r.rows.find(x => x.key === "crossArea")?.value).toBeCloseTo(4 / 3, 8);
+    expect(r.rows.find(x => x.key === "ft3")?.value).toBeCloseTo(80 / 3, 8);
+    expect(r.steps.join(" ")).toMatch(/\(0\.5 \+ 0\.6667\) \/ 2 × 1/i);
+  });
+
   it("Concrete Curb: reverse 1 yd³ / 1.25 ft² = 21.6 linear ft", () => {
-    expect(value(
-      "concrete-curb-calculator", "linearFt",
-      { curbMode: 1, curbStyle: 0, volume: 1, curbWidth: 6, curbHeight: 12, gutterWidth: 18, gutterThickness: 6, waste: 0 },
+    const r = run(
+      "concrete-curb-calculator",
+      {
+        curbMode: 1, curbStyle: 0, curbProfile: 0, volume: 1,
+        curbWidth: 6, curbHeight: 12, gutterWidth: 18, gutterThickness: 6, waste: 0,
+      },
       { volume: "yd3", curbWidth: "in", curbHeight: "in", gutterWidth: "in", gutterThickness: "in" },
-    )).toBeCloseTo(21.6, 6);
+    );
+    expect(r.rows.find(x => x.key === "linearFt")?.value).toBeCloseTo(21.6, 6);
+    expect(r.rows.find(x => x.key === "volume")?.value).toBeCloseTo(1, 8);
+  });
+
+  it("Concrete Curb: invalid reverse volume and gutter geometry are rejected", () => {
+    expect(() => run(
+      "concrete-curb-calculator",
+      {
+        curbMode: 1, curbStyle: 0, curbProfile: 0, volume: 0,
+        curbWidth: 6, curbHeight: 12, gutterWidth: 18, gutterThickness: 6, waste: 0,
+      },
+      { volume: "yd3", curbWidth: "in", curbHeight: "in", gutterWidth: "in", gutterThickness: "in" },
+    )).toThrow(/available concrete volume greater than zero/i);
+
+    expect(() => run(
+      "concrete-curb-calculator",
+      {
+        curbMode: 0, curbStyle: 0, curbProfile: 0, length: 20,
+        curbWidth: 6, curbHeight: 12, gutterWidth: 0, gutterThickness: 6, waste: 0,
+      },
+      { length: "ft", curbWidth: "in", curbHeight: "in", gutterWidth: "in", gutterThickness: "in" },
+    )).toThrow(/gutter width greater than zero/i);
   });
 
   it("Concrete Stair: solid flight geometry and full-height top platform are correct", () => {
