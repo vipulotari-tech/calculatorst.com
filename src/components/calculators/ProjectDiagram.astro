@@ -762,6 +762,13 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         const finalDelivery = Number.isFinite(visits) && visits > 0
           ? (finalPartial > 0 ? finalPartial : truckCapacityYd3)
           : Number.NaN;
+        const dispatchInterval = numericControl("dispatchInterval");
+        const unloadTime = numericControl("unloadTime");
+        const hasDispatch = Number.isFinite(dispatchInterval) && dispatchInterval > 0 && Number.isFinite(visits) && visits > 0;
+        const arrivalWindow = hasDispatch && visits > 1 ? (visits - 1) * dispatchInterval : (hasDispatch ? 0 : Number.NaN);
+        const lastTruckClearTime = hasDispatch && Number.isFinite(unloadTime) && unloadTime >= 0
+          ? arrivalWindow + unloadTime
+          : Number.NaN;
 
         const scale = Number.isFinite(plannedYd3) && plannedYd3 > 0 ? 500 / plannedYd3 : 0;
         const netWidth = Number.isFinite(netYd3) ? Math.max(0, Math.min(500, netYd3 * scale)) : 0;
@@ -804,7 +811,9 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         }
         if (truckPlanLabel) {
           truckPlanLabel.textContent = Number.isFinite(visits)
-            ? `Final order buildup · ${visits} truck visit${visits === 1 ? "" : "s"}`
+            ? hasDispatch
+              ? `Final order · ${visits} visits · ${dispatchInterval.toFixed(0)} min apart`
+              : `Final order buildup · ${visits} truck visit${visits === 1 ? "" : "s"}`
             : "Final order buildup";
         }
         if (netLabel) netLabel.textContent = Number.isFinite(netYd3) ? `Net ${netYd3.toFixed(3)} yd³` : "Net";
@@ -824,6 +833,14 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
               value: Number.isFinite(visits)
                 ? `${visits} visit${visits === 1 ? "" : "s"} · final ${finalDelivery.toFixed(2)} yd³`
                 : "Capacity disabled",
+            },
+            {
+              label: "Dispatch window",
+              value: Number.isFinite(arrivalWindow)
+                ? Number.isFinite(lastTruckClearTime)
+                  ? `${arrivalWindow.toFixed(0)} min arrivals · clear ${lastTruckClearTime.toFixed(0)} min`
+                  : `${arrivalWindow.toFixed(0)} min first-to-last`
+                : "Add arrival interval",
             },
           ];
           list.replaceChildren(...metrics.map((item) => {

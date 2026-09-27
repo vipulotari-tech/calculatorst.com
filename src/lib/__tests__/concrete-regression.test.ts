@@ -864,6 +864,50 @@ describe("Concrete category golden-value regression suite", () => {
     expect(r.steps.join(" ")).toMatch(/Approximate full-load placement interval/);
   });
 
+  it("Concrete Waste: dispatch interval builds an arrival window and flags queue risk", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 1, volume: 18, wastePercent: 10,
+        orderIncrement: 0.25, supplierMinimum: 0, truckCapacity: 9,
+        pourRate: 6, dispatchInterval: 75, unloadTime: 80,
+      },
+      {
+        volume: "yd3", orderIncrement: "yd3", supplierMinimum: "yd3",
+        truckCapacity: "yd3", pourRate: "yd3/h",
+      },
+    );
+    expect(r.rows.find(x => x.key === "truckLoads")?.value).toBe(3);
+    expect(r.rows.find(x => x.key === "truckSpacing")?.value).toBeCloseTo(90, 8);
+    expect(r.rows.find(x => x.key === "arrivalWindow")?.value).toBeCloseTo(150, 8);
+    expect(r.rows.find(x => x.key === "lastTruckClearTime")?.value).toBeCloseTo(230, 8);
+    expect(r.rows.find(x => x.key === "truckOverlap")?.value).toBeCloseTo(5, 8);
+    expect(r.rows.find(x => x.key === "cadenceDelta")?.value).toBeCloseTo(-15, 8);
+    expect(r.steps.join(" ")).toMatch(/Scheduled arrivals: 3 visits at 75-minute intervals/);
+    expect(r.steps.join(" ")).toMatch(/Queue warning/);
+    expect(r.steps.join(" ")).toMatch(/15 minutes faster/);
+  });
+
+  it("Concrete Waste: slower dispatch cadence exposes potential placement idle time", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      {
+        wasteMode: 1, volume: 18, wastePercent: 10,
+        orderIncrement: 0.25, supplierMinimum: 0, truckCapacity: 9,
+        pourRate: 6, dispatchInterval: 105, unloadTime: 70,
+      },
+      {
+        volume: "yd3", orderIncrement: "yd3", supplierMinimum: "yd3",
+        truckCapacity: "yd3", pourRate: "yd3/h",
+      },
+    );
+    expect(r.rows.find(x => x.key === "arrivalWindow")?.value).toBeCloseTo(210, 8);
+    expect(r.rows.find(x => x.key === "lastTruckClearTime")?.value).toBeCloseTo(280, 8);
+    expect(r.rows.find(x => x.key === "truckOverlap")?.value).toBeCloseTo(0, 8);
+    expect(r.rows.find(x => x.key === "cadenceDelta")?.value).toBeCloseTo(15, 8);
+    expect(r.steps.join(" ")).toMatch(/15 minutes slower/);
+  });
+
   it("Concrete Waste: metric supplier rules, placement rate and price convert consistently", () => {
     const r = run(
       "concrete-waste-calculator",

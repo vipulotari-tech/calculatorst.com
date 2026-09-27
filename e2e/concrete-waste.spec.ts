@@ -289,6 +289,40 @@ test.describe("Concrete Waste Calculator", () => {
     await expect(root).toContainText("adjust dispatch for travel, queueing, pump rate and site conditions");
   });
 
+  test("explicit dispatch schedule shows arrival window, queue risk and cadence delta", async ({ page }) => {
+    await page.goto(path);
+    const root = page.locator(`[data-calculator-slug="${slug}"]`);
+
+    await root.locator(`#${slug}-wasteMode`).selectOption("1");
+    await root.locator(`#${slug}-volume`).fill("18");
+    await root.locator(`#${slug}-volume-unit`).selectOption("yd3");
+    await root.locator(`#${slug}-wastePercent`).fill("10");
+
+    const supplier = root.locator("details").filter({ hasText: "Supplier & order settings" });
+    await supplier.locator("summary").click();
+    await root.locator(`#${slug}-orderIncrement`).fill("0.25");
+    await root.locator(`#${slug}-truckCapacity`).fill("9");
+    await root.locator(`#${slug}-pourRate`).fill("6");
+    await root.locator(`#${slug}-dispatchInterval`).fill("75");
+    await root.locator(`#${slug}-unloadTime`).fill("80");
+
+    await root.getByRole("button", { name: "Calculate", exact: true }).click();
+
+    await expect(root).toContainText("First-to-last scheduled arrival window");
+    await expect(root).toContainText("150 min");
+    await expect(root).toContainText("First arrival to final truck clear");
+    await expect(root).toContainText("230 min");
+    await expect(root).toContainText("Scheduled truck overlap / queue risk");
+    await expect(root).toContainText("5 min");
+    await expect(root).toContainText("Arrival interval minus placement interval");
+    await expect(root).toContainText("-15 min");
+    await expect(root).toContainText("Queue warning");
+    await expect(root).toContainText("15 minutes faster than the full-load placement interval");
+    const diagram = root.locator("[data-project-diagram]");
+    await expect(diagram.locator("[data-waste-truck-plan]")).toContainText("3 visits · 75 min apart");
+    await expect(diagram).toContainText("150 min arrivals · clear 230 min");
+  });
+
   test("metric supplier settings and metric ready-mix price remain consistent", async ({ page }) => {
     await page.goto(path);
     const root = page.locator(`[data-calculator-slug="${slug}"]`);
