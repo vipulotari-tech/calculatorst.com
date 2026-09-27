@@ -19,6 +19,7 @@ const kind =
   lower === "concrete-weight-calculator" ? "concreteWeight" :
   lower === "concrete-volume-calculator" ? "concreteVolume" :
   lower === "concrete-slab-calculator" ? "concreteSlab" :
+  lower === "concrete-waste-calculator" ? "concreteWaste" :
   lower === "brick-joint-calculator" ? "brickJoint" :
   lower === "concrete-curb-calculator" ? "concreteCurb" :
   lower === "concrete-stair-calculator" ? "concreteStair" :
@@ -32,7 +33,7 @@ const kind =
   "rect";
 
 const excluded = /(?:cost|weight|waste|price|bag|mix-ratio|board-foot|material-cost)/.test(lower);
-const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "concretePour" || !excluded) && fields.length >= 2;
+const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "concretePour" || kind === "concreteWaste" || !excluded) && fields.length >= 2;
 ---
 
 {show && (
@@ -45,8 +46,8 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
   >
     <div class="flex flex-wrap items-start justify-between gap-2">
       <div>
-        <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">{kind === "concreteMix" ? "Live mix proportion guide" : kind === "concretePour" ? "Live ready-mix load plan" : kind === "concreteStair" ? "Live stair section guide" : kind === "brickJoint" ? "Live brick course layout" : "Visual project measurements"}</h3>
-        <p class="mt-1 text-[11px] leading-5 text-muted-foreground">{kind === "concreteMix" ? "Updates from the selected cement : sand : coarse-aggregate ratio. Proportion guide only — not a mix-design approval." : kind === "concretePour" ? "Updates from order inputs, truck capacity, short-load threshold and placement rate. Scheduling aid only." : kind === "concreteStair" ? "Switches between solid mass-fill and waist-slab stair sections and updates from the entered geometry. Schematic only — not to scale." : kind === "brickJoint" ? "Shows the repeating brick module and N−1 internal-joint relationship for the selected layout mode. Schematic only — not to scale." : "Updates from the visible measurement inputs. Schematic only — not to scale."}</p>
+        <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">{kind === "concreteMix" ? "Live mix proportion guide" : kind === "concretePour" ? "Live ready-mix load plan" : kind === "concreteWaste" ? "Live concrete order buildup" : kind === "concreteStair" ? "Live stair section guide" : kind === "brickJoint" ? "Live brick course layout" : "Visual project measurements"}</h3>
+        <p class="mt-1 text-[11px] leading-5 text-muted-foreground">{kind === "concreteMix" ? "Updates from the selected cement : sand : coarse-aggregate ratio. Proportion guide only — not a mix-design approval." : kind === "concretePour" ? "Updates from order inputs, truck capacity, short-load threshold and placement rate. Scheduling aid only." : kind === "concreteWaste" ? "Separates net volume, requested allowance and supplier-rounding overage so the final order buildup stays visible." : kind === "concreteStair" ? "Switches between solid mass-fill and waist-slab stair sections and updates from the entered geometry. Schematic only — not to scale." : kind === "brickJoint" ? "Shows the repeating brick module and N−1 internal-joint relationship for the selected layout mode. Schematic only — not to scale." : "Updates from the visible measurement inputs. Schematic only — not to scale."}</p>
       </div>
       <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE INPUT GUIDE</span>
     </div>
@@ -77,6 +78,27 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
           <circle cx="534" cy="188" r="7" fill="var(--color-foreground)" opacity="0.5" />
           <text x="34" y="214" font-size="11" fill="var(--color-muted-foreground)">Start</text>
           <text x="534" y="214" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)" data-pour-duration-label>Pour duration</text>
+        </>
+      )}
+
+      {kind === "concreteWaste" && (
+        <>
+          <text x="34" y="38" font-size="13" font-weight="600" fill="var(--color-foreground)" data-waste-source>Net volume from slab dimensions</text>
+
+          <text x="34" y="82" font-size="11" fill="var(--color-muted-foreground)">Final order buildup</text>
+          <rect x="34" y="96" width="500" height="44" rx="8" fill="var(--color-muted)" opacity="0.24" />
+          <rect x="34" y="96" width="350" height="44" rx="8" fill="var(--color-foreground)" opacity="0.62" data-waste-net-bar />
+          <rect x="384" y="96" width="80" height="44" fill="var(--color-foreground)" opacity="0.36" data-waste-allowance-bar />
+          <rect x="464" y="96" width="70" height="44" rx="0 8 8 0" fill="var(--color-foreground)" opacity="0.18" data-waste-rounding-bar />
+
+          <text x="34" y="161" font-size="11" fill="var(--color-foreground)" data-waste-net-label>Net</text>
+          <text x="250" y="161" text-anchor="middle" font-size="11" fill="var(--color-foreground)" data-waste-target-label>Target + allowance</text>
+          <text x="534" y="161" text-anchor="end" font-size="11" fill="var(--color-foreground)" data-waste-order-label>Supplier-rounded order</text>
+
+          <line x1="34" y1="186" x2="534" y2="186" stroke="var(--color-border)" stroke-width="2" />
+          <text x="34" y="209" font-size="11" fill="var(--color-muted-foreground)" data-waste-allowance-label>Allowance</text>
+          <text x="320" y="209" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)" data-waste-rounding-label>Supplier rounding</text>
+          <text x="606" y="209" text-anchor="end" font-size="11" fill="var(--color-foreground)" data-waste-effective-label>Effective overage</text>
         </>
       )}
 
@@ -648,6 +670,86 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
             return wrap;
           }));
         }
+        return true;
+      };
+
+      const updateConcreteWasteDiagram = () => {
+        if (figure.dataset.kind !== "concreteWaste") return false;
+
+        const mode = Math.round(numericControl("wasteMode"));
+        let netFt3 = Number.NaN;
+        if (mode === 1) {
+          netFt3 = toCubicFeet(numericControl("volume"), unitControl("volume"));
+        } else {
+          const length = toFeet(numericControl("length"), unitControl("length"));
+          const width = toFeet(numericControl("width"), unitControl("width"));
+          const depth = toFeet(numericControl("depth"), unitControl("depth"));
+          const quantity = Math.max(1, numericControl("quantity") || 1);
+          netFt3 = length * width * depth * quantity;
+        }
+
+        const allowance = Math.max(0, numericControl("wastePercent") || 0);
+        const increment = Math.max(0, numericControl("orderIncrement") || 0);
+        const netYd3 = Number.isFinite(netFt3) ? netFt3 / 27 : Number.NaN;
+        const targetYd3 = Number.isFinite(netYd3) ? netYd3 * (1 + allowance / 100) : Number.NaN;
+        const orderedYd3 = Number.isFinite(targetYd3)
+          ? (increment > 0 ? Math.ceil((targetYd3 - 1e-12) / increment) * increment : targetYd3)
+          : Number.NaN;
+        const roundingYd3 = Number.isFinite(orderedYd3) && Number.isFinite(targetYd3) ? Math.max(0, orderedYd3 - targetYd3) : Number.NaN;
+        const effectivePct = Number.isFinite(orderedYd3) && Number.isFinite(netYd3) && netYd3 > 0
+          ? (orderedYd3 - netYd3) / netYd3 * 100
+          : Number.NaN;
+
+        const scale = Number.isFinite(orderedYd3) && orderedYd3 > 0 ? 500 / orderedYd3 : 0;
+        const netWidth = Number.isFinite(netYd3) ? Math.max(0, Math.min(500, netYd3 * scale)) : 0;
+        const allowanceWidth = Number.isFinite(targetYd3) && Number.isFinite(netYd3) ? Math.max(0, Math.min(500 - netWidth, (targetYd3 - netYd3) * scale)) : 0;
+        const roundingWidth = Number.isFinite(roundingYd3) ? Math.max(0, Math.min(500 - netWidth - allowanceWidth, roundingYd3 * scale)) : 0;
+
+        const netBar = figure.querySelector<SVGRectElement>("[data-waste-net-bar]");
+        const allowanceBar = figure.querySelector<SVGRectElement>("[data-waste-allowance-bar]");
+        const roundingBar = figure.querySelector<SVGRectElement>("[data-waste-rounding-bar]");
+        netBar?.setAttribute("width", String(netWidth));
+        allowanceBar?.setAttribute("x", String(34 + netWidth));
+        allowanceBar?.setAttribute("width", String(allowanceWidth));
+        roundingBar?.setAttribute("x", String(34 + netWidth + allowanceWidth));
+        roundingBar?.setAttribute("width", String(roundingWidth));
+
+        const source = figure.querySelector<SVGTextElement>("[data-waste-source]");
+        const netLabel = figure.querySelector<SVGTextElement>("[data-waste-net-label]");
+        const targetLabel = figure.querySelector<SVGTextElement>("[data-waste-target-label]");
+        const orderLabel = figure.querySelector<SVGTextElement>("[data-waste-order-label]");
+        const allowanceLabel = figure.querySelector<SVGTextElement>("[data-waste-allowance-label]");
+        const roundingLabel = figure.querySelector<SVGTextElement>("[data-waste-rounding-label]");
+        const effectiveLabel = figure.querySelector<SVGTextElement>("[data-waste-effective-label]");
+
+        if (source) source.textContent = mode === 1 ? "Net volume entered directly" : "Net volume from slab dimensions";
+        if (netLabel) netLabel.textContent = Number.isFinite(netYd3) ? `Net ${netYd3.toFixed(3)} yd³` : "Net";
+        if (targetLabel) targetLabel.textContent = Number.isFinite(targetYd3) ? `Target ${targetYd3.toFixed(3)} yd³` : "Target + allowance";
+        if (orderLabel) orderLabel.textContent = Number.isFinite(orderedYd3) ? `Order ${orderedYd3.toFixed(3)} yd³` : "Supplier-rounded order";
+        if (allowanceLabel) allowanceLabel.textContent = `Allowance ${allowance.toFixed(2)}%`;
+        if (roundingLabel) roundingLabel.textContent = Number.isFinite(roundingYd3) ? `Rounding +${roundingYd3.toFixed(3)} yd³` : "Supplier rounding";
+        if (effectiveLabel) effectiveLabel.textContent = Number.isFinite(effectivePct) ? `Effective +${effectivePct.toFixed(2)}%` : "Effective overage";
+
+        if (list) {
+          const metrics = [
+            { label: "Net volume", value: Number.isFinite(netYd3) ? `${netYd3.toFixed(3)} yd³` : "—" },
+            { label: "Waste-adjusted target", value: Number.isFinite(targetYd3) ? `${targetYd3.toFixed(3)} yd³` : "—" },
+            { label: "Rounded order", value: Number.isFinite(orderedYd3) ? `${orderedYd3.toFixed(3)} yd³` : "—" },
+          ];
+          list.replaceChildren(...metrics.map((item) => {
+            const wrap = document.createElement("div");
+            wrap.className = "rounded-md border border-border bg-muted/30 px-3 py-2";
+            const dt = document.createElement("dt");
+            dt.className = "text-muted-foreground";
+            dt.textContent = item.label;
+            const dd = document.createElement("dd");
+            dd.className = "mt-0.5 font-mono font-medium text-foreground tabular-nums";
+            dd.textContent = item.value;
+            wrap.append(dt, dd);
+            return wrap;
+          }));
+        }
+
         return true;
       };
 
@@ -1227,6 +1329,7 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
 
       const update = () => {
         if (updateConcretePourDiagram()) return;
+        if (updateConcreteWasteDiagram()) return;
         if (updateConcreteMixDiagram()) return;
         updateConcreteCostDiagram();
         updateConcreteWeightDiagram();

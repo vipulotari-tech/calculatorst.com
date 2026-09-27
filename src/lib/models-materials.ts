@@ -1820,68 +1820,112 @@ const concreteTube: Model = {
 // 16.  Concrete Waste Calculator — discrete increment model
 // ==========================================================
 const concreteWasteFields: Field[] = [
-  ...rectangle,
-  length('depth', 'Slab thickness', 4, 'in'),
-  count('quantity', 'Identical sections', 1),
-  number('wastePercent', 'Waste allowance (%)', 10, 0,
-    'Optional ordering allowance for measured project conditions. Enter a project-specific percentage rather than assuming a universal waste value.'),
+  {
+    id: 'wasteMode',
+    label: 'Net concrete source',
+    value: 0,
+    min: 0,
+    max: 1,
+    integer: true,
+    dimension: 'number',
+    options: [
+      { value: 0, label: 'Calculate from slab dimensions' },
+      { value: 1, label: 'Enter known net concrete volume' },
+    ],
+    help: 'Use dimensions for a rectangular slab/section, or enter a net geometric volume already calculated elsewhere.',
+  },
+  { ...length('length', 'Length', 20, 'ft'), visibleWhen: { field: 'wasteMode', equals: 0 } },
+  { ...length('width', 'Width', 10, 'ft'), visibleWhen: { field: 'wasteMode', equals: 0 } },
+  { ...length('depth', 'Slab thickness', 4, 'in'), visibleWhen: { field: 'wasteMode', equals: 0 } },
+  { ...count('quantity', 'Identical sections', 1), visibleWhen: { field: 'wasteMode', equals: 0 } },
+  { ...volume('volume', 'Known net concrete volume', 2.5), visibleWhen: { field: 'wasteMode', equals: 1 } },
+  {
+    ...number('wastePercent', 'Waste / ordering allowance (%)', 10, 0,
+      'Optional project allowance for measured conditions such as uneven subgrade, form tolerances, spillage or placement loss.'),
+    max: 100,
+  },
   positiveOrZero(number('orderIncrement', 'Supplier ordering increment (yd³)', 0.25, 0),
-    { help: 'Round up to this increment (e.g. 0.25 yd³). 0 leaves the order at exact yards.' }),
+    { help: 'Round ready-mix up to this supplier increment (for example 0.25 yd³). Enter 0 to skip supplier rounding.' }),
+  price('USD/yd3'),
 ];
 
 const concreteWaste: Model = {
   fields: concreteWasteFields,
-  formula: 'Base = L × W × T × Q. Waste volume = base × waste%. Ordered = roundUp(base × (1 + waste%) to orderIncrement).',
+  formula: 'Net volume comes from L × W × T × Q or an entered known volume. Target order = net × (1 + allowance%). Supplier-rounded order = ceil(target / increment) × increment. Total overage = rounded order − net.',
   assumptions: [
-    'Waste allowance is a percentage added to the calculated volume, not a separate calculation.',
-    'Choose an allowance from the actual formwork, subgrade, geometry and ordering conditions; no single percentage fits every pour.',
-    'Do not add waste allowance on top of another tool\'s waste-inclusive result.',
-    'If you have a supplier who delivers in fixed increments (e.g. 0.25 yd³), enter that increment to round up the final order.',
+    'Waste / ordering allowance is added once to the net geometric volume. Do not apply it again if the volume you enter already includes waste.',
+    'There is no universal waste percentage. Select an allowance from the actual formwork, subgrade, placement method, handling risk and supplier guidance for the project.',
+    'Supplier rounding is a separate purchasing effect applied after the requested allowance. It can raise the effective overage above the percentage you entered.',
+    'Bag counts use the waste-adjusted target volume before ready-mix supplier rounding, because truck-order increments do not apply to bagged concrete.',
+    'Optional cost rows use only the entered ready-mix price per cubic yard and exclude delivery, short-load, pump, tax and labor charges.',
   ],
-  sources: [geometry, 'https://www.acifoundation.com/'],
-  calculate(v, u) {
-    const netCuFt = v.length * v.width * v.depth * v.quantity;
+  sources: [geometry, 'https://www.inchcalculator.com/concrete-calculator/'],
+  calculate(v) {
+    const mode = Math.round(v.wasteMode);
+    const netCuFt = mode === 1 ? v.volume : v.length * v.width * v.depth * v.quantity;
+    requireCondition(netCuFt > 0, mode === 1 ? 'volume' : 'length', 'Enter a net concrete volume greater than zero.');
+
     const netCuYd = netCuFt / 27;
-    const wastePct = v.wastePercent ?? 10;
+    const wastePct = v.wastePercent;
     const wasteF = 1 + wastePct / 100;
-    const totalCuFt = netCuFt * wasteF;
-    const totalCuYd = totalCuFt / 27;
-    const wasteAmount = totalCuFt - netCuFt;
-    const incrementYd = Math.max(0, v.orderIncrement ?? 0);
-    let orderedYd = totalCuYd;
-    if (incrementYd > 0) {
-      orderedYd = Math.ceil(totalCuYd / incrementYd) * incrementYd;
+    const targetCuFt = netCuFt * wasteF;
+    const targetCuYd = targetCuFt / 27;
+    const allowanceCuFt = targetCuFt - netCuFt;
+    const allowanceCuYd = allowanceCuFt / 27;
+
+    const incrementYd = Math.max(0, v.orderIncrement);
+    const orderedYd = incrementYd > 0
+      ? Math.ceil((targetCuYd - 1e-12) / incrementYd) * incrementYd
+      : targetCuYd;
+    const roundingOverageYd = Math.max(0, orderedYd - targetCuYd);
+    const totalOverageYd = Math.max(0, orderedYd - netCuYd);
+    const effectiveOveragePct = netCuYd > 0 ? totalOverageYd / netCuYd * 100 : 0;
+
+    const rows = [
+      row('net', 'Net geometric volume', netCuYd, 'yd³'),
+      row('netFt3', 'Net geometric volume', netCuFt, 'ft³'),
+      row('netM3', 'Net geometric volume', netCuFt / FT_PER_M ** 3, 'm³'),
+      row('wastePercent', 'Allowance entered', wastePct, '%'),
+      row('allowance', 'Allowance volume', allowanceCuYd, 'yd³'),
+      row('allowanceFt3', 'Allowance volume', allowanceCuFt, 'ft³'),
+      row('order', 'Waste-adjusted target order', targetCuYd, 'yd³'),
+      row('targetFt3', 'Waste-adjusted target order', targetCuFt, 'ft³'),
+      row('targetM3', 'Waste-adjusted target order', targetCuFt / FT_PER_M ** 3, 'm³'),
+      row('ordered', `Supplier-rounded ready-mix order${incrementYd > 0 ? ` (to ${fmt(incrementYd)} yd³)` : ''}`, orderedYd, 'yd³'),
+      row('roundingOverage', 'Extra caused by supplier rounding', roundingOverageYd, 'yd³'),
+      row('totalOverage', 'Total order above net volume', totalOverageYd, 'yd³'),
+      row('effectiveWaste', 'Effective overage after rounding', effectiveOveragePct, '%'),
+      row('bags80', '80-lb bags (0.60 ft³ each)', roundUp(targetCuFt / BAG_YIELD_80), 'bags', true),
+      row('bags60', '60-lb bags (0.45 ft³ each)', roundUp(targetCuFt / BAG_YIELD_60), 'bags', true),
+      row('bags50', '50-lb bags (0.375 ft³ each)', roundUp(targetCuFt / BAG_YIELD_50), 'bags', true),
+      row('bags40', '40-lb bags (0.30 ft³ each)', roundUp(targetCuFt / BAG_YIELD_40), 'bags', true),
+    ];
+
+    if (Number.isFinite(v.price)) {
+      const netCost = netCuYd * v.price;
+      const targetCost = targetCuYd * v.price;
+      const roundedCost = orderedYd * v.price;
+      rows.push(
+        row('netCost', 'Net-volume concrete cost', netCost, 'USD'),
+        row('allowanceCost', 'Added cost from allowance', targetCost - netCost, 'USD'),
+        row('roundingCost', 'Added cost from supplier rounding', roundedCost - targetCost, 'USD'),
+        row('orderCost', 'Rounded ready-mix material cost', roundedCost, 'USD'),
+      );
     }
-    const unusedCuYd = Math.max(0, orderedYd - totalCuYd);
-    const actuallyPlacedCuYd = orderedYd - unusedCuYd;
-    const effectiveWastePct = totalCuYd > 0 ? (orderedYd - netCuYd) / netCuYd * 100 : 0;
 
     return result(
+      rows,
       [
-        row('net', 'Net (geometric) volume', netCuYd, 'yd³'),
-        row('netFt3', 'Net (geometric) volume', netCuFt, 'ft³'),
-        row('netM3', 'Net (geometric) volume', netCuFt / FT_PER_M ** 3, 'm³'),
-        row('wastePercent', 'Waste allowance entered', wastePct, '%'),
-        row('wasteVolume', 'Waste volume', wasteAmount / 27, 'yd³'),
-        row('wasteVolumeFt3', 'Waste volume', wasteAmount, 'ft³'),
-        row('order', 'Required order volume', totalCuYd, 'yd³'),
-        row('orderFt3', 'Required order volume', totalCuFt, 'ft³'),
-        row('orderM3', 'Required order volume', totalCuFt / FT_PER_M ** 3, 'm³'),
-        row('ordered', `Ordered volume (rounded${incrementYd > 0 ? ` to ${fmt(incrementYd)} yd³` : ''})`, orderedYd, 'yd³'),
-        row('unused', 'Unused / returned volume', unusedCuYd, 'yd³'),
-        row('effectiveWaste', 'Effective waste (rounded order)', effectiveWastePct, '%'),
-        row('bags80', '80-lb bags (each 0.60 ft³)', roundUp(totalCuFt / BAG_YIELD_80), 'bags', true),
-        row('bags60', '60-lb bags (each 0.45 ft³)', roundUp(totalCuFt / BAG_YIELD_60), 'bags', true),
-        row('bags40', '40-lb bags (each 0.30 ft³)', roundUp(totalCuFt / BAG_YIELD_40), 'bags', true),
-      ],
-      [
-        `Base: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(netCuFt)} ft³ = ${fmt(netCuYd)} yd³.`,
-        `Waste: ${fmt(netCuFt)} ft³ × ${fmt(wastePct)}% = ${fmt(wasteAmount)} ft³.`,
-        `Required order: ${fmt(netCuFt)} + ${fmt(wasteAmount)} = ${fmt(totalCuFt)} ft³ = ${fmt(totalCuYd)} yd³.`,
+        mode === 1
+          ? `Net volume entered = ${fmt(netCuYd)} yd³ = ${fmt(netCuFt)} ft³.`
+          : `Net volume: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(netCuFt)} ft³ = ${fmt(netCuYd)} yd³.`,
+        `Allowance: ${fmt(netCuYd)} yd³ × ${fmt(wastePct)}% = ${fmt(allowanceCuYd)} yd³.`,
+        `Waste-adjusted target = ${fmt(netCuYd)} + ${fmt(allowanceCuYd)} = ${fmt(targetCuYd)} yd³.`,
         incrementYd > 0
-          ? `Rounded up to nearest ${fmt(incrementYd)} yd³ = ${fmt(orderedYd)} yd³; unused ${fmt(unusedCuYd)} yd³.`
-          : `No rounding increment — order ${fmt(orderedYd)} yd³ exactly.`,
-      ]
+          ? `Supplier rounding: ceil(${fmt(targetCuYd)} ÷ ${fmt(incrementYd)}) × ${fmt(incrementYd)} = ${fmt(orderedYd)} yd³.`
+          : `No supplier rounding increment — ready-mix order remains ${fmt(orderedYd)} yd³.`,
+        `Rounding adds ${fmt(roundingOverageYd)} yd³ beyond the requested allowance; final order is ${fmt(totalOverageYd)} yd³ (${fmt(effectiveOveragePct)}%) above net volume.`,
+      ],
     );
   },
 };
