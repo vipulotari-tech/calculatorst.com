@@ -118,7 +118,52 @@ describe("Brick & Masonry + CMU golden-value regression suite",()=>{
     expect(r.rows.find(x=>x.key==="order")?.value).toBe(1100);
   });
   it("Brick Joint solves internal joint width using N-1 joints",()=>{
-    expect(val("brick-joint-calculator","joint",{length:25,brickLength:8,quantity:3},{length:"in",brickLength:"in"})).toBeCloseTo(0.5,8);
+    const r=run(
+      "brick-joint-calculator",
+      {layoutMode:0,length:25,brickLength:8,quantity:3,targetJoint:0.375},
+      {length:"in",brickLength:"in",targetJoint:"in"},
+    );
+    expect(r.rows.find(x=>x.key==="joint")?.value).toBeCloseTo(0.5,8);
+    expect(r.rows.find(x=>x.key==="jointCount")?.value).toBe(2);
+    expect(r.rows.find(x=>x.key==="module")?.value).toBeCloseTo(8.5,8);
+    expect(r.rows.find(x=>x.key==="totalJoint")?.value).toBeCloseTo(1,8);
+  });
+
+  it("Brick Joint finds maximum whole bricks at a target joint without inventing an end joint",()=>{
+    const r=run(
+      "brick-joint-calculator",
+      {layoutMode:1,length:120,brickLength:7.625,quantity:15,targetJoint:0.375},
+      {length:"in",brickLength:"in",targetJoint:"in"},
+    );
+    expect(r.rows.find(x=>x.key==="wholeBricks")?.value).toBe(15);
+    expect(r.rows.find(x=>x.key==="jointCount")?.value).toBe(14);
+    expect(r.rows.find(x=>x.key==="usedLength")?.value).toBeCloseTo(119.625/12,8);
+    expect(r.rows.find(x=>x.key==="leftover")?.value).toBeCloseTo(0.375,8);
+    expect(r.rows.find(x=>x.key==="nextShort")?.value).toBeCloseTo(7.625,8);
+  });
+
+  it("Brick Joint computes required course length from brick count and target joint",()=>{
+    const r=run(
+      "brick-joint-calculator",
+      {layoutMode:2,length:10,brickLength:7.625,quantity:15,targetJoint:0.375},
+      {length:"ft",brickLength:"in",targetJoint:"in"},
+    );
+    expect(r.rows.find(x=>x.key==="courseIn")?.value).toBeCloseTo(119.625,8);
+    expect(r.rows.find(x=>x.key==="jointCount")?.value).toBe(14);
+    expect(r.rows.find(x=>x.key==="totalJoint")?.value).toBeCloseTo(5.25,8);
+  });
+
+  it("Brick Joint rejects impossible joint-solving geometry",()=>{
+    expect(()=>run(
+      "brick-joint-calculator",
+      {layoutMode:0,length:20,brickLength:8,quantity:3,targetJoint:0.375},
+      {length:"in",brickLength:"in",targetJoint:"in"},
+    )).toThrow(/bricks are longer than the finished course/i);
+    expect(()=>run(
+      "brick-joint-calculator",
+      {layoutMode:0,length:10,brickLength:7.625,quantity:1,targetJoint:0.375},
+      {length:"ft",brickLength:"in",targetJoint:"in"},
+    )).toThrow(/at least two bricks/i);
   });
 
   it("Concrete Block Calculator respects specified CMU module",()=>{
