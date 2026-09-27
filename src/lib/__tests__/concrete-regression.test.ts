@@ -621,15 +621,50 @@ describe("Concrete category golden-value regression suite", () => {
     )).toThrow(/Wall thickness must be less than half/);
   });
 
-  it("Concrete Waste: waste and supplier increment round only the final order", () => {
+  it("Concrete Waste: allowance and supplier rounding stay separate for dimension mode", () => {
     const r = run(
       "concrete-waste-calculator",
-      { length: 10, width: 10, depth: 12, quantity: 1, wastePercent: 10, orderIncrement: 0.25 },
-      { length: "ft", width: "ft", depth: "in" },
+      { wasteMode: 0, length: 10, width: 10, depth: 12, quantity: 1, wastePercent: 10, orderIncrement: 0.25 },
+      { length: "ft", width: "ft", depth: "in", volume: "yd3" },
     );
-    expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(100 / 27, 6);
-    expect(r.rows.find(x => x.key === "order")?.value).toBeCloseTo(110 / 27, 6);
+    const net = 100 / 27;
+    const target = 110 / 27;
+    expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(net, 6);
+    expect(r.rows.find(x => x.key === "allowance")?.value).toBeCloseTo(10 / 27, 6);
+    expect(r.rows.find(x => x.key === "target")?.value).toBeCloseTo(target, 6);
     expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(4.25, 6);
+    expect(r.rows.find(x => x.key === "roundingOverage")?.value).toBeCloseTo(4.25 - target, 6);
+    expect(r.rows.find(x => x.key === "totalOverage")?.value).toBeCloseTo(4.25 - net, 6);
+  });
+
+  it("Concrete Waste: known-volume mode supports supplier rounding and all common bag sizes", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      { wasteMode: 1, volume: 2.5, wastePercent: 8, orderIncrement: 0.25 },
+      { volume: "yd3" },
+    );
+    expect(r.rows.find(x => x.key === "net")?.value).toBeCloseTo(2.5, 8);
+    expect(r.rows.find(x => x.key === "target")?.value).toBeCloseTo(2.7, 8);
+    expect(r.rows.find(x => x.key === "ordered")?.value).toBeCloseTo(2.75, 8);
+    expect(r.rows.find(x => x.key === "roundingOverage")?.value).toBeCloseTo(0.05, 8);
+    expect(r.rows.find(x => x.key === "totalOverage")?.value).toBeCloseTo(0.25, 8);
+    expect(r.rows.find(x => x.key === "effectiveWaste")?.value).toBeCloseTo(10, 8);
+    expect(r.rows.find(x => x.key === "bags80")?.value).toBe(122);
+    expect(r.rows.find(x => x.key === "bags60")?.value).toBe(162);
+    expect(r.rows.find(x => x.key === "bags50")?.value).toBe(195);
+    expect(r.rows.find(x => x.key === "bags40")?.value).toBe(243);
+  });
+
+  it("Concrete Waste: optional ready-mix price isolates allowance and rounding cost", () => {
+    const r = run(
+      "concrete-waste-calculator",
+      { wasteMode: 1, volume: 2.5, wastePercent: 8, orderIncrement: 0.25, price: 150 },
+      { volume: "yd3", price: "USD/yd3" },
+    );
+    expect(r.rows.find(x => x.key === "netCost")?.value).toBeCloseTo(375, 8);
+    expect(r.rows.find(x => x.key === "allowanceCost")?.value).toBeCloseTo(30, 8);
+    expect(r.rows.find(x => x.key === "roundingCost")?.value).toBeCloseTo(7.5, 8);
+    expect(r.rows.find(x => x.key === "orderCost")?.value).toBeCloseTo(412.5, 8);
   });
 
   it("Concrete Crack Repair: 25 ft × 0.25 in × 0.5 in + 10% = 3 × 10.1 fl oz cartridges", () => {
