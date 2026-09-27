@@ -1439,21 +1439,35 @@ const concreteColumn: Model = {
 const concreteCurbFields: Field[] = [
   { id: 'curbMode', label: 'Mode', value: 0, unit: '', integer: true, min: 0, max: 1,
     options: [
-      { value: 0, label: 'Forward — given length' },
+      { value: 0, label: 'Forward — given curb length' },
       { value: 1, label: 'Reverse — given concrete volume' },
     ] },
-  { id: 'curbStyle', label: 'Curb style', value: 0, unit: '', integer: true, min: 0, max: 1,
+  { id: 'curbStyle', label: 'Section type', value: 0, unit: '', integer: true, min: 0, max: 1,
     options: [
       { value: 0, label: 'Curb + gutter' },
       { value: 1, label: 'Curb only' },
     ] },
-  length('length', 'Curb run length (forward)', 20, 'ft'),
-  positiveOrZero(volume('volume', 'Available concrete (reverse)', 0),
-    { help: 'Required for reverse mode. With X concrete, how many feet of curb can be poured?' }),
-  length('curbWidth', 'Curb face width', 6, 'in'),
-  length('curbHeight', 'Curb height', 12, 'in'),
-  positiveOrZero(length('gutterWidth', 'Gutter width beyond curb', 18, 'in')),
-  length('gutterThickness', 'Gutter thickness', 6, 'in'),
+  { id: 'curbProfile', label: 'Curb profile', value: 0, unit: '', integer: true, min: 0, max: 1,
+    options: [
+      { value: 0, label: 'Rectangular / vertical curb' },
+      { value: 1, label: 'Trapezoidal / tapered curb' },
+    ],
+    help: 'Use rectangular when top and base widths are equal. Use trapezoidal when the curb base is wider or narrower than the top.' },
+  { ...length('length', 'Curb run length', 20, 'ft'),
+    visibleWhen: { field: 'curbMode', equals: 0 } },
+  { ...positiveOrZero(volume('volume', 'Available concrete', 0),
+      { help: 'Reverse mode: enter the usable concrete volume available for this curb section. Do not add the calculator waste allowance again.' }),
+    visibleWhen: { field: 'curbMode', equals: 1 } },
+  length('curbWidth', 'Curb top width', 6, 'in'),
+  { ...length('curbBaseWidth', 'Curb base width', 8, 'in'),
+    visibleWhen: { field: 'curbProfile', equals: 1 },
+    help: 'For a tapered curb, enter the full width at the base. If your detail is rectangular, use the rectangular profile instead.' },
+  length('curbHeight', 'Curb full height', 12, 'in'),
+  { ...positiveOrZero(length('gutterWidth', 'Gutter width beyond curb', 18, 'in')),
+    visibleWhen: { field: 'curbStyle', equals: 0 },
+    help: 'Measure only the gutter pan beyond the curb base so the curb and gutter areas do not overlap.' },
+  { ...length('gutterThickness', 'Gutter slab thickness', 6, 'in'),
+    visibleWhen: { field: 'curbStyle', equals: 0 } },
   allowance,
   densityField,
   yieldField,
@@ -1462,33 +1476,57 @@ const concreteCurbFields: Field[] = [
 
 const concreteCurb: Model = {
   fields: concreteCurbFields,
-  formula: 'Forward: V = L × (curbArea + gutterArea). Reverse: linear_ft = volume_ft³ / (curbArea + gutterArea).',
+  formula: 'Rectangular curb area = top_width × height. Trapezoidal curb area = (top_width + base_width) / 2 × height. Gutter area = gutter_width × gutter_thickness. Forward: V = length × total cross-section. Reverse: length = available volume / total cross-section.',
   assumptions: [
     ...standardAssumptions,
-    'The curb and gutter cross-sections are treated as non-overlapping rectangles.',
-    'Gutter width is measured beyond the curb face, not including the curb width.',
-    'For shaped curbs (barrier, mountable), use the cross-section area from the engineering drawing.',
-    'In reverse mode, "available concrete" already includes the waste allowance of the original estimate.',
+    'Rectangular mode assumes equal curb top and base widths. Trapezoidal mode uses the average of entered top and base widths across the full curb height.',
+    'The gutter pan is modeled as a non-overlapping rectangle beside the curb. Gutter width is measured beyond the curb base.',
+    'Use the actual cross-section from the project detail for roll curbs, barrier curbs, mountable curbs, integral shoulders, radiused faces or other shaped profiles.',
+    'Reverse mode treats the entered concrete volume as the usable volume already available for placement; the forward-mode material allowance is not applied again.',
+    'This is a quantity estimator, not a roadway, drainage, accessibility or structural design check.',
   ],
-  sources: [geometry, 'https://www.aci.org/'],
+  sources: [geometry, 'https://www.aci.org/', 'https://highways.dot.gov/'],
   calculate(v, u) {
     const isReverse = Math.round(v.curbMode) === 1;
-    const gutterW = Math.round(v.curbStyle) === 1 ? 0 : v.gutterWidth;
-    const curbArea = v.curbWidth * v.curbHeight;
-    const gutterArea = gutterW * v.gutterThickness;
-    const totalArea = curbArea + gutterArea;
-    const style = Math.round(v.curbStyle) === 1 ? 'curb only' : 'curb + gutter';
+    const curbOnly = Math.round(v.curbStyle) === 1;
+    const tapered = Math.round(v.curbProfile) === 1;
 
-    const extras: { key: string; label: string; value: number; unit: string; discrete?: boolean }[] = [];
+    requireCondition(v.curbWidth > 0, 'curbWidth', 'Enter a curb top width greater than zero.');
+    requireCondition(v.curbHeight > 0, 'curbHeight', 'Enter a curb height greater than zero.');
+    if (tapered) {
+      requireCondition(v.curbBaseWidth > 0, 'curbBaseWidth', 'Enter a curb base width greater than zero.');
+    }
+    if (!curbOnly) {
+      requireCondition(v.gutterWidth > 0, 'gutterWidth', 'Enter a gutter width greater than zero, or choose Curb only.');
+      requireCondition(v.gutterThickness > 0, 'gutterThickness', 'Enter a gutter thickness greater than zero.');
+    }
+
+    const baseWidth = tapered ? v.curbBaseWidth : v.curbWidth;
+    const gutterW = curbOnly ? 0 : v.gutterWidth;
+    const gutterT = curbOnly ? 0 : v.gutterThickness;
+    const curbArea = tapered
+      ? (v.curbWidth + baseWidth) / 2 * v.curbHeight
+      : v.curbWidth * v.curbHeight;
+    const gutterArea = gutterW * gutterT;
+    const totalArea = curbArea + gutterArea;
+    const style = curbOnly ? 'curb only' : 'curb + gutter';
+    const profile = tapered ? 'trapezoidal curb' : 'rectangular curb';
+    const yd3Per100Ft = totalArea * 100 / 27;
+    const ftPerYd3 = 27 / totalArea;
 
     if (isReverse) {
+      requireCondition(v.volume > 0, 'volume', 'Enter an available concrete volume greater than zero.');
       const availableFt3 = v.volume;
-      const linearFt = totalArea > 0 ? availableFt3 / totalArea : 0;
+      const linearFt = availableFt3 / totalArea;
       const reverseRows = [
         row('linearFt', 'Linear feet of curb', linearFt, 'ft'),
         row('linearM', 'Linear meters of curb', linearFt / FT_PER_M, 'm'),
-        row('crossArea', 'Cross-section area', totalArea, 'ft²'),
-        row('crossSqIn', 'Cross-section area', totalArea * 144, 'in²'),
+        row('crossArea', 'Total cross-section area', totalArea, 'ft²'),
+        row('crossSqIn', 'Total cross-section area', totalArea * 144, 'in²'),
+        row('curbSection', 'Curb section area', curbArea, 'ft²'),
+        row('gutterSection', 'Gutter section area', gutterArea, 'ft²'),
+        row('yd3Per100Ft', 'Concrete per 100 linear ft', yd3Per100Ft, 'yd³'),
+        row('ftPerYd3', 'Linear ft per 1 yd³', ftPerYd3, 'ft'),
         row('volume', 'Available concrete', availableFt3 / 27, 'yd³'),
         row('volumeFt3', 'Available concrete', availableFt3, 'ft³'),
       ];
@@ -1501,27 +1539,36 @@ const concreteCurb: Model = {
       return result(
         reverseRows,
         [
-          `${style} cross-section:`,
-          `  Curb: ${fmt(v.curbWidth)} × ${fmt(v.curbHeight)} = ${fmt(curbArea)} ft².`,
-          gutterW > 0 ? `  Gutter: ${fmt(gutterW)} × ${fmt(v.gutterThickness)} = ${fmt(gutterArea)} ft².` : '  No gutter (curb only).',
+          `${style} · ${profile}:`,
+          tapered
+            ? `  Curb area = (${fmt(v.curbWidth)} + ${fmt(baseWidth)}) / 2 × ${fmt(v.curbHeight)} = ${fmt(curbArea)} ft².`
+            : `  Curb area = ${fmt(v.curbWidth)} × ${fmt(v.curbHeight)} = ${fmt(curbArea)} ft².`,
+          gutterW > 0 ? `  Gutter area = ${fmt(gutterW)} × ${fmt(gutterT)} = ${fmt(gutterArea)} ft².` : '  No gutter (curb only).',
           `Total cross-section = ${fmt(totalArea)} ft².`,
-          `With ${fmt(availableFt3 / 27)} yd³ = ${fmt(availableFt3)} ft³ of concrete:`,
+          `With ${fmt(availableFt3 / 27)} yd³ = ${fmt(availableFt3)} ft³ of usable concrete:`,
           `  Linear feet = ${fmt(availableFt3)} ÷ ${fmt(totalArea)} = ${fmt(linearFt)} ft.`,
         ],
       );
     }
 
-    let cuFt = v.length * totalArea;
+    requireCondition(v.length > 0, 'length', 'Enter a curb run length greater than zero.');
+    const cuFt = v.length * totalArea;
     const steps = [
-      `${style}: curb = ${fmt(v.curbWidth)} × ${fmt(v.curbHeight)} = ${fmt(curbArea)} ft².`,
-      gutterW > 0 ? `Gutter = ${fmt(gutterW)} × ${fmt(v.gutterThickness)} = ${fmt(gutterArea)} ft².` : 'No gutter (curb only).',
+      `${style} · ${profile}:`,
+      tapered
+        ? `Curb area = (${fmt(v.curbWidth)} + ${fmt(baseWidth)}) / 2 × ${fmt(v.curbHeight)} = ${fmt(curbArea)} ft².`
+        : `Curb area = ${fmt(v.curbWidth)} × ${fmt(v.curbHeight)} = ${fmt(curbArea)} ft².`,
+      gutterW > 0 ? `Gutter area = ${fmt(gutterW)} × ${fmt(gutterT)} = ${fmt(gutterArea)} ft².` : 'No gutter (curb only).',
       `Total cross-section = ${fmt(totalArea)} ft².`,
       `${fmt(v.length)} ft × ${fmt(totalArea)} ft² = ${fmt(cuFt)} ft³.`,
     ];
     return concreteResult(cuFt, v, u, steps, [
-      row('crossArea', 'Cross-section area', totalArea, 'ft²'),
-      row('curbSection', 'Curb section', curbArea, 'ft²'),
-      row('gutterSection', 'Gutter section', gutterArea, 'ft²'),
+      row('crossArea', 'Total cross-section area', totalArea, 'ft²'),
+      row('crossSqIn', 'Total cross-section area', totalArea * 144, 'in²'),
+      row('curbSection', 'Curb section area', curbArea, 'ft²'),
+      row('gutterSection', 'Gutter section area', gutterArea, 'ft²'),
+      row('yd3Per100Ft', 'Concrete per 100 linear ft', yd3Per100Ft, 'yd³'),
+      row('ftPerYd3', 'Linear ft per 1 yd³', ftPerYd3, 'ft'),
     ]);
   },
 };
