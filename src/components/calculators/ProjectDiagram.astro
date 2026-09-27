@@ -19,6 +19,7 @@ const kind =
   lower === "concrete-weight-calculator" ? "concreteWeight" :
   lower === "concrete-volume-calculator" ? "concreteVolume" :
   lower === "concrete-slab-calculator" ? "concreteSlab" :
+  lower === "concrete-stair-calculator" ? "concreteStair" :
   lower === "concrete-footing-calculator" ? "concreteFooting" :
   lower === "concrete-calculator" ? "concrete" :
   lower === "roof-pitch-calculator" ? "roofPitch" :
@@ -42,8 +43,8 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
   >
     <div class="flex flex-wrap items-start justify-between gap-2">
       <div>
-        <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">{kind === "concreteMix" ? "Live mix proportion guide" : kind === "concretePour" ? "Live ready-mix load plan" : "Visual project measurements"}</h3>
-        <p class="mt-1 text-[11px] leading-5 text-muted-foreground">{kind === "concreteMix" ? "Updates from the selected cement : sand : coarse-aggregate ratio. Proportion guide only — not a mix-design approval." : kind === "concretePour" ? "Updates from order inputs, truck capacity, short-load threshold and placement rate. Scheduling aid only." : "Updates from the visible measurement inputs. Schematic only — not to scale."}</p>
+        <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">{kind === "concreteMix" ? "Live mix proportion guide" : kind === "concretePour" ? "Live ready-mix load plan" : kind === "concreteStair" ? "Live stair section guide" : "Visual project measurements"}</h3>
+        <p class="mt-1 text-[11px] leading-5 text-muted-foreground">{kind === "concreteMix" ? "Updates from the selected cement : sand : coarse-aggregate ratio. Proportion guide only — not a mix-design approval." : kind === "concretePour" ? "Updates from order inputs, truck capacity, short-load threshold and placement rate. Scheduling aid only." : kind === "concreteStair" ? "Switches between solid mass-fill and waist-slab stair sections and updates from the entered geometry. Schematic only — not to scale." : "Updates from the visible measurement inputs. Schematic only — not to scale."}</p>
       </div>
       <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE INPUT GUIDE</span>
     </div>
@@ -257,6 +258,36 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
           <text x="320" y="222" text-anchor="middle" font-size="13" fill="var(--color-foreground)" data-concrete-slab-primary>Length × width</text>
           <text x="34" y="214" font-size="12" fill="var(--color-muted-foreground)" data-concrete-slab-thickness>Thickness</text>
           <text x="606" y="214" text-anchor="end" font-size="12" fill="var(--color-muted-foreground)" data-concrete-slab-detail>Uniform slab</text>
+        </>
+      )}
+
+      {kind === "concreteStair" && (
+        <>
+          <text x="34" y="34" font-size="12" font-weight="600" fill="var(--color-muted-foreground)" data-concrete-stair-model-name>Solid / mass concrete</text>
+
+          <g data-concrete-stair-model="0">
+            <path d="M115 190 H500 V84 H425 V110 H350 V136 H275 V162 H200 V190 Z" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <g data-concrete-stair-landing="solid" style="display:none">
+              <rect x="500" y="84" width="82" height="106" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+              <text x="541" y="74" text-anchor="middle" font-size="10" fill="var(--color-muted-foreground)">top platform</text>
+            </g>
+            <text x="410" y="180" font-size="11" fill="var(--color-muted-foreground)">mass-filled section</text>
+          </g>
+
+          <g data-concrete-stair-model="1" style="display:none">
+            <path d="M115 162 H200 V136 H275 V110 H350 V84 H425 V58 H500" fill="none" stroke="var(--color-foreground)" stroke-width="2.2" stroke-linejoin="round" />
+            <path d="M115 190 L500 86 L500 110 L122 212 Z" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+            <line x1="115" y1="190" x2="500" y2="86" stroke="var(--color-muted-foreground)" stroke-width="1.2" stroke-dasharray="5 4" />
+            <g data-concrete-stair-landing="waist" style="display:none">
+              <rect x="500" y="58" width="82" height="24" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+              <text x="541" y="50" text-anchor="middle" font-size="10" fill="var(--color-muted-foreground)">landing slab</text>
+            </g>
+            <text x="340" y="142" font-size="11" fill="var(--color-muted-foreground)">inclined waist slab</text>
+          </g>
+
+          <text x="34" y="218" font-size="12" fill="var(--color-foreground)" data-concrete-stair-step>Riser × tread</text>
+          <text x="320" y="226" text-anchor="middle" font-size="12" fill="var(--color-foreground)" data-concrete-stair-total>Total rise / run</text>
+          <text x="606" y="218" text-anchor="end" font-size="12" fill="var(--color-muted-foreground)" data-concrete-stair-detail>Stair width</text>
         </>
       )}
 
@@ -739,6 +770,98 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         return true;
       };
 
+      const updateConcreteStairDiagram = () => {
+        if (figure.dataset.kind !== "concreteStair") return false;
+
+        const model = Math.round(numericControl("stairModel"));
+        figure.querySelectorAll<SVGGElement>("[data-concrete-stair-model]").forEach((group) => {
+          group.style.display = group.dataset.concreteStairModel === String(model) ? "" : "none";
+        });
+
+        const fieldById = (id: string) => fields.find((field) => field.id === id);
+        const readById = (id: string) => {
+          const field = fieldById(id);
+          return field ? readField(field) : null;
+        };
+        const printable = (item: { value: string; unit: string } | null) =>
+          item ? `${item.value}${item.unit ? ` ${item.unit}` : ""}` : "—";
+
+        const width = readById("width");
+        const rise = readById("rise");
+        const run = readById("run");
+        const waist = readById("waistThickness");
+        const landingLength = readById("landingLength");
+        const landingWidth = readById("landingWidth");
+        const landingThickness = readById("landingThickness");
+        const steps = Math.max(1, Math.round(numericControl("steps") || 1));
+        const landingActive = (numericControl("landingLength") || 0) > 0;
+
+        figure.querySelectorAll<SVGGElement>("[data-concrete-stair-landing]").forEach((group) => {
+          const target = group.dataset.concreteStairLanding;
+          const visible = landingActive && ((model === 0 && target === "solid") || (model === 1 && target === "waist"));
+          group.style.display = visible ? "" : "none";
+        });
+
+        const name = figure.querySelector<SVGTextElement>("[data-concrete-stair-model-name]");
+        const stepLabel = figure.querySelector<SVGTextElement>("[data-concrete-stair-step]");
+        const totalLabel = figure.querySelector<SVGTextElement>("[data-concrete-stair-total]");
+        const detail = figure.querySelector<SVGTextElement>("[data-concrete-stair-detail]");
+
+        if (name) name.textContent = model === 1 ? "Waist-slab RCC" : "Solid / mass concrete";
+        if (stepLabel) stepLabel.textContent = `${steps} steps · rise ${printable(rise)} · tread ${printable(run)}`;
+
+        const riseValue = numericControl("rise");
+        const runValue = numericControl("run");
+        const riseUnit = unitControl("rise");
+        const runUnit = unitControl("run");
+        const totalRiseDisplay = Number.isFinite(riseValue) ? `${(riseValue * steps).toFixed(2)} ${riseUnit}` : "—";
+        const totalRunDisplay = Number.isFinite(runValue) ? `${(runValue * steps).toFixed(2)} ${runUnit}` : "—";
+        if (totalLabel) totalLabel.textContent = `Total rise ${totalRiseDisplay} · total run ${totalRunDisplay}`;
+
+        const landingWValue = (numericControl("landingWidth") || 0) > 0 ? printable(landingWidth) : printable(width);
+        const detailParts = [`width ${printable(width)}`];
+        if (model === 1) detailParts.push(`waist ${printable(waist)}`);
+        if (landingActive) {
+          detailParts.push(model === 1
+            ? `landing ${printable(landingLength)} × ${landingWValue} × ${(numericControl("landingThickness") || 0) > 0 ? printable(landingThickness) : printable(waist)}`
+            : `platform ${printable(landingLength)} × ${landingWValue} full height`);
+        }
+        if (detail) detail.textContent = detailParts.join(" · ");
+
+        const riseFt = toFeet(riseValue, riseUnit);
+        const runFt = toFeet(runValue, runUnit);
+        const angle = Number.isFinite(riseFt) && Number.isFinite(runFt) && runFt > 0
+          ? Math.atan(riseFt / runFt) * 180 / Math.PI
+          : Number.NaN;
+
+        if (list) {
+          const metrics = [
+            { label: "Step geometry", value: `${printable(rise)} rise × ${printable(run)} tread × ${steps}` },
+            { label: "Flight totals", value: `${totalRiseDisplay} rise · ${totalRunDisplay} run` },
+            {
+              label: model === 1 ? "Waist / slope" : "Model / slope",
+              value: model === 1
+                ? `${printable(waist)} waist · ${Number.isFinite(angle) ? angle.toFixed(2) + "°" : "—"}`
+                : `Mass fill · ${Number.isFinite(angle) ? angle.toFixed(2) + "°" : "—"}`,
+            },
+          ];
+          list.replaceChildren(...metrics.map((item) => {
+            const wrap = document.createElement("div");
+            wrap.className = "rounded-md border border-border bg-muted/30 px-3 py-2";
+            const dt = document.createElement("dt");
+            dt.className = "text-muted-foreground";
+            dt.textContent = item.label;
+            const dd = document.createElement("dd");
+            dd.className = "mt-0.5 font-mono font-medium text-foreground tabular-nums";
+            dd.textContent = item.value;
+            wrap.append(dt, dd);
+            return wrap;
+          }));
+        }
+
+        return true;
+      };
+
       const updateConcreteFootingDiagram = () => {
         if (figure.dataset.kind !== "concreteFooting") return;
         const shape = Math.round(numericControl("footingShape"));
@@ -865,6 +988,7 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         updateConcreteWeightDiagram();
         updateConcreteVolumeDiagram();
         if (updateConcreteSlabDiagram()) return;
+        if (updateConcreteStairDiagram()) return;
         updateConcreteFootingDiagram();
         updateConcreteDiagram();
         if (updateRoofPitchDiagram()) return;
