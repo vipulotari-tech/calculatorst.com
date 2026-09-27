@@ -318,6 +318,9 @@ test.describe("Concrete Waste Calculator", () => {
     await expect(root).toContainText("-15 min");
     await expect(root).toContainText("Queue warning");
     await expect(root).toContainText("15 minutes faster than the full-load placement interval");
+    const diagram = root.locator("[data-project-diagram]");
+    await expect(diagram.locator("[data-waste-truck-plan]")).toContainText("3 visits · 75 min apart");
+    await expect(diagram).toContainText("150 min arrivals · clear 230 min");
   });
 
   test("metric supplier settings and metric ready-mix price remain consistent", async ({ page }) => {
