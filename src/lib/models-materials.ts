@@ -1,4 +1,4 @@
-import type { Field, Model } from './calculator-types.ts';
+import type { Field, Model, ResultRow } from './calculator-types.ts';
 import { FT_PER_M, LB_PER_KG, allowance, count, fmt, length, netArea, number, openings, positiveOrZero, price, rectangle, requireCondition, result, roundUp, row, volume, waste, withCost, area } from './calculator-math.ts';
 
 // --- Shared concrete configuration ---
@@ -1822,53 +1822,128 @@ const concreteTube: Model = {
 const concreteWasteFields: Field[] = [
   {
     id: 'wasteMode',
-    label: 'Net concrete source',
+    label: 'Project / volume source',
     value: 0,
     min: 0,
-    max: 1,
+    max: 3,
     integer: true,
     dimension: 'number',
     options: [
-      { value: 0, label: 'Calculate from slab dimensions' },
-      { value: 1, label: 'Enter known net concrete volume' },
+      { value: 0, label: 'Slab / patio / driveway' },
+      { value: 1, label: 'Known net concrete volume' },
+      { value: 2, label: 'Round footing / pier' },
+      { value: 3, label: 'Wall / rectangular footing' },
     ],
-    help: 'Use dimensions for a rectangular slab/section, or enter a net geometric volume already calculated elsewhere.',
+    help: 'Choose the finished concrete geometry you are measuring. Use known-volume mode when another calculator already produced the net geometric volume.',
   },
-  { ...length('length', 'Length', 20, 'ft'), visibleWhen: { field: 'wasteMode', equals: 0 } },
-  { ...length('width', 'Width', 10, 'ft'), visibleWhen: { field: 'wasteMode', equals: 0 } },
+
+  { ...length('length', 'Slab length', 20, 'ft'), visibleWhen: { field: 'wasteMode', equals: 0 } },
+  { ...length('width', 'Slab width', 10, 'ft'), visibleWhen: { field: 'wasteMode', equals: 0 } },
   { ...length('depth', 'Slab thickness', 4, 'in'), visibleWhen: { field: 'wasteMode', equals: 0 } },
-  { ...count('quantity', 'Identical sections', 1), visibleWhen: { field: 'wasteMode', equals: 0 } },
+  { ...count('quantity', 'Identical slab sections', 1), visibleWhen: { field: 'wasteMode', equals: 0 } },
+
   { ...volume('volume', 'Known net concrete volume', 2.5), visibleWhen: { field: 'wasteMode', equals: 1 } },
+
+  { ...length('diameter', 'Pier / round footing diameter', 18, 'in'), visibleWhen: { field: 'wasteMode', equals: 2 } },
+  { ...length('pierDepth', 'Pier depth / height', 4, 'ft'), visibleWhen: { field: 'wasteMode', equals: 2 } },
+  { ...count('pierQuantity', 'Number of identical piers', 4), visibleWhen: { field: 'wasteMode', equals: 2 } },
+
+  { ...length('sectionLength', 'Wall / footing length', 40, 'ft'), visibleWhen: { field: 'wasteMode', equals: 3 } },
+  { ...length('sectionHeight', 'Height / depth', 2, 'ft'), visibleWhen: { field: 'wasteMode', equals: 3 } },
+  { ...length('sectionThickness', 'Thickness / width', 8, 'in'), visibleWhen: { field: 'wasteMode', equals: 3 } },
+  { ...count('sectionQuantity', 'Identical sections', 1), visibleWhen: { field: 'wasteMode', equals: 3 } },
+
   {
     ...number('wastePercent', 'Waste / ordering allowance (%)', 10, 0,
-      'Optional project allowance for measured conditions such as uneven subgrade, form tolerances, spillage or placement loss.'),
+      'Project-specific allowance for form tolerances, uneven subgrade, spillage, handling loss or other measured ordering risk.'),
     max: 100,
   },
   positiveOrZero(number('orderIncrement', 'Supplier ordering increment (yd³)', 0.25, 0),
-    { help: 'Round ready-mix up to this supplier increment (for example 0.25 yd³). Enter 0 to skip supplier rounding.' }),
+    { help: 'Round ready-mix up to this supplier increment. Enter 0 to skip supplier rounding.' }),
+  positiveOrZero(number('truckCapacity', 'Ready-mix truck capacity (yd³)', 10, 0),
+    { help: 'Optional load-planning check. Enter the supplier truck capacity, or 0 to hide truck-load planning.' }),
   price('USD/yd3'),
 ];
 
 const concreteWaste: Model = {
   fields: concreteWasteFields,
-  formula: 'Net volume comes from L × W × T × Q or an entered known volume. Target order = net × (1 + allowance%). Supplier-rounded order = ceil(target / increment) × increment. Total overage = rounded order − net.',
+  formula: 'Net volume is calculated from the selected finished geometry or entered known volume. Target order = net × (1 + allowance%). Supplier-rounded order = ceil(target / increment) × increment. Truck loads = ceil(rounded order / truck capacity).',
   assumptions: [
-    'Waste / ordering allowance is added once to the net geometric volume. Do not apply it again if the volume you enter already includes waste.',
-    'There is no universal waste percentage. Select an allowance from the actual formwork, subgrade, placement method, handling risk and supplier guidance for the project.',
-    'Supplier rounding is a separate purchasing effect applied after the requested allowance. It can raise the effective overage above the percentage you entered.',
-    'Bag counts use the waste-adjusted target volume before ready-mix supplier rounding, because truck-order increments do not apply to bagged concrete.',
-    'Optional cost rows use only the entered ready-mix price per cubic yard and exclude delivery, short-load, pump, tax and labor charges.',
+    'Use finished concrete dimensions, not excavation dimensions that include base material, drainage, form space or working room.',
+    'Waste / ordering allowance is added once to the net geometric volume. Do not apply it again if a known volume already includes waste.',
+    'There is no universal waste percentage. Select an allowance from actual formwork, subgrade, placement method, handling risk and supplier guidance.',
+    'Supplier rounding is a separate purchasing effect applied after the requested allowance. It can raise effective overage above the percentage entered.',
+    'Bag counts use the waste-adjusted target before ready-mix supplier rounding because truck-order increments do not apply to bagged concrete.',
+    'Truck-load planning uses the rounded ready-mix order and entered truck capacity only; dispatch rules, axle limits, short-load fees and supplier scheduling remain supplier-specific.',
+    'Optional cost rows use only the entered ready-mix price per cubic yard and exclude delivery, short-load, pump, tax, labor and disposal charges.',
   ],
   sources: [geometry, 'https://www.inchcalculator.com/concrete-calculator/'],
   calculate(v) {
     const mode = Math.round(v.wasteMode);
-    const netCuFt = mode === 1 ? v.volume : v.length * v.width * v.depth * v.quantity;
-    requireCondition(netCuFt > 0, mode === 1 ? 'volume' : 'length', 'Enter a net concrete volume greater than zero.');
+    let netCuFt = 0;
+    let geometrySteps: string[] = [];
+    let geometryRows: ResultRow[] = [];
+
+    if (mode === 1) {
+      requireCondition(v.volume > 0, 'volume', 'Enter a known net concrete volume greater than zero.');
+      netCuFt = v.volume;
+      geometrySteps = [`Known net volume entered = ${fmt(netCuFt / 27)} yd³ = ${fmt(netCuFt)} ft³.`];
+    } else if (mode === 2) {
+      requireCondition(v.diameter > 0, 'diameter', 'Enter a pier / footing diameter greater than zero.');
+      requireCondition(v.pierDepth > 0, 'pierDepth', 'Enter a pier depth / height greater than zero.');
+      requireCondition(v.pierQuantity > 0, 'pierQuantity', 'Enter at least one pier.');
+      const radius = v.diameter / 2;
+      const circleArea = Math.PI * radius * radius;
+      const onePier = circleArea * v.pierDepth;
+      netCuFt = onePier * v.pierQuantity;
+      geometryRows = [
+        row('circleArea', 'Round cross-section area', circleArea, 'ft²'),
+        row('onePier', 'Concrete per pier / round footing', onePier, 'ft³'),
+      ];
+      geometrySteps = [
+        `Round section area = π × ${fmt(radius)}² = ${fmt(circleArea)} ft².`,
+        `One pier = ${fmt(circleArea)} × ${fmt(v.pierDepth)} = ${fmt(onePier)} ft³.`,
+        `Net volume = ${fmt(onePier)} × ${v.pierQuantity} = ${fmt(netCuFt)} ft³ = ${fmt(netCuFt / 27)} yd³.`,
+      ];
+    } else if (mode === 3) {
+      requireCondition(v.sectionLength > 0, 'sectionLength', 'Enter a wall / footing length greater than zero.');
+      requireCondition(v.sectionHeight > 0, 'sectionHeight', 'Enter a height / depth greater than zero.');
+      requireCondition(v.sectionThickness > 0, 'sectionThickness', 'Enter a thickness / width greater than zero.');
+      requireCondition(v.sectionQuantity > 0, 'sectionQuantity', 'Enter at least one section.');
+      const crossArea = v.sectionHeight * v.sectionThickness;
+      const oneSection = v.sectionLength * crossArea;
+      netCuFt = oneSection * v.sectionQuantity;
+      geometryRows = [
+        row('crossArea', 'Wall / footing cross-section area', crossArea, 'ft²'),
+        row('oneSection', 'Concrete per wall / footing section', oneSection, 'ft³'),
+      ];
+      geometrySteps = [
+        `Cross-section = ${fmt(v.sectionHeight)} × ${fmt(v.sectionThickness)} = ${fmt(crossArea)} ft².`,
+        `One section = ${fmt(v.sectionLength)} × ${fmt(crossArea)} = ${fmt(oneSection)} ft³.`,
+        `Net volume = ${fmt(oneSection)} × ${v.sectionQuantity} = ${fmt(netCuFt)} ft³ = ${fmt(netCuFt / 27)} yd³.`,
+      ];
+    } else {
+      requireCondition(v.length > 0, 'length', 'Enter a slab length greater than zero.');
+      requireCondition(v.width > 0, 'width', 'Enter a slab width greater than zero.');
+      requireCondition(v.depth > 0, 'depth', 'Enter a slab thickness greater than zero.');
+      requireCondition(v.quantity > 0, 'quantity', 'Enter at least one slab section.');
+      const area = v.length * v.width;
+      const oneSection = area * v.depth;
+      netCuFt = oneSection * v.quantity;
+      geometryRows = [
+        row('area', 'Slab area per section', area, 'ft²'),
+        row('oneSection', 'Concrete per slab section', oneSection, 'ft³'),
+      ];
+      geometrySteps = [
+        `Slab area = ${fmt(v.length)} × ${fmt(v.width)} = ${fmt(area)} ft².`,
+        `One slab section = ${fmt(area)} × ${fmt(v.depth)} = ${fmt(oneSection)} ft³.`,
+        `Net volume = ${fmt(oneSection)} × ${v.quantity} = ${fmt(netCuFt)} ft³ = ${fmt(netCuFt / 27)} yd³.`,
+      ];
+    }
 
     const netCuYd = netCuFt / 27;
     const wastePct = v.wastePercent;
-    const wasteF = 1 + wastePct / 100;
-    const targetCuFt = netCuFt * wasteF;
+    const targetCuFt = netCuFt * (1 + wastePct / 100);
     const targetCuYd = targetCuFt / 27;
     const allowanceCuFt = targetCuFt - netCuFt;
     const allowanceCuYd = allowanceCuFt / 27;
@@ -1885,6 +1960,7 @@ const concreteWaste: Model = {
       row('net', 'Net geometric volume', netCuYd, 'yd³'),
       row('netFt3', 'Net geometric volume', netCuFt, 'ft³'),
       row('netM3', 'Net geometric volume', netCuFt / FT_PER_M ** 3, 'm³'),
+      ...geometryRows,
       row('wastePercent', 'Allowance entered', wastePct, '%'),
       row('allowance', 'Allowance volume', allowanceCuYd, 'yd³'),
       row('allowanceFt3', 'Allowance volume', allowanceCuFt, 'ft³'),
@@ -1901,6 +1977,21 @@ const concreteWaste: Model = {
       row('bags40', '40-lb bags (0.30 ft³ each)', roundUp(targetCuFt / BAG_YIELD_40), 'bags', true),
     ];
 
+    const capacity = Math.max(0, v.truckCapacity);
+    if (capacity > 0) {
+      const loads = Math.max(1, Math.ceil(orderedYd / capacity));
+      const finalLoad = Math.max(0, orderedYd - (loads - 1) * capacity);
+      const finalUtilization = finalLoad / capacity * 100;
+      rows.push(
+        row('truckLoads', 'Ready-mix truck loads', loads, 'loads', true),
+        row('finalLoad', 'Final truck load', finalLoad, 'yd³'),
+        row('finalUtilization', 'Final truck utilization', finalUtilization, '%'),
+      );
+      geometrySteps.push(
+        `Truck plan: ceil(${fmt(orderedYd)} ÷ ${fmt(capacity)}) = ${loads} load${loads === 1 ? '' : 's'}; final load ${fmt(finalLoad)} yd³ (${fmt(finalUtilization)}% of entered capacity).`,
+      );
+    }
+
     if (Number.isFinite(v.price)) {
       const netCost = netCuYd * v.price;
       const targetCost = targetCuYd * v.price;
@@ -1916,9 +2007,7 @@ const concreteWaste: Model = {
     return result(
       rows,
       [
-        mode === 1
-          ? `Net volume entered = ${fmt(netCuYd)} yd³ = ${fmt(netCuFt)} ft³.`
-          : `Net volume: ${fmt(v.length)} × ${fmt(v.width)} × ${fmt(v.depth)} × ${v.quantity} = ${fmt(netCuFt)} ft³ = ${fmt(netCuYd)} yd³.`,
+        ...geometrySteps,
         `Allowance: ${fmt(netCuYd)} yd³ × ${fmt(wastePct)}% = ${fmt(allowanceCuYd)} yd³.`,
         `Waste-adjusted target = ${fmt(netCuYd)} + ${fmt(allowanceCuYd)} = ${fmt(targetCuYd)} yd³.`,
         incrementYd > 0

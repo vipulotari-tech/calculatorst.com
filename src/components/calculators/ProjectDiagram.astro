@@ -83,9 +83,31 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
 
       {kind === "concreteWaste" && (
         <>
-          <text x="34" y="38" font-size="13" font-weight="600" fill="var(--color-foreground)" data-waste-source>Net volume from slab dimensions</text>
+          <text x="34" y="38" font-size="13" font-weight="600" fill="var(--color-foreground)" data-waste-source>Slab / patio / driveway</text>
 
-          <text x="34" y="82" font-size="11" fill="var(--color-muted-foreground)">Final order buildup</text>
+          <g data-waste-geometry="0">
+            <polygon points="500,25 548,25 562,35 514,35" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.5" />
+            <polygon points="514,35 562,35 562,47 514,47" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.5" />
+          </g>
+          <g data-waste-geometry="1" style="display:none">
+            <rect x="510" y="22" width="42" height="28" rx="4" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.5" />
+            <text x="531" y="40" text-anchor="middle" font-size="10" fill="var(--color-foreground)">yd³</text>
+          </g>
+          <g data-waste-geometry="2" style="display:none">
+            <ellipse cx="532" cy="26" rx="21" ry="7" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.5" />
+            <rect x="511" y="26" width="42" height="20" fill="var(--color-card)" stroke="none" />
+            <line x1="511" y1="26" x2="511" y2="46" stroke="var(--color-foreground)" stroke-width="1.5" />
+            <line x1="553" y1="26" x2="553" y2="46" stroke="var(--color-foreground)" stroke-width="1.5" />
+            <ellipse cx="532" cy="46" rx="21" ry="7" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.5" />
+          </g>
+          <g data-waste-geometry="3" style="display:none">
+            <rect x="505" y="19" width="54" height="34" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.5" />
+            <line x1="515" y1="53" x2="515" y2="60" stroke="var(--color-foreground)" stroke-width="1.5" />
+            <line x1="549" y1="53" x2="549" y2="60" stroke="var(--color-foreground)" stroke-width="1.5" />
+            <rect x="499" y="60" width="66" height="7" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.5" />
+          </g>
+
+          <text x="34" y="82" font-size="11" fill="var(--color-muted-foreground)" data-waste-truck-plan>Final order buildup</text>
           <rect x="34" y="96" width="500" height="44" rx="8" fill="var(--color-muted)" opacity="0.24" />
           <rect x="34" y="96" width="350" height="44" rx="8" fill="var(--color-foreground)" opacity="0.62" data-waste-net-bar />
           <rect x="384" y="96" width="80" height="44" fill="var(--color-foreground)" opacity="0.36" data-waste-allowance-bar />
@@ -680,6 +702,17 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         let netFt3 = Number.NaN;
         if (mode === 1) {
           netFt3 = toCubicFeet(numericControl("volume"), unitControl("volume"));
+        } else if (mode === 2) {
+          const diameter = toFeet(numericControl("diameter"), unitControl("diameter"));
+          const depth = toFeet(numericControl("pierDepth"), unitControl("pierDepth"));
+          const quantity = Math.max(1, numericControl("pierQuantity") || 1);
+          netFt3 = Math.PI * Math.pow(diameter / 2, 2) * depth * quantity;
+        } else if (mode === 3) {
+          const length = toFeet(numericControl("sectionLength"), unitControl("sectionLength"));
+          const height = toFeet(numericControl("sectionHeight"), unitControl("sectionHeight"));
+          const thickness = toFeet(numericControl("sectionThickness"), unitControl("sectionThickness"));
+          const quantity = Math.max(1, numericControl("sectionQuantity") || 1);
+          netFt3 = length * height * thickness * quantity;
         } else {
           const length = toFeet(numericControl("length"), unitControl("length"));
           const width = toFeet(numericControl("width"), unitControl("width"));
@@ -688,8 +721,13 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
           netFt3 = length * width * depth * quantity;
         }
 
+        figure.querySelectorAll<SVGGElement>("[data-waste-geometry]").forEach((group) => {
+          group.style.display = group.dataset.wasteGeometry === String(mode) ? "" : "none";
+        });
+
         const allowance = Math.max(0, numericControl("wastePercent") || 0);
         const increment = Math.max(0, numericControl("orderIncrement") || 0);
+        const truckCapacity = Math.max(0, numericControl("truckCapacity") || 0);
         const netYd3 = Number.isFinite(netFt3) ? netFt3 / 27 : Number.NaN;
         const targetYd3 = Number.isFinite(netYd3) ? netYd3 * (1 + allowance / 100) : Number.NaN;
         const orderedYd3 = Number.isFinite(targetYd3)
@@ -699,6 +737,8 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         const effectivePct = Number.isFinite(orderedYd3) && Number.isFinite(netYd3) && netYd3 > 0
           ? (orderedYd3 - netYd3) / netYd3 * 100
           : Number.NaN;
+        const loads = truckCapacity > 0 && Number.isFinite(orderedYd3) ? Math.max(1, Math.ceil(orderedYd3 / truckCapacity)) : Number.NaN;
+        const finalLoad = Number.isFinite(loads) ? Math.max(0, orderedYd3 - (loads - 1) * truckCapacity) : Number.NaN;
 
         const scale = Number.isFinite(orderedYd3) && orderedYd3 > 0 ? 500 / orderedYd3 : 0;
         const netWidth = Number.isFinite(netYd3) ? Math.max(0, Math.min(500, netYd3 * scale)) : 0;
@@ -721,8 +761,22 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         const allowanceLabel = figure.querySelector<SVGTextElement>("[data-waste-allowance-label]");
         const roundingLabel = figure.querySelector<SVGTextElement>("[data-waste-rounding-label]");
         const effectiveLabel = figure.querySelector<SVGTextElement>("[data-waste-effective-label]");
+        const truckPlanLabel = figure.querySelector<SVGTextElement>("[data-waste-truck-plan]");
 
-        if (source) source.textContent = mode === 1 ? "Net volume entered directly" : "Net volume from slab dimensions";
+        if (source) {
+          source.textContent = mode === 1
+            ? "Known net concrete volume"
+            : mode === 2
+              ? "Round footing / pier"
+              : mode === 3
+                ? "Wall / rectangular footing"
+                : "Slab / patio / driveway";
+        }
+        if (truckPlanLabel) {
+          truckPlanLabel.textContent = Number.isFinite(loads)
+            ? `Final order buildup · ${loads} truck load${loads === 1 ? "" : "s"}`
+            : "Final order buildup";
+        }
         if (netLabel) netLabel.textContent = Number.isFinite(netYd3) ? `Net ${netYd3.toFixed(3)} yd³` : "Net";
         if (targetLabel) targetLabel.textContent = Number.isFinite(targetYd3) ? `Target ${targetYd3.toFixed(3)} yd³` : "Target + allowance";
         if (orderLabel) orderLabel.textContent = Number.isFinite(orderedYd3) ? `Order ${orderedYd3.toFixed(3)} yd³` : "Supplier-rounded order";
@@ -733,8 +787,13 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         if (list) {
           const metrics = [
             { label: "Net volume", value: Number.isFinite(netYd3) ? `${netYd3.toFixed(3)} yd³` : "—" },
-            { label: "Waste-adjusted target", value: Number.isFinite(targetYd3) ? `${targetYd3.toFixed(3)} yd³` : "—" },
             { label: "Rounded order", value: Number.isFinite(orderedYd3) ? `${orderedYd3.toFixed(3)} yd³` : "—" },
+            {
+              label: "Truck plan",
+              value: Number.isFinite(loads)
+                ? `${loads} load${loads === 1 ? "" : "s"} · final ${finalLoad.toFixed(2)} yd³`
+                : "Capacity disabled",
+            },
           ];
           list.replaceChildren(...metrics.map((item) => {
             const wrap = document.createElement("div");
