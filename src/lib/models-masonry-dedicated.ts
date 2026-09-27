@@ -15,6 +15,7 @@ const quikreteMortarMix='https://www.quikrete.com/PDFs/DATA_SHEET-MortarMix.pdf'
 const omniBrick='https://www.omnicalculator.com/construction/brick';
 const omniBlock='https://www.omnicalculator.com/construction/concrete-block';
 const omniFill='https://www.omnicalculator.com/construction/concrete-block-fill';
+const biaDimensioning='https://www.gobrick.com/media/file/10-dimensioning-and-estimating-brick-masonry.pdf';
 
 const brickDims=[
   length('brickLength','Actual brick length',7.625,'in'),
@@ -277,13 +278,113 @@ const brickWaste:Model={
   calculate(v){const extra=v.quantity*(waste(v)-1),total=v.quantity+extra,order=roundUp(total);return result([row('order','Whole bricks to order',order,'bricks',true),row('net','Net required bricks',v.quantity,'bricks',true),row('extra','Calculated extra bricks',extra,'bricks'),row('total','Unrounded total with allowance',total,'bricks')],[`${v.quantity} × ${fmt(v.waste)}% = ${fmt(extra)} extra bricks.`,`Round ${fmt(total)} up = ${order} bricks.`]);}
 };
 const brickJoint:Model={
-  fields:[length('length','Finished course length',10),length('brickLength','Actual brick length',7.625,'in'),count('quantity','Bricks in the course',15,2)],
-  formula:'Equal internal joint width = (finished course length − brick count × actual brick length) ÷ (brick count − 1).',
-  assumptions:['One straight course with joints only between adjacent bricks.','Geometric fit is not permission to exceed the project-specified joint tolerance.'],
-  sources:[cmhaLayout,cmhaConstruction],
-  calculate(v){const j=(v.length-v.quantity*v.brickLength)/(v.quantity-1);requireCondition(j>=0,'quantity','The entered bricks are longer than the course even with zero joints.');return result([row('joint','Equal mortar joint width',j*12,'in'),row('mm','Equal mortar joint width',j/FT_PER_M*1000,'mm')],[`(${fmt(v.length*12)} − ${v.quantity} × ${fmt(v.brickLength*12)}) ÷ ${v.quantity-1} = ${fmt(j*12)} in.`]);}
-};
+  fields:[
+    {
+      id:'layoutMode',
+      label:'Layout mode',
+      value:0,
+      min:0,
+      max:2,
+      integer:true,
+      dimension:'number',
+      options:[
+        {value:0,label:'Solve equal joint width'},
+        {value:1,label:'Find whole bricks at a target joint'},
+        {value:2,label:'Find required course length'}
+      ],
+      help:'Choose what you already know. All modes use actual brick length, not nominal module length.'
+    },
+    {...length('length','Finished course length',10,'ft'),visibleWhen:{field:'layoutMode',in:[0,1]}},
+    length('brickLength','Actual brick length',7.625,'in','Use the actual manufactured length along the course, not the nominal module size.'),
+    {...count('quantity','Bricks in the course',15,1),visibleWhen:{field:'layoutMode',in:[0,2]}},
+    {...length('targetJoint','Target mortar joint',0.375,'in','Use the project-specified joint for layout checks. The calculator does not choose a permitted joint thickness for you.'),visibleWhen:{field:'layoutMode',in:[1,2]}}
+  ],
+  formula:'Solve joint: j = (L − N×B)/(N−1). Whole bricks at target joint: N = floor((L+j)/(B+j)). Required course length: L = N×B + (N−1)×j.',
+  assumptions:[
+    'One straight course with joints only between adjacent bricks; N bricks have N−1 internal head joints.',
+    'Actual brick length and the project-specified mortar joint control layout. Nominal dimensions already include the intended module and should not be substituted for actual brick length.',
+    'End conditions, returns, corners, movement joints, cut units and bond patterns can change real course layout and should be detailed separately.',
+    'Geometric fit is not permission to exceed the project-specified joint tolerance or workmanship requirements.'
+  ],
+  sources:[biaDimensioning,cmhaLayout],
+  calculate(v){
+    const mode=Math.round(v.layoutMode);
+    const B=v.brickLength;
+    requireCondition(B>0,'brickLength','Enter an actual brick length greater than zero.');
 
+    if(mode===0){
+      requireCondition(v.length>0,'length','Enter a finished course length greater than zero.');
+      requireCondition(v.quantity>=2,'quantity','Enter at least two bricks to solve an internal joint width.');
+      const N=Math.round(v.quantity);
+      const brickTotal=N*B;
+      const remaining=v.length-brickTotal;
+      requireCondition(remaining>=0,'quantity','The entered bricks are longer than the finished course even with zero joints.');
+      const joints=N-1;
+      const j=remaining/joints;
+      const module=B+j;
+      return result([
+        row('joint','Equal mortar joint width',j*12,'in'),
+        row('jointMm','Equal mortar joint width',j/FT_PER_M*1000,'mm'),
+        row('module','Installed brick module',module*12,'in'),
+        row('jointCount','Internal joints',joints,'joints',true),
+        row('totalJoint','Total internal joint length',remaining*12,'in'),
+        row('brickCoverage','Brick length in course',brickTotal*12,'in')
+      ],[
+        `Course length = ${fmt(v.length*12)} in.`,
+        `Brick coverage = ${N} × ${fmt(B*12)} = ${fmt(brickTotal*12)} in.`,
+        `Internal joints = ${N} − 1 = ${joints}.`,
+        `Equal joint = (${fmt(v.length*12)} − ${N} × ${fmt(B*12)}) ÷ ${joints} = ${fmt(j*12)} in.`,
+        `Installed module = ${fmt(B*12)} + ${fmt(j*12)} = ${fmt(module*12)} in.`
+      ]);
+    }
+
+    const J=v.targetJoint;
+    requireCondition(J>0,'targetJoint','Enter a target mortar joint greater than zero.');
+
+    if(mode===1){
+      requireCondition(v.length>0,'length','Enter a finished course length greater than zero.');
+      const module=B+J;
+      const whole=Math.floor((v.length+J)/module+1e-12);
+      requireCondition(whole>=1,'length','The finished course is shorter than one entered brick.');
+      const joints=Math.max(0,whole-1);
+      const used=whole*B+joints*J;
+      const leftover=Math.max(0,v.length-used);
+      const nextLength=(whole+1)*B+whole*J;
+      const shortForNext=Math.max(0,nextLength-v.length);
+      return result([
+        row('wholeBricks','Whole bricks that fit',whole,'bricks',true),
+        row('jointCount','Internal joints',joints,'joints',true),
+        row('module','Target installed module',module*12,'in'),
+        row('usedLength','Length used by whole-brick layout',used,'ft'),
+        row('leftover','Unfilled course length',leftover*12,'in'),
+        row('leftoverMm','Unfilled course length',leftover/FT_PER_M*1000,'mm'),
+        row('nextShort','Additional length needed for one more whole brick',shortForNext*12,'in')
+      ],[
+        `Target module = ${fmt(B*12)} + ${fmt(J*12)} = ${fmt(module*12)} in.`,
+        `Whole bricks = floor((${fmt(v.length*12)} + ${fmt(J*12)}) ÷ ${fmt(module*12)}) = ${whole}.`,
+        `Used length = ${whole} × ${fmt(B*12)} + ${joints} × ${fmt(J*12)} = ${fmt(used*12)} in.`,
+        `Unfilled length = ${fmt(v.length*12)} − ${fmt(used*12)} = ${fmt(leftover*12)} in.`
+      ]);
+    }
+
+    const N=Math.round(v.quantity);
+    requireCondition(N>=1,'quantity','Enter at least one brick.');
+    const joints=Math.max(0,N-1);
+    const course=N*B+joints*J;
+    return result([
+      row('courseFt','Required course length',course,'ft'),
+      row('courseIn','Required course length',course*12,'in'),
+      row('courseM','Required course length',course/FT_PER_M,'m'),
+      row('module','Target installed module', (B+J)*12,'in'),
+      row('jointCount','Internal joints',joints,'joints',true),
+      row('totalJoint','Total internal joint length',joints*J*12,'in')
+    ],[
+      `Internal joints = ${N} − 1 = ${joints}.`,
+      `Required length = ${N} × ${fmt(B*12)} + ${joints} × ${fmt(J*12)} = ${fmt(course*12)} in.`,
+      `Installed module = ${fmt((B+J)*12)} in for repeating full-brick layout checks.`
+    ]);
+  }
+};
 // CMU / concrete-block models
 function cmuTakeoff(v:Record<string,number>){const {gross,net}=netWall(v),t=unitTakeoff(net,v.blockLength,v.blockHeight,v.joint),ci=courseInfo(v.length,v.height,v.blockLength,v.blockHeight,v.joint),installed=roundUp(t.raw),order=roundUp(t.raw*waste(v));return {gross,net,t,ci,installed,order};}
 const concreteBlock:Model={
