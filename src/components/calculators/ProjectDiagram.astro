@@ -713,6 +713,8 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
           const thickness = toFeet(numericControl("sectionThickness"), unitControl("sectionThickness"));
           const quantity = Math.max(1, numericControl("sectionQuantity") || 1);
           netFt3 = length * height * thickness * quantity;
+        } else if (mode === 4) {
+          netFt3 = toCubicFeet(numericControl("multiPourVolume"), "yd3");
         } else {
           const length = toFeet(numericControl("length"), unitControl("length"));
           const width = toFeet(numericControl("width"), unitControl("width"));
@@ -726,19 +728,21 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         });
 
         const allowance = Math.max(0, numericControl("wastePercent") || 0);
-        const increment = Math.max(0, numericControl("orderIncrement") || 0);
-        const truckCapacity = Math.max(0, numericControl("truckCapacity") || 0);
+        const incrementYd3 = Math.max(0, toCubicFeet(numericControl("orderIncrement"), unitControl("orderIncrement")) / 27 || 0);
+        const supplierMinimumYd3 = Math.max(0, toCubicFeet(numericControl("supplierMinimum"), unitControl("supplierMinimum")) / 27 || 0);
+        const truckCapacityYd3 = Math.max(0, toCubicFeet(numericControl("truckCapacity"), unitControl("truckCapacity")) / 27 || 0);
         const netYd3 = Number.isFinite(netFt3) ? netFt3 / 27 : Number.NaN;
         const targetYd3 = Number.isFinite(netYd3) ? netYd3 * (1 + allowance / 100) : Number.NaN;
-        const orderedYd3 = Number.isFinite(targetYd3)
-          ? (increment > 0 ? Math.ceil((targetYd3 - 1e-12) / increment) * increment : targetYd3)
+        const roundedYd3 = Number.isFinite(targetYd3)
+          ? (incrementYd3 > 0 ? Math.ceil((targetYd3 - 1e-12) / incrementYd3) * incrementYd3 : targetYd3)
           : Number.NaN;
-        const roundingYd3 = Number.isFinite(orderedYd3) && Number.isFinite(targetYd3) ? Math.max(0, orderedYd3 - targetYd3) : Number.NaN;
+        const orderedYd3 = Number.isFinite(roundedYd3) ? Math.max(roundedYd3, supplierMinimumYd3) : Number.NaN;
+        const roundingYd3 = Number.isFinite(roundedYd3) && Number.isFinite(targetYd3) ? Math.max(0, roundedYd3 - targetYd3) : Number.NaN;
         const effectivePct = Number.isFinite(orderedYd3) && Number.isFinite(netYd3) && netYd3 > 0
           ? (orderedYd3 - netYd3) / netYd3 * 100
           : Number.NaN;
-        const loads = truckCapacity > 0 && Number.isFinite(orderedYd3) ? Math.max(1, Math.ceil(orderedYd3 / truckCapacity)) : Number.NaN;
-        const finalLoad = Number.isFinite(loads) ? Math.max(0, orderedYd3 - (loads - 1) * truckCapacity) : Number.NaN;
+        const loads = truckCapacityYd3 > 0 && Number.isFinite(orderedYd3) ? Math.max(1, Math.ceil(orderedYd3 / truckCapacityYd3)) : Number.NaN;
+        const finalLoad = Number.isFinite(loads) ? Math.max(0, orderedYd3 - (loads - 1) * truckCapacityYd3) : Number.NaN;
 
         const scale = Number.isFinite(orderedYd3) && orderedYd3 > 0 ? 500 / orderedYd3 : 0;
         const netWidth = Number.isFinite(netYd3) ? Math.max(0, Math.min(500, netYd3 * scale)) : 0;
@@ -770,7 +774,9 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
               ? "Round footing / pier"
               : mode === 3
                 ? "Wall / rectangular footing"
-                : "Slab / patio / driveway";
+                : mode === 4
+                  ? "Combined multi-pour order"
+                  : "Slab / patio / driveway";
         }
         if (truckPlanLabel) {
           truckPlanLabel.textContent = Number.isFinite(loads)
