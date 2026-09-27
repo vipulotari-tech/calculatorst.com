@@ -15,11 +15,7 @@ export const unitLabels: Record<string,string> = {
   ft3:'ft³', yd3:'yd³', m3:'m³', L:'liters', gal:'US gal',
   ton:'US ton', tonne:'metric tonne',
   'yd3/h':'yd³/h', 'm3/h':'m³/h', 'ft3/bag':'ft³/bag',
-  USD:'$', '%':'%', hours:'hr', minutes:'min', loads:'loads', pours:'pours', flag:'',
-  'USD/yd3':'$/yd³', 'USD/m3':'$/m³', 'USD/ft3':'$/ft³', 'USD/ton':'$/US ton',
-  'USD/bag':'$/bag', 'USD/unit':'$/unit', 'USD/ft2':'$/ft²', 'USD/m2':'$/m²',
-  'USD/ft':'$/ft', 'USD/board':'$/board', 'USD/panel':'$/panel'
-};
+  USD:'
 export class InputError extends Error { constructor(public field:string,message:string){super(message);this.name='InputError';} }
 export function requireCondition(ok:boolean,field:string,message:string):asserts ok {if(!ok)throw new InputError(field,message);}
 export function convert(value:number,unit:string,dimension:Dimension){
@@ -79,7 +75,11 @@ export const price=(unit='USD/yd3',units=[unit]):Field=>({id:'price',label:'Mate
 export const rectangle=[length(),length('width','Width',10)];
 export const openings:Field={...area('openings','Openings / excluded area',0,0),help:'Subtract openings once; do not subtract them again from your dimensions.'};
 export const positiveOrZero=(field:Field,extra?:Partial<Field>):Field => ({...extra,...field,min:0});
-,'USD/load':'$/load','USD/yd3':'$/yd³','USD/m3':'$/m³','USD/ft3':'$/ft³','USD/ton':'$/US ton','USD/bag':'$/bag','USD/unit':'$/unit','USD/ft2':'$/ft²','USD/m2':'$/m²','USD/ft':'$/ft','USD/board':'$/board','USD/panel':'$/panel'};
+, '%':'%', hours:'hr', minutes:'min', loads:'loads', pours:'pours', flag:'',
+  'USD/load':'$/load', 'USD/yd3':'$/yd³', 'USD/m3':'$/m³', 'USD/ft3':'$/ft³', 'USD/ton':'$/US ton',
+  'USD/bag':'$/bag', 'USD/unit':'$/unit', 'USD/ft2':'$/ft²', 'USD/m2':'$/m²',
+  'USD/ft':'$/ft', 'USD/board':'$/board', 'USD/panel':'$/panel'
+};
 export class InputError extends Error { constructor(public field:string,message:string){super(message);this.name='InputError';} }
 export function requireCondition(ok:boolean,field:string,message:string):asserts ok {if(!ok)throw new InputError(field,message);}
 export function convert(value:number,unit:string,dimension:Dimension){
