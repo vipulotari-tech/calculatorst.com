@@ -149,8 +149,8 @@ const diagramFields = fields
       <details class="group rounded-lg border border-border bg-muted/20">
         <summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
           <span>
-            <span class="block text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Advanced material assumptions</span>
-            <span class="mt-0.5 block text-[11px] leading-4 text-muted-foreground">Waste, density, package yield and other editable material assumptions.</span>
+            <span class="block text-xs font-mono font-semibold uppercase tracking-wider text-foreground">{slug === "concrete-waste-calculator" ? "Supplier & order settings" : "Advanced material assumptions"}</span>
+            <span class="mt-0.5 block text-[11px] leading-4 text-muted-foreground">{slug === "concrete-waste-calculator" ? "Supplier increment, minimum, truck capacity, short-load rule, pour rate and bag yield." : "Waste, density, package yield and other editable material assumptions."}</span>
           </span>
           <span aria-hidden="true" class="text-muted-foreground transition-transform group-open:rotate-180">⌄</span>
         </summary>
