@@ -106,12 +106,23 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
             <line x1="549" y1="53" x2="549" y2="60" stroke="var(--color-foreground)" stroke-width="1.5" />
             <rect x="499" y="60" width="66" height="7" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.5" />
           </g>
+          <g data-waste-geometry="4" style="display:none">
+            <rect x="498" y="22" width="24" height="16" rx="2" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.3" />
+            <ellipse cx="542" cy="29" rx="12" ry="6" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.3" />
+            <rect x="530" y="29" width="24" height="14" fill="var(--color-card)" stroke="none" />
+            <line x1="530" y1="29" x2="530" y2="43" stroke="var(--color-foreground)" stroke-width="1.3" />
+            <line x1="554" y1="29" x2="554" y2="43" stroke="var(--color-foreground)" stroke-width="1.3" />
+            <ellipse cx="542" cy="43" rx="12" ry="6" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.3" />
+            <path d="M488 53h78" stroke="var(--color-muted-foreground)" stroke-width="1.2" stroke-dasharray="3 3" />
+            <text x="527" y="64" text-anchor="middle" font-size="9" fill="var(--color-muted-foreground)">combined pours</text>
+          </g>
 
           <text x="34" y="82" font-size="11" fill="var(--color-muted-foreground)" data-waste-truck-plan>Final order buildup</text>
           <rect x="34" y="96" width="500" height="44" rx="8" fill="var(--color-muted)" opacity="0.24" />
           <rect x="34" y="96" width="350" height="44" rx="8" fill="var(--color-foreground)" opacity="0.62" data-waste-net-bar />
           <rect x="384" y="96" width="80" height="44" fill="var(--color-foreground)" opacity="0.36" data-waste-allowance-bar />
-          <rect x="464" y="96" width="70" height="44" rx="0 8 8 0" fill="var(--color-foreground)" opacity="0.18" data-waste-rounding-bar />
+          <rect x="464" y="96" width="45" height="44" fill="var(--color-foreground)" opacity="0.18" data-waste-rounding-bar />
+          <rect x="509" y="96" width="25" height="44" rx="0 8 8 0" fill="var(--color-foreground)" opacity="0.10" data-waste-minimum-bar />
 
           <text x="34" y="161" font-size="11" fill="var(--color-foreground)" data-waste-net-label>Net</text>
           <text x="250" y="161" text-anchor="middle" font-size="11" fill="var(--color-foreground)" data-waste-target-label>Target + allowance</text>
@@ -738,6 +749,7 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
           : Number.NaN;
         const orderedYd3 = Number.isFinite(roundedYd3) ? Math.max(roundedYd3, supplierMinimumYd3) : Number.NaN;
         const roundingYd3 = Number.isFinite(roundedYd3) && Number.isFinite(targetYd3) ? Math.max(0, roundedYd3 - targetYd3) : Number.NaN;
+        const minimumYd3 = Number.isFinite(orderedYd3) && Number.isFinite(roundedYd3) ? Math.max(0, orderedYd3 - roundedYd3) : Number.NaN;
         const effectivePct = Number.isFinite(orderedYd3) && Number.isFinite(netYd3) && netYd3 > 0
           ? (orderedYd3 - netYd3) / netYd3 * 100
           : Number.NaN;
@@ -748,15 +760,19 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         const netWidth = Number.isFinite(netYd3) ? Math.max(0, Math.min(500, netYd3 * scale)) : 0;
         const allowanceWidth = Number.isFinite(targetYd3) && Number.isFinite(netYd3) ? Math.max(0, Math.min(500 - netWidth, (targetYd3 - netYd3) * scale)) : 0;
         const roundingWidth = Number.isFinite(roundingYd3) ? Math.max(0, Math.min(500 - netWidth - allowanceWidth, roundingYd3 * scale)) : 0;
+        const minimumWidth = Number.isFinite(minimumYd3) ? Math.max(0, Math.min(500 - netWidth - allowanceWidth - roundingWidth, minimumYd3 * scale)) : 0;
 
         const netBar = figure.querySelector<SVGRectElement>("[data-waste-net-bar]");
         const allowanceBar = figure.querySelector<SVGRectElement>("[data-waste-allowance-bar]");
         const roundingBar = figure.querySelector<SVGRectElement>("[data-waste-rounding-bar]");
+        const minimumBar = figure.querySelector<SVGRectElement>("[data-waste-minimum-bar]");
         netBar?.setAttribute("width", String(netWidth));
         allowanceBar?.setAttribute("x", String(34 + netWidth));
         allowanceBar?.setAttribute("width", String(allowanceWidth));
         roundingBar?.setAttribute("x", String(34 + netWidth + allowanceWidth));
         roundingBar?.setAttribute("width", String(roundingWidth));
+        minimumBar?.setAttribute("x", String(34 + netWidth + allowanceWidth + roundingWidth));
+        minimumBar?.setAttribute("width", String(minimumWidth));
 
         const source = figure.querySelector<SVGTextElement>("[data-waste-source]");
         const netLabel = figure.querySelector<SVGTextElement>("[data-waste-net-label]");
@@ -787,7 +803,11 @@ const show = (kind === "concreteWeight" || kind === "concreteCost" || kind === "
         if (targetLabel) targetLabel.textContent = Number.isFinite(targetYd3) ? `Target ${targetYd3.toFixed(3)} yd³` : "Target + allowance";
         if (orderLabel) orderLabel.textContent = Number.isFinite(orderedYd3) ? `Order ${orderedYd3.toFixed(3)} yd³` : "Supplier-rounded order";
         if (allowanceLabel) allowanceLabel.textContent = `Allowance ${allowance.toFixed(2)}%`;
-        if (roundingLabel) roundingLabel.textContent = Number.isFinite(roundingYd3) ? `Rounding +${roundingYd3.toFixed(3)} yd³` : "Supplier rounding";
+        if (roundingLabel) {
+          roundingLabel.textContent = Number.isFinite(roundingYd3) && Number.isFinite(minimumYd3)
+            ? `Rounding +${roundingYd3.toFixed(3)} · minimum +${minimumYd3.toFixed(3)} yd³`
+            : "Supplier rules";
+        }
         if (effectiveLabel) effectiveLabel.textContent = Number.isFinite(effectivePct) ? `Effective +${effectivePct.toFixed(2)}%` : "Effective overage";
 
         if (list) {
