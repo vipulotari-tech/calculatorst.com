@@ -803,6 +803,46 @@ test.describe('Calculator interactions', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+
+  test('Rebar calculator — live grid follows cover, spacing, size, stock length and allowance', async ({ page }) => {
+    await page.goto('/rebar-calculator/');
+    const root = page.locator('[data-calculator-slug="rebar-calculator"]');
+    const diagram = root.locator('[data-rebar-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'rebar');
+    await expect(diagram).toContainText('Reinforcement plan');
+    await expect(diagram).toContainText('ORTHOGONAL MAT');
+
+    await root.locator('#rebar-calculator-length').fill('20');
+    await root.locator('#rebar-calculator-width').fill('10');
+    await root.locator('#rebar-calculator-cover').fill('2');
+    await root.locator('#rebar-calculator-cover-unit').selectOption('in');
+    await root.locator('#rebar-calculator-spacing').fill('16');
+    await root.locator('#rebar-calculator-spacing-unit').selectOption('in');
+    await root.locator('#rebar-calculator-size').selectOption('4');
+    await root.locator('#rebar-calculator-stockLength').fill('20');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#rebar-calculator-waste').fill('10');
+
+    await expect(diagram.locator('[data-rebar-installed]')).toHaveText('25 bars');
+    await expect(diagram.locator('[data-rebar-net-length]')).toHaveText('331.67 ft');
+    await expect(diagram.locator('[data-rebar-order-length]')).toHaveText('364.83 ft');
+    await expect(diagram.locator('[data-rebar-directions]')).toHaveText('16 / 9');
+    await expect(diagram.locator('[data-rebar-stock-pieces]')).toHaveText('19 × 20 ft');
+    await expect(diagram.locator('[data-rebar-weight]')).toHaveText('243.71 lb');
+    await expect(diagram).toContainText('Equalized spacing = 15.73 in / 14.5 in');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-rows-grid')).toContainText('Installed grid bars');
+    await expect(root.locator('.result-rows-grid')).toContainText('Net cut length');
+    await expect(root.locator('.result-rows-grid')).toContainText('Minimum equivalent stock bars');
+    await expect(root.locator('.result-rows-grid')).toContainText('Nominal order weight');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
