@@ -1,0 +1,271 @@
+---
+const slug = "deck-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-deck-rich-diagram
+  data-kind="deck"
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live deck board & joist layout</h3>
+      <p class="mt-1 max-w-[720px] text-[11px] leading-5 text-muted-foreground">
+        Deck dimensions, board rows, stock-board breaks, joist lines, board gap, allowance, and fastener estimate update from the calculator inputs. Schematic only — not a structural framing design.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE LAYOUT</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg viewBox="0 0 760 500" class="h-auto w-full" role="img" aria-labelledby="deck-diagram-title deck-diagram-desc">
+      <title id="deck-diagram-title">Live deck board and joist takeoff diagram</title>
+      <desc id="deck-diagram-desc">
+        Top view of deck boards running along the deck length with perpendicular joist lines, stock-board breaks, deck dimensions, board gap, and estimated material quantities.
+      </desc>
+
+      <defs>
+        <marker id="deck-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="deck-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"/>
+        </marker>
+      </defs>
+
+      <text x="30" y="30" font-size="13" font-weight="700" fill="var(--color-foreground)">Deck top view</text>
+      <text x="730" y="30" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)" data-deck-size-label>12 ft × 10 ft</text>
+
+      <line x1="62" y1="66" x2="698" y2="66" stroke="#2563eb" stroke-width="1.5" marker-start="url(#deck-arrow-start)" marker-end="url(#deck-arrow-end)"/>
+      <text x="380" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" data-deck-length-label>Length = 12 ft</text>
+
+      <line x1="42" y1="92" x2="42" y2="318" stroke="#2563eb" stroke-width="1.5" marker-start="url(#deck-arrow-start)" marker-end="url(#deck-arrow-end)"/>
+      <text x="27" y="205" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" transform="rotate(-90 27 205)" data-deck-width-label>Width = 10 ft</text>
+
+      <g data-deck-layout aria-hidden="true"></g>
+
+      <text x="60" y="343" font-size="10.5" fill="var(--color-muted-foreground)">Boards run along deck length</text>
+      <text x="700" y="343" text-anchor="end" font-size="10.5" fill="var(--color-muted-foreground)" data-deck-gap-label>Gap = 0.125 in</text>
+
+      <g transform="translate(30 370)">
+        <rect x="0" y="0" width="216" height="102" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="16" y="23" font-size="10.5" font-weight="700" fill="var(--color-foreground)">DECKING LAYOUT</text>
+        <text x="16" y="50" font-size="19" font-weight="700" fill="#1d4ed8" data-deck-rows>22 board rows</text>
+        <text x="16" y="74" font-size="12" fill="var(--color-foreground)" data-deck-layout-boards>22 boards in layout</text>
+        <text x="16" y="92" font-size="10.5" fill="var(--color-muted-foreground)" data-deck-stock-breaks>1 stock board per row</text>
+      </g>
+
+      <g transform="translate(272 370)">
+        <rect x="0" y="0" width="216" height="102" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="16" y="23" font-size="10.5" font-weight="700" fill="var(--color-foreground)">FRAMING / FASTENERS</text>
+        <text x="16" y="50" font-size="18" font-weight="700" fill="var(--color-foreground)" data-deck-joists>10 joist lines</text>
+        <text x="16" y="74" font-size="14" font-weight="700" fill="#1d4ed8" data-deck-fasteners>484 fasteners</text>
+        <text x="16" y="92" font-size="10.5" fill="var(--color-muted-foreground)" data-deck-joist-spacing>16 in max spacing</text>
+      </g>
+
+      <g transform="translate(514 370)">
+        <rect x="0" y="0" width="216" height="102" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="16" y="23" font-size="10.5" font-weight="700" fill="var(--color-foreground)">ORDER WITH ALLOWANCE</text>
+        <text x="16" y="50" font-size="19" font-weight="700" fill="#1d4ed8" data-deck-order>25 stock boards</text>
+        <text x="16" y="74" font-size="12" fill="var(--color-foreground)" data-deck-stock-size>16 ft stock length</text>
+        <text x="16" y="92" font-size="10.5" fill="var(--color-muted-foreground)" data-deck-waste>10% allowance</text>
+      </g>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-4">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Deck area</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-deck-card-area>120 ft²</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Board module</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-deck-card-module>5.625 in</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Joist lines</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-deck-card-joists>10</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Stock boards to order</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-deck-card-order>25</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initDeckRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-deck-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="deck-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#deck-calculator-form");
+      const layout = figure.querySelector<SVGGElement>("[data-deck-layout]");
+      if (!form || !layout) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>("#deck-calculator-" + id);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>("#deck-calculator-" + id + "-unit");
+
+      const unitText = (id: string) => {
+        const u = unit(id);
+        return u ? (u.options[u.selectedIndex]?.text?.trim() || u.value) : "";
+      };
+
+      const displayValue = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const label = unitText(id);
+        return label ? shown + " " + label : shown;
+      };
+
+      const feet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = { ft: 1, in: 1 / 12, yd: 3, m: 1 / 0.3048, cm: 1 / 30.48, mm: 1 / 304.8 };
+        return n * (factors[unit(id)?.value ?? "ft"] ?? 1);
+      };
+
+      const inches = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = { in: 1, ft: 12, yd: 36, m: 39.3700787402, cm: 0.3937007874, mm: 0.03937007874 };
+        return n * (factors[unit(id)?.value ?? "in"] ?? 1);
+      };
+
+      const numberValue = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const fmt = (value: number, digits = 2) =>
+        Number.isFinite(value) ? String(Number(value.toFixed(digits))) : "—";
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => {
+          el.textContent = text;
+        });
+      };
+
+      const svgEl = <K extends keyof SVGElementTagNameMap>(name: K, attrs: Record<string, string>) => {
+        const el = document.createElementNS("http://www.w3.org/2000/svg", name);
+        Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
+        return el;
+      };
+
+      const renderLayout = (rows: number, joists: number, boardsPerRow: number) => {
+        while (layout.firstChild) layout.removeChild(layout.firstChild);
+
+        const x0 = 62, x1 = 698, y0 = 92, y1 = 318;
+        const shownRows = Math.max(1, Math.min(rows, 24));
+        const shownJoists = Math.max(2, Math.min(joists, 18));
+        const rowH = (y1 - y0) / shownRows;
+        const joistDx = (x1 - x0) / Math.max(1, shownJoists - 1);
+
+        for (let r = 0; r < shownRows; r++) {
+          const y = y0 + r * rowH;
+          layout.appendChild(svgEl("rect", {
+            x: String(x0),
+            y: String(y + 1),
+            width: String(x1 - x0),
+            height: String(Math.max(2, rowH - 2)),
+            rx: "1.5",
+            fill: r % 2 === 0 ? "var(--color-muted)" : "var(--color-background)",
+            stroke: "var(--color-border)",
+            "stroke-width": "0.8"
+          }));
+          if (boardsPerRow > 1) {
+            for (let b = 1; b < Math.min(boardsPerRow, 6); b++) {
+              const bx = x0 + (x1 - x0) * b / boardsPerRow;
+              layout.appendChild(svgEl("line", {
+                x1: String(bx), x2: String(bx),
+                y1: String(y + 1), y2: String(y + Math.max(2, rowH - 1)),
+                stroke: "#b45309", "stroke-width": "1.2", "stroke-dasharray": "3 2"
+              }));
+            }
+          }
+        }
+
+        for (let j = 0; j < shownJoists; j++) {
+          const x = x0 + j * joistDx;
+          layout.appendChild(svgEl("line", {
+            x1: String(x), x2: String(x),
+            y1: String(y0), y2: String(y1),
+            stroke: "var(--color-foreground)", "stroke-width": "1.6", opacity: ".48"
+          }));
+        }
+
+        if (rows > shownRows || joists > shownJoists) {
+          const note = svgEl("text", {
+            x: "380", y: "331", "text-anchor": "middle",
+            "font-size": "9.5", fill: "var(--color-muted-foreground)"
+          });
+          note.textContent = "Layout condensed for readability";
+          layout.appendChild(note);
+        }
+      };
+
+      const update = () => {
+        const lengthFt = feet("length");
+        const widthFt = feet("width");
+        const boardWidthIn = inches("boardWidth");
+        const boardLengthFt = feet("boardLength");
+        const gapIn = Math.max(0, inches("gap"));
+        const joistSpacingIn = inches("spacing");
+        const fastenersPerIntersection = Math.max(0, numberValue("fasteners", 0));
+        const allowance = Math.max(0, numberValue("waste", 0));
+
+        const valid = [lengthFt, widthFt, boardWidthIn, boardLengthFt, joistSpacingIn].every(v => Number.isFinite(v) && v > 0);
+        const widthIn = widthFt * 12;
+        const boardModuleIn = boardWidthIn + gapIn;
+        const rows = valid ? Math.ceil((widthIn + gapIn) / boardModuleIn) : 0;
+        const boardsPerRow = valid ? Math.ceil(lengthFt / boardLengthFt) : 0;
+        const layoutBoards = rows * boardsPerRow;
+        const orderBoards = layoutBoards > 0 ? Math.ceil(layoutBoards * (1 + allowance / 100)) : 0;
+        const joistLines = valid ? Math.ceil((lengthFt * 12) / joistSpacingIn) + 1 : 0;
+        const fasteners = valid
+          ? Math.ceil(rows * (joistLines + Math.max(0, boardsPerRow - 1)) * fastenersPerIntersection * (1 + allowance / 100))
+          : 0;
+        const area = valid ? lengthFt * widthFt : 0;
+
+        renderLayout(rows || 1, joistLines || 2, boardsPerRow || 1);
+
+        setText("[data-deck-size-label]", displayValue("length") + " × " + displayValue("width"));
+        setText("[data-deck-length-label]", "Length = " + displayValue("length"));
+        setText("[data-deck-width-label]", "Width = " + displayValue("width"));
+        setText("[data-deck-gap-label]", "Gap = " + displayValue("gap"));
+        setText("[data-deck-rows]", rows + " board " + (rows === 1 ? "row" : "rows"));
+        setText("[data-deck-layout-boards]", layoutBoards + " " + (layoutBoards === 1 ? "board" : "boards") + " in layout");
+        setText("[data-deck-stock-breaks]", boardsPerRow + " stock " + (boardsPerRow === 1 ? "board" : "boards") + " per row");
+        setText("[data-deck-joists]", joistLines + " joist " + (joistLines === 1 ? "line" : "lines"));
+        setText("[data-deck-fasteners]", fasteners + " fasteners");
+        setText("[data-deck-joist-spacing]", displayValue("spacing") + " max spacing");
+        setText("[data-deck-order]", orderBoards + " stock " + (orderBoards === 1 ? "board" : "boards"));
+        setText("[data-deck-stock-size]", displayValue("boardLength") + " stock length");
+        setText("[data-deck-waste]", fmt(allowance) + "% allowance");
+
+        setText("[data-deck-card-area]", fmt(area) + " ft²");
+        setText("[data-deck-card-module]", fmt(boardModuleIn, 3) + " in");
+        setText("[data-deck-card-joists]", String(joistLines));
+        setText("[data-deck-card-order]", String(orderBoards));
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+
+      update();
+      queueMicrotask(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 0);
+    });
+  }
+
+  initDeckRichDiagrams();
+  document.addEventListener("astro:page-load", initDeckRichDiagrams);
+</script>
