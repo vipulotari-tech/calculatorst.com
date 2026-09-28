@@ -286,6 +286,35 @@ test.describe('Calculator interactions', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+  test('Carpet calculator — live roll-strip layout follows room and allowance', async ({ page }) => {
+    await page.goto('/carpet-calculator/');
+    const root = page.locator('[data-calculator-slug="carpet-calculator"]');
+    const diagram = root.locator('[data-carpet-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('ROOM PLAN / FULL-WIDTH STRIPS');
+    await expect(diagram).toContainText('ROLL / PURCHASE VIEW');
+    await expect(diagram).toContainText('Strips = ceil(room width ÷ roll width)');
+
+    await root.locator('#carpet-calculator-length').fill('18');
+    await root.locator('#carpet-calculator-width').fill('25');
+    await root.locator('#carpet-calculator-rollWidth').fill('12');
+
+    await expect(diagram).toContainText('18 ft');
+    await expect(diagram).toContainText('25 ft');
+    await expect(diagram).toContainText('Roll width = 12 ft');
+    await expect(diagram.locator('[data-carpet-card-strips]')).toHaveText('3');
+    await expect(diagram).toContainText('3 full-width strips');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#carpet-calculator-waste').fill('8');
+
+    await expect(diagram).toContainText('3 strips · 8% allowance');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Concrete calculator — project type controls inputs, validation and diagram', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
