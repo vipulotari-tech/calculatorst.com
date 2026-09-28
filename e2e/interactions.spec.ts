@@ -149,6 +149,46 @@ test.describe('Calculator interactions', () => {
     await expect(diagram).toContainText('3 coats');
   });
 
+  test('Gravel calculator — live geometry follows mode and assumptions', async ({ page }) => {
+    await page.goto('/gravel-calculator/');
+    const root = page.locator('[data-calculator-slug="gravel-calculator"]');
+    const diagram = root.locator('[data-gravel-rich-diagram]');
+    const mode = root.locator('#gravel-calculator-mode');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('TOP VIEW (PLACED AREA)');
+    await expect(diagram).toContainText('CROSS SECTION');
+    await expect(diagram).toContainText('Compaction and purchasing waste stay separate.');
+
+    await root.locator('#gravel-calculator-length').fill('30');
+    await root.locator('#gravel-calculator-width').fill('16');
+    await root.locator('#gravel-calculator-depth').fill('6');
+    await root.locator('#gravel-calculator-depth-unit').selectOption('in');
+    await expect(diagram).toContainText('30 ft');
+    await expect(diagram).toContainText('16 ft');
+    await expect(diagram).toContainText('6 in');
+
+    await mode.selectOption('1');
+    await expect(root.locator('#gravel-calculator-field-area')).toBeVisible();
+    await expect(root.locator('#gravel-calculator-field-length')).toBeHidden();
+    await expect(diagram).toContainText('KNOWN SURFACE AREA');
+
+    await root.locator('#gravel-calculator-area').fill('500');
+    await expect(diagram).toContainText('500 ft²');
+
+    await mode.selectOption('2');
+    await expect(root.locator('#gravel-calculator-field-volume')).toBeVisible();
+    await expect(root.locator('#gravel-calculator-field-depth')).toBeHidden();
+    await expect(diagram).toContainText('KNOWN VOLUME');
+
+    await root.locator('#gravel-calculator-volume').fill('8');
+    await expect(diagram).toContainText('8 yd³');
+
+    await root.locator('#gravel-calculator-compaction').fill('12');
+    await root.locator('#gravel-calculator-waste').fill('7');
+    await expect(diagram).toContainText('Compaction 12% · Waste 7%');
+  });
+
   test('Concrete calculator — project type controls inputs, validation and diagram', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
