@@ -5,6 +5,7 @@ import type { Field } from "../../lib/calculator-types";
 import ProjectDiagram from "./ProjectDiagram.astro";
 import ConcreteCalculatorDiagram from "./ConcreteCalculatorDiagram.astro";
 import ConcreteVolumeDiagram from "./ConcreteVolumeDiagram.astro";
+import PaintCalculatorDiagram from "./PaintCalculatorDiagram.astro";
 
 interface Props {
   id: string; // The slug, e.g. "concrete-calculator"
@@ -368,7 +369,9 @@ const diagramFields = fields
         ? <ConcreteCalculatorDiagram />
         : slug === "concrete-volume-calculator"
           ? <ConcreteVolumeDiagram />
-          : <ProjectDiagram slug={slug} fields={diagramFields} />}
+          : slug === "paint-calculator"
+            ? <PaintCalculatorDiagram />
+            : <ProjectDiagram slug={slug} fields={diagramFields} />}
     </div>
   )}
 
