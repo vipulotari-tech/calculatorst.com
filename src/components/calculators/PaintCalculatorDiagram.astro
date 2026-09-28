@@ -137,6 +137,7 @@ const slug = "paint-calculator";
         const width = value("width");
         const height = value("height");
         const openings = numberValue("openings", 0);
+        const openingsUnit = unitLabel("openings") || "ft²";
         const coats = Math.max(0, numberValue("coats", 0));
         const coverage = Math.max(0, numberValue("coverage", 0));
         const container = Math.max(0, numberValue("container", 0));
@@ -144,12 +145,12 @@ const slug = "paint-calculator";
         setText("[data-paint-length]", `Length = ${length}`);
         setText("[data-paint-width]", `Width = ${width}`);
         setText("[data-paint-height]", `Height = ${height}`);
-        setText("[data-paint-openings]", `Excluded openings = ${openings} ft²`);
+        setText("[data-paint-openings]", `Excluded openings = ${openings} ${openingsUnit}`);
         setText("[data-paint-coats]", `${coats} ${coats === 1 ? "coat" : "coats"}`);
         setText("[data-paint-coverage]", `${coverage} ft²/US gal · ${container} US gal container`);
 
         setText("[data-paint-room]", `${length} × ${width} × ${height}`);
-        setText("[data-paint-openings-card]", `${openings} ft²`);
+        setText("[data-paint-openings-card]", `${openings} ${openingsUnit}`);
         setText("[data-paint-application]", `${coats} ${coats === 1 ? "coat" : "coats"} · ${coverage} ft²/gal`);
       };
 
