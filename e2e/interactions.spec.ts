@@ -763,6 +763,41 @@ test.describe('Calculator interactions', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+
+  test('Asphalt calculator — live pavement diagram follows dimensions, density and allowance', async ({ page }) => {
+    await page.goto('/asphalt-calculator/');
+    const root = page.locator('[data-calculator-slug="asphalt-calculator"]');
+    const diagram = root.locator('[data-asphalt-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'asphalt');
+    await expect(diagram).toContainText('Pavement plan');
+    await expect(diagram).toContainText('Compacted cross-section');
+
+    await root.locator('#asphalt-calculator-length').fill('20');
+    await root.locator('#asphalt-calculator-width').fill('10');
+    await root.locator('#asphalt-calculator-depth').fill('4');
+    await root.locator('#asphalt-calculator-depth-unit').selectOption('in');
+    await root.locator('#asphalt-calculator-quantity').fill('1');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#asphalt-calculator-density').fill('145');
+    await root.locator('#asphalt-calculator-density-unit').selectOption('lb/ft3');
+    await root.locator('#asphalt-calculator-waste').fill('10');
+
+    await expect(diagram.locator('[data-asphalt-net]')).toHaveText('2.47 yd³');
+    await expect(diagram.locator('[data-asphalt-order]')).toHaveText('2.72 yd³');
+    await expect(diagram.locator('[data-asphalt-tons]')).toHaveText('5.32 US tons');
+    await expect(diagram.locator('[data-asphalt-card-area]')).toHaveText('200 ft²');
+    await expect(diagram.locator('[data-asphalt-card-depth]')).toHaveText('4 in');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-rows-grid')).toContainText('Material volume with allowance');
+    await expect(root.locator('.result-rows-grid')).toContainText('Estimated order weight');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
