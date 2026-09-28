@@ -803,6 +803,46 @@ test.describe('Calculator interactions', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+
+  test('Earthwork calculator — live states follow bank source, swell and shrink', async ({ page }) => {
+    await page.goto('/earthwork-calculator/');
+    const root = page.locator('[data-calculator-slug="earthwork-calculator"]');
+    const diagram = root.locator('[data-earthwork-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'earthwork');
+    await expect(diagram).toContainText('Bank quantity source');
+    await expect(diagram).toContainText('BANK → LOOSE / COMPACTED');
+
+    await root.locator('#earthwork-calculator-mode').selectOption('0');
+    await root.locator('#earthwork-calculator-length').fill('100');
+    await root.locator('#earthwork-calculator-width').fill('50');
+    await root.locator('#earthwork-calculator-depth').fill('2');
+    await root.locator('#earthwork-calculator-swell').fill('20');
+    await root.locator('#earthwork-calculator-shrink').fill('10');
+
+    await expect(diagram.locator('[data-earth-bank]')).toHaveText('370.37 yd³');
+    await expect(diagram.locator('[data-earth-loose]')).toHaveText('444.44 yd³');
+    await expect(diagram.locator('[data-earth-compacted]')).toHaveText('333.33 yd³');
+    await expect(diagram.locator('[data-earth-bank-ft3]')).toHaveText('10,000 ft³');
+    await expect(diagram).toContainText('Bank = L × W × D');
+
+    await root.locator('#earthwork-calculator-mode').selectOption('1');
+    await root.locator('#earthwork-calculator-volume').fill('270');
+    await root.locator('#earthwork-calculator-volume-unit').selectOption('ft3');
+
+    await expect(diagram.locator('[data-earth-bank]')).toHaveText('10 yd³');
+    await expect(diagram.locator('[data-earth-loose]')).toHaveText('12 yd³');
+    await expect(diagram.locator('[data-earth-compacted]')).toHaveText('9 yd³');
+    await expect(diagram).toContainText('Bank = entered in-place volume');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-rows-grid')).toContainText('Bank earthwork volume');
+    await expect(root.locator('.result-rows-grid')).toContainText('Loose volume equivalent');
+    await expect(root.locator('.result-rows-grid')).toContainText('Compacted volume equivalent');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
