@@ -3,6 +3,7 @@ import { getModelForSlug } from "../../lib/calculator-registry";
 import { unitLabels } from "../../lib/calculator-math";
 import type { Field } from "../../lib/calculator-types";
 import ProjectDiagram from "./ProjectDiagram.astro";
+import ConcreteCalculatorDiagram from "./ConcreteCalculatorDiagram.astro";
 
 interface Props {
   id: string; // The slug, e.g. "concrete-calculator"
@@ -362,7 +363,9 @@ const diagramFields = fields
 
   {diagramFields.length >= 2 && (
     <div class="mt-6">
-      <ProjectDiagram slug={slug} fields={diagramFields} />
+      {slug === "concrete-calculator"
+        ? <ConcreteCalculatorDiagram />
+        : <ProjectDiagram slug={slug} fields={diagramFields} />}
     </div>
   )}
 

@@ -139,6 +139,10 @@ test.describe('Calculator interactions', () => {
     await expect(root.locator('#concrete-calculator-field-diameter')).toBeHidden();
     await expect(root.locator('#concrete-calculator-field-height')).toBeHidden();
     await expect(diagram).toContainText('Rectangular slab');
+    await expect(diagram).toHaveAttribute('data-concrete-rich-diagram', '');
+    await expect(diagram).toContainText('TOP VIEW (PLAN)');
+    await expect(diagram).toContainText('SIDE VIEW (CROSS SECTION)');
+    await expect(diagram).toContainText('V = L × W × T × Q');
 
     await shape.selectOption('2');
     await expect(root.locator('#concrete-calculator-field-length')).toBeVisible();
