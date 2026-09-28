@@ -130,7 +130,7 @@ test.describe('Calculator interactions', () => {
     const cases = [
       'paint-calculator',
       'gravel-calculator',
-      'roof-pitch-calculator',
+      'roofing-calculator',
       'tile-calculator',
       'fence-calculator',
       'excavation-calculator',
