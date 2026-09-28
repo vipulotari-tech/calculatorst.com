@@ -836,7 +836,7 @@ test.describe('Calculator interactions', () => {
     await expect(diagram).toContainText('Equalized spacing = 15.73 in / 14.5 in');
 
     await root.getByRole('button', { name: /^Calculate$/ }).click();
-    await expect(root.locator('.result-rows-grid')).toContainText('Installed grid bars');
+    await expect(root.locator('.result-rows-grid')).toContainText('Bars spanning grid width');
     await expect(root.locator('.result-rows-grid')).toContainText('Net cut length');
     await expect(root.locator('.result-rows-grid')).toContainText('Minimum equivalent stock bars');
     await expect(root.locator('.result-rows-grid')).toContainText('Nominal order weight');
