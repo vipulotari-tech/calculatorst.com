@@ -1,0 +1,242 @@
+---
+const slug = "rebar-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-rebar-rich-diagram
+  data-kind="rebar"
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live rebar grid takeoff</h3>
+      <p class="mt-1 max-w-[720px] text-[11px] leading-5 text-muted-foreground">
+        Slab dimensions, edge offset, maximum spacing, bar size, stock length, allowance, grid-bar count, total cut length, stock pieces, and nominal order weight update from the calculator inputs. Schematic only — not reinforcement design.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">ORTHOGONAL MAT</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg viewBox="0 0 760 500" class="h-auto w-full" role="img" aria-labelledby="rebar-diagram-title rebar-diagram-desc">
+      <title id="rebar-diagram-title">Live rebar grid takeoff diagram</title>
+      <desc id="rebar-diagram-desc">
+        Rectangular reinforcement mat showing slab dimensions, centerline edge offsets, equally distributed bars in both directions, selected rebar size, spacing, total cut length, stock-bar equivalent, allowance, and nominal order weight.
+      </desc>
+
+      <defs>
+        <marker id="rebar-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="rebar-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"/>
+        </marker>
+      </defs>
+
+      <text x="30" y="30" font-size="13" font-weight="700" fill="var(--color-foreground)">Reinforcement plan</text>
+      <text x="730" y="30" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)" data-rebar-size-label>#4 · 16 in max spacing</text>
+
+      <line x1="72" y1="65" x2="502" y2="65" stroke="#2563eb" stroke-width="1.5" marker-start="url(#rebar-arrow-start)" marker-end="url(#rebar-arrow-end)"/>
+      <text x="287" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" data-rebar-length-label data-diagram-value="0">Length = 20 ft</text>
+
+      <line x1="49" y1="92" x2="49" y2="302" stroke="#2563eb" stroke-width="1.5" marker-start="url(#rebar-arrow-start)" marker-end="url(#rebar-arrow-end)"/>
+      <text x="31" y="197" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" transform="rotate(-90 31 197)" data-rebar-width-label>Width = 10 ft</text>
+
+      <rect x="72" y="92" width="430" height="210" rx="4" fill="var(--color-muted)" opacity=".10" stroke="var(--color-foreground)" stroke-width="1.5"/>
+      <rect x="84" y="104" width="406" height="186" rx="3" fill="none" stroke="#2563eb" stroke-width="1" stroke-dasharray="5 4" opacity=".6"/>
+      <g data-rebar-grid-lines aria-hidden="true"></g>
+
+      <text x="78" y="326" font-size="10.5" fill="var(--color-muted-foreground)" data-rebar-cover-label>Edge offset to bar center = 2 in</text>
+      <text x="497" y="326" text-anchor="end" font-size="10.5" fill="var(--color-muted-foreground)" data-rebar-spacing-label>Equalized spacing ≤ 16 in</text>
+
+      <g transform="translate(530 86)">
+        <rect x="0" y="0" width="200" height="220" rx="12" fill="var(--color-muted)" opacity=".20" stroke="var(--color-border)"/>
+        <text x="16" y="24" font-size="10.5" font-weight="700" fill="var(--color-foreground)">GRID TAKEOFF</text>
+
+        <text x="16" y="54" font-size="12" fill="var(--color-muted-foreground)">Installed grid bars</text>
+        <text x="16" y="76" font-size="19" font-weight="700" fill="var(--color-foreground)" data-rebar-installed>25 bars</text>
+
+        <text x="16" y="106" font-size="12" fill="var(--color-muted-foreground)">Net cut length</text>
+        <text x="16" y="128" font-size="18" font-weight="700" fill="var(--color-foreground)" data-rebar-net-length>331.67 ft</text>
+
+        <text x="16" y="158" font-size="12" fill="var(--color-muted-foreground)">Order length</text>
+        <text x="16" y="180" font-size="19" font-weight="700" fill="#1d4ed8" data-rebar-order-length>364.83 ft</text>
+
+        <text x="16" y="206" font-size="10.5" fill="var(--color-muted-foreground)" data-rebar-allowance>10% allowance</text>
+      </g>
+
+      <rect x="30" y="357" width="700" height="57" rx="10" fill="var(--color-muted)" opacity=".22" stroke="var(--color-border)"/>
+      <text x="48" y="379" font-size="10.5" font-weight="700" fill="var(--color-foreground)">GRID FORMULA</text>
+      <text x="48" y="400" font-size="12.5" font-weight="700" fill="var(--color-foreground)">Count per axis = ceil(usable dimension ÷ max spacing) + 1</text>
+      <text x="712" y="390" text-anchor="end" font-size="12.5" font-weight="700" fill="#1d4ed8" data-rebar-axis-count>16 + 9 = 25 bars</text>
+
+      <g transform="translate(30 432)">
+        <rect x="0" y="0" width="216" height="48" rx="10" fill="var(--color-muted)" opacity=".18" stroke="var(--color-border)"/>
+        <text x="14" y="19" font-size="10" fill="var(--color-muted-foreground)">Bars spanning width / length</text>
+        <text x="14" y="37" font-size="12" font-weight="700" fill="var(--color-foreground)" data-rebar-directions>16 / 9</text>
+      </g>
+      <g transform="translate(272 432)">
+        <rect x="0" y="0" width="216" height="48" rx="10" fill="var(--color-muted)" opacity=".18" stroke="var(--color-border)"/>
+        <text x="14" y="19" font-size="10" fill="var(--color-muted-foreground)">Minimum equivalent stock bars</text>
+        <text x="14" y="37" font-size="12" font-weight="700" fill="var(--color-foreground)" data-rebar-stock-pieces>19 × 20 ft</text>
+      </g>
+      <g transform="translate(514 432)">
+        <rect x="0" y="0" width="216" height="48" rx="10" fill="var(--color-muted)" opacity=".18" stroke="var(--color-border)"/>
+        <text x="14" y="19" font-size="10" fill="var(--color-muted-foreground)">Nominal order weight</text>
+        <text x="14" y="37" font-size="12" font-weight="700" fill="var(--color-foreground)" data-rebar-weight>243.71 lb</text>
+      </g>
+    </svg>
+  </div>
+</figure>
+
+<script>
+  function initRebarRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-rebar-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="rebar-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#rebar-calculator-form");
+      const grid = figure.querySelector<SVGGElement>("[data-rebar-grid-lines]");
+      if (!form || !grid) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>("#rebar-calculator-" + id);
+      const select = (id: string) => root.querySelector<HTMLSelectElement>("#rebar-calculator-" + id);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>("#rebar-calculator-" + id + "-unit");
+
+      const unitText = (id: string) => {
+        const u = unit(id);
+        return u ? (u.options[u.selectedIndex]?.text?.trim() || u.value) : "";
+      };
+
+      const displayValue = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const label = unitText(id);
+        return label ? shown + " " + label : shown;
+      };
+
+      const feet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = { ft: 1, in: 1 / 12, yd: 3, m: 1 / 0.3048, cm: 1 / 30.48, mm: 1 / 304.8 };
+        return n * (factors[unit(id)?.value ?? "ft"] ?? 1);
+      };
+
+      const num = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const barWeights: Record<string, number> = {
+        "3": 0.376, "4": 0.668, "5": 1.043, "6": 1.502, "7": 2.044,
+        "8": 2.670, "9": 3.400, "10": 4.303, "11": 5.313, "14": 7.650, "18": 13.600
+      };
+
+      const fmt = (value: number, digits = 2) =>
+        Number.isFinite(value) ? String(Number(value.toFixed(digits))) : "—";
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => {
+          el.textContent = text;
+        });
+      };
+
+      const svgEl = <K extends keyof SVGElementTagNameMap>(name: K, attrs: Record<string, string>) => {
+        const el = document.createElementNS("http://www.w3.org/2000/svg", name);
+        Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
+        return el;
+      };
+
+      const renderGrid = (barsAcrossL: number, barsAcrossW: number) => {
+        while (grid.firstChild) grid.removeChild(grid.firstChild);
+        const x0 = 84, x1 = 490, y0 = 104, y1 = 290;
+        const cols = Math.max(2, Math.min(barsAcrossL, 28));
+        const rows = Math.max(2, Math.min(barsAcrossW, 20));
+
+        for (let c = 0; c < cols; c++) {
+          const x = x0 + (x1 - x0) * c / (cols - 1);
+          grid.appendChild(svgEl("line", {
+            x1: String(x), x2: String(x), y1: String(y0), y2: String(y1),
+            stroke: "var(--color-foreground)", "stroke-width": "1.15", opacity: ".78"
+          }));
+        }
+        for (let r = 0; r < rows; r++) {
+          const y = y0 + (y1 - y0) * r / (rows - 1);
+          grid.appendChild(svgEl("line", {
+            x1: String(x0), x2: String(x1), y1: String(y), y2: String(y),
+            stroke: "var(--color-foreground)", "stroke-width": "1.15", opacity: ".78"
+          }));
+        }
+
+        if (barsAcrossL > cols || barsAcrossW > rows) {
+          const note = svgEl("text", {
+            x: "287", y: "298", "text-anchor": "middle",
+            "font-size": "9", fill: "var(--color-muted-foreground)"
+          });
+          note.textContent = "Grid condensed for readability";
+          grid.appendChild(note);
+        }
+      };
+
+      const update = () => {
+        const lengthFt = feet("length");
+        const widthFt = feet("width");
+        const coverFt = Math.max(0, feet("cover"));
+        const spacingFt = feet("spacing");
+        const stockLengthFt = feet("stockLength");
+        const allowance = Math.max(0, num("waste", 0));
+        const size = String(Math.round(Number(select("size")?.value ?? num("size", 4))));
+        const lbPerFt = barWeights[size] ?? 0;
+
+        const valid = [lengthFt, widthFt, spacingFt, stockLengthFt].every(v => Number.isFinite(v) && v > 0)
+          && Number.isFinite(coverFt) && lengthFt > 2 * coverFt && widthFt > 2 * coverFt;
+
+        const gridL = valid ? lengthFt - 2 * coverFt : 0;
+        const gridW = valid ? widthFt - 2 * coverFt : 0;
+        const barsAcrossL = valid ? Math.ceil(gridL / spacingFt - 1e-12) + 1 : 0;
+        const barsAcrossW = valid ? Math.ceil(gridW / spacingFt - 1e-12) + 1 : 0;
+        const actualL = barsAcrossL > 1 ? gridL / (barsAcrossL - 1) : 0;
+        const actualW = barsAcrossW > 1 ? gridW / (barsAcrossW - 1) : 0;
+        const installed = barsAcrossL + barsAcrossW;
+        const netLength = valid ? barsAcrossL * gridW + barsAcrossW * gridL : 0;
+        const orderLength = netLength * (1 + allowance / 100);
+        const stockPieces = stockLengthFt > 0 && orderLength > 0 ? Math.ceil(orderLength / stockLengthFt - 1e-12) : 0;
+        const weight = orderLength * lbPerFt;
+
+        renderGrid(barsAcrossL || 2, barsAcrossW || 2);
+
+        setText("[data-rebar-size-label]", "#" + size + " · " + displayValue("spacing") + " max spacing");
+        setText("[data-rebar-length-label]", "Length = " + displayValue("length"));
+        setText("[data-rebar-width-label]", "Width = " + displayValue("width"));
+        setText("[data-rebar-cover-label]", "Edge offset to bar center = " + displayValue("cover"));
+        setText("[data-rebar-spacing-label]", "Equalized spacing = " + fmt(actualL * 12) + " in / " + fmt(actualW * 12) + " in");
+        setText("[data-rebar-installed]", installed + " bars");
+        setText("[data-rebar-net-length]", fmt(netLength) + " ft");
+        setText("[data-rebar-order-length]", fmt(orderLength) + " ft");
+        setText("[data-rebar-allowance]", fmt(allowance) + "% allowance");
+        setText("[data-rebar-axis-count]", barsAcrossL + " + " + barsAcrossW + " = " + installed + " bars");
+        setText("[data-rebar-directions]", barsAcrossL + " / " + barsAcrossW);
+        setText("[data-rebar-stock-pieces]", stockPieces + " × " + displayValue("stockLength"));
+        setText("[data-rebar-weight]", fmt(weight) + " lb");
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+
+      update();
+      queueMicrotask(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 0);
+    });
+  }
+
+  initRebarRichDiagrams();
+  document.addEventListener("astro:page-load", initRebarRichDiagrams);
+</script>
