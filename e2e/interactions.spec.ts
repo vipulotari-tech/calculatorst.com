@@ -835,7 +835,7 @@ test.describe('Calculator interactions', () => {
     await expect(diagram).toContainText('Installed module = 16 in × 8 in');
 
     await root.getByRole('button', { name: /^Calculate$/ }).click();
-    await expect(root.locator('.result-rows-grid')).toContainText('Concrete blocks to order');
+    await expect(root.locator('.result-rows-grid')).toContainText('Estimated block order weight');
     await expect(root.locator('.result-rows-grid')).toContainText('Estimated installed blocks');
     await expect(root.locator('.result-rows-grid')).toContainText('Gross wall courses');
     await expect(root.locator('.result-rows-grid')).toContainText('Net wall area');
