@@ -252,7 +252,7 @@ test.describe('Calculator interactions', () => {
     await expect(diagram).toContainText('Roof area = entered known sloped roof area');
 
     await root.locator('#roofing-calculator-roofArea').fill('2400');
-    await expect(diagram).toContainText('2,400 ft²');
+    await expect(diagram).toContainText('2400 ft²');
   });
 
   test('Concrete calculator — project type controls inputs, validation and diagram', async ({ page }) => {
