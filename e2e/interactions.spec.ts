@@ -763,6 +763,43 @@ test.describe('Calculator interactions', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+
+  test('Paver calculator — live grid follows paver size, joints and allowance', async ({ page }) => {
+    await page.goto('/paver-calculator/');
+    const root = page.locator('[data-calculator-slug="paver-calculator"]');
+    const diagram = root.locator('[data-paver-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'paver');
+    await expect(diagram).toContainText('Paved surface plan');
+    await expect(diagram).toContainText('STRAIGHT LAYOUT');
+
+    await root.locator('#paver-calculator-length').fill('12');
+    await root.locator('#paver-calculator-width').fill('10');
+    await root.locator('#paver-calculator-paverLength').fill('12');
+    await root.locator('#paver-calculator-paverWidth').fill('6');
+    await root.locator('#paver-calculator-joint').fill('0');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#paver-calculator-waste').fill('10');
+
+    await expect(diagram.locator('[data-paver-grid-count]')).toHaveText('20 × 12');
+    await expect(diagram.locator('[data-paver-installed]')).toHaveText('240 installed pavers');
+    await expect(diagram.locator('[data-paver-order]')).toHaveText('264 pavers');
+    await expect(diagram.locator('[data-paver-spares]')).toHaveText('24 spare / allowance pavers');
+    await expect(diagram.locator('[data-paver-cuts]')).toHaveText('Full modules fit both directions');
+
+    await root.locator('#paver-calculator-joint').fill('0.25');
+    await expect(diagram.locator('[data-paver-cuts]')).toContainText('Edge cuts on');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-rows-grid')).toContainText('Pavers to order');
+    await expect(root.locator('.result-rows-grid')).toContainText('Paver rows');
+    await expect(root.locator('.result-rows-grid')).toContainText('Pavers per row');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
