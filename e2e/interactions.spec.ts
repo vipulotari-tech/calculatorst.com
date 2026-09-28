@@ -803,6 +803,45 @@ test.describe('Calculator interactions', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+
+  test('Concrete block calculator — live CMU wall follows openings, module and allowance', async ({ page }) => {
+    await page.goto('/concrete-block-calculator/');
+    const root = page.locator('[data-calculator-slug="concrete-block-calculator"]');
+    const diagram = root.locator('[data-concrete-block-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'concreteBlock');
+    await expect(diagram).toContainText('CMU wall elevation');
+    await expect(diagram).toContainText('CMU WALL LAYOUT');
+
+    await root.locator('#concrete-block-calculator-length').fill('20');
+    await root.locator('#concrete-block-calculator-height').fill('8');
+    await root.locator('#concrete-block-calculator-openings').fill('16');
+    await root.locator('#concrete-block-calculator-blockLength').fill('15.625');
+    await root.locator('#concrete-block-calculator-blockHeight').fill('7.625');
+    await root.locator('#concrete-block-calculator-joint').fill('0.375');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#concrete-block-calculator-waste').fill('10');
+    await root.locator('#concrete-block-calculator-unitWeight').fill('35');
+
+    await expect(diagram.locator('[data-cmu-net-area]')).toHaveText('144 ft²');
+    await expect(diagram.locator('[data-cmu-installed]')).toHaveText('162');
+    await expect(diagram.locator('[data-cmu-order]')).toHaveText('179 blocks');
+    await expect(diagram.locator('[data-cmu-layout-check]')).toHaveText('12 courses × 15 blocks/course');
+    await expect(diagram.locator('[data-cmu-spares]')).toHaveText('17 blocks');
+    await expect(diagram.locator('[data-cmu-weight]')).toHaveText('6,265 lb');
+    await expect(diagram).toContainText('Installed module = 16 in × 8 in');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-rows-grid')).toContainText('Concrete blocks to order');
+    await expect(root.locator('.result-rows-grid')).toContainText('Estimated installed blocks');
+    await expect(root.locator('.result-rows-grid')).toContainText('Gross wall courses');
+    await expect(root.locator('.result-rows-grid')).toContainText('Net wall area');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
