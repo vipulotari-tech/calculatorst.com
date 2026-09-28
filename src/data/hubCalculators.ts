@@ -2611,7 +2611,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "gate-calculator",
-    "title": "Gate Size Calculator — Leaf Width, Clearances & Area",
+    "title": "Gate Calculator — Leaf Width, Clearances, Area & Cost",
     "h1": "Gate Calculator",
     "description": "Calculate one- or two-leaf gate width from clear opening, hinge and latch clearances, plus total gate face area and optional per-leaf cost.",
     "category": "Deck & Fence",
