@@ -109,7 +109,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "patio-concrete-calculator": {
     primary: ["patio-cost-calculator", "slab-reinforcement-calculator", "slab-thickness-calculator"],
-    workflow: ["gravel-calculator", "concrete-slab-calculator"],
+    workflow: ["gravel-calculator", "driveway-concrete-calculator", "concrete-slab-calculator"],
   },
   "patio-cost-calculator": {
     primary: ["patio-concrete-calculator", "slab-reinforcement-calculator", "slab-thickness-calculator"],
@@ -117,7 +117,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "driveway-concrete-calculator": {
     primary: ["driveway-cost-calculator", "driveway-thickness-calculator", "slab-reinforcement-calculator"],
-    workflow: ["gravel-calculator", "asphalt-calculator", "concrete-slab-calculator"],
+    workflow: ["gravel-calculator", "patio-concrete-calculator", "asphalt-calculator"],
   },
   "driveway-cost-calculator": {
     primary: ["driveway-concrete-calculator", "driveway-thickness-calculator", "slab-reinforcement-calculator"],
