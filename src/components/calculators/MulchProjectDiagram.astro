@@ -173,7 +173,7 @@ const slug = "mulch-calculator";
       };
 
       root.addEventListener("input", update);
-      root.addEventListener("change", update);
+      root.addEventListener("change", update);\n      root.addEventListener("calculator-state-restored", update);
       form.addEventListener("reset", () => setTimeout(update, 0));
       update();
       setTimeout(update, 0);
