@@ -222,6 +222,39 @@ test.describe('Calculator interactions', () => {
     await expect(diagram).toContainText('Purchasing allowance = 8%');
   });
 
+  test('Roofing calculator — live roof geometry follows measurement mode', async ({ page }) => {
+    await page.goto('/roofing-calculator/');
+    const root = page.locator('[data-calculator-slug="roofing-calculator"]');
+    const diagram = root.locator('[data-roofing-rich-diagram]');
+    const mode = root.locator('#roofing-calculator-mode');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('ROOF PLAN / FOOTPRINT');
+    await expect(diagram).toContainText('ROOF CROSS SECTION');
+    await expect(diagram).toContainText('Roof area = footprint × √(1 + (pitch/12)²)');
+
+    await root.locator('#roofing-calculator-length').fill('50');
+    await root.locator('#roofing-calculator-width').fill('32');
+    await root.locator('#roofing-calculator-pitch').fill('8');
+    await root.locator('#roofing-calculator-overhang').fill('2');
+    await root.locator('#roofing-calculator-quantity').fill('2');
+
+    await expect(diagram).toContainText('50 ft');
+    await expect(diagram).toContainText('32 ft');
+    await expect(diagram).toContainText('8:12');
+    await expect(diagram).toContainText('2 ft overhang');
+    await expect(diagram).toContainText('2 identical roof sections');
+
+    await mode.selectOption('1');
+    await expect(root.locator('#roofing-calculator-field-roofArea')).toBeVisible();
+    await expect(root.locator('#roofing-calculator-field-length')).toBeHidden();
+    await expect(diagram).toContainText('KNOWN SLOPED ROOF AREA');
+    await expect(diagram).toContainText('Roof area = entered known sloped roof area');
+
+    await root.locator('#roofing-calculator-roofArea').fill('2400');
+    await expect(diagram).toContainText('2,400 ft²');
+  });
+
   test('Concrete calculator — project type controls inputs, validation and diagram', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
