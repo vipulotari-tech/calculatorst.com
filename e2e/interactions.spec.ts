@@ -928,32 +928,46 @@ test.describe('Framing / roofing / flooring full browser audit', () => {
     await page.goto('/roof-pitch-calculator/');
     const root=page.locator('[data-calculator-slug="roof-pitch-calculator"]');
     const mode=root.locator('#roof-pitch-calculator-mode');
-    const diagram=root.locator('[data-project-diagram]');
+    const diagram=root.locator('[data-roof-pitch-rich-diagram]');
 
     await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('RIGHT-TRIANGLE ROOF SECTION');
+    await expect(diagram).toContainText('PITCH REFERENCE');
+
     await root.locator('#roof-pitch-calculator-rise').fill('6');
+    await root.locator('#roof-pitch-calculator-rise-unit').selectOption('in');
     await root.locator('#roof-pitch-calculator-run').fill('12');
+    await root.locator('#roof-pitch-calculator-run-unit').selectOption('in');
     await root.getByRole('button',{name:/Calculate/i}).click();
     await expect(root.locator('.result-primary')).toHaveText(/^6:12$/);
     await expect(root).toContainText('Straight sloped rafter length');
-    await expect(diagram).toContainText('6.00:12');
+    await expect(diagram.locator('[data-pitch-ratio]')).toHaveText('6:12');
+    await expect(diagram.locator('[data-pitch-card-angle]')).toHaveText('26.565°');
+    await expect(diagram.locator('[data-pitch-card-percent]')).toHaveText('50%');
+    await expect(diagram.locator('[data-pitch-card-multiplier]')).toHaveText('1.118×');
 
     await mode.selectOption('1');
     await expect(root.locator('#roof-pitch-calculator-field-angleInput')).toBeVisible();
     await expect(root.locator('#roof-pitch-calculator-field-rise')).toBeHidden();
     await root.locator('#roof-pitch-calculator-angleInput').fill('45');
     await root.locator('#roof-pitch-calculator-referenceRun').fill('10');
+    await root.locator('#roof-pitch-calculator-referenceRun-unit').selectOption('ft');
     await root.getByRole('button',{name:/Calculate/i}).click();
     await expect(root.locator('.result-primary')).toHaveText(/^12:12$/);
     await expect(root).toContainText('14.1421');
+    await expect(diagram.locator('[data-pitch-ratio]')).toHaveText('12:12');
+    await expect(diagram).toContainText('Slope = tan(angle)');
 
     await mode.selectOption('2');
     await expect(root.locator('#roof-pitch-calculator-field-pitchInput')).toBeVisible();
     await root.locator('#roof-pitch-calculator-pitchInput').fill('8');
     await root.locator('#roof-pitch-calculator-referenceRun').fill('12');
+    await root.locator('#roof-pitch-calculator-referenceRun-unit').selectOption('ft');
     await root.getByRole('button',{name:/Calculate/i}).click();
     await expect(root.locator('.result-primary')).toHaveText(/^8:12$/);
     await expect(root).toContainText('66.6667');
+    await expect(diagram.locator('[data-pitch-ratio]')).toHaveText('8:12');
+    await expect(diagram).toContainText('Slope = pitch rise ÷ 12');
 
     await mode.selectOption('3');
     await expect(root.locator('#roof-pitch-calculator-field-rafterLength')).toBeVisible();
@@ -967,6 +981,8 @@ test.describe('Framing / roofing / flooring full browser audit', () => {
     await root.locator('#roof-pitch-calculator-rafterLength').fill('13.416407865');
     await root.getByRole('button',{name:/Calculate/i}).click();
     await expect(root.locator('.result-primary')).toHaveText(/^6:12$/);
+    await expect(diagram.locator('[data-pitch-ratio]')).toHaveText('6:12');
+    await expect(diagram).toContainText('Rise = √(rafter² − run²); slope = rise ÷ run');
 
     await root.getByRole('button',{name:/Reset/i}).click();
     await expect(mode).toHaveValue('0');
