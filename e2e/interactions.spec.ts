@@ -315,6 +315,48 @@ test.describe('Calculator interactions', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+  test('Tile calculator — live grid follows dimensions, joints, boxes and known-area mode', async ({ page }) => {
+    await page.goto('/tile-calculator/');
+    const root = page.locator('[data-calculator-slug="tile-calculator"]');
+    const diagram = root.locator('[data-tile-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('SURFACE PLAN / TILE GRID');
+    await expect(diagram).toContainText('TILE + JOINT MODULE');
+    await expect(diagram).toContainText('Rows × columns → allowance → whole boxes');
+
+    await root.locator('#tile-calculator-length').fill('18');
+    await root.locator('#tile-calculator-width').fill('12');
+    await root.locator('#tile-calculator-tileLength').fill('24');
+    await root.locator('#tile-calculator-tileWidth').fill('12');
+    await root.locator('#tile-calculator-joint').fill('0.125');
+    await root.locator('#tile-calculator-tilesPerBox').fill('6');
+
+    await expect(diagram).toContainText('18 ft');
+    await expect(diagram).toContainText('12 ft');
+    await expect(diagram).toContainText('Tile length = 24 in');
+    await expect(diagram).toContainText('Grout joint = 0.125 in');
+    await expect(diagram.locator('[data-tile-card-base]')).toContainText('108 tiles');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#tile-calculator-waste').fill('10');
+    await expect(diagram).toContainText('119 tiles · 10% allowance');
+    await expect(diagram.locator('[data-tile-card-boxes]')).toContainText('20 boxes');
+
+    await root.locator('#tile-calculator-mode').selectOption('1');
+    await expect(root.locator('#tile-calculator-field-area')).toBeVisible();
+    await expect(root.locator('#tile-calculator-field-length')).toBeHidden();
+    await expect(diagram).toContainText('Known-area quantity mode');
+    await root.locator('#tile-calculator-area').fill('250');
+    await expect(diagram).toContainText('Known surface area');
+    await expect(diagram).toContainText('250 ft²');
+    await expect(diagram).toContainText('row/column cuts not modeled');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Concrete calculator — project type controls inputs, validation and diagram', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');

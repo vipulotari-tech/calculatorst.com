@@ -12,6 +12,7 @@ import RoofingCalculatorDiagram from "./RoofingCalculatorDiagram.astro";
 import RoofPitchCalculatorDiagram from "./RoofPitchCalculatorDiagram.astro";
 import FlooringCalculatorDiagram from "./FlooringCalculatorDiagram.astro";
 import CarpetCalculatorDiagram from "./CarpetCalculatorDiagram.astro";
+import TileCalculatorDiagram from "./TileCalculatorDiagram.astro";
 
 interface Props {
   id: string; // The slug, e.g. "concrete-calculator"
@@ -389,7 +390,9 @@ const diagramFields = fields
                       ? <FlooringCalculatorDiagram />
                       : slug === "carpet-calculator"
                         ? <CarpetCalculatorDiagram />
-                        : <ProjectDiagram slug={slug} fields={diagramFields} />}
+                        : slug === "tile-calculator"
+                          ? <TileCalculatorDiagram />
+                          : <ProjectDiagram slug={slug} fields={diagramFields} />}
     </div>
   )}
 
