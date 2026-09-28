@@ -1,0 +1,366 @@
+---
+const slug = "concrete-volume-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-concrete-volume-rich-diagram
+  data-kind="concreteVolume"
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live concrete volume geometry</h3>
+      <p class="mt-1 max-w-[650px] text-[11px] leading-5 text-muted-foreground">
+        Technical plan, elevation, and section views update with the selected concrete shape and active dimensions. Schematic only — not to scale.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">9 LIVE SHAPES</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg
+      viewBox="0 0 760 440"
+      class="h-auto w-full"
+      role="img"
+      aria-labelledby={`${slug}-rich-title ${slug}-rich-desc`}
+    >
+      <title id={`${slug}-rich-title`}>Live concrete volume geometry diagram</title>
+      <desc id={`${slug}-rich-desc`}>
+        Technical diagrams for nine concrete shapes including slabs, cylinders, hollow tubes, curb and gutter, stairs, wedges, walls, footings and rectangular columns. Labels update from calculator inputs.
+      </desc>
+
+      <defs>
+        <marker id="cv-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb" />
+        </marker>
+        <marker id="cv-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb" />
+        </marker>
+        <pattern id="cv-concrete" width="18" height="18" patternUnits="userSpaceOnUse">
+          <rect width="18" height="18" fill="var(--color-muted)" opacity="0.72" />
+          <circle cx="4" cy="5" r="1.1" fill="var(--color-muted-foreground)" opacity="0.30" />
+          <circle cx="13" cy="10" r="0.8" fill="var(--color-muted-foreground)" opacity="0.23" />
+          <circle cx="8" cy="16" r="0.7" fill="var(--color-muted-foreground)" opacity="0.18" />
+        </pattern>
+        <pattern id="cv-soil" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(22)">
+          <rect width="14" height="14" fill="var(--color-muted)" opacity="0.22" />
+          <line x1="0" y1="0" x2="0" y2="14" stroke="var(--color-muted-foreground)" stroke-width="1" opacity="0.24" />
+        </pattern>
+      </defs>
+
+      <rect width="760" height="440" fill="var(--color-background)" />
+      <text x="28" y="30" font-size="13" font-weight="700" fill="var(--color-foreground)" data-concrete-volume-shape-name>Rectangular slab / prism</text>
+      <text x="732" y="30" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)">Live dimensions · US + metric</text>
+
+      <g data-cv-shape="0">
+        <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">TOP VIEW (PLAN)</text>
+        <rect x="92" y="104" width="356" height="156" rx="3" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="92" y1="84" x2="448" y2="84" stroke="#2563eb" stroke-width="1.7" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="270" y="74" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" data-cv-length>Length = 20 ft</text>
+        <line x1="70" y1="104" x2="70" y2="260" stroke="#2563eb" stroke-width="1.7" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="52" y="182" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" transform="rotate(-90 52 182)" data-cv-width>Width = 10 ft</text>
+        <text x="505" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">SIDE VIEW</text>
+        <rect x="520" y="134" width="190" height="48" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <rect x="520" y="182" width="190" height="44" fill="url(#cv-soil)" />
+        <line x1="728" y1="134" x2="728" y2="182" stroke="#2563eb" stroke-width="1.7" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="718" y="202" text-anchor="end" font-size="12" font-weight="700" fill="#1d4ed8" data-cv-depth>Thickness = 4 in</text>
+      </g>
+
+      <g data-cv-shape="1" style="display:none">
+        <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">TOP VIEW (PLAN)</text>
+        <circle cx="255" cy="176" r="92" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="163" y1="176" x2="347" y2="176" stroke="#2563eb" stroke-width="1.7" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="255" y="158" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" data-cv-diameter>Diameter = 12 in</text>
+        <circle cx="255" cy="176" r="3" fill="var(--color-foreground)" />
+        <text x="505" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">SIDE ELEVATION</text>
+        <ellipse cx="610" cy="111" rx="72" ry="22" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <rect x="538" y="111" width="144" height="125" fill="url(#cv-concrete)" />
+        <line x1="538" y1="111" x2="538" y2="236" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="682" y1="111" x2="682" y2="236" stroke="var(--color-foreground)" stroke-width="2" />
+        <ellipse cx="610" cy="236" rx="72" ry="22" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="708" y1="111" x2="708" y2="236" stroke="#2563eb" stroke-width="1.7" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="698" y="101" text-anchor="end" font-size="12" font-weight="700" fill="#1d4ed8" data-cv-height>Height = 8 ft</text>
+      </g>
+
+      <g data-cv-shape="2" style="display:none">
+        <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">ANNULAR TOP VIEW</text>
+        <circle cx="255" cy="176" r="96" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <circle cx="255" cy="176" r="49" fill="var(--color-background)" stroke="var(--color-foreground)" stroke-width="1.7" />
+        <line x1="159" y1="176" x2="351" y2="176" stroke="#2563eb" stroke-width="1.7" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="255" y="146" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" data-cv-diameter>OD = 12 in</text>
+        <line x1="206" y1="196" x2="304" y2="196" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="255" y="216" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" data-cv-inner>ID = 6 in</text>
+        <text x="505" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">SIDE SECTION</text>
+        <path d="M548 105 H592 V239 H548 Z M628 105 H672 V239 H628 Z" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="708" y1="105" x2="708" y2="239" stroke="#2563eb" stroke-width="1.7" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="698" y="95" text-anchor="end" font-size="12" font-weight="700" fill="#1d4ed8" data-cv-height>Height = 8 ft</text>
+        <text x="610" y="177" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)">void</text>
+      </g>
+
+      <g data-cv-shape="3" style="display:none">
+        <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">LENGTH / PLAN</text>
+        <rect x="88" y="130" width="390" height="90" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="88" y1="108" x2="478" y2="108" stroke="#2563eb" stroke-width="1.7" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="283" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" data-cv-length>Length = 20 ft</text>
+        <text x="283" y="178" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)">Constant curb + gutter section along length</text>
+        <text x="515" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">CROSS SECTION</text>
+        <path d="M520 218 H710 V178 H626 V110 H574 V178 H520 Z" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="574" y1="94" x2="626" y2="94" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="600" y="84" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1d4ed8" data-cv-curb-width>Curb width = 6 in</text>
+        <line x1="644" y1="110" x2="644" y2="218" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="654" y="126" font-size="10.5" font-weight="700" fill="#1d4ed8" data-cv-curb-height>Curb height = 12 in</text>
+        <line x1="626" y1="236" x2="710" y2="236" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="668" y="253" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1d4ed8" data-cv-gutter-width>Gutter = 18 in</text>
+        <text x="526" y="253" font-size="10.5" font-weight="700" fill="#1d4ed8" data-cv-gutter-depth>Thickness = 6 in</text>
+      </g>
+
+      <g data-cv-shape="4" style="display:none">
+        <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">SIDE SECTION</text>
+        <path d="M88 250 H470 V206 H398 V162 H326 V118 H254 V74 H182 V250 Z" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="182" y1="54" x2="254" y2="54" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="218" y="44" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" data-cv-run>Run = 11 in</text>
+        <line x1="164" y1="206" x2="164" y2="250" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="152" y="228" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" transform="rotate(-90 152 228)" data-cv-rise>Rise = 7 in</text>
+        <text x="320" y="274" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)" data-cv-steps>4 steps</text>
+        <text x="520" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">WIDTH / PLAN</text>
+        <rect x="550" y="102" width="126" height="156" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="532" y1="102" x2="532" y2="258" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="519" y="180" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" transform="rotate(-90 519 180)" data-cv-stair-width>Width = 4 ft</text>
+        <text x="613" y="279" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-cv-landing>Landing = 0 ft</text>
+      </g>
+
+      <g data-cv-shape="5" style="display:none">
+        <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">TRIANGULAR CROSS SECTION</text>
+        <path d="M105 248 H430 V92 Z" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="105" y1="270" x2="430" y2="270" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="268" y="289" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" data-cv-base>Base = 36 in</text>
+        <line x1="452" y1="92" x2="452" y2="248" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="468" y="170" font-size="11.5" font-weight="700" fill="#1d4ed8" data-cv-tri-height>Height = 12 in</text>
+        <text x="530" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">PRISM LENGTH</text>
+        <polygon points="535,130 635,90 702,122 602,162" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <polygon points="535,130 602,162 602,225 535,193" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="535" y1="245" x2="602" y2="245" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="569" y="263" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" data-cv-wedge-length>Length = 10 ft</text>
+      </g>
+
+      <g data-cv-shape="6" style="display:none">
+        <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">FRONT ELEVATION</text>
+        <rect x="88" y="102" width="388" height="160" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="88" y1="82" x2="476" y2="82" stroke="#2563eb" stroke-width="1.7" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="282" y="72" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" data-cv-length>Length = 20 ft</text>
+        <line x1="66" y1="102" x2="66" y2="262" stroke="#2563eb" stroke-width="1.7" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="48" y="182" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" transform="rotate(-90 48 182)" data-cv-height>Height = 8 ft</text>
+        <text x="525" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">TOP SECTION</text>
+        <rect x="548" y="116" width="120" height="122" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="528" y1="116" x2="528" y2="238" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="516" y="177" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" transform="rotate(-90 516 177)" data-cv-thickness>Thickness = 8 in</text>
+      </g>
+
+      <g data-cv-shape="7" style="display:none">
+        <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">TOP VIEW (PLAN)</text>
+        <rect x="86" y="134" width="390" height="88" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="86" y1="112" x2="476" y2="112" stroke="#2563eb" stroke-width="1.7" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="281" y="102" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" data-cv-length>Length = 20 ft</text>
+        <line x1="64" y1="134" x2="64" y2="222" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="46" y="178" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" transform="rotate(-90 46 178)" data-cv-width>Width = 10 ft</text>
+        <text x="520" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">FOOTING SECTION</text>
+        <rect x="520" y="104" width="190" height="152" fill="url(#cv-soil)" opacity="0.8" />
+        <rect x="548" y="142" width="134" height="70" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="704" y1="142" x2="704" y2="212" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="694" y="132" text-anchor="end" font-size="12" font-weight="700" fill="#1d4ed8" data-cv-depth>Depth = 4 in</text>
+      </g>
+
+      <g data-cv-shape="8" style="display:none">
+        <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">TOP VIEW (PLAN)</text>
+        <rect x="145" y="112" width="230" height="150" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="145" y1="91" x2="375" y2="91" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="260" y="81" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" data-cv-length>Length = 20 ft</text>
+        <line x1="123" y1="112" x2="123" y2="262" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="105" y="187" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" transform="rotate(-90 105 187)" data-cv-width>Width = 10 ft</text>
+        <text x="505" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">SIDE ELEVATION</text>
+        <rect x="560" y="92" width="104" height="170" fill="url(#cv-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="698" y1="92" x2="698" y2="262" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cv-arrow-start)" marker-end="url(#cv-arrow-end)" />
+        <text x="688" y="82" text-anchor="end" font-size="12" font-weight="700" fill="#1d4ed8" data-cv-height>Height = 8 ft</text>
+      </g>
+
+      <g>
+        <rect x="28" y="310" width="704" height="104" rx="12" fill="var(--color-muted)" opacity="0.23" stroke="var(--color-border)" />
+        <text x="46" y="336" font-size="11" font-weight="700" fill="var(--color-foreground)">ACTIVE VOLUME FORMULA</text>
+        <text x="46" y="363" font-size="17" font-weight="700" fill="var(--color-foreground)" data-cv-formula>V = L × W × T × Q</text>
+        <text x="46" y="390" font-size="11" fill="var(--color-muted-foreground)" data-cv-note>Rectangular prism volume from normalized dimensions.</text>
+        <line x1="426" y1="328" x2="426" y2="399" stroke="var(--color-border)" />
+        <text x="450" y="336" font-size="11" font-weight="700" fill="var(--color-foreground)">CURRENT INPUTS</text>
+        <text x="450" y="364" font-size="14" font-weight="700" fill="#1d4ed8" data-cv-summary>20 ft × 10 ft × 4 in</text>
+        <text x="450" y="390" font-size="11" fill="var(--color-muted-foreground)" data-cv-quantity>Identical sections: 1</text>
+      </g>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-3">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Shape</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground" data-cv-card-shape>Rectangular slab / prism</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Active dimensions</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-cv-card-summary>20 ft × 10 ft × 4 in</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Quantity</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-cv-card-quantity>1 section</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initConcreteVolumeRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-concrete-volume-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="concrete-volume-calculator"]');
+      if (!root) return;
+
+      const form = root.querySelector<HTMLFormElement>("#concrete-volume-calculator-form");
+      const shape = root.querySelector<HTMLSelectElement>("#concrete-volume-calculator-shape");
+      if (!shape) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>(`#concrete-volume-calculator-${id}`);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>(`#concrete-volume-calculator-${id}-unit`);
+
+      const displayUnit = (raw: string | undefined) => {
+        const labels: Record<string, string> = { ft: "ft", in: "in", yd: "yd", m: "m", cm: "cm", mm: "mm" };
+        return raw ? (labels[raw] ?? raw) : "";
+      };
+
+      const value = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const u = displayUnit(unit(id)?.value);
+        return u ? `${shown} ${u}` : shown;
+      };
+
+      const numberValue = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => { el.textContent = text; });
+      };
+
+      const names = [
+        "Rectangular slab / prism",
+        "Round slab / cylinder / column",
+        "Hollow tube / annular cylinder",
+        "Curb + gutter",
+        "Solid stairs (mass fill)",
+        "Triangle prism / wedge",
+        "Concrete wall",
+        "Strip footing",
+        "Square / rectangular column",
+      ];
+
+      const formulas = [
+        "V = L × W × T × Q",
+        "V = π × (D ÷ 2)² × H × Q",
+        "V = π/4 × (Dₒ² − Dᵢ²) × H × Q",
+        "V = L × (Wc × Hc + Wg × Tg) × Q",
+        "V = W × R × T × n(n+1)/2 + landing",
+        "V = ½ × B × H × L × Q",
+        "V = L × H × T × Q",
+        "V = L × W × D × Q",
+        "V = L × W × H × Q",
+      ];
+
+      const notes = [
+        "Rectangular prism volume from normalized dimensions.",
+        "Circular-prism volume using radius = diameter ÷ 2.",
+        "Outer cylinder volume minus the inner void.",
+        "Two non-overlapping curb and gutter rectangles multiplied by length.",
+        "Solid stepped mass uses the n(n+1)/2 height summation.",
+        "Right-triangle cross-section multiplied by prism length.",
+        "Wall face length × height × wall thickness.",
+        "Continuous footing length × width × depth.",
+        "Rectangular column footprint × height.",
+      ];
+
+      const update = () => {
+        const mode = Math.max(0, Math.min(8, Math.round(Number(shape.value) || 0)));
+        const name = names[mode] ?? names[0];
+
+        figure.querySelectorAll<SVGGElement>("[data-cv-shape]").forEach((group) => {
+          group.style.display = group.dataset.cvShape === String(mode) ? "" : "none";
+        });
+
+        setText("[data-concrete-volume-shape-name]", name);
+        setText("[data-cv-card-shape]", name);
+        setText("[data-cv-formula]", formulas[mode] ?? formulas[0]);
+        setText("[data-cv-note]", notes[mode] ?? notes[0]);
+
+        const qty = Math.max(0, numberValue("quantity", 1));
+        const qtyLabel = `${qty} ${qty === 1 ? "section" : "sections"}`;
+        setText("[data-cv-quantity]", `Identical sections: ${qty}`);
+        setText("[data-cv-card-quantity]", qtyLabel);
+
+        const l = value("length");
+        const w = value("width");
+        const d = value("depth");
+        const t = value("thickness");
+        const od = value("diameter");
+        const id = value("innerDiameter");
+        const h = value("height");
+
+        setText("[data-cv-length]", `Length = ${l}`);
+        setText("[data-cv-width]", `Width = ${w}`);
+        setText("[data-cv-depth]", `${mode === 0 ? "Thickness" : "Depth"} = ${d}`);
+        setText("[data-cv-diameter]", mode === 2 ? `OD = ${od}` : `Diameter = ${od}`);
+        setText("[data-cv-inner]", `ID = ${id}`);
+        setText("[data-cv-height]", `Height = ${h}`);
+        setText("[data-cv-thickness]", `Thickness = ${t}`);
+
+        setText("[data-cv-curb-width]", `Curb width = ${value("curbWidth")}`);
+        setText("[data-cv-curb-height]", `Curb height = ${value("curbHeight")}`);
+        setText("[data-cv-gutter-width]", `Gutter = ${value("gutterWidth")}`);
+        setText("[data-cv-gutter-depth]", `Thickness = ${value("gutterDepth")}`);
+
+        setText("[data-cv-stair-width]", `Width = ${value("stairWidth")}`);
+        setText("[data-cv-rise]", `Rise = ${value("rise")}`);
+        setText("[data-cv-run]", `Run = ${value("run")}`);
+        const steps = Math.max(0, numberValue("steps", 0));
+        setText("[data-cv-steps]", `${steps} ${steps === 1 ? "step" : "steps"}`);
+        setText("[data-cv-landing]", `Landing = ${value("landing")}`);
+
+        setText("[data-cv-base]", `Base = ${value("base")}`);
+        setText("[data-cv-tri-height]", `Height = ${value("triHeight")}`);
+        setText("[data-cv-wedge-length]", `Length = ${value("wedgeLength")}`);
+
+        let summary = "";
+        if (mode === 0) summary = `${l} × ${w} × ${d}`;
+        else if (mode === 1) summary = `Ø ${od} × ${h}`;
+        else if (mode === 2) summary = `OD ${od} · ID ${id} · H ${h}`;
+        else if (mode === 3) summary = `${l} · curb ${value("curbWidth")}×${value("curbHeight")} · gutter ${value("gutterWidth")}×${value("gutterDepth")}`;
+        else if (mode === 4) summary = `${value("stairWidth")} wide · ${steps} steps · ${value("rise")} rise · ${value("run")} run`;
+        else if (mode === 5) summary = `${value("base")} base × ${value("triHeight")} high × ${value("wedgeLength")} long`;
+        else if (mode === 6) summary = `${l} × ${h} × ${t}`;
+        else if (mode === 7) summary = `${l} × ${w} × ${d}`;
+        else summary = `${l} × ${w} × ${h}`;
+
+        setText("[data-cv-summary]", summary);
+        setText("[data-cv-card-summary]", summary);
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      form?.addEventListener("reset", () => setTimeout(update, 0));
+      update();
+      setTimeout(update, 0);
+    });
+  }
+
+  initConcreteVolumeRichDiagrams();
+  document.addEventListener("astro:page-load", initConcreteVolumeRichDiagrams);
+</script>
