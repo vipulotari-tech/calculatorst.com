@@ -135,7 +135,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "concrete-wall-calculator",
-    "title": "Concrete Wall Calculator — Yards with Opening Deductions",
+    "title": "Concrete Wall Calculator — Yards, Bags, Forms & Cost",
     "h1": "Concrete Wall Calculator",
     "description": "Calculate concrete wall volume from length, height and thickness, deduct total door and window opening area, then estimate yards, bags, weight, forms and cost.",
     "category": "Concrete",
@@ -151,7 +151,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "concrete-column-calculator",
-    "title": "Concrete Column Calculator — Round, Square & Rectangular",
+    "title": "Concrete Column Calculator — Volume, Yards, Bags & Cost",
     "h1": "Concrete Column Calculator",
     "description": "Calculate concrete for circular, square or rectangular columns and piers in cubic yards, bags and weight, with quantity, waste allowance and optional cost.",
     "category": "Concrete",
@@ -318,7 +318,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "driveway-concrete-calculator",
-    "title": "Concrete Driveway Calculator — Yards, Apron, Base & Trucks",
+    "title": "Concrete Driveway Calculator — Yards, Bags, Cost & Trucks",
     "h1": "Driveway Concrete Calculator",
     "description": "Calculate driveway concrete for rectangles, aprons or tapered widths, with cubic yards, bags, compacted base, truck loads, weight, waste and cost.",
     "category": "Slab & Patio",
@@ -898,7 +898,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "brick-weight-calculator",
-    "title": "Brick Weight Calculator — Brick Count, Pallets & Tons",
+    "title": "Brick Weight Calculator — Pounds, Tons, Pallets & Count",
     "h1": "Brick Weight Calculator",
     "description": "Calculate brick shipment weight from brick count, manufacturer unit weight and waste, with pounds, kilograms, US tons, metric tonnes and optional pallet estimate.",
     "category": "Brick & Masonry",
