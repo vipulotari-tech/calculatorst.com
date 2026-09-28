@@ -793,7 +793,7 @@ test.describe('Calculator interactions', () => {
     await expect(diagram.locator('[data-deck-fasteners]')).toHaveText('973 fasteners');
 
     await root.getByRole('button', { name: /^Calculate$/ }).click();
-    await expect(root.locator('.result-rows-grid')).toContainText('Stock boards with spares');
+    await expect(root.locator('.result-rows-grid')).toContainText('Boards in layout');
     await expect(root.locator('.result-rows-grid')).toContainText('Estimated joist lines');
     await expect(root.locator('.result-rows-grid')).toContainText('Estimated fasteners with allowance');
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
