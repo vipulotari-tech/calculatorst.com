@@ -794,7 +794,7 @@ test.describe('Calculator interactions', () => {
     await expect(diagram.locator('[data-paver-cuts]')).toContainText('Edge cuts on');
 
     await root.getByRole('button', { name: /^Calculate$/ }).click();
-    await expect(root.locator('.result-rows-grid')).toContainText('Pavers to order');
+    await expect(root.locator('.result-rows-grid')).toContainText('Pavers in straight layout');
     await expect(root.locator('.result-rows-grid')).toContainText('Paver rows');
     await expect(root.locator('.result-rows-grid')).toContainText('Pavers per row');
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
