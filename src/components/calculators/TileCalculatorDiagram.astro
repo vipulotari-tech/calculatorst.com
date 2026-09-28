@@ -1,0 +1,284 @@
+---
+const slug = "tile-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-tile-rich-diagram
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live tile layout</h3>
+      <p class="mt-1 max-w-[700px] text-[11px] leading-5 text-muted-foreground">
+        Straight-layout grid, grout joint, whole-box purchase rounding, and allowance update from the calculator inputs. Schematic only — not a cutting plan.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE INPUT GUIDE</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg viewBox="0 0 760 470" class="h-auto w-full" role="img" aria-labelledby="tile-calculator-tile-title tile-calculator-tile-desc">
+      <title id="tile-calculator-tile-title">Live tile calculator layout diagram</title>
+      <desc id="tile-calculator-tile-desc">
+        A rectangular tiled surface showing the straight tile grid, grout joints, surface dimensions or known area, tile size, row and column count, allowance, and whole-box purchase quantity.
+      </desc>
+
+      <defs>
+        <marker id="tile-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="tile-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"/>
+        </marker>
+        <pattern id="tile-fill" width="26" height="26" patternUnits="userSpaceOnUse">
+          <rect width="26" height="26" fill="#0f766e" opacity=".08"/>
+          <path d="M0 0H26V26H0Z" fill="none" stroke="#0f766e" stroke-width=".8" opacity=".22"/>
+        </pattern>
+      </defs>
+
+      <rect width="760" height="470" fill="var(--color-background)"/>
+      <text x="28" y="31" font-size="13" font-weight="700" fill="var(--color-foreground)">Tile takeoff + layout</text>
+      <text x="732" y="31" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)" data-tile-mode-label>Straight rectangular layout</text>
+
+      <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">SURFACE PLAN / TILE GRID</text>
+      <rect x="90" y="104" width="370" height="190" rx="4" fill="url(#tile-fill)" stroke="var(--color-foreground)" stroke-width="2"/>
+      <g data-tile-grid-lines></g>
+
+      <g data-tile-dimension-mode>
+        <line x1="90" y1="84" x2="460" y2="84" stroke="#2563eb" stroke-width="1.7" marker-start="url(#tile-arrow-start)" marker-end="url(#tile-arrow-end)"/>
+        <line x1="90" y1="90" x2="90" y2="104" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4"/>
+        <line x1="460" y1="90" x2="460" y2="104" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4"/>
+        <text x="275" y="74" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" data-tile-length>Surface length = 12 ft</text>
+
+        <line x1="68" y1="104" x2="68" y2="294" stroke="#2563eb" stroke-width="1.7" marker-start="url(#tile-arrow-start)" marker-end="url(#tile-arrow-end)"/>
+        <line x1="74" y1="104" x2="90" y2="104" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4"/>
+        <line x1="74" y1="294" x2="90" y2="294" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4"/>
+        <text x="49" y="199" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" transform="rotate(-90 49 199)" data-tile-width>Surface width = 10 ft</text>
+      </g>
+
+      <g data-tile-known-area-mode style="display:none">
+        <rect x="158" y="164" width="234" height="68" rx="10" fill="var(--color-background)" stroke="var(--color-border)"/>
+        <text x="275" y="190" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)">Known surface area</text>
+        <text x="275" y="216" text-anchor="middle" font-size="17" font-weight="700" fill="#1d4ed8" data-tile-known-area>120 ft²</text>
+      </g>
+
+      <text x="275" y="317" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)" data-tile-grid-summary>10 rows × 12 columns = 120 base tiles</text>
+
+      <text x="515" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">TILE + JOINT MODULE</text>
+      <g transform="translate(535 92)">
+        <rect x="18" y="16" width="118" height="118" rx="4" fill="#0f766e" opacity=".12" stroke="#0f766e" stroke-width="2"/>
+        <rect x="29" y="27" width="96" height="96" rx="2" fill="var(--color-background)" stroke="var(--color-foreground)" stroke-width="1.6"/>
+        <line x1="29" y1="145" x2="125" y2="145" stroke="#2563eb" stroke-width="1.5" marker-start="url(#tile-arrow-start)" marker-end="url(#tile-arrow-end)"/>
+        <text x="77" y="165" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" data-tile-size-x>Tile length = 12 in</text>
+        <line x1="149" y1="27" x2="149" y2="123" stroke="#2563eb" stroke-width="1.5" marker-start="url(#tile-arrow-start)" marker-end="url(#tile-arrow-end)"/>
+        <text x="163" y="75" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" transform="rotate(-90 163 75)" data-tile-size-y>Tile width = 12 in</text>
+        <text x="77" y="188" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-tile-joint>Grout joint = 0.125 in</text>
+      </g>
+
+      <g transform="translate(520 300)">
+        <rect width="212" height="74" rx="10" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="14" y="21" font-size="10.5" fill="var(--color-muted-foreground)">Whole-box purchase</text>
+        <text x="14" y="44" font-size="14" font-weight="700" fill="#1d4ed8" data-tile-boxes>14 boxes</text>
+        <text x="14" y="62" font-size="11" fill="var(--color-muted-foreground)" data-tile-purchased>140 tiles purchased</text>
+      </g>
+
+      <rect x="28" y="350" width="468" height="94" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+      <text x="46" y="375" font-size="11" font-weight="700" fill="var(--color-foreground)">STRAIGHT-LAYOUT FORMULA</text>
+      <text x="46" y="400" font-size="14.5" font-weight="700" fill="var(--color-foreground)">Rows × columns → allowance → whole boxes</text>
+      <text x="46" y="424" font-size="11" fill="var(--color-muted-foreground)" data-tile-formula>Rows = ceil((W + joint) ÷ (tile W + joint)); columns use length.</text>
+
+      <rect x="512" y="392" width="220" height="52" rx="10" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+      <text x="526" y="412" font-size="10.5" fill="var(--color-muted-foreground)">Current purchase target</text>
+      <text x="526" y="433" font-size="12.5" font-weight="700" fill="#1d4ed8" data-tile-order>132 tiles · 10% allowance</text>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-4">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Surface</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-tile-card-surface>12 ft × 10 ft</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Tile + joint</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-tile-card-module>12 in × 12 in · 0.125 in joint</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Base layout</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-tile-card-base>120 tiles</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Boxes</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-tile-card-boxes>14 boxes</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initTileRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-tile-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="tile-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#tile-calculator-form");
+      if (!form) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>("#tile-calculator-" + id);
+      const select = (id: string) => root.querySelector<HTMLSelectElement>("#tile-calculator-" + id);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>("#tile-calculator-" + id + "-unit");
+
+      const unitText = (id: string) => {
+        const u = unit(id);
+        if (u) return u.options[u.selectedIndex]?.text?.trim() || u.value;
+        const el = input(id);
+        return el?.parentElement?.querySelector("span")?.textContent?.trim() || "";
+      };
+
+      const displayValue = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const u = unitText(id);
+        return u ? shown + " " + u : shown;
+      };
+
+      const numberValue = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const lengthFeet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = { ft: 1, in: 1 / 12, yd: 3, m: 1 / 0.3048, cm: 1 / 30.48, mm: 1 / 304.8 };
+        return n * (factors[unit(id)?.value ?? "ft"] ?? 1);
+      };
+
+      const areaFeet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = { ft2: 1, yd2: 9, m2: (1 / 0.3048) ** 2, in2: 1 / 144 };
+        return n * (factors[unit(id)?.value ?? "ft2"] ?? 1);
+      };
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => { el.textContent = text; });
+      };
+
+      const setVisible = (selector: string, visible: boolean) => {
+        figure.querySelectorAll<SVGElement | HTMLElement>(selector).forEach((el) => {
+          (el as HTMLElement).style.display = visible ? "" : "none";
+        });
+      };
+
+      const drawGrid = (rows: number, cols: number, dimensionMode: boolean) => {
+        const group = figure.querySelector<SVGGElement>("[data-tile-grid-lines]");
+        if (!group) return;
+        while (group.firstChild) group.removeChild(group.firstChild);
+
+        const shownRows = dimensionMode ? Math.max(1, Math.min(8, rows || 1)) : 5;
+        const shownCols = dimensionMode ? Math.max(1, Math.min(12, cols || 1)) : 8;
+        const x = 90, y = 104, w = 370, h = 190;
+
+        for (let i = 1; i < shownCols; i++) {
+          const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          const px = x + w * i / shownCols;
+          line.setAttribute("x1", String(px));
+          line.setAttribute("x2", String(px));
+          line.setAttribute("y1", String(y));
+          line.setAttribute("y2", String(y + h));
+          line.setAttribute("stroke", "#0f766e");
+          line.setAttribute("stroke-width", "1");
+          line.setAttribute("opacity", ".48");
+          group.appendChild(line);
+        }
+        for (let i = 1; i < shownRows; i++) {
+          const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          const py = y + h * i / shownRows;
+          line.setAttribute("x1", String(x));
+          line.setAttribute("x2", String(x + w));
+          line.setAttribute("y1", String(py));
+          line.setAttribute("y2", String(py));
+          line.setAttribute("stroke", "#0f766e");
+          line.setAttribute("stroke-width", "1");
+          line.setAttribute("opacity", ".48");
+          group.appendChild(line);
+        }
+      };
+
+      const update = () => {
+        const mode = Math.round(Number(select("mode")?.value ?? "0"));
+        const dimensionMode = mode === 0;
+        const lengthFt = lengthFeet("length");
+        const widthFt = lengthFeet("width");
+        const knownAreaFt2 = areaFeet("area");
+        const tileLengthFt = lengthFeet("tileLength");
+        const tileWidthFt = lengthFeet("tileWidth");
+        const jointRaw = lengthFeet("joint");
+        const jointFt = Number.isFinite(jointRaw) ? Math.max(0, jointRaw) : Number.NaN;
+        const tilesPerBox = Math.max(1, Math.round(numberValue("tilesPerBox", 1)));
+        const allowance = Math.max(0, numberValue("waste", 0));
+
+        const net = dimensionMode ? lengthFt * widthFt : knownAreaFt2;
+        const tileArea = tileLengthFt * tileWidthFt;
+        const moduleLength = tileLengthFt + jointFt;
+        const moduleWidth = tileWidthFt + jointFt;
+        const valid = Number.isFinite(net) && net > 0
+          && Number.isFinite(tileArea) && tileArea > 0
+          && Number.isFinite(moduleLength) && moduleLength > 0
+          && Number.isFinite(moduleWidth) && moduleWidth > 0;
+
+        const straight = valid ? Math.ceil(net / tileArea) : 0;
+        const rows = valid && dimensionMode ? Math.ceil((widthFt + jointFt) / moduleWidth) : 0;
+        const cols = valid && dimensionMode ? Math.ceil((lengthFt + jointFt) / moduleLength) : 0;
+        const layout = dimensionMode ? rows * cols : straight;
+        const base = Math.max(straight, layout);
+        const order = valid ? Math.ceil(base * (1 + allowance / 100)) : 0;
+        const boxes = valid ? Math.ceil(order / tilesPerBox) : 0;
+        const purchasedTiles = boxes * tilesPerBox;
+
+        drawGrid(rows, cols, dimensionMode);
+        setVisible("[data-tile-dimension-mode]", dimensionMode);
+        setVisible("[data-tile-known-area-mode]", !dimensionMode);
+
+        setText("[data-tile-mode-label]", dimensionMode ? "Straight rectangular layout" : "Known-area quantity mode");
+        setText("[data-tile-length]", "Surface length = " + displayValue("length"));
+        setText("[data-tile-width]", "Surface width = " + displayValue("width"));
+        setText("[data-tile-known-area]", displayValue("area"));
+        setText("[data-tile-size-x]", "Tile length = " + displayValue("tileLength"));
+        setText("[data-tile-size-y]", "Tile width = " + displayValue("tileWidth"));
+        setText("[data-tile-joint]", "Grout joint = " + displayValue("joint"));
+
+        const gridSummary = dimensionMode
+          ? rows + " rows × " + cols + " columns = " + base + " base tiles"
+          : "Area-based count = " + base + " base tiles · row/column cuts not modeled";
+        setText("[data-tile-grid-summary]", gridSummary);
+        setText("[data-tile-boxes]", boxes + " " + (boxes === 1 ? "box" : "boxes"));
+        setText("[data-tile-purchased]", purchasedTiles + " tiles purchased");
+        setText("[data-tile-order]", order + " tiles · " + allowance + "% allowance");
+        setText("[data-tile-formula]", dimensionMode
+          ? "Rows = ceil((W + joint) ÷ (tile W + joint)); columns use length."
+          : "Known-area mode uses tile face area; rows and columns are not modeled.");
+
+        setText("[data-tile-card-surface]", dimensionMode
+          ? displayValue("length") + " × " + displayValue("width")
+          : displayValue("area"));
+        setText("[data-tile-card-module]", displayValue("tileLength") + " × " + displayValue("tileWidth") + " · " + displayValue("joint") + " joint");
+        setText("[data-tile-card-base]", base + " tiles");
+        setText("[data-tile-card-boxes]", boxes + " " + (boxes === 1 ? "box" : "boxes"));
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+      update();
+      setTimeout(update, 0);
+    });
+  }
+
+  initTileRichDiagrams();
+  document.addEventListener("astro:page-load", initTileRichDiagrams);
+</script>
