@@ -723,6 +723,46 @@ test.describe('Calculator interactions', () => {
     await expect(root.locator('#concrete-pour-calculator-minOrder-err')).toContainText('cannot exceed');
   });
 
+
+  test('Drywall calculator — live room takeoff follows walls, ceiling, openings and allowance', async ({ page }) => {
+    await page.goto('/drywall-calculator/');
+    const root = page.locator('[data-calculator-slug="drywall-calculator"]');
+    const diagram = root.locator('[data-drywall-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'drywall');
+    await expect(diagram).toContainText('UNFOLDED WALL ELEVATIONS');
+    await expect(diagram).toContainText('SHEET PURCHASE VIEW');
+    await expect(diagram).toContainText('2 × (L + W) × H + ceiling − openings');
+
+    await root.locator('#drywall-calculator-length').fill('12');
+    await root.locator('#drywall-calculator-width').fill('10');
+    await root.locator('#drywall-calculator-height').fill('8');
+    await root.locator('#drywall-calculator-openings').fill('40');
+    await root.locator('#drywall-calculator-ceiling').selectOption('1');
+    await root.locator('#drywall-calculator-coverage').fill('32');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#drywall-calculator-waste').fill('10');
+
+    await expect(diagram).toContainText('Walls + ceiling');
+    await expect(diagram).toContainText('12 ft');
+    await expect(diagram).toContainText('10 ft');
+    await expect(diagram).toContainText('Height = 8 ft');
+    await expect(diagram).toContainText('40 ft² openings');
+    await expect(diagram).toContainText('120 ft² ceiling');
+    await expect(diagram).toContainText('15 sheets');
+    await expect(diagram.locator('[data-drywall-card-count]')).toHaveText('15');
+
+    await root.locator('#drywall-calculator-ceiling').selectOption('0');
+    await expect(diagram).toContainText('Walls only');
+    await expect(diagram.locator('[data-drywall-ceiling-panel]')).toBeHidden();
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');

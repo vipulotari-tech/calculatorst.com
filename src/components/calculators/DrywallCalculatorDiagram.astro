@@ -1,0 +1,228 @@
+---
+const slug = "drywall-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-drywall-rich-diagram
+  data-kind="drywall"
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live drywall takeoff diagram</h3>
+      <p class="mt-1 max-w-[700px] text-[11px] leading-5 text-muted-foreground">
+        Room wall area, optional ceiling, opening deduction, sheet coverage, allowance, and whole-sheet purchase quantity update from the calculator inputs. Schematic only — not a seam or cut plan.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE INPUT GUIDE</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg viewBox="0 0 760 480" class="h-auto w-full" role="img" aria-labelledby="drywall-diagram-title drywall-diagram-desc">
+      <title id="drywall-diagram-title">Live drywall room takeoff diagram</title>
+      <desc id="drywall-diagram-desc">
+        Four unfolded room walls with an opening deduction, optional ceiling area, sheet coverage module, and whole-sheet purchase quantity.
+      </desc>
+
+      <defs>
+        <marker id="drywall-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="drywall-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"/>
+        </marker>
+        <pattern id="drywall-board" width="26" height="22" patternUnits="userSpaceOnUse">
+          <rect width="26" height="22" fill="var(--color-muted)" opacity=".35"/>
+          <path d="M0 0H26V22H0Z" fill="none" stroke="var(--color-muted-foreground)" stroke-width=".7" opacity=".17"/>
+        </pattern>
+      </defs>
+
+      <text x="28" y="31" font-size="13" font-weight="700" fill="var(--color-foreground)">Drywall room takeoff</text>
+      <text x="732" y="31" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)" data-drywall-ceiling-status>Walls only</text>
+
+      <text x="42" y="64" font-size="11" font-weight="700" fill="var(--color-foreground)">UNFOLDED WALL ELEVATIONS</text>
+
+      <g transform="translate(42 91)">
+        <rect x="0" y="0" width="184" height="104" rx="3" fill="url(#drywall-board)" stroke="var(--color-foreground)" stroke-width="1.7"/>
+        <rect x="230" y="0" width="128" height="104" rx="3" fill="url(#drywall-board)" stroke="var(--color-foreground)" stroke-width="1.7"/>
+        <rect x="0" y="130" width="184" height="104" rx="3" fill="url(#drywall-board)" stroke="var(--color-foreground)" stroke-width="1.7"/>
+        <rect x="230" y="130" width="128" height="104" rx="3" fill="url(#drywall-board)" stroke="var(--color-foreground)" stroke-width="1.7"/>
+
+        <rect x="62" y="45" width="48" height="59" fill="var(--color-background)" stroke="#b45309" stroke-width="1.5" stroke-dasharray="4 3" data-drywall-opening/>
+        <text x="86" y="39" text-anchor="middle" font-size="9.5" fill="#92400e">OPENING</text>
+
+        <text x="92" y="122" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-drywall-long-wall>Long wall × 2 · 12 ft</text>
+        <text x="294" y="122" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-drywall-short-wall>Short wall × 2 · 10 ft</text>
+
+        <line x1="-18" y1="0" x2="-18" y2="104" stroke="#2563eb" stroke-width="1.5" marker-start="url(#drywall-arrow-start)" marker-end="url(#drywall-arrow-end)"/>
+        <text x="-30" y="52" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" transform="rotate(-90 -30 52)" data-drywall-height>Height = 8 ft</text>
+      </g>
+
+      <text x="220" y="344" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)" data-drywall-area-summary>352 ft² wall area − 0 ft² openings</text>
+
+      <g data-drywall-ceiling-panel style="display:none">
+        <text x="422" y="64" font-size="11" font-weight="700" fill="var(--color-foreground)">OPTIONAL CEILING</text>
+        <rect x="470" y="88" width="220" height="112" rx="4" fill="url(#drywall-board)" stroke="var(--color-foreground)" stroke-width="1.7"/>
+        <line x1="470" y1="74" x2="690" y2="74" stroke="#2563eb" stroke-width="1.5" marker-start="url(#drywall-arrow-start)" marker-end="url(#drywall-arrow-end)"/>
+        <text x="580" y="65" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" data-drywall-ceiling-length>12 ft</text>
+        <text x="580" y="147" text-anchor="middle" font-size="12" font-weight="700" fill="var(--color-foreground)" data-drywall-ceiling-area>120 ft² ceiling</text>
+      </g>
+
+      <g transform="translate(450 226)">
+        <text x="0" y="0" font-size="11" font-weight="700" fill="var(--color-foreground)">SHEET PURCHASE VIEW</text>
+        <g transform="translate(12 24)">
+          <rect x="28" y="18" width="122" height="78" rx="4" fill="var(--color-muted)" stroke="var(--color-border)"/>
+          <rect x="18" y="9" width="122" height="78" rx="4" fill="var(--color-muted)" stroke="var(--color-border)"/>
+          <rect x="8" y="0" width="122" height="78" rx="4" fill="var(--color-background)" stroke="var(--color-foreground)" stroke-width="1.7"/>
+          <text x="69" y="31" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)">Area per sheet</text>
+          <text x="69" y="56" text-anchor="middle" font-size="15" font-weight="700" fill="#1d4ed8" data-drywall-sheet-coverage>32 ft²</text>
+          <text x="69" y="118" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--color-foreground)" data-drywall-sheet-count>13 sheets</text>
+          <text x="69" y="137" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-drywall-allowance>10% allowance</text>
+        </g>
+      </g>
+
+      <rect x="28" y="372" width="704" height="80" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+      <text x="46" y="397" font-size="11" font-weight="700" fill="var(--color-foreground)">TAKEOFF FORMULA</text>
+      <text x="46" y="423" font-size="15" font-weight="700" fill="var(--color-foreground)">2 × (L + W) × H + ceiling − openings</text>
+      <line x1="438" y1="386" x2="438" y2="438" stroke="var(--color-border)"/>
+      <text x="458" y="397" font-size="11" font-weight="700" fill="var(--color-foreground)">CURRENT ORDER</text>
+      <text x="458" y="423" font-size="13.5" font-weight="700" fill="#1d4ed8" data-drywall-order-summary>387.2 ft² → 13 sheets</text>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-4">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Net drywall area</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-drywall-card-net>352 ft²</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">With allowance</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-drywall-card-order>387.2 ft²</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Sheet coverage</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-drywall-card-sheet>32 ft²</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Whole sheets</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-drywall-card-count>13</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initDrywallRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-drywall-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="drywall-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#drywall-calculator-form");
+      if (!form) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>("#drywall-calculator-" + id);
+      const select = (id: string) => root.querySelector<HTMLSelectElement>("#drywall-calculator-" + id);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>("#drywall-calculator-" + id + "-unit");
+
+      const unitText = (id: string) => {
+        const u = unit(id);
+        return u ? (u.options[u.selectedIndex]?.text?.trim() || u.value) : "";
+      };
+
+      const displayValue = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const label = unitText(id);
+        return label ? shown + " " + label : shown;
+      };
+
+      const numberValue = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const feet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = { ft: 1, in: 1 / 12, yd: 3, m: 1 / 0.3048, cm: 1 / 30.48, mm: 1 / 304.8 };
+        return n * (factors[unit(id)?.value ?? "ft"] ?? 1);
+      };
+
+      const areaFeet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = { ft2: 1, yd2: 9, m2: (1 / 0.3048) ** 2, in2: 1 / 144 };
+        return n * (factors[unit(id)?.value ?? "ft2"] ?? 1);
+      };
+
+      const fmt = (value: number, digits = 2) =>
+        Number.isFinite(value) ? String(Number(value.toFixed(digits))) : "—";
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => {
+          el.textContent = text;
+        });
+      };
+
+      const setVisible = (selector: string, visible: boolean) => {
+        figure.querySelectorAll<SVGElement | HTMLElement>(selector).forEach((el) => {
+          (el as HTMLElement).style.display = visible ? "" : "none";
+        });
+      };
+
+      const update = () => {
+        const lengthFt = feet("length");
+        const widthFt = feet("width");
+        const heightFt = feet("height");
+        const openingsFt2 = Math.max(0, areaFeet("openings"));
+        const coverageFt2 = areaFeet("coverage");
+        const includeCeiling = Math.round(Number(select("ceiling")?.value ?? "0")) === 1;
+        const allowance = Math.max(0, numberValue("waste", 0));
+
+        const validRoom = Number.isFinite(lengthFt) && lengthFt > 0
+          && Number.isFinite(widthFt) && widthFt > 0
+          && Number.isFinite(heightFt) && heightFt > 0;
+        const wallArea = validRoom ? 2 * (lengthFt + widthFt) * heightFt : 0;
+        const ceilingArea = validRoom && includeCeiling ? lengthFt * widthFt : 0;
+        const netArea = Math.max(0, wallArea + ceilingArea - (Number.isFinite(openingsFt2) ? openingsFt2 : 0));
+        const orderArea = netArea * (1 + allowance / 100);
+        const sheets = Number.isFinite(coverageFt2) && coverageFt2 > 0 ? Math.ceil(orderArea / coverageFt2) : 0;
+
+        setVisible("[data-drywall-ceiling-panel]", includeCeiling);
+        setText("[data-drywall-ceiling-status]", includeCeiling ? "Walls + ceiling" : "Walls only");
+        setText("[data-drywall-long-wall]", "Long wall × 2 · " + displayValue("length"));
+        setText("[data-drywall-short-wall]", "Short wall × 2 · " + displayValue("width"));
+        setText("[data-drywall-height]", "Height = " + displayValue("height"));
+        setText("[data-drywall-area-summary]", fmt(wallArea) + " ft² wall area − " + fmt(openingsFt2) + " ft² openings");
+        setText("[data-drywall-ceiling-length]", displayValue("length") + " × " + displayValue("width"));
+        setText("[data-drywall-ceiling-area]", fmt(ceilingArea) + " ft² ceiling");
+        setText("[data-drywall-sheet-coverage]", displayValue("coverage"));
+        setText("[data-drywall-sheet-count]", sheets + " " + (sheets === 1 ? "sheet" : "sheets"));
+        setText("[data-drywall-allowance]", fmt(allowance) + "% allowance");
+        setText("[data-drywall-order-summary]", fmt(orderArea) + " ft² → " + sheets + " " + (sheets === 1 ? "sheet" : "sheets"));
+
+        setText("[data-drywall-card-net]", fmt(netArea) + " ft²");
+        setText("[data-drywall-card-order]", fmt(orderArea) + " ft²");
+        setText("[data-drywall-card-sheet]", Number.isFinite(coverageFt2) ? fmt(coverageFt2) + " ft²" : "—");
+        setText("[data-drywall-card-count]", String(sheets));
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+
+      update();
+      queueMicrotask(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 0);
+    });
+  }
+
+  initDrywallRichDiagrams();
+  document.addEventListener("astro:page-load", initDrywallRichDiagrams);
+</script>
