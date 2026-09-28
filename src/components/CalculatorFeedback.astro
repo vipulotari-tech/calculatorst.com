@@ -43,6 +43,18 @@ const storageKey = `calculatorst:helpful:${canonicalUrl}`;
   <p class="feedback-status mt-3 text-xs text-muted-foreground" role="status" aria-live="polite"></p>
 </section>
 
+<style>
+  .feedback-btn[aria-pressed="true"] {
+    background-color: var(--foreground);
+    border-color: var(--foreground);
+    color: var(--background);
+  }
+
+  .feedback-btn[aria-pressed="true"]:hover {
+    background-color: var(--foreground);
+  }
+</style>
+
 <script>
   function initCalculatorFeedback() {
     document.querySelectorAll<HTMLElement>("[data-calculator-feedback]").forEach((root) => {
@@ -58,9 +70,6 @@ const storageKey = `calculatorst:helpful:${canonicalUrl}`;
         buttons.forEach((button) => {
           const selected = button.dataset.feedbackValue === value;
           button.setAttribute("aria-pressed", String(selected));
-          button.classList.toggle("bg-foreground", selected);
-          button.classList.toggle("text-background", selected);
-          button.classList.toggle("border-foreground", selected);
         });
         if (status) {
           status.textContent = value ? "Preference saved on this device. You can change it anytime." : "";

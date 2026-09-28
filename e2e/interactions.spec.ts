@@ -513,6 +513,11 @@ test.describe('Calculator interactions', () => {
     const helpful = feedback.getByRole('button', { name: 'Helpful' });
     await helpful.click();
     await expect(helpful).toHaveAttribute('aria-pressed', 'true');
+    const selectedStyles = await helpful.evaluate((button) => {
+      const styles = window.getComputedStyle(button);
+      return { color: styles.color, backgroundColor: styles.backgroundColor };
+    });
+    expect(selectedStyles.color).not.toBe(selectedStyles.backgroundColor);
     await expect(feedback.locator('.feedback-status')).toContainText('saved on this device');
 
     await page.reload();
