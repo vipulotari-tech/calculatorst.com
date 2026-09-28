@@ -17,6 +17,23 @@ const prioritySlugs = [
   "rebar-chair-calculator",
 ];
 const priorityCalculators = prioritySlugs.map((slug) => hubCalculators.find((c) => c.slug === slug)).filter(Boolean) as typeof hubCalculators;
+const additionalPrioritySlugs = [
+  "driveway-gravel-calculator",
+  "concrete-cost-calculator",
+  "concrete-weight-calculator",
+  "driveway-concrete-calculator",
+  "concrete-wall-calculator",
+  "concrete-column-calculator",
+  "mulch-calculator",
+  "brick-weight-calculator",
+  "earthwork-calculator",
+  "gate-calculator",
+  "aggregate-weight-calculator",
+  "foundation-cost-calculator",
+];
+const additionalPriorityCalculators = additionalPrioritySlugs
+  .map((slug) => hubCalculators.find((c) => c.slug === slug))
+  .filter(Boolean) as typeof hubCalculators;
 ---
 
 <Layout title="Construction Calculators | Calculator Street"
@@ -36,6 +53,13 @@ const priorityCalculators = prioritySlugs.map((slug) => hubCalculators.find((c) 
             <a href={`/${c.slug}/`} class="rounded-lg border border-hairline bg-canvas p-4 shadow-card transition hover:shadow-card-hover">
               <h3 class="text-sm font-semibold text-ink">{c.h1}</h3>
               <p class="mt-1 line-clamp-2 text-xs leading-5 text-body">{c.description}</p>
+            </a>
+          ))}
+        </div>
+        <div class="mt-4 flex flex-wrap gap-2" aria-label="More useful construction calculators">
+          {additionalPriorityCalculators.map((c) => (
+            <a href={`/${c.slug}/`} class="rounded-full border border-hairline bg-canvas px-3 py-1.5 text-xs font-medium text-body transition hover:border-ink/20 hover:text-ink">
+              {c.h1}
             </a>
           ))}
         </div>

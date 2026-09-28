@@ -150,6 +150,7 @@ const faqEnhancements: Record<string, { q: string; a: string }[]> = {
     { q: "Can I calculate crushed stone from square feet or an existing cubic-yard volume?", a: "Yes. Choose dimensions, known surface area plus depth, or known volume. The calculator normalizes the selected measurements before applying your allowance and density." },
     { q: "What density should I use for crusher run, crushed concrete or crushed stone?", a: "Use the bulk density supplied for the exact material and condition you are ordering. Grading, moisture and compaction can change weight per cubic yard, so the density is editable instead of being hard-coded." },
     { q: "How are tons calculated from cubic yards?", a: "The calculator multiplies waste-adjusted cubic yards by the bulk density you enter in US tons per cubic yard. The same result is also shown in pounds." },
+    { q: "Should I use the Crushed Stone Calculator or Crushed Stone Cost Calculator?", a: "Use this page when the main task is quantity, volume or weight. Use the Crushed Stone Cost Calculator when you also need quoted material price, tax, delivery and spreading or labor costs." },
   ],
   "roofing-shingle-calculator": [
     { q: "How does the roofing shingle calculator estimate bundles?", a: "Use either building footprint plus pitch or a known sloped roof area. The calculator applies the entered material allowance, divides by the product’s effective bundle or package coverage, and rounds up to a whole package count." },
@@ -186,6 +187,13 @@ const faqEnhancements: Record<string, { q: string; a: string }[]> = {
   "earthwork-calculator": [
     { q: "What is the difference between bank volume and loose volume?", a: "Bank volume is the material in place before excavation. Loose volume applies the swell percentage you enter to estimate the excavated haul volume after the soil is disturbed." },
     { q: "Does the earthwork calculator add a waste or compaction factor?", a: "No. It applies only the swell factor shown in the form. Overbreak, working room, shrinkage, compaction and unsuitable material must be measured or handled separately for the project." },
+    { q: "When should I use Earthwork Calculator instead of Excavation Calculator?", a: "Use Earthwork Calculator when you already know or can measure bank volume and want bank, loose and compacted state conversions. Use Excavation Calculator when the main task is deriving excavation geometry and haul volume from cut dimensions." },
+  ],
+  "excavation-calculator": [
+    { q: "Should I use the Excavation Calculator or Excavation Cost Calculator?", a: "Use Excavation Calculator for bank volume, sloped-side geometry and swell-adjusted loose haul volume. Use Excavation Cost Calculator when you also need excavation rate, haul or disposal charges, truck trips and entered project costs." },
+  ],
+  "mortar-calculator": [
+    { q: "Which mortar calculator should I use?", a: "Use Mortar Calculator for bag quantity from installed brick or block coverage or known mixed volume. Use Mortar Mix Calculator to split a user-entered cement, lime and sand ratio, and Mortar Cost Calculator when the bag quantity is already known and you need pricing." },
   ],
 };
 const concreteSeo: Record<string, {
@@ -1368,6 +1376,10 @@ const tradeFaqEnhancements: Record<string, { q: string; a: string }[]> = {
     {
       "q": "What should I enter as additional framing pieces?",
       "a": "Use the count required by the plans for corners, openings, backing or other details that are not captured by the repeated spacing layout."
+    },
+    {
+      "q": "Should I use Framing Calculator or Wall Framing Calculator?",
+      "a": "Use Framing Calculator for a general repeated-member layout. Use Wall Framing Calculator when the takeoff specifically needs wall studs plus top and bottom plate footage."
     }
   ],
   "wall-framing-calculator": [
@@ -1378,6 +1390,10 @@ const tradeFaqEnhancements: Record<string, { q: string; a: string }[]> = {
     {
       "q": "Are doors and windows automatically framed?",
       "a": "No. Opening details such as king studs, jack studs and headers depend on the wall design and must be added from the project plan."
+    },
+    {
+      "q": "How is this different from the general Framing Calculator?",
+      "a": "This page is wall-specific: it reports studs and top/bottom plate footage. The general Framing Calculator is for repeated members from a layout distance and specified spacing."
     }
   ],
   "stud-calculator": [
@@ -1859,6 +1875,13 @@ const gscSeoRefreshSlugs = new Set([
   "concrete-wall-calculator",
   "concrete-column-calculator",
   "brick-weight-calculator",
+  "gate-calculator",
+  "crushed-stone-calculator",
+  "earthwork-calculator",
+  "excavation-calculator",
+  "mortar-calculator",
+  "framing-calculator",
+  "wall-framing-calculator",
 ]);
 const pageDateModified = gscSeoRefreshSlugs.has(calc.slug)
   ? "2026-09-28"
