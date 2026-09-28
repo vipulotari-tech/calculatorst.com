@@ -214,6 +214,10 @@ test.describe('Calculator interactions', () => {
     await expect(root.locator('#concrete-volume-calculator-field-depth')).toBeVisible();
     await expect(root.locator('#concrete-volume-calculator-field-diameter')).toBeHidden();
     await expect(diagram.locator('[data-concrete-volume-shape-name]')).toHaveText('Rectangular slab / prism');
+    await expect(diagram).toHaveAttribute('data-concrete-volume-rich-diagram', '');
+    await expect(diagram).toContainText('TOP VIEW (PLAN)');
+    await expect(diagram).toContainText('SIDE VIEW (SECTION)');
+    await expect(diagram).toContainText('V = L × W × T × Q');
 
     await shape.selectOption('2');
     await expect(root.locator('#concrete-volume-calculator-field-diameter')).toBeVisible();
@@ -241,6 +245,7 @@ test.describe('Calculator interactions', () => {
     await expect(root.locator('#concrete-volume-calculator-field-run')).toBeVisible();
     await expect(root.locator('#concrete-volume-calculator-field-diameter')).toBeHidden();
     await expect(diagram.locator('[data-concrete-volume-shape-name]')).toHaveText('Solid stairs (mass fill)');
+    await expect(diagram).toContainText('V = W × R × Run × n(n+1)/2 + landing');
 
     await shape.selectOption('6');
     await expect(root.locator('#concrete-volume-calculator-field-length')).toBeVisible();
