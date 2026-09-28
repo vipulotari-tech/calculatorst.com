@@ -803,6 +803,44 @@ test.describe('Calculator interactions', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+
+  test('Brick calculator — live wall takeoff follows openings, module, wythes and allowance', async ({ page }) => {
+    await page.goto('/brick-calculator/');
+    const root = page.locator('[data-calculator-slug="brick-calculator"]');
+    const diagram = root.locator('[data-brick-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'brick');
+    await expect(diagram).toContainText('Wall elevation');
+    await expect(diagram).toContainText('AREA-BASED TAKEOFF');
+
+    await root.locator('#brick-calculator-mode').selectOption('0');
+    await root.locator('#brick-calculator-length').fill('20');
+    await root.locator('#brick-calculator-height').fill('8');
+    await root.locator('#brick-calculator-openings').fill('20');
+    await root.locator('#brick-calculator-brickLength').fill('7.625');
+    await root.locator('#brick-calculator-brickHeight').fill('2.25');
+    await root.locator('#brick-calculator-joint').fill('0.375');
+    await root.locator('#brick-calculator-wythes').fill('1');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#brick-calculator-waste').fill('10');
+
+    await expect(diagram.locator('[data-brick-net-area]')).toHaveText('140 ft²');
+    await expect(diagram.locator('[data-brick-installed]')).toHaveText('960');
+    await expect(diagram.locator('[data-brick-order]')).toHaveText('1,056 bricks');
+    await expect(diagram.locator('[data-brick-layout-check]')).toHaveText('37 courses × 30 bricks/course');
+    await expect(diagram.locator('[data-brick-spares]')).toHaveText('96 bricks');
+    await expect(diagram).toContainText('Installed module = 8 in × 2.625 in');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-rows-grid')).toContainText('Bricks to order');
+    await expect(root.locator('.result-rows-grid')).toContainText('Estimated installed bricks');
+    await expect(root.locator('.result-rows-grid')).toContainText('Net wall area');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
