@@ -191,6 +191,37 @@ test.describe('Calculator interactions', () => {
     await expect(diagram).toContainText('Compaction 12% · Waste 7%');
   });
 
+  test('Mulch calculator — live bed diagram follows dimensions and order settings', async ({ page }) => {
+    await page.goto('/mulch-calculator/');
+    const root = page.locator('[data-calculator-slug="mulch-calculator"]');
+    const diagram = root.locator('[data-mulch-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('BED PLAN');
+    await expect(diagram).toContainText('PLACED DEPTH SECTION');
+    await expect(diagram).toContainText('Net = L × W × D × beds');
+
+    await root.locator('#mulch-calculator-length').fill('24');
+    await root.locator('#mulch-calculator-width').fill('12');
+    await root.locator('#mulch-calculator-depth').fill('4');
+    await root.locator('#mulch-calculator-depth-unit').selectOption('in');
+    await root.locator('#mulch-calculator-quantity').fill('3');
+
+    await expect(diagram).toContainText('24 ft');
+    await expect(diagram).toContainText('12 ft');
+    await expect(diagram).toContainText('4 in');
+    await expect(diagram).toContainText('3 identical beds');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#mulch-calculator-bag').fill('3');
+    await root.locator('#mulch-calculator-bag-unit').selectOption('ft3');
+    await root.locator('#mulch-calculator-waste').fill('8');
+
+    await expect(diagram).toContainText('3 ft³ / bag');
+    await expect(diagram).toContainText('Purchasing allowance = 8%');
+  });
+
   test('Concrete calculator — project type controls inputs, validation and diagram', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');

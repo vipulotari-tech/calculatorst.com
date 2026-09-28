@@ -1,0 +1,185 @@
+---
+const slug = "mulch-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-mulch-rich-diagram
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live mulch bed diagram</h3>
+      <p class="mt-1 max-w-[660px] text-[11px] leading-5 text-muted-foreground">
+        Bed plan, placed-depth section, and bag-order view update from the active calculator inputs. Schematic only — not to scale.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE INPUT GUIDE</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg viewBox="0 0 760 455" class="h-auto w-full" role="img" aria-labelledby={`${slug}-mulch-title ${slug}-mulch-desc`}>
+      <title id={`${slug}-mulch-title`}>Live mulch calculator bed diagram</title>
+      <desc id={`${slug}-mulch-desc`}>
+        Technical landscaping diagram showing rectangular bed length, width, mulch depth, identical bed count, bag volume and purchasing allowance.
+      </desc>
+
+      <defs>
+        <marker id="mulch-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="mulch-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"/>
+        </marker>
+        <pattern id="mulch-chips" width="24" height="18" patternUnits="userSpaceOnUse">
+          <rect width="24" height="18" fill="#b7791f" opacity=".16"/>
+          <path d="M3 5 l7 2 M13 4 l6 4 M5 14 l8-3 M16 14 l5-2" stroke="#92400e" stroke-width="1.5" stroke-linecap="round" opacity=".55"/>
+          <circle cx="20" cy="6" r="1.2" fill="#92400e" opacity=".4"/>
+        </pattern>
+        <pattern id="mulch-soil" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(20)">
+          <rect width="14" height="14" fill="var(--color-muted)" opacity=".22"/>
+          <line x1="0" y1="0" x2="0" y2="14" stroke="var(--color-muted-foreground)" stroke-width="1" opacity=".25"/>
+        </pattern>
+      </defs>
+
+      <rect width="760" height="455" fill="var(--color-background)"/>
+      <text x="28" y="30" font-size="13" font-weight="700" fill="var(--color-foreground)">Rectangular mulch bed</text>
+      <text x="732" y="30" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)" data-mulch-beds>1 identical bed</text>
+
+      <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">BED PLAN</text>
+      <rect x="86" y="104" width="366" height="160" rx="12" fill="url(#mulch-chips)" stroke="var(--color-foreground)" stroke-width="2"/>
+      <path d="M150 155 C130 135 136 111 161 109 C184 108 198 128 188 148 C210 145 226 162 219 181 C211 203 180 202 168 184 C155 204 124 199 120 177 C117 160 131 149 150 155 Z" fill="#86a873" opacity=".68" stroke="#486a3d" stroke-width="1.4"/>
+      <circle cx="169" cy="165" r="12" fill="#6b4f35" opacity=".7"/>
+      <path d="M350 128 C330 116 315 132 321 150 C303 157 306 180 326 184 C333 205 364 207 374 187 C396 184 401 156 382 148 C382 126 361 116 350 128 Z" fill="#86a873" opacity=".64" stroke="#486a3d" stroke-width="1.4"/>
+      <circle cx="350" cy="167" r="9" fill="#6b4f35" opacity=".7"/>
+
+      <line x1="86" y1="84" x2="452" y2="84" stroke="#2563eb" stroke-width="1.7" marker-start="url(#mulch-arrow-start)" marker-end="url(#mulch-arrow-end)"/>
+      <line x1="86" y1="90" x2="86" y2="104" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4"/>
+      <line x1="452" y1="90" x2="452" y2="104" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4"/>
+      <text x="269" y="74" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" data-mulch-length>Length = 20 ft</text>
+
+      <line x1="64" y1="104" x2="64" y2="264" stroke="#2563eb" stroke-width="1.7" marker-start="url(#mulch-arrow-start)" marker-end="url(#mulch-arrow-end)"/>
+      <line x1="70" y1="104" x2="86" y2="104" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4"/>
+      <line x1="70" y1="264" x2="86" y2="264" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4"/>
+      <text x="46" y="184" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" transform="rotate(-90 46 184)" data-mulch-width>Width = 10 ft</text>
+
+      <text x="502" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">PLACED DEPTH SECTION</text>
+      <rect x="514" y="120" width="202" height="53" fill="url(#mulch-chips)" stroke="var(--color-foreground)" stroke-width="2"/>
+      <rect x="514" y="173" width="202" height="60" fill="url(#mulch-soil)" stroke="var(--color-muted-foreground)" stroke-width="1"/>
+      <path d="M526 116 q15-24 30 0 M650 116 q16-28 32 0" fill="none" stroke="#486a3d" stroke-width="2"/>
+      <line x1="735" y1="120" x2="735" y2="173" stroke="#2563eb" stroke-width="1.7" marker-start="url(#mulch-arrow-start)" marker-end="url(#mulch-arrow-end)"/>
+      <line x1="716" y1="120" x2="741" y2="120" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4"/>
+      <line x1="716" y1="173" x2="741" y2="173" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4"/>
+      <text x="724" y="195" text-anchor="end" font-size="12" font-weight="700" fill="#1d4ed8" data-mulch-depth>Placed depth = 3 in</text>
+      <text x="615" y="220" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)">Mulch layer over existing soil</text>
+
+      <g transform="translate(505 246)">
+        <rect width="222" height="58" rx="10" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <path d="M20 44 L28 11 H72 L80 44 Z" fill="url(#mulch-chips)" stroke="var(--color-foreground)" stroke-width="1.5"/>
+        <path d="M88 44 L96 11 H140 L148 44 Z" fill="url(#mulch-chips)" stroke="var(--color-foreground)" stroke-width="1.5"/>
+        <text x="160" y="22" font-size="10.5" font-weight="700" fill="var(--color-foreground)">Bag volume</text>
+        <text x="160" y="41" font-size="12" font-weight="700" fill="#1d4ed8" data-mulch-bag>2 ft³ / bag</text>
+      </g>
+
+      <rect x="28" y="326" width="704" height="102" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+      <text x="46" y="351" font-size="11" font-weight="700" fill="var(--color-foreground)">ORDER FORMULA</text>
+      <text x="46" y="376" font-size="15.5" font-weight="700" fill="var(--color-foreground)">Net = L × W × D × beds</text>
+      <text x="46" y="400" font-size="11" fill="var(--color-muted-foreground)">Order = net × allowance · Bags = ceil(order ÷ bag volume)</text>
+
+      <line x1="425" y1="342" x2="425" y2="415" stroke="var(--color-border)"/>
+      <text x="448" y="351" font-size="11" font-weight="700" fill="var(--color-foreground)">CURRENT ORDER SETTINGS</text>
+      <text x="448" y="375" font-size="13" font-weight="700" fill="#1d4ed8" data-mulch-allowance>Purchasing allowance = 10%</text>
+      <text x="448" y="399" font-size="11.5" fill="var(--color-muted-foreground)" data-mulch-summary>20 ft × 10 ft × 3 in · 1 bed</text>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-3">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Bed dimensions</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-mulch-card-dimensions>20 ft × 10 ft × 3 in</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Identical beds</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-mulch-card-beds>1 bed</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Bag + allowance</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-mulch-card-order>2 ft³ · 10%</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initMulchRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-mulch-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="mulch-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#mulch-calculator-form");
+      if (!form) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>(`#mulch-calculator-${id}`);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>(`#mulch-calculator-${id}-unit`);
+
+      const unitLabel = (id: string) => {
+        const select = unit(id);
+        if (select) return select.options[select.selectedIndex]?.text?.trim() || select.value;
+        const el = input(id);
+        const staticUnit = el?.parentElement?.querySelector("span");
+        return staticUnit?.textContent?.trim() || "";
+      };
+
+      const value = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const u = unitLabel(id);
+        return u ? `${shown} ${u}` : shown;
+      };
+
+      const numberValue = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => { el.textContent = text; });
+      };
+
+      const update = () => {
+        const length = value("length");
+        const width = value("width");
+        const depth = value("depth");
+        const bag = value("bag");
+        const beds = Math.max(0, Math.round(numberValue("quantity", 1)));
+        const waste = Math.max(0, numberValue("waste", 0));
+
+        const bedLabel = `${beds} ${beds === 1 ? "bed" : "beds"}`;
+        const dimensions = `${length} × ${width} × ${depth}`;
+
+        setText("[data-mulch-length]", `Length = ${length}`);
+        setText("[data-mulch-width]", `Width = ${width}`);
+        setText("[data-mulch-depth]", `Placed depth = ${depth}`);
+        setText("[data-mulch-bag]", `${bag} / bag`);
+        setText("[data-mulch-beds]", `${beds} identical ${beds === 1 ? "bed" : "beds"}`);
+        setText("[data-mulch-allowance]", `Purchasing allowance = ${waste}%`);
+        setText("[data-mulch-summary]", `${dimensions} · ${bedLabel}`);
+        setText("[data-mulch-card-dimensions]", dimensions);
+        setText("[data-mulch-card-beds]", bedLabel);
+        setText("[data-mulch-card-order]", `${bag} · ${waste}%`);
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+      update();
+      setTimeout(update, 0);
+    });
+  }
+
+  initMulchRichDiagrams();
+  document.addEventListener("astro:page-load", initMulchRichDiagrams);
+</script>
