@@ -126,6 +126,31 @@ test.describe('Calculator interactions', () => {
     expect(await diagram.innerText()).toContain('Schematic only');
   });
 
+  test('Priority calculator diagrams render and follow live measurements', async ({ page }) => {
+    const cases = [
+      'paint-calculator',
+      'gravel-calculator',
+      'roof-pitch-calculator',
+      'tile-calculator',
+      'fence-calculator',
+      'excavation-calculator',
+    ];
+
+    for (const slug of cases) {
+      await page.goto(`/${slug}/`);
+      const root = page.locator(`[data-calculator-slug="${slug}"]`);
+      const diagram = root.locator('[data-priority-rich-diagram]');
+      await expect(diagram, slug).toBeVisible();
+      await expect(diagram.locator('svg'), slug).toHaveAttribute('role', 'img');
+      await expect(diagram, slug).toContainText('Formula used by this calculator');
+
+      const firstVisibleNumber = root.locator('.calc-field:not([hidden]) input[type="number"]').first();
+      await expect(firstVisibleNumber, slug).toBeVisible();
+      await firstVisibleNumber.fill('37');
+      await expect(diagram, slug).toContainText('37');
+    }
+  });
+
   test('Concrete calculator — project type controls inputs, validation and diagram', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
