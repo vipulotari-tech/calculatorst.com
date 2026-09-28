@@ -27,6 +27,9 @@ const {
 
 const site = Astro.site?.toString() ?? "https://calculatorst.com";
 const siteNoSlash = site.replace(/\/$/, "");
+const websiteId = siteNoSlash + "/#website";
+const organizationId = siteNoSlash + "/#organization";
+const authorId = siteNoSlash + "/author/vipul-otari/#person";
 const canonicalUrl = canonicalProp
   ? new URL(canonicalProp, site).href
   : new URL(Astro.url.pathname, site).href;
@@ -53,17 +56,19 @@ const ogImageAlt = ogImageAltProp ?? "Calculator Street — Construction Calcula
 const websiteSchema: any = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": siteNoSlash + "/#website",
+  "@id": websiteId,
   name: "Calculator Street",
   alternateName: "CalculatorSt.com",
   url: siteNoSlash + "/",
   description: description,
   inLanguage: "en-US",
+  publisher: { "@id": organizationId },
 };
 
 const organizationSchema: any = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": organizationId,
   name: "Calculator Street",
   url: siteNoSlash + "/",
   logo: new URL("/favicon.svg", site).href,
@@ -75,15 +80,16 @@ const organizationSchema: any = {
 const webPageSchema: any = (!effectiveNoindex && canonicalUrl) ? {
   "@context": "https://schema.org",
   "@type": "WebPage",
+  "@id": canonicalUrl + "#webpage",
   name: title,
   description: description,
   url: canonicalUrl,
-  isPartOf: { "@id": siteNoSlash + "/#website" },
+  isPartOf: { "@id": websiteId },
   inLanguage: "en-US",
   ...(datePublished ? { datePublished } : {}),
   ...(dateModified ? { dateModified } : {}),
-  author: { "@type": "Person", name: "Vipul Otari", url: siteNoSlash + "/author/vipul-otari/" },
-  publisher: { "@type": "Organization", name: "Calculator Street", logo: { "@type": "ImageObject", url: new URL("/favicon.svg", site).href } },
+  author: { "@id": authorId },
+  publisher: { "@id": organizationId },
 } : null;
 ---
 
