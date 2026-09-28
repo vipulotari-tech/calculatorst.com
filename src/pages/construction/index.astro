@@ -38,6 +38,19 @@ const additionalPrioritySlugs = [
 const additionalPriorityCalculators = additionalPrioritySlugs
   .map((slug) => hubCalculators.find((c) => c.slug === slug))
   .filter(Boolean) as typeof hubCalculators;
+
+const categoryItemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Calculator Street construction calculator categories",
+  numberOfItems: hubCategories.length,
+  itemListElement: hubCategories.map((category, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: category.name,
+    url: `https://calculatorst.com/construction/${category.slug}/`,
+  })),
+};
 ---
 
 <Layout title="Construction Calculators | Calculator Street"
@@ -86,5 +99,6 @@ const additionalPriorityCalculators = additionalPrioritySlugs
       </div>
     </div>
   </main>
+  <script type="application/ld+json" set:html={JSON.stringify(categoryItemListSchema)} is:inline />
   <Footer />
 </Layout>

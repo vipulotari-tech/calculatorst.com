@@ -45,11 +45,15 @@ const { title, description, h1, intro, breadcrumbs, related = [], faq = [], cano
 
 const site = Astro.site?.toString() ?? "https://calculatorst.com";
 const siteNoSlash = site.replace(/\/$/, "");
+const websiteId = siteNoSlash + "/#website";
+const organizationId = siteNoSlash + "/#organization";
+const authorId = siteNoSlash + "/author/vipul-otari/#person";
 const canonicalUrl = canonical ? new URL(canonical, site).href : new URL(Astro.url.pathname, site).href;
 
 const softwareSchema: any = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
+  "@id": canonicalUrl + "#calculator",
   name: h1,
   description: description,
   applicationCategory: "UtilitiesApplication",
@@ -58,8 +62,12 @@ const softwareSchema: any = {
   isAccessibleForFree: true,
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   url: canonicalUrl,
-  author: { "@type": "Person", name: "Vipul Otari", url: siteNoSlash + "/author/vipul-otari/" },
-  publisher: { "@type": "Organization", name: "Calculator Street", logo: { "@type": "ImageObject", url: new URL("/favicon.svg", site).href } },
+  mainEntityOfPage: { "@id": canonicalUrl + "#webpage" },
+  isPartOf: { "@id": websiteId },
+  author: { "@id": authorId },
+  publisher: { "@id": organizationId },
+  ...(datePublished ? { datePublished } : {}),
+  ...(dateModified ? { dateModified } : {}),
   featureList: "Free in-browser calculation with input and result explanations",
 };
 

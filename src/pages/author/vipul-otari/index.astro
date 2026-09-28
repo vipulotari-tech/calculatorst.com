@@ -11,7 +11,7 @@ import { hubCalculators } from "../../../data/hubCalculators";
   description={`Vipul Otari is the site author and maintainer of Calculator Street, a library of ${hubCalculators.length} construction calculators with transparent formulas and in-browser calculations.`}
   canonical="/author/vipul-otari/"
   datePublished="2026-08-28"
-  dateModified="2026-09-24"
+  dateModified="2026-09-28"
 >
   <Header />
   <main id="main" tabindex="-1" class="mx-auto max-w-[1400px] px-6 py-6 max-md:px-4">
@@ -64,11 +64,12 @@ import { hubCalculators } from "../../../data/hubCalculators";
       <script type="application/ld+json" set:html={JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Person",
+        "@id": "https://calculatorst.com/author/vipul-otari/#person",
         name: "Vipul Otari",
         url: "https://calculatorst.com/author/vipul-otari/",
         image: "https://calculatorst.com/favicon.svg",
         jobTitle: "Site Author",
-        worksFor: { "@type": "Organization", name: "Calculator Street", url: "https://calculatorst.com/" },
+        worksFor: { "@id": "https://calculatorst.com/#organization" },
         sameAs: ["https://github.com/vipulotari-tech/calculatorst.com"],
         description: "Site author and maintainer of Calculator Street construction calculators."
       })} is:inline />
