@@ -126,6 +126,29 @@ test.describe('Calculator interactions', () => {
     expect(await diagram.innerText()).toContain('Schematic only');
   });
 
+  test('Paint calculator — live room diagram follows inputs', async ({ page }) => {
+    await page.goto('/paint-calculator/');
+    const root = page.locator('[data-calculator-slug="paint-calculator"]');
+    const diagram = root.locator('[data-paint-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('ROOM PLAN');
+    await expect(diagram).toContainText('WALL ELEVATION');
+    await expect(diagram).toContainText('Wall area = 2 × (L + W) × H − openings');
+
+    await root.locator('#paint-calculator-length').fill('18');
+    await root.locator('#paint-calculator-width').fill('14');
+    await root.locator('#paint-calculator-height').fill('9');
+    await root.locator('#paint-calculator-openings').fill('42');
+    await root.locator('#paint-calculator-coats').fill('3');
+
+    await expect(diagram).toContainText('18 ft');
+    await expect(diagram).toContainText('14 ft');
+    await expect(diagram).toContainText('9 ft');
+    await expect(diagram).toContainText('42 ft²');
+    await expect(diagram).toContainText('3 coats');
+  });
+
   test('Concrete calculator — project type controls inputs, validation and diagram', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
