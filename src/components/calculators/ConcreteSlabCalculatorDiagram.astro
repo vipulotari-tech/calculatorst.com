@@ -1,0 +1,317 @@
+---
+const slug = "concrete-slab-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-concrete-slab-rich-diagram
+  data-kind="concreteSlab"
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live concrete slab diagram</h3>
+      <p class="mt-1 max-w-[700px] text-[11px] leading-5 text-muted-foreground">
+        Plan and cross-section views follow the slab shape, dimensions, thickness, thickened edge, subbase, allowance, and supplier rounding inputs. Schematic only — not a structural detail.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE INPUT GUIDE</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border">
+    <svg
+      viewBox="0 0 760 480"
+      class="h-auto w-full"
+      role="img"
+      aria-labelledby="concrete-slab-calculator-diagram-title concrete-slab-calculator-diagram-desc"
+    >
+      <title id="concrete-slab-calculator-diagram-title">Live concrete slab calculator diagram</title>
+      <desc id="concrete-slab-calculator-diagram-desc">
+        Technical plan and cross-section views for rectangular or circular concrete slabs, including live dimensions, thickness, optional thickened perimeter edge, gravel subbase, quantity, material allowance, and ready-mix order rounding.
+      </desc>
+
+      <defs>
+        <marker id="slab-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb" />
+        </marker>
+        <marker id="slab-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb" />
+        </marker>
+        <pattern id="slab-concrete" width="18" height="18" patternUnits="userSpaceOnUse">
+          <rect width="18" height="18" fill="var(--color-muted)" opacity=".58" />
+          <circle cx="4" cy="5" r="1.2" fill="var(--color-muted-foreground)" opacity=".32" />
+          <circle cx="14" cy="11" r=".9" fill="var(--color-muted-foreground)" opacity=".25" />
+          <circle cx="8" cy="16" r=".7" fill="var(--color-muted-foreground)" opacity=".22" />
+        </pattern>
+        <pattern id="slab-gravel" width="24" height="18" patternUnits="userSpaceOnUse">
+          <circle cx="5" cy="9" r="3.2" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1" opacity=".42" />
+          <circle cx="14" cy="6" r="2.7" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1" opacity=".36" />
+          <circle cx="20" cy="13" r="3.4" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1" opacity=".36" />
+        </pattern>
+      </defs>
+
+      <text x="28" y="31" font-size="13" font-weight="700" fill="var(--color-foreground)" data-slab-title data-concrete-slab-shape-name>Rectangular slab</text>
+      <text x="732" y="31" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)" data-slab-quantity-label>1 slab</text>
+
+      <text x="42" y="64" font-size="11" font-weight="700" fill="var(--color-foreground)">TOP VIEW (PLAN)</text>
+
+      <g data-slab-rectangle-plan data-concrete-slab-shape="0">
+        <rect x="86" y="104" width="362" height="186" rx="4" fill="none" stroke="#64748b" stroke-width="1.2" stroke-dasharray="6 5" opacity=".45" data-concrete-slab-subbase style="display:none" />
+        <rect x="92" y="110" width="350" height="174" rx="3" fill="url(#slab-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <rect x="101" y="119" width="332" height="156" rx="2" fill="none" stroke="#0f766e" stroke-width="7" opacity=".28" data-concrete-slab-edge style="display:none" />
+        <line x1="92" y1="88" x2="442" y2="88" stroke="#2563eb" stroke-width="1.7" marker-start="url(#slab-arrow-start)" marker-end="url(#slab-arrow-end)" />
+        <line x1="92" y1="94" x2="92" y2="110" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+        <line x1="442" y1="94" x2="442" y2="110" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+        <text x="267" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" data-slab-length>Length = 10 ft</text>
+
+        <line x1="68" y1="110" x2="68" y2="284" stroke="#2563eb" stroke-width="1.7" marker-start="url(#slab-arrow-start)" marker-end="url(#slab-arrow-end)" />
+        <line x1="74" y1="110" x2="92" y2="110" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+        <line x1="74" y1="284" x2="92" y2="284" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+        <text x="50" y="197" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" transform="rotate(-90 50 197)" data-slab-width>Width = 10 ft</text>
+      </g>
+
+      <g data-slab-circle-plan data-concrete-slab-shape="1" style="display:none">
+        <circle cx="267" cy="196" r="92" fill="url(#slab-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="175" y1="196" x2="359" y2="196" stroke="#2563eb" stroke-width="1.7" marker-start="url(#slab-arrow-start)" marker-end="url(#slab-arrow-end)" />
+        <circle cx="267" cy="196" r="3" fill="var(--color-foreground)" />
+        <text x="267" y="177" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" data-slab-diameter>Diameter = 10 ft</text>
+      </g>
+
+      <text x="267" y="307" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)" data-slab-plan-summary>100 ft² footprint · 40 ft perimeter</text>
+
+      <text x="505" y="64" font-size="11" font-weight="700" fill="var(--color-foreground)">CROSS SECTION</text>
+      <g>
+        <rect x="522" y="126" width="184" height="38" fill="url(#slab-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+        <g data-slab-edge style="display:none">
+          <path d="M522 126 H548 V210 H522 Z M680 126 H706 V210 H680 Z" fill="url(#slab-concrete)" stroke="var(--color-foreground)" stroke-width="1.6" />
+          <text x="614" y="224" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-slab-edge-label>Thickened edge</text>
+        </g>
+        <g data-slab-subbase style="display:none">
+          <rect x="522" y="164" width="184" height="34" fill="url(#slab-gravel)" stroke="var(--color-muted-foreground)" stroke-width="1.1" />
+          <text x="614" y="187" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-slab-subbase-label>Gravel base</text>
+        </g>
+        <line x1="726" y1="126" x2="726" y2="164" stroke="#2563eb" stroke-width="1.7" marker-start="url(#slab-arrow-start)" marker-end="url(#slab-arrow-end)" />
+        <line x1="706" y1="126" x2="732" y2="126" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+        <line x1="706" y1="164" x2="732" y2="164" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+        <text x="716" y="116" text-anchor="end" font-size="12" font-weight="700" fill="#1d4ed8" data-slab-thickness>Thickness = 4 in</text>
+        <text x="538" y="151" font-size="10.5" font-weight="600" fill="var(--color-foreground)">Concrete</text>
+      </g>
+
+      <rect x="500" y="252" width="232" height="70" rx="10" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+      <text x="516" y="274" font-size="10.5" fill="var(--color-muted-foreground)">Calculated ready-mix quantity</text>
+      <text x="516" y="298" font-size="15" font-weight="700" fill="#1d4ed8" data-slab-order>1.36 yd³ with allowance</text>
+      <text x="516" y="316" font-size="10.5" fill="var(--color-muted-foreground)" data-slab-rounded>Supplier rounding: not applied</text>
+
+      <rect x="28" y="344" width="704" height="106" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+      <text x="46" y="369" font-size="11" font-weight="700" fill="var(--color-foreground)">SLAB VOLUME FORMULA</text>
+      <text x="46" y="396" font-size="16.5" font-weight="700" fill="var(--color-foreground)" data-slab-formula>V = L × W × T × Q</text>
+      <text x="46" y="422" font-size="11" fill="var(--color-muted-foreground)">Allowance is applied after geometric slab + optional thickened-edge volume.</text>
+      <line x1="438" y1="360" x2="438" y2="435" stroke="var(--color-border)" />
+      <text x="458" y="369" font-size="11" font-weight="700" fill="var(--color-foreground)">CURRENT TAKEOFF</text>
+      <text x="458" y="395" font-size="12.5" font-weight="700" fill="#1d4ed8" data-slab-dimensions>10 ft × 10 ft × 4 in</text>
+      <text x="458" y="418" font-size="11" fill="var(--color-muted-foreground)" data-slab-edge-summary>No thickened edge · no subbase</text>
+      <text x="458" y="438" font-size="11" fill="var(--color-muted-foreground)" data-slab-allowance>Allowance: 10%</text>
+    </svg>
+  </div>
+
+  <dl class="calc-project-diagram-values mt-3 grid gap-2 text-xs sm:grid-cols-5">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Footprint</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-slab-card-footprint>100 ft²</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Field concrete</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-slab-card-field>33.33 ft³</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Edge add-on</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-slab-card-edge>0 ft³</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Order target</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-slab-card-order>1.36 yd³</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Section detail</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground" data-concrete-slab-detail>Uniform slab</dd>
+    </div>
+  </dl>
+  <span class="sr-only" data-concrete-slab-primary>Length × width: 10 ft × 10 ft</span>
+  <span class="sr-only" data-concrete-slab-thickness>Slab thickness: 4 in</span>
+</figure>
+
+<script>
+  function initConcreteSlabRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-concrete-slab-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="concrete-slab-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#concrete-slab-calculator-form");
+      if (!form) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>("#concrete-slab-calculator-" + id);
+      const select = (id: string) => root.querySelector<HTMLSelectElement>("#concrete-slab-calculator-" + id);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>("#concrete-slab-calculator-" + id + "-unit");
+
+      const displayValue = (id: string) => {
+        const el = input(id);
+        const raw = el?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const u = unit(id);
+        const label = u ? (u.options[u.selectedIndex]?.text?.trim() || u.value) : "";
+        return label ? shown + " " + label : shown;
+      };
+
+      const numberValue = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const feet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = {
+          ft: 1,
+          in: 1 / 12,
+          yd: 3,
+          m: 1 / 0.3048,
+          cm: 1 / 30.48,
+          mm: 1 / 304.8,
+        };
+        return n * (factors[unit(id)?.value ?? "ft"] ?? 1);
+      };
+
+      const fmt = (value: number, digits = 2) =>
+        Number.isFinite(value) ? String(Number(value.toFixed(digits))) : "—";
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => {
+          el.textContent = text;
+        });
+      };
+
+      const setVisible = (selector: string, visible: boolean) => {
+        figure.querySelectorAll<SVGElement | HTMLElement>(selector).forEach((el) => {
+          (el as HTMLElement).style.display = visible ? "" : "none";
+        });
+      };
+
+      const update = () => {
+        const shape = Math.round(Number(select("slabShape")?.value ?? "0"));
+        const circle = shape === 1;
+        const quantity = Math.max(0, Math.round(numberValue("quantity", 1)));
+        const thicknessFt = feet("thickness");
+        const lengthFt = feet("length");
+        const widthFt = feet("width");
+        const diameterFt = feet("diameter");
+
+        const area = circle
+          ? (Number.isFinite(diameterFt) && diameterFt > 0 ? Math.PI * (diameterFt / 2) ** 2 : 0)
+          : (Number.isFinite(lengthFt) && lengthFt > 0 && Number.isFinite(widthFt) && widthFt > 0 ? lengthFt * widthFt : 0);
+        const perimeter = circle
+          ? (Number.isFinite(diameterFt) && diameterFt > 0 ? Math.PI * diameterFt : 0)
+          : (Number.isFinite(lengthFt) && lengthFt > 0 && Number.isFinite(widthFt) && widthFt > 0 ? 2 * (lengthFt + widthFt) : 0);
+
+        const fieldCuFt = area > 0 && Number.isFinite(thicknessFt) && thicknessFt > 0
+          ? area * thicknessFt * quantity
+          : 0;
+
+        const edgeDepthFt = feet("thickenedEdgeDepth");
+        const edgeWidthFt = feet("thickenedEdgeWidth");
+        const hasEdge = Number.isFinite(edgeDepthFt) && Number.isFinite(edgeWidthFt)
+          && edgeDepthFt > 0 && edgeWidthFt > 0 && Number.isFinite(thicknessFt)
+          && edgeDepthFt > thicknessFt && perimeter > 0;
+        const edgeCuFt = hasEdge
+          ? perimeter * edgeWidthFt * (edgeDepthFt - thicknessFt) * quantity
+          : 0;
+
+        const subbaseDepthFt = feet("subbaseDepth");
+        const subbaseCuFt = Number.isFinite(subbaseDepthFt) && subbaseDepthFt > 0 && area > 0
+          ? area * subbaseDepthFt * quantity
+          : 0;
+
+        const allowance = Math.max(0, numberValue("waste", 0));
+        const geometricCuFt = fieldCuFt + edgeCuFt;
+        const adjustedYd3 = geometricCuFt * (1 + allowance / 100) / 27;
+        const increment = Math.max(0, numberValue("orderIncrement", 0));
+        const roundedYd3 = increment > 0 && adjustedYd3 > 0
+          ? Math.ceil((adjustedYd3 - 1e-12) / increment) * increment
+          : adjustedYd3;
+
+        setVisible("[data-slab-rectangle-plan]", !circle);
+        setVisible("[data-slab-circle-plan]", circle);
+        setVisible("[data-slab-edge]", hasEdge);
+        setVisible("[data-slab-subbase]", subbaseCuFt > 0);
+        setVisible("[data-concrete-slab-edge]", hasEdge);
+        setVisible("[data-concrete-slab-subbase]", subbaseCuFt > 0);
+
+        setText("[data-slab-title]", circle ? "Circular slab" : "Rectangular slab");
+        setText("[data-slab-quantity-label]", quantity + " " + (quantity === 1 ? "slab" : "slabs"));
+        setText("[data-slab-length]", "Length = " + displayValue("length"));
+        setText("[data-slab-width]", "Width = " + displayValue("width"));
+        setText("[data-slab-diameter]", "Diameter = " + displayValue("diameter"));
+        setText("[data-slab-thickness]", "Thickness = " + displayValue("thickness"));
+        setText("[data-slab-plan-summary]", fmt(area) + " ft² footprint · " + fmt(perimeter) + " ft perimeter");
+
+        const dimensionSummary = circle
+          ? "Diameter: " + displayValue("diameter")
+          : "Length × width: " + displayValue("length") + " × " + displayValue("width");
+        setText("[data-slab-dimensions]", dimensionSummary);
+        setText("[data-concrete-slab-primary]", dimensionSummary);
+        setText("[data-concrete-slab-thickness]", "Slab thickness: " + displayValue("thickness"));
+        setText("[data-slab-formula]", circle ? "V = π × (D ÷ 2)² × T × Q" : "V = L × W × T × Q");
+
+        if (hasEdge) {
+          setText("[data-slab-edge-label]", "Edge: " + displayValue("thickenedEdgeWidth") + " wide × " + displayValue("thickenedEdgeDepth") + " deep");
+        }
+        if (subbaseCuFt > 0) {
+          setText("[data-slab-subbase-label]", "Gravel base = " + displayValue("subbaseDepth"));
+        }
+
+        const edgeText = hasEdge
+          ? "Edge +" + fmt(edgeCuFt) + " ft³"
+          : "No thickened edge";
+        const baseText = subbaseCuFt > 0
+          ? " · base " + fmt(subbaseCuFt / 27) + " yd³"
+          : " · no subbase";
+        setText("[data-slab-edge-summary]", edgeText + baseText);
+        const detailText = hasEdge
+          ? "Thickened edge " + displayValue("thickenedEdgeWidth") + " wide × " + displayValue("thickenedEdgeDepth") + " deep"
+            + (subbaseCuFt > 0 ? " · base " + displayValue("subbaseDepth") + " deep" : "")
+          : (subbaseCuFt > 0 ? "Uniform slab · base " + displayValue("subbaseDepth") + " deep" : "Uniform slab");
+        setText("[data-concrete-slab-detail]", detailText);
+        setText("[data-slab-allowance]", "Allowance: " + fmt(allowance) + "%");
+
+        setText("[data-slab-order]", fmt(adjustedYd3) + " yd³ with allowance");
+        setText(
+          "[data-slab-rounded]",
+          increment > 0
+            ? "Supplier-rounded order: " + fmt(roundedYd3) + " yd³ @ " + fmt(increment) + " yd³ increment"
+            : "Supplier rounding: not applied"
+        );
+
+        setText("[data-slab-card-footprint]", fmt(area) + " ft²");
+        setText("[data-slab-card-field]", fmt(fieldCuFt) + " ft³");
+        setText("[data-slab-card-edge]", fmt(edgeCuFt) + " ft³");
+        setText("[data-slab-card-order]", fmt(increment > 0 ? roundedYd3 : adjustedYd3) + " yd³");
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+
+      update();
+      queueMicrotask(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 0);
+    });
+  }
+
+  initConcreteSlabRichDiagrams();
+  document.addEventListener("astro:page-load", initConcreteSlabRichDiagrams);
+</script>
