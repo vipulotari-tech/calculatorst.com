@@ -763,6 +763,42 @@ test.describe('Calculator interactions', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+
+  test('Deck calculator — live board and joist layout follows dimensions and allowance', async ({ page }) => {
+    await page.goto('/deck-calculator/');
+    const root = page.locator('[data-calculator-slug="deck-calculator"]');
+    const diagram = root.locator('[data-deck-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'deck');
+    await expect(diagram).toContainText('Deck top view');
+    await expect(diagram).toContainText('Boards run along deck length');
+
+    await root.locator('#deck-calculator-length').fill('20');
+    await root.locator('#deck-calculator-width').fill('12');
+    await root.locator('#deck-calculator-boardWidth').fill('5.5');
+    await root.locator('#deck-calculator-boardLength').fill('16');
+    await root.locator('#deck-calculator-gap').fill('0.125');
+    await root.locator('#deck-calculator-spacing').fill('16');
+    await root.locator('#deck-calculator-fasteners').fill('2');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#deck-calculator-waste').fill('10');
+
+    await expect(diagram.locator('[data-deck-rows]')).toHaveText('26 board rows');
+    await expect(diagram.locator('[data-deck-layout-boards]')).toHaveText('52 boards in layout');
+    await expect(diagram.locator('[data-deck-joists]')).toHaveText('16 joist lines');
+    await expect(diagram.locator('[data-deck-order]')).toHaveText('58 stock boards');
+    await expect(diagram.locator('[data-deck-fasteners]')).toHaveText('973 fasteners');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-rows-grid')).toContainText('Stock boards with spares');
+    await expect(root.locator('.result-rows-grid')).toContainText('Estimated joist lines');
+    await expect(root.locator('.result-rows-grid')).toContainText('Estimated fasteners with allowance');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
