@@ -12,7 +12,7 @@ test.describe("All calculators hub", () => {
 
     const categoryNav = page.locator("[data-category-nav]");
     await expect(categoryNav.getByRole("link", { name: /Concrete Calculators/i })).toBeVisible();
-    await expect(categoryNav.getByRole("link", { name: /Asphalt Calculators/i })).toBeVisible();
+    await expect(categoryNav.locator('a[href="/construction/asphalt/"]')).toBeVisible();
 
     const search = page.locator("#calc-search");
     await search.fill("zzzz-no-calculator-match");
