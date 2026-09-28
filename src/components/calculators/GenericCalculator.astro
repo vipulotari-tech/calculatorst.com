@@ -4,6 +4,7 @@ import { unitLabels } from "../../lib/calculator-math";
 import type { Field } from "../../lib/calculator-types";
 import ProjectDiagram from "./ProjectDiagram.astro";
 import ConcreteCalculatorDiagram from "./ConcreteCalculatorDiagram.astro";
+import ConcreteVolumeDiagram from "./ConcreteVolumeDiagram.astro";
 
 interface Props {
   id: string; // The slug, e.g. "concrete-calculator"
@@ -365,7 +366,9 @@ const diagramFields = fields
     <div class="mt-6">
       {slug === "concrete-calculator"
         ? <ConcreteCalculatorDiagram />
-        : <ProjectDiagram slug={slug} fields={diagramFields} />}
+        : slug === "concrete-volume-calculator"
+          ? <ConcreteVolumeDiagram />
+          : <ProjectDiagram slug={slug} fields={diagramFields} />}
     </div>
   )}
 
