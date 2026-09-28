@@ -72,7 +72,7 @@ const categorySeoOverrides: Record<string, { title: string; description: string 
     description: `Use ${calculators.length} calculators for slab thickness, cost and rebar plus patio, driveway, garage-slab and shed-foundation concrete, base, bags, trucks and project cost.`,
   },
   foundation: {
-    title: "Foundation & Footing Calculators — Concrete, Excavation & Cost",
+    title: "Foundation & Footing Calculators — Concrete, Walls & Excavation",
     description: `Use ${calculators.length} foundation calculators for strip, pad and pier footings, footing volume, concrete, walls, basements, crawl spaces, excavation and project cost.`,
   },
   rebar: {
@@ -113,7 +113,7 @@ const categorySeoOverrides: Record<string, { title: string; description: string 
   },
   drywall: {
     title: "Drywall, Paint & Insulation Calculators — Sheets, Gallons & Cost",
-    description: `Use ${calculators.length} calculators for drywall sheets, mud, screws and tape plus paint, primer, insulation packages and spray-foam board feet, quantities and cost.`,
+    description: `Use ${calculators.length} calculators for drywall sheets, joint compound, screws and tape plus paint, primer, insulation packages and spray-foam board feet, quantities and cost.`,
   },
   "deck-fence": {
     title: "Deck & Fence Calculators — Boards, Posts, Footings & Cost",
@@ -124,7 +124,7 @@ const categorySeoOverrides: Record<string, { title: string; description: string 
     description: `Use ${calculators.length} paver and landscaping calculators for paver layout, base, bedding and joint sand, landscape material, mulch, retaining-wall blocks and cost.`,
   },
   asphalt: {
-    title: "Asphalt Calculators — Tons, Thickness, Parking Lots & Cost",
+    title: "Asphalt & Paving Calculators — Tons, Thickness & Parking Lots",
     description: `Use ${calculators.length} asphalt and surface calculators for tons, volume, weight, reverse thickness, driveways, parking lots, road base, surface area and quote-based cost.`,
   },
 };
@@ -263,7 +263,7 @@ const taskLinks = cluster === "concrete" ? [
   { label: "Room drywall", href: "/drywall-calculator/", text: "Room walls plus optional ceiling → whole drywall sheets from entered sheet coverage and allowance." },
   { label: "Known-area sheets", href: "/drywall-sheet-calculator/", text: "Known finished area → whole sheets from actual sheet length and width, allowance and optional sheet price." },
   { label: "Drywall material cost", href: "/drywall-cost-calculator/", text: "Price one known drywall material line with allowance, tax, delivery and entered labor." },
-  { label: "Joint compound / mud", href: "/drywall-joint-compound-calculator/", text: "Finished drywall area ÷ manufacturer coverage → whole compound containers." },
+  { label: "Joint compound coverage", href: "/drywall-joint-compound-calculator/", text: "Finished drywall area ÷ manufacturer coverage → whole compound containers; this is the dedicated drywall-mud quantity page." },
   { label: "Drywall screws", href: "/drywall-screw-calculator/", text: "Installed sheets × fastening-plan screws per sheet → screw count and whole boxes." },
   { label: "Drywall tape", href: "/drywall-tape-calculator/", text: "Measured seams and taped corners → tape length and whole rolls." },
   { label: "Wall paint", href: "/paint-calculator/", text: "Room-wall area, openings, coats and product coverage → gallons and whole containers." },
@@ -308,7 +308,7 @@ const taskLinks = cluster === "concrete" ? [
   { label: "Asphalt driveway", href: "/asphalt-driveway-calculator/", text: "Driveway area × compacted thickness → asphalt yards and tons using editable density." },
   { label: "Asphalt weight", href: "/asphalt-weight-calculator/", text: "Known asphalt volume × editable compacted density → pounds, US tons and metric tonnes." },
   { label: "Reverse thickness", href: "/asphalt-thickness-calculator/", text: "Known asphalt mass + paved area + density → average compacted thickness; this is not pavement design." },
-  { label: "Parking-lot quantity", href: "/parking-lot-calculator/", text: "Parking-lot area × compacted thickness → asphalt volume and tons without project-cost scope." },
+  { label: "Parking-lot asphalt quantity", href: "/parking-lot-calculator/", text: "Parking-lot area × compacted thickness → asphalt volume and tons only; use the separate cost page for pricing." },
   { label: "Parking-lot cost", href: "/parking-lot-cost-calculator/", text: "Parking-lot tons plus quoted material rate, tax, trucking and entered fixed paving cost." },
   { label: "Road base", href: "/road-base-calculator/", text: "Base area, placed depth and density → aggregate volume, weight and optional material cost." },
   { label: "Surface area", href: "/surface-area-calculator/", text: "Net rectangular surface area after excluded area, with US and metric area outputs." },
