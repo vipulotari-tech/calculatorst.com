@@ -184,6 +184,8 @@ test.describe('Calculator interactions', () => {
     await root.locator('#gravel-calculator-volume').fill('8');
     await expect(diagram).toContainText('8 yd³');
 
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
     await root.locator('#gravel-calculator-compaction').fill('12');
     await root.locator('#gravel-calculator-waste').fill('7');
     await expect(diagram).toContainText('Compaction 12% · Waste 7%');
