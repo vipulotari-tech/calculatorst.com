@@ -357,6 +357,50 @@ test.describe('Calculator interactions', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+  test('Concrete slab calculator — live plan and section follow shape, edge, subbase and order rounding', async ({ page }) => {
+    await page.goto('/concrete-slab-calculator/');
+    const root = page.locator('[data-calculator-slug="concrete-slab-calculator"]');
+    const diagram = root.locator('[data-concrete-slab-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('TOP VIEW (PLAN)');
+    await expect(diagram).toContainText('CROSS SECTION');
+    await expect(diagram).toContainText('V = L × W × T × Q');
+
+    await root.locator('#concrete-slab-calculator-length').fill('18');
+    await root.locator('#concrete-slab-calculator-width').fill('12');
+    await root.locator('#concrete-slab-calculator-thickness').fill('5');
+    await root.locator('#concrete-slab-calculator-quantity').fill('2');
+    await root.locator('#concrete-slab-calculator-thickenedEdgeDepth').fill('12');
+    await root.locator('#concrete-slab-calculator-thickenedEdgeWidth').fill('12');
+    await root.locator('#concrete-slab-calculator-subbaseDepth').fill('4');
+    await root.locator('#concrete-slab-calculator-orderIncrement').fill('0.25');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#concrete-slab-calculator-waste').fill('8');
+
+    await expect(diagram).toContainText('Length = 18 ft');
+    await expect(diagram).toContainText('Width = 12 ft');
+    await expect(diagram).toContainText('Slab = 5 in');
+    await expect(diagram).toContainText('Edge depth = 12 in');
+    await expect(diagram).toContainText('4 in gravel base');
+    await expect(diagram).toContainText('Subbase: 5.33 yd³ compacted');
+    await expect(diagram).toContainText('Supplier rounded: 10 yd³ @ 0.25 yd³ increments');
+    await expect(diagram.locator('[data-cs-card-order]')).toContainText('10 yd³ rounded');
+
+    await root.locator('#concrete-slab-calculator-slabShape').selectOption('1');
+    await expect(root.locator('#concrete-slab-calculator-field-diameter')).toBeVisible();
+    await expect(root.locator('#concrete-slab-calculator-field-length')).toBeHidden();
+    await root.locator('#concrete-slab-calculator-diameter').fill('14');
+    await expect(diagram).toContainText('Circle slab');
+    await expect(diagram).toContainText('Diameter = 14 ft');
+    await expect(diagram).toContainText('V = π × (D ÷ 2)² × T × Q');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Concrete calculator — project type controls inputs, validation and diagram', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
