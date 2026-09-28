@@ -3,17 +3,16 @@ import { describe, expect, it } from "vitest";
 
 const generic = readFileSync("src/components/calculators/GenericCalculator.astro", "utf8");
 const priority = readFileSync("src/components/calculators/PriorityCalculatorDiagram.astro", "utf8");
+const project = readFileSync("src/components/calculators/ProjectDiagram.astro", "utf8");
 
 const slugs = [
   "paint-calculator",
   "gravel-calculator",
   "mulch-calculator",
   "roofing-calculator",
-  "roof-pitch-calculator",
   "flooring-calculator",
   "carpet-calculator",
   "tile-calculator",
-  "concrete-slab-calculator",
   "drywall-calculator",
   "fence-calculator",
   "deck-calculator",
@@ -34,9 +33,11 @@ describe("priority construction calculator diagrams", () => {
     expect(generic).toContain("<PriorityCalculatorDiagram");
   });
 
-  it("keeps concrete and concrete-volume on their dedicated richer diagrams", () => {
+  it("keeps calculators with richer dedicated geometry on their specialized diagrams", () => {
     expect(generic).toContain("<ConcreteCalculatorDiagram");
     expect(generic).toContain("<ConcreteVolumeDiagram");
+    expect(project).toContain('lower === "concrete-slab-calculator" ? "concreteSlab"');
+    expect(project).toContain('lower === "roof-pitch-calculator" ? "roofPitch"');
   });
 
   it("includes live SVG input bindings and accessible metadata", () => {
