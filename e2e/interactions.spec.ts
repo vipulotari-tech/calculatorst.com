@@ -763,6 +763,38 @@ test.describe('Calculator interactions', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+
+  test('Fence calculator — live layout follows run, spacing, extras and allowance', async ({ page }) => {
+    await page.goto('/fence-calculator/');
+    const root = page.locator('[data-calculator-slug="fence-calculator"]');
+    const diagram = root.locator('[data-fence-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'fence');
+    await expect(diagram).toContainText('Fence run elevation');
+    await expect(diagram).toContainText('LAYOUT FORMULA');
+
+    await root.locator('#fence-calculator-length').fill('72');
+    await root.locator('#fence-calculator-spacing').fill('8');
+    await root.locator('#fence-calculator-extraPosts').fill('2');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#fence-calculator-waste').fill('10');
+
+    await expect(diagram).toContainText('9 sections');
+    await expect(diagram).toContainText('12 installed posts');
+    await expect(diagram).toContainText('+ 2 extra gate / corner posts');
+    await expect(diagram.locator('[data-fence-panel-order]')).toHaveText('10 panels');
+    await expect(diagram.locator('[data-fence-post-order]')).toHaveText('14 posts');
+    await expect(diagram.locator('[data-fence-equal-spacing]')).toHaveText('8 ft');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root).toContainText('Installed posts');
+    await expect(root.locator('.result-rows-grid')).toContainText('Installed sections / panels');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
