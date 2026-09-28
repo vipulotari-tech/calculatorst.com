@@ -1,0 +1,177 @@
+---
+const slug = "flooring-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-flooring-rich-diagram
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live flooring layout diagram</h3>
+      <p class="mt-1 max-w-[680px] text-[11px] leading-5 text-muted-foreground">
+        Room plan, excluded area, plank direction, package coverage, and order allowances update from the calculator inputs. Schematic only — not to scale.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE INPUT GUIDE</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg viewBox="0 0 760 455" class="h-auto w-full" role="img" aria-labelledby={`${slug}-flooring-title ${slug}-flooring-desc`}>
+      <title id={`${slug}-flooring-title`}>Live flooring calculator layout diagram</title>
+      <desc id={`${slug}-flooring-desc`}>
+        A rectangular room with staggered flooring rows, an excluded floor area, live room dimensions, package coverage, pattern allowance, and waste allowance.
+      </desc>
+
+      <defs>
+        <marker id="floor-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="floor-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"/>
+        </marker>
+        <pattern id="floor-planks" width="90" height="34" patternUnits="userSpaceOnUse">
+          <rect width="90" height="34" fill="#b7791f" opacity=".10"/>
+          <line x1="0" y1="0" x2="90" y2="0" stroke="#8a5a2b" stroke-width="1" opacity=".45"/>
+          <line x1="0" y1="34" x2="90" y2="34" stroke="#8a5a2b" stroke-width="1" opacity=".45"/>
+          <line x1="45" y1="0" x2="45" y2="34" stroke="#8a5a2b" stroke-width="1" opacity=".36"/>
+        </pattern>
+      </defs>
+
+      <rect width="760" height="455" fill="var(--color-background)"/>
+      <text x="28" y="30" font-size="13" font-weight="700" fill="var(--color-foreground)">Rectangular room flooring layout</text>
+      <text x="732" y="30" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)">Net area → order area → whole packages</text>
+
+      <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">ROOM PLAN / PLANK DIRECTION</text>
+      <rect x="82" y="102" width="398" height="184" rx="4" fill="url(#floor-planks)" stroke="var(--color-foreground)" stroke-width="2"/>
+      <rect x="345" y="206" width="105" height="80" fill="var(--color-background)" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="6 4"/>
+      <text x="397" y="244" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b91c1c">EXCLUDED</text>
+      <text x="397" y="260" text-anchor="middle" font-size="10" fill="var(--color-muted-foreground)" data-floor-openings>0 ft²</text>
+
+      <line x1="82" y1="82" x2="480" y2="82" stroke="#2563eb" stroke-width="1.7" marker-start="url(#floor-arrow-start)" marker-end="url(#floor-arrow-end)"/>
+      <line x1="82" y1="88" x2="82" y2="102" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4"/>
+      <line x1="480" y1="88" x2="480" y2="102" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4"/>
+      <text x="281" y="72" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" data-floor-length>Length = 20 ft</text>
+
+      <line x1="60" y1="102" x2="60" y2="286" stroke="#2563eb" stroke-width="1.7" marker-start="url(#floor-arrow-start)" marker-end="url(#floor-arrow-end)"/>
+      <line x1="66" y1="102" x2="82" y2="102" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4"/>
+      <line x1="66" y1="286" x2="82" y2="286" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4"/>
+      <text x="42" y="194" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" transform="rotate(-90 42 194)" data-floor-width>Width = 12 ft</text>
+
+      <text x="520" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">PACKAGE COVERAGE</text>
+      <g transform="translate(525 96)">
+        <rect x="18" y="48" width="142" height="94" rx="6" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.8"/>
+        <rect x="8" y="35" width="142" height="94" rx="6" fill="var(--color-muted)" opacity=".72" stroke="var(--color-muted-foreground)" stroke-width="1.2"/>
+        <rect x="0" y="22" width="142" height="94" rx="6" fill="var(--color-background)" stroke="var(--color-foreground)" stroke-width="1.8"/>
+        <path d="M16 42 H126 M16 58 H126 M16 74 H126 M16 90 H126" stroke="#8a5a2b" stroke-width="1.1" opacity=".5"/>
+        <text x="71" y="139" text-anchor="middle" font-size="11" font-weight="700" fill="#1d4ed8" data-floor-coverage>20 ft² / package</text>
+      </g>
+
+      <g transform="translate(510 247)">
+        <rect width="205" height="54" rx="10" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="14" y="21" font-size="10.5" fill="var(--color-muted-foreground)">Layout + cut allowances</text>
+        <text x="14" y="40" font-size="12.5" font-weight="700" fill="#1d4ed8" data-floor-allowances>Pattern 0% · Waste 10%</text>
+      </g>
+
+      <rect x="28" y="326" width="704" height="102" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+      <text x="46" y="351" font-size="11" font-weight="700" fill="var(--color-foreground)">ORDER FORMULA</text>
+      <text x="46" y="376" font-size="15.5" font-weight="700" fill="var(--color-foreground)">Net = L × W − excluded area</text>
+      <text x="46" y="400" font-size="11" fill="var(--color-muted-foreground)">Order area = net × pattern factor × waste factor · Packages = ceil(order area ÷ package coverage)</text>
+
+      <line x1="432" y1="342" x2="432" y2="416" stroke="var(--color-border)"/>
+      <text x="455" y="351" font-size="11" font-weight="700" fill="var(--color-foreground)">CURRENT PROJECT</text>
+      <text x="455" y="375" font-size="13" font-weight="700" fill="#1d4ed8" data-floor-summary>20 ft × 12 ft</text>
+      <text x="455" y="399" font-size="11.5" fill="var(--color-muted-foreground)" data-floor-order-summary>0 ft² excluded · 20 ft²/package</text>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-3">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Room dimensions</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-floor-card-room>20 ft × 12 ft</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Excluded floor area</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-floor-card-openings>0 ft²</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Package + allowances</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-floor-card-order>20 ft² · 0% pattern · 10% waste</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initFlooringRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-flooring-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="flooring-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#flooring-calculator-form");
+      if (!form) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>(`#flooring-calculator-${id}`);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>(`#flooring-calculator-${id}-unit`);
+
+      const unitLabel = (id: string) => {
+        const select = unit(id);
+        if (select) return select.options[select.selectedIndex]?.text?.trim() || select.value;
+        const el = input(id);
+        const staticUnit = el?.parentElement?.querySelector("span");
+        return staticUnit?.textContent?.trim() || "";
+      };
+
+      const value = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const u = unitLabel(id);
+        return u ? `${shown} ${u}` : shown;
+      };
+
+      const numberValue = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => { el.textContent = text; });
+      };
+
+      const update = () => {
+        const length = value("length");
+        const width = value("width");
+        const openings = value("openings");
+        const coverage = value("coverage");
+        const pattern = Math.max(0, numberValue("pattern", 0));
+        const waste = Math.max(0, numberValue("waste", 0));
+
+        setText("[data-floor-length]", `Length = ${length}`);
+        setText("[data-floor-width]", `Width = ${width}`);
+        setText("[data-floor-openings]", openings);
+        setText("[data-floor-coverage]", `${coverage} / package`);
+        setText("[data-floor-allowances]", `Pattern ${pattern}% · Waste ${waste}%`);
+
+        const room = `${length} × ${width}`;
+        setText("[data-floor-summary]", room);
+        setText("[data-floor-order-summary]", `${openings} excluded · ${coverage}/package`);
+        setText("[data-floor-card-room]", room);
+        setText("[data-floor-card-openings]", openings);
+        setText("[data-floor-card-order]", `${coverage} · ${pattern}% pattern · ${waste}% waste`);
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+      update();
+      setTimeout(update, 0);
+    });
+  }
+
+  initFlooringRichDiagrams();
+  document.addEventListener("astro:page-load", initFlooringRichDiagrams);
+</script>

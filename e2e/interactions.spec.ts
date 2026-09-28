@@ -255,6 +255,37 @@ test.describe('Calculator interactions', () => {
     await expect(diagram).toContainText('2400 ft²');
   });
 
+  test('Flooring calculator — live layout follows room, exclusions and allowances', async ({ page }) => {
+    await page.goto('/flooring-calculator/');
+    const root = page.locator('[data-calculator-slug="flooring-calculator"]');
+    const diagram = root.locator('[data-flooring-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('ROOM PLAN / PLANK DIRECTION');
+    await expect(diagram).toContainText('PACKAGE COVERAGE');
+    await expect(diagram).toContainText('Net = L × W − excluded area');
+
+    await root.locator('#flooring-calculator-length').fill('22');
+    await root.locator('#flooring-calculator-width').fill('15');
+    await root.locator('#flooring-calculator-openings').fill('30');
+
+    await expect(diagram).toContainText('22 ft');
+    await expect(diagram).toContainText('15 ft');
+    await expect(diagram).toContainText('30 ft²');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#flooring-calculator-pattern').fill('5');
+    await root.locator('#flooring-calculator-waste').fill('8');
+    await root.locator('#flooring-calculator-coverage').fill('24');
+
+    await expect(diagram).toContainText('Pattern 5% · Waste 8%');
+    await expect(diagram).toContainText('24 ft² / package');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Concrete calculator — project type controls inputs, validation and diagram', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
