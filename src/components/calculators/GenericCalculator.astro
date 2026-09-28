@@ -5,6 +5,7 @@ import type { Field } from "../../lib/calculator-types";
 import ProjectDiagram from "./ProjectDiagram.astro";
 import ConcreteCalculatorDiagram from "./ConcreteCalculatorDiagram.astro";
 import ConcreteVolumeDiagram from "./ConcreteVolumeDiagram.astro";
+import PriorityCalculatorDiagram from "./PriorityCalculatorDiagram.astro";
 
 interface Props {
   id: string; // The slug, e.g. "concrete-calculator"
@@ -44,6 +45,28 @@ const diagramFields = fields
     )
   )
   .map((field) => ({ id: field.id, label: field.label, unit: field.unit }));
+
+const priorityDiagramSlugs = new Set([
+  "paint-calculator",
+  "gravel-calculator",
+  "mulch-calculator",
+  "roofing-calculator",
+  "roof-pitch-calculator",
+  "flooring-calculator",
+  "carpet-calculator",
+  "tile-calculator",
+  "concrete-slab-calculator",
+  "drywall-calculator",
+  "fence-calculator",
+  "deck-calculator",
+  "paver-calculator",
+  "asphalt-calculator",
+  "brick-calculator",
+  "concrete-block-calculator",
+  "rebar-calculator",
+  "excavation-calculator",
+  "earthwork-calculator",
+]);
 ---
 
 <div
@@ -362,13 +385,15 @@ const diagramFields = fields
     </div>
   </form>
 
-  {diagramFields.length >= 2 && (
+  {(diagramFields.length >= 2 || priorityDiagramSlugs.has(slug)) && (
     <div class="mt-6">
       {slug === "concrete-calculator"
         ? <ConcreteCalculatorDiagram />
         : slug === "concrete-volume-calculator"
           ? <ConcreteVolumeDiagram />
-          : <ProjectDiagram slug={slug} fields={diagramFields} />}
+          : priorityDiagramSlugs.has(slug)
+            ? <PriorityCalculatorDiagram slug={slug} fields={fields} formula={model.formula} />
+            : <ProjectDiagram slug={slug} fields={diagramFields} />}
     </div>
   )}
 
