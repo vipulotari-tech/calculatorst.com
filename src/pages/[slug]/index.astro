@@ -146,6 +146,11 @@ const faqEnhancements: Record<string, { q: string; a: string }[]> = {
     { q: "Can I calculate gravel weight from square feet instead of cubic yards?", a: "Yes. Choose known area plus depth, or enter length, width and depth. If you already know the volume, choose the known-volume mode." },
     { q: "Why does the gravel weight calculator ask for density?", a: "Weight per cubic yard changes with gravel type, grading, moisture and compaction. Enter a density that matches the material and condition you are estimating instead of relying on one universal value." },
   ],
+  "aggregate-weight-calculator": [
+    { q: "How do I convert cubic yards of aggregate to tons?", a: "Enter the aggregate volume and the bulk density for the material you are using. The calculator multiplies normalized volume by that density and reports US tons, pounds, kilograms and metric tonnes." },
+    { q: "Why is aggregate density editable?", a: "Aggregate weight per cubic yard changes with stone type, grading, moisture and compaction state. Use supplier or project density data when available instead of assuming one universal tons-per-yard value." },
+    { q: "Can I start from square feet instead of cubic yards?", a: "Yes. Use the area-plus-depth or dimensions mode when you know the surface area and placed depth rather than a precomputed volume." },
+  ],
   "crushed-stone-calculator": [
     { q: "Can I calculate crushed stone from square feet or an existing cubic-yard volume?", a: "Yes. Choose dimensions, known surface area plus depth, or known volume. The calculator normalizes the selected measurements before applying your allowance and density." },
     { q: "What density should I use for crusher run, crushed concrete or crushed stone?", a: "Use the bulk density supplied for the exact material and condition you are ordering. Grading, moisture and compaction can change weight per cubic yard, so the density is editable instead of being hard-coded." },
@@ -544,8 +549,8 @@ const slabSeo: Record<string, {
     ]
   },
   "patio-concrete-calculator": {
-    title: "Patio Concrete Calculator — Yards, Bags, Base & Truck Loads",
-    description: "Calculate rectangular or circular patio concrete in yards and bags, plus forms, optional gravel base, truck loads, weight, waste and material cost.",
+    title: "Patio Concrete Calculator — Yards, Bags, Base & Cost",
+    description: "Calculate rectangular or circular patio concrete in cubic yards and bags, with optional gravel base, forms, waste, truck loads, weight and material cost.",
     guidance: [
       "Choose rectangle or circle so the area formula matches the patio footprint. Split irregular patios into non-overlapping simple sections.",
       "Optional gravel-base output is compacted volume; supplier loose-volume conversion can differ.",
@@ -1882,6 +1887,8 @@ const gscSeoRefreshSlugs = new Set([
   "mortar-calculator",
   "framing-calculator",
   "wall-framing-calculator",
+  "patio-concrete-calculator",
+  "aggregate-weight-calculator",
 ]);
 const pageDateModified = gscSeoRefreshSlugs.has(calc.slug)
   ? "2026-09-28"
