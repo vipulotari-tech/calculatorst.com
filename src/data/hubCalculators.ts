@@ -286,9 +286,9 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "patio-concrete-calculator",
-    "title": "Patio Concrete Calculator — Yards, Bags, Base & Truck Loads",
+    "title": "Patio Concrete Calculator — Yards, Bags, Base & Cost",
     "h1": "Patio Concrete Calculator",
-    "description": "Calculate rectangular or circular patio concrete in yards and bags, plus forms, optional gravel base, truck loads, weight, waste and material cost.",
+    "description": "Calculate rectangular or circular patio concrete in cubic yards and bags, with optional gravel base, forms, waste, truck loads, weight and material cost.",
     "category": "Slab & Patio",
     "cluster": "slab",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -1348,9 +1348,9 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "aggregate-weight-calculator",
-    "title": "Aggregate Weight Calculator — Yards, Tons, Pounds & Tonnes",
+    "title": "Aggregate Weight Calculator — Cubic Yards to Tons & Pounds",
     "h1": "Aggregate Weight Calculator",
-    "description": "Convert measured aggregate volume from dimensions, area or direct volume into US tons, pounds, kilograms and metric tonnes using editable bulk density.",
+    "description": "Convert aggregate volume from cubic yards, dimensions or area into US tons, pounds, kilograms and metric tonnes using an editable bulk density.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
