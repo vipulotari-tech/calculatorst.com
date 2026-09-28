@@ -291,15 +291,15 @@ const title = titleMap[kind] ?? "Live project diagram";
           {[125,170,215,260,305,350,395,440,485].map((x)=><line x1={x} y1="92" x2={x} y2="302" stroke="#2563eb" stroke-width="1.15"/>)}
           {[127,162,197,232,267].map((y)=><line x1="80" y1={y} x2="530" y2={y} stroke="#2563eb" stroke-width="1.15"/>)}
           <line x1="80" y1="72" x2="530" y2="72" stroke="#2563eb" stroke-width="1.5" marker-start={`url(#${slug}-arrow-start)`} marker-end={`url(#${slug}-arrow-end)`}/>
-          <text x="305" y="62" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" data-live-value="0">Slab length</text>
+          <text x="305" y="62" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" data-live-value="0" data-diagram-value="0">Slab length</text>
           <line x1="60" y1="92" x2="60" y2="302" stroke="#2563eb" stroke-width="1.5" marker-start={`url(#${slug}-arrow-start)`} marker-end={`url(#${slug}-arrow-end)`}/>
-          <text x="44" y="197" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" transform="rotate(-90 44 197)" data-live-value="1">Slab width</text>
+          <text x="44" y="197" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" transform="rotate(-90 44 197)" data-live-value="1" data-diagram-value="1">Slab width</text>
           <g transform="translate(570 110)">
             <rect width="130" height="130" rx="8" fill="var(--color-muted)" opacity=".24" stroke="var(--color-border)"/>
             <circle cx="35" cy="65" r="7" fill="none" stroke="#2563eb" stroke-width="2"/>
             <circle cx="95" cy="65" r="7" fill="none" stroke="#2563eb" stroke-width="2"/>
             <line x1="42" y1="65" x2="88" y2="65" stroke="#2563eb" stroke-width="1.5" marker-start={`url(#${slug}-arrow-start)`} marker-end={`url(#${slug}-arrow-end)`}/>
-            <text x="65" y="48" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-live-value="2">Spacing</text>
+            <text x="65" y="48" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-live-value="2" data-diagram-value="2">Spacing</text>
           </g>
         </>
       )}
