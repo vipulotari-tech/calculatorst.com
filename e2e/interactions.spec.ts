@@ -793,7 +793,7 @@ test.describe('Calculator interactions', () => {
     await expect(diagram.locator('[data-asphalt-card-depth]')).toHaveText('4 in');
 
     await root.getByRole('button', { name: /^Calculate$/ }).click();
-    await expect(root.locator('.result-rows-grid')).toContainText('Material volume with allowance');
+    await expect(root.locator('.result-rows-grid')).toContainText('Order volume');
     await expect(root.locator('.result-rows-grid')).toContainText('Estimated order weight');
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
