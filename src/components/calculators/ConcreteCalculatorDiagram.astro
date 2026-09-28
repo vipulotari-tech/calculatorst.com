@@ -300,9 +300,14 @@ const slug = "concrete-calculator";
 
       root.addEventListener("input", update);
       root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
       form?.addEventListener("reset", () => setTimeout(update, 0));
 
       update();
+      // Shared-link hydration runs in GenericCalculator. Re-read after sibling
+      // scripts settle so the first paint cannot remain on the default shape.
+      queueMicrotask(update);
+      requestAnimationFrame(update);
       setTimeout(update, 0);
     });
   }
