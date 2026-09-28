@@ -142,6 +142,13 @@ const faqEnhancements: Record<string, { q: string; a: string }[]> = {
     { q: "What does the asphalt parking lot cost estimate include?", a: "It calculates compacted asphalt volume and tons, then prices the asphalt from your selected per-ton or per-cubic-yard quote. You can also enter material tax, delivery/trucking and a fixed labor or equipment amount." },
     { q: "Does this include base, milling, striping or drainage?", a: "Not automatically. Those scope items vary by project. Add only costs that belong in the fixed labor/equipment amount, or estimate separate material layers with the related calculators." },
   ],
+  "parking-lot-calculator": [
+    { q: "Does the Parking Lot Calculator estimate paving cost?", a: "No. This page is for asphalt quantity from area, thickness and density. Use the Parking Lot Cost Calculator when you need quoted material price, tax, trucking and fixed paving costs." },
+  ],
+  "drywall-joint-compound-calculator": [
+    { q: "How much drywall mud do I need?", a: "Enter the finished drywall area and the manufacturer coverage for the joint-compound container and finish level you plan to use. The calculator divides the area by that coverage and rounds up to whole containers." },
+    { q: "Is drywall mud the same as joint compound in this calculator?", a: "Yes. The page uses joint compound as the material name and supports the common search term drywall mud, but the quantity should come from the exact product coverage you enter." },
+  ],
   "gravel-weight-calculator": [
     { q: "Can I calculate gravel weight from square feet instead of cubic yards?", a: "Yes. Choose known area plus depth, or enter length, width and depth. If you already know the volume, choose the known-volume mode." },
     { q: "Why does the gravel weight calculator ask for density?", a: "Weight per cubic yard changes with gravel type, grading, moisture and compaction. Enter a density that matches the material and condition you are estimating instead of relying on one universal value." },
@@ -199,6 +206,7 @@ const faqEnhancements: Record<string, { q: string; a: string }[]> = {
   ],
   "mortar-calculator": [
     { q: "Which mortar calculator should I use?", a: "Use Mortar Calculator for bag quantity from installed brick or block coverage or known mixed volume. Use Mortar Mix Calculator to split a user-entered cement, lime and sand ratio, and Mortar Cost Calculator when the bag quantity is already known and you need pricing." },
+    { q: "How much mortar do I need?", a: "Use the installed brick or block count with the product coverage, or enter a known mixed mortar volume and the bag yield. The calculator applies the allowance you enter and rounds the purchase quantity to whole bags." },
   ],
 };
 const concreteSeo: Record<string, {
@@ -519,7 +527,7 @@ const slabSeo: Record<string, {
     ]
   },
   "slab-cost-calculator": {
-    title: "Concrete Slab Cost Calculator — Material & Project Cost",
+    title: "Concrete Pad & Slab Cost Calculator — Material & Project Cost",
     description: "Estimate slab concrete cost from dimensions and quoted prices, with optional tax, delivery, pump, base, reinforcement, forms, finishing and labor.",
     guidance: [
       "Start with dimensions and the concrete price unit from the supplier quote; the calculator supports yard, meter, cubic-foot, bag and ton pricing.",
@@ -665,7 +673,7 @@ const foundationSeo: Record<string, {
   faq: { q: string; a: string }[];
 }> = {
   "foundation-cost-calculator": {
-    title: "Foundation Cost Calculator — Concrete & Entered Project Costs",
+    title: "Foundation Cost Calculator — Concrete, Excavation, Forms & Labor",
     description: "Estimate foundation concrete and quote-based cost for slabs, piers or strip footings, with bags, weight, tax, delivery, excavation, forms, reinforcement and labor.",
     guidance: [
       "Use material-only scope to compare concrete supplier quotes without hidden project fees.",
@@ -1889,6 +1897,11 @@ const gscSeoRefreshSlugs = new Set([
   "wall-framing-calculator",
   "patio-concrete-calculator",
   "aggregate-weight-calculator",
+  "slab-cost-calculator",
+  "foundation-cost-calculator",
+  "drywall-joint-compound-calculator",
+  "parking-lot-calculator",
+  "parking-lot-cost-calculator",
 ]);
 const pageDateModified = gscSeoRefreshSlugs.has(calc.slug)
   ? "2026-09-28"
