@@ -25,6 +25,14 @@ const faq = [
     a: "Yes. Choose the matching price basis. Bulk pricing uses the allowance-adjusted cubic-yard quantity; bag pricing uses the rounded whole-bag order."
   },
   {
+    q: "How many cubic yards of mulch do I need?",
+    a: "Enter the bed length, width and placed depth. The calculator converts the measured volume to cubic yards, applies the purchasing allowance once and also shows whole bags from the bag volume you enter."
+  },
+  {
+    q: "How much area does one cubic yard of mulch cover?",
+    a: "Coverage depends on depth. One cubic yard is 27 cubic feet, so divide 27 cubic feet by the placed depth in feet to estimate square-foot coverage before any purchasing allowance."
+  },
+  {
     q: "Does the calculator choose the correct mulch depth?",
     a: "No. Placed depth is an input because plant, soil, drainage and material needs vary. Use the depth appropriate to the actual project rather than treating a calculator default as a recommendation."
   }
@@ -32,8 +40,8 @@ const faq = [
 ---
 
 <CalculatorLayout
-  title="Mulch Calculator — Cubic Yards, Bags & Cost"
-  description="Estimate mulch in cubic yards and whole bags from bed dimensions, placed depth, identical areas, bag volume, purchasing allowance and optional bulk or bag price."
+  title="Mulch Calculator — Cubic Yards, Bags, Coverage & Cost"
+  description="Calculate mulch in cubic yards and whole bags from bed dimensions and depth, with coverage, purchasing allowance and optional bulk-yard or per-bag cost."
   h1="Mulch Calculator"
   intro="Calculate mulch for rectangular beds using the placed depth you choose. See net and order volume, whole bags, metric volume and optional cost from either a bulk-yard or per-bag quote."
   breadcrumbs={[
@@ -47,7 +55,7 @@ const faq = [
   canonical="/mulch-calculator/"
   ogImage="/og-mulch.png"
   datePublished="2026-08-27"
-  dateModified="2026-09-25"
+  dateModified="2026-09-28"
 >
   <Header slot="header" />
   <GenericCalculator id="mulch-calculator" resultTitle="Mulch Estimate" slot="calculator" />
