@@ -1,0 +1,205 @@
+---
+const slug = "roofing-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-roofing-rich-diagram
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live roofing geometry diagram</h3>
+      <p class="mt-1 max-w-[680px] text-[11px] leading-5 text-muted-foreground">
+        Footprint, roof-slope, overhang, and known-area views update from the active Roofing Calculator inputs. Schematic only — not to scale.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE INPUT GUIDE</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg viewBox="0 0 760 455" class="h-auto w-full" role="img" aria-labelledby={`${slug}-roofing-title ${slug}-roofing-desc`}>
+      <title id={`${slug}-roofing-title`}>Live roofing calculator geometry diagram</title>
+      <desc id={`${slug}-roofing-desc`}>
+        Technical roof plan and cross-section for building footprint plus pitch mode, and a known sloped roof area view for direct measured-area mode.
+      </desc>
+
+      <defs>
+        <marker id="roof-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="roof-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"/>
+        </marker>
+        <pattern id="roof-shingle" width="28" height="16" patternUnits="userSpaceOnUse">
+          <rect width="28" height="16" fill="var(--color-muted)" opacity=".38"/>
+          <path d="M0 8 H28 M14 0 V8 M7 8 V16 M21 8 V16" stroke="var(--color-muted-foreground)" stroke-width=".8" opacity=".32"/>
+        </pattern>
+      </defs>
+
+      <rect width="760" height="455" fill="var(--color-background)"/>
+      <text x="28" y="30" font-size="13" font-weight="700" fill="var(--color-foreground)" data-roof-mode-name>Building footprint + pitch</text>
+      <text x="732" y="30" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)">Roof surface takeoff</text>
+
+      <g data-roof-mode="0">
+        <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">ROOF PLAN / FOOTPRINT</text>
+        <rect x="84" y="104" width="360" height="156" rx="4" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2"/>
+        <rect x="68" y="92" width="392" height="180" rx="6" fill="none" stroke="#2563eb" stroke-width="1.3" stroke-dasharray="6 4"/>
+        <line x1="84" y1="82" x2="444" y2="82" stroke="#2563eb" stroke-width="1.7" marker-start="url(#roof-arrow-start)" marker-end="url(#roof-arrow-end)"/>
+        <text x="264" y="72" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" data-roof-length>Building length = 40 ft</text>
+        <line x1="62" y1="104" x2="62" y2="260" stroke="#2563eb" stroke-width="1.7" marker-start="url(#roof-arrow-start)" marker-end="url(#roof-arrow-end)"/>
+        <text x="44" y="182" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" transform="rotate(-90 44 182)" data-roof-width>Building width = 30 ft</text>
+        <text x="264" y="290" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)" data-roof-overhang>Dashed outline includes 1 ft overhang on all sides</text>
+
+        <text x="505" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">ROOF CROSS SECTION</text>
+        <path d="M520 236 L615 112 L710 236" fill="url(#roof-shingle)" stroke="var(--color-foreground)" stroke-width="2.4"/>
+        <line x1="520" y1="236" x2="710" y2="236" stroke="var(--color-muted-foreground)" stroke-width="1.3"/>
+        <line x1="615" y1="112" x2="615" y2="236" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="5 4"/>
+        <line x1="615" y1="255" x2="710" y2="255" stroke="#2563eb" stroke-width="1.5" marker-start="url(#roof-arrow-start)" marker-end="url(#roof-arrow-end)"/>
+        <text x="663" y="275" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8">Horizontal run</text>
+        <text x="632" y="170" font-size="12" font-weight="700" fill="#1d4ed8" data-roof-pitch>Pitch = 6:12</text>
+        <text x="664" y="154" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" data-roof-slope-length>Slope multiplier = 1.118×</text>
+        <text x="615" y="300" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-roof-sections>1 identical roof section</text>
+      </g>
+
+      <g data-roof-mode="1" style="display:none">
+        <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">KNOWN SLOPED ROOF AREA</text>
+        <path d="M88 230 L238 108 L444 145 L302 270 Z" fill="url(#roof-shingle)" stroke="var(--color-foreground)" stroke-width="2"/>
+        <line x1="112" y1="254" x2="426" y2="188" stroke="#2563eb" stroke-width="1.3" stroke-dasharray="6 4"/>
+        <text x="270" y="187" text-anchor="middle" font-size="22" font-weight="700" fill="var(--color-foreground)" data-roof-area>1,500 ft²</text>
+        <text x="270" y="212" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)">True sloped surface area entered directly</text>
+
+        <g transform="translate(520 94)">
+          <rect width="185" height="178" rx="12" fill="var(--color-muted)" opacity=".24" stroke="var(--color-border)"/>
+          <path d="M22 124 L92 44 L163 124" fill="none" stroke="var(--color-foreground)" stroke-width="2.5"/>
+          <path d="M35 124 L92 58 L149 124" fill="url(#roof-shingle)" stroke="var(--color-foreground)" stroke-width="1.6"/>
+          <text x="92" y="150" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)">No slope multiplier is applied again</text>
+        </g>
+      </g>
+
+      <rect x="28" y="322" width="704" height="106" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+      <text x="46" y="347" font-size="11" font-weight="700" fill="var(--color-foreground)">ROOF AREA FORMULA</text>
+      <text x="46" y="372" font-size="15.5" font-weight="700" fill="var(--color-foreground)" data-roof-formula>Roof area = footprint × √(1 + (pitch/12)²)</text>
+      <text x="46" y="397" font-size="11" fill="var(--color-muted-foreground)">Allowance is applied after measured roof surface is determined.</text>
+
+      <line x1="430" y1="338" x2="430" y2="414" stroke="var(--color-border)"/>
+      <text x="453" y="347" font-size="11" font-weight="700" fill="var(--color-foreground)">ORDER COVERAGE</text>
+      <text x="453" y="371" font-size="12.5" font-weight="700" fill="#1d4ed8" data-roof-coverage>Shingles 33.33 ft²/package</text>
+      <text x="453" y="393" font-size="11.5" fill="var(--color-muted-foreground)" data-roof-products>Underlayment 400 ft²/roll · Sheathing 32 ft²/sheet</text>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-3">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Measurement mode</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground" data-roof-mode-card>Building footprint + pitch</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Geometry</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-roof-summary>40 ft × 30 ft · 6:12 · 1 ft overhang</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Material allowance</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-roof-waste>10%</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initRoofingRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-roofing-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="roofing-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#roofing-calculator-form");
+      const mode = root.querySelector<HTMLSelectElement>("#roofing-calculator-mode");
+      if (!form || !mode) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>(`#roofing-calculator-${id}`);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>(`#roofing-calculator-${id}-unit`);
+
+      const unitLabel = (id: string) => {
+        const select = unit(id);
+        if (select) return select.options[select.selectedIndex]?.text?.trim() || select.value;
+        const el = input(id);
+        const staticUnit = el?.parentElement?.querySelector("span");
+        return staticUnit?.textContent?.trim() || "";
+      };
+
+      const value = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const u = unitLabel(id);
+        return u ? `${shown} ${u}` : shown;
+      };
+
+      const numberValue = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const fmt = (n: number, digits = 3) =>
+        new Intl.NumberFormat("en-US", { maximumFractionDigits: digits }).format(n);
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => { el.textContent = text; });
+      };
+
+      const update = () => {
+        const m = Math.max(0, Math.min(1, Math.round(Number(mode.value) || 0)));
+        figure.querySelectorAll<SVGGElement>("[data-roof-mode]").forEach((group) => {
+          group.style.display = group.dataset.roofMode === String(m) ? "" : "none";
+        });
+
+        const modeName = mode.options[mode.selectedIndex]?.text?.trim() || "Roof measurement";
+        setText("[data-roof-mode-name]", modeName);
+        setText("[data-roof-mode-card]", modeName);
+
+        const waste = Math.max(0, numberValue("waste", 0));
+        setText("[data-roof-waste]", `${waste}%`);
+
+        const shingleCoverage = value("shingleCoverage");
+        const underCoverage = value("underlaymentCoverage");
+        const sheathingCoverage = value("sheathingCoverage");
+        setText("[data-roof-coverage]", `Shingles ${shingleCoverage}/package`);
+        setText("[data-roof-products]", `Underlayment ${underCoverage}/roll · Sheathing ${sheathingCoverage}/sheet`);
+
+        if (m === 0) {
+          const length = value("length");
+          const width = value("width");
+          const overhang = value("overhang");
+          const pitch = Math.max(0, numberValue("pitch", 0));
+          const quantity = Math.max(0, Math.round(numberValue("quantity", 1)));
+          const mult = Math.hypot(1, pitch / 12);
+
+          setText("[data-roof-length]", `Building length = ${length}`);
+          setText("[data-roof-width]", `Building width = ${width}`);
+          setText("[data-roof-overhang]", `Dashed outline includes ${overhang} overhang on all sides`);
+          setText("[data-roof-pitch]", `Pitch = ${fmt(pitch)}:12`);
+          setText("[data-roof-slope-length]", `Slope multiplier = ${fmt(mult)}×`);
+          setText("[data-roof-sections]", `${quantity} identical ${quantity === 1 ? "roof section" : "roof sections"}`);
+          setText("[data-roof-formula]", "Roof area = footprint × √(1 + (pitch/12)²)");
+          setText("[data-roof-summary]", `${length} × ${width} · ${fmt(pitch)}:12 · ${overhang} overhang`);
+        } else {
+          const area = value("roofArea");
+          setText("[data-roof-area]", area);
+          setText("[data-roof-formula]", "Roof area = entered known sloped roof area");
+          setText("[data-roof-summary]", area);
+        }
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+      update();
+      setTimeout(update, 0);
+    });
+  }
+
+  initRoofingRichDiagrams();
+  document.addEventListener("astro:page-load", initRoofingRichDiagrams);
+</script>
