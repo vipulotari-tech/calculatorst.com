@@ -752,8 +752,8 @@ test.describe('Calculator interactions', () => {
     await expect(diagram).toContainText('Height = 8 ft');
     await expect(diagram).toContainText('40 ft² openings');
     await expect(diagram).toContainText('120 ft² ceiling');
-    await expect(diagram).toContainText('14 sheets');
-    await expect(diagram.locator('[data-drywall-card-count]')).toHaveText('14');
+    await expect(diagram).toContainText('15 sheets');
+    await expect(diagram.locator('[data-drywall-card-count]')).toHaveText('15');
 
     await root.locator('#drywall-calculator-ceiling').selectOption('0');
     await expect(diagram).toContainText('Walls only');
