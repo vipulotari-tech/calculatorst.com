@@ -803,6 +803,39 @@ test.describe('Calculator interactions', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+
+  test('Excavation calculator — live section follows slopes, quantity and swell', async ({ page }) => {
+    await page.goto('/excavation-calculator/');
+    const root = page.locator('[data-calculator-slug="excavation-calculator"]');
+    const diagram = root.locator('[data-excavation-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'excavation');
+    await expect(diagram).toContainText('Excavation plan');
+    await expect(diagram).toContainText('BANK → LOOSE');
+
+    await root.locator('#excavation-calculator-length').fill('20');
+    await root.locator('#excavation-calculator-width').fill('10');
+    await root.locator('#excavation-calculator-depth').fill('4');
+    await root.locator('#excavation-calculator-sideSlope').fill('0.5');
+    await root.locator('#excavation-calculator-quantity').fill('1');
+    await root.locator('#excavation-calculator-swell').fill('20');
+
+    await expect(diagram.locator('[data-exc-bank]')).toHaveText('39.31 bank yd³');
+    await expect(diagram.locator('[data-exc-bank-ft3]')).toHaveText('1061.33 ft³ in-place');
+    await expect(diagram.locator('[data-exc-top-card]')).toHaveText('24 ft × 14 ft');
+    await expect(diagram.locator('[data-exc-loose]')).toHaveText('47.17 yd³');
+    await expect(diagram).toContainText('Side slope = 0.5H:1V');
+    await expect(diagram).toContainText('Top opening = 24 ft × 14 ft');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-rows-grid')).toContainText('In-place bank volume');
+    await expect(root.locator('.result-rows-grid')).toContainText('Loose haul volume');
+    await expect(root.locator('.result-rows-grid')).toContainText('Top excavation length');
+    await expect(root.locator('.result-rows-grid')).toContainText('Top excavation width');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');
