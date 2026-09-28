@@ -341,7 +341,7 @@ const concreteSeo: Record<string, {
     ]
   },
   "concrete-wall-calculator": {
-    title: "Concrete Wall Calculator — Yards with Opening Deductions",
+    title: "Concrete Wall Calculator — Yards, Bags, Forms & Cost",
     description: "Calculate concrete wall volume from length, height and thickness, deduct total door and window opening area, then estimate yards, bags, weight, forms and cost.",
     guidance: [
       "Enter the combined opening area once; the calculator converts area to opening volume using the wall thickness.",
@@ -356,7 +356,7 @@ const concreteSeo: Record<string, {
     ]
   },
   "concrete-column-calculator": {
-    title: "Concrete Column Calculator — Round, Square & Rectangular",
+    title: "Concrete Column Calculator — Volume, Yards, Bags & Cost",
     description: "Calculate concrete for circular, square or rectangular columns and piers in cubic yards, bags and weight, with quantity, waste allowance and optional cost.",
     guidance: [
       "Choose the cross-section shape before entering dimensions; the calculator uses the matching area formula and multiplies by height.",
@@ -364,7 +364,7 @@ const concreteSeo: Record<string, {
       "Use actual formed dimensions. This calculator does not select column size, reinforcement or load capacity."
     ],
     faq: [
-      { q: "How do I calculate concrete for a round column?", a: "The calculator uses π × radius² × height × quantity, then converts the result to cubic yards and applies the selected allowance." },
+      { q: "How do I calculate column volume?", a: "Choose the column shape and enter its dimensions and height. For a round column, the calculator uses π × radius² × height × quantity; square and rectangular columns use cross-section area × height × quantity before conversion to cubic yards." },
       { q: "Can I calculate square and rectangular columns?", a: "Yes. Select the matching shape and enter side dimensions, height and quantity." },
       { q: "Can this estimate multiple identical piers?", a: "Yes. Use Quantity for repeated columns or piers with the same dimensions." },
       { q: "Does this calculator determine column structural capacity?", a: "No. It estimates concrete volume only. Structural dimensions, reinforcement and capacity checks require design information." }
@@ -566,7 +566,7 @@ const slabSeo: Record<string, {
     ]
   },
   "driveway-concrete-calculator": {
-    title: "Concrete Driveway Calculator — Yards, Apron, Base & Trucks",
+    title: "Concrete Driveway Calculator — Yards, Bags, Cost & Trucks",
     description: "Calculate driveway concrete for rectangles, aprons or tapered widths, with cubic yards, bags, compacted base, truck loads, weight, waste and cost.",
     guidance: [
       "Rectangle + apron mode adds a separately measured apron at the street end; do not include the same apron area inside the main rectangle twice.",
@@ -577,6 +577,8 @@ const slabSeo: Record<string, {
       { q: "How do I calculate concrete for a driveway that gets wider?", a: "Use Trapezoid mode. Enter the full driveway length plus the widths at the street and house ends; area equals length × average end width." },
       { q: "How is a driveway apron included?", a: "Rectangle + apron mode calculates the main driveway rectangle and adds a separately measured apron rectangle using the same concrete thickness." },
       { q: "Can the calculator estimate the gravel base?", a: "Yes. Enter the compacted base depth to get a compacted cubic-yard quantity for the same driveway footprint." },
+      { q: "Can I estimate concrete driveway cost here?", a: "Yes. Enter the optional concrete price to estimate material cost from the calculated order quantity. For a fuller project-cost breakdown, use the dedicated Driveway Cost Calculator." },
+      { q: "Should I use this calculator for a concrete patio?", a: "Use the Patio Concrete Calculator for patios. This page is optimized for driveway geometry such as a separate apron or a width that changes from one end to the other." },
       { q: "Does this calculator choose a safe driveway thickness?", a: "No. Thickness is a design input. Vehicle loads, soil, base, reinforcement, climate and local requirements can change the required pavement section." }
     ]
   },
@@ -1063,6 +1065,7 @@ const masonrySeoEnhancements: Record<string, {
     guidance: ["Use manufacturer brick unit weight; the calculator no longer treats bricks as a bulk volume material.", "Pallet capacity is optional and only used for a logistics estimate."],
     faq: [
       { q: "How is brick weight calculated?", a: "Whole order bricks are multiplied by the entered unit weight." },
+      { q: "How much does one brick weigh?", a: "Brick weight varies by size, material and manufacturer. Enter the manufacturer or supplier unit weight for the brick you are ordering rather than relying on one universal brick weight." },
       { q: "Does it include mortar weight?", a: "No. It estimates bare brick shipment weight." },
       { q: "Can I estimate pallets?", a: "Yes. Enter bricks per pallet and the calculator rounds the pallet count up." }
     ]
@@ -1851,11 +1854,19 @@ const newCalculatorSlugs = new Set([
   "concrete-crack-repair-calculator",
 ]);
 const datePublished = newCalculatorSlugs.has(calc.slug) ? "2026-09-24" : "2026-08-29";
-const pageDateModified = calc.slug === "concrete-waste-calculator"
-  ? "2026-09-27"
-  : ["concrete-calculator", "concrete-volume-calculator", "concrete-weight-calculator", "concrete-cost-calculator", "concrete-mix-calculator", "concrete-pour-calculator"].includes(calc.slug) || enhancedTradeCluster.has(calc.cluster)
-    ? "2026-09-25"
-    : "2026-09-24";
+const gscSeoRefreshSlugs = new Set([
+  "driveway-concrete-calculator",
+  "concrete-wall-calculator",
+  "concrete-column-calculator",
+  "brick-weight-calculator",
+]);
+const pageDateModified = gscSeoRefreshSlugs.has(calc.slug)
+  ? "2026-09-28"
+  : calc.slug === "concrete-waste-calculator"
+    ? "2026-09-27"
+    : ["concrete-calculator", "concrete-volume-calculator", "concrete-weight-calculator", "concrete-cost-calculator", "concrete-mix-calculator", "concrete-pour-calculator"].includes(calc.slug) || enhancedTradeCluster.has(calc.cluster)
+      ? "2026-09-25"
+      : "2026-09-24";
 ---
 
 <CalculatorLayout
