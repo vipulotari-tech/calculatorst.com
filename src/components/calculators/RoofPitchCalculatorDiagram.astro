@@ -1,0 +1,306 @@
+---
+const slug = "roof-pitch-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-roof-pitch-rich-diagram
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live roof pitch geometry</h3>
+      <p class="mt-1 max-w-[680px] text-[11px] leading-5 text-muted-foreground">
+        The right-triangle roof geometry updates from rise/run, angle, pitch-per-12, or rafter-length mode. Schematic only — not to scale.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">4 LIVE SOLVER MODES</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg viewBox="0 0 760 455" class="h-auto w-full" role="img" aria-labelledby={`${slug}-pitch-title ${slug}-pitch-desc`}>
+      <title id={`${slug}-pitch-title`}>Live roof pitch calculator geometry diagram</title>
+      <desc id={`${slug}-pitch-desc`}>
+        A right-triangle roof section showing horizontal run, vertical rise, sloped rafter length, roof angle, pitch per twelve, percent slope, and roof surface multiplier.
+      </desc>
+
+      <defs>
+        <marker id="pitch-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="pitch-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"/>
+        </marker>
+        <pattern id="pitch-shingle" width="28" height="16" patternUnits="userSpaceOnUse">
+          <rect width="28" height="16" fill="var(--color-muted)" opacity=".34"/>
+          <path d="M0 8 H28 M14 0 V8 M7 8 V16 M21 8 V16" stroke="var(--color-muted-foreground)" stroke-width=".8" opacity=".3"/>
+        </pattern>
+      </defs>
+
+      <rect width="760" height="455" fill="var(--color-background)"/>
+      <text x="28" y="30" font-size="13" font-weight="700" fill="var(--color-foreground)" data-pitch-mode-name>Rise and horizontal run</text>
+      <text x="732" y="30" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)">Pitch geometry conversion</text>
+
+      <text x="42" y="62" font-size="11" font-weight="700" fill="var(--color-foreground)">RIGHT-TRIANGLE ROOF SECTION</text>
+
+      <g>
+        <path data-pitch-fill d="M105 275 L345 155 L345 275 Z" fill="url(#pitch-shingle)" opacity=".62"/>
+        <path data-pitch-rafter d="M105 275 L345 155" fill="none" stroke="var(--color-foreground)" stroke-width="3"/>
+        <line x1="105" y1="275" x2="345" y2="275" stroke="var(--color-foreground)" stroke-width="2"/>
+        <line data-pitch-rise-line x1="345" y1="155" x2="345" y2="275" stroke="var(--color-foreground)" stroke-width="2"/>
+
+        <line x1="105" y1="298" x2="345" y2="298" stroke="#2563eb" stroke-width="1.7" marker-start="url(#pitch-arrow-start)" marker-end="url(#pitch-arrow-end)"/>
+        <text x="225" y="319" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" data-pitch-run-label>Horizontal run = 12 in</text>
+
+        <line data-pitch-rise-dim x1="370" y1="155" x2="370" y2="275" stroke="#2563eb" stroke-width="1.7" marker-start="url(#pitch-arrow-start)" marker-end="url(#pitch-arrow-end)"/>
+        <text data-pitch-rise-label x="386" y="211" font-size="12" font-weight="700" fill="#1d4ed8">Vertical rise = 6 in</text>
+
+        <text data-pitch-rafter-label x="214" y="186" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" transform="rotate(-26.565 214 186)">Rafter = 13.416 in</text>
+
+        <path data-pitch-angle-arc d="M143 275 A38 38 0 0 0 139 258" fill="none" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="151" y="256" font-size="11.5" font-weight="700" fill="#1d4ed8" data-pitch-angle>26.565°</text>
+      </g>
+
+      <g transform="translate(475 82)">
+        <rect width="240" height="214" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="18" y="27" font-size="11" font-weight="700" fill="var(--color-foreground)">PITCH REFERENCE</text>
+
+        <line x1="28" y1="152" x2="190" y2="152" stroke="var(--color-foreground)" stroke-width="1.8"/>
+        <line x1="190" y1="152" x2="190" y2="72" stroke="var(--color-foreground)" stroke-width="1.8"/>
+        <line x1="28" y1="152" x2="190" y2="72" stroke="var(--color-foreground)" stroke-width="2.4"/>
+
+        <line x1="28" y1="174" x2="190" y2="174" stroke="#2563eb" stroke-width="1.5" marker-start="url(#pitch-arrow-start)" marker-end="url(#pitch-arrow-end)"/>
+        <text x="109" y="194" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8">12 run</text>
+        <text x="203" y="116" font-size="11.5" font-weight="700" fill="#1d4ed8" data-pitch-per12>6 rise</text>
+
+        <text x="18" y="48" font-size="16" font-weight="700" fill="var(--color-foreground)" data-pitch-ratio>6:12</text>
+        <text x="18" y="70" font-size="11" fill="var(--color-muted-foreground)" data-pitch-percent>50% slope</text>
+      </g>
+
+      <rect x="28" y="338" width="704" height="91" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+      <text x="46" y="362" font-size="11" font-weight="700" fill="var(--color-foreground)">ACTIVE SOLVER</text>
+      <text x="46" y="386" font-size="15.5" font-weight="700" fill="var(--color-foreground)" data-pitch-formula>Slope = rise ÷ horizontal run</text>
+      <text x="46" y="409" font-size="11" fill="var(--color-muted-foreground)" data-pitch-source>Using matching physical units for rise and run.</text>
+
+      <line x1="432" y1="350" x2="432" y2="418" stroke="var(--color-border)"/>
+      <text x="455" y="362" font-size="11" font-weight="700" fill="var(--color-foreground)">DERIVED GEOMETRY</text>
+      <text x="455" y="386" font-size="13" font-weight="700" fill="#1d4ed8" data-pitch-derived>26.565° · 50% · 1.118×</text>
+      <text x="455" y="409" font-size="11" fill="var(--color-muted-foreground)">Angle · percent slope · surface multiplier</text>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-4">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Pitch</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-pitch-card-ratio>6:12</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Angle</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-pitch-card-angle>26.565°</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Slope</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-pitch-card-percent>50%</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Surface multiplier</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-pitch-card-multiplier>1.118×</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initRoofPitchRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-roof-pitch-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="roof-pitch-calculator"]');
+      if (!root) return;
+
+      const form = root.querySelector<HTMLFormElement>("#roof-pitch-calculator-form");
+      const mode = root.querySelector<HTMLSelectElement>("#roof-pitch-calculator-mode");
+      if (!form || !mode) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>(`#roof-pitch-calculator-${id}`);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>(`#roof-pitch-calculator-${id}-unit`);
+
+      const unitLabel = (id: string) => {
+        const select = unit(id);
+        return select ? (select.options[select.selectedIndex]?.text?.trim() || select.value) : "";
+      };
+
+      const displayValue = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const u = unitLabel(id);
+        return u ? `${shown} ${u}` : shown;
+      };
+
+      const numericValue = (id: string) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : Number.NaN;
+      };
+
+      const lengthToFeet = (id: string) => {
+        const n = numericValue(id);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const rawUnit = unit(id)?.value ?? "ft";
+        const factors: Record<string, number> = {
+          ft: 1,
+          in: 1 / 12,
+          yd: 3,
+          m: 1 / 0.3048,
+          cm: 1 / 30.48,
+          mm: 1 / 304.8,
+        };
+        return n * (factors[rawUnit] ?? 1);
+      };
+
+      const fmt = (n: number, digits = 3) =>
+        Number.isFinite(n)
+          ? new Intl.NumberFormat("en-US", { maximumFractionDigits: digits }).format(n)
+          : "—";
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => { el.textContent = text; });
+      };
+
+      const updateGeometry = (slope: number) => {
+        if (!Number.isFinite(slope) || slope < 0) slope = 0;
+        const clampedRise = Math.max(12, Math.min(165, 240 * slope));
+        const x0 = 105;
+        const x1 = 345;
+        const yBase = 275;
+        const yTop = yBase - clampedRise;
+
+        const fill = figure.querySelector<SVGPathElement>("[data-pitch-fill]");
+        const rafter = figure.querySelector<SVGPathElement>("[data-pitch-rafter]");
+        const riseLine = figure.querySelector<SVGLineElement>("[data-pitch-rise-line]");
+        const riseDim = figure.querySelector<SVGLineElement>("[data-pitch-rise-dim]");
+        const riseLabel = figure.querySelector<SVGTextElement>("[data-pitch-rise-label]");
+        const rafterLabel = figure.querySelector<SVGTextElement>("[data-pitch-rafter-label]");
+        const angleArc = figure.querySelector<SVGPathElement>("[data-pitch-angle-arc]");
+
+        fill?.setAttribute("d", `M${x0} ${yBase} L${x1} ${yTop} L${x1} ${yBase} Z`);
+        rafter?.setAttribute("d", `M${x0} ${yBase} L${x1} ${yTop}`);
+        riseLine?.setAttribute("y1", String(yTop));
+        riseLine?.setAttribute("y2", String(yBase));
+        riseDim?.setAttribute("y1", String(yTop));
+        riseDim?.setAttribute("y2", String(yBase));
+
+        if (riseLabel) {
+          riseLabel.setAttribute("y", String((yTop + yBase) / 2));
+        }
+
+        const angle = Math.atan(slope);
+        const degrees = angle * 180 / Math.PI;
+        if (rafterLabel) {
+          const midX = (x0 + x1) / 2;
+          const midY = (yBase + yTop) / 2 - 10;
+          rafterLabel.setAttribute("x", String(midX));
+          rafterLabel.setAttribute("y", String(midY));
+          rafterLabel.setAttribute("transform", `rotate(${-Math.min(55, degrees)} ${midX} ${midY})`);
+        }
+
+        if (angleArc) {
+          const r = 38;
+          const endX = x0 + r * Math.cos(angle);
+          const endY = yBase - r * Math.sin(angle);
+          angleArc.setAttribute("d", `M${x0 + r} ${yBase} A${r} ${r} 0 0 0 ${endX} ${endY}`);
+        }
+      };
+
+      const update = () => {
+        const m = Math.max(0, Math.min(3, Math.round(Number(mode.value) || 0)));
+        const modeName = mode.options[mode.selectedIndex]?.text?.trim() || "Roof pitch solver";
+        setText("[data-pitch-mode-name]", modeName);
+
+        let slope = 0;
+        let runDisplay = "12 units";
+        let riseDisplay = "0 units";
+        let rafterDisplay = "12 units";
+        let formula = "";
+        let source = "";
+
+        if (m === 0) {
+          const riseFt = lengthToFeet("rise");
+          const runFt = lengthToFeet("run");
+          slope = Number.isFinite(riseFt) && Number.isFinite(runFt) && runFt > 0 ? riseFt / runFt : 0;
+          runDisplay = displayValue("run");
+          riseDisplay = displayValue("rise");
+          const hypFeet = Math.hypot(Number.isFinite(runFt) ? runFt : 0, Number.isFinite(riseFt) ? riseFt : 0);
+          const runUnit = unit("run")?.value ?? "ft";
+          const back: Record<string, number> = { ft: 1, in: 12, yd: 1/3, m: 0.3048, cm: 30.48, mm: 304.8 };
+          rafterDisplay = `${fmt(hypFeet * (back[runUnit] ?? 1), 4)} ${unitLabel("run") || runUnit}`;
+          formula = "Slope = rise ÷ horizontal run";
+          source = "Using matching physical units for rise and run.";
+        } else if (m === 1) {
+          const angle = numericValue("angleInput");
+          slope = Number.isFinite(angle) ? Math.tan(angle * Math.PI / 180) : 0;
+          const ref = lengthToFeet("referenceRun");
+          runDisplay = Number.isFinite(ref) ? displayValue("referenceRun") : "12 reference units";
+          riseDisplay = Number.isFinite(ref) ? `${fmt(ref * slope, 4)} ft derived` : `${fmt(12 * slope, 4)} reference units`;
+          rafterDisplay = Number.isFinite(ref) ? `${fmt(ref * Math.hypot(1, slope), 4)} ft derived` : `${fmt(12 * Math.hypot(1, slope), 4)} reference units`;
+          formula = "Slope = tan(angle)";
+          source = `Entered angle = ${fmt(angle, 4)}°`;
+        } else if (m === 2) {
+          const pitch = numericValue("pitchInput");
+          slope = Number.isFinite(pitch) ? pitch / 12 : 0;
+          const ref = lengthToFeet("referenceRun");
+          runDisplay = Number.isFinite(ref) ? displayValue("referenceRun") : "12 reference units";
+          riseDisplay = Number.isFinite(ref) ? `${fmt(ref * slope, 4)} ft derived` : `${fmt(12 * slope, 4)} reference units`;
+          rafterDisplay = Number.isFinite(ref) ? `${fmt(ref * Math.hypot(1, slope), 4)} ft derived` : `${fmt(12 * Math.hypot(1, slope), 4)} reference units`;
+          formula = "Slope = pitch rise ÷ 12";
+          source = `Entered pitch = ${fmt(pitch, 4)}:12`;
+        } else {
+          const runFt = lengthToFeet("run");
+          const rafterFt = lengthToFeet("rafterLength");
+          const riseFt = Number.isFinite(runFt) && Number.isFinite(rafterFt) && rafterFt >= runFt
+            ? Math.sqrt(Math.max(0, rafterFt * rafterFt - runFt * runFt))
+            : 0;
+          slope = Number.isFinite(runFt) && runFt > 0 ? riseFt / runFt : 0;
+          runDisplay = displayValue("run");
+          rafterDisplay = displayValue("rafterLength");
+          riseDisplay = `${fmt(riseFt, 4)} ft derived`;
+          formula = "Rise = √(rafter² − run²); slope = rise ÷ run";
+          source = "Reverse right-triangle mode from sloped rafter length and horizontal run.";
+        }
+
+        const angleDeg = Math.atan(Math.max(0, slope)) * 180 / Math.PI;
+        const pitch = 12 * Math.max(0, slope);
+        const percent = 100 * Math.max(0, slope);
+        const multiplier = Math.hypot(1, Math.max(0, slope));
+
+        updateGeometry(slope);
+
+        setText("[data-pitch-run-label]", `Horizontal run = ${runDisplay}`);
+        setText("[data-pitch-rise-label]", `Vertical rise = ${riseDisplay}`);
+        setText("[data-pitch-rafter-label]", `Rafter = ${rafterDisplay}`);
+        setText("[data-pitch-angle]", `${fmt(angleDeg)}°`);
+        setText("[data-pitch-per12]", `${fmt(pitch)} rise`);
+        setText("[data-pitch-ratio]", `${fmt(pitch)}:12`);
+        setText("[data-pitch-percent]", `${fmt(percent)}% slope`);
+        setText("[data-pitch-formula]", formula);
+        setText("[data-pitch-source]", source);
+        setText("[data-pitch-derived]", `${fmt(angleDeg)}° · ${fmt(percent)}% · ${fmt(multiplier)}×`);
+
+        setText("[data-pitch-card-ratio]", `${fmt(pitch)}:12`);
+        setText("[data-pitch-card-angle]", `${fmt(angleDeg)}°`);
+        setText("[data-pitch-card-percent]", `${fmt(percent)}%`);
+        setText("[data-pitch-card-multiplier]", `${fmt(multiplier)}×`);
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+      update();
+      setTimeout(update, 0);
+    });
+  }
+
+  initRoofPitchRichDiagrams();
+  document.addEventListener("astro:page-load", initRoofPitchRichDiagrams);
+</script>
