@@ -835,7 +835,7 @@ test.describe('Calculator interactions', () => {
     await expect(diagram).toContainText('Installed module = 8 in × 2.625 in');
 
     await root.getByRole('button', { name: /^Calculate$/ }).click();
-    await expect(root.locator('.result-rows-grid')).toContainText('Bricks to order');
+    await expect(root.locator('.result-rows-grid')).toContainText('Bricks per square foot per wythe');
     await expect(root.locator('.result-rows-grid')).toContainText('Estimated installed bricks');
     await expect(root.locator('.result-rows-grid')).toContainText('Net wall area');
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
