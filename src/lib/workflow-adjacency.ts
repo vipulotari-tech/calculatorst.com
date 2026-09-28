@@ -71,7 +71,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "concrete-column-calculator": {
     primary: ["concrete-tube-calculator", "rebar-calculator", "concrete-cost-calculator"],
-    workflow: ["concrete-column-calculator", "concrete-volume-calculator"],
+    workflow: ["concrete-volume-calculator", "concrete-wall-calculator"],
   },
   "concrete-curb-calculator": {
     primary: ["concrete-volume-calculator", "concrete-cost-calculator", "rebar-calculator"],
@@ -392,8 +392,8 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
     workflow: ["driveway-thickness-calculator", "concrete-slab-calculator"],
   },
   "crushed-stone-calculator": {
-    primary: ["gravel-calculator", "aggregate-calculator", "gravel-depth-calculator"],
-    workflow: ["gravel-cost-calculator", "paver-base-calculator"],
+    primary: ["gravel-calculator", "crushed-stone-cost-calculator", "aggregate-calculator"],
+    workflow: ["gravel-depth-calculator", "paver-base-calculator"],
   },
   "crushed-stone-cost-calculator": {
     primary: ["gravel-cost-calculator", "crushed-stone-calculator", "gravel-calculator"],
