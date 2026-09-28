@@ -254,7 +254,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "slab-cost-calculator",
-    "title": "Concrete Slab Cost Calculator — Material & Project Cost",
+    "title": "Concrete Pad & Slab Cost Calculator — Material & Project Cost",
     "h1": "Slab Cost Calculator",
     "description": "Estimate slab concrete cost from dimensions and quoted prices, with optional tax, delivery, pump, base, reinforcement, forms, finishing and labor.",
     "category": "Slab & Patio",
@@ -398,7 +398,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "foundation-cost-calculator",
-    "title": "Foundation Cost Calculator — Concrete & Entered Project Costs",
+    "title": "Foundation Cost Calculator — Concrete, Excavation, Forms & Labor",
     "h1": "Foundation Cost Calculator",
     "description": "Estimate foundation concrete and quote-based cost for slabs, piers or strip footings, with bags, weight, tax, delivery, excavation, forms, reinforcement and labor.",
     "category": "Foundation",
@@ -2279,7 +2279,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "drywall-joint-compound-calculator",
-    "title": "Drywall Mud Calculator — Joint Compound Packages by Coverage",
+    "title": "Drywall Mud Calculator — Joint Compound Coverage & Containers",
     "h1": "Drywall Joint Compound Calculator",
     "description": "Estimate whole joint-compound containers from finished drywall area and the manufacturer coverage for the selected container and finish level.",
     "category": "Drywall & Paint",
@@ -2838,9 +2838,9 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "parking-lot-calculator",
-    "title": "Asphalt Parking Lot Calculator — Tons & Yards from Area & Thickness",
+    "title": "Asphalt Parking Lot Quantity Calculator — Tons & Cubic Yards",
     "h1": "Parking Lot Calculator",
-    "description": "Estimate parking-lot asphalt volume and tons from measured area, compacted thickness, editable mix density and purchasing allowance.",
+    "description": "Calculate parking-lot asphalt quantity in cubic yards and tons from measured area, compacted thickness, editable mix density and purchasing allowance; project cost is handled separately.",
     "category": "Asphalt & Surface",
     "cluster": "asphalt",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
@@ -2853,7 +2853,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "parking-lot-cost-calculator",
-    "title": "Asphalt Parking Lot Cost Calculator — Tons, Material & Fixed Costs",
+    "title": "Asphalt Parking Lot Cost Calculator — Tons, Price & Paving Cost",
     "h1": "Parking Lot Cost Calculator",
     "description": "Estimate parking-lot asphalt tons and total entered cost from area, thickness, density, allowance, quoted material price, tax, trucking and fixed paving cost.",
     "category": "Asphalt & Surface",
