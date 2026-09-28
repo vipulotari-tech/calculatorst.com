@@ -15,6 +15,15 @@ import CarpetCalculatorDiagram from "./CarpetCalculatorDiagram.astro";
 import TileCalculatorDiagram from "./TileCalculatorDiagram.astro";
 import DrywallCalculatorDiagram from "./DrywallCalculatorDiagram.astro";
 import ConcreteSlabCalculatorDiagram from "./ConcreteSlabCalculatorDiagram.astro";
+import FenceCalculatorDiagram from "./FenceCalculatorDiagram.astro";
+import DeckCalculatorDiagram from "./DeckCalculatorDiagram.astro";
+import PaverCalculatorDiagram from "./PaverCalculatorDiagram.astro";
+import AsphaltCalculatorDiagram from "./AsphaltCalculatorDiagram.astro";
+import BrickCalculatorDiagram from "./BrickCalculatorDiagram.astro";
+import ConcreteBlockCalculatorDiagram from "./ConcreteBlockCalculatorDiagram.astro";
+import RebarCalculatorDiagram from "./RebarCalculatorDiagram.astro";
+import ExcavationCalculatorDiagram from "./ExcavationCalculatorDiagram.astro";
+import EarthworkCalculatorDiagram from "./EarthworkCalculatorDiagram.astro";
 
 interface Props {
   id: string; // The slug, e.g. "concrete-calculator"
@@ -398,7 +407,25 @@ const diagramFields = fields
                             ? <DrywallCalculatorDiagram />
                             : slug === "concrete-slab-calculator"
                               ? <ConcreteSlabCalculatorDiagram />
-                              : <ProjectDiagram slug={slug} fields={diagramFields} />}
+                              : slug === "fence-calculator"
+                                ? <FenceCalculatorDiagram />
+                                : slug === "deck-calculator"
+                                  ? <DeckCalculatorDiagram />
+                                  : slug === "paver-calculator"
+                                    ? <PaverCalculatorDiagram />
+                                    : slug === "asphalt-calculator"
+                                      ? <AsphaltCalculatorDiagram />
+                                      : slug === "brick-calculator"
+                                        ? <BrickCalculatorDiagram />
+                                        : slug === "concrete-block-calculator"
+                                          ? <ConcreteBlockCalculatorDiagram />
+                                          : slug === "rebar-calculator"
+                                            ? <RebarCalculatorDiagram />
+                                            : slug === "excavation-calculator"
+                                              ? <ExcavationCalculatorDiagram />
+                                              : slug === "earthwork-calculator"
+                                                ? <EarthworkCalculatorDiagram />
+                                                : <ProjectDiagram slug={slug} fields={diagramFields} />}
     </div>
   )}
 
