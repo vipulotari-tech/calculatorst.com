@@ -1,0 +1,379 @@
+---
+const slug = "slab-thickness-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-slab-thickness-rich-diagram
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live slab thickness diagram</h3>
+      <p class="mt-1 max-w-[700px] text-[11px] leading-5 text-muted-foreground">
+        Footprint and section views switch with the selected calculation mode and update from the entered dimensions, volume, thickness scenarios, and material allowance. Schematic only — not a structural design.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE INPUT GUIDE</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg
+      viewBox="0 0 760 500"
+      class="h-auto w-full"
+      role="img"
+      aria-labelledby={`${slug}-thickness-diagram-title ${slug}-thickness-diagram-desc`}
+    >
+      <title id={`${slug}-thickness-diagram-title`}>Live slab thickness calculation diagram</title>
+      <desc id={`${slug}-thickness-diagram-desc`}>
+        A live slab footprint and cross-section showing length, width, solved or selected thickness, and three comparison thickness scenarios depending on the active calculation mode.
+      </desc>
+
+      <defs>
+        <marker id="thickness-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb" />
+        </marker>
+        <marker id="thickness-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb" />
+        </marker>
+        <pattern id="thickness-concrete" width="18" height="18" patternUnits="userSpaceOnUse">
+          <rect width="18" height="18" fill="var(--color-muted)" opacity=".58" />
+          <circle cx="4" cy="5" r="1.2" fill="var(--color-muted-foreground)" opacity=".34" />
+          <circle cx="14" cy="11" r=".9" fill="var(--color-muted-foreground)" opacity=".26" />
+          <circle cx="8" cy="16" r=".7" fill="var(--color-muted-foreground)" opacity=".22" />
+        </pattern>
+      </defs>
+
+      <text x="28" y="31" font-size="13" font-weight="700" fill="var(--color-foreground)" data-thickness-mode-name>Volume → average thickness</text>
+      <text x="732" y="31" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)" data-thickness-mode-note>Known concrete volume ÷ footprint area</text>
+
+      <text x="42" y="65" font-size="11" font-weight="700" fill="var(--color-foreground)">SLAB FOOTPRINT</text>
+      <rect x="92" y="112" width="350" height="174" rx="4" fill="url(#thickness-concrete)" stroke="var(--color-foreground)" stroke-width="2" />
+
+      <line x1="92" y1="90" x2="442" y2="90" stroke="#2563eb" stroke-width="1.7" marker-start="url(#thickness-arrow-start)" marker-end="url(#thickness-arrow-end)" />
+      <line x1="92" y1="96" x2="92" y2="112" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+      <line x1="442" y1="96" x2="442" y2="112" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+      <text x="267" y="80" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" data-thickness-length>Length = 10 ft</text>
+
+      <line x1="68" y1="112" x2="68" y2="286" stroke="#2563eb" stroke-width="1.7" marker-start="url(#thickness-arrow-start)" marker-end="url(#thickness-arrow-end)" />
+      <line x1="74" y1="112" x2="92" y2="112" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+      <line x1="74" y1="286" x2="92" y2="286" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+      <text x="50" y="199" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" transform="rotate(-90 50 199)" data-thickness-width>Width = 10 ft</text>
+
+      <text x="267" y="311" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)" data-thickness-area>100 ft² footprint</text>
+
+      <text x="510" y="65" font-size="11" font-weight="700" fill="var(--color-foreground)" data-thickness-section-heading>DEPTH SECTION / SOLVE</text>
+
+      <g data-thickness-single-section>
+        <line x1="510" y1="236" x2="710" y2="236" stroke="var(--color-muted-foreground)" stroke-width="1.3" opacity=".55" />
+        <rect x="532" y="196" width="154" height="40" fill="url(#thickness-concrete)" stroke="var(--color-foreground)" stroke-width="2" data-thickness-section-slab />
+        <line x1="716" y1="196" x2="716" y2="236" stroke="#2563eb" stroke-width="1.7" marker-start="url(#thickness-arrow-start)" marker-end="url(#thickness-arrow-end)" data-thickness-section-arrow />
+        <line x1="686" y1="196" x2="723" y2="196" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" data-thickness-section-top-guide />
+        <line x1="686" y1="236" x2="723" y2="236" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+        <text x="704" y="184" text-anchor="end" font-size="12.5" font-weight="700" fill="#1d4ed8" data-thickness-section-label>Average thickness = 3.24 in</text>
+        <text x="548" y="221" font-size="10.5" font-weight="600" fill="var(--color-foreground)">Concrete</text>
+
+        <rect x="500" y="264" width="232" height="70" rx="10" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+        <text x="516" y="286" font-size="10.5" fill="var(--color-muted-foreground)" data-thickness-result-kicker>Solved from entered volume</text>
+        <text x="516" y="310" font-size="15" font-weight="700" fill="#1d4ed8" data-thickness-result-primary>3.24 in average</text>
+        <text x="516" y="328" font-size="10.5" fill="var(--color-muted-foreground)" data-thickness-result-secondary>1 yd³ across 100 ft²</text>
+      </g>
+
+      <g data-thickness-compare-section style="display:none">
+        <line x1="500" y1="245" x2="732" y2="245" stroke="var(--color-muted-foreground)" stroke-width="1.3" opacity=".55" />
+
+        <rect x="514" y="199" width="54" height="46" fill="url(#thickness-concrete)" stroke="var(--color-foreground)" stroke-width="1.7" data-thickness-compare-bar="A" />
+        <rect x="590" y="187" width="54" height="58" fill="url(#thickness-concrete)" stroke="var(--color-foreground)" stroke-width="1.7" data-thickness-compare-bar="B" />
+        <rect x="666" y="175" width="54" height="70" fill="url(#thickness-concrete)" stroke="var(--color-foreground)" stroke-width="1.7" data-thickness-compare-bar="C" />
+
+        <text x="541" y="163" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" data-thickness-compare-depth="A">A · 4 in</text>
+        <text x="617" y="151" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" data-thickness-compare-depth="B">B · 5 in</text>
+        <text x="693" y="139" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" data-thickness-compare-depth="C">C · 6 in</text>
+
+        <text x="541" y="263" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-thickness-compare-volume="A">1.36 yd³</text>
+        <text x="617" y="263" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-thickness-compare-volume="B">1.70 yd³</text>
+        <text x="693" y="263" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-thickness-compare-volume="C">2.04 yd³</text>
+
+        <rect x="500" y="286" width="232" height="48" rx="10" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+        <text x="516" y="307" font-size="10.5" fill="var(--color-muted-foreground)">Order quantities include material allowance</text>
+        <text x="516" y="327" font-size="12.5" font-weight="700" fill="#1d4ed8" data-thickness-compare-summary>4 / 5 / 6 in scenarios · 10% allowance</text>
+      </g>
+
+      <rect x="28" y="356" width="704" height="116" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+      <text x="46" y="382" font-size="11" font-weight="700" fill="var(--color-foreground)">ACTIVE FORMULA</text>
+      <text x="46" y="410" font-size="17" font-weight="700" fill="var(--color-foreground)" data-thickness-formula>T = V ÷ (L × W)</text>
+      <text x="46" y="436" font-size="11" fill="var(--color-muted-foreground)" data-thickness-formula-note>Average depth = known placed volume ÷ footprint area.</text>
+      <text x="46" y="456" font-size="10.5" fill="var(--color-muted-foreground)">Thickness comparison is quantity math only; structural thickness must come from the project design.</text>
+
+      <line x1="440" y1="372" x2="440" y2="458" stroke="var(--color-border)" />
+      <text x="460" y="382" font-size="11" font-weight="700" fill="var(--color-foreground)">CURRENT VALUES</text>
+      <text x="460" y="408" font-size="12.5" font-weight="700" fill="#1d4ed8" data-thickness-current>10 ft × 10 ft · 1 yd³</text>
+      <text x="460" y="433" font-size="11" fill="var(--color-muted-foreground)" data-thickness-current-secondary>Area 100 ft² · solved depth 3.24 in</text>
+      <text x="460" y="454" font-size="11" fill="var(--color-muted-foreground)" data-thickness-current-allowance>Allowance is not used in solve-thickness mode</text>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-4">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Footprint</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-thickness-card-area>100 ft²</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground" data-thickness-card-depth-label>Average thickness</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-thickness-card-depth>3.24 in</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground" data-thickness-card-volume-label>Known volume</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-thickness-card-volume>1 yd³</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Material allowance</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-thickness-card-allowance>Not applied</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initSlabThicknessRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-slab-thickness-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="slab-thickness-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#slab-thickness-calculator-form");
+      if (!form) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>("#slab-thickness-calculator-" + id);
+      const select = (id: string) => root.querySelector<HTMLSelectElement>("#slab-thickness-calculator-" + id);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>("#slab-thickness-calculator-" + id + "-unit");
+
+      const numberValue = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const unitLabel = (id: string) => {
+        const el = unit(id);
+        return el ? (el.options[el.selectedIndex]?.text?.trim() || el.value) : "";
+      };
+
+      const displayValue = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const label = unitLabel(id);
+        return label ? shown + " " + label : shown;
+      };
+
+      const lengthToFeet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = {
+          ft: 1,
+          in: 1 / 12,
+          yd: 3,
+          m: 1 / 0.3048,
+          cm: 1 / 30.48,
+          mm: 1 / 304.8,
+        };
+        return n * (factors[unit(id)?.value ?? "ft"] ?? 1);
+      };
+
+      const volumeToFt3 = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = {
+          ft3: 1,
+          yd3: 27,
+          m3: 35.3146667215,
+        };
+        return n * (factors[unit(id)?.value ?? "yd3"] ?? 1);
+      };
+
+      const fmt = (value: number, digits = 2) =>
+        Number.isFinite(value)
+          ? new Intl.NumberFormat("en-US", { maximumFractionDigits: digits }).format(value)
+          : "—";
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => {
+          el.textContent = text;
+        });
+      };
+
+      const setVisible = (selector: string, visible: boolean) => {
+        figure.querySelectorAll<SVGElement | HTMLElement>(selector).forEach((el) => {
+          (el as HTMLElement).style.display = visible ? "" : "none";
+        });
+      };
+
+      const updateSingleSection = (depthFt: number) => {
+        const baseY = 236;
+        const height = Number.isFinite(depthFt) && depthFt > 0
+          ? Math.max(20, Math.min(84, depthFt * 96))
+          : 30;
+        const topY = baseY - height;
+
+        const slab = figure.querySelector<SVGRectElement>("[data-thickness-section-slab]");
+        slab?.setAttribute("y", String(topY));
+        slab?.setAttribute("height", String(height));
+
+        const arrow = figure.querySelector<SVGLineElement>("[data-thickness-section-arrow]");
+        arrow?.setAttribute("y1", String(topY));
+
+        const guide = figure.querySelector<SVGLineElement>("[data-thickness-section-top-guide]");
+        guide?.setAttribute("y1", String(topY));
+        guide?.setAttribute("y2", String(topY));
+
+        const label = figure.querySelector<SVGTextElement>("[data-thickness-section-label]");
+        label?.setAttribute("y", String(Math.max(104, topY - 12)));
+      };
+
+      const updateCompareBars = (depths: number[]) => {
+        const valid = depths.filter((n) => Number.isFinite(n) && n > 0);
+        const maxDepth = Math.max(...valid, 1 / 12);
+        ["A", "B", "C"].forEach((key, index) => {
+          const depth = depths[index];
+          const height = Number.isFinite(depth) && depth > 0
+            ? Math.max(24, Math.min(92, 92 * depth / maxDepth))
+            : 24;
+          const rect = figure.querySelector<SVGRectElement>(`[data-thickness-compare-bar="${key}"]`);
+          rect?.setAttribute("y", String(245 - height));
+          rect?.setAttribute("height", String(height));
+
+          const label = figure.querySelector<SVGTextElement>(`[data-thickness-compare-depth="${key}"]`);
+          label?.setAttribute("y", String(Math.max(112, 245 - height - 12)));
+        });
+      };
+
+      const update = () => {
+        const mode = Math.round(Number(select("mode")?.value ?? "0"));
+        const lengthFt = lengthToFeet("length");
+        const widthFt = lengthToFeet("width");
+        const validArea = Number.isFinite(lengthFt) && lengthFt > 0 && Number.isFinite(widthFt) && widthFt > 0;
+        const areaFt2 = validArea ? lengthFt * widthFt : Number.NaN;
+        const allowance = Math.max(0, numberValue("waste", 0));
+        const factor = 1 + allowance / 100;
+
+        setText("[data-thickness-length]", "Length = " + displayValue("length"));
+        setText("[data-thickness-width]", "Width = " + displayValue("width"));
+        setText("[data-thickness-area]", fmt(areaFt2) + " ft² footprint");
+        setText("[data-thickness-card-area]", fmt(areaFt2) + " ft²");
+
+        setVisible("[data-thickness-single-section]", mode !== 2);
+        setVisible("[data-thickness-compare-section]", mode === 2);
+
+        if (mode === 0) {
+          const volumeFt3 = volumeToFt3("volume");
+          const depthFt = validArea && Number.isFinite(volumeFt3) ? volumeFt3 / areaFt2 : Number.NaN;
+          const depthIn = depthFt * 12;
+
+          updateSingleSection(depthFt);
+
+          setText("[data-thickness-mode-name]", "Volume → average thickness");
+          setText("[data-thickness-mode-note]", "Known concrete volume ÷ footprint area");
+          setText("[data-thickness-section-heading]", "DEPTH SECTION / SOLVE");
+          setText("[data-thickness-section-label]", "Average thickness = " + fmt(depthIn, 3) + " in");
+          setText("[data-thickness-result-kicker]", "Solved from entered volume");
+          setText("[data-thickness-result-primary]", fmt(depthIn, 3) + " in average");
+          setText("[data-thickness-result-secondary]", displayValue("volume") + " across " + fmt(areaFt2) + " ft²");
+
+          setText("[data-thickness-formula]", "T = V ÷ (L × W)");
+          setText("[data-thickness-formula-note]", "Average depth = known placed volume ÷ footprint area.");
+          setText("[data-thickness-current]", displayValue("length") + " × " + displayValue("width") + " · " + displayValue("volume"));
+          setText("[data-thickness-current-secondary]", "Area " + fmt(areaFt2) + " ft² · solved depth " + fmt(depthIn, 3) + " in");
+          setText("[data-thickness-current-allowance]", "Allowance is not used in solve-thickness mode");
+
+          setText("[data-thickness-card-depth-label]", "Average thickness");
+          setText("[data-thickness-card-depth]", fmt(depthIn, 3) + " in");
+          setText("[data-thickness-card-volume-label]", "Known volume");
+          setText("[data-thickness-card-volume]", displayValue("volume"));
+          setText("[data-thickness-card-allowance]", "Not applied");
+          return;
+        }
+
+        if (mode === 1) {
+          const depthFt = lengthToFeet("thickness");
+          const geometricFt3 = validArea && Number.isFinite(depthFt) ? areaFt2 * depthFt : Number.NaN;
+          const geometricYd3 = geometricFt3 / 27;
+          const orderYd3 = geometricYd3 * factor;
+
+          updateSingleSection(depthFt);
+
+          setText("[data-thickness-mode-name]", "Thickness → concrete required");
+          setText("[data-thickness-mode-note]", "Selected thickness × footprint area");
+          setText("[data-thickness-section-heading]", "SELECTED SLAB SECTION");
+          setText("[data-thickness-section-label]", "Selected thickness = " + displayValue("thickness"));
+          setText("[data-thickness-result-kicker]", "Concrete quantity for selected thickness");
+          setText("[data-thickness-result-primary]", fmt(orderYd3, 3) + " yd³ with allowance");
+          setText("[data-thickness-result-secondary]", fmt(geometricYd3, 3) + " yd³ geometric · " + fmt(allowance) + "% allowance");
+
+          setText("[data-thickness-formula]", "V = L × W × T");
+          setText("[data-thickness-formula-note]", "Geometric slab volume is calculated first; material allowance is applied afterward.");
+          setText("[data-thickness-current]", displayValue("length") + " × " + displayValue("width") + " × " + displayValue("thickness"));
+          setText("[data-thickness-current-secondary]", fmt(geometricYd3, 3) + " yd³ geometric · " + fmt(orderYd3, 3) + " yd³ with allowance");
+          setText("[data-thickness-current-allowance]", "Material allowance: " + fmt(allowance) + "%");
+
+          setText("[data-thickness-card-depth-label]", "Selected thickness");
+          setText("[data-thickness-card-depth]", displayValue("thickness"));
+          setText("[data-thickness-card-volume-label]", "Order quantity");
+          setText("[data-thickness-card-volume]", fmt(orderYd3, 3) + " yd³");
+          setText("[data-thickness-card-allowance]", fmt(allowance) + "%");
+          return;
+        }
+
+        const ids = ["compareA", "compareB", "compareC"];
+        const keys = ["A", "B", "C"];
+        const depths = ids.map(lengthToFeet);
+        const orderYd3 = depths.map((depth) =>
+          validArea && Number.isFinite(depth) ? areaFt2 * depth * factor / 27 : Number.NaN
+        );
+
+        updateCompareBars(depths);
+
+        keys.forEach((key, index) => {
+          setText(`[data-thickness-compare-depth="${key}"]`, key + " · " + displayValue(ids[index]));
+          setText(`[data-thickness-compare-volume="${key}"]`, fmt(orderYd3[index], 3) + " yd³");
+        });
+
+        setText("[data-thickness-mode-name]", "Compare thickness scenarios");
+        setText("[data-thickness-mode-note]", "Same footprint · three entered thicknesses");
+        setText("[data-thickness-section-heading]", "THICKNESS / QUANTITY COMPARISON");
+        setText(
+          "[data-thickness-compare-summary]",
+          displayValue("compareA") + " / " + displayValue("compareB") + " / " + displayValue("compareC") + " · " + fmt(allowance) + "% allowance"
+        );
+
+        setText("[data-thickness-formula]", "Vᵢ = L × W × Tᵢ");
+        setText("[data-thickness-formula-note]", "Each entered thickness uses the same footprint; allowance is applied independently to each quantity.");
+        setText("[data-thickness-current]", displayValue("length") + " × " + displayValue("width") + " · scenarios A / B / C");
+        setText(
+          "[data-thickness-current-secondary]",
+          "Orders " + fmt(orderYd3[0], 3) + " / " + fmt(orderYd3[1], 3) + " / " + fmt(orderYd3[2], 3) + " yd³"
+        );
+        setText("[data-thickness-current-allowance]", "Material allowance: " + fmt(allowance) + "%");
+
+        setText("[data-thickness-card-depth-label]", "Thickness scenarios");
+        setText("[data-thickness-card-depth]", displayValue("compareA") + " / " + displayValue("compareB") + " / " + displayValue("compareC"));
+        setText("[data-thickness-card-volume-label]", "Order quantities");
+        setText("[data-thickness-card-volume]", fmt(orderYd3[0], 2) + " / " + fmt(orderYd3[1], 2) + " / " + fmt(orderYd3[2], 2) + " yd³");
+        setText("[data-thickness-card-allowance]", fmt(allowance) + "%");
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+
+      update();
+      queueMicrotask(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 0);
+    });
+  }
+
+  initSlabThicknessRichDiagrams();
+  document.addEventListener("astro:page-load", initSlabThicknessRichDiagrams);
+</script>
