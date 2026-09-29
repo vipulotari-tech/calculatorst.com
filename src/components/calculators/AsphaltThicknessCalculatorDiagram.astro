@@ -1,0 +1,299 @@
+---
+const slug = "asphalt-thickness-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-asphalt-thickness-rich-diagram
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live asphalt thickness diagram</h3>
+      <p class="mt-1 max-w-[700px] text-[11px] leading-5 text-muted-foreground">
+        Pavement area, asphalt mass, compacted density, implied compacted volume, and solved average thickness update from the calculator inputs. Reverse-calculation guide only — not a pavement design recommendation.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE INPUT GUIDE</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg
+      viewBox="0 0 760 500"
+      class="h-auto w-full"
+      role="img"
+      aria-labelledby={`${slug}-asphalt-thickness-title ${slug}-asphalt-thickness-desc`}
+    >
+      <title id={`${slug}-asphalt-thickness-title`}>Live asphalt thickness reverse-calculation diagram</title>
+      <desc id={`${slug}-asphalt-thickness-desc`}>
+        A pavement plan and cross-section showing live length, width, asphalt mass, compacted density, derived compacted volume, and average compacted thickness.
+      </desc>
+
+      <defs>
+        <marker id="asphalt-depth-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb" />
+        </marker>
+        <marker id="asphalt-depth-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb" />
+        </marker>
+        <pattern id="asphalt-depth-surface" width="22" height="14" patternUnits="userSpaceOnUse">
+          <rect width="22" height="14" fill="var(--color-muted)" opacity=".62" />
+          <circle cx="4" cy="4" r="1.1" fill="var(--color-muted-foreground)" opacity=".40" />
+          <circle cx="12" cy="9" r=".9" fill="var(--color-muted-foreground)" opacity=".34" />
+          <circle cx="19" cy="5" r=".7" fill="var(--color-muted-foreground)" opacity=".30" />
+          <path d="M1 12 L6 9 M15 13 L20 10" stroke="var(--color-muted-foreground)" stroke-width=".7" opacity=".25" />
+        </pattern>
+        <pattern id="asphalt-depth-base" width="24" height="16" patternUnits="userSpaceOnUse">
+          <circle cx="5" cy="9" r="3" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1" opacity=".34" />
+          <circle cx="15" cy="6" r="2.4" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1" opacity=".30" />
+          <circle cx="21" cy="13" r="2.8" fill="none" stroke="var(--color-muted-foreground)" stroke-width="1" opacity=".28" />
+        </pattern>
+      </defs>
+
+      <rect width="760" height="500" fill="var(--color-background)" />
+      <text x="28" y="31" font-size="13" font-weight="700" fill="var(--color-foreground)">Reverse solve: mass + density + area → thickness</text>
+      <text x="732" y="31" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)">Compacted pavement geometry</text>
+
+      <text x="42" y="64" font-size="11" font-weight="700" fill="var(--color-foreground)">PAVED AREA / PLAN VIEW</text>
+      <rect x="90" y="111" width="344" height="170" rx="4" fill="url(#asphalt-depth-surface)" stroke="var(--color-foreground)" stroke-width="2" />
+
+      <line x1="90" y1="89" x2="434" y2="89" stroke="#2563eb" stroke-width="1.7" marker-start="url(#asphalt-depth-arrow-start)" marker-end="url(#asphalt-depth-arrow-end)" />
+      <line x1="90" y1="95" x2="90" y2="111" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+      <line x1="434" y1="95" x2="434" y2="111" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+      <text x="262" y="79" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" data-asphalt-depth-length>Length = 20 ft</text>
+
+      <line x1="66" y1="111" x2="66" y2="281" stroke="#2563eb" stroke-width="1.7" marker-start="url(#asphalt-depth-arrow-start)" marker-end="url(#asphalt-depth-arrow-end)" />
+      <line x1="72" y1="111" x2="90" y2="111" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+      <line x1="72" y1="281" x2="90" y2="281" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+      <text x="48" y="196" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" transform="rotate(-90 48 196)" data-asphalt-depth-width>Width = 10 ft</text>
+
+      <text x="262" y="305" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)" data-asphalt-depth-area>200 ft² paved area</text>
+
+      <text x="505" y="64" font-size="11" font-weight="700" fill="var(--color-foreground)">COMPACTED CROSS SECTION</text>
+      <g>
+        <rect x="516" y="226" width="194" height="34" fill="url(#asphalt-depth-base)" stroke="var(--color-muted-foreground)" stroke-width="1.1" opacity=".78" />
+        <rect x="516" y="188" width="194" height="38" fill="url(#asphalt-depth-surface)" stroke="var(--color-foreground)" stroke-width="2" data-asphalt-depth-layer />
+        <text x="532" y="211" font-size="10.5" font-weight="600" fill="var(--color-foreground)">Compacted asphalt</text>
+        <text x="532" y="248" font-size="10" fill="var(--color-muted-foreground)">Underlying base (context only)</text>
+
+        <line x1="724" y1="188" x2="724" y2="226" stroke="#2563eb" stroke-width="1.7" marker-start="url(#asphalt-depth-arrow-start)" marker-end="url(#asphalt-depth-arrow-end)" data-asphalt-depth-arrow />
+        <line x1="710" y1="188" x2="731" y2="188" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" data-asphalt-depth-top-guide />
+        <line x1="710" y1="226" x2="731" y2="226" stroke="#2563eb" stroke-width="1.1" stroke-dasharray="4 4" />
+        <text x="710" y="174" text-anchor="end" font-size="12.5" font-weight="700" fill="#1d4ed8" data-asphalt-depth-thickness>Average thickness = 8.276 in</text>
+      </g>
+
+      <rect x="493" y="278" width="239" height="61" rx="10" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+      <text x="509" y="299" font-size="10.5" fill="var(--color-muted-foreground)">Material state used by reverse solve</text>
+      <text x="509" y="320" font-size="12.5" font-weight="700" fill="#1d4ed8" data-asphalt-depth-mass>10 US ton = 20,000 lb</text>
+      <text x="509" y="336" font-size="10.5" fill="var(--color-muted-foreground)" data-asphalt-depth-density>Density 145 lb/ft³ · compacted volume 137.93 ft³</text>
+
+      <rect x="28" y="358" width="704" height="114" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+      <text x="45" y="383" font-size="11" font-weight="700" fill="var(--color-foreground)">REVERSE-CALCULATION CHAIN</text>
+
+      <g transform="translate(45 397)">
+        <rect width="150" height="42" rx="8" fill="var(--color-card)" stroke="var(--color-border)" />
+        <text x="75" y="17" text-anchor="middle" font-size="9.8" fill="var(--color-muted-foreground)">1 · MASS</text>
+        <text x="75" y="33" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--color-foreground)" data-asphalt-depth-chain-mass>20,000 lb</text>
+
+        <path d="M159 21 H190" stroke="#2563eb" stroke-width="1.5" marker-end="url(#asphalt-depth-arrow-end)" />
+
+        <rect x="199" width="150" height="42" rx="8" fill="var(--color-card)" stroke="var(--color-border)" />
+        <text x="274" y="17" text-anchor="middle" font-size="9.8" fill="var(--color-muted-foreground)">2 · VOLUME = MASS ÷ DENSITY</text>
+        <text x="274" y="33" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--color-foreground)" data-asphalt-depth-chain-volume>137.93 ft³</text>
+
+        <path d="M358 21 H389" stroke="#2563eb" stroke-width="1.5" marker-end="url(#asphalt-depth-arrow-end)" />
+
+        <rect x="398" width="170" height="42" rx="8" fill="var(--color-card)" stroke="var(--color-border)" />
+        <text x="483" y="17" text-anchor="middle" font-size="9.8" fill="var(--color-muted-foreground)">3 · DEPTH = VOLUME ÷ AREA</text>
+        <text x="483" y="33" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" data-asphalt-depth-chain-depth>8.276 in</text>
+      </g>
+
+      <text x="45" y="458" font-size="10.5" fill="var(--color-muted-foreground)">
+        Formula solves average compacted depth only; required pavement thickness depends on traffic, subgrade, base, climate, and project design.
+      </text>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-5">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Paved area</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-asphalt-depth-card-area>200 ft²</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Asphalt mass</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-asphalt-depth-card-mass>20,000 lb</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Compacted density</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-asphalt-depth-card-density>145 lb/ft³</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Implied volume</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-asphalt-depth-card-volume>137.93 ft³</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Average thickness</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-asphalt-depth-card-thickness>8.276 in</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initAsphaltThicknessRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-asphalt-thickness-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="asphalt-thickness-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#asphalt-thickness-calculator-form");
+      if (!form) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>("#asphalt-thickness-calculator-" + id);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>("#asphalt-thickness-calculator-" + id + "-unit");
+
+      const unitLabel = (id: string) => {
+        const select = unit(id);
+        if (select) return select.options[select.selectedIndex]?.text?.trim() || select.value;
+        const el = input(id);
+        const staticUnit = el?.parentElement?.querySelector("span");
+        return staticUnit?.textContent?.trim() || "";
+      };
+
+      const displayValue = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const label = unitLabel(id);
+        return label ? shown + " " + label : shown;
+      };
+
+      const lengthToFeet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = {
+          ft: 1,
+          in: 1 / 12,
+          yd: 3,
+          m: 1 / 0.3048,
+          cm: 1 / 30.48,
+          mm: 1 / 304.8,
+        };
+        return n * (factors[unit(id)?.value ?? "ft"] ?? 1);
+      };
+
+      const massToLb = () => {
+        const n = Number(input("mass")?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = {
+          lb: 1,
+          kg: 1 / 0.45359237,
+          ton: 2000,
+          tonne: 1000 / 0.45359237,
+        };
+        return n * (factors[unit("mass")?.value ?? "ton"] ?? 1);
+      };
+
+      const densityToLbFt3 = () => {
+        const n = Number(input("density")?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const densityUnit = unit("density")?.value ?? "lb/ft3";
+        if (densityUnit === "kg/m3") {
+          return n * (1 / 0.45359237) / Math.pow(1 / 0.3048, 3);
+        }
+        if (densityUnit === "ton/yd3") {
+          return n * 2000 / 27;
+        }
+        return n;
+      };
+
+      const fmt = (n: number, digits = 2) =>
+        Number.isFinite(n)
+          ? new Intl.NumberFormat("en-US", { maximumFractionDigits: digits }).format(n)
+          : "—";
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => {
+          el.textContent = text;
+        });
+      };
+
+      const updateSection = (depthFt: number) => {
+        const baseY = 226;
+        const height = Number.isFinite(depthFt) && depthFt > 0
+          ? Math.max(18, Math.min(86, depthFt * 70))
+          : 28;
+        const topY = baseY - height;
+
+        const layer = figure.querySelector<SVGRectElement>("[data-asphalt-depth-layer]");
+        layer?.setAttribute("y", String(topY));
+        layer?.setAttribute("height", String(height));
+
+        const arrow = figure.querySelector<SVGLineElement>("[data-asphalt-depth-arrow]");
+        arrow?.setAttribute("y1", String(topY));
+
+        const guide = figure.querySelector<SVGLineElement>("[data-asphalt-depth-top-guide]");
+        guide?.setAttribute("y1", String(topY));
+        guide?.setAttribute("y2", String(topY));
+
+        const label = figure.querySelector<SVGTextElement>("[data-asphalt-depth-thickness]");
+        label?.setAttribute("y", String(Math.max(92, topY - 12)));
+      };
+
+      const update = () => {
+        const lengthFt = lengthToFeet("length");
+        const widthFt = lengthToFeet("width");
+        const massLb = massToLb();
+        const densityLbFt3 = densityToLbFt3();
+
+        const validArea = Number.isFinite(lengthFt) && lengthFt > 0 && Number.isFinite(widthFt) && widthFt > 0;
+        const areaFt2 = validArea ? lengthFt * widthFt : Number.NaN;
+        const volumeFt3 = Number.isFinite(massLb) && massLb > 0 && Number.isFinite(densityLbFt3) && densityLbFt3 > 0
+          ? massLb / densityLbFt3
+          : Number.NaN;
+        const depthFt = Number.isFinite(volumeFt3) && Number.isFinite(areaFt2) && areaFt2 > 0
+          ? volumeFt3 / areaFt2
+          : Number.NaN;
+        const depthIn = depthFt * 12;
+        const depthMm = depthFt * 304.8;
+
+        updateSection(depthFt);
+
+        setText("[data-asphalt-depth-length]", "Length = " + displayValue("length"));
+        setText("[data-asphalt-depth-width]", "Width = " + displayValue("width"));
+        setText("[data-asphalt-depth-area]", fmt(areaFt2) + " ft² paved area");
+
+        setText("[data-asphalt-depth-thickness]", "Average thickness = " + fmt(depthIn, 3) + " in");
+        setText("[data-asphalt-depth-mass]", displayValue("mass") + " = " + fmt(massLb, 1) + " lb");
+        setText(
+          "[data-asphalt-depth-density]",
+          "Density " + displayValue("density") + " · compacted volume " + fmt(volumeFt3, 2) + " ft³"
+        );
+
+        setText("[data-asphalt-depth-chain-mass]", fmt(massLb, 1) + " lb");
+        setText("[data-asphalt-depth-chain-volume]", fmt(volumeFt3, 2) + " ft³");
+        setText("[data-asphalt-depth-chain-depth]", fmt(depthIn, 3) + " in");
+
+        setText("[data-asphalt-depth-card-area]", fmt(areaFt2) + " ft²");
+        setText("[data-asphalt-depth-card-mass]", fmt(massLb, 1) + " lb");
+        setText("[data-asphalt-depth-card-density]", fmt(densityLbFt3, 2) + " lb/ft³");
+        setText("[data-asphalt-depth-card-volume]", fmt(volumeFt3, 2) + " ft³");
+        setText("[data-asphalt-depth-card-thickness]", fmt(depthIn, 3) + " in · " + fmt(depthMm, 1) + " mm");
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+
+      update();
+      queueMicrotask(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 0);
+    });
+  }
+
+  initAsphaltThicknessRichDiagrams();
+  document.addEventListener("astro:page-load", initAsphaltThicknessRichDiagrams);
+</script>
