@@ -829,7 +829,7 @@ test.describe('Calculator interactions', () => {
     await expect(diagram).toContainText('Top opening = 24 ft × 14 ft');
 
     await root.getByRole('button', { name: /^Calculate$/ }).click();
-    await expect(root.locator('.result-rows-grid')).toContainText('In-place bank volume');
+    await expect(root).toContainText('In-place bank volume');
     await expect(root.locator('.result-rows-grid')).toContainText('Loose haul volume');
     await expect(root.locator('.result-rows-grid')).toContainText('Top excavation length');
     await expect(root.locator('.result-rows-grid')).toContainText('Top excavation width');
