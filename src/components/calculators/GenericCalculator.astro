@@ -9,6 +9,7 @@ import PaintCalculatorDiagram from "./PaintCalculatorDiagram.astro";
 import GravelCalculatorDiagram from "./GravelCalculatorDiagram.astro";
 import MulchProjectDiagram from "./MulchProjectDiagram.astro";
 import RoofingCalculatorDiagram from "./RoofingCalculatorDiagram.astro";
+import RoofingShingleCalculatorDiagram from "./RoofingShingleCalculatorDiagram.astro";
 import RoofPitchCalculatorDiagram from "./RoofPitchCalculatorDiagram.astro";
 import FlooringCalculatorDiagram from "./FlooringCalculatorDiagram.astro";
 import CarpetCalculatorDiagram from "./CarpetCalculatorDiagram.astro";
@@ -396,6 +397,8 @@ const diagramFields = fields
                 ? <MulchProjectDiagram />
                 : slug === "roofing-calculator"
                   ? <RoofingCalculatorDiagram />
+                  : slug === "roofing-shingle-calculator"
+                    ? <RoofingShingleCalculatorDiagram />
                   : slug === "roof-pitch-calculator"
                     ? <RoofPitchCalculatorDiagram />
                     : slug === "flooring-calculator"

@@ -294,6 +294,53 @@ test.describe('Calculator interactions', () => {
     await expect(diagram).toContainText('2400 ft²');
   });
 
+  test('Roofing shingle calculator — live takeoff follows geometry, packages and known-area mode', async ({ page }) => {
+    await page.goto('/roofing-shingle-calculator/');
+    const root = page.locator('[data-calculator-slug="roofing-shingle-calculator"]');
+    const diagram = root.locator('[data-roofing-shingle-rich-diagram]');
+    const mode = root.locator('#roofing-shingle-calculator-mode');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('ROOF PLAN / FOOTPRINT');
+    await expect(diagram).toContainText('ROOF PITCH SECTION');
+    await expect(diagram).toContainText('SHINGLE ORDER BUILDUP');
+    await expect(diagram).toContainText('Packages = ceil(order area ÷ package coverage)');
+
+    await root.locator('#roofing-shingle-calculator-length').fill('50');
+    await root.locator('#roofing-shingle-calculator-width').fill('32');
+    await root.locator('#roofing-shingle-calculator-pitch').fill('8');
+    await root.locator('#roofing-shingle-calculator-overhang').fill('2');
+    await root.locator('#roofing-shingle-calculator-quantity').fill('2');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#roofing-shingle-calculator-coverage').fill('32.5');
+    await root.locator('#roofing-shingle-calculator-waste').fill('7');
+
+    await expect(diagram).toContainText('50 ft');
+    await expect(diagram).toContainText('32 ft');
+    await expect(diagram).toContainText('Pitch = 8:12');
+    await expect(diagram).toContainText('2 ft horizontal overhang');
+    await expect(diagram).toContainText('2 identical roof sections');
+    await expect(diagram.locator('[data-shingle-card-packages]')).toHaveText('154');
+    await expect(diagram.locator('[data-shingle-card-squares]')).toHaveText('49.999');
+    await expect(diagram).toContainText('32.5 ft²/package');
+
+    await mode.selectOption('1');
+    await expect(root.locator('#roofing-shingle-calculator-field-roofArea')).toBeVisible();
+    await expect(root.locator('#roofing-shingle-calculator-field-length')).toBeHidden();
+    await expect(diagram).toContainText('KNOWN SLOPED ROOF AREA');
+    await root.locator('#roofing-shingle-calculator-roofArea').fill('2400');
+
+    await expect(diagram).toContainText('2400 ft²');
+    await expect(diagram.locator('[data-shingle-card-order]')).toHaveText('2,568 ft²');
+    await expect(diagram.locator('[data-shingle-card-packages]')).toHaveText('80');
+    await expect(diagram.locator('[data-shingle-card-purchased]')).toHaveText('2,600 ft²');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Flooring calculator — live layout follows room, exclusions and allowances', async ({ page }) => {
     await page.goto('/flooring-calculator/');
     const root = page.locator('[data-calculator-slug="flooring-calculator"]');

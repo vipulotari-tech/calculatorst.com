@@ -1,0 +1,330 @@
+---
+const slug = "roofing-shingle-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-roofing-shingle-rich-diagram
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live roofing shingle takeoff diagram</h3>
+      <p class="mt-1 max-w-[700px] text-[11px] leading-5 text-muted-foreground">
+        Roof geometry, shingle order area, roofing squares, package coverage, and whole-package rounding update from the calculator inputs. Schematic only — not to scale.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE INPUT GUIDE</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg
+      viewBox="0 0 760 505"
+      class="h-auto w-full"
+      role="img"
+      aria-labelledby={`${slug}-shingle-title ${slug}-shingle-desc`}
+    >
+      <title id={`${slug}-shingle-title`}>Live roofing shingle calculator diagram</title>
+      <desc id={`${slug}-shingle-desc`}>
+        A live roof plan or known-area view with pitch geometry and a shingle package takeoff showing measured roof surface, allowance-adjusted order area, roofing squares, package coverage, package count, and purchased coverage.
+      </desc>
+
+      <defs>
+        <marker id="shingle-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb" />
+        </marker>
+        <marker id="shingle-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb" />
+        </marker>
+        <pattern id="shingle-roof-pattern" width="26" height="16" patternUnits="userSpaceOnUse">
+          <rect width="26" height="16" fill="var(--color-muted)" opacity=".42" />
+          <path d="M0 8 H26 M13 0 V8 M6.5 8 V16 M19.5 8 V16" stroke="var(--color-muted-foreground)" stroke-width=".8" opacity=".34" />
+        </pattern>
+        <pattern id="shingle-bundle-pattern" width="18" height="10" patternUnits="userSpaceOnUse">
+          <rect width="18" height="10" fill="var(--color-muted)" opacity=".48" />
+          <path d="M0 5 H18 M9 0 V5 M4.5 5 V10 M13.5 5 V10" stroke="var(--color-muted-foreground)" stroke-width=".7" opacity=".32" />
+        </pattern>
+      </defs>
+
+      <rect width="760" height="505" fill="var(--color-background)" />
+      <text x="28" y="30" font-size="13" font-weight="700" fill="var(--color-foreground)" data-shingle-mode-name>Building footprint + pitch</text>
+      <text x="732" y="30" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)">Shingle package planning</text>
+
+      <g data-shingle-mode="0">
+        <text x="42" y="63" font-size="11" font-weight="700" fill="var(--color-foreground)">ROOF PLAN / FOOTPRINT</text>
+        <rect x="88" y="108" width="332" height="148" rx="4" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="2" />
+        <rect x="70" y="94" width="368" height="176" rx="6" fill="none" stroke="#2563eb" stroke-width="1.35" stroke-dasharray="6 4" />
+
+        <line x1="88" y1="84" x2="420" y2="84" stroke="#2563eb" stroke-width="1.7" marker-start="url(#shingle-arrow-start)" marker-end="url(#shingle-arrow-end)" />
+        <line x1="88" y1="91" x2="88" y2="108" stroke="#2563eb" stroke-width="1.05" stroke-dasharray="4 4" />
+        <line x1="420" y1="91" x2="420" y2="108" stroke="#2563eb" stroke-width="1.05" stroke-dasharray="4 4" />
+        <text x="254" y="74" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" data-shingle-length>Building length = 40 ft</text>
+
+        <line x1="60" y1="108" x2="60" y2="256" stroke="#2563eb" stroke-width="1.7" marker-start="url(#shingle-arrow-start)" marker-end="url(#shingle-arrow-end)" />
+        <line x1="67" y1="108" x2="88" y2="108" stroke="#2563eb" stroke-width="1.05" stroke-dasharray="4 4" />
+        <line x1="67" y1="256" x2="88" y2="256" stroke="#2563eb" stroke-width="1.05" stroke-dasharray="4 4" />
+        <text x="42" y="182" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8" transform="rotate(-90 42 182)" data-shingle-width>Building width = 30 ft</text>
+
+        <text x="254" y="291" text-anchor="middle" font-size="10.8" fill="var(--color-muted-foreground)" data-shingle-overhang>Dashed outline includes 1 ft horizontal overhang on all sides</text>
+
+        <text x="486" y="63" font-size="11" font-weight="700" fill="var(--color-foreground)">ROOF PITCH SECTION</text>
+        <path d="M500 239 L608 111 L716 239" fill="url(#shingle-roof-pattern)" stroke="var(--color-foreground)" stroke-width="2.4" />
+        <line x1="500" y1="239" x2="716" y2="239" stroke="var(--color-muted-foreground)" stroke-width="1.2" />
+        <line x1="608" y1="111" x2="608" y2="239" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="5 4" />
+        <line x1="608" y1="257" x2="716" y2="257" stroke="#2563eb" stroke-width="1.5" marker-start="url(#shingle-arrow-start)" marker-end="url(#shingle-arrow-end)" />
+        <text x="662" y="276" text-anchor="middle" font-size="11" font-weight="700" fill="#1d4ed8">Horizontal run</text>
+        <text x="626" y="166" font-size="12.5" font-weight="700" fill="#1d4ed8" data-shingle-pitch>Pitch = 6:12</text>
+        <text x="655" y="145" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" data-shingle-multiplier>Slope multiplier = 1.118×</text>
+        <text x="608" y="302" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-shingle-sections>1 identical roof section</text>
+      </g>
+
+      <g data-shingle-mode="1" style="display:none">
+        <text x="42" y="63" font-size="11" font-weight="700" fill="var(--color-foreground)">KNOWN SLOPED ROOF AREA</text>
+        <path d="M84 230 L230 106 L438 142 L294 274 Z" fill="url(#shingle-roof-pattern)" stroke="var(--color-foreground)" stroke-width="2" />
+        <line x1="106" y1="254" x2="420" y2="188" stroke="#2563eb" stroke-width="1.3" stroke-dasharray="6 4" />
+        <text x="262" y="186" text-anchor="middle" font-size="22" font-weight="700" fill="var(--color-foreground)" data-shingle-known-area>1,500 ft²</text>
+        <text x="262" y="211" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)">True sloped roof surface entered directly</text>
+        <text x="262" y="300" text-anchor="middle" font-size="10.8" fill="var(--color-muted-foreground)">No pitch multiplier is applied again in this mode</text>
+
+        <text x="486" y="63" font-size="11" font-weight="700" fill="var(--color-foreground)">DIRECT AREA MODE</text>
+        <g transform="translate(505 95)">
+          <rect width="206" height="172" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+          <path d="M24 121 L102 43 L181 121" fill="none" stroke="var(--color-foreground)" stroke-width="2.5" />
+          <path d="M39 121 L102 58 L166 121" fill="url(#shingle-roof-pattern)" stroke="var(--color-foreground)" stroke-width="1.6" />
+          <text x="103" y="147" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)">Use measured sloped surface</text>
+          <text x="103" y="163" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)">Then apply allowance + package rounding</text>
+        </g>
+      </g>
+
+      <rect x="28" y="325" width="704" height="70" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+      <text x="45" y="347" font-size="10.8" font-weight="700" fill="var(--color-foreground)">SHINGLE ORDER BUILDUP</text>
+      <rect x="45" y="359" width="482" height="20" rx="6" fill="var(--color-muted)" opacity=".35" />
+      <rect x="45" y="359" width="340" height="20" rx="6" fill="var(--color-foreground)" opacity=".58" data-shingle-measured-bar />
+      <rect x="385" y="359" width="72" height="20" fill="var(--color-foreground)" opacity=".33" data-shingle-allowance-bar />
+      <rect x="457" y="359" width="70" height="20" rx="6" fill="var(--color-foreground)" opacity=".17" data-shingle-rounding-bar />
+      <text x="45" y="390" font-size="10.5" fill="var(--color-muted-foreground)" data-shingle-bar-label>Measured roof → allowance → whole-package rounding</text>
+
+      <g transform="translate(548 343)">
+        <rect width="164" height="40" rx="8" fill="url(#shingle-bundle-pattern)" stroke="var(--color-foreground)" stroke-width="1.4" />
+        <path d="M18 8 H146 M18 17 H146 M18 26 H146" stroke="var(--color-muted-foreground)" stroke-width=".8" opacity=".35" />
+        <text x="82" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="var(--color-foreground)" data-shingle-bundle-count>50 packages</text>
+      </g>
+
+      <rect x="28" y="411" width="704" height="66" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+      <text x="45" y="433" font-size="10.8" font-weight="700" fill="var(--color-foreground)">PACKAGE FORMULA</text>
+      <text x="45" y="458" font-size="14.5" font-weight="700" fill="var(--color-foreground)" data-shingle-formula>Packages = ceil(order area ÷ package coverage)</text>
+      <line x1="421" y1="424" x2="421" y2="466" stroke="var(--color-border)" />
+      <text x="442" y="433" font-size="10.8" font-weight="700" fill="var(--color-foreground)">CURRENT TAKEOFF</text>
+      <text x="442" y="455" font-size="12.2" font-weight="700" fill="#1d4ed8" data-shingle-order-summary>1,652.9 ft² · 16.529 squares · 50 packages</text>
+      <text x="442" y="471" font-size="10.2" fill="var(--color-muted-foreground)" data-shingle-coverage-summary>33.3333 ft²/package · 10% allowance</text>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-5">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Measured roof</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-shingle-card-roof>1,502.64 ft²</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Order area</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-shingle-card-order>1,652.90 ft²</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Roofing squares</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-shingle-card-squares>16.529</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Packages</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-shingle-card-packages>50</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Purchased coverage</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-shingle-card-purchased>1,666.67 ft²</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initRoofingShingleRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-roofing-shingle-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="roofing-shingle-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#roofing-shingle-calculator-form");
+      const mode = root.querySelector<HTMLSelectElement>("#roofing-shingle-calculator-mode");
+      if (!form || !mode) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>("#roofing-shingle-calculator-" + id);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>("#roofing-shingle-calculator-" + id + "-unit");
+
+      const unitLabel = (id: string) => {
+        const select = unit(id);
+        if (select) return select.options[select.selectedIndex]?.text?.trim() || select.value;
+        const el = input(id);
+        const staticUnit = el?.parentElement?.querySelector("span");
+        return staticUnit?.textContent?.trim() || "";
+      };
+
+      const displayValue = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const u = unitLabel(id);
+        return u ? shown + " " + u : shown;
+      };
+
+      const numeric = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const lengthToFeet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = {
+          ft: 1,
+          in: 1 / 12,
+          yd: 3,
+          m: 1 / 0.3048,
+          cm: 1 / 30.48,
+          mm: 1 / 304.8,
+        };
+        return n * (factors[unit(id)?.value ?? "ft"] ?? 1);
+      };
+
+      const areaToFt2 = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = {
+          ft2: 1,
+          yd2: 9,
+          m2: 10.7639104167,
+        };
+        return n * (factors[unit(id)?.value ?? "ft2"] ?? 1);
+      };
+
+      const fmt = (n: number, digits = 2) =>
+        Number.isFinite(n)
+          ? new Intl.NumberFormat("en-US", { maximumFractionDigits: digits }).format(n)
+          : "—";
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => {
+          el.textContent = text;
+        });
+      };
+
+      const setBar = (selector: string, width: number, x?: number) => {
+        const el = figure.querySelector<SVGRectElement>(selector);
+        if (!el) return;
+        if (x !== undefined) el.setAttribute("x", String(x));
+        el.setAttribute("width", String(Math.max(0, width)));
+      };
+
+      const update = () => {
+        const m = Math.max(0, Math.min(1, Math.round(Number(mode.value) || 0)));
+        figure.querySelectorAll<SVGGElement>("[data-shingle-mode]").forEach((group) => {
+          group.style.display = group.dataset.shingleMode === String(m) ? "" : "none";
+        });
+
+        const modeName = mode.options[mode.selectedIndex]?.text?.trim() || "Roof measurement";
+        setText("[data-shingle-mode-name]", modeName);
+
+        const allowance = Math.max(0, numeric("waste", 0));
+        const coverageFt2 = areaToFt2("coverage");
+        const factor = 1 + allowance / 100;
+
+        let measuredRoofFt2 = Number.NaN;
+
+        if (m === 0) {
+          const lengthFt = lengthToFeet("length");
+          const widthFt = lengthToFeet("width");
+          const overhangFt = lengthToFeet("overhang");
+          const pitch = Math.max(0, numeric("pitch", 0));
+          const quantity = Math.max(0, Math.round(numeric("quantity", 1)));
+          const multiplier = Math.hypot(1, pitch / 12);
+
+          const valid = Number.isFinite(lengthFt) && lengthFt > 0
+            && Number.isFinite(widthFt) && widthFt > 0
+            && Number.isFinite(overhangFt) && overhangFt >= 0
+            && quantity > 0;
+
+          const footprintFt2 = valid
+            ? (lengthFt + 2 * overhangFt) * (widthFt + 2 * overhangFt) * quantity
+            : Number.NaN;
+          measuredRoofFt2 = Number.isFinite(footprintFt2) ? footprintFt2 * multiplier : Number.NaN;
+
+          setText("[data-shingle-length]", "Building length = " + displayValue("length"));
+          setText("[data-shingle-width]", "Building width = " + displayValue("width"));
+          setText("[data-shingle-overhang]", "Dashed outline includes " + displayValue("overhang") + " horizontal overhang on all sides");
+          setText("[data-shingle-pitch]", "Pitch = " + fmt(pitch, 3) + ":12");
+          setText("[data-shingle-multiplier]", "Slope multiplier = " + fmt(multiplier, 4) + "×");
+          setText("[data-shingle-sections]", quantity + " identical " + (quantity === 1 ? "roof section" : "roof sections"));
+        } else {
+          measuredRoofFt2 = areaToFt2("roofArea");
+          setText("[data-shingle-known-area]", displayValue("roofArea"));
+        }
+
+        const orderFt2 = Number.isFinite(measuredRoofFt2) ? measuredRoofFt2 * factor : Number.NaN;
+        const packages = Number.isFinite(orderFt2) && Number.isFinite(coverageFt2) && coverageFt2 > 0
+          ? Math.ceil(orderFt2 / coverageFt2)
+          : 0;
+        const purchasedFt2 = packages > 0 && Number.isFinite(coverageFt2) ? packages * coverageFt2 : Number.NaN;
+        const squares = Number.isFinite(orderFt2) ? orderFt2 / 100 : Number.NaN;
+        const roundingExtra = Number.isFinite(purchasedFt2) && Number.isFinite(orderFt2)
+          ? Math.max(0, purchasedFt2 - orderFt2)
+          : 0;
+
+        const measuredShare = Number.isFinite(purchasedFt2) && purchasedFt2 > 0 && Number.isFinite(measuredRoofFt2)
+          ? Math.min(1, measuredRoofFt2 / purchasedFt2)
+          : 0.7;
+        const orderShare = Number.isFinite(purchasedFt2) && purchasedFt2 > 0 && Number.isFinite(orderFt2)
+          ? Math.min(1, orderFt2 / purchasedFt2)
+          : 0.9;
+
+        const totalWidth = 482;
+        const measuredWidth = totalWidth * measuredShare;
+        const orderWidth = totalWidth * Math.max(measuredShare, orderShare);
+        setBar("[data-shingle-measured-bar]", measuredWidth);
+        setBar("[data-shingle-allowance-bar]", Math.max(0, orderWidth - measuredWidth), 45 + measuredWidth);
+        setBar("[data-shingle-rounding-bar]", Math.max(0, totalWidth - orderWidth), 45 + orderWidth);
+
+        setText("[data-shingle-bundle-count]", packages + " " + (packages === 1 ? "package" : "packages"));
+        setText(
+          "[data-shingle-bar-label]",
+          "Measured " + fmt(measuredRoofFt2, 1) + " ft² → order " + fmt(orderFt2, 1) + " ft² → purchased " + fmt(purchasedFt2, 1) + " ft²"
+        );
+        setText(
+          "[data-shingle-order-summary]",
+          fmt(orderFt2, 1) + " ft² · " + fmt(squares, 3) + " squares · " + packages + " packages"
+        );
+        setText(
+          "[data-shingle-coverage-summary]",
+          displayValue("coverage") + "/package · " + fmt(allowance) + "% allowance · " + fmt(roundingExtra, 1) + " ft² package-rounding extra"
+        );
+
+        setText("[data-shingle-card-roof]", fmt(measuredRoofFt2, 2) + " ft²");
+        setText("[data-shingle-card-order]", fmt(orderFt2, 2) + " ft²");
+        setText("[data-shingle-card-squares]", fmt(squares, 3));
+        setText("[data-shingle-card-packages]", String(packages));
+        setText("[data-shingle-card-purchased]", fmt(purchasedFt2, 2) + " ft²");
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+
+      update();
+      queueMicrotask(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 0);
+    });
+  }
+
+  initRoofingShingleRichDiagrams();
+  document.addEventListener("astro:page-load", initRoofingShingleRichDiagrams);
+</script>
