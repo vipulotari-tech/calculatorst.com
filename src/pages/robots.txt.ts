@@ -5,14 +5,21 @@ export const prerender = true;
 const site = "https://calculatorst.com";
 
 export const GET: APIRoute = () => {
-  // Note: Search result pages (/calculators/?q=...) are intentionally
-  // NOT blocked via robots.txt. They are allowed but serve
-  // <meta name="robots" content="noindex"> via Layout.astro (see
-  // isSearchResultPage logic). This avoids GSC "Blocked by robots.txt"
-  // while keeping search results out of the index and preserving crawl
-  // budget. Junk templated URLs like ?q=<JS template> are
-  // 301-redirected to /calculators/ via src/middleware.ts.
-  const body = `User-agent: *
+  // Keep canonical Calculator Street pages crawlable by Google Search and
+  // Google's image crawler. Google-Extended is also explicitly allowed so
+  // AI/grounding crawlers cannot be mistaken for a site-wide crawl block.
+  // Search-result URLs are handled with noindex at the page/worker level,
+  // not by robots.txt, so Google can still crawl and see the noindex signal.
+  const body = `User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: *
 Allow: /
 
 # Sitemap
