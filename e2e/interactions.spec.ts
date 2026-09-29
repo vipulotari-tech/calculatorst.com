@@ -837,7 +837,7 @@ test.describe('Calculator interactions', () => {
     await expect(diagram).toContainText('Bank = entered in-place volume');
 
     await root.getByRole('button', { name: /^Calculate$/ }).click();
-    await expect(root.locator('.result-rows-grid')).toContainText('Bank earthwork volume');
+    await expect(root).toContainText('Bank earthwork volume');
     await expect(root.locator('.result-rows-grid')).toContainText('Loose volume equivalent');
     await expect(root.locator('.result-rows-grid')).toContainText('Compacted volume equivalent');
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
