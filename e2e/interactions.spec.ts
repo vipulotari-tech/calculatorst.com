@@ -1775,11 +1775,27 @@ test.describe('Drywall / deck / landscaping / asphalt full browser audit', () =>
   test('asphalt thickness page clearly behaves as a reverse calculation', async ({ page }) => {
     await page.goto('/asphalt-thickness-calculator/');
     const root = page.locator('[data-calculator-slug="asphalt-thickness-calculator"]');
+    const diagram = root.locator('[data-asphalt-thickness-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('PAVED AREA / PLAN VIEW');
+    await expect(diagram).toContainText('COMPACTED CROSS SECTION');
+    await expect(diagram).toContainText('REVERSE-CALCULATION CHAIN');
+
     await root.locator('#asphalt-thickness-calculator-length').fill('100');
     await root.locator('#asphalt-thickness-calculator-width').fill('10');
     await root.locator('#asphalt-thickness-calculator-mass').fill('10');
     await root.getByText('Advanced material assumptions').click();
     await root.locator('#asphalt-thickness-calculator-density').fill('145');
+
+    await expect(diagram).toContainText('Length = 100 ft');
+    await expect(diagram).toContainText('Width = 10 ft');
+    await expect(diagram.locator('[data-asphalt-depth-card-area]')).toHaveText('1,000 ft²');
+    await expect(diagram.locator('[data-asphalt-depth-card-mass]')).toHaveText('20,000 lb');
+    await expect(diagram.locator('[data-asphalt-depth-card-density]')).toHaveText('145 lb/ft³');
+    await expect(diagram.locator('[data-asphalt-depth-card-volume]')).toHaveText('137.93 ft³');
+    await expect(diagram.locator('[data-asphalt-depth-card-thickness]')).toContainText('1.655 in');
+
     await root.getByRole('button', { name: /^Calculate$/ }).click();
     await expect(root).toContainText('Average depth');
     expect(await root.innerText()).not.toMatch(/recommended|traffic type|NaN|Infinity/i);
