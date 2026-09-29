@@ -126,6 +126,45 @@ test.describe('Calculator interactions', () => {
     expect(await diagram.innerText()).toContain('Schematic only');
   });
 
+  test('Slab thickness calculator — live diagram follows all three modes', async ({ page }) => {
+    await page.goto('/slab-thickness-calculator/');
+    const root = page.locator('[data-calculator-slug="slab-thickness-calculator"]');
+    const diagram = root.locator('[data-slab-thickness-rich-diagram]');
+    const mode = root.locator('#slab-thickness-calculator-mode');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('SLAB FOOTPRINT');
+    await expect(diagram).toContainText('DEPTH SECTION / SOLVE');
+
+    await root.locator('#slab-thickness-calculator-length').fill('20');
+    await root.locator('#slab-thickness-calculator-width').fill('12');
+    await root.locator('#slab-thickness-calculator-volume').fill('3');
+    await root.locator('#slab-thickness-calculator-volume-unit').selectOption('yd3');
+
+    await expect(diagram).toContainText('20 ft');
+    await expect(diagram).toContainText('12 ft');
+    await expect(diagram).toContainText('4.05 in average');
+
+    await mode.selectOption('1');
+    await root.locator('#slab-thickness-calculator-thickness').fill('5');
+    await root.locator('#slab-thickness-calculator-thickness-unit').selectOption('in');
+    await expect(diagram).toContainText('SELECTED SLAB SECTION');
+    await expect(diagram).toContainText('Selected thickness = 5 in');
+    await expect(diagram).toContainText('4.074 yd³ with allowance');
+
+    await mode.selectOption('2');
+    await root.locator('#slab-thickness-calculator-compareA').fill('4');
+    await root.locator('#slab-thickness-calculator-compareB').fill('5');
+    await root.locator('#slab-thickness-calculator-compareC').fill('6');
+
+    await expect(diagram).toContainText('THICKNESS / QUANTITY COMPARISON');
+    await expect(diagram).toContainText('A · 4 in');
+    await expect(diagram).toContainText('B · 5 in');
+    await expect(diagram).toContainText('C · 6 in');
+    await expect(diagram).toContainText('3.259 yd³');
+    await expect(diagram).toContainText('4.889 yd³');
+  });
+
   test('Paint calculator — live room diagram follows inputs', async ({ page }) => {
     await page.goto('/paint-calculator/');
     const root = page.locator('[data-calculator-slug="paint-calculator"]');
