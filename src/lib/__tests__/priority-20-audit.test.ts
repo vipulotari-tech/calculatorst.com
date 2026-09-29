@@ -258,4 +258,20 @@ describe('Priority 20 construction calculator math audit', () => {
     expect(value('earthwork-calculator', 'loose', earthwork)).toBeCloseTo(bankYd3 * 1.20, 10);
     expect(value('earthwork-calculator', 'compacted', earthwork)).toBeCloseTo(bankYd3 * 0.90, 10);
   });
+  it('Brick rejects a zero net wall area instead of returning a zero-material estimate', () => {
+    const model = getModelForSlug('brick-calculator');
+    const raw: Record<string, number> = {};
+    const units: Record<string, string> = {};
+    for (const field of model.fields) {
+      if (field.value !== undefined) raw[field.id] = field.value;
+      if (field.unit) units[field.id] = field.unit;
+    }
+    raw.mode = 0;
+    raw.length = 20;
+    raw.height = 8;
+    raw.openings = 160;
+    expect(() => model.calculate(readInputs(model.fields, raw, units), units))
+      .toThrow(/net wall area must be greater than zero/i);
+  });
+
 });
