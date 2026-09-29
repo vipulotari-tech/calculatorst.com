@@ -1,0 +1,262 @@
+---
+const slug = "paver-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-paver-rich-diagram
+  data-kind="paver"
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live paver layout diagram</h3>
+      <p class="mt-1 max-w-[720px] text-[11px] leading-5 text-muted-foreground">
+        Surface size, paver face size, joint width, straight-layout rows and columns, edge cuts, allowance, and whole-paver order quantity update from the calculator inputs.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">STRAIGHT LAYOUT</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg viewBox="0 0 760 500" class="h-auto w-full" role="img" aria-labelledby="paver-diagram-title paver-diagram-desc">
+      <title id="paver-diagram-title">Live paver grid and order diagram</title>
+      <desc id="paver-diagram-desc">
+        A rectangular paved surface showing repeating paver modules, perimeter edge cuts, dimensions, joint width, installed paver count, and order quantity with allowance.
+      </desc>
+
+      <defs>
+        <marker id="paver-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="paver-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"/>
+        </marker>
+      </defs>
+
+      <text x="30" y="30" font-size="13" font-weight="700" fill="var(--color-foreground)">Paved surface plan</text>
+      <text x="730" y="30" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)" data-paver-size-label>10 ft × 10 ft</text>
+
+      <line x1="72" y1="65" x2="688" y2="65" stroke="#2563eb" stroke-width="1.5" marker-start="url(#paver-arrow-start)" marker-end="url(#paver-arrow-end)"/>
+      <text x="380" y="53" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" data-paver-length-label>Length = 10 ft</text>
+
+      <line x1="49" y1="92" x2="49" y2="320" stroke="#2563eb" stroke-width="1.5" marker-start="url(#paver-arrow-start)" marker-end="url(#paver-arrow-end)"/>
+      <text x="31" y="206" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" transform="rotate(-90 31 206)" data-paver-width-label>Width = 10 ft</text>
+
+      <rect x="72" y="92" width="616" height="228" rx="4" fill="var(--color-muted)" opacity=".12" stroke="var(--color-foreground)" stroke-width="1.5"/>
+      <g data-paver-grid aria-hidden="true"></g>
+
+      <text x="74" y="344" font-size="10.5" fill="var(--color-muted-foreground)" data-paver-module-label>Paver module = 8.125 in × 4.125 in</text>
+      <text x="686" y="344" text-anchor="end" font-size="10.5" fill="var(--color-muted-foreground)" data-paver-joint-label>Joint = 0.125 in</text>
+
+      <g transform="translate(30 374)">
+        <rect x="0" y="0" width="216" height="98" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="16" y="23" font-size="10.5" font-weight="700" fill="var(--color-foreground)">GRID COUNT</text>
+        <text x="16" y="50" font-size="19" font-weight="700" fill="#1d4ed8" data-paver-grid-count>30 × 18</text>
+        <text x="16" y="74" font-size="12" fill="var(--color-foreground)" data-paver-installed>540 installed pavers</text>
+        <text x="16" y="91" font-size="10.5" fill="var(--color-muted-foreground)">Whole unit counted for each edge cut</text>
+      </g>
+
+      <g transform="translate(272 374)">
+        <rect x="0" y="0" width="216" height="98" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="16" y="23" font-size="10.5" font-weight="700" fill="var(--color-foreground)">ORDER WITH ALLOWANCE</text>
+        <text x="16" y="50" font-size="20" font-weight="700" fill="#1d4ed8" data-paver-order>594 pavers</text>
+        <text x="16" y="74" font-size="12" fill="var(--color-foreground)" data-paver-spares>54 spare / allowance pavers</text>
+        <text x="16" y="91" font-size="10.5" fill="var(--color-muted-foreground)" data-paver-waste>10% allowance</text>
+      </g>
+
+      <g transform="translate(514 374)">
+        <rect x="0" y="0" width="216" height="98" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="16" y="23" font-size="10.5" font-weight="700" fill="var(--color-foreground)">CURRENT AREA</text>
+        <text x="16" y="50" font-size="19" font-weight="700" fill="var(--color-foreground)" data-paver-area>100 ft²</text>
+        <text x="16" y="74" font-size="12" fill="#1d4ed8" data-paver-cuts>Edge cuts on 2 sides</text>
+        <text x="16" y="91" font-size="10.5" fill="var(--color-muted-foreground)">Pattern / border courses not included</text>
+      </g>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-4">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Surface area</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-paver-card-area>100 ft²</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Rows</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-paver-card-rows>30</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Columns</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-paver-card-columns>18</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Pavers to order</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-paver-card-order>594</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initPaverRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-paver-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="paver-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#paver-calculator-form");
+      const grid = figure.querySelector<SVGGElement>("[data-paver-grid]");
+      if (!form || !grid) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>("#paver-calculator-" + id);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>("#paver-calculator-" + id + "-unit");
+
+      const unitText = (id: string) => {
+        const u = unit(id);
+        return u ? (u.options[u.selectedIndex]?.text?.trim() || u.value) : "";
+      };
+
+      const displayValue = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const label = unitText(id);
+        return label ? shown + " " + label : shown;
+      };
+
+      const feet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = { ft: 1, in: 1 / 12, yd: 3, m: 1 / 0.3048, cm: 1 / 30.48, mm: 1 / 304.8 };
+        return n * (factors[unit(id)?.value ?? "ft"] ?? 1);
+      };
+
+      const inches = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = { in: 1, ft: 12, yd: 36, m: 39.3700787402, cm: 0.3937007874, mm: 0.03937007874 };
+        return n * (factors[unit(id)?.value ?? "in"] ?? 1);
+      };
+
+      const numberValue = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const fmt = (value: number, digits = 2) =>
+        Number.isFinite(value) ? String(Number(value.toFixed(digits))) : "—";
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => {
+          el.textContent = text;
+        });
+      };
+
+      const svgEl = <K extends keyof SVGElementTagNameMap>(name: K, attrs: Record<string, string>) => {
+        const el = document.createElementNS("http://www.w3.org/2000/svg", name);
+        Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
+        return el;
+      };
+
+      const renderGrid = (rows: number, columns: number, cutRight: boolean, cutBottom: boolean) => {
+        while (grid.firstChild) grid.removeChild(grid.firstChild);
+
+        const x0 = 72, x1 = 688, y0 = 92, y1 = 320;
+        const shownRows = Math.max(1, Math.min(rows, 18));
+        const shownColumns = Math.max(1, Math.min(columns, 28));
+        const cellW = (x1 - x0) / shownColumns;
+        const cellH = (y1 - y0) / shownRows;
+
+        for (let r = 0; r < shownRows; r++) {
+          for (let c = 0; c < shownColumns; c++) {
+            const isRightCut = cutRight && c === shownColumns - 1;
+            const isBottomCut = cutBottom && r === shownRows - 1;
+            const cut = isRightCut || isBottomCut;
+            grid.appendChild(svgEl("rect", {
+              x: String(x0 + c * cellW + 0.6),
+              y: String(y0 + r * cellH + 0.6),
+              width: String(Math.max(1, cellW - 1.2)),
+              height: String(Math.max(1, cellH - 1.2)),
+              rx: "0.7",
+              fill: cut ? "#fef3c7" : (r + c) % 2 === 0 ? "var(--color-muted)" : "var(--color-background)",
+              stroke: cut ? "#b45309" : "var(--color-border)",
+              "stroke-width": cut ? "1.1" : "0.65"
+            }));
+          }
+        }
+
+        if (rows > shownRows || columns > shownColumns) {
+          const note = svgEl("text", {
+            x: "380", y: "333", "text-anchor": "middle",
+            "font-size": "9.5", fill: "var(--color-muted-foreground)"
+          });
+          note.textContent = "Grid condensed for readability";
+          grid.appendChild(note);
+        }
+      };
+
+      const update = () => {
+        const lengthFt = feet("length");
+        const widthFt = feet("width");
+        const paverLengthIn = inches("paverLength");
+        const paverWidthIn = inches("paverWidth");
+        const jointIn = Math.max(0, inches("joint"));
+        const allowance = Math.max(0, numberValue("waste", 0));
+
+        const valid = [lengthFt, widthFt, paverLengthIn, paverWidthIn].every(v => Number.isFinite(v) && v > 0)
+          && Number.isFinite(jointIn);
+
+        const lengthIn = lengthFt * 12;
+        const widthIn = widthFt * 12;
+        const moduleLengthIn = paverLengthIn + jointIn;
+        const moduleWidthIn = paverWidthIn + jointIn;
+
+        const columns = valid ? Math.ceil((lengthIn + jointIn) / moduleLengthIn) : 0;
+        const rows = valid ? Math.ceil((widthIn + jointIn) / moduleWidthIn) : 0;
+        const installed = rows * columns;
+        const order = installed > 0 ? Math.ceil(installed * (1 + allowance / 100)) : 0;
+        const spares = Math.max(0, order - installed);
+        const area = valid ? lengthFt * widthFt : 0;
+
+        const exactLengthModules = valid ? (lengthIn + jointIn) / moduleLengthIn : 0;
+        const exactWidthModules = valid ? (widthIn + jointIn) / moduleWidthIn : 0;
+        const cutRight = valid && Math.abs(exactLengthModules - Math.round(exactLengthModules)) > 1e-7;
+        const cutBottom = valid && Math.abs(exactWidthModules - Math.round(exactWidthModules)) > 1e-7;
+        const cutSides = Number(cutRight) + Number(cutBottom);
+
+        renderGrid(rows || 1, columns || 1, cutRight, cutBottom);
+
+        setText("[data-paver-size-label]", displayValue("length") + " × " + displayValue("width"));
+        setText("[data-paver-length-label]", "Length = " + displayValue("length"));
+        setText("[data-paver-width-label]", "Width = " + displayValue("width"));
+        setText("[data-paver-module-label]", "Paver module = " + fmt(moduleLengthIn, 3) + " in × " + fmt(moduleWidthIn, 3) + " in");
+        setText("[data-paver-joint-label]", "Joint = " + displayValue("joint"));
+        setText("[data-paver-grid-count]", rows + " × " + columns);
+        setText("[data-paver-installed]", installed + " installed " + (installed === 1 ? "paver" : "pavers"));
+        setText("[data-paver-order]", order + " " + (order === 1 ? "paver" : "pavers"));
+        setText("[data-paver-spares]", spares + " spare / allowance " + (spares === 1 ? "paver" : "pavers"));
+        setText("[data-paver-waste]", fmt(allowance) + "% allowance");
+        setText("[data-paver-area]", fmt(area) + " ft²");
+        setText("[data-paver-cuts]", cutSides === 0 ? "Full modules fit both directions" : "Edge cuts on " + cutSides + " " + (cutSides === 1 ? "side" : "sides"));
+
+        setText("[data-paver-card-area]", fmt(area) + " ft²");
+        setText("[data-paver-card-rows]", String(rows));
+        setText("[data-paver-card-columns]", String(columns));
+        setText("[data-paver-card-order]", String(order));
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+
+      update();
+      queueMicrotask(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 0);
+    });
+  }
+
+  initPaverRichDiagrams();
+  document.addEventListener("astro:page-load", initPaverRichDiagrams);
+</script>

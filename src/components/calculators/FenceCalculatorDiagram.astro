@@ -1,0 +1,284 @@
+---
+const slug = "fence-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-fence-rich-diagram
+  data-kind="fence"
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live fence layout diagram</h3>
+      <p class="mt-1 max-w-[720px] text-[11px] leading-5 text-muted-foreground">
+        Post centers, fence sections, extra gate/corner posts, equalized spacing, and spare-order quantities update from the calculator inputs. Schematic only — verify field layout and gate/corner conditions on site.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE LAYOUT</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg viewBox="0 0 760 480" class="h-auto w-full" role="img" aria-labelledby="fence-diagram-title fence-diagram-desc">
+      <title id="fence-diagram-title">Live fence post and panel layout</title>
+      <desc id="fence-diagram-desc">
+        A straight fence run divided into equalized sections with installed posts, additional gate or corner posts, and order quantities including allowance.
+      </desc>
+
+      <defs>
+        <marker id="fence-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="fence-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"/>
+        </marker>
+        <pattern id="fence-panel-fill" width="18" height="18" patternUnits="userSpaceOnUse">
+          <rect width="18" height="18" fill="var(--color-muted)" opacity=".42"/>
+          <path d="M6 0V18M12 0V18" stroke="var(--color-muted-foreground)" stroke-width=".7" opacity=".18"/>
+        </pattern>
+      </defs>
+
+      <text x="30" y="32" font-size="13" font-weight="700" fill="var(--color-foreground)">Fence run elevation</text>
+      <text x="730" y="32" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)" data-fence-run-label>100 ft run</text>
+
+      <line x1="58" y1="76" x2="702" y2="76" stroke="#2563eb" stroke-width="1.5" marker-start="url(#fence-arrow-start)" marker-end="url(#fence-arrow-end)"/>
+      <text x="380" y="64" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" data-fence-run-dimension>Run = 100 ft</text>
+
+      <g data-fence-layout aria-hidden="true"></g>
+
+      <line x1="56" y1="266" x2="704" y2="266" stroke="var(--color-border)" stroke-width="2"/>
+      <text x="58" y="290" font-size="10.5" fill="var(--color-muted-foreground)">Equalized post-center spacing</text>
+      <text x="704" y="290" text-anchor="end" font-size="12" font-weight="700" fill="var(--color-foreground)" data-fence-equal-spacing>7.69 ft</text>
+
+      <g transform="translate(30 320)">
+        <rect x="0" y="0" width="216" height="116" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="16" y="24" font-size="10.5" font-weight="700" fill="var(--color-foreground)">LAYOUT COUNT</text>
+        <text x="16" y="52" font-size="21" font-weight="700" fill="#1d4ed8" data-fence-sections>13 sections</text>
+        <text x="16" y="76" font-size="12" fill="var(--color-foreground)" data-fence-posts>14 installed posts</text>
+        <text x="16" y="98" font-size="10.5" fill="var(--color-muted-foreground)" data-fence-extra>+ 0 extra gate / corner posts</text>
+      </g>
+
+      <g transform="translate(272 320)">
+        <rect x="0" y="0" width="216" height="116" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="16" y="24" font-size="10.5" font-weight="700" fill="var(--color-foreground)">ORDER WITH ALLOWANCE</text>
+        <text x="16" y="52" font-size="20" font-weight="700" fill="var(--color-foreground)" data-fence-panel-order>15 panels</text>
+        <text x="16" y="77" font-size="15" font-weight="700" fill="#1d4ed8" data-fence-post-order>16 posts</text>
+        <text x="16" y="99" font-size="10.5" fill="var(--color-muted-foreground)" data-fence-waste>10% allowance</text>
+      </g>
+
+      <g transform="translate(514 320)">
+        <rect x="0" y="0" width="216" height="116" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="16" y="24" font-size="10.5" font-weight="700" fill="var(--color-foreground)">LAYOUT FORMULA</text>
+        <text x="16" y="52" font-size="12.5" font-weight="700" fill="var(--color-foreground)">sections = ceil(run ÷ max spacing)</text>
+        <text x="16" y="76" font-size="12.5" font-weight="700" fill="var(--color-foreground)">posts = sections + 1 + extras</text>
+        <text x="16" y="99" font-size="10.5" fill="var(--color-muted-foreground)" data-fence-formula-live>ceil(100 ÷ 8) = 13</text>
+      </g>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-4">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Fence run</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-fence-card-run>100 ft</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Maximum spacing</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-fence-card-max>8 ft</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Installed posts</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-fence-card-posts>14</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Installed panels</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-fence-card-panels>13</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initFenceRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-fence-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="fence-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#fence-calculator-form");
+      const layout = figure.querySelector<SVGGElement>("[data-fence-layout]");
+      if (!form || !layout) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>("#fence-calculator-" + id);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>("#fence-calculator-" + id + "-unit");
+
+      const unitText = (id: string) => {
+        const u = unit(id);
+        return u ? (u.options[u.selectedIndex]?.text?.trim() || u.value) : "";
+      };
+
+      const displayValue = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const label = unitText(id);
+        return label ? shown + " " + label : shown;
+      };
+
+      const feet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = { ft: 1, in: 1 / 12, yd: 3, m: 1 / 0.3048, cm: 1 / 30.48, mm: 1 / 304.8 };
+        return n * (factors[unit(id)?.value ?? "ft"] ?? 1);
+      };
+
+      const numberValue = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const fmt = (value: number, digits = 2) =>
+        Number.isFinite(value) ? String(Number(value.toFixed(digits))) : "—";
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => {
+          el.textContent = text;
+        });
+      };
+
+      const svgEl = <K extends keyof SVGElementTagNameMap>(name: K, attrs: Record<string, string>) => {
+        const el = document.createElementNS("http://www.w3.org/2000/svg", name);
+        Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
+        return el;
+      };
+
+      const renderFence = (sections: number, extraPosts: number) => {
+        while (layout.firstChild) layout.removeChild(layout.firstChild);
+
+        const x0 = 58;
+        const x1 = 702;
+        const top = 112;
+        const bottom = 246;
+        const panelTop = 132;
+        const panelBottom = 226;
+        const shownSections = Math.max(1, Math.min(sections, 24));
+        const dx = (x1 - x0) / shownSections;
+
+        for (let i = 0; i < shownSections; i++) {
+          const x = x0 + i * dx;
+          const width = dx;
+          layout.appendChild(svgEl("rect", {
+            x: String(x + 2),
+            y: String(panelTop),
+            width: String(Math.max(1, width - 4)),
+            height: String(panelBottom - panelTop),
+            rx: "2",
+            fill: "url(#fence-panel-fill)",
+            stroke: "var(--color-border)",
+            "stroke-width": "1"
+          }));
+        }
+
+        for (let i = 0; i <= shownSections; i++) {
+          const x = x0 + i * dx;
+          layout.appendChild(svgEl("rect", {
+            x: String(x - 3.5),
+            y: String(top),
+            width: "7",
+            height: String(bottom - top),
+            rx: "1.5",
+            fill: "var(--color-foreground)"
+          }));
+          layout.appendChild(svgEl("circle", {
+            cx: String(x),
+            cy: String(top - 3),
+            r: "5",
+            fill: "var(--color-foreground)"
+          }));
+        }
+
+        if (sections > shownSections) {
+          const note = svgEl("text", {
+            x: "380",
+            y: "252",
+            "text-anchor": "middle",
+            "font-size": "9.5",
+            fill: "var(--color-muted-foreground)"
+          });
+          note.textContent = sections + " total sections; drawing condensed for readability";
+          layout.appendChild(note);
+        }
+
+        if (extraPosts > 0) {
+          const startX = 600;
+          const count = Math.min(extraPosts, 5);
+          for (let i = 0; i < count; i++) {
+            const x = startX + i * 20;
+            layout.appendChild(svgEl("rect", {
+              x: String(x),
+              y: "92",
+              width: "7",
+              height: "28",
+              rx: "1.5",
+              fill: "#b45309"
+            }));
+          }
+          const label = svgEl("text", {
+            x: String(startX - 8),
+            y: "88",
+            "text-anchor": "start",
+            "font-size": "9.5",
+            fill: "#92400e"
+          });
+          label.textContent = "+" + extraPosts + " extra post" + (extraPosts === 1 ? "" : "s");
+          layout.appendChild(label);
+        }
+      };
+
+      const update = () => {
+        const runFt = feet("length");
+        const maxSpacingFt = feet("spacing");
+        const extraPosts = Math.max(0, Math.round(numberValue("extraPosts", 0)));
+        const allowance = Math.max(0, numberValue("waste", 0));
+
+        const valid = Number.isFinite(runFt) && runFt > 0 && Number.isFinite(maxSpacingFt) && maxSpacingFt > 0;
+        const sections = valid ? Math.ceil(runFt / maxSpacingFt) : 0;
+        const installedPosts = sections > 0 ? sections + 1 + extraPosts : 0;
+        const equalSpacing = sections > 0 ? runFt / sections : 0;
+        const panelOrder = sections > 0 ? Math.ceil(sections * (1 + allowance / 100)) : 0;
+        const postOrder = installedPosts > 0 ? Math.ceil(installedPosts * (1 + allowance / 100)) : 0;
+
+        renderFence(sections || 1, extraPosts);
+
+        setText("[data-fence-run-label]", displayValue("length") + " run");
+        setText("[data-fence-run-dimension]", "Run = " + displayValue("length"));
+        setText("[data-fence-equal-spacing]", fmt(equalSpacing) + " ft");
+        setText("[data-fence-sections]", sections + " " + (sections === 1 ? "section" : "sections"));
+        setText("[data-fence-posts]", installedPosts + " installed " + (installedPosts === 1 ? "post" : "posts"));
+        setText("[data-fence-extra]", "+ " + extraPosts + " extra gate / corner " + (extraPosts === 1 ? "post" : "posts"));
+        setText("[data-fence-panel-order]", panelOrder + " " + (panelOrder === 1 ? "panel" : "panels"));
+        setText("[data-fence-post-order]", postOrder + " " + (postOrder === 1 ? "post" : "posts"));
+        setText("[data-fence-waste]", fmt(allowance) + "% allowance");
+        setText("[data-fence-formula-live]", valid ? "ceil(" + fmt(runFt) + " ÷ " + fmt(maxSpacingFt) + ") = " + sections : "Enter a valid run and spacing");
+
+        setText("[data-fence-card-run]", displayValue("length"));
+        setText("[data-fence-card-max]", displayValue("spacing"));
+        setText("[data-fence-card-posts]", String(installedPosts));
+        setText("[data-fence-card-panels]", String(sections));
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+
+      update();
+      queueMicrotask(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 0);
+    });
+  }
+
+  initFenceRichDiagrams();
+  document.addEventListener("astro:page-load", initFenceRichDiagrams);
+</script>

@@ -803,6 +803,327 @@ test.describe('Calculator interactions', () => {
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+  test('Fence calculator — live layout follows run, spacing, extras and allowance', async ({ page }) => {
+    await page.goto('/fence-calculator/');
+    const root = page.locator('[data-calculator-slug="fence-calculator"]');
+    const diagram = root.locator('[data-fence-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'fence');
+    await expect(diagram).toContainText('Fence run elevation');
+    await expect(diagram).toContainText('LAYOUT FORMULA');
+
+    await root.locator('#fence-calculator-length').fill('72');
+    await root.locator('#fence-calculator-spacing').fill('8');
+    await root.locator('#fence-calculator-extraPosts').fill('2');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#fence-calculator-waste').fill('10');
+
+    await expect(diagram).toContainText('9 sections');
+    await expect(diagram).toContainText('12 installed posts');
+    await expect(diagram).toContainText('+ 2 extra gate / corner posts');
+    await expect(diagram.locator('[data-fence-panel-order]')).toHaveText('10 panels');
+    await expect(diagram.locator('[data-fence-post-order]')).toHaveText('14 posts');
+    await expect(diagram.locator('[data-fence-equal-spacing]')).toHaveText('8 ft');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root).toContainText('Installed posts');
+    await expect(root.locator('.result-rows-grid')).toContainText('Installed sections / panels');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
+  test('Deck calculator — live board and joist layout follows dimensions and allowance', async ({ page }) => {
+    await page.goto('/deck-calculator/');
+    const root = page.locator('[data-calculator-slug="deck-calculator"]');
+    const diagram = root.locator('[data-deck-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'deck');
+    await expect(diagram).toContainText('Deck top view');
+    await expect(diagram).toContainText('Boards run along deck length');
+
+    await root.locator('#deck-calculator-length').fill('20');
+    await root.locator('#deck-calculator-width').fill('12');
+    await root.locator('#deck-calculator-boardWidth').fill('5.5');
+    await root.locator('#deck-calculator-boardLength').fill('16');
+    await root.locator('#deck-calculator-gap').fill('0.125');
+    await root.locator('#deck-calculator-spacing').fill('16');
+    await root.locator('#deck-calculator-fasteners').fill('2');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#deck-calculator-waste').fill('10');
+
+    await expect(diagram.locator('[data-deck-rows]')).toHaveText('26 board rows');
+    await expect(diagram.locator('[data-deck-layout-boards]')).toHaveText('52 boards in layout');
+    await expect(diagram.locator('[data-deck-joists]')).toHaveText('16 joist lines');
+    await expect(diagram.locator('[data-deck-order]')).toHaveText('58 stock boards');
+    await expect(diagram.locator('[data-deck-fasteners]')).toHaveText('973 fasteners');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-rows-grid')).toContainText('Boards in layout');
+    await expect(root.locator('.result-rows-grid')).toContainText('Estimated joist lines');
+    await expect(root.locator('.result-rows-grid')).toContainText('Estimated fasteners with allowance');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
+  test('Paver calculator — live grid follows paver size, joints and allowance', async ({ page }) => {
+    await page.goto('/paver-calculator/');
+    const root = page.locator('[data-calculator-slug="paver-calculator"]');
+    const diagram = root.locator('[data-paver-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'paver');
+    await expect(diagram).toContainText('Paved surface plan');
+    await expect(diagram).toContainText('STRAIGHT LAYOUT');
+
+    await root.locator('#paver-calculator-length').fill('12');
+    await root.locator('#paver-calculator-width').fill('10');
+    await root.locator('#paver-calculator-paverLength').fill('12');
+    await root.locator('#paver-calculator-paverWidth').fill('6');
+    await root.locator('#paver-calculator-joint').fill('0');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#paver-calculator-waste').fill('10');
+
+    await expect(diagram.locator('[data-paver-grid-count]')).toHaveText('20 × 12');
+    await expect(diagram.locator('[data-paver-installed]')).toHaveText('240 installed pavers');
+    await expect(diagram.locator('[data-paver-order]')).toHaveText('264 pavers');
+    await expect(diagram.locator('[data-paver-spares]')).toHaveText('24 spare / allowance pavers');
+    await expect(diagram.locator('[data-paver-cuts]')).toHaveText('Full modules fit both directions');
+
+    await root.locator('#paver-calculator-joint').fill('0.25');
+    await expect(diagram.locator('[data-paver-cuts]')).toContainText('Edge cuts on');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-rows-grid')).toContainText('Pavers in straight layout');
+    await expect(root.locator('.result-rows-grid')).toContainText('Paver rows');
+    await expect(root.locator('.result-rows-grid')).toContainText('Pavers per row');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
+  test('Asphalt calculator — live pavement diagram follows dimensions, density and allowance', async ({ page }) => {
+    await page.goto('/asphalt-calculator/');
+    const root = page.locator('[data-calculator-slug="asphalt-calculator"]');
+    const diagram = root.locator('[data-asphalt-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'asphalt');
+    await expect(diagram).toContainText('Pavement plan');
+    await expect(diagram).toContainText('Compacted cross-section');
+
+    await root.locator('#asphalt-calculator-length').fill('20');
+    await root.locator('#asphalt-calculator-width').fill('10');
+    await root.locator('#asphalt-calculator-depth').fill('4');
+    await root.locator('#asphalt-calculator-depth-unit').selectOption('in');
+    await root.locator('#asphalt-calculator-quantity').fill('1');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#asphalt-calculator-density').fill('145');
+    await root.locator('#asphalt-calculator-density-unit').selectOption('lb/ft3');
+    await root.locator('#asphalt-calculator-waste').fill('10');
+
+    await expect(diagram.locator('[data-asphalt-net]')).toHaveText('2.47 yd³');
+    await expect(diagram.locator('[data-asphalt-order]')).toHaveText('2.72 yd³');
+    await expect(diagram.locator('[data-asphalt-tons]')).toHaveText('5.32 US tons');
+    await expect(diagram.locator('[data-asphalt-card-area]')).toHaveText('200 ft²');
+    await expect(diagram.locator('[data-asphalt-card-depth]')).toHaveText('4 in');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-rows-grid')).toContainText('Order volume');
+    await expect(root.locator('.result-rows-grid')).toContainText('Estimated order weight');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
+  test('Brick calculator — live wall takeoff follows openings, module, wythes and allowance', async ({ page }) => {
+    await page.goto('/brick-calculator/');
+    const root = page.locator('[data-calculator-slug="brick-calculator"]');
+    const diagram = root.locator('[data-brick-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'brick');
+    await expect(diagram).toContainText('Wall elevation');
+    await expect(diagram).toContainText('AREA-BASED TAKEOFF');
+
+    await root.locator('#brick-calculator-mode').selectOption('0');
+    await root.locator('#brick-calculator-length').fill('20');
+    await root.locator('#brick-calculator-height').fill('8');
+    await root.locator('#brick-calculator-openings').fill('20');
+    await root.locator('#brick-calculator-brickLength').fill('7.625');
+    await root.locator('#brick-calculator-brickHeight').fill('2.25');
+    await root.locator('#brick-calculator-joint').fill('0.375');
+    await root.locator('#brick-calculator-wythes').fill('1');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#brick-calculator-waste').fill('10');
+
+    await expect(diagram.locator('[data-brick-net-area]')).toHaveText('140 ft²');
+    await expect(diagram.locator('[data-brick-installed]')).toHaveText('960');
+    await expect(diagram.locator('[data-brick-order]')).toHaveText('1,056 bricks');
+    await expect(diagram.locator('[data-brick-layout-check]')).toHaveText('37 courses × 30 bricks/course');
+    await expect(diagram.locator('[data-brick-spares]')).toHaveText('96 bricks');
+    await expect(diagram).toContainText('Installed module = 8 in × 2.625 in');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-rows-grid')).toContainText('Bricks per square foot per wythe');
+    await expect(root.locator('.result-rows-grid')).toContainText('Estimated installed bricks');
+    await expect(root.locator('.result-rows-grid')).toContainText('Net wall area');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
+  test('Concrete block calculator — live CMU wall follows openings, module and allowance', async ({ page }) => {
+    await page.goto('/concrete-block-calculator/');
+    const root = page.locator('[data-calculator-slug="concrete-block-calculator"]');
+    const diagram = root.locator('[data-concrete-block-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'concreteBlock');
+    await expect(diagram).toContainText('CMU wall elevation');
+    await expect(diagram).toContainText('CMU WALL LAYOUT');
+
+    await root.locator('#concrete-block-calculator-length').fill('20');
+    await root.locator('#concrete-block-calculator-height').fill('8');
+    await root.locator('#concrete-block-calculator-openings').fill('16');
+    await root.locator('#concrete-block-calculator-blockLength').fill('15.625');
+    await root.locator('#concrete-block-calculator-blockHeight').fill('7.625');
+    await root.locator('#concrete-block-calculator-joint').fill('0.375');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#concrete-block-calculator-waste').fill('10');
+    await root.locator('#concrete-block-calculator-unitWeight').fill('35');
+
+    await expect(diagram.locator('[data-cmu-net-area]')).toHaveText('144 ft²');
+    await expect(diagram.locator('[data-cmu-installed]')).toHaveText('162');
+    await expect(diagram.locator('[data-cmu-order]')).toHaveText('179 blocks');
+    await expect(diagram.locator('[data-cmu-layout-check]')).toHaveText('12 courses × 15 blocks/course');
+    await expect(diagram.locator('[data-cmu-spares]')).toHaveText('17 blocks');
+    await expect(diagram.locator('[data-cmu-weight]')).toHaveText('6,265 lb');
+    await expect(diagram).toContainText('Installed module = 16 in × 8 in');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-rows-grid')).toContainText('Estimated block order weight');
+    await expect(root.locator('.result-rows-grid')).toContainText('Estimated installed blocks');
+    await expect(root.locator('.result-rows-grid')).toContainText('Gross wall courses');
+    await expect(root.locator('.result-rows-grid')).toContainText('Net wall area');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
+  test('Rebar calculator — live grid follows cover, spacing, size, stock length and allowance', async ({ page }) => {
+    await page.goto('/rebar-calculator/');
+    const root = page.locator('[data-calculator-slug="rebar-calculator"]');
+    const diagram = root.locator('[data-rebar-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'rebar');
+    await expect(diagram).toContainText('Reinforcement plan');
+    await expect(diagram).toContainText('ORTHOGONAL MAT');
+
+    await root.locator('#rebar-calculator-length').fill('20');
+    await root.locator('#rebar-calculator-width').fill('10');
+    await root.locator('#rebar-calculator-cover').fill('2');
+    await root.locator('#rebar-calculator-cover-unit').selectOption('in');
+    await root.locator('#rebar-calculator-spacing').fill('16');
+    await root.locator('#rebar-calculator-spacing-unit').selectOption('in');
+    await root.locator('#rebar-calculator-size').selectOption('4');
+    await root.locator('#rebar-calculator-stockLength').fill('20');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#rebar-calculator-waste').fill('10');
+
+    await expect(diagram.locator('[data-rebar-installed]')).toHaveText('25 bars');
+    await expect(diagram.locator('[data-rebar-net-length]')).toHaveText('331.67 ft');
+    await expect(diagram.locator('[data-rebar-order-length]')).toHaveText('364.83 ft');
+    await expect(diagram.locator('[data-rebar-directions]')).toHaveText('16 / 9');
+    await expect(diagram.locator('[data-rebar-stock-pieces]')).toHaveText('19 × 20 ft');
+    await expect(diagram.locator('[data-rebar-weight]')).toHaveText('243.71 lb');
+    await expect(diagram).toContainText('Equalized spacing = 15.73 in / 14.5 in');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root.locator('.result-rows-grid')).toContainText('Bars spanning grid width');
+    await expect(root.locator('.result-rows-grid')).toContainText('Net cut length');
+    await expect(root.locator('.result-rows-grid')).toContainText('Minimum equivalent stock bars');
+    await expect(root.locator('.result-rows-grid')).toContainText('Nominal order weight');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
+  test('Excavation calculator — live section follows slopes, quantity and swell', async ({ page }) => {
+    await page.goto('/excavation-calculator/');
+    const root = page.locator('[data-calculator-slug="excavation-calculator"]');
+    const diagram = root.locator('[data-excavation-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'excavation');
+    await expect(diagram).toContainText('Excavation plan');
+    await expect(diagram).toContainText('BANK → LOOSE');
+
+    await root.locator('#excavation-calculator-length').fill('20');
+    await root.locator('#excavation-calculator-width').fill('10');
+    await root.locator('#excavation-calculator-depth').fill('4');
+    await root.locator('#excavation-calculator-sideSlope').fill('0.5');
+    await root.locator('#excavation-calculator-quantity').fill('1');
+    await root.locator('#excavation-calculator-swell').fill('20');
+
+    await expect(diagram.locator('[data-exc-bank]')).toHaveText('39.31 bank yd³');
+    await expect(diagram.locator('[data-exc-bank-ft3]')).toHaveText('1061.33 ft³ in-place');
+    await expect(diagram.locator('[data-exc-top-card]')).toHaveText('24 ft × 14 ft');
+    await expect(diagram.locator('[data-exc-loose]')).toHaveText('47.17 yd³');
+    await expect(diagram).toContainText('Side slope = 0.5H:1V');
+    await expect(diagram).toContainText('Top opening = 24 ft × 14 ft');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root).toContainText('In-place bank volume');
+    await expect(root.locator('.result-rows-grid')).toContainText('Loose haul volume');
+    await expect(root.locator('.result-rows-grid')).toContainText('Top excavation length');
+    await expect(root.locator('.result-rows-grid')).toContainText('Top excavation width');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
+  test('Earthwork calculator — live states follow bank source, swell and shrink', async ({ page }) => {
+    await page.goto('/earthwork-calculator/');
+    const root = page.locator('[data-calculator-slug="earthwork-calculator"]');
+    const diagram = root.locator('[data-earthwork-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toHaveAttribute('data-kind', 'earthwork');
+    await expect(diagram).toContainText('Bank quantity source');
+    await expect(diagram).toContainText('BANK → LOOSE / COMPACTED');
+
+    await root.locator('#earthwork-calculator-mode').selectOption('0');
+    await root.locator('#earthwork-calculator-length').fill('100');
+    await root.locator('#earthwork-calculator-width').fill('50');
+    await root.locator('#earthwork-calculator-depth').fill('2');
+    await root.locator('#earthwork-calculator-swell').fill('20');
+    await root.locator('#earthwork-calculator-shrink').fill('10');
+
+    await expect(diagram.locator('[data-earth-bank]')).toHaveText('370.37 yd³');
+    await expect(diagram.locator('[data-earth-loose]')).toHaveText('444.44 yd³');
+    await expect(diagram.locator('[data-earth-compacted]')).toHaveText('333.33 yd³');
+    await expect(diagram.locator('[data-earth-bank-ft3]')).toHaveText('10,000 ft³');
+    await expect(diagram).toContainText('Bank = L × W × D');
+
+    await root.locator('#earthwork-calculator-mode').selectOption('1');
+    await root.locator('#earthwork-calculator-volume').fill('270');
+    await root.locator('#earthwork-calculator-volume-unit').selectOption('ft3');
+
+    await expect(diagram.locator('[data-earth-bank]')).toHaveText('10 yd³');
+    await expect(diagram.locator('[data-earth-loose]')).toHaveText('12 yd³');
+    await expect(diagram.locator('[data-earth-compacted]')).toHaveText('9 yd³');
+    await expect(diagram).toContainText('Bank = entered in-place volume');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root).toContainText('Bank earthwork volume');
+    await expect(root.locator('.result-rows-grid')).toContainText('Loose volume equivalent');
+    await expect(root.locator('.result-rows-grid')).toContainText('Compacted volume equivalent');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('Estimate worksheet is populated from real result rows', async ({ page }) => {
     await page.goto('/concrete-calculator/');
     const root = page.locator('[data-calculator-slug="concrete-calculator"]');

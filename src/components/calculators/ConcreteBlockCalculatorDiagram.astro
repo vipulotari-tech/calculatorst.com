@@ -1,0 +1,284 @@
+---
+const slug = "concrete-block-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-concrete-block-rich-diagram
+  data-kind="concreteBlock"
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live concrete block wall takeoff</h3>
+      <p class="mt-1 max-w-[720px] text-[11px] leading-5 text-muted-foreground">
+        Wall dimensions, openings, specified CMU face size, mortar joint, gross courses, installed blocks, allowance, order weight, and final block order update from the calculator inputs.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">CMU WALL LAYOUT</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg viewBox="0 0 760 500" class="h-auto w-full" role="img" aria-labelledby="cmu-diagram-title cmu-diagram-desc">
+      <title id="cmu-diagram-title">Live concrete block wall takeoff diagram</title>
+      <desc id="cmu-diagram-desc">
+        CMU wall elevation showing length, height, excluded opening, installed block module, gross course layout, net wall area, installed blocks, allowance, final order quantity, and estimated order weight.
+      </desc>
+
+      <defs>
+        <marker id="cmu-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="cmu-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"/>
+        </marker>
+      </defs>
+
+      <text x="30" y="30" font-size="13" font-weight="700" fill="var(--color-foreground)">CMU wall elevation</text>
+      <text x="730" y="30" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)" data-cmu-wall-label>20 ft × 8 ft</text>
+
+      <line x1="70" y1="65" x2="520" y2="65" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cmu-arrow-start)" marker-end="url(#cmu-arrow-end)"/>
+      <text x="295" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" data-cmu-length-label>Length = 20 ft</text>
+
+      <line x1="48" y1="90" x2="48" y2="305" stroke="#2563eb" stroke-width="1.5" marker-start="url(#cmu-arrow-start)" marker-end="url(#cmu-arrow-end)"/>
+      <text x="31" y="198" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" transform="rotate(-90 31 198)" data-cmu-height-label>Height = 8 ft</text>
+
+      <rect x="70" y="90" width="450" height="215" rx="3" fill="var(--color-muted)" opacity=".11" stroke="var(--color-foreground)" stroke-width="1.5"/>
+      <g data-cmu-grid aria-hidden="true"></g>
+
+      <g data-cmu-opening>
+        <rect x="259" y="166" width="72" height="139" rx="2" fill="var(--color-background)" stroke="#b45309" stroke-width="1.6" stroke-dasharray="5 4"/>
+        <text x="295" y="230" text-anchor="middle" font-size="10.5" font-weight="700" fill="#92400e">OPENING</text>
+        <text x="295" y="246" text-anchor="middle" font-size="10" fill="#92400e" data-cmu-opening-label>0 ft²</text>
+      </g>
+
+      <text x="70" y="330" font-size="10.5" fill="var(--color-muted-foreground)" data-cmu-module-label>Installed module = 16 in × 8 in</text>
+      <text x="520" y="330" text-anchor="end" font-size="10.5" fill="var(--color-muted-foreground)" data-cmu-joint-label>Mortar joint = 0.375 in</text>
+
+      <g transform="translate(548 86)">
+        <rect x="0" y="0" width="182" height="219" rx="12" fill="var(--color-muted)" opacity=".20" stroke="var(--color-border)"/>
+        <text x="16" y="24" font-size="10.5" font-weight="700" fill="var(--color-foreground)">CURRENT TAKEOFF</text>
+
+        <text x="16" y="54" font-size="12" fill="var(--color-muted-foreground)">Net wall area</text>
+        <text x="16" y="75" font-size="18" font-weight="700" fill="var(--color-foreground)" data-cmu-net-area>160 ft²</text>
+
+        <text x="16" y="105" font-size="12" fill="var(--color-muted-foreground)">Installed blocks</text>
+        <text x="16" y="126" font-size="18" font-weight="700" fill="var(--color-foreground)" data-cmu-installed>180</text>
+
+        <text x="16" y="156" font-size="12" fill="var(--color-muted-foreground)">Order with allowance</text>
+        <text x="16" y="178" font-size="20" font-weight="700" fill="#1d4ed8" data-cmu-order>198 blocks</text>
+
+        <text x="16" y="205" font-size="10.5" fill="var(--color-muted-foreground)" data-cmu-waste>10% allowance</text>
+      </g>
+
+      <rect x="30" y="360" width="700" height="54" rx="10" fill="var(--color-muted)" opacity=".22" stroke="var(--color-border)"/>
+      <text x="48" y="382" font-size="10.5" font-weight="700" fill="var(--color-foreground)">TAKEOFF FORMULA</text>
+      <text x="48" y="402" font-size="12.5" font-weight="700" fill="var(--color-foreground)">Blocks = net wall area ÷ installed CMU module face</text>
+      <text x="712" y="392" text-anchor="end" font-size="12.5" font-weight="700" fill="#1d4ed8" data-cmu-formula-live>160 ÷ 0.8889 = 180</text>
+
+      <g transform="translate(30 432)">
+        <rect x="0" y="0" width="216" height="48" rx="10" fill="var(--color-muted)" opacity=".18" stroke="var(--color-border)"/>
+        <text x="14" y="19" font-size="10" fill="var(--color-muted-foreground)">Gross layout check</text>
+        <text x="14" y="37" font-size="12" font-weight="700" fill="var(--color-foreground)" data-cmu-layout-check>12 courses × 15 blocks/course</text>
+      </g>
+
+      <g transform="translate(272 432)">
+        <rect x="0" y="0" width="216" height="48" rx="10" fill="var(--color-muted)" opacity=".18" stroke="var(--color-border)"/>
+        <text x="14" y="19" font-size="10" fill="var(--color-muted-foreground)">Spare / allowance blocks</text>
+        <text x="14" y="37" font-size="12" font-weight="700" fill="var(--color-foreground)" data-cmu-spares>18 blocks</text>
+      </g>
+
+      <g transform="translate(514 432)">
+        <rect x="0" y="0" width="216" height="48" rx="10" fill="var(--color-muted)" opacity=".18" stroke="var(--color-border)"/>
+        <text x="14" y="19" font-size="10" fill="var(--color-muted-foreground)">Estimated order weight</text>
+        <text x="14" y="37" font-size="12" font-weight="700" fill="var(--color-foreground)" data-cmu-weight>6,930 lb</text>
+      </g>
+    </svg>
+  </div>
+</figure>
+
+<script>
+  function initConcreteBlockRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-concrete-block-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="concrete-block-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#concrete-block-calculator-form");
+      const grid = figure.querySelector<SVGGElement>("[data-cmu-grid]");
+      if (!form || !grid) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>("#concrete-block-calculator-" + id);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>("#concrete-block-calculator-" + id + "-unit");
+
+      const unitText = (id: string) => {
+        const u = unit(id);
+        return u ? (u.options[u.selectedIndex]?.text?.trim() || u.value) : "";
+      };
+
+      const displayValue = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const label = unitText(id);
+        return label ? shown + " " + label : shown;
+      };
+
+      const feet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = { ft: 1, in: 1 / 12, yd: 3, m: 1 / 0.3048, cm: 1 / 30.48, mm: 1 / 304.8 };
+        return n * (factors[unit(id)?.value ?? "ft"] ?? 1);
+      };
+
+      const areaFt2 = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = {
+          ft2: 1, "ft²": 1,
+          in2: 1 / 144, "in²": 1 / 144,
+          yd2: 9, "yd²": 9,
+          m2: 10.7639104167, "m²": 10.7639104167,
+          cm2: 0.00107639104167, "cm²": 0.00107639104167,
+          mm2: 0.0000107639104167, "mm²": 0.0000107639104167
+        };
+        return n * (factors[unit(id)?.value ?? "ft2"] ?? 1);
+      };
+
+      const num = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const fmt = (value: number, digits = 2) =>
+        Number.isFinite(value) ? String(Number(value.toFixed(digits))) : "—";
+
+      const intText = (value: number) =>
+        Number.isFinite(value) ? Math.round(value).toLocaleString("en-US") : "—";
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => {
+          el.textContent = text;
+        });
+      };
+
+      const svgEl = <K extends keyof SVGElementTagNameMap>(name: K, attrs: Record<string, string>) => {
+        const el = document.createElementNS("http://www.w3.org/2000/svg", name);
+        Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
+        return el;
+      };
+
+      const renderGrid = (courses: number, perCourse: number) => {
+        while (grid.firstChild) grid.removeChild(grid.firstChild);
+
+        const x0 = 70, x1 = 520, y0 = 90, y1 = 305;
+        const shownRows = Math.max(1, Math.min(courses, 16));
+        const shownCols = Math.max(1, Math.min(perCourse, 22));
+        const rowH = (y1 - y0) / shownRows;
+        const colW = (x1 - x0) / shownCols;
+
+        for (let r = 0; r < shownRows; r++) {
+          const offset = r % 2 ? colW / 2 : 0;
+          for (let c = -1; c <= shownCols; c++) {
+            const x = x0 + c * colW + offset;
+            const left = Math.max(x0, x);
+            const right = Math.min(x1, x + colW);
+            if (right <= left) continue;
+            grid.appendChild(svgEl("rect", {
+              x: String(left + 0.5),
+              y: String(y0 + r * rowH + 0.5),
+              width: String(Math.max(1, right - left - 1)),
+              height: String(Math.max(1, rowH - 1)),
+              rx: "0.9",
+              fill: (r + c) % 2 === 0 ? "var(--color-muted)" : "var(--color-background)",
+              stroke: "var(--color-border)",
+              "stroke-width": "0.75"
+            }));
+
+            if (right - left > 12 && rowH > 8) {
+              grid.appendChild(svgEl("line", {
+                x1: String(left + (right-left)*0.34),
+                x2: String(left + (right-left)*0.34),
+                y1: String(y0 + r*rowH + rowH*0.28),
+                y2: String(y0 + r*rowH + rowH*0.72),
+                stroke: "var(--color-muted-foreground)",
+                "stroke-width": "0.55",
+                opacity: ".34"
+              }));
+              grid.appendChild(svgEl("line", {
+                x1: String(left + (right-left)*0.66),
+                x2: String(left + (right-left)*0.66),
+                y1: String(y0 + r*rowH + rowH*0.28),
+                y2: String(y0 + r*rowH + rowH*0.72),
+                stroke: "var(--color-muted-foreground)",
+                "stroke-width": "0.55",
+                opacity: ".34"
+              }));
+            }
+          }
+        }
+      };
+
+      const update = () => {
+        const lengthFt = feet("length");
+        const heightFt = feet("height");
+        const openings = Math.max(0, areaFt2("openings"));
+        const blockLengthFt = feet("blockLength");
+        const blockHeightFt = feet("blockHeight");
+        const jointFt = Math.max(0, feet("joint"));
+        const allowance = Math.max(0, num("waste", 0));
+        const unitWeight = Math.max(0, num("unitWeight", 0));
+
+        const gross = Number.isFinite(lengthFt) && lengthFt > 0 && Number.isFinite(heightFt) && heightFt > 0
+          ? lengthFt * heightFt : 0;
+        const net = Math.max(0, gross - (Number.isFinite(openings) ? openings : 0));
+
+        const moduleL = blockLengthFt + jointFt;
+        const moduleH = blockHeightFt + jointFt;
+        const moduleFace = moduleL > 0 && moduleH > 0 ? moduleL * moduleH : 0;
+        const raw = moduleFace > 0 ? net / moduleFace : 0;
+        const installed = raw > 0 ? Math.ceil(raw - 1e-12) : 0;
+        const order = raw > 0 ? Math.ceil(raw * (1 + allowance / 100) - 1e-12) : 0;
+        const spares = Math.max(0, order - installed);
+        const courses = moduleH > 0 && heightFt > 0 ? Math.ceil(heightFt / moduleH) : 0;
+        const perCourse = moduleL > 0 && lengthFt > 0 ? Math.ceil(lengthFt / moduleL) : 0;
+        const weight = order * unitWeight;
+
+        renderGrid(courses || 1, perCourse || 1);
+
+        setText("[data-cmu-wall-label]", displayValue("length") + " × " + displayValue("height"));
+        setText("[data-cmu-length-label]", "Length = " + displayValue("length"));
+        setText("[data-cmu-height-label]", "Height = " + displayValue("height"));
+        setText("[data-cmu-opening-label]", fmt(openings) + " ft²");
+        setText("[data-cmu-module-label]", "Installed module = " + fmt(moduleL * 12, 3) + " in × " + fmt(moduleH * 12, 3) + " in");
+        setText("[data-cmu-joint-label]", "Mortar joint = " + displayValue("joint"));
+        setText("[data-cmu-net-area]", fmt(net) + " ft²");
+        setText("[data-cmu-installed]", intText(installed));
+        setText("[data-cmu-order]", intText(order) + " blocks");
+        setText("[data-cmu-waste]", fmt(allowance) + "% allowance");
+        setText("[data-cmu-formula-live]", fmt(net) + " ÷ " + fmt(moduleFace, 4) + " = " + fmt(raw));
+        setText("[data-cmu-layout-check]", courses + " courses × " + perCourse + " blocks/course");
+        setText("[data-cmu-spares]", intText(spares) + " blocks");
+        setText("[data-cmu-weight]", intText(weight) + " lb");
+
+        const opening = figure.querySelector<SVGGElement>("[data-cmu-opening]");
+        if (opening) opening.style.display = openings > 0 ? "" : "none";
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+
+      update();
+      queueMicrotask(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 0);
+    });
+  }
+
+  initConcreteBlockRichDiagrams();
+  document.addEventListener("astro:page-load", initConcreteBlockRichDiagrams);
+</script>

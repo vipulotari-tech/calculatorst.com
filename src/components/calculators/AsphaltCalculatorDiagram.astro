@@ -1,0 +1,229 @@
+---
+const slug = "asphalt-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-asphalt-rich-diagram
+  data-kind="asphalt"
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live asphalt quantity diagram</h3>
+      <p class="mt-1 max-w-[720px] text-[11px] leading-5 text-muted-foreground">
+        Pavement plan dimensions, compacted thickness, identical sections, density, allowance, order volume, and estimated asphalt tonnage update from the calculator inputs.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">COMPACTED LAYER</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg viewBox="0 0 760 500" class="h-auto w-full" role="img" aria-labelledby="asphalt-diagram-title asphalt-diagram-desc">
+      <title id="asphalt-diagram-title">Live asphalt pavement quantity diagram</title>
+      <desc id="asphalt-diagram-desc">
+        Plan view and cross-section of a rectangular asphalt layer showing length, width, compacted thickness, density, allowance, cubic-yard order volume, and estimated US tons.
+      </desc>
+
+      <defs>
+        <marker id="asphalt-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="asphalt-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"/>
+        </marker>
+        <pattern id="asphalt-texture" width="18" height="18" patternUnits="userSpaceOnUse">
+          <rect width="18" height="18" fill="var(--color-foreground)" opacity=".82"/>
+          <circle cx="4" cy="5" r="1.1" fill="var(--color-background)" opacity=".32"/>
+          <circle cx="13" cy="11" r="1" fill="var(--color-background)" opacity=".28"/>
+          <circle cx="8" cy="15" r=".7" fill="var(--color-background)" opacity=".24"/>
+        </pattern>
+      </defs>
+
+      <text x="30" y="30" font-size="13" font-weight="700" fill="var(--color-foreground)">Pavement plan</text>
+      <text x="730" y="30" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)" data-asphalt-size-label>20 ft × 10 ft</text>
+
+      <line x1="66" y1="66" x2="430" y2="66" stroke="#2563eb" stroke-width="1.5" marker-start="url(#asphalt-arrow-start)" marker-end="url(#asphalt-arrow-end)"/>
+      <text x="248" y="53" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" data-asphalt-length-label>Length = 20 ft</text>
+
+      <line x1="46" y1="92" x2="46" y2="266" stroke="#2563eb" stroke-width="1.5" marker-start="url(#asphalt-arrow-start)" marker-end="url(#asphalt-arrow-end)"/>
+      <text x="30" y="179" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" transform="rotate(-90 30 179)" data-asphalt-width-label>Width = 10 ft</text>
+
+      <rect x="66" y="92" width="364" height="174" rx="8" fill="url(#asphalt-texture)" stroke="var(--color-foreground)" stroke-width="1.6"/>
+      <path d="M88 145H408M88 211H408" stroke="var(--color-background)" stroke-width="1" opacity=".22" stroke-dasharray="8 8"/>
+      <text x="248" y="184" text-anchor="middle" font-size="16" font-weight="700" fill="var(--color-background)" data-asphalt-plan-area>200 ft²</text>
+      <text x="248" y="205" text-anchor="middle" font-size="10.5" fill="var(--color-background)" opacity=".78" data-asphalt-sections-label>1 identical section</text>
+
+      <text x="476" y="30" font-size="13" font-weight="700" fill="var(--color-foreground)">Compacted cross-section</text>
+      <rect x="492" y="105" width="214" height="56" rx="3" fill="url(#asphalt-texture)" stroke="var(--color-foreground)" stroke-width="1.5"/>
+      <rect x="492" y="161" width="214" height="62" rx="3" fill="var(--color-muted)" opacity=".55" stroke="var(--color-border)"/>
+      <line x1="732" y1="105" x2="732" y2="161" stroke="#2563eb" stroke-width="1.5" marker-start="url(#asphalt-arrow-start)" marker-end="url(#asphalt-arrow-end)"/>
+      <text x="718" y="134" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8" transform="rotate(-90 718 134)" data-asphalt-depth-label>4 in</text>
+      <text x="599" y="137" text-anchor="middle" font-size="12" font-weight="700" fill="var(--color-background)">ASPHALT</text>
+      <text x="599" y="194" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)">Prepared base / subgrade</text>
+      <text x="599" y="244" text-anchor="middle" font-size="10.5" fill="var(--color-muted-foreground)" data-asphalt-density-label>Density = 145 lb/ft³</text>
+
+      <rect x="30" y="303" width="700" height="48" rx="10" fill="var(--color-muted)" opacity=".22" stroke="var(--color-border)"/>
+      <text x="48" y="323" font-size="10.5" font-weight="700" fill="var(--color-foreground)">QUANTITY FORMULA</text>
+      <text x="48" y="341" font-size="12.5" font-weight="700" fill="var(--color-foreground)">Volume = length × width × thickness × sections</text>
+      <text x="712" y="332" text-anchor="end" font-size="12.5" font-weight="700" fill="#1d4ed8" data-asphalt-formula-live>20 × 10 × 0.333 × 1 = 66.67 ft³</text>
+
+      <g transform="translate(30 374)">
+        <rect x="0" y="0" width="216" height="98" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="16" y="23" font-size="10.5" font-weight="700" fill="var(--color-foreground)">NET PLACED VOLUME</text>
+        <text x="16" y="52" font-size="20" font-weight="700" fill="var(--color-foreground)" data-asphalt-net>2.47 yd³</text>
+        <text x="16" y="76" font-size="12" fill="var(--color-muted-foreground)" data-asphalt-net-ft3>66.67 ft³ compacted</text>
+      </g>
+
+      <g transform="translate(272 374)">
+        <rect x="0" y="0" width="216" height="98" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="16" y="23" font-size="10.5" font-weight="700" fill="var(--color-foreground)">ORDER WITH ALLOWANCE</text>
+        <text x="16" y="52" font-size="20" font-weight="700" fill="#1d4ed8" data-asphalt-order>2.72 yd³</text>
+        <text x="16" y="76" font-size="12" fill="var(--color-muted-foreground)" data-asphalt-waste>10% allowance</text>
+      </g>
+
+      <g transform="translate(514 374)">
+        <rect x="0" y="0" width="216" height="98" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="16" y="23" font-size="10.5" font-weight="700" fill="var(--color-foreground)">ESTIMATED ORDER WEIGHT</text>
+        <text x="16" y="52" font-size="20" font-weight="700" fill="#1d4ed8" data-asphalt-tons>5.32 US tons</text>
+        <text x="16" y="76" font-size="12" fill="var(--color-muted-foreground)" data-asphalt-pounds>10,633 lb</text>
+      </g>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-4">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Surface area</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-asphalt-card-area>200 ft²</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Compacted thickness</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-asphalt-card-depth>4 in</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Order volume</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-asphalt-card-order>2.72 yd³</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Estimated weight</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-asphalt-card-tons>5.32 US tons</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initAsphaltRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-asphalt-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="asphalt-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#asphalt-calculator-form");
+      if (!form) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>("#asphalt-calculator-" + id);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>("#asphalt-calculator-" + id + "-unit");
+
+      const unitText = (id: string) => {
+        const u = unit(id);
+        return u ? (u.options[u.selectedIndex]?.text?.trim() || u.value) : "";
+      };
+
+      const displayValue = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const label = unitText(id);
+        return label ? shown + " " + label : shown;
+      };
+
+      const feet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = { ft: 1, in: 1 / 12, yd: 3, m: 1 / 0.3048, cm: 1 / 30.48, mm: 1 / 304.8 };
+        return n * (factors[unit(id)?.value ?? "ft"] ?? 1);
+      };
+
+      const densityLbFt3 = () => {
+        const n = Number(input("density")?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const u = unit("density")?.value ?? "lb/ft3";
+        if (u === "kg/m3") return n * 2.20462262185 / 35.3146667215;
+        if (u === "ton/yd3") return n * 2000 / 27;
+        return n;
+      };
+
+      const numberValue = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const fmt = (value: number, digits = 2) =>
+        Number.isFinite(value) ? String(Number(value.toFixed(digits))) : "—";
+
+      const fmtInt = (value: number) =>
+        Number.isFinite(value) ? Math.round(value).toLocaleString("en-US") : "—";
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => {
+          el.textContent = text;
+        });
+      };
+
+      const update = () => {
+        const lengthFt = feet("length");
+        const widthFt = feet("width");
+        const depthFt = feet("depth");
+        const quantity = Math.max(0, Math.round(numberValue("quantity", 1)));
+        const allowance = Math.max(0, numberValue("waste", 0));
+        const density = densityLbFt3();
+
+        const valid = [lengthFt, widthFt, depthFt, density].every(v => Number.isFinite(v) && v > 0) && quantity > 0;
+        const area = valid ? lengthFt * widthFt * quantity : 0;
+        const netFt3 = valid ? lengthFt * widthFt * depthFt * quantity : 0;
+        const netYd3 = netFt3 / 27;
+        const orderFt3 = netFt3 * (1 + allowance / 100);
+        const orderYd3 = orderFt3 / 27;
+        const pounds = orderFt3 * density;
+        const tons = pounds / 2000;
+
+        setText("[data-asphalt-size-label]", displayValue("length") + " × " + displayValue("width"));
+        setText("[data-asphalt-length-label]", "Length = " + displayValue("length"));
+        setText("[data-asphalt-width-label]", "Width = " + displayValue("width"));
+        setText("[data-asphalt-depth-label]", displayValue("depth"));
+        setText("[data-asphalt-plan-area]", fmt(area) + " ft²");
+        setText("[data-asphalt-sections-label]", quantity + " identical " + (quantity === 1 ? "section" : "sections"));
+        setText("[data-asphalt-density-label]", "Density = " + displayValue("density"));
+        setText("[data-asphalt-formula-live]", valid
+          ? fmt(lengthFt) + " × " + fmt(widthFt) + " × " + fmt(depthFt, 3) + " × " + quantity + " = " + fmt(netFt3) + " ft³"
+          : "Enter valid pavement dimensions");
+        setText("[data-asphalt-net]", fmt(netYd3) + " yd³");
+        setText("[data-asphalt-net-ft3]", fmt(netFt3) + " ft³ compacted");
+        setText("[data-asphalt-order]", fmt(orderYd3) + " yd³");
+        setText("[data-asphalt-waste]", fmt(allowance) + "% allowance");
+        setText("[data-asphalt-tons]", fmt(tons) + " US tons");
+        setText("[data-asphalt-pounds]", fmtInt(pounds) + " lb");
+
+        setText("[data-asphalt-card-area]", fmt(area) + " ft²");
+        setText("[data-asphalt-card-depth]", displayValue("depth"));
+        setText("[data-asphalt-card-order]", fmt(orderYd3) + " yd³");
+        setText("[data-asphalt-card-tons]", fmt(tons) + " US tons");
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+
+      update();
+      queueMicrotask(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 0);
+    });
+  }
+
+  initAsphaltRichDiagrams();
+  document.addEventListener("astro:page-load", initAsphaltRichDiagrams);
+</script>
