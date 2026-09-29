@@ -266,8 +266,10 @@ describe('Priority 20 construction calculator math audit', () => {
       if (field.value !== undefined) raw[field.id] = field.value;
       if (field.unit) units[field.id] = field.unit;
     }
-    raw.mode = 1;
-    raw.knownArea = 0;
+    raw.mode = 0;
+    raw.length = 20;
+    raw.height = 8;
+    raw.openings = 160;
     expect(() => model.calculate(readInputs(model.fields, raw, units), units))
       .toThrow(/net wall area must be greater than zero/i);
   });
