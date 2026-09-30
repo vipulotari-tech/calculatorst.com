@@ -195,7 +195,9 @@ const slug = "road-base-calculator";
       };
 
       const numberValue = (id: string, fallback = 0) => {
-        const n = Number(input(id)?.value);
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return fallback;
+        const n = Number(raw);
         return Number.isFinite(n) ? n : fallback;
       };
 
