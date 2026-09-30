@@ -14,3 +14,5 @@ Markdown runtime references were adapted from the plugin root to this repository
 ```
 
 The upstream MIT license is retained at `.claude/skills/seo/LICENSE`.
+
+Runtime state created by `setup` (the isolated `.venv`, Playwright browser files, locks, and runtime state) is ignored by Git and stays local to the checkout.
