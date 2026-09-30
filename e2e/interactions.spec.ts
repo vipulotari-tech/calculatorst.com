@@ -1921,6 +1921,45 @@ test.describe('Drywall / deck / landscaping / asphalt full browser audit', () =>
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+  test('construction material cost calculator shows the full live cost buildup', async ({ page }) => {
+    await page.goto('/construction-material-cost-calculator/');
+    const root = page.locator('[data-calculator-slug="construction-material-cost-calculator"]');
+    const diagram = root.locator('[data-construction-material-cost-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('QUANTITY BUILDUP');
+    await expect(diagram).toContainText('ENTERED-SCOPE COST BUILDUP');
+    await expect(diagram).toContainText('ESTIMATED ENTERED-SCOPE TOTAL');
+
+    await root.locator('#construction-material-cost-calculator-quantity').fill('100');
+    await root.locator('#construction-material-cost-calculator-delivery').fill('150');
+    await root.locator('#construction-material-cost-calculator-labor').fill('500');
+    await root.locator('#construction-material-cost-calculator-tax').fill('8');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#construction-material-cost-calculator-waste').fill('10');
+
+    const costs = root.locator('details').filter({ hasText: 'Cost & project extras' });
+    await costs.locator('summary').click();
+    await root.locator('#construction-material-cost-calculator-price').fill('12.5');
+
+    await expect(diagram.locator('[data-material-cost-card-net]')).toHaveText('100 units');
+    await expect(diagram.locator('[data-material-cost-card-order]')).toHaveText('110 units');
+    await expect(diagram.locator('[data-material-cost-card-material-bottom]')).toHaveText('$1,375.00');
+    await expect(diagram.locator('[data-material-cost-card-tax-bottom]')).toHaveText('$110.00');
+    await expect(diagram.locator('[data-material-cost-card-fixed]')).toHaveText('$650.00');
+    await expect(diagram.locator('[data-material-cost-card-total]')).toHaveText('$2,135.00');
+    await expect(diagram).toContainText('10 extra units');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root).toContainText('Estimated total');
+    await expect(root).toContainText('Material subtotal');
+    await expect(root).toContainText('Quantity including allowance');
+    await expect(root).toContainText('Material tax');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('asphalt thickness page clearly behaves as a reverse calculation', async ({ page }) => {
     await page.goto('/asphalt-thickness-calculator/');
     const root = page.locator('[data-calculator-slug="asphalt-thickness-calculator"]');
