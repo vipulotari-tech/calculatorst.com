@@ -24,6 +24,7 @@ import AsphaltCalculatorDiagram from "./AsphaltCalculatorDiagram.astro";
 import AsphaltThicknessCalculatorDiagram from "./AsphaltThicknessCalculatorDiagram.astro";
 import ParkingLotCalculatorDiagram from "./ParkingLotCalculatorDiagram.astro";
 import ParkingLotCostCalculatorDiagram from "./ParkingLotCostCalculatorDiagram.astro";
+import RoadBaseCalculatorDiagram from "./RoadBaseCalculatorDiagram.astro";
 import BrickCalculatorDiagram from "./BrickCalculatorDiagram.astro";
 import ConcreteBlockCalculatorDiagram from "./ConcreteBlockCalculatorDiagram.astro";
 import RebarCalculatorDiagram from "./RebarCalculatorDiagram.astro";
@@ -430,6 +431,8 @@ const diagramFields = fields
                                           ? <ParkingLotCalculatorDiagram />
                                           : slug === "parking-lot-cost-calculator"
                                             ? <ParkingLotCostCalculatorDiagram />
+                                            : slug === "road-base-calculator"
+                                              ? <RoadBaseCalculatorDiagram />
                                       : slug === "brick-calculator"
                                         ? <BrickCalculatorDiagram />
                                         : slug === "concrete-block-calculator"
