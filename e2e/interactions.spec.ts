@@ -1888,6 +1888,39 @@ test.describe('Drywall / deck / landscaping / asphalt full browser audit', () =>
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+  test('surface area calculator shows gross, excluded, and net area in a dedicated diagram', async ({ page }) => {
+    await page.goto('/surface-area-calculator/');
+    const root = page.locator('[data-calculator-slug="surface-area-calculator"]');
+    const diagram = root.locator('[data-surface-area-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('RECTANGULAR FOOTPRINT');
+    await expect(diagram).toContainText('AREA BALANCE');
+    await expect(diagram).toContainText('GROSS − EXCLUDED = NET');
+
+    await root.locator('#surface-area-calculator-length').fill('30');
+    await root.locator('#surface-area-calculator-width').fill('20');
+    await root.locator('#surface-area-calculator-openings').fill('75');
+
+    await expect(diagram).toContainText('Length = 30 ft');
+    await expect(diagram).toContainText('Width = 20 ft');
+    await expect(diagram.locator('[data-surface-card-gross]')).toHaveText('600 ft²');
+    await expect(diagram.locator('[data-surface-card-excluded]')).toHaveText('75 ft²');
+    await expect(diagram.locator('[data-surface-card-ft2]')).toHaveText('525 ft²');
+    await expect(diagram.locator('[data-surface-card-m2]')).toHaveText('48.77 m²');
+    await expect(diagram.locator('[data-surface-card-yd2]')).toHaveText('58.33 yd²');
+
+    await root.locator('#surface-area-calculator-openings').fill('700');
+    await expect(diagram.locator('[data-surface-warning]')).toBeVisible();
+    await expect(diagram.locator('[data-surface-card-ft2]')).toHaveText('—');
+
+    await root.locator('#surface-area-calculator-openings').fill('75');
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root).toContainText('Net area');
+    await expect(root).toContainText('525');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('asphalt thickness page clearly behaves as a reverse calculation', async ({ page }) => {
     await page.goto('/asphalt-thickness-calculator/');
     const root = page.locator('[data-calculator-slug="asphalt-thickness-calculator"]');
