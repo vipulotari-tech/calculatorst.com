@@ -1805,6 +1805,48 @@ test.describe('Drywall / deck / landscaping / asphalt full browser audit', () =>
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+  test('parking lot cost calculator shows live quantity and entered-scope cost buildup', async ({ page }) => {
+    await page.goto('/parking-lot-cost-calculator/');
+    const root = page.locator('[data-calculator-slug="parking-lot-cost-calculator"]');
+    const diagram = root.locator('[data-parking-lot-cost-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('PAVED FOOTPRINT');
+    await expect(diagram).toContainText('COMPACTED LAYER');
+    await expect(diagram).toContainText('ENTERED-SCOPE COST BUILDUP');
+
+    await root.locator('#parking-lot-cost-calculator-length').fill('100');
+    await root.locator('#parking-lot-cost-calculator-width').fill('50');
+    await root.locator('#parking-lot-cost-calculator-depth').fill('3');
+    await root.locator('#parking-lot-cost-calculator-delivery').fill('500');
+    await root.locator('#parking-lot-cost-calculator-labor').fill('2500');
+    await root.locator('#parking-lot-cost-calculator-tax').fill('7');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#parking-lot-cost-calculator-density').fill('145');
+    await root.locator('#parking-lot-cost-calculator-waste').fill('10');
+
+    const costs = root.locator('details').filter({ hasText: 'Cost & project extras' });
+    await costs.locator('summary').click();
+    await root.locator('#parking-lot-cost-calculator-price').fill('120');
+
+    await expect(diagram).toContainText('Length = 100 ft');
+    await expect(diagram).toContainText('Width = 50 ft');
+    await expect(diagram.locator('[data-parking-cost-card-area]')).toHaveText('5,000 ft²');
+    await expect(diagram.locator('[data-parking-cost-card-volume]')).toHaveText('50.93 yd³');
+    await expect(diagram.locator('[data-parking-cost-card-tons]')).toHaveText('99.69 US tons');
+    await expect(diagram.locator('[data-parking-cost-card-material]')).toHaveText('$11,962.50');
+    await expect(diagram.locator('[data-parking-cost-card-fixed]')).toHaveText('$3,000.00');
+    await expect(diagram.locator('[data-parking-cost-card-total]')).toHaveText('$15,799.88');
+    await expect(diagram).toContainText('tax $837.38');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root).toContainText('Estimated parking-lot material + entered fixed costs');
+    await expect(root).toContainText('Asphalt material subtotal');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('asphalt thickness page clearly behaves as a reverse calculation', async ({ page }) => {
     await page.goto('/asphalt-thickness-calculator/');
     const root = page.locator('[data-calculator-slug="asphalt-thickness-calculator"]');
