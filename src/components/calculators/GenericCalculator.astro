@@ -389,7 +389,7 @@ const diagramFields = fields
     </div>
   </form>
 
-  {diagramFields.length >= 2 && (
+  {(diagramFields.length >= 2 || slug === "construction-material-cost-calculator") && (
     <div class="mt-6">
       {slug === "concrete-calculator"
         ? <ConcreteCalculatorDiagram />
