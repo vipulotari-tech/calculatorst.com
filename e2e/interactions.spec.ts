@@ -1772,6 +1772,39 @@ test.describe('Drywall / deck / landscaping / asphalt full browser audit', () =>
     expect(await root.innerText()).not.toMatch(/Tile|NaN|Infinity/);
   });
 
+  test('parking lot calculator uses a dedicated live asphalt takeoff diagram', async ({ page }) => {
+    await page.goto('/parking-lot-calculator/');
+    const root = page.locator('[data-calculator-slug="parking-lot-calculator"]');
+    const diagram = root.locator('[data-parking-lot-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('PLAN VIEW / PAVED AREA');
+    await expect(diagram).toContainText('COMPACTED CROSS SECTION');
+    await expect(diagram).toContainText('QUANTITY FORMULA');
+
+    await root.locator('#parking-lot-calculator-length').fill('120');
+    await root.locator('#parking-lot-calculator-width').fill('60');
+    await root.locator('#parking-lot-calculator-depth').fill('4');
+    await root.locator('#parking-lot-calculator-quantity').fill('2');
+
+    await root.getByText('Advanced material assumptions').click();
+    await root.locator('#parking-lot-calculator-density').fill('145');
+    await root.locator('#parking-lot-calculator-waste').fill('10');
+
+    await expect(diagram).toContainText('Length = 120 ft');
+    await expect(diagram).toContainText('Width = 60 ft');
+    await expect(diagram.locator('[data-parking-card-area]')).toHaveText('14,400 ft²');
+    await expect(diagram.locator('[data-parking-card-depth]')).toHaveText('4 in');
+    await expect(diagram.locator('[data-parking-card-sections]')).toHaveText('2');
+    await expect(diagram.locator('[data-parking-card-order]')).toHaveText('195.56 yd³');
+    await expect(diagram.locator('[data-parking-card-tons]')).toHaveText('382.8 US tons');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root).toContainText('Material volume with allowance');
+    await expect(root).toContainText('Estimated order weight');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('asphalt thickness page clearly behaves as a reverse calculation', async ({ page }) => {
     await page.goto('/asphalt-thickness-calculator/');
     const root = page.locator('[data-calculator-slug="asphalt-thickness-calculator"]');
