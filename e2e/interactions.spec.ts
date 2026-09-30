@@ -1847,6 +1847,47 @@ test.describe('Drywall / deck / landscaping / asphalt full browser audit', () =>
     expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
   });
 
+  test('road base calculator uses a dedicated live aggregate takeoff diagram', async ({ page }) => {
+    await page.goto('/road-base-calculator/');
+    const root = page.locator('[data-calculator-slug="road-base-calculator"]');
+    const diagram = root.locator('[data-road-base-rich-diagram]');
+
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('ROAD / BASE FOOTPRINT');
+    await expect(diagram).toContainText('PLACED BASE CROSS SECTION');
+    await expect(diagram).toContainText('QUANTITY FORMULA');
+
+    await root.locator('#road-base-calculator-length').fill('100');
+    await root.locator('#road-base-calculator-width').fill('20');
+    await root.locator('#road-base-calculator-depth').fill('8');
+    await root.locator('#road-base-calculator-quantity').fill('2');
+
+    const assumptions = root.locator('details').filter({ hasText: 'Advanced material assumptions' });
+    await assumptions.locator('summary').click();
+    await root.locator('#road-base-calculator-density').fill('1.5');
+    await root.locator('#road-base-calculator-waste').fill('10');
+
+    const costs = root.locator('details').filter({ hasText: 'Cost & project extras' });
+    await costs.locator('summary').click();
+    await root.locator('#road-base-calculator-price-unit').selectOption('USD/ton');
+    await root.locator('#road-base-calculator-price').fill('60');
+
+    await expect(diagram).toContainText('Length = 100 ft');
+    await expect(diagram).toContainText('Width = 20 ft');
+    await expect(diagram.locator('[data-road-base-card-area]')).toHaveText('4,000 ft²');
+    await expect(diagram.locator('[data-road-base-card-depth]')).toHaveText('8 in');
+    await expect(diagram.locator('[data-road-base-card-order]')).toHaveText('108.64 yd³');
+    await expect(diagram.locator('[data-road-base-card-m3]')).toHaveText('83.06 m³');
+    await expect(diagram.locator('[data-road-base-card-tons]')).toHaveText('162.96 US tons');
+    await expect(diagram.locator('[data-road-base-card-cost]')).toHaveText('$9,777.78');
+
+    await root.getByRole('button', { name: /^Calculate$/ }).click();
+    await expect(root).toContainText('Material volume with allowance');
+    await expect(root).toContainText('Estimated order weight');
+    await expect(root).toContainText('Estimated material cost');
+    expect(await root.innerText()).not.toMatch(/NaN|Infinity|undefined/);
+  });
+
   test('asphalt thickness page clearly behaves as a reverse calculation', async ({ page }) => {
     await page.goto('/asphalt-thickness-calculator/');
     const root = page.locator('[data-calculator-slug="asphalt-thickness-calculator"]');
