@@ -1,0 +1,233 @@
+---
+const slug = "construction-material-cost-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-construction-material-cost-rich-diagram
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live material-cost buildup</h3>
+      <p class="mt-1 max-w-[720px] text-[11px] leading-5 text-muted-foreground">
+        Entered quantity, purchasing allowance, supplier unit price, material tax, delivery, labor, and entered-scope total update from the calculator inputs.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE COST WORKSHEET</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg viewBox="0 0 760 510" class="h-auto w-full" role="img" aria-labelledby={`${slug}-cost-title ${slug}-cost-desc`}>
+      <title id={`${slug}-cost-title`}>Live construction material cost buildup</title>
+      <desc id={`${slug}-cost-desc`}>
+        Flow from net material quantity through allowance-adjusted quantity, supplier price, material subtotal, tax, delivery, labor, and final entered-scope total.
+      </desc>
+
+      <defs>
+        <marker id="material-cost-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="var(--color-muted-foreground)" />
+        </marker>
+      </defs>
+
+      <rect width="760" height="510" fill="var(--color-background)" />
+      <text x="28" y="30" font-size="13" font-weight="700" fill="var(--color-foreground)">Quantity → purchasing → project cost</text>
+      <text x="732" y="30" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)" data-material-cost-summary>100 units · 10% allowance</text>
+
+      <text x="36" y="68" font-size="11" font-weight="700" fill="var(--color-foreground)">QUANTITY BUILDUP</text>
+
+      <g transform="translate(36 88)">
+        <rect width="188" height="86" rx="11" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+        <text x="14" y="22" font-size="10" font-weight="700" fill="var(--color-foreground)">NET QUANTITY</text>
+        <text x="14" y="51" font-size="22" font-weight="700" fill="var(--color-foreground)" data-material-cost-net>100 units</text>
+        <text x="14" y="70" font-size="10.5" fill="var(--color-muted-foreground)">Measured / required amount</text>
+      </g>
+
+      <line x1="235" y1="131" x2="286" y2="131" stroke="var(--color-muted-foreground)" stroke-width="1.5" marker-end="url(#material-cost-arrow)" />
+      <text x="260" y="117" text-anchor="middle" font-size="10.5" fill="#1d4ed8" data-material-cost-allowance>+10%</text>
+
+      <g transform="translate(296 88)">
+        <rect width="188" height="86" rx="11" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+        <text x="14" y="22" font-size="10" font-weight="700" fill="var(--color-foreground)">QUANTITY TO PRICE</text>
+        <text x="14" y="51" font-size="22" font-weight="700" fill="#1d4ed8" data-material-cost-order>110 units</text>
+        <text x="14" y="70" font-size="10.5" fill="var(--color-muted-foreground)" data-material-cost-extra>10 extra units</text>
+      </g>
+
+      <line x1="495" y1="131" x2="546" y2="131" stroke="var(--color-muted-foreground)" stroke-width="1.5" marker-end="url(#material-cost-arrow)" />
+
+      <g transform="translate(556 88)">
+        <rect width="168" height="86" rx="11" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+        <text x="14" y="22" font-size="10" font-weight="700" fill="var(--color-foreground)">UNIT QUOTE</text>
+        <text x="14" y="51" font-size="22" font-weight="700" fill="var(--color-foreground)" data-material-cost-price>$0.00</text>
+        <text x="14" y="70" font-size="10.5" fill="var(--color-muted-foreground)">per matching unit</text>
+      </g>
+
+      <rect x="36" y="202" width="688" height="63" rx="10" fill="var(--color-muted)" opacity=".22" stroke="var(--color-border)" />
+      <text x="52" y="224" font-size="10.5" font-weight="700" fill="var(--color-foreground)">MATERIAL FORMULA</text>
+      <text x="52" y="248" font-size="12.5" font-weight="700" fill="var(--color-foreground)" data-material-cost-material-formula>
+        110 units × $0.00 = $0.00
+      </text>
+      <text x="708" y="240" text-anchor="end" font-size="17" font-weight="700" fill="#1d4ed8" data-material-cost-material>$0.00</text>
+
+      <text x="36" y="298" font-size="11" font-weight="700" fill="var(--color-foreground)">ENTERED-SCOPE COST BUILDUP</text>
+
+      <g transform="translate(36 315)">
+        <rect width="162" height="82" rx="11" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+        <text x="14" y="22" font-size="10" font-weight="700" fill="var(--color-foreground)">MATERIAL</text>
+        <text x="14" y="50" font-size="18" font-weight="700" fill="var(--color-foreground)" data-material-cost-card-material>$0.00</text>
+        <text x="14" y="69" font-size="10.5" fill="var(--color-muted-foreground)">Allowance included</text>
+      </g>
+
+      <text x="210" y="359" font-size="19" font-weight="700" fill="var(--color-muted-foreground)">+</text>
+
+      <g transform="translate(231 315)">
+        <rect width="136" height="82" rx="11" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+        <text x="14" y="22" font-size="10" font-weight="700" fill="var(--color-foreground)">MATERIAL TAX</text>
+        <text x="14" y="50" font-size="18" font-weight="700" fill="var(--color-foreground)" data-material-cost-card-tax>$0.00</text>
+        <text x="14" y="69" font-size="10.5" fill="var(--color-muted-foreground)" data-material-cost-tax-rate>0%</text>
+      </g>
+
+      <text x="379" y="359" font-size="19" font-weight="700" fill="var(--color-muted-foreground)">+</text>
+
+      <g transform="translate(400 315)">
+        <rect width="136" height="82" rx="11" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+        <text x="14" y="22" font-size="10" font-weight="700" fill="var(--color-foreground)">DELIVERY</text>
+        <text x="14" y="50" font-size="18" font-weight="700" fill="var(--color-foreground)" data-material-cost-card-delivery>$0.00</text>
+        <text x="14" y="69" font-size="10.5" fill="var(--color-muted-foreground)">Entered flat charge</text>
+      </g>
+
+      <text x="548" y="359" font-size="19" font-weight="700" fill="var(--color-muted-foreground)">+</text>
+
+      <g transform="translate(569 315)">
+        <rect width="155" height="82" rx="11" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)" />
+        <text x="14" y="22" font-size="10" font-weight="700" fill="var(--color-foreground)">LABOR</text>
+        <text x="14" y="50" font-size="18" font-weight="700" fill="var(--color-foreground)" data-material-cost-card-labor>$0.00</text>
+        <text x="14" y="69" font-size="10.5" fill="var(--color-muted-foreground)">Entered flat charge</text>
+      </g>
+
+      <rect x="36" y="424" width="688" height="55" rx="10" fill="var(--color-muted)" opacity=".22" stroke="var(--color-border)" />
+      <text x="52" y="446" font-size="10.5" font-weight="700" fill="var(--color-foreground)">ESTIMATED ENTERED-SCOPE TOTAL</text>
+      <text x="52" y="466" font-size="10.2" fill="var(--color-muted-foreground)" data-material-cost-total-formula>Material + tax + delivery + labor</text>
+      <text x="708" y="459" text-anchor="end" font-size="23" font-weight="700" fill="#1d4ed8" data-material-cost-total>$0.00</text>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-6">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Net quantity</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-material-cost-card-net>100 units</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">With allowance</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-material-cost-card-order>110 units</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Material subtotal</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-material-cost-card-material-bottom>$0.00</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Material tax</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-material-cost-card-tax-bottom>$0.00</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Fixed extras</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-material-cost-card-fixed>$0.00</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Total</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-material-cost-card-total>$0.00</dd>
+    </div>
+  </dl>
+</figure>
+
+<script>
+  function initConstructionMaterialCostDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-construction-material-cost-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="construction-material-cost-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#construction-material-cost-calculator-form");
+      if (!form) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>("#construction-material-cost-calculator-" + id);
+
+      const numberValue = (id: string, fallback = 0) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return fallback;
+        const n = Number(raw);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const fmt = (n: number, digits = 2) =>
+        Number.isFinite(n)
+          ? new Intl.NumberFormat("en-US", { maximumFractionDigits: digits }).format(n)
+          : "—";
+
+      const money = (n: number) =>
+        Number.isFinite(n)
+          ? new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 }).format(n)
+          : "—";
+
+      const setText = (selector: string, text: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => {
+          el.textContent = text;
+        });
+      };
+
+      const update = () => {
+        const quantity = Math.max(0, numberValue("quantity", 0));
+        const allowance = Math.max(0, numberValue("waste", 0));
+        const price = Math.max(0, numberValue("price", 0));
+        const delivery = Math.max(0, numberValue("delivery", 0));
+        const labor = Math.max(0, numberValue("labor", 0));
+        const taxRate = Math.max(0, numberValue("tax", 0));
+
+        const order = quantity * (1 + allowance / 100);
+        const extra = order - quantity;
+        const materials = order * price;
+        const tax = materials * taxRate / 100;
+        const fixed = delivery + labor;
+        const total = materials + tax + fixed;
+
+        setText("[data-material-cost-summary]", fmt(quantity) + " units · " + fmt(allowance) + "% allowance");
+        setText("[data-material-cost-net]", fmt(quantity) + " units");
+        setText("[data-material-cost-allowance]", "+" + fmt(allowance) + "%");
+        setText("[data-material-cost-order]", fmt(order) + " units");
+        setText("[data-material-cost-extra]", fmt(extra) + " extra units");
+        setText("[data-material-cost-price]", money(price));
+        setText("[data-material-cost-material-formula]", fmt(order) + " units × " + money(price) + " = " + money(materials));
+        setText("[data-material-cost-material]", money(materials));
+
+        setText("[data-material-cost-card-material]", money(materials));
+        setText("[data-material-cost-card-tax]", money(tax));
+        setText("[data-material-cost-tax-rate]", fmt(taxRate) + "% of material");
+        setText("[data-material-cost-card-delivery]", money(delivery));
+        setText("[data-material-cost-card-labor]", money(labor));
+        setText("[data-material-cost-total-formula]", money(materials) + " + " + money(tax) + " + " + money(delivery) + " + " + money(labor));
+        setText("[data-material-cost-total]", money(total));
+
+        setText("[data-material-cost-card-net]", fmt(quantity) + " units");
+        setText("[data-material-cost-card-order]", fmt(order) + " units");
+        setText("[data-material-cost-card-material-bottom]", money(materials));
+        setText("[data-material-cost-card-tax-bottom]", money(tax));
+        setText("[data-material-cost-card-fixed]", money(fixed));
+        setText("[data-material-cost-card-total]", money(total));
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+
+      update();
+      queueMicrotask(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 0);
+    });
+  }
+
+  initConstructionMaterialCostDiagrams();
+  document.addEventListener("astro:page-load", initConstructionMaterialCostDiagrams);
+</script>
