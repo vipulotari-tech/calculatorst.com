@@ -1628,7 +1628,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
       "framing calculator",
       "framing lumber calculator",
       "stud and plate calculator",
-      "wall framing material calculator"
+      "framing stock calculator"
     ],
     "featured": false
   },
