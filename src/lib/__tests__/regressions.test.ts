@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { getModelForSlug, slugToModelKey } from '../calculator-registry';
 import { factors, fmt, readInputs } from '../calculator-math';
 import { searchCalculators, searchCatalog } from '../search';
-import { hubCalculators, hubCategories } from '../../data/hubCalculators';
-import { calculators as legacyCalculators } from '../../data/calculators';
+import { siteCalculators, siteCategories as hubCategories } from '../../data/siteCalculators';
+import { clusterGroups } from '../../data/subcategories';
 
 function calculate(slug: string, changes: Record<string, number> = {}) {
   const model = getModelForSlug(slug);
@@ -84,7 +84,17 @@ describe('Search intent', () => {
   it.each([['sheetrock','drywall-calculator'],['cinder block','concrete-block-calculator'],['timber','lumber-calculator']])('matches %s', (q,slug) => {
     expect(searchCalculators(q).some(c => c.slug === slug)).toBe(true);
   });
-  it('includes every published calculator', () => expect(searchCatalog).toHaveLength(204));
+  it('includes every published calculator', () => expect(searchCatalog).toHaveLength(208));
+  it.each([
+    ['deck material', 'deck-material-calculator'],
+    ['driveway gravel', 'driveway-gravel-calculator'],
+    ['pea gravel', 'pea-gravel-calculator'],
+    ['roof square footage', 'roof-square-footage-calculator'],
+  ])('discovers dedicated %s pages through search and category groups', (query, slug) => {
+    expect(searchCalculators(query)[0]?.slug).toBe(slug);
+    const calculator = searchCatalog.find(c => c.slug === slug)!;
+    expect(clusterGroups[calculator.cluster].some(group => group.slugs.includes(slug))).toBe(true);
+  });
   it('returns useful empty results', () => expect(searchCalculators('zzzzzzzzz')).toEqual([]));
 });
 
@@ -173,10 +183,10 @@ describe('Parking lot cost intent separation', () => {
 
 
 describe('SEO catalog integrity', () => {
-  const catalog = [...new Map([...hubCalculators, ...legacyCalculators].map(c => [c.slug, c])).values()];
+  const catalog = siteCalculators;
 
   it('keeps exactly one published entry per calculator', () => {
-    expect(catalog).toHaveLength(204);
+    expect(catalog).toHaveLength(208);
     expect(new Set(catalog.map(c => c.slug)).size).toBe(catalog.length);
   });
 

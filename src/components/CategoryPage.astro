@@ -3,8 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 import Breadcrumbs from "./Breadcrumbs.astro";
-import { hubCalculators } from "../data/hubCalculators";
-import { calculators as legacyCalculators } from "../data/calculators";
+import { siteCalculators } from "../data/siteCalculators";
+import { supplementalCalculators } from "../data/supplementalCalculators";
 import { clusterGroups } from "../data/subcategories";
 import { categoryContent, slugToCluster } from "../data/categoryContent";
 
@@ -37,7 +37,7 @@ const categoryNames: Record<string, string> = {
   asphalt: "Asphalt & Surface Calculators",
 };
 
-const calculatorCatalog = [...new Map([...hubCalculators, ...legacyCalculators].map((c) => [c.slug, c])).values()];
+const calculatorCatalog = siteCalculators;
 const calculators = calculatorCatalog.filter((c) => c.cluster === cluster);
 const groups = clusterGroups[cluster] || [];
 const displayName = categoryNames[cluster] || calculators[0]?.category || slug.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
@@ -130,9 +130,9 @@ const categorySeoOverrides: Record<string, { title: string; description: string 
 };
 const categorySeo = categorySeoOverrides[cluster];
 const categoryTitle = categorySeo?.title ?? `${displayName} — Construction Calculators | Calculator Street`;
-const categoryDescription = categorySeo?.description ?? `${displayName} — ${calculators.length} tools. ${content ? content.intro.split(".")[0].toLowerCase() + "." : (calculators[0]?.category || "").toLowerCase() + "."} Browse by project group.`;
+const categoryDescription = categorySeo?.description ?? `${displayName} — ${calculators.length} tools. ${content ? content.intro.replaceAll("{count}", String(calculators.length)).split(".")[0].toLowerCase() + "." : (calculators[0]?.category || "").toLowerCase() + "."} Browse by project group.`;
 
-const taskLinks = cluster === "concrete" ? [
+const primaryTaskLinks = cluster === "concrete" ? [
   { label: "General estimate", href: "/concrete-calculator/", text: "Cubic yards, bags, weight and optional cost for common pour shapes." },
   { label: "Geometry only", href: "/concrete-volume-calculator/", text: "Volume conversions for rectangles, cylinders, tubes, curbs, stairs and wedges." },
   { label: "Ready-mix delivery", href: "/concrete-pour-calculator/", text: "Truck loads, final-load size, short-load fee and pump-time planning." },
@@ -314,6 +314,14 @@ const taskLinks = cluster === "concrete" ? [
   { label: "Surface area", href: "/surface-area-calculator/", text: "Net rectangular surface area after excluded area, with US and metric area outputs." },
   { label: "Generic material cost", href: "/construction-material-cost-calculator/", text: "Price a known construction material quantity with allowance, tax, delivery and entered labor." },
 ] : [];
+const taskLinks = [
+  ...primaryTaskLinks,
+  ...supplementalCalculators.filter(calculator => calculator.cluster === cluster).map(calculator => ({
+    label: calculator.h1,
+    href: `/${calculator.slug}/`,
+    text: calculator.description,
+  })),
+];
 ---
 
 <Layout
@@ -330,7 +338,7 @@ const taskLinks = cluster === "concrete" ? [
     <section class="mx-auto max-w-[1400px] px-6 pb-12 max-md:px-4">
       <div class="mx-auto max-w-[900px]">
         <h1 class="text-[28px] font-semibold tracking-[-0.03em] text-ink sm:text-[30px]">{displayName}</h1>
-        <p class="mt-3 text-[14px] leading-6 text-body [text-wrap:pretty]">{content?.intro ?? `Browse ${calculators.length} calculators in this category — organized by project group.`}</p>
+        <p class="mt-3 text-[14px] leading-6 text-body [text-wrap:pretty]">{content?.intro.replaceAll("{count}", String(calculators.length)) ?? `Browse ${calculators.length} calculators in this category — organized by project group.`}</p>
         <p class="mt-2 font-mono text-xs tracking-wide text-mute">{calculators.length} calculators · {groups.length} groups</p>
         {primaryCalculator && (
           <a href={`/${primaryCalculator.slug}/`} class="mt-5 block rounded-xl border border-hairline bg-white p-4 shadow-card transition hover:border-hairline-strong/30 hover:shadow-card-hover">

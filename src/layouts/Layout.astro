@@ -28,6 +28,7 @@ const {
 const site = Astro.site?.toString() ?? "https://calculatorst.com";
 const siteNoSlash = site.replace(/\/$/, "");
 const websiteId = siteNoSlash + "/#website";
+const websiteDescription = "Free construction calculators for material quantities, geometry and project costs, with formulas, worked examples and assumptions.";
 const organizationId = siteNoSlash + "/#organization";
 const authorId = siteNoSlash + "/author/vipul-otari/#person";
 const canonicalUrl = canonicalProp
@@ -60,7 +61,7 @@ const websiteSchema: any = {
   name: "Calculator Street",
   alternateName: "CalculatorSt.com",
   url: siteNoSlash + "/",
-  description: description,
+  description: websiteDescription,
   inLanguage: "en-US",
   publisher: { "@id": organizationId },
 };

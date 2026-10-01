@@ -1,5 +1,13 @@
 import { test, expect } from '@playwright/test';
 
+// Test calculator behavior independently of analytics/ad network availability.
+// Fulfill third-party scripts instead of aborting (which emits console errors).
+test.beforeEach(async ({ context }) => {
+  await context.route(/https:\/\/([^/]+\.)?(googletagmanager\.com|google-analytics\.com|googlesyndication\.com|cloudflareinsights\.com)\//, route =>
+    route.fulfill({ status: 200, contentType: 'application/javascript', body: '' }),
+  );
+});
+
 // Shared helper to get calculator page
 const calculators = [
   { slug: 'rebar-calculator', type: 'generic' },
@@ -1738,7 +1746,7 @@ test.describe('Drywall / deck / landscaping / asphalt full browser audit', () =>
 
   const hubs = [
     { path: '/construction/drywall-paint/', count: 15, phrase: /drywall, paint or insulation/i },
-    { path: '/construction/deck-fence/', count: 15, phrase: /deck, fence or gate/i },
+    { path: '/construction/deck-fence/', count: 16, phrase: /deck, fence or gate/i },
     { path: '/construction/landscaping/', count: 10, phrase: /paver, mulch or landscaping/i },
     { path: '/construction/asphalt/', count: 10, phrase: /asphalt, parking-lot or road-base/i },
   ] as const;

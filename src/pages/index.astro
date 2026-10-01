@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { hubCalculators, hubCategories } from "../data/hubCalculators";
+import { siteCalculators as hubCalculators, siteCategories as hubCategories } from "../data/siteCalculators";
 import { projectGroups } from "../data/subcategories";
 
 const curatedPopularSlugs = [
@@ -250,7 +250,7 @@ const clusterPath: Record<string, string> = { drywall: "drywall-paint" };
           <div class="rounded-xl border border-border bg-card px-4 py-5 text-center"><p class="font-mono text-[11px] tracking-wide text-muted-foreground">Access</p><p class="mt-1 text-[13px] font-semibold tracking-[-0.01em] text-foreground">Free to use</p><p class="mt-1 text-[12px] leading-4 text-muted-foreground">No paywall. Static & fast.</p></div>
           <div class="rounded-xl border border-border bg-card px-4 py-5 text-center"><p class="font-mono text-[11px] tracking-wide text-muted-foreground">Clarity</p><p class="mt-1 text-[13px] font-semibold tracking-[-0.01em] text-foreground">Clear results</p><p class="mt-1 text-[12px] leading-4 text-muted-foreground">Units clear, no fake precision.</p></div>
           <div class="rounded-xl border border-border bg-card px-4 py-5 text-center"><p class="font-mono text-[11px] tracking-wide text-muted-foreground">Coverage</p><p class="mt-1 text-[13px] font-semibold tracking-[-0.01em] text-foreground">Broad library</p><p class="mt-1 text-[12px] leading-4 text-muted-foreground">Construction, every trade.</p></div>
-          <div class="rounded-xl border border-border bg-card px-4 py-5 text-center"><p class="font-mono text-[11px] tracking-wide text-muted-foreground">Privacy</p><p class="mt-1 text-[13px] font-semibold tracking-[-0.01em] text-foreground">Private</p><p class="mt-1 text-[12px] leading-4 text-muted-foreground">Runs locally, no tracking.</p></div>
+          <div class="rounded-xl border border-border bg-card px-4 py-5 text-center"><p class="font-mono text-[11px] tracking-wide text-muted-foreground">Privacy</p><p class="mt-1 text-[13px] font-semibold tracking-[-0.01em] text-foreground">Private</p><p class="mt-1 text-[12px] leading-4 text-muted-foreground">Calculator inputs stay in your browser.</p></div>
         </div>
         <div class="mx-auto mt-8 max-w-[680px] rounded-xl border border-border bg-card p-5 sm:p-6">
           <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">

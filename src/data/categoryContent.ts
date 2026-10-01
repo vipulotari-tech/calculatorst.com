@@ -50,7 +50,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   "slab-patio-driveway": {
-    intro: "Slab, patio and driveway estimates involve different decisions: concrete quantity, inverse thickness/coverage, reinforcement takeoff, project cost and delivery planning. These 10 calculators keep those tasks separate while sharing consistent units, allowances and worked formulas.",
+    intro: "Slab, patio and driveway estimates involve different decisions: concrete quantity, inverse thickness/coverage, reinforcement takeoff, project cost and delivery planning. These {count} calculators keep those tasks separate while sharing consistent units, allowances and worked formulas.",
     beforeYouCalculate: "Measure the finished footprint and gather the thickness, base depth, reinforcement spacing or cost quote required by the specific calculator. Treat structural thickness, reinforcement, joints and foundation dimensions as project inputs from the plans, applicable requirements or qualified designer — not defaults selected by a quantity calculator.",
     tips: [
       "Use the quantity calculator for the actual project shape; use the thickness calculator only when solving or comparing the area-volume-depth relationship.",
@@ -68,7 +68,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   foundation: {
-    intro: "Foundation estimating involves several separate tasks: excavation, strip/pad/pier footing concrete, wall concrete, basement or crawl-space geometry and quote-based project cost. These 10 calculators keep those intents separate while using consistent units, allowances and transparent formulas.",
+    intro: "Foundation estimating involves several separate tasks: excavation, strip/pad/pier footing concrete, wall concrete, basement or crawl-space geometry and quote-based project cost. These {count} calculators keep those intents separate while using consistent units, allowances and transparent formulas.",
     beforeYouCalculate: "Use dimensions from the approved foundation plan or qualified designer. Gather the finished concrete geometry, opening areas, excavation working room, soil swell or overbreak assumptions and current supplier/contractor quotes required by the specific calculator. These tools estimate quantities and entered costs; they do not select bearing capacity, frost depth, footing size or reinforcement.",
     tips: [
       "Use centerline length for connected strip footings and foundation walls so corners are not double-counted.",
@@ -86,7 +86,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   rebar: {
-    intro: "Rebar estimating involves several different jobs: laying out a grid, converting that grid to purchasing quantity, checking nominal weight, pricing stock, solving equal center spacing, totaling specified lap steel, and estimating mesh or support chairs. These 10 calculators keep those intents separate while using consistent units and transparent formulas.",
+    intro: "Rebar estimating involves several different jobs: laying out a grid, converting that grid to purchasing quantity, checking nominal weight, pricing stock, solving equal center spacing, totaling specified lap steel, and estimating mesh or support chairs. These {count} calculators keep those intents separate while using consistent units and transparent formulas.",
     beforeYouCalculate: "Use the bar size, center spacing, edge position, lap length and support layout shown on the approved structural or placing drawings. Measure edge offsets to bar centerline when the calculator asks for centerline offset, and use current supplier stock lengths and prices for purchasing estimates. These tools perform takeoff and layout math; they do not choose reinforcement design.",
     tips: [
       "Bar spacing is center-to-center. Convert specified clear cover to bar-center offset before using a grid or spacing calculator.",
@@ -104,7 +104,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   "brick-masonry": {
-    intro: "Brick and masonry estimating involves different jobs: wall quantity, course layout, mortar, veneer, paved surfaces, shipment weight, waste and project cost. These 15 calculators separate those intents so users can choose the tool that matches the actual takeoff instead of repeating one generic wall formula.",
+    intro: "Brick and masonry estimating involves different jobs: wall quantity, course layout, mortar, veneer, paved surfaces, shipment weight, waste and project cost. These {count} calculators separate those intents so users can choose the tool that matches the actual takeoff instead of repeating one generic wall formula.",
     beforeYouCalculate: "Measure the wall or paved area and use the actual unit dimensions for the product being ordered. For mortared walls, include the intended joint width; for multi-wythe work, know the number of brick layers. Gather openings, unit weight, supplier prices, mortar yield, paver base depth or veneer tie spacing only when the selected calculator needs them.",
     tips: [
       "Use actual brick dimensions plus the joint to form the installed module. Brick products vary substantially, so product dimensions are more reliable than a single default size.",
@@ -123,7 +123,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   "concrete-block": {
-    intro: "Concrete block and CMU estimating has several distinct scopes: block count and course layout, mortar, grout core fill, shipment weight, project cost and reinforcement takeoff. These 10 calculators keep those scopes separate while using specified block dimensions, transparent allowances and project-entered material assumptions.",
+    intro: "Concrete block and CMU estimating has several distinct scopes: block count and course layout, mortar, grout core fill, shipment weight, project cost and reinforcement takeoff. These {count} calculators keep those scopes separate while using specified block dimensions, transparent allowances and project-entered material assumptions.",
     beforeYouCalculate: "Know the wall length, height and openings plus the CMU face dimensions being supplied. For common modular CMU, specified dimensions are typically 3/8 inch smaller than nominal dimensions so the unit plus mortar joint fits the nominal module. Gather manufacturer block weight, mortar coverage, grout cell volume and structural reinforcement spacing only for calculators that need them.",
     tips: [
       "Do not confuse nominal and specified CMU dimensions. A nominal 8 × 8 × 16 in module commonly uses a 7⅝ × 7⅝ × 15⅝ in specified unit with a ⅜ in mortar joint.",
@@ -142,7 +142,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   "deck-fence": {
-    intro: "These 15 deck, fence and gate calculators separate surface-board takeoff, joist count, post-hole concrete, stair and railing layout, fence posts, panels, pickets and gate geometry. Quantity calculators use the spacing and dimensions you specify; they do not choose structural spans, footing design or code limits.",
+    intro: "These {count} deck, fence and gate calculators separate surface-board takeoff, joist count, post-hole concrete, stair and railing layout, fence posts, panels, pickets and gate geometry. Quantity calculators use the spacing and dimensions you specify; they do not choose structural spans, footing design or code limits.",
     beforeYouCalculate: "Measure each deck surface or fence run separately. Gather the actual decking face width and stock length, specified joist or post spacing, post-hole geometry, selected stair and railing layout limits, fence panel or picket dimensions, gate opening and hardware clearances, plus current supplier prices where cost is needed.",
     tips: [
       "Use Deck Calculator for a combined surface takeoff; use Deck Board Calculator when the purchasing question is specifically rows, stock boards and linear footage.",
@@ -180,7 +180,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   "drywall-paint": {
-    intro: "These 15 drywall, paint and insulation calculators separate room geometry, sheet purchasing, finishing materials, coating coverage and insulation package estimates. Use the focused tool that matches the quantity you actually know instead of forcing the same square-foot input into every finish calculation.",
+    intro: "These {count} drywall, paint and insulation calculators separate room geometry, sheet purchasing, finishing materials, coating coverage and insulation package estimates. Use the focused tool that matches the quantity you actually know instead of forcing the same square-foot input into every finish calculation.",
     beforeYouCalculate: "Measure wall, ceiling or floor areas as required by the selected calculator and record openings only where they are truly excluded. For purchased products, gather the actual drywall sheet size, joint-compound coverage, tape roll length, screw schedule, paint or primer coverage, container size, insulation package coverage, or spray-foam kit yield shown by the manufacturer.",
     tips: [
       "Use Drywall Calculator when you know room dimensions; use Drywall Sheet Calculator when you already know the finished surface area and want a whole-sheet purchase count.",
@@ -197,7 +197,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   excavation: {
-    intro: "Excavation and earthwork quantities change depending on whether material is measured in place (bank), loosened for haulage, or compacted as fill. These 10 calculators separate excavation geometry, trench volume, backfill displacement, cut/fill balance, soil weight, truck trips and quote-based cost.",
+    intro: "Excavation and earthwork quantities change depending on whether material is measured in place (bank), loosened for haulage, or compacted as fill. These {count} calculators separate excavation geometry, trench volume, backfill displacement, cut/fill balance, soil weight, truck trips and quote-based cost.",
     beforeYouCalculate: "Use the project excavation geometry, including bottom dimensions and any specified side slope. Gather project-specific swell or shrink factors when loose haulage or compacted fill is involved. For cost work, confirm whether rates are quoted per bank cubic yard, loose cubic yard, truck trip or fixed mobilization. Safety slopes, shoring and protective systems must come from the applicable excavation plan and requirements—not from a volume calculator.",
     tips: [
       "Keep bank, loose and compacted quantities on clearly identified bases. FHWA guidance notes that shrink/swell factors vary by material and construction method, so use local geotechnical or field information when available.",
@@ -233,7 +233,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   flooring: {
-    intro: "Flooring estimating is more than room area: package coverage, pattern direction, cut waste, carpet roll width, tile module size, grout/adhesive coverage and underlayment all affect purchasing quantity. These 15 calculators separate those workflows for hardwood, laminate, vinyl, carpet and tile.",
+    intro: "Flooring estimating is more than room area: package coverage, pattern direction, cut waste, carpet roll width, tile module size, grout/adhesive coverage and underlayment all affect purchasing quantity. These {count} calculators separate those workflows for hardwood, laminate, vinyl, carpet and tile.",
     beforeYouCalculate: "Measure each floor section and exclude only areas that truly receive a different finish. Use the exact product package coverage, tile dimensions, tiles per box, carpet roll width and manufacturer grout/adhesive coverage. Keep pattern/layout allowance separate from ordinary cut or damage waste.",
     tips: [
       "Pattern/layout allowance and cut/damage waste are separate assumptions. Do not enter the same extra percentage in both fields.",
@@ -250,7 +250,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   framing: {
-    intro: "Framing estimating combines member layout, plate and stud takeoff, lumber volume, purchasing cost and structural analysis. These 15 calculators separate quantity tools from spacing geometry and from beam/header analysis so a material estimator does not accidentally imply structural approval.",
+    intro: "Framing estimating combines member layout, plate and stud takeoff, lumber volume, purchasing cost and structural analysis. These {count} calculators separate quantity tools from spacing geometry and from beam/header analysis so a material estimator does not accidentally imply structural approval.",
     beforeYouCalculate: "Use the spacing, member sizes, loads and support conditions from the project drawings or applicable span/design information. For wall takeoffs, measure wall length and stud height and add opening/corner details explicitly. For board-foot pricing, use the same nominal or actual dimension convention as the seller.",
     tips: [
       "Member-count calculators use your specified maximum on-center spacing and include end members. They do not choose a permitted framing spacing.",
@@ -267,7 +267,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   roofing: {
-    intro: "Roofing estimating combines true sloped surface area, pitch, whole-package coverage and linear framing/accessory takeoffs. These 15 calculators separate roof area, shingles, underlayment, sheathing, rafters, trusses, flashing and material allowance instead of reusing one generic roof formula.",
+    intro: "Roofing estimating combines true sloped surface area, pitch, whole-package coverage and linear framing/accessory takeoffs. These {count} calculators separate roof area, shingles, underlayment, sheathing, rafters, trusses, flashing and material allowance instead of reusing one generic roof formula.",
     beforeYouCalculate: "Use either a measured sloped roof area or a simple horizontal footprint with one known pitch. Complex roofs with dormers, valleys or differing pitches should be split into non-overlapping measured sections. Use exact manufacturer coverage for shingles and underlayment, actual panel dimensions for sheathing, and project-specified spacing for rafters or trusses.",
     tips: [
       "Pitch multiplier = √(1 + (rise/run)²). A 6:12 roof uses about 1.118× the horizontal footprint before overhang and material allowance.",
@@ -284,7 +284,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   gravel: {
-    intro: "Gravel, crushed stone, aggregate, sand, fill dirt and topsoil are usually ordered by cubic yard or by weight, but their bulk density changes with grading, moisture and compaction state. These 15 calculators separate volume, weight, reverse-depth and cost workflows while keeping density and purchasing allowance explicit.",
+    intro: "Gravel, crushed stone, aggregate, sand, fill dirt and topsoil are usually ordered by cubic yard or by weight, but their bulk density changes with grading, moisture and compaction state. These {count} calculators separate volume, weight, reverse-depth and cost workflows while keeping density and purchasing allowance explicit.",
     beforeYouCalculate: "Measure the placed or measured area and depth, or use a known volume when you already have one. Match the density to the same material state as the dimensions—loose delivery and compacted placement are not interchangeable. Confirm whether the supplier quote is per cubic yard, cubic meter or US ton and keep delivery or spreading charges separate when they are quoted separately.",
     tips: [
       "Bulk density is not a universal constant. Use supplier scale-ticket or product data for the exact material, grading, moisture and loose/compacted condition whenever possible.",
@@ -302,7 +302,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
 
   landscaping: {
-    intro: "These 10 paver and landscaping calculators separate surface paver layout, base and bedding layers, joint-sand fill, generic landscape-material volume, mulch and retaining-wall block quantity. Keeping each layer separate prevents the same waste, density or depth assumption from being applied twice.",
+    intro: "These {count} paver and landscaping calculators separate surface paver layout, base and bedding layers, joint-sand fill, generic landscape-material volume, mulch and retaining-wall block quantity. Keeping each layer separate prevents the same waste, density or depth assumption from being applied twice.",
     beforeYouCalculate: "Measure each non-overlapping area and gather the actual paver or block face dimensions, specified base and bedding depths, joint width and fill depth, supplier bulk density, bag size and quoted price required by the selected tool. For retaining walls, use the block system dimensions from the manufacturer and treat structural wall design as a separate task.",
     tips: [
       "Paver Calculator handles straight-layout paver count only. Use the dedicated Base, Bedding Sand and Joint Sand calculators for those separate layers.",
@@ -338,7 +338,7 @@ export const categoryContent: Record<string, CategoryContent> = {
 
 
   asphalt: {
-    intro: "These 10 asphalt and surface calculators separate compacted asphalt quantity, weight, quote-based cost, reverse thickness, parking-lot material, road base and net surface area. The quantity tools convert measured geometry through an editable compacted density; the cost tools add only the prices and fixed charges you enter.",
+    intro: "These {count} asphalt and surface calculators separate compacted asphalt quantity, weight, quote-based cost, reverse thickness, parking-lot material, road base and net surface area. The quantity tools convert measured geometry through an editable compacted density; the cost tools add only the prices and fixed charges you enter.",
     beforeYouCalculate: "Measure the paved area and use the compacted asphalt thickness specified for the project. Obtain the mix or supplier density when available, and keep road-base or aggregate layers separate. For reverse thickness, start with a known asphalt mass and paved area. For cost estimates, use a quote whose unit basis matches the calculator.",
     tips: [
       "Asphalt Calculator is the general quantity workflow; Asphalt Cost adds a quoted material price, while Asphalt Weight starts from a known volume.",

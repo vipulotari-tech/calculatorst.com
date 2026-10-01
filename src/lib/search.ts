@@ -1,5 +1,4 @@
-import { hubCalculators } from '../data/hubCalculators';
-import { calculators } from '../data/calculators';
+import { siteCalculators } from '../data/siteCalculators';
 
 const aliases: Record<string, string> = {
   cmu: 'concrete block masonry unit', cinder: 'concrete block', cement: 'cement concrete',
@@ -50,7 +49,7 @@ function distance(a: string, b: string): number {
   }
   return matrix[a.length][b.length];
 }
-export const searchCatalog = [...new Map([...hubCalculators, ...calculators].map(c => [c.slug, c])).values()];
+export const searchCatalog = siteCalculators;
 const index = searchCatalog.map(c => ({
   ...c, name: normalize(c.h1),
   words: normalize(`${c.h1} ${c.category} ${c.description} ${(c.keywords ?? []).join(' ')}`).split(' '),

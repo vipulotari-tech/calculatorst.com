@@ -1,9 +1,10 @@
 ---
 import CategoryPage from "../../../components/CategoryPage.astro";
 import { slugToCluster } from "../../../data/categoryContent";
+import { hubCategories } from "../../../data/hubCalculators";
 
 export async function getStaticPaths() {
-  return Object.keys(slugToCluster).map((slug) => ({
+  return hubCategories.map(({ slug }) => ({
     params: { cluster: slug },
     props: { slug },
   }));

@@ -1,6 +1,5 @@
 import type { APIRoute } from "astro";
-import { calculators } from "../data/calculators";
-import { hubCalculators, hubCategories } from "../data/hubCalculators";
+import { siteCalculators, siteCategories as hubCategories } from "../data/siteCalculators";
 
 export const prerender = true;
 
@@ -21,20 +20,7 @@ const staticPaths = [
   "/disclaimer/",
 ];
 
-const extraCalculatorSlugs = [
-  "deck-material-calculator",
-  "driveway-gravel-calculator",
-  "pea-gravel-calculator",
-  "roof-square-footage-calculator",
-];
-
-const calculatorPaths = Array.from(
-  new Set([
-    ...calculators.map((c) => c.slug),
-    ...hubCalculators.map((c) => c.slug),
-    ...extraCalculatorSlugs,
-  ])
-).map((slug) => `/${slug}/`);
+const calculatorPaths = siteCalculators.map(({ slug }) => `/${slug}/`);
 
 const paths = Array.from(new Set([...staticPaths, ...calculatorPaths]));
 

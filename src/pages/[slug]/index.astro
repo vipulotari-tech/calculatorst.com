@@ -4,6 +4,7 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import GenericCalculator from "../../components/calculators/GenericCalculator.astro";
 import { hubCalculators } from "../../data/hubCalculators";
+import { siteCalculators } from "../../data/siteCalculators";
 import { getCalculatorContent } from "../../lib/calculator-content";
 import { fmt, unitLabels } from "../../lib/calculator-math";
 import { calculators, type CalculatorMeta } from "../../data/calculators";
@@ -99,7 +100,7 @@ const clusterToSlug: Record<string, string> = {
 
 const categorySlug = clusterToSlug[calc.cluster] || calc.cluster;
 const workflowSlugs = getWorkflowRelated(calc.slug);
-const hubBySlug = new Map(hubCalculators.map(c => [c.slug, c]));
+const hubBySlug = new Map(siteCalculators.map(c => [c.slug, c]));
 const related = workflowSlugs
   .map(slug => hubBySlug.get(slug))
   .filter((c): c is (CalculatorMeta & { cluster: string; category: string }) => c !== undefined)
@@ -107,7 +108,7 @@ const related = workflowSlugs
   .map(c => ({
     title: c.h1,
     href: `/${c.slug}/`,
-    desc: c.description.slice(0, 60) + "..."
+    desc: c.description
   }));
 
 const breadcrumbs = [
@@ -198,7 +199,7 @@ const faqEnhancements: Record<string, { q: string; a: string }[]> = {
   ],
   "earthwork-calculator": [
     { q: "What is the difference between bank volume and loose volume?", a: "Bank volume is the material in place before excavation. Loose volume applies the swell percentage you enter to estimate the excavated haul volume after the soil is disturbed." },
-    { q: "Does the earthwork calculator add a waste or compaction factor?", a: "No. It applies only the swell factor shown in the form. Overbreak, working room, shrinkage, compaction and unsuitable material must be measured or handled separately for the project." },
+    { q: "How are earthwork swell and shrink applied?", a: "Both conversions start from bank volume. Loose volume applies the entered bank-to-loose swell percentage; compacted equivalent applies the entered bank-to-compacted reduction percentage. These are separate project-specific factors, not a universal waste allowance. Overbreak, working room and unsuitable material need separate measurement." },
     { q: "When should I use Earthwork Calculator instead of Excavation Calculator?", a: "Use Earthwork Calculator when you already know or can measure bank volume and want bank, loose and compacted state conversions. Use Excavation Calculator when the main task is deriving excavation geometry and haul volume from cut dimensions." },
   ],
   "excavation-calculator": [
@@ -1198,6 +1199,32 @@ const masonrySeoEnhancements: Record<string, {
 };
 
 const tradeGuidance: Record<string, string[]> = {
+
+  "paint-calculator": [
+    "Measure a rectangular room's length, width and wall height. Subtract the total area of openings once; this wall estimate excludes ceilings and trim.",
+    "Use the selected paint's coverage per coat and the coat count for your surface. Coverage and preparation needs can differ on rough or porous walls.",
+    "Enter the actual container size and price for that size. The calculator rounds purchases to whole containers; use the Ceiling Paint Calculator for a separate ceiling estimate."
+  ],
+  "drywall-calculator": [
+    "Use room length, width and wall height for four rectangular walls. Include the flat ceiling only when it will receive drywall, and deduct excluded openings once.",
+    "Enter the area of the actual sheet you will buy. A 4 × 8 ft sheet covers 32 ft²; other sheet sizes change the whole-sheet order quantity.",
+    "The area-based sheet count does not optimize orientation, seams or offcut reuse. Use your layout for those details, and estimate screws, tape and joint compound with the dedicated tools."
+  ],
+  "deck-calculator": [
+    "Boards run along the entered deck length. Use the actual board face width, stock length and manufacturer-specified gap rather than mixing nominal and actual dimensions.",
+    "Enter joist spacing and fasteners per board/joist intersection from the project plans and fastening system. The estimated joist lines are a quantity aid, not a structural span check.",
+    "This straight-board layout does not reuse offcuts or include fascia, picture-frame borders, stairs or railing. Take those items off separately with the dedicated deck tools."
+  ],
+  "fence-calculator": [
+    "Enter one open, continuous fence run after deducting gate openings. Calculate disconnected runs separately and avoid double-counting posts shared at gates or corners.",
+    "Use panel-compatible maximum post-center spacing. The calculator equalizes the installed sections; purchasing allowance adds spares without changing that layout.",
+    "This page estimates posts and panels, not pickets on both sides, gate hardware or concrete. Use the Fence Picket, Gate and Fence Concrete calculators for those separate materials."
+  ],
+  "asphalt-calculator": [
+    "Measure each paving section using finished compacted thickness. Estimate non-identical sections separately; the quantity multiplier repeats identical dimensions.",
+    "Use asphalt density for the same compacted state as the measured layer. The editable density is a planning value; supplier or mix-design data is preferable for the actual mix.",
+    "The result is asphalt material volume and weight with your allowance. It does not choose pavement thickness or include base, milling, transport or paving labor; use Asphalt Cost Calculator for a quote-based cost workflow."
+  ],
   "framing-calculator": [
     "Use this layout calculator when the member spacing is already specified and you need installed count, equalized spacing, spare pieces and optional cost.",
     "Add corners, openings, blocking, headers and other detail members explicitly; do not hide required framing details inside the purchasing allowance."
@@ -1381,6 +1408,77 @@ const tradeGuidance: Record<string, string[]> = {
 };
 
 const tradeFaqEnhancements: Record<string, { q: string; a: string }[]> = {
+
+  "paint-calculator": [
+    {
+      "q": "Does this paint calculator include ceilings and trim?",
+      "a": "No. It estimates the four walls of a rectangular room and subtracts the opening area you enter. Estimate ceilings with the Ceiling Paint Calculator; trim and extra wall surfaces need separate measurements."
+    },
+    {
+      "q": "How do coats and product coverage affect the paint estimate?",
+      "a": "The calculator multiplies net wall area by the number of coats and the entered allowance, then divides by coverage per US gallon. Use the coverage for your paint and surface rather than treating the initial value as a guarantee."
+    },
+    {
+      "q": "Why is purchased paint higher than the calculated requirement?",
+      "a": "Paint is purchased in whole containers. The calculator divides the requirement by the container size you enter and rounds up. Optional cost uses the price of one container of that selected size."
+    }
+  ],
+  "drywall-calculator": [
+    {
+      "q": "Can the drywall estimate include the ceiling?",
+      "a": "Yes. Select Include ceiling to add the rectangular room's length × width to the wall area. Enter the total opening or excluded area once so it is not deducted twice."
+    },
+    {
+      "q": "Can I calculate 4 × 8, 4 × 10 or 4 × 12 ft sheets?",
+      "a": "Yes. Enter the area per sheet: 32, 40 or 48 ft² respectively. The calculator divides the allowance-adjusted covering area by that sheet area and rounds up to whole sheets."
+    },
+    {
+      "q": "Does the sheet count account for layout and drywall finishing materials?",
+      "a": "It is an area-based purchasing estimate, not a sheet-cutting or seam layout. Orientation and offcut reuse can change the order. Screws, tape and joint compound are separate takeoffs using the related calculators."
+    }
+  ],
+  "deck-calculator": [
+    {
+      "q": "Which direction do the deck boards run?",
+      "a": "Boards run along the deck length entered in the form. Rows are counted across the width using actual board face width and gap; each row uses enough stock lengths to cover the entered length."
+    },
+    {
+      "q": "Does this optimize cuts or include deck stairs and railing?",
+      "a": "No. It estimates a straight layout without offcut reuse. Fascia, picture-frame borders, stairs and railing are outside this board count and need separate takeoff."
+    },
+    {
+      "q": "Does the joist and fastener estimate prove the deck is structurally safe?",
+      "a": "No. Use joist spacing, framing and fastener requirements from the project plans and manufacturer. The calculator estimates joist lines and board/joist intersections; it does not check member capacity or connections."
+    }
+  ],
+  "fence-calculator": [
+    {
+      "q": "How should I handle gates and separate fence runs?",
+      "a": "Deduct gate widths from the continuous run before calculating. Estimate disconnected runs separately, and add only gate or corner posts not already counted as endpoints. Shared posts must not be counted twice."
+    },
+    {
+      "q": "Does this calculate pickets for both sides of a fence?",
+      "a": "No. This page counts sections, panels and posts for one run. Use the Fence Picket Calculator for a picket takeoff and estimate each face according to the actual fence design."
+    },
+    {
+      "q": "What does the optional fence price include?",
+      "a": "Per-panel pricing uses the whole panel purchase quantity including spares; per-foot pricing uses the measured run. Posts, gates, hardware, concrete, labor and delivery are excluded from this panel-material estimate."
+    }
+  ],
+  "asphalt-calculator": [
+    {
+      "q": "Should asphalt thickness be loose or compacted?",
+      "a": "Use the finished compacted thickness and a density for the same compacted mix state. Mixing loose thickness with compacted density can misstate tonnage. The calculator does not choose the required pavement thickness."
+    },
+    {
+      "q": "How are asphalt tons calculated?",
+      "a": "The calculator normalizes length, width and thickness to volume, multiplies by the number of identical sections, applies your allowance and multiplies order volume by the entered density. US short tons are 2,000 lb."
+    },
+    {
+      "q": "Does the optional material cost include a complete paving project?",
+      "a": "No. The optional price estimates asphalt material on the selected quantity basis. Base preparation, milling, transport, labor and equipment are separate unless explicitly entered in a dedicated cost workflow."
+    }
+  ],
   "framing-calculator": [
     {
       "q": "Does the framing calculator choose the correct stud or member spacing?",
@@ -1845,36 +1943,8 @@ const masonrySeo = masonrySeoEnhancements[calc.slug]
   ? { title: calc.title, description: calc.description, ...masonrySeoEnhancements[calc.slug] }
   : undefined;
 const pageSeo = concreteSeo[calc.slug] ?? slabSeo[calc.slug] ?? foundationSeo[calc.slug] ?? rebarSeo[calc.slug] ?? masonrySeo;
-const enhancedTradeCluster = new Set(["framing", "roofing", "flooring", "drywall", "deck-fence", "landscaping", "asphalt"]);
 const faq = pageSeo?.faq ?? [...content.faq, ...(faqEnhancements[calc.slug] ?? []), ...(tradeFaqEnhancements[calc.slug] ?? [])];
-const seoDescriptionOverrides: Record<string, string> = {
-  "crushed-stone-calculator": calc.description,
-  "gravel-weight-calculator": calc.description,
-  "concrete-cost-calculator": calc.description,
-  "slab-cost-calculator": calc.description,
-  "drywall-joint-compound-calculator": calc.description,
-  "roofing-shingle-calculator": calc.description,
-  "shingle-quantity-calculator": calc.description,
-  "shingle-cost-calculator": calc.description,
-  "rebar-chair-calculator": calc.description,
-  "beam-calculator": calc.description,
-  "concrete-wall-calculator": calc.description,
-  "earthwork-calculator": calc.description,
-  "parking-lot-calculator": calc.description,
-  "parking-lot-cost-calculator": calc.description,
-  "wall-framing-calculator": calc.description,
-  "mortar-calculator": calc.description,
-  "drywall-sheet-calculator": calc.description,
-  "drywall-calculator": calc.description,
-  "concrete-crack-repair-calculator": calc.description,
-  "deck-mud-calculator": calc.description,
-  "stucco-calculator": calc.description,
-  "foundation-cost-calculator": calc.description,
-  "masonry-cost-calculator": calc.description,
-  "brick-cost-calculator": calc.description,
-  "cmu-cost-calculator": calc.description,
-};
-const seoDescription = pageSeo?.description ?? (enhancedTradeCluster.has(calc.cluster) ? calc.description : (seoDescriptionOverrides[calc.slug] ?? content.description));
+const seoDescription = pageSeo?.description ?? calc.description;
 const seoTitle = pageSeo?.title ?? calc.title;
 const pageGuidance = pageSeo?.guidance ?? tradeGuidance[calc.slug] ?? [];
 const newCalculatorSlugs = new Set([
@@ -1903,11 +1973,13 @@ const gscSeoRefreshSlugs = new Set([
   "parking-lot-calculator",
   "parking-lot-cost-calculator",
 ]);
-const pageDateModified = gscSeoRefreshSlugs.has(calc.slug)
+const pageDateModified = ["paint-calculator", "drywall-calculator", "deck-calculator", "fence-calculator", "asphalt-calculator", "earthwork-calculator"].includes(calc.slug)
+  ? "2026-10-01"
+  : gscSeoRefreshSlugs.has(calc.slug)
   ? "2026-09-28"
   : calc.slug === "concrete-waste-calculator"
     ? "2026-09-27"
-    : ["concrete-calculator", "concrete-volume-calculator", "concrete-weight-calculator", "concrete-cost-calculator", "concrete-mix-calculator", "concrete-pour-calculator"].includes(calc.slug) || enhancedTradeCluster.has(calc.cluster)
+    : ["concrete-calculator", "concrete-volume-calculator", "concrete-weight-calculator", "concrete-cost-calculator", "concrete-mix-calculator", "concrete-pour-calculator"].includes(calc.slug) || ["framing", "roofing", "flooring", "drywall", "deck-fence", "landscaping", "asphalt"].includes(calc.cluster)
       ? "2026-09-25"
       : "2026-09-24";
 ---

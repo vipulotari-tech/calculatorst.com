@@ -1,8 +1,6 @@
 /**
- * Cloudflare Worker for calculatorst.com — edge 301 for 121 Alternate fix
- * Handles www→apex + http→https BEFORE serving static assets.
- * This fixes GSC "Alternate page with proper canonical tag" (121 pages are www/http variants returning 200+canonical instead of 301).
- * Middleware src/middleware.ts handles same logic for SSR, but static assets bypass it — this Worker runs at edge.
+ * Apply canonical redirects and search-page indexing headers before serving
+ * static assets. wrangler.jsonc must keep assets.run_worker_first enabled.
  */
 export default {
   async fetch(request, env, ctx) {
@@ -35,31 +33,22 @@ export default {
       url.pathname += "/";
       redirectNeeded = true;
     }
-    if (redirectNeeded) {
-      return Response.redirect(url.toString(), 301);
+    // Resolve real category aliases before emitting the canonical redirect.
+    // Invalid unit paths have no equivalent page and must remain HTTP 404.
+    const categoryAliases = {
+      "/construction/decking/": "/construction/deck-fence/",
+      "/construction/fencing/": "/construction/deck-fence/",
+      "/construction/drywall/": "/construction/drywall-paint/",
+      "/construction/drywall-pain/": "/construction/drywall-paint/",
+    };
+    const aliasTarget = categoryAliases[url.pathname];
+    if (aliasTarget) {
+      url.pathname = aliasTarget;
+      redirectNeeded = true;
     }
 
-    // 3) Garbage units parsed as URLs (12 Not found) — fallback in case _redirects/static miss
-    // Also keeps legacy /construction/drywall → drywall-paint for old crawls
-    try {
-      const decoded = decodeURIComponent(url.pathname);
-      const norm = decoded.replace(/\/+$/, "").toLowerCase();
-      if (
-        norm === "/ton" ||
-        norm === "/ft²" ||
-        norm === "/yd³" ||
-        norm === "/ft" ||
-        norm === "/unit" ||
-        norm === "/panel" ||
-        norm === "/post"
-      ) {
-        return Response.redirect("https://calculatorst.com/gravel-calculator/", 301);
-      }
-      if (norm === "/construction/drywall" || norm === "/construction/drywall-pain") {
-        return Response.redirect("https://calculatorst.com/construction/drywall-paint/", 301);
-      }
-    } catch {
-      // ignore decode errors
+    if (redirectNeeded) {
+      return Response.redirect(url.toString(), 301);
     }
 
     // 4) Serve static asset
@@ -69,7 +58,7 @@ export default {
 
       // Search-filter URLs are useful to users but should not become indexable
       // duplicate landing pages. Keep them crawlable and preserve clean canonicals.
-      if ((url.pathname === "/calculators/" || url.pathname === "/calculators") && url.searchParams.has("q")) {
+      if ((url.pathname === "/calculators/" || url.pathname === "/") && url.searchParams.has("q")) {
         const headers = new Headers(response.headers);
         headers.set("X-Robots-Tag", "noindex, follow");
         return new Response(response.body, {

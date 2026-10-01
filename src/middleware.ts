@@ -30,31 +30,23 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
     url.pathname += "/";
     redirectNeeded = true;
   }
+  // Resolve real category aliases before emitting the canonical redirect.
+  // Invalid unit paths have no equivalent page and must remain HTTP 404.
+  const categoryAliases: Record<string, string> = {
+    "/construction/decking/": "/construction/deck-fence/",
+    "/construction/fencing/": "/construction/deck-fence/",
+    "/construction/drywall/": "/construction/drywall-paint/",
+    "/construction/drywall-pain/": "/construction/drywall-paint/",
+  };
+  const aliasTarget = categoryAliases[url.pathname];
+  if (aliasTarget) {
+    url.pathname = aliasTarget;
+    redirectNeeded = true;
+  }
+
   if (redirectNeeded) {
     return Response.redirect(url.toString(), 301);
   }
-
-  // Fix 404 garbage units parsed as URLs (GSC 8 URLs: /ton, /ft², /yd³, /ft, /unit, /panel, /post)
-  // Also keeps legacy /construction/drywall → drywall-paint for old crawls
-  // Always redirect to https apex with trailing slash to avoid chain
-  try {
-    const decoded = decodeURIComponent(url.pathname);
-    const norm = decoded.replace(/\/+$/, "").toLowerCase();
-    if (
-      norm === "/ton" ||
-      norm === "/ft²" ||
-      norm === "/yd³" ||
-      norm === "/ft" ||
-      norm === "/unit" ||
-      norm === "/panel" ||
-      norm === "/post"
-    ) {
-      return Response.redirect("https://calculatorst.com/gravel-calculator/", 301);
-    }
-    if (norm === "/construction/drywall" || norm === "/construction/drywall-pain") {
-      return Response.redirect("https://calculatorst.com/construction/drywall-paint/", 301);
-    }
-  } catch { /* ignore decode errors */ }
 
   return next();
 };

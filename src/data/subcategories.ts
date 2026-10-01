@@ -1,4 +1,4 @@
-// Subcategories derived from actual 201 calculator inventory — single source of truth
+// Project groups cover the public calculator inventory, including dedicated Astro pages.
 // Each cluster's calculators grouped into meaningful project groups
 
 export const clusterGroups: Record<string, { name: string; slugs: string[] }[]> = {
@@ -43,7 +43,7 @@ export const clusterGroups: Record<string, { name: string; slugs: string[] }[]> 
     { name: "Specialty Mortars & Plaster", slugs: ["deck-mud-calculator","stucco-calculator"] },
   ],
   gravel: [
-    { name: "Gravel", slugs: ["gravel-calculator","gravel-cost-calculator","gravel-weight-calculator","gravel-depth-calculator"] },
+    { name: "Gravel", slugs: ["gravel-calculator","gravel-cost-calculator","gravel-weight-calculator","gravel-depth-calculator","driveway-gravel-calculator","pea-gravel-calculator"] },
     { name: "Stone & Aggregate", slugs: ["crushed-stone-calculator","crushed-stone-cost-calculator","aggregate-calculator","aggregate-weight-calculator"] },
     { name: "Sand, Dirt & Topsoil", slugs: ["sand-calculator","sand-weight-calculator","sand-cost-calculator","fill-dirt-calculator","fill-dirt-cost-calculator","topsoil-calculator","topsoil-cost-calculator"] },
   ],
@@ -58,7 +58,7 @@ export const clusterGroups: Record<string, { name: string; slugs: string[] }[]> 
     { name: "Joists & Beams", slugs: ["joist-calculator","joist-spacing-calculator","floor-joist-calculator","ceiling-joist-calculator","header-size-calculator","beam-calculator","beam-load-calculator"] },
   ],
   roofing: [
-    { name: "Roof Core", slugs: ["roofing-calculator","roof-area-calculator","roof-pitch-calculator","roof-slope-calculator"] },
+    { name: "Roof Core", slugs: ["roofing-calculator","roof-area-calculator","roof-pitch-calculator","roof-slope-calculator","roof-square-footage-calculator"] },
     { name: "Shingles & Materials", slugs: ["roofing-shingle-calculator","shingle-quantity-calculator","shingle-cost-calculator","roofing-material-calculator","roofing-underlayment-calculator","roof-sheathing-calculator","roof-waste-calculator"] },
     { name: "Structure", slugs: ["roof-rafter-calculator","rafter-length-calculator","roof-truss-calculator","roof-flashing-calculator"] },
   ],
@@ -74,7 +74,7 @@ export const clusterGroups: Record<string, { name: string; slugs: string[] }[]> 
     { name: "Insulation", slugs: ["insulation-calculator","insulation-cost-calculator","spray-foam-calculator"] },
   ],
   "deck-fence": [
-    { name: "Deck", slugs: ["deck-calculator","deck-cost-calculator","deck-board-calculator","deck-joist-calculator","deck-footing-calculator","deck-stair-calculator","deck-railing-calculator"] },
+    { name: "Deck", slugs: ["deck-calculator","deck-cost-calculator","deck-board-calculator","deck-joist-calculator","deck-footing-calculator","deck-stair-calculator","deck-railing-calculator","deck-material-calculator"] },
     { name: "Fence", slugs: ["fence-calculator","fence-cost-calculator","fence-post-calculator","fence-panel-calculator","fence-picket-calculator","fence-concrete-calculator"] },
     { name: "Gates", slugs: ["gate-calculator","gate-cost-calculator"] },
   ],

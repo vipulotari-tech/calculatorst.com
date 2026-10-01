@@ -31,11 +31,11 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "concrete-calculator": {
     primary: ["concrete-cost-calculator", "concrete-volume-calculator", "concrete-slab-calculator", "rebar-calculator"],
-    workflow: ["concrete-pour-calculator", "concrete-mix-calculator", "gravel-calculator"],
+    workflow: ["concrete-waste-calculator", "concrete-pour-calculator", "concrete-mix-calculator", "gravel-calculator"],
   },
   "concrete-volume-calculator": {
-    primary: ["concrete-calculator", "concrete-cost-calculator", "concrete-pour-calculator"],
-    workflow: ["concrete-slab-calculator", "rebar-calculator", "gravel-calculator"],
+    primary: ["concrete-calculator", "concrete-curb-calculator", "concrete-stair-calculator", "concrete-ramp-calculator"],
+    workflow: ["concrete-cost-calculator", "concrete-pour-calculator"],
   },
   "concrete-cost-calculator": {
     primary: ["concrete-calculator", "concrete-volume-calculator", "concrete-pour-calculator"],
@@ -151,7 +151,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "pad-footing-calculator": {
     primary: ["pier-footing-calculator", "footing-concrete-calculator", "footing-volume-calculator"],
-    workflow: ["foundation-cost-calculator", "rebar-calculator", "deck-footing-calculator"],
+    workflow: ["foundation-cost-calculator", "rebar-calculator", "shed-foundation-calculator"],
   },
   "pier-footing-calculator": {
     primary: ["pad-footing-calculator", "footing-concrete-calculator", "footing-volume-calculator"],
@@ -231,7 +231,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "brick-quantity-calculator": {
     primary: ["brick-calculator", "brick-mortar-calculator", "brick-cost-calculator"],
-    workflow: ["brick-wall-calculator", "brick-veneer-calculator"],
+    workflow: ["brick-wall-calculator", "brick-veneer-calculator", "brick-waste-calculator"],
   },
   "brick-cost-calculator": {
     primary: ["brick-calculator", "brick-quantity-calculator", "brick-mortar-calculator"],
@@ -239,7 +239,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "brick-mortar-calculator": {
     primary: ["mortar-calculator", "brick-calculator", "mortar-quantity-calculator"],
-    workflow: ["mortar-cost-calculator", "mortar-mix-calculator"],
+    workflow: ["mortar-cost-calculator", "mortar-mix-calculator", "brick-joint-calculator"],
   },
   "brick-veneer-calculator": {
     primary: ["brick-wall-calculator", "brick-calculator", "brick-mortar-calculator"],
@@ -247,7 +247,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "brick-patio-calculator": {
     primary: ["paver-calculator", "brick-calculator", "paver-base-calculator"],
-    workflow: ["paver-sand-calculator", "gravel-calculator"],
+    workflow: ["paver-sand-calculator", "gravel-calculator", "brick-paver-calculator"],
   },
   "brick-paver-calculator": {
     primary: ["paver-calculator", "paver-base-calculator", "paver-sand-calculator"],
@@ -255,7 +255,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "masonry-calculator": {
     primary: ["brick-calculator", "masonry-wall-calculator", "masonry-cost-calculator"],
-    workflow: ["cmu-calculator", "mortar-calculator"],
+    workflow: ["cmu-calculator", "mortar-calculator", "masonry-block-calculator"],
   },
   "masonry-wall-calculator": {
     primary: ["masonry-calculator", "cmu-wall-calculator", "brick-wall-calculator"],
@@ -263,7 +263,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "masonry-cost-calculator": {
     primary: ["brick-cost-calculator", "cmu-cost-calculator", "masonry-calculator"],
-    workflow: ["masonry-wall-calculator", "mortar-cost-calculator"],
+    workflow: ["masonry-wall-calculator", "mortar-cost-calculator", "construction-material-cost-calculator"],
   },
   "masonry-block-calculator": {
     primary: ["cmu-calculator", "cmu-wall-calculator", "mortar-calculator"],
@@ -279,13 +279,13 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "brick-joint-calculator": {
     primary: ["brick-mortar-calculator", "mortar-calculator", "brick-calculator"],
-    workflow: ["cmu-mortar-calculator", "mortar-quantity-calculator"],
+    workflow: ["concrete-block-mortar-calculator", "mortar-quantity-calculator"],
   },
 
   // CMU
   "concrete-block-calculator": {
     primary: ["cmu-calculator", "concrete-block-mortar-calculator", "cmu-cost-calculator"],
-    workflow: ["concrete-block-wall-calculator", "rebar-calculator"],
+    workflow: ["concrete-block-wall-calculator", "rebar-calculator", "concrete-block-weight-calculator"],
   },
   "cmu-calculator": {
     primary: ["concrete-block-calculator", "cmu-wall-calculator", "cmu-quantity-calculator"],
@@ -409,7 +409,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "sand-calculator": {
     primary: ["paver-sand-calculator", "paver-base-calculator", "sand-weight-calculator"],
-    workflow: ["mortar-mix-calculator", "cement-sand-ratio-calculator"],
+    workflow: ["mortar-mix-calculator", "cement-sand-ratio-calculator", "sand-cost-calculator"],
   },
   "sand-weight-calculator": {
     primary: ["sand-calculator", "gravel-weight-calculator", "aggregate-weight-calculator"],
@@ -543,7 +543,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   // Roofing
   "roofing-calculator": {
     primary: ["roof-area-calculator", "roofing-shingle-calculator", "roof-pitch-calculator"],
-    workflow: ["roofing-material-calculator", "shingle-quantity-calculator"],
+    workflow: ["roofing-material-calculator", "shingle-quantity-calculator", "roof-waste-calculator"],
   },
   "roof-area-calculator": {
     primary: ["roofing-calculator", "roofing-shingle-calculator", "roof-pitch-calculator"],
@@ -567,7 +567,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "shingle-cost-calculator": {
     primary: ["roofing-shingle-calculator", "shingle-quantity-calculator", "roofing-material-calculator"],
-    workflow: ["roof-cost-calculator", "roof-area-calculator"],
+    workflow: ["roofing-calculator", "roof-area-calculator"],
   },
   "roofing-material-calculator": {
     primary: ["roof-area-calculator", "roofing-shingle-calculator", "roofing-underlayment-calculator"],
@@ -811,7 +811,7 @@ export const workflowAdjacency: Record<string, AdjacencyGroup> = {
   },
   "landscaping-calculator": {
     primary: ["landscaping-cost-calculator", "mulch-calculator", "topsoil-calculator"],
-    workflow: ["gravel-calculator", "paver-calculator"],
+    workflow: ["gravel-calculator", "paver-calculator", "retaining-wall-calculator"],
   },
   "landscaping-cost-calculator": {
     primary: ["landscaping-calculator", "mulch-cost-calculator", "topsoil-cost-calculator"],

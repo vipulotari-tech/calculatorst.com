@@ -12,7 +12,8 @@
     "astro": "astro",
     "test": "vitest run --exclude=e2e/**",
     "test:watch": "vitest --exclude=e2e/**",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:seo": "node scripts/audit-seo.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.5",
