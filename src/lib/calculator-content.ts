@@ -54,7 +54,7 @@ export function getCalculatorContent(title: string, model: Model) {
   const fields = model.fields.filter(f => !f.optional && exampleFieldVisible(f));
   return {
     description,
-    outputs,
+    outputs: uniqueOutputs,
     fields,
     inputs: fields.map((f) => {
       const option = f.options?.find((item) => item.value === raw[f.id]);
@@ -71,7 +71,7 @@ export function getCalculatorContent(title: string, model: Model) {
       'Calculate updates the result; Reset restores initial values and units. Copy Result copies the current valid results, Share creates a restorable link with the current inputs, and Print opens a result-focused print view.',
     ],
     faq: [
-      { q: `What does the ${title} calculate?`, a: outputs.join('; ') + '. The results are estimates under the assumptions shown on this page.' },
+      { q: `What does the ${title} calculate?`, a: uniqueOutputs.join('; ') + '. The results are estimates under the assumptions shown on this page.' },
       { q: 'Which measurements and units should I use?', a: fields.map(f => f.label + (f.unit ? ` (${unitLabels[f.unit] ?? f.unit})` : '')).join('; ') + '. Select the matching unit in the form before entering a measurement.' },
       { q: 'What does Reset do?', a: 'Reset restores the initial values and units. Required product or design inputs that started blank must be entered again.' },
       { q: 'What are the limitations of this estimate?', a: model.assumptions.join(' ') },
