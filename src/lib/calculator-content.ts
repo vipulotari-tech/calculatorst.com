@@ -5,6 +5,22 @@ import { fmt, readInputs, unitLabels } from './calculator-math.ts';
 // Missing design/product inputs stay blank in the form; example-only values are
 // explicitly identified as hypothetical and never silently become defaults.
 const exampleOnly: Record<string, number> = { allowable: 1000, coverage: 100, price: 10 };
+const projectFaq: Record<string, { q: string; a: string }[]> = {
+  'Excavation Calculator': [
+    {
+      q: 'Should I enter the bottom or top excavation dimensions?',
+      a: 'Enter the length and width at the bottom of the excavation. With side slope s horizontal per 1 vertical and depth h, the top length and width each increase by 2 × s × h. Use the slope specified for the project; this calculator does not select a safe slope or shoring system.',
+    },
+    {
+      q: 'How is excavation volume calculated when the sides slope?',
+      a: 'For bottom length L, bottom width W, depth h and the same outward side slope s on all four sides, bank volume is L × W × h + s × (L + W) × h² + (4/3) × s² × h³. Use consistent length units. Cubic feet divided by 27 gives cubic yards; multiply by the number of identical excavations before applying swell.',
+    },
+    {
+      q: 'Does the optional excavation price use bank or loose cubic yards?',
+      a: 'The optional per-cubic-yard price multiplies the in-place bank volume. Swell changes the loose haul volume, not that price basis. Use the Excavation Cost Calculator when you need separate bank excavation and loose haul or disposal rates, truck trips and entered project costs.',
+    },
+  ],
+};
 export function getCalculatorContent(title: string, model: Model) {
   const raw: Record<string, number> = {};
   const units: Record<string, string> = {};
@@ -51,7 +67,11 @@ export function getCalculatorContent(title: string, model: Model) {
     if (rule.equals !== undefined) return controllingValue === rule.equals;
     return (rule.in ?? []).includes(controllingValue);
   };
-  const fields = model.fields.filter(f => !f.optional && exampleFieldVisible(f));
+  const fields = model.fields.filter(f => !f.optional && exampleFieldVisible(f)).map(field =>
+    field.options?.length && !field.help
+      ? { ...field, help: `Choose the option matching your project: ${field.options.map(option => option.label).join('; ')}.` }
+      : field,
+  );
   return {
     description,
     outputs: uniqueOutputs,
@@ -75,6 +95,7 @@ export function getCalculatorContent(title: string, model: Model) {
       { q: 'Which measurements and units should I use?', a: fields.map(f => f.label + (f.unit ? ` (${unitLabels[f.unit] ?? f.unit})` : '')).join('; ') + '. Select the matching unit in the form before entering a measurement.' },
       { q: 'What does Reset do?', a: 'Reset restores the initial values and units. Required product or design inputs that started blank must be entered again.' },
       { q: 'What are the limitations of this estimate?', a: model.assumptions.join(' ') },
+      ...(projectFaq[title] ?? []),
     ],
   };
 }

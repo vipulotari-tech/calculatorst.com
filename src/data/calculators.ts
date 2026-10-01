@@ -57,9 +57,9 @@ export const calculators: CalculatorMeta[] = [
   },
   {
     slug: "paver-calculator",
-    title: "Paver Calculator — Pavers, Base & Sand",
+    title: "Paver Calculator — Paver Count, Rows, Columns & Cost",
     h1: "Paver Calculator",
-    description: "Calculate pavers needed for patios and walkways plus base gravel and sand. US & metric units.",
+    description: "Estimate straight-layout paver rows, columns, installed pavers and order quantity from area dimensions, paver size, joint width and purchasing allowance.",
     category: "Landscaping",
     cluster: "landscaping",
     iconPath: "M4 4h5v5H4zM9 4h3v5H9zM4 9h3v3H4zM7 9h5v3H7z",
