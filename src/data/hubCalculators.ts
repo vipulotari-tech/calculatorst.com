@@ -1620,12 +1620,15 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "framing-calculator",
     "title": "Framing Calculator — Studs, Plates, Lumber & Cost",
     "h1": "Framing Calculator",
-    "description": "Estimate evenly spaced framing members from layout distance and a specified maximum on-center spacing, with detail pieces, purchasing allowance and optional unit cost.",
+    "description": "Calculate wall studs, top and bottom plates, whole plate-stock pieces, framing lumber, purchasing allowance and optional linear-foot cost from wall length, height and specified stud spacing.",
     "category": "Framing & Lumber",
     "cluster": "framing",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
-      "framing calculator"
+      "framing calculator",
+      "framing lumber calculator",
+      "stud and plate calculator",
+      "wall framing material calculator"
     ],
     "featured": false
   },
