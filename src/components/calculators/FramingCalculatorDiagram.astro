@@ -1,0 +1,328 @@
+---
+const slug = "framing-calculator";
+---
+
+<figure
+  class="calc-project-diagram rounded-xl border border-border bg-card p-4 sm:p-5"
+  data-project-diagram
+  data-framing-rich-diagram
+  data-kind="framing"
+>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <h3 class="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">Live wall framing takeoff</h3>
+      <p class="mt-1 max-w-[720px] text-[11px] leading-5 text-muted-foreground">
+        Stud layout, wall dimensions, plate layers, detail studs, stock-piece rounding, and material allowance update from the calculator inputs. Schematic only — not a structural design or opening-detail plan.
+      </p>
+    </div>
+    <span class="rounded-full border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground">LIVE FRAMING GUIDE</span>
+  </div>
+
+  <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+    <svg viewBox="0 0 760 510" class="h-auto w-full" role="img" aria-labelledby="framing-diagram-title framing-diagram-desc">
+      <title id="framing-diagram-title">Live wall framing stud and plate takeoff diagram</title>
+      <desc id="framing-diagram-desc">
+        Straight wall elevation showing base stud layout, top and bottom plate layers, wall length and height, equalized stud spacing, additional detail studs, and stock-order quantities.
+      </desc>
+
+      <defs>
+        <marker id="framing-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="framing-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"/>
+        </marker>
+        <pattern id="framing-lumber" width="14" height="14" patternUnits="userSpaceOnUse">
+          <rect width="14" height="14" fill="var(--color-muted)" opacity=".35"/>
+          <path d="M2 4 C5 1 9 1 12 4 M2 10 C5 7 9 7 12 10" fill="none" stroke="var(--color-muted-foreground)" stroke-width=".7" opacity=".28"/>
+        </pattern>
+      </defs>
+
+      <text x="30" y="30" font-size="13" font-weight="700" fill="var(--color-foreground)">Straight wall elevation</text>
+      <text x="730" y="30" text-anchor="end" font-size="11" fill="var(--color-muted-foreground)" data-framing-size-label>20 ft wall · 8 ft studs</text>
+
+      <line x1="72" y1="70" x2="600" y2="70" stroke="#2563eb" stroke-width="1.5" marker-start="url(#framing-arrow-start)" marker-end="url(#framing-arrow-end)"/>
+      <text x="336" y="57" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" data-framing-length-label>Wall length = 20 ft</text>
+
+      <line x1="48" y1="102" x2="48" y2="318" stroke="#2563eb" stroke-width="1.5" marker-start="url(#framing-arrow-start)" marker-end="url(#framing-arrow-end)"/>
+      <text x="29" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" transform="rotate(-90 29 210)" data-framing-height-label>Stud height = 8 ft</text>
+
+      <rect x="72" y="102" width="528" height="216" rx="5" fill="var(--color-card)" stroke="var(--color-border)" stroke-width="1.2"/>
+      <g data-framing-layout aria-hidden="true"></g>
+
+      <line x1="72" y1="337" x2="600" y2="337" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="5 4"/>
+      <text x="336" y="355" text-anchor="middle" font-size="11" font-weight="700" fill="#1d4ed8" data-framing-spacing-label>Equalized base spacing = 16 in o.c.</text>
+
+      <g transform="translate(625 104)">
+        <rect width="105" height="214" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="52.5" y="24" text-anchor="middle" font-size="10" font-weight="700" fill="var(--color-foreground)">DETAIL STUDS</text>
+        <g data-framing-extra-layout></g>
+        <text x="52.5" y="164" text-anchor="middle" font-size="21" font-weight="700" fill="#b45309" data-framing-extra-count>+ 0</text>
+        <text x="52.5" y="184" text-anchor="middle" font-size="10" fill="var(--color-muted-foreground)">corners / openings</text>
+        <text x="52.5" y="200" text-anchor="middle" font-size="9.5" fill="var(--color-muted-foreground)">position from plans</text>
+      </g>
+
+      <g transform="translate(30 382)">
+        <rect x="0" y="0" width="166" height="98" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="14" y="23" font-size="10.5" font-weight="700" fill="var(--color-foreground)">STUD LAYOUT</text>
+        <text x="14" y="50" font-size="20" font-weight="700" fill="#1d4ed8" data-framing-installed>16 installed studs</text>
+        <text x="14" y="72" font-size="11" fill="var(--color-foreground)" data-framing-base>16 base + 0 detail</text>
+        <text x="14" y="88" font-size="9.5" fill="var(--color-muted-foreground)" data-framing-max-spacing>16 in maximum spacing</text>
+      </g>
+
+      <g transform="translate(208 382)">
+        <rect x="0" y="0" width="166" height="98" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="14" y="23" font-size="10.5" font-weight="700" fill="var(--color-foreground)">PLATE TAKEOFF</text>
+        <text x="14" y="50" font-size="18" font-weight="700" fill="var(--color-foreground)" data-framing-plate-feet>60 ft net plates</text>
+        <text x="14" y="72" font-size="13" font-weight="700" fill="#1d4ed8" data-framing-plate-pieces>4 stock pieces</text>
+        <text x="14" y="88" font-size="9.5" fill="var(--color-muted-foreground)" data-framing-plate-layers>2 top + 1 bottom layers</text>
+      </g>
+
+      <g transform="translate(386 382)">
+        <rect x="0" y="0" width="166" height="98" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="14" y="23" font-size="10.5" font-weight="700" fill="var(--color-foreground)">ORDER WITH ALLOWANCE</text>
+        <text x="14" y="50" font-size="19" font-weight="700" fill="#1d4ed8" data-framing-stud-order>16 studs</text>
+        <text x="14" y="72" font-size="13" font-weight="700" fill="var(--color-foreground)" data-framing-purchased>192 ft stock</text>
+        <text x="14" y="88" font-size="9.5" fill="var(--color-muted-foreground)" data-framing-waste>0% allowance</text>
+      </g>
+
+      <g transform="translate(564 382)">
+        <rect x="0" y="0" width="166" height="98" rx="12" fill="var(--color-muted)" opacity=".23" stroke="var(--color-border)"/>
+        <text x="14" y="23" font-size="10.5" font-weight="700" fill="var(--color-foreground)">LUMBER FOOTAGE</text>
+        <text x="14" y="50" font-size="19" font-weight="700" fill="var(--color-foreground)" data-framing-net>188 ft net</text>
+        <text x="14" y="72" font-size="13" font-weight="700" fill="#1d4ed8" data-framing-required>188 ft required</text>
+        <text x="14" y="88" font-size="9.5" fill="var(--color-muted-foreground)">before stock rounding</text>
+      </g>
+    </svg>
+  </div>
+
+  <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-4">
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Wall</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-framing-card-wall>20 ft × 8 ft</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Base layout</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-framing-card-layout>16 studs @ 16 in o.c.</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Plate stock</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-framing-card-stock>4 × 16 ft</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/30 px-3 py-2">
+      <dt class="text-muted-foreground">Purchased framing</dt>
+      <dd class="mt-0.5 font-mono font-medium text-foreground tabular-nums" data-framing-card-purchased>192 ft</dd>
+    </div>
+  </dl>
+
+  <p class="mt-3 text-[11px] leading-5 text-muted-foreground">
+    Additional detail studs are counted separately because king, jack, cripple, corner, backing, and intersection positions depend on the actual framing plan. Headers and structural sizing are outside this quantity takeoff.
+  </p>
+</figure>
+
+<script>
+  function initFramingRichDiagrams() {
+    document.querySelectorAll<HTMLElement>("[data-framing-rich-diagram]").forEach((figure) => {
+      if (figure.dataset.initialized) return;
+      figure.dataset.initialized = "true";
+
+      const root = figure.closest<HTMLElement>('[data-calculator-slug="framing-calculator"]');
+      if (!root) return;
+      const form = root.querySelector<HTMLFormElement>("#framing-calculator-form");
+      const layout = figure.querySelector<SVGGElement>("[data-framing-layout]");
+      const extras = figure.querySelector<SVGGElement>("[data-framing-extra-layout]");
+      if (!form || !layout || !extras) return;
+
+      const input = (id: string) => root.querySelector<HTMLInputElement>("#framing-calculator-" + id);
+      const unit = (id: string) => root.querySelector<HTMLSelectElement>("#framing-calculator-" + id + "-unit");
+
+      const unitText = (id: string) => {
+        const select = unit(id);
+        if (select) return select.options[select.selectedIndex]?.text?.trim() || select.value;
+        const field = input(id);
+        const staticUnit = field?.parentElement?.querySelector("span");
+        return staticUnit?.textContent?.trim() || "";
+      };
+
+      const displayValue = (id: string) => {
+        const raw = input(id)?.value?.trim() ?? "";
+        if (!raw) return "—";
+        const n = Number(raw);
+        const shown = Number.isFinite(n) ? String(Number(n.toFixed(4))) : raw;
+        const label = unitText(id);
+        return label ? shown + " " + label : shown;
+      };
+
+      const feet = (id: string) => {
+        const n = Number(input(id)?.value);
+        if (!Number.isFinite(n)) return Number.NaN;
+        const factors: Record<string, number> = { ft: 1, in: 1 / 12, yd: 3, m: 1 / 0.3048, cm: 1 / 30.48, mm: 1 / 304.8 };
+        return n * (factors[unit(id)?.value ?? "ft"] ?? 1);
+      };
+
+      const numberValue = (id: string, fallback = 0) => {
+        const n = Number(input(id)?.value);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const fmt = (value: number, digits = 2) =>
+        Number.isFinite(value) ? new Intl.NumberFormat("en-US", { maximumFractionDigits: digits }).format(value) : "—";
+
+      const setText = (selector: string, value: string) => {
+        figure.querySelectorAll<SVGTextElement | HTMLElement>(selector).forEach((el) => {
+          el.textContent = value;
+        });
+      };
+
+      const svgEl = <K extends keyof SVGElementTagNameMap>(name: K, attrs: Record<string, string>) => {
+        const el = document.createElementNS("http://www.w3.org/2000/svg", name);
+        Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
+        return el;
+      };
+
+      const renderLayout = (baseStuds: number, topLayers: number, bottomLayers: number, detailStuds: number) => {
+        while (layout.firstChild) layout.removeChild(layout.firstChild);
+        while (extras.firstChild) extras.removeChild(extras.firstChild);
+
+        const x0 = 72;
+        const x1 = 600;
+        const y0 = 102;
+        const y1 = 318;
+        const shownStuds = Math.max(2, Math.min(baseStuds, 28));
+        const dx = (x1 - x0) / Math.max(1, shownStuds - 1);
+
+        for (let i = 0; i < shownStuds; i++) {
+          const x = x0 + i * dx;
+          layout.appendChild(svgEl("rect", {
+            x: String(x - 3.2),
+            y: String(y0 + 8),
+            width: "6.4",
+            height: String(y1 - y0 - 16),
+            rx: "1.5",
+            fill: "url(#framing-lumber)",
+            stroke: "var(--color-foreground)",
+            "stroke-width": "1.2"
+          }));
+        }
+
+        const topShown = Math.min(Math.max(topLayers, 0), 4);
+        const bottomShown = Math.min(Math.max(bottomLayers, 0), 4);
+        for (let i = 0; i < topShown; i++) {
+          layout.appendChild(svgEl("rect", {
+            x: String(x0),
+            y: String(y0 + i * 7),
+            width: String(x1 - x0),
+            height: "6",
+            rx: "1",
+            fill: "url(#framing-lumber)",
+            stroke: "var(--color-foreground)",
+            "stroke-width": "1"
+          }));
+        }
+        for (let i = 0; i < bottomShown; i++) {
+          layout.appendChild(svgEl("rect", {
+            x: String(x0),
+            y: String(y1 - 6 - i * 7),
+            width: String(x1 - x0),
+            height: "6",
+            rx: "1",
+            fill: "url(#framing-lumber)",
+            stroke: "var(--color-foreground)",
+            "stroke-width": "1"
+          }));
+        }
+
+        if (baseStuds > shownStuds) {
+          const note = svgEl("text", {
+            x: "336", y: "302", "text-anchor": "middle",
+            "font-size": "9.5", fill: "var(--color-muted-foreground)"
+          });
+          note.textContent = baseStuds + " base studs total; drawing condensed";
+          layout.appendChild(note);
+        }
+
+        const extraShown = Math.min(Math.max(detailStuds, 0), 6);
+        for (let i = 0; i < extraShown; i++) {
+          extras.appendChild(svgEl("rect", {
+            x: String(22 + i * 10),
+            y: String(48 + (i % 2) * 8),
+            width: "6",
+            height: "58",
+            rx: "1.5",
+            fill: "#b45309",
+            opacity: ".86"
+          }));
+        }
+        if (detailStuds > extraShown) {
+          const more = svgEl("text", {
+            x: "52.5", y: "126", "text-anchor": "middle",
+            "font-size": "9.5", fill: "#92400e"
+          });
+          more.textContent = "+" + (detailStuds - extraShown) + " more";
+          extras.appendChild(more);
+        }
+      };
+
+      const update = () => {
+        const lengthFt = feet("length");
+        const heightFt = feet("height");
+        const spacingFt = feet("spacing");
+        const stockLengthFt = feet("stockLength");
+        const detailStuds = Math.max(0, Math.round(numberValue("extra", 0)));
+        const topLayers = Math.max(0, Math.round(numberValue("topPlates", 0)));
+        const bottomLayers = Math.max(0, Math.round(numberValue("bottomPlates", 0)));
+        const allowance = Math.max(0, numberValue("waste", 0));
+
+        const valid = [lengthFt, heightFt, spacingFt, stockLengthFt].every((value) => Number.isFinite(value) && value > 0);
+        const baseStuds = valid ? Math.ceil(lengthFt / spacingFt) + 1 : 0;
+        const installedStuds = baseStuds + detailStuds;
+        const equalSpacingIn = baseStuds > 1 ? lengthFt / (baseStuds - 1) * 12 : 0;
+        const studFeet = installedStuds * (valid ? heightFt : 0);
+        const plateFeet = valid ? lengthFt * (topLayers + bottomLayers) : 0;
+        const netFeet = studFeet + plateFeet;
+        const requiredFeet = netFeet * (1 + allowance / 100);
+        const studOrder = installedStuds > 0 ? Math.ceil(installedStuds * (1 + allowance / 100)) : 0;
+        const platePieces = valid && plateFeet > 0 ? Math.ceil(plateFeet * (1 + allowance / 100) / stockLengthFt) : 0;
+        const purchasedFeet = valid ? studOrder * heightFt + platePieces * stockLengthFt : 0;
+
+        renderLayout(baseStuds || 2, topLayers, bottomLayers, detailStuds);
+
+        setText("[data-framing-size-label]", displayValue("length") + " wall · " + displayValue("height") + " studs");
+        setText("[data-framing-length-label]", "Wall length = " + displayValue("length"));
+        setText("[data-framing-height-label]", "Stud height = " + displayValue("height"));
+        setText("[data-framing-spacing-label]", "Equalized base spacing = " + fmt(equalSpacingIn, 3) + " in o.c.");
+        setText("[data-framing-extra-count]", "+ " + detailStuds);
+
+        setText("[data-framing-installed]", installedStuds + " installed " + (installedStuds === 1 ? "stud" : "studs"));
+        setText("[data-framing-base]", baseStuds + " base + " + detailStuds + " detail");
+        setText("[data-framing-max-spacing]", displayValue("spacing") + " maximum spacing");
+        setText("[data-framing-plate-feet]", fmt(plateFeet) + " ft net plates");
+        setText("[data-framing-plate-pieces]", platePieces + " stock " + (platePieces === 1 ? "piece" : "pieces"));
+        setText("[data-framing-plate-layers]", topLayers + " top + " + bottomLayers + " bottom layers");
+        setText("[data-framing-stud-order]", studOrder + " " + (studOrder === 1 ? "stud" : "studs"));
+        setText("[data-framing-purchased]", fmt(purchasedFeet) + " ft stock");
+        setText("[data-framing-waste]", fmt(allowance) + "% allowance");
+        setText("[data-framing-net]", fmt(netFeet) + " ft net");
+        setText("[data-framing-required]", fmt(requiredFeet) + " ft required");
+
+        setText("[data-framing-card-wall]", displayValue("length") + " × " + displayValue("height"));
+        setText("[data-framing-card-layout]", baseStuds + " studs @ " + fmt(equalSpacingIn, 3) + " in o.c.");
+        setText("[data-framing-card-stock]", platePieces + " × " + displayValue("stockLength"));
+        setText("[data-framing-card-purchased]", fmt(purchasedFeet) + " ft");
+      };
+
+      root.addEventListener("input", update);
+      root.addEventListener("change", update);
+      root.addEventListener("calculator-state-restored", update);
+      form.addEventListener("reset", () => setTimeout(update, 0));
+
+      update();
+      queueMicrotask(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 0);
+    });
+  }
+
+  initFramingRichDiagrams();
+  document.addEventListener("astro:page-load", initFramingRichDiagrams);
+</script>

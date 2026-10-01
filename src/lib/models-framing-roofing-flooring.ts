@@ -96,42 +96,52 @@ const framingGeneral:Model={
     length('length','Wall length',20,'ft'),
     length('height','Stud height',8,'ft'),
     length('spacing','Specified maximum stud spacing',16,'in'),
-    count('extra','Extra studs for corners / openings',0,0),
+    count('extra','Extra detail studs from plans',0,0),
     count('topPlates','Top plate layers',2,0),
     count('bottomPlates','Bottom plate layers',1,0),
     length('stockLength','Plate stock length',16,'ft'),
     allowance,
     price('USD/ft')
   ],
-  formula:'Studs = ceil(wall length / spacing) + 1 + extras. Plate footage = wall length × plate layers. Total framing footage = studs × height + plates.',
+  formula:'Base studs = ceil(wall length / maximum spacing) + 1. Installed studs = base + entered detail studs. Plate footage = wall length × (top + bottom plate layers). Stock-aware purchasing rounds studs and plate stock to whole pieces after applying allowance.',
   assumptions:[
-    'Straight wall takeoff. Enter extra studs required by corners, intersections, openings, king/jack studs and local details from the plan.',
-    'Stud spacing, header design and load path are design inputs, not selected by this calculator.',
-    'Plate stock count is an equivalent count based on total plate footage; a real cut schedule can require more stock.'
+    'Straight wall takeoff with one base stud at each end. Extra detail studs cover only the corner, intersection, opening, backing, king, jack or cripple studs that you explicitly count from the framing plan.',
+    'Stud spacing, header design, opening details, blocking and load path are design inputs. This calculator performs a quantity and stock-order takeoff; it does not select structural sizes or prove code compliance.',
+    'Plate stock count is an equivalent whole-piece order based on total plate footage and the entered stock length. A real cut schedule can require more stock when offcuts cannot be reused.'
   ],
   sources:[inchFraming,omniFraming],
   calculate(v,u){
     const base=roundUp(v.length/v.spacing)+1;
     const studs=base+v.extra;
+    const equalSpacing=base>1?v.length/(base-1)*12:0;
     const studFeet=studs*v.height;
-    const plateFeet=v.length*(v.topPlates+v.bottomPlates);
+    const topPlateFeet=v.length*v.topPlates;
+    const bottomPlateFeet=v.length*v.bottomPlates;
+    const plateFeet=topPlateFeet+bottomPlateFeet;
     const net=studFeet+plateFeet;
     const requiredFeet=net*waste(v);
-    const platePieces=roundUp(plateFeet*waste(v)/v.stockLength);
+    const platePieces=plateFeet>0?roundUp(plateFeet*waste(v)/v.stockLength):0;
     const studOrder=roundUp(studs*waste(v));
     const purchasedFeet=studOrder*v.height+platePieces*v.stockLength;
     return result(withCost([
+      row('studOrder','Studs to order',studOrder,'studs',true),
       row('studs','Installed studs',studs,'studs',true),
-      row('studOrder','Studs including allowance',studOrder,'studs',true),
+      row('base','Base layout studs',base,'studs',true),
+      row('extra','Entered detail studs',v.extra,'studs',true),
+      row('spacing','Equalized base-stud spacing',equalSpacing,'in'),
+      row('studFeet','Installed stud lumber',studFeet,'ft'),
+      row('topPlateFeet','Top plate lumber',topPlateFeet,'ft'),
+      row('bottomPlateFeet','Bottom plate lumber',bottomPlateFeet,'ft'),
       row('plateFeet','Net plate length',plateFeet,'ft'),
-      row('platePieces','Equivalent plate stock pieces',platePieces,'pieces',true),
+      row('platePieces','Plate stock pieces to order',platePieces,'pieces',true),
       row('net','Net framing lumber',net,'ft'),
-      row('required','Required lumber with allowance',requiredFeet,'ft'),
-      row('order','Equivalent purchased stock length',purchasedFeet,'ft')
+      row('required','Lumber required with allowance',requiredFeet,'ft'),
+      row('order','Purchased stock length',purchasedFeet,'ft')
     ],v.price,u.price,{'USD/ft':purchasedFeet}),[
-      `ceil(${fmt(v.length)} ÷ ${fmt(v.spacing)}) + 1 = ${base} base studs; + ${v.extra} = ${studs}.`,
-      `Stud footage ${fmt(studFeet)} + plate footage ${fmt(plateFeet)} = ${fmt(net)} ft.`,
-      `Allowance requires ${fmt(requiredFeet)} ft; whole studs and ${platePieces} plate stock pieces produce about ${fmt(purchasedFeet)} ft purchased.`
+      'ceil('+fmt(v.length)+' ft ÷ '+fmt(v.spacing*12)+' in) + 1 = '+base+' base studs; + '+v.extra+' detail studs = '+studs+' installed.',
+      base+' base studs create '+fmt(equalSpacing)+' in equalized centers across the entered wall length.',
+      'Stud lumber '+fmt(studFeet)+' ft + top plates '+fmt(topPlateFeet)+' ft + bottom plates '+fmt(bottomPlateFeet)+' ft = '+fmt(net)+' ft net framing lumber.',
+      'Allowance requires '+fmt(requiredFeet)+' ft; whole-stud and '+v.stockLength+' ft plate-stock rounding produces about '+fmt(purchasedFeet)+' ft purchased.'
     ]);
   }
 };

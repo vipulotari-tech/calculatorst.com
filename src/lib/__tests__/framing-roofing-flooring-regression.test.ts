@@ -36,7 +36,14 @@ describe('Framing & lumber — independent regression cases', () => {
       { length:20, height:8, spacing:16, extra:2, topPlates:2, bottomPlates:1, stockLength:16, waste:0, price:1 },
       { spacing:'in', price:'USD/ft' });
     expect(r.rows.find(x => x.key === 'studs')?.value).toBe(18);
+    expect(r.rows.find(x => x.key === 'base')?.value).toBe(16);
+    expect(r.rows.find(x => x.key === 'extra')?.value).toBe(2);
+    expect(r.rows.find(x => x.key === 'spacing')?.value).toBeCloseTo(16, 8);
+    expect(r.rows.find(x => x.key === 'studFeet')?.value).toBeCloseTo(144, 8);
+    expect(r.rows.find(x => x.key === 'topPlateFeet')?.value).toBeCloseTo(40, 8);
+    expect(r.rows.find(x => x.key === 'bottomPlateFeet')?.value).toBeCloseTo(20, 8);
     expect(r.rows.find(x => x.key === 'plateFeet')?.value).toBeCloseTo(60, 8);
+    expect(r.rows.find(x => x.key === 'platePieces')?.value).toBe(4);
     expect(r.rows.find(x => x.key === 'net')?.value).toBeCloseTo(204, 8);
     expect(r.rows.find(x => x.key === 'required')?.value).toBeCloseTo(204, 8);
     expect(r.rows.find(x => x.key === 'order')?.value).toBeCloseTo(208, 8);

@@ -1226,8 +1226,9 @@ const tradeGuidance: Record<string, string[]> = {
     "The result is asphalt material volume and weight with your allowance. It does not choose pavement thickness or include base, milling, transport or paving labor; use Asphalt Cost Calculator for a quote-based cost workflow."
   ],
   "framing-calculator": [
-    "Use this layout calculator when the member spacing is already specified and you need installed count, equalized spacing, spare pieces and optional cost.",
-    "Add corners, openings, blocking, headers and other detail members explicitly; do not hide required framing details inside the purchasing allowance."
+    "Use this stock-aware framing takeoff when wall length, stud height and maximum on-center spacing are already specified and you need studs, top/bottom plates, whole plate-stock pieces, allowance and optional linear-foot cost.",
+    "Enter detail studs from the framing plan separately for corners, intersections, openings, backing, king/jack/cripple studs or other required conditions. Purchasing allowance adds spare material; it is not a substitute for known framing details.",
+    "The live diagram shows the repeated base-stud layout and plate layers. Detail studs are deliberately shown separately because their exact positions depend on the project plan."
   ],
   "wall-framing-calculator": [
     "Use this wall-specific takeoff when you need both stud count and top/bottom plate footage rather than a generic repeated-member count.",
@@ -1481,16 +1482,20 @@ const tradeFaqEnhancements: Record<string, { q: string; a: string }[]> = {
   ],
   "framing-calculator": [
     {
-      "q": "Does the framing calculator choose the correct stud or member spacing?",
-      "a": "No. Enter the maximum on-center spacing from the project requirements. The calculator converts that spacing and layout distance into member count and equalized centers."
+      "q": "Does the framing calculator choose the correct stud spacing or structural member size?",
+      "a": "No. Enter the maximum on-center spacing, stud height and other framing requirements from the project documents. The calculator converts those inputs into a quantity and stock-order takeoff; it does not perform structural member selection."
     },
     {
-      "q": "What should I enter as additional framing pieces?",
-      "a": "Use the count required by the plans for corners, openings, backing or other details that are not captured by the repeated spacing layout."
+      "q": "What should I enter as extra detail studs?",
+      "a": "Enter the stud count required by the framing plan for corners, intersections, openings, backing, king studs, jack studs, cripple studs or other details that are not captured by the repeated base-stud layout."
+    },
+    {
+      "q": "How are top and bottom plates ordered?",
+      "a": "The calculator multiplies wall length by the entered top and bottom plate layers, applies the purchasing allowance, divides by the plate stock length and rounds up to whole stock pieces. The result is an equivalent order estimate rather than a cut-optimization plan."
     },
     {
       "q": "Should I use Framing Calculator or Wall Framing Calculator?",
-      "a": "Use Framing Calculator for a general repeated-member layout. Use Wall Framing Calculator when the takeoff specifically needs wall studs plus top and bottom plate footage."
+      "a": "Use Framing Calculator when you need a stock-aware order estimate with stud allowance, plate stock length, whole plate-piece rounding and purchased linear footage. Use Wall Framing Calculator when you want the simpler wall stud-and-plate linear-foot takeoff without stock-piece rounding."
     }
   ],
   "wall-framing-calculator": [
