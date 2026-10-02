@@ -308,12 +308,23 @@
 </div>
 
 <script>
-  import { areaToFt2, calculateDrivewayGravel, lengthToFeet, type DensityUnit, type PriceBasis } from "../../lib/calculations/driveway-gravel";
+  import {
+    areaToFt2,
+    calculateDrivewayGravel,
+    lengthToFeet,
+    type DensityUnit,
+    type PriceBasis,
+    type SupplyMode,
+  } from "../../lib/calculations/driveway-gravel";
+
+  const YD3_TO_M3 = 0.764554857984;
+  const SHORT_TON_TO_TONNE = 0.90718474;
 
   const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
   const form = $<HTMLFormElement>("d-form");
   const results = $<HTMLDivElement>("d-results");
   let hasCalculated = false;
+  let lastCalculation: ReturnType<typeof calculateDrivewayGravel> | null = null;
 
   function num(id: string, fallback = 0) {
     const value = Number(($<HTMLInputElement>(id)?.value ?? "").trim());
@@ -321,6 +332,9 @@
   }
   function selected(id: string) {
     return $<HTMLSelectElement>(id)?.value ?? "";
+  }
+  function checked(id: string) {
+    return Boolean($<HTMLInputElement>(id)?.checked);
   }
   function fmt(value: number, digits = 2) {
     if (!Number.isFinite(value)) return "—";
@@ -353,6 +367,16 @@
     $("d-recalc-note")?.classList.remove("hidden");
     setText("d-copy-status", "");
   }
+  function materialName(prefix: string) {
+    const select = $<HTMLSelectElement>(`d-${prefix}-material`);
+    const text = select?.selectedOptions?.[0]?.textContent?.trim() ?? prefix;
+    return text.replace(/\s*~.*$/, "").trim();
+  }
+  function updateLayoutVisibility() {
+    const layout = selected("d-layout");
+    $("d-lshape-fields")?.classList.toggle("hidden", layout !== "lshape");
+    $("d-multi-fields")?.classList.toggle("hidden", layout !== "multi");
+  }
   function updateLayerVisibility() {
     const build = selected("d-build");
     $("d-layer-subbase")?.classList.toggle("hidden", build !== "three");
@@ -371,6 +395,13 @@
       setText("d-surface-index", "Layer 2");
       if (helper) helper.textContent = "Two-layer build: calculate the base course and surface course separately.";
     }
+
+    const previewBase = $("d-preview-base");
+    const previewSubbase = $("d-preview-subbase");
+    previewBase?.classList.toggle("hidden", build === "surface");
+    previewBase?.classList.toggle("flex", build !== "surface");
+    previewSubbase?.classList.toggle("hidden", build !== "three");
+    previewSubbase?.classList.toggle("flex", build === "three");
   }
   function setDensityControlState(select: HTMLSelectElement) {
     const densityId = select.dataset.densityTarget;
@@ -393,22 +424,104 @@
       if (unitSelect) unitSelect.value = "ton/yd3";
     }
   }
-  function syncDensityFromPreset(select: HTMLSelectElement) {
-    setDensityControlState(select);
-  }
   function updateAllowanceSummary(prefix: string) {
-    const compaction = num(`d-${prefix}-compaction`);
-    const waste = num(`d-${prefix}-waste`);
-    setText(`d-${prefix}-allowance-summary`, `${fmt(compaction, 1)}% compaction allowance · ${fmt(waste, 1)}% waste`);
+    setText(
+      `d-${prefix}-allowance-summary`,
+      `${fmt(num(`d-${prefix}-compaction`), 1)}% compaction allowance · ${fmt(num(`d-${prefix}-waste`), 1)}% waste`,
+    );
   }
   function updateAllAllowanceSummaries() {
     ["subbase", "base", "surface"].forEach(updateAllowanceSummary);
   }
+  function updateSurfaceSupply() {
+    const bags = selected("d-surface-supply") === "bags";
+    $("d-surface-bag-weight-field")?.classList.toggle("hidden", !bags);
+    $("d-surface-bag-price-field")?.classList.toggle("hidden", !bags);
+    $("d-surface-bulk-price-field")?.classList.toggle("hidden", bags);
+    document.querySelectorAll<HTMLElement>(".d-surface-bulk-ordering").forEach((el) => el.classList.toggle("hidden", bags));
+  }
+  function updateGeoState() {
+    const enabled = checked("d-geo-enabled");
+    $("d-geo-fields")?.classList.toggle("opacity-50", !enabled);
+    ["d-geo-overlap", "d-geo-price", "d-geo-roll-width", "d-geo-roll-length"].forEach((id) => {
+      const el = $<HTMLInputElement>(id);
+      if (el) el.disabled = !enabled;
+    });
+  }
+  function primaryDimensionsFt() {
+    return {
+      lengthFt: lengthToFeet(Math.max(0, num("d-len")), selected("d-len-unit") || "ft"),
+      widthFt: lengthToFeet(Math.max(0, num("d-wid")), selected("d-wid-unit") || "ft"),
+    };
+  }
+  function updateEdgingState() {
+    const mode = selected("d-edging-mode");
+    const fields = $("d-edging-fields");
+    fields?.classList.toggle("hidden", mode === "none");
+    const lengthInput = $<HTMLInputElement>("d-edging-length");
+    if (!lengthInput || mode === "none") return;
+    const { lengthFt, widthFt } = primaryDimensionsFt();
+    if (mode === "sides") {
+      lengthInput.value = String(lengthFt * 2);
+      lengthInput.readOnly = true;
+    } else if (mode === "perimeter") {
+      lengthInput.value = String((lengthFt + widthFt) * 2);
+      lengthInput.readOnly = true;
+    } else {
+      lengthInput.readOnly = false;
+    }
+  }
+  function previewAreaFt2() {
+    try {
+      const { lengthFt, widthFt } = primaryDimensionsFt();
+      let area = lengthFt * widthFt;
+      const layout = selected("d-layout");
+      if (layout === "lshape") {
+        area -= lengthToFeet(num("d-cut-len"), selected("d-cut-len-unit")) * lengthToFeet(num("d-cut-wid"), selected("d-cut-wid-unit"));
+      } else if (layout === "multi") {
+        for (const p of ["s2", "s3"]) {
+          const l = num(`d-${p}-len`);
+          const w = num(`d-${p}-wid`);
+          if (l > 0 && w > 0) area += lengthToFeet(l, selected(`d-${p}-len-unit`)) * lengthToFeet(w, selected(`d-${p}-wid-unit`));
+        }
+      }
+      area += areaToFt2(num("d-extra-area"), selected("d-extra-area-unit") || "ft2");
+      return Math.max(0, area);
+    } catch {
+      return 0;
+    }
+  }
+  function updatePreview() {
+    const layout = selected("d-layout");
+    const layoutLabel = layout === "lshape" ? "L-shape" : layout === "multi" ? "Multiple sections" : "Rectangle";
+    const len = num("d-len");
+    const wid = num("d-wid");
+    setText("d-preview-footprint", `${layoutLabel} · primary ${fmt(len, 1)} ${selected("d-len-unit")} × ${fmt(wid, 1)} ${selected("d-wid-unit")}`);
+    const areaFt2 = previewAreaFt2();
+    setText("d-preview-area", selected("d-output-system") === "metric" ? `${fmt(areaFt2 * 0.09290304, 1)} m²` : `${fmt(areaFt2, 1)} ft²`);
+
+    for (const prefix of ["subbase", "base", "surface"]) {
+      const depth = fmt(num(`d-${prefix}-depth`), 1);
+      const depthUnit = selected(`d-${prefix}-depth-unit`);
+      const supply = prefix === "surface" && selected("d-surface-supply") === "bags" ? " · bagged" : "";
+      setText(`d-preview-${prefix}-value`, `${depth} ${depthUnit} · ${materialName(prefix)}${supply}`);
+    }
+  }
+  function refreshDerivedUi() {
+    updateLayoutVisibility();
+    updateLayerVisibility();
+    updateSurfaceSupply();
+    updateGeoState();
+    updateEdgingState();
+    updateAllAllowanceSummaries();
+    updatePreview();
+  }
   function truckCapacityTons() {
     const value = num("d-truck-capacity", 20);
-    return selected("d-truck-capacity-unit") === "tonne" ? value / 0.90718474 : value;
+    return selected("d-truck-capacity-unit") === "tonne" ? value / SHORT_TON_TO_TONNE : value;
   }
   function layer(prefix: string, label: string, enabled: boolean) {
+    const supplyMode: SupplyMode = prefix === "surface" ? (selected("d-surface-supply") as SupplyMode) : "bulk";
     return {
       id: prefix,
       label,
@@ -420,37 +533,273 @@
       wastePct: num(`d-${prefix}-waste`),
       price: num(`d-${prefix}-price`),
       priceBasis: selected(`d-${prefix}-price-basis`) as PriceBasis,
+      supplyMode,
+      bagWeightLb: prefix === "surface" ? num("d-surface-bag-weight", 50) : undefined,
+      bagPrice: prefix === "surface" ? num("d-surface-bag-price") : undefined,
+      supplierIncrementTons: num(`d-${prefix}-increment`),
+      supplierMinimumTons: num(`d-${prefix}-minimum`),
     };
+  }
+  function footprintSections(primaryLengthFt: number, primaryWidthFt: number) {
+    const layout = selected("d-layout");
+    const sections = [
+      { id: "primary", label: "Primary driveway", enabled: true, lengthFt: primaryLengthFt, widthFt: primaryWidthFt, operation: "add" as const },
+    ];
+    if (layout === "lshape") {
+      const cutLengthFt = lengthToFeet(num("d-cut-len"), selected("d-cut-len-unit"));
+      const cutWidthFt = lengthToFeet(num("d-cut-wid"), selected("d-cut-wid-unit"));
+      if (!(cutLengthFt > 0) || !(cutWidthFt > 0) || cutLengthFt >= primaryLengthFt || cutWidthFt >= primaryWidthFt) {
+        throw new Error("L-shape cutout must be greater than zero and smaller than the primary driveway in both directions.");
+      }
+      sections.push({ id: "cutout", label: "L-shape cutout", enabled: true, lengthFt: cutLengthFt, widthFt: cutWidthFt, operation: "subtract" as const });
+    } else if (layout === "multi") {
+      for (const p of ["s2", "s3"]) {
+        const rawL = num(`d-${p}-len`);
+        const rawW = num(`d-${p}-wid`);
+        if ((rawL > 0) !== (rawW > 0)) throw new Error(`${p === "s2" ? "Section 2" : "Section 3"} needs both length and width.`);
+        if (rawL > 0 && rawW > 0) {
+          sections.push({
+            id: p,
+            label: p === "s2" ? "Section 2" : "Section 3",
+            enabled: true,
+            lengthFt: lengthToFeet(rawL, selected(`d-${p}-len-unit`)),
+            widthFt: lengthToFeet(rawW, selected(`d-${p}-wid-unit`)),
+            operation: "add" as const,
+          });
+        }
+      }
+    }
+    return sections;
+  }
+  function serializeState() {
+    const state: Record<string, string | boolean> = {};
+    form?.querySelectorAll<HTMLInputElement | HTMLSelectElement>("input[id^='d-'], select[id^='d-']").forEach((el) => {
+      if (el instanceof HTMLInputElement && el.type === "checkbox") state[el.id] = el.checked;
+      else state[el.id] = el.value;
+    });
+    return state;
+  }
+  function hydrateState() {
+    try {
+      const token = new URL(window.location.href).searchParams.get("dg");
+      if (!token) return;
+      const state = JSON.parse(atob(token)) as Record<string, string | boolean>;
+      for (const [id, value] of Object.entries(state)) {
+        const el = document.getElementById(id);
+        if (el instanceof HTMLInputElement && el.type === "checkbox") el.checked = Boolean(value);
+        else if (el instanceof HTMLInputElement || el instanceof HTMLSelectElement) el.value = String(value);
+      }
+    } catch {
+      // Ignore malformed shared state and retain safe defaults.
+    }
+  }
+  function shareUrl() {
+    const url = new URL(window.location.href);
+    url.searchParams.set("dg", btoa(JSON.stringify(serializeState())));
+    url.hash = "";
+    return url.toString();
+  }
+  function downloadBlob(filename: string, content: string, type = "text/plain;charset=utf-8") {
+    const blob = new Blob([content], { type });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  }
+  function csvCell(value: string) {
+    return `"${value.replace(/"/g, '""')}"`;
+  }
+  function renderCalculation(calculation: ReturnType<typeof calculateDrivewayGravel>, shouldScroll = true) {
+    const metric = selected("d-output-system") === "metric";
+    const supplierWeight = metric ? calculation.supplierOrderTons * SHORT_TON_TO_TONNE : calculation.supplierOrderTons;
+    const supplierVolume = metric ? calculation.supplierOrderYd3 * YD3_TO_M3 : calculation.supplierOrderYd3;
+    const installedVolume = metric ? calculation.installedM3 : calculation.installedYd3;
+    const area = metric ? calculation.areaM2 : calculation.areaFt2;
+    const rounding = metric ? calculation.supplierRoundingOverageTons * SHORT_TON_TO_TONNE : calculation.supplierRoundingOverageTons;
+
+    setText("d-total-tons", fmt(supplierWeight));
+    setText("d-primary-weight-unit", metric ? "tonnes" : "US tons");
+    setText("d-total-yd3", fmt(supplierVolume));
+    setText("d-primary-volume-unit", metric ? "m³" : "yd³");
+    setText("d-area", fmt(area, 1));
+    setText("d-primary-area-unit", metric ? "m²" : "ft²");
+    setText("d-secondary-summary", metric
+      ? `required ${fmt(calculation.tonnes)} tonnes · ${fmt(calculation.kilograms, 0)} kg`
+      : `required ${fmt(calculation.tons)} US tons · ${fmt(calculation.pounds, 0)} lb`);
+    setText("d-installed-yd3", fmt(installedVolume));
+    setText("d-installed-unit", metric ? "m³" : "yd³");
+    setText("d-rounding-overage", fmt(rounding));
+    setText("d-rounding-unit", metric ? "tonnes" : "US tons");
+    setText("d-loads", String(calculation.truckLoads));
+    const payloadValue = num("d-truck-capacity", 20);
+    const payloadUnit = selected("d-truck-capacity-unit") === "tonne" ? "tonnes payload" : "US tons payload";
+    setText("d-load-capacity", `${fmt(payloadValue, 1)} ${payloadUnit}`);
+    setText("d-material-cost", calculation.materialCost > 0 ? money(calculation.materialCost) : "—");
+    setText("d-total-cost", calculation.totalCost > 0 ? money(calculation.totalCost) : "—");
+
+    setText("d-th-installed", metric ? "INSTALLED m³" : "INSTALLED yd³");
+    setText("d-th-required", metric ? "REQUIRED m³" : "REQUIRED yd³");
+    setText("d-th-supplier", metric ? "SUPPLIER ORDER (METRIC)" : "SUPPLIER ORDER");
+
+    const body = $<HTMLTableSectionElement>("d-layer-results");
+    if (body) {
+      body.innerHTML = calculation.layers.map((row) => {
+        const installed = metric ? row.installedM3 : row.installedYd3;
+        const required = metric ? row.orderM3 : row.orderYd3;
+        const supplierTons = metric ? row.supplierOrderTons * SHORT_TON_TO_TONNE : row.supplierOrderTons;
+        const supplierVol = metric ? row.supplierOrderYd3 * YD3_TO_M3 : row.supplierOrderYd3;
+        const overage = metric ? row.supplierRoundingOverageTons * SHORT_TON_TO_TONNE : row.supplierRoundingOverageTons;
+        const densityMetric = row.densityTonYd3 * 907.18474 / YD3_TO_M3;
+        const packageText = row.supplyMode === "bags"
+          ? `${row.bags} bags × ${fmt(row.bagWeightLb, 0)} lb`
+          : `${row.truckLoads} load${row.truckLoads === 1 ? "" : "s"} · final ${fmt(metric ? row.finalLoadTons * SHORT_TON_TO_TONNE : row.finalLoadTons)} ${metric ? "t" : "US t"}`;
+        const supplierText = row.supplyMode === "bags"
+          ? `${fmt(supplierTons)} ${metric ? "t" : "US t"} eq. · ${fmt(supplierVol)} ${metric ? "m³" : "yd³"}`
+          : `${fmt(supplierTons)} ${metric ? "t" : "US t"} · ${fmt(supplierVol)} ${metric ? "m³" : "yd³"}`;
+        return `
+          <tr>
+            <td class="px-3 py-2"><span class="font-medium text-ink">${row.label}</span><span class="mt-0.5 block text-[10px] text-mute">${materialName(row.id)}</span></td>
+            <td class="px-3 py-2 font-mono tabular-nums">${fmt(installed)}</td>
+            <td class="px-3 py-2 font-mono tabular-nums">${fmt(required)}</td>
+            <td class="px-3 py-2 font-mono tabular-nums">${supplierText}${overage > 0.0001 ? `<span class="mt-0.5 block text-[10px] text-mute">+${fmt(overage)} ${metric ? "t" : "US t"} package/rounding overage</span>` : ""}</td>
+            <td class="px-3 py-2 font-mono tabular-nums">${metric ? `${fmt(densityMetric, 0)} kg/m³` : `${fmt(row.densityTonYd3)} t/yd³`}</td>
+            <td class="px-3 py-2 font-mono tabular-nums">${packageText}</td>
+            <td class="px-3 py-2 font-mono tabular-nums">${row.materialCost > 0 ? money(row.materialCost) : "—"}</td>
+          </tr>`;
+      }).join("");
+    }
+
+    const geoCard = $("d-geo-result-card");
+    const edgingCard = $("d-edging-result-card");
+    geoCard?.classList.toggle("hidden", !calculation.geotextile.enabled);
+    edgingCard?.classList.toggle("hidden", !calculation.edging.enabled);
+    $("d-ancillary-results")?.classList.toggle("hidden", !calculation.geotextile.enabled && !calculation.edging.enabled);
+    if (calculation.geotextile.enabled) {
+      setText("d-geo-result", metric
+        ? `${fmt(calculation.geotextile.requiredAreaM2, 1)} m² · ${calculation.geotextile.rolls} roll${calculation.geotextile.rolls === 1 ? "" : "s"}`
+        : `${fmt(calculation.geotextile.requiredAreaFt2, 1)} ft² · ${calculation.geotextile.rolls} roll${calculation.geotextile.rolls === 1 ? "" : "s"}`);
+    }
+    if (calculation.edging.enabled) {
+      setText("d-edging-result", metric
+        ? `${fmt(calculation.edging.lengthM, 1)} m · ${calculation.edging.cost > 0 ? money(calculation.edging.cost) : "cost not entered"}`
+        : `${fmt(calculation.edging.lengthFt, 1)} ft · ${calculation.edging.cost > 0 ? money(calculation.edging.cost) : "cost not entered"}`);
+    }
+
+    const bomRows: string[][] = calculation.layers.map((row) => {
+      const quantity = row.supplyMode === "bags"
+        ? `${row.bags} × ${fmt(row.bagWeightLb, 0)} lb bags`
+        : `${fmt(row.supplierOrderTons)} US tons / ${fmt(row.supplierOrderYd3)} yd³`;
+      const notes = row.supplyMode === "bags"
+        ? `Required ${fmt(row.tons)} US tons equivalent`
+        : `Required ${fmt(row.tons)} US tons; ${row.truckLoads} truck load${row.truckLoads === 1 ? "" : "s"}${row.supplierRoundingOverageTons > 0 ? `; +${fmt(row.supplierRoundingOverageTons)} US tons supplier rounding` : ""}`;
+      return [`${row.label} — ${materialName(row.id)}`, quantity, notes, row.materialCost > 0 ? money(row.materialCost) : ""];
+    });
+    if (calculation.geotextile.enabled) {
+      bomRows.push(["Geotextile fabric", `${calculation.geotextile.rolls} roll${calculation.geotextile.rolls === 1 ? "" : "s"}`, `${fmt(calculation.geotextile.requiredAreaFt2, 1)} ft² incl. overlap`, calculation.geotextile.cost > 0 ? money(calculation.geotextile.cost) : ""]);
+    }
+    if (calculation.edging.enabled) {
+      bomRows.push(["Driveway edging", `${fmt(calculation.edging.lengthFt, 1)} ft`, "Entered/calculated exposed edge length", calculation.edging.cost > 0 ? money(calculation.edging.cost) : ""]);
+    }
+    if (calculation.delivery > 0) bomRows.push(["Delivery / trucking", "1 entered total", "Project delivery allowance", money(calculation.delivery)]);
+
+    const bomBody = $<HTMLTableSectionElement>("d-bom-results");
+    if (bomBody) {
+      bomBody.innerHTML = bomRows.map((row) => `<tr>${row.map((cell, index) => `<td class="px-3 py-2 ${index === 0 ? "font-medium text-ink" : "font-mono tabular-nums"}">${cell || "—"}</td>`).join("")}</tr>`).join("");
+    }
+
+    const summaryLines = [
+      "DRIVEWAY GRAVEL SUPPLIER SUMMARY",
+      `Footprint: ${fmt(calculation.areaFt2, 1)} ft² / ${fmt(calculation.areaM2, 1)} m²`,
+      ...calculation.layers.map((row) => row.supplyMode === "bags"
+        ? `${row.label} — ${materialName(row.id)}: ${row.bags} × ${fmt(row.bagWeightLb, 0)} lb bags (required ${fmt(row.tons)} US tons eq.)`
+        : `${row.label} — ${materialName(row.id)}: required ${fmt(row.tons)} US tons; supplier order ${fmt(row.supplierOrderTons)} US tons / ${fmt(row.supplierOrderYd3)} yd³; ${row.truckLoads} load(s)`),
+      calculation.geotextile.enabled ? `Geotextile: ${fmt(calculation.geotextile.requiredAreaFt2, 1)} ft², ${calculation.geotextile.rolls} roll(s)` : "",
+      calculation.edging.enabled ? `Edging: ${fmt(calculation.edging.lengthFt, 1)} ft` : "",
+      `Supplier order total: ${fmt(calculation.supplierOrderTons)} US tons equivalent / ${fmt(calculation.supplierOrderYd3)} yd³ equivalent`,
+      `Supplier/package rounding overage: ${fmt(calculation.supplierRoundingOverageTons)} US tons`,
+      `Bulk truck loads: ${calculation.truckLoads}`,
+      calculation.materialCost > 0 ? `Materials + project extras: ${money(calculation.materialCost)}` : "",
+      calculation.totalCost > 0 ? `Entered-scope total: ${money(calculation.totalCost)}` : "",
+      "Confirm supplier density, product gradation, legal payload, bed volume, minimums and project specifications before ordering.",
+    ].filter(Boolean);
+
+    if (results) {
+      results.dataset.summary = summaryLines.join("\n");
+      results.dataset.bomCsv = [
+        ["Item", "Order quantity", "Notes", "Cost"],
+        ...bomRows,
+      ].map((row) => row.map(csvCell).join(",")).join("\n");
+    }
+
+    hasCalculated = true;
+    lastCalculation = calculation;
+    $("d-recalc-note")?.classList.add("hidden");
+    results?.classList.remove("hidden");
+    if (shouldScroll) results?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 
   if (form && results) {
-    $<HTMLSelectElement>("d-build")?.addEventListener("change", () => {
-      updateLayerVisibility();
-      invalidateResults();
-    });
+    hydrateState();
+
     document.querySelectorAll<HTMLSelectElement>(".d-material").forEach((select) => {
       select.addEventListener("change", () => {
-        syncDensityFromPreset(select);
+        setDensityControlState(select);
+        refreshDerivedUi();
         invalidateResults();
       });
       setDensityControlState(select);
     });
+
+    $<HTMLSelectElement>("d-build")?.addEventListener("change", () => {
+      refreshDerivedUi();
+      invalidateResults();
+    });
+    $<HTMLSelectElement>("d-layout")?.addEventListener("change", () => {
+      refreshDerivedUi();
+      invalidateResults();
+    });
+    $<HTMLSelectElement>("d-surface-supply")?.addEventListener("change", () => {
+      refreshDerivedUi();
+      invalidateResults();
+    });
+    $<HTMLInputElement>("d-geo-enabled")?.addEventListener("change", () => {
+      refreshDerivedUi();
+      invalidateResults();
+    });
+    $<HTMLSelectElement>("d-edging-mode")?.addEventListener("change", () => {
+      refreshDerivedUi();
+      invalidateResults();
+    });
+    $<HTMLSelectElement>("d-output-system")?.addEventListener("change", () => {
+      updatePreview();
+      if (lastCalculation && hasCalculated) renderCalculation(lastCalculation, false);
+    });
+
     form.addEventListener("input", (event) => {
       const target = event.target as HTMLElement | null;
-      if (target?.id === "d-build") return;
       if (target?.id?.endsWith("-compaction") || target?.id?.endsWith("-waste")) {
         const prefix = target.id.split("-")[1];
         if (prefix) updateAllowanceSummary(prefix);
       }
-      invalidateResults();
+      if (target?.id !== "d-output-system") {
+        updateEdgingState();
+        updatePreview();
+        invalidateResults();
+      }
     });
     form.addEventListener("change", (event) => {
       const target = event.target as HTMLElement | null;
-      if (target?.id === "d-build" || target?.classList.contains("d-material")) return;
+      if (!target || target.id === "d-output-system" || target.classList.contains("d-material")) return;
+      updateEdgingState();
+      updatePreview();
       invalidateResults();
     });
-    updateLayerVisibility();
-    updateAllAllowanceSummaries();
+
+    refreshDerivedUi();
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -464,11 +813,16 @@
       if (!valid) return;
 
       try {
+        const primaryLengthFt = lengthToFeet(lengthValue, selected("d-len-unit"));
+        const primaryWidthFt = lengthToFeet(widthValue, selected("d-wid-unit"));
         const build = selected("d-build");
+        const edgingMode = selected("d-edging-mode");
+
         const calculation = calculateDrivewayGravel({
-          lengthFt: lengthToFeet(lengthValue, selected("d-len-unit")),
-          widthFt: lengthToFeet(widthValue, selected("d-wid-unit")),
+          lengthFt: primaryLengthFt,
+          widthFt: primaryWidthFt,
           extraAreaFt2: areaToFt2(num("d-extra-area"), selected("d-extra-area-unit")),
+          sections: footprintSections(primaryLengthFt, primaryWidthFt),
           layers: [
             layer("subbase", "Sub-base", build === "three"),
             layer("base", "Base course", build !== "surface"),
@@ -477,50 +831,21 @@
           truckCapacityTons: truckCapacityTons(),
           delivery: num("d-delivery"),
           taxPct: num("d-tax"),
+          geotextile: {
+            enabled: checked("d-geo-enabled"),
+            overlapPct: num("d-geo-overlap"),
+            rollWidthFt: num("d-geo-roll-width"),
+            rollLengthFt: num("d-geo-roll-length"),
+            pricePerRoll: num("d-geo-price"),
+          },
+          edging: {
+            enabled: edgingMode !== "none",
+            lengthFt: num("d-edging-length"),
+            pricePerFt: num("d-edging-price"),
+          },
         });
 
-        setText("d-total-tons", fmt(calculation.tons));
-        setText("d-total-yd3", fmt(calculation.orderYd3));
-        setText("d-area", fmt(calculation.areaFt2, 1));
-        setText("d-total-lb", fmt(calculation.pounds, 0));
-        setText("d-total-tonnes", fmt(calculation.tonnes));
-        setText("d-installed-yd3", fmt(calculation.installedYd3));
-        setText("d-loads", String(calculation.truckLoads));
-        const payloadValue = num("d-truck-capacity", 20);
-        const payloadUnit = selected("d-truck-capacity-unit") === "tonne" ? "metric tonnes payload" : "US tons payload";
-        setText("d-load-capacity", `${fmt(payloadValue, 1)} ${payloadUnit}`);
-        setText("d-material-cost", calculation.materialCost > 0 ? money(calculation.materialCost) : "—");
-        setText("d-total-cost", calculation.totalCost > 0 ? money(calculation.totalCost) : "—");
-
-        const body = $<HTMLTableSectionElement>("d-layer-results");
-        if (body) {
-          body.innerHTML = calculation.layers.map((row) => `
-            <tr>
-              <td class="px-3 py-2 font-medium text-ink">${row.label}</td>
-              <td class="px-3 py-2 font-mono tabular-nums">${fmt(row.installedYd3)}</td>
-              <td class="px-3 py-2 font-mono tabular-nums">${fmt(row.orderYd3)}</td>
-              <td class="px-3 py-2 font-mono tabular-nums">${fmt(row.densityTonYd3)} t/yd³</td>
-              <td class="px-3 py-2 font-mono tabular-nums">${fmt(row.tons)}</td>
-              <td class="px-3 py-2 font-mono tabular-nums">${row.truckLoads}</td>
-              <td class="px-3 py-2 font-mono tabular-nums">${fmt(row.finalLoadTons)} t · ${fmt(row.finalLoadUtilizationPct, 1)}%</td>
-              <td class="px-3 py-2 font-mono tabular-nums">${row.materialCost > 0 ? money(row.materialCost) : "—"}</td>
-            </tr>
-          `).join("");
-        }
-
-        results.dataset.summary = [
-          `Driveway area: ${fmt(calculation.areaFt2, 1)} ft²`,
-          ...calculation.layers.map((row) => `${row.label}: ${fmt(row.orderYd3)} yd³ / ${fmt(row.tons)} US tons`),
-          `Total: ${fmt(calculation.orderYd3)} yd³ / ${fmt(calculation.tons)} US tons`,
-          ...calculation.layers.map((row) => `${row.label} truck loads: ${row.truckLoads} (final ${fmt(row.finalLoadTons)} tons, ${fmt(row.finalLoadUtilizationPct, 1)}% utilization)`),
-          `Separate-product truck loads total: ${calculation.truckLoads}`,
-          calculation.totalCost > 0 ? `Entered-scope total: ${money(calculation.totalCost)}` : "",
-        ].filter(Boolean).join("\n");
-
-        hasCalculated = true;
-        $("d-recalc-note")?.classList.add("hidden");
-        results.classList.remove("hidden");
-        results.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        renderCalculation(calculation);
       } catch (error) {
         showError("d-form-error", error instanceof Error ? error.message : "Check the entered values and try again.");
       }
@@ -528,14 +853,14 @@
 
     form.addEventListener("reset", () => {
       hasCalculated = false;
+      lastCalculation = null;
       clearErrors();
       results.classList.add("hidden");
       setText("d-copy-status", "");
       $("d-recalc-note")?.classList.add("hidden");
       setTimeout(() => {
-        updateLayerVisibility();
         document.querySelectorAll<HTMLSelectElement>(".d-material").forEach(setDensityControlState);
-        updateAllAllowanceSummaries();
+        refreshDerivedUi();
       }, 0);
     });
 
@@ -546,8 +871,24 @@
         await navigator.clipboard.writeText(summary);
         setText("d-copy-status", "Supplier summary copied.");
       } catch {
-        setText("d-copy-status", "Copy was blocked by the browser. Select the results table and copy manually.");
+        setText("d-copy-status", "Copy was blocked by the browser. Select the results and copy manually.");
       }
+    });
+    $("d-share")?.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(shareUrl());
+        setText("d-copy-status", "Share link copied with the current calculator inputs.");
+      } catch {
+        setText("d-copy-status", "Share-link copy was blocked by the browser.");
+      }
+    });
+    $("d-download-report")?.addEventListener("click", () => {
+      const summary = results.dataset.summary ?? "";
+      if (summary) downloadBlob("driveway-gravel-order-plan.txt", summary + "\n");
+    });
+    $("d-download-bom")?.addEventListener("click", () => {
+      const csv = results.dataset.bomCsv ?? "";
+      if (csv) downloadBlob("driveway-gravel-bom.csv", csv + "\n", "text/csv;charset=utf-8");
     });
     $("d-print")?.addEventListener("click", () => window.print());
   }
