@@ -123,9 +123,11 @@
         </div>
         <details class="mt-3 rounded-lg border border-hairline bg-canvas">
           <summary class="cursor-pointer px-3 py-2 text-xs font-medium text-ink">Advanced layer allowances</summary>
-          <div class="grid gap-3 border-t border-hairline p-3 sm:grid-cols-2">
+          <div class="grid gap-3 border-t border-hairline p-3 sm:grid-cols-2 lg:grid-cols-4">
             <label class="block"><span class="text-xs text-mute">Loose-to-placed / compaction allowance</span><div class="mt-1 flex"><input id="d-subbase-compaction" type="number" min="0" max="100" value="0" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">%</span></div></label>
             <label class="block"><span class="text-xs text-mute">Ordering waste / contingency</span><div class="mt-1 flex"><input id="d-subbase-waste" type="number" min="0" max="100" value="10" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">%</span></div></label>
+            <label class="block d-subbase-bulk-ordering"><span class="text-xs text-mute">Supplier order increment</span><div class="mt-1 flex"><input id="d-subbase-increment" type="number" min="0" step="any" value="0" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">ton</span></div><span class="mt-1 block text-[10px] text-mute">0 = no rounding</span></label>
+            <label class="block d-subbase-bulk-ordering"><span class="text-xs text-mute">Supplier minimum order</span><div class="mt-1 flex"><input id="d-subbase-minimum" type="number" min="0" step="any" value="0" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">ton</span></div><span class="mt-1 block text-[10px] text-mute">0 = no minimum</span></label>
           </div>
         </details>
       </div>
@@ -143,9 +145,11 @@
         </div>
         <details class="mt-3 rounded-lg border border-hairline bg-canvas">
           <summary class="cursor-pointer px-3 py-2 text-xs font-medium text-ink">Advanced layer allowances</summary>
-          <div class="grid gap-3 border-t border-hairline p-3 sm:grid-cols-2">
+          <div class="grid gap-3 border-t border-hairline p-3 sm:grid-cols-2 lg:grid-cols-4">
             <label class="block"><span class="text-xs text-mute">Loose-to-placed / compaction allowance</span><div class="mt-1 flex"><input id="d-base-compaction" type="number" min="0" max="100" value="0" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">%</span></div></label>
             <label class="block"><span class="text-xs text-mute">Ordering waste / contingency</span><div class="mt-1 flex"><input id="d-base-waste" type="number" min="0" max="100" value="10" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">%</span></div></label>
+            <label class="block d-base-bulk-ordering"><span class="text-xs text-mute">Supplier order increment</span><div class="mt-1 flex"><input id="d-base-increment" type="number" min="0" step="any" value="0" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">ton</span></div><span class="mt-1 block text-[10px] text-mute">0 = no rounding</span></label>
+            <label class="block d-base-bulk-ordering"><span class="text-xs text-mute">Supplier minimum order</span><div class="mt-1 flex"><input id="d-base-minimum" type="number" min="0" step="any" value="0" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">ton</span></div><span class="mt-1 block text-[10px] text-mute">0 = no minimum</span></label>
           </div>
         </details>
       </div>
@@ -159,20 +163,73 @@
           <label class="block"><span class="text-xs font-medium text-ink">Installed depth</span><div class="mt-1 flex"><input id="d-surface-depth" type="number" min="0" step="any" value="2" class="h-10 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><select id="d-surface-depth-unit" class="h-10 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-xs"><option value="in">in</option><option value="ft">ft</option><option value="cm">cm</option><option value="mm">mm</option></select></div></label>
           <label class="block"><span class="text-xs font-medium text-ink">Material preset</span><select id="d-surface-material" data-density-target="d-surface-density" data-density-unit-target="d-surface-density-unit" class="d-material mt-1 h-10 w-full rounded-lg border border-hairline bg-canvas px-2 text-xs"><option value="1.50">Crusher run / road base ~1.50 t/yd³</option><option value="1.40" selected>Crushed stone / #57 ~1.40</option><option value="1.60">Limestone ~1.60</option><option value="1.42">Granite gravel ~1.42</option><option value="1.35">Pea gravel ~1.35</option><option value="1.33">River rock ~1.33</option><option value="custom">Custom density</option></select></label>
           <label class="block"><span class="text-xs font-medium text-ink">Bulk density <span class="font-normal text-mute">· choose Custom to edit</span></span><div class="mt-1 flex"><input id="d-surface-density" type="number" min="0.01" step="any" readonly aria-readonly="true" value="1.40" class="h-10 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><select id="d-surface-density-unit" disabled class="h-10 disabled:cursor-not-allowed disabled:opacity-60 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-xs"><option value="ton/yd3">t/yd³</option><option value="lb/ft3">lb/ft³</option><option value="kg/m3">kg/m³</option></select></div></label>
-          <label class="block"><span class="text-xs font-medium text-ink">Price</span><div class="mt-1 flex"><span class="flex h-10 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-xs text-mute">$</span><input id="d-surface-price" type="number" min="0" step="any" value="0" class="h-10 w-full border-y border-hairline bg-canvas px-2 text-sm"/><select id="d-surface-price-basis" class="h-10 rounded-r-lg border border-hairline bg-canvas-soft px-2 text-xs"><option value="ton">/ton</option><option value="yd3">/yd³</option></select></div></label>
+          <label id="d-surface-bulk-price-field" class="block"><span class="text-xs font-medium text-ink">Bulk price</span><div class="mt-1 flex"><span class="flex h-10 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-xs text-mute">$</span><input id="d-surface-price" type="number" min="0" step="any" value="0" class="h-10 w-full border-y border-hairline bg-canvas px-2 text-sm"/><select id="d-surface-price-basis" class="h-10 rounded-r-lg border border-hairline bg-canvas-soft px-2 text-xs"><option value="ton">/ton</option><option value="yd3">/yd³</option></select></div></label>
         </div>
+        <div class="mt-4 grid gap-4 rounded-lg border border-hairline bg-canvas p-3 sm:grid-cols-3">
+          <label class="block">
+            <span class="text-xs font-medium text-ink">Surface supply</span>
+            <select id="d-surface-supply" class="mt-1 h-10 w-full rounded-lg border border-hairline bg-canvas px-2 text-xs">
+              <option value="bulk" selected>Bulk aggregate</option>
+              <option value="bags">Bagged aggregate</option>
+            </select>
+          </label>
+          <label id="d-surface-bag-weight-field" class="hidden block">
+            <span class="text-xs font-medium text-ink">Bag net weight</span>
+            <div class="mt-1 flex"><input id="d-surface-bag-weight" type="number" min="0.01" step="any" value="50" class="h-10 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><span class="flex h-10 items-center rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">lb</span></div>
+          </label>
+          <label id="d-surface-bag-price-field" class="hidden block">
+            <span class="text-xs font-medium text-ink">Price per bag</span>
+            <div class="mt-1 flex"><span class="flex h-10 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-xs">$</span><input id="d-surface-bag-price" type="number" min="0" step="any" value="0" class="h-10 w-full rounded-r-lg border border-l-0 border-hairline bg-canvas px-3 text-sm"/></div>
+          </label>
+        </div>
+
         <details class="mt-3 rounded-lg border border-hairline bg-canvas">
           <summary class="cursor-pointer px-3 py-2 text-xs font-medium text-ink">Advanced layer allowances</summary>
-          <div class="grid gap-3 border-t border-hairline p-3 sm:grid-cols-2">
+          <div class="grid gap-3 border-t border-hairline p-3 sm:grid-cols-2 lg:grid-cols-4">
             <label class="block"><span class="text-xs text-mute">Loose-to-placed / compaction allowance</span><div class="mt-1 flex"><input id="d-surface-compaction" type="number" min="0" max="100" value="0" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">%</span></div></label>
             <label class="block"><span class="text-xs text-mute">Ordering waste / contingency</span><div class="mt-1 flex"><input id="d-surface-waste" type="number" min="0" max="100" value="10" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">%</span></div></label>
+            <label class="block d-surface-bulk-ordering"><span class="text-xs text-mute">Supplier order increment</span><div class="mt-1 flex"><input id="d-surface-increment" type="number" min="0" step="any" value="0" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">ton</span></div><span class="mt-1 block text-[10px] text-mute">0 = no rounding</span></label>
+            <label class="block d-surface-bulk-ordering"><span class="text-xs text-mute">Supplier minimum order</span><div class="mt-1 flex"><input id="d-surface-minimum" type="number" min="0" step="any" value="0" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">ton</span></div><span class="mt-1 block text-[10px] text-mute">0 = no minimum</span></label>
           </div>
         </details>
       </div>
     </div>
 
+    <div class="space-y-3">
+      <div>
+        <p class="font-mono text-[11px] font-semibold uppercase tracking-widest text-mute">3. Geotextile & edging</p>
+        <p class="mt-1 text-xs leading-5 text-mute">Optional project materials are included in the BOM and entered-scope cost. For irregular footprints, use a custom edging length.</p>
+      </div>
+      <div class="grid gap-4 lg:grid-cols-2">
+        <div class="rounded-xl border border-hairline bg-canvas-soft-2 p-4">
+          <label class="flex items-center gap-2 text-sm font-semibold text-ink"><input id="d-geo-enabled" type="checkbox" class="h-4 w-4"/> Include geotextile fabric</label>
+          <div id="d-geo-fields" class="mt-4 grid gap-3 opacity-50 sm:grid-cols-2">
+            <label class="block"><span class="text-xs text-mute">Overlap / seam allowance</span><div class="mt-1 flex"><input id="d-geo-overlap" type="number" min="0" max="100" value="10" disabled class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">%</span></div></label>
+            <label class="block"><span class="text-xs text-mute">Price per roll</span><div class="mt-1 flex"><span class="flex h-9 items-center rounded-l-md border border-hairline bg-canvas-soft px-2 text-xs">$</span><input id="d-geo-price" type="number" min="0" value="0" disabled class="h-9 w-full rounded-r-md border border-l-0 border-hairline bg-canvas px-2 text-sm"/></div></label>
+            <label class="block"><span class="text-xs text-mute">Roll width</span><div class="mt-1 flex"><input id="d-geo-roll-width" type="number" min="0.01" value="12.5" disabled class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">ft</span></div></label>
+            <label class="block"><span class="text-xs text-mute">Roll length</span><div class="mt-1 flex"><input id="d-geo-roll-length" type="number" min="0.01" value="300" disabled class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">ft</span></div></label>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-hairline bg-canvas-soft-2 p-4">
+          <label for="d-edging-mode" class="block text-sm font-semibold text-ink">Driveway edging</label>
+          <select id="d-edging-mode" class="mt-1.5 h-10 w-full rounded-lg border border-hairline bg-canvas px-2 text-xs">
+            <option value="none" selected>No edging</option>
+            <option value="sides">Both long sides of primary driveway</option>
+            <option value="perimeter">Primary rectangle perimeter</option>
+            <option value="custom">Custom measured edging length</option>
+          </select>
+          <div id="d-edging-fields" class="mt-4 hidden grid gap-3 sm:grid-cols-2">
+            <label class="block"><span class="text-xs text-mute">Edging length</span><div class="mt-1 flex"><input id="d-edging-length" type="number" min="0" step="any" value="100" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">ft</span></div></label>
+            <label class="block"><span class="text-xs text-mute">Price per ft</span><div class="mt-1 flex"><span class="flex h-9 items-center rounded-l-md border border-hairline bg-canvas-soft px-2 text-xs">$</span><input id="d-edging-price" type="number" min="0" value="0" class="h-9 w-full rounded-r-md border border-l-0 border-hairline bg-canvas px-2 text-sm"/></div></label>
+          </div>
+          <p id="d-edging-help" class="mt-2 text-[10px] leading-4 text-mute">For L-shapes or multiple sections, choose Custom and enter the measured exposed edge length.</p>
+        </div>
+      </div>
+    </div>
+
     <details open class="rounded-xl border border-hairline bg-canvas">
-      <summary class="cursor-pointer px-4 py-3 text-sm font-medium text-ink">3. Truck payload, delivery &amp; project cost</summary>
+      <summary class="cursor-pointer px-4 py-3 text-sm font-medium text-ink">4. Truck payload, delivery &amp; project cost</summary>
       <div class="grid gap-4 border-t border-hairline p-4 sm:grid-cols-2 lg:grid-cols-4">
         <label class="block"><span class="text-xs font-medium text-ink">Truck payload capacity</span><div class="mt-1 flex"><input id="d-truck-capacity" type="number" min="0.01" step="any" value="20" class="h-10 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><select id="d-truck-capacity-unit" class="h-10 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-xs"><option value="ton">US ton</option><option value="tonne">tonne</option></select></div></label>
         <label class="block"><span class="text-xs font-medium text-ink">Delivery / trucking total</span><div class="mt-1 flex"><span class="flex h-10 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-xs">$</span><input id="d-delivery" type="number" min="0" step="any" value="0" class="h-10 w-full rounded-r-lg border border-l-0 border-hairline bg-canvas px-3 text-sm"/></div></label>
