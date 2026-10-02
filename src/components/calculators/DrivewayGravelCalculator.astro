@@ -315,6 +315,7 @@
     type DensityUnit,
     type PriceBasis,
     type SupplyMode,
+    type DrivewayFootprintSectionInput,
   } from "../../lib/calculations/driveway-gravel";
 
   const YD3_TO_M3 = 0.764554857984;
@@ -542,8 +543,8 @@
   }
   function footprintSections(primaryLengthFt: number, primaryWidthFt: number) {
     const layout = selected("d-layout");
-    const sections = [
-      { id: "primary", label: "Primary driveway", enabled: true, lengthFt: primaryLengthFt, widthFt: primaryWidthFt, operation: "add" as const },
+    const sections: DrivewayFootprintSectionInput[] = [
+      { id: "primary", label: "Primary driveway", enabled: true, lengthFt: primaryLengthFt, widthFt: primaryWidthFt, operation: "add" },
     ];
     if (layout === "lshape") {
       const cutLengthFt = lengthToFeet(num("d-cut-len"), selected("d-cut-len-unit"));
@@ -551,7 +552,7 @@
       if (!(cutLengthFt > 0) || !(cutWidthFt > 0) || cutLengthFt >= primaryLengthFt || cutWidthFt >= primaryWidthFt) {
         throw new Error("L-shape cutout must be greater than zero and smaller than the primary driveway in both directions.");
       }
-      sections.push({ id: "cutout", label: "L-shape cutout", enabled: true, lengthFt: cutLengthFt, widthFt: cutWidthFt, operation: "subtract" as const });
+      sections.push({ id: "cutout", label: "L-shape cutout", enabled: true, lengthFt: cutLengthFt, widthFt: cutWidthFt, operation: "subtract" });
     } else if (layout === "multi") {
       for (const p of ["s2", "s3"]) {
         const rawL = num(`d-${p}-len`);
@@ -564,7 +565,7 @@
             enabled: true,
             lengthFt: lengthToFeet(rawL, selected(`d-${p}-len-unit`)),
             widthFt: lengthToFeet(rawW, selected(`d-${p}-wid-unit`)),
-            operation: "add" as const,
+            operation: "add",
           });
         }
       }
