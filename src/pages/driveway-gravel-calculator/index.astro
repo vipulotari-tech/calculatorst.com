@@ -3,67 +3,124 @@ import CalculatorLayout from "../../components/CalculatorLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import DrivewayGravelCalculator from "../../components/calculators/DrivewayGravelCalculator.astro";
+import DrivewayGravelDiagram from "../../components/calculators/DrivewayGravelDiagram.astro";
 
 const related = [
-  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "Yards, tons & cost" },
-  { title: "Pea Gravel Calculator", href: "/pea-gravel-calculator/", desc: "Pea gravel tons & yards" },
-  { title: "Crushed Stone Calculator", href: "/crushed-stone-calculator/", desc: "Crushed stone details" },
-  { title: "Driveway Concrete Calculator", href: "/driveway-concrete-calculator/", desc: "Concrete alternative" },
+  { title: "Gravel Calculator", href: "/gravel-calculator/", desc: "General gravel volume, tons & cost" },
+  { title: "Gravel Weight Calculator", href: "/gravel-weight-calculator/", desc: "Volume-to-weight, bags & truck loads" },
+  { title: "Crushed Stone Calculator", href: "/crushed-stone-calculator/", desc: "Crushed stone quantity & weight" },
+  { title: "Gravel Depth Calculator", href: "/gravel-depth-calculator/", desc: "Coverage depth from volume or weight" },
+  { title: "Pea Gravel Calculator", href: "/pea-gravel-calculator/", desc: "Pea gravel yards & tons" },
+  { title: "Driveway Concrete Calculator", href: "/driveway-concrete-calculator/", desc: "Concrete driveway alternative" },
 ];
+
 const faq = [
   {
-    "q": "How are multiple layers handled?",
-    "a": "Volume = length × width × entered depth × number of layers. All layers share the same depth and selected material. Calculate different layer depths or materials separately."
+    q: "Can I calculate a base layer and surface layer separately?",
+    a: "Yes. Choose Base + surface or Sub-base + base + surface. Each course has its own installed depth, material density, compaction allowance, waste allowance and price, so different materials are not incorrectly multiplied as identical layers."
   },
   {
-    "q": "How is weight calculated?",
-    "a": "Cubic yards are multiplied by a preset density in US short tons/yd³: pea 1.35, crushed 1.40, river 1.33 or limestone 1.60. One short ton is 2,000 lb. Confirm the actual density with your supplier."
+    q: "What is the difference between compaction allowance and waste?",
+    a: "The loose-to-placed or compaction allowance increases the supplied volume needed to achieve the entered installed layer. Waste is a separate ordering contingency for spillage, uneven grade and other project loss. Keep them separate and do not apply either adjustment twice."
   },
   {
-    "q": "Does this select driveway thickness?",
-    "a": "No. Enter your planned layer thickness. The calculator estimates quantity, without selecting a pavement design or applying a separate compaction factor."
+    q: "How is driveway gravel weight calculated?",
+    a: "For each enabled layer, the calculator converts the installed layer volume to an order volume, then multiplies that volume by the matching bulk density. Density can be entered in US tons per cubic yard, pounds per cubic foot or kilograms per cubic meter."
   },
   {
-    "q": "What does the cost include?",
-    "a": "The selected gravel quantity including waste, multiplied by your per-yard or per-short-ton quote. Excavation, delivery and installation are separate."
+    q: "How are truck loads calculated?",
+    a: "The calculator divides combined order weight by the usable truck payload you enter and rounds up to whole loads. It also reports the final-load tonnage and payload utilization. Confirm legal axle limits, truck bed volume, site access and supplier minimums separately."
+  },
+  {
+    q: "Can I include a widened apron, turnout or parking pad?",
+    a: "Yes. Enter the main rectangular driveway dimensions, then add the measured extra area separately. That area is included in every enabled layer without pretending it is another full-length driveway section."
+  },
+  {
+    q: "Does this calculator choose the correct driveway depth or aggregate specification?",
+    a: "No. Layer thickness, gradation, drainage, geotextile, compaction requirements and pavement structure depend on site conditions and project requirements. Use the calculator after those inputs have been selected."
   }
 ];
 ---
 
 <CalculatorLayout
-  title="Driveway Gravel Calculator — Yards, Tons & Cost (2026)"
-  description="Calculate driveway gravel in cubic yards and tons. Enter length, width, depth, layers & material — get yards, tons, pounds & cost with waste."
+  title="Driveway Gravel Calculator — Layers, Tons, Truckloads & Cost"
+  description="Plan driveway gravel by layer with separate depths, densities, compaction and waste. Get cubic yards, tons, truckloads and cost for base and surface materials."
   h1="Driveway Gravel Calculator"
-  intro="Calculate driveway gravel — get cubic yards, tons & cost with waste. Choose crushed stone, pea gravel, river rock or limestone, add layers — instant results."
+  intro="Calculate driveway gravel layer by layer instead of multiplying one material across every course. Plan base, surface and optional sub-base quantities, tons, truckloads and entered-scope cost."
   breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Gravel", href: "/construction/gravel/" }, { label: "Driveway Gravel Calculator" }]}
   related={related}
   faq={faq}
   canonical="/driveway-gravel-calculator/"
   ogImage="/og-gravel.png"
   datePublished="2026-08-27"
-  dateModified="2026-09-15"
+  dateModified="2026-10-02"
 >
   <Header slot="header" />
   <DrivewayGravelCalculator slot="calculator" />
+
   <section class="space-y-6">
+    <DrivewayGravelDiagram />
+
     <div class="rounded-lg border border-hairline bg-canvas p-6">
-      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How it works</h2>
-      <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm leading-6 text-body">
-        <li>Convert length, width, depth to feet (in ÷12, yd ×3, m ÷0.3048)</li>
-        <li>Cubic feet = L × W × D × layers</li>
-        <li>Cubic yards = ft³ ÷ 27, Tons = yd³ × density, Pounds = tons × 2000</li>
-        <li>Waste yards/tons = × (1 + waste%), Cost = × price per yd³ or ton</li>
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How the Driveway Gravel Calculator Works</h2>
+      <ol class="mt-3 list-decimal space-y-2 pl-5 text-sm leading-6 text-body">
+        <li>Calculate the driveway footprint from length × width, then add any separately measured apron, turnout or parking-pad area.</li>
+        <li>For each enabled course, installed volume = footprint area × installed depth. Convert cubic feet to cubic yards by dividing by 27.</li>
+        <li>Apply the entered loose-to-placed / compaction allowance, then apply ordering waste once. These are shown as separate assumptions instead of one hidden factor.</li>
+        <li>Layer weight = order cubic yards × that layer's bulk density. Each material keeps its own density.</li>
+        <li>Material cost uses the selected price basis for that layer: per US ton or per cubic yard. Material tax and delivery are added only when entered.</li>
+        <li>Truck loads = total order tons ÷ entered usable payload, rounded up to a whole load. Final-load utilization is shown as a planning check.</li>
       </ol>
     </div>
+
     <div class="rounded-lg border border-hairline bg-canvas p-6">
-      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Example</h2>
-      <p class="mt-2 text-sm leading-6 text-body">Driveway 40×12 ft, 4 in depth, 1 layer, crushed stone 1.40 t/yd³, 10% waste:</p>
-      <div class="mt-3 overflow-x-auto rounded-md border border-hairline"><table class="w-full text-left text-sm"><thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">STEP</th><th class="px-3 py-2">VALUE</th></tr></thead><tbody class="divide-y divide-hairline font-mono tabular-nums"><tr><td class="px-3 py-2">Depth ft</td><td class="px-3 py-2">4 ÷12 =0.333 ft</td></tr><tr><td class="px-3 py-2">Cubic yards</td><td class="px-3 py-2">5.93 yd³</td></tr><tr><td class="px-3 py-2">Tons</td><td class="px-3 py-2">8.30 tons</td></tr><tr><td class="px-3 py-2">With waste</td><td class="px-3 py-2">6.52 yd³ · 9.13 tons</td></tr></tbody></table></div>
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Worked Example: 50 × 12 ft Driveway</h2>
+      <p class="mt-2 text-sm leading-6 text-body">Example only: a 600 ft² driveway with a 4 in base and 2 in surface course, both using 1.40 US tons/yd³, no extra compaction allowance and 10% ordering waste.</p>
+      <div class="mt-4 overflow-x-auto rounded-md border border-hairline" role="region" aria-label="Driveway gravel worked example" tabindex="0">
+        <table class="w-full min-w-[640px] text-left text-sm">
+          <thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">COURSE</th><th class="px-3 py-2">INSTALLED VOLUME</th><th class="px-3 py-2">ORDER VOLUME</th><th class="px-3 py-2">ORDER WEIGHT</th></tr></thead>
+          <tbody class="divide-y divide-hairline font-mono tabular-nums">
+            <tr><td class="px-3 py-2 font-sans font-medium text-ink">Base — 4 in</td><td class="px-3 py-2">7.41 yd³</td><td class="px-3 py-2">8.15 yd³</td><td class="px-3 py-2">11.41 US tons</td></tr>
+            <tr><td class="px-3 py-2 font-sans font-medium text-ink">Surface — 2 in</td><td class="px-3 py-2">3.70 yd³</td><td class="px-3 py-2">4.07 yd³</td><td class="px-3 py-2">5.70 US tons</td></tr>
+            <tr><td class="px-3 py-2 font-sans font-semibold text-ink">Combined</td><td class="px-3 py-2">11.11 yd³</td><td class="px-3 py-2">12.22 yd³</td><td class="px-3 py-2">17.11 US tons</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-3 text-xs leading-5 text-mute">The result changes directly with the density, installed depth and allowances you enter. Supplier or project values should replace the planning examples.</p>
     </div>
+
+    <div class="grid gap-4 lg:grid-cols-2">
+      <div class="rounded-lg border border-hairline bg-canvas p-6">
+        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Layer Planning Notes</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
+          <li>Keep different materials in separate rows when ordering. A combined tonnage is useful for transport planning but does not tell a supplier how many tons of each product are needed.</li>
+          <li>Density changes with gradation, quarry source, moisture and material state. Use current supplier or scale-ticket data when available.</li>
+          <li>If the entered density already represents loose delivered material and the entered order volume is also loose, do not add another conversion for the same compaction effect.</li>
+          <li>Use extra area for a measured apron or turnout. For strongly curved or irregular driveways, split the footprint into non-overlapping measurable sections.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-lg border border-hairline bg-canvas p-6">
+        <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">What This Calculator Does Not Design</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
+          <li>It does not select structural layer thickness, aggregate gradation, crown or cross-slope.</li>
+          <li>It does not determine drainage, frost protection, geotextile requirements or subgrade treatment.</li>
+          <li>It does not determine legal truck payload or axle loading from road regulations.</li>
+          <li>It does not assume a universal compaction percentage; the user-entered factor is kept explicit.</li>
+        </ul>
+      </div>
+    </div>
+
     <div class="rounded-lg border border-hairline bg-canvas p-6">
-      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Assumptions</h2>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body"><li>Rectangular area, uniform depth per layer.</li><li>Density varies by quarry — confirm with supplier.</li><li>No separate compaction factor; confirm required loose quantity with the supplier.</li></ul>
+      <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Technical References</h2>
+      <p class="mt-2 text-sm leading-6 text-body">FHWA guidance describes aggregate base and subbase as distinct pavement layers and emphasizes material gradation, drainage and compaction. Use project specifications and local requirements for actual driveway design; these references support the layer concepts, not the calculator's editable density presets.</p>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6">
+        <li><a class="text-link hover:underline" href="https://www.fhwa.dot.gov/construction/pubs/ots15002.pdf" target="_blank" rel="noopener noreferrer">FHWA — Gravel Roads Construction and Maintenance Guide</a></li>
+        <li><a class="text-link hover:underline" href="https://www.fhwa.dot.gov/publications/research/infrastructure/structures/97148/app3.cfm" target="_blank" rel="noopener noreferrer">FHWA — Granular Base Application Description</a></li>
+        <li><a class="text-link hover:underline" href="https://highways.dot.gov/federal-lands/materials/field-materials-manual" target="_blank" rel="noopener noreferrer">FHWA Federal Lands — Field Materials Manual</a></li>
+      </ul>
     </div>
   </section>
+
   <Footer slot="footer" />
 </CalculatorLayout>
