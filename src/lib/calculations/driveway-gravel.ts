@@ -34,6 +34,9 @@ export interface DrivewayGravelLayerResult {
   pounds: number;
   kilograms: number;
   materialCost: number;
+  truckLoads: number;
+  finalLoadTons: number;
+  finalLoadUtilizationPct: number;
 }
 
 export interface DrivewayGravelResult {
@@ -103,6 +106,9 @@ export function calculateDrivewayGravel(input: DrivewayGravelInput): DrivewayGra
     const pounds = tons * 2000;
     const kilograms = pounds * 0.45359237;
     const materialCost = layer.priceBasis === 'yd3' ? orderYd3 * layer.price : tons * layer.price;
+    const truckLoads = Math.ceil(tons / input.truckCapacityTons);
+    const finalLoadTons = truckLoads > 0 ? tons - (truckLoads - 1) * input.truckCapacityTons : 0;
+    const finalLoadUtilizationPct = truckLoads > 0 ? finalLoadTons / input.truckCapacityTons * 100 : 0;
 
     layers.push({
       id: layer.id,
@@ -114,6 +120,9 @@ export function calculateDrivewayGravel(input: DrivewayGravelInput): DrivewayGra
       pounds,
       kilograms,
       materialCost,
+      truckLoads,
+      finalLoadTons,
+      finalLoadUtilizationPct,
     });
   }
 
@@ -128,9 +137,12 @@ export function calculateDrivewayGravel(input: DrivewayGravelInput): DrivewayGra
   const materialCost = layers.reduce((sum, layer) => sum + layer.materialCost, 0);
   const tax = materialCost * input.taxPct / 100;
   const totalCost = materialCost + tax + input.delivery;
-  const truckLoads = Math.ceil(tons / input.truckCapacityTons);
-  const finalLoadTons = truckLoads > 0 ? tons - (truckLoads - 1) * input.truckCapacityTons : 0;
-  const finalLoadUtilizationPct = truckLoads > 0 ? finalLoadTons / input.truckCapacityTons * 100 : 0;
+  // Different driveway courses commonly use different aggregate products, so
+  // transport planning must not assume partial loads can be mixed together.
+  // Sum whole loads per enabled layer/product instead of rounding combined weight once.
+  const truckLoads = layers.reduce((sum, layer) => sum + layer.truckLoads, 0);
+  const finalLoadTons = layers.length === 1 ? layers[0].finalLoadTons : 0;
+  const finalLoadUtilizationPct = layers.length === 1 ? layers[0].finalLoadUtilizationPct : 0;
 
   return {
     areaFt2,
