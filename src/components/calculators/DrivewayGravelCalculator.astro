@@ -250,32 +250,57 @@
 
   <div id="d-results" class="mt-7 hidden space-y-4" aria-live="polite">
     <div class="rounded-xl border border-hairline bg-canvas-soft-2 p-5">
-      <p class="font-mono text-[11px] tracking-widest text-mute">DRIVEWAY GRAVEL ORDER PLAN</p>
+      <p class="font-mono text-[11px] tracking-widest text-mute">SUPPLIER-READY DRIVEWAY ORDER PLAN</p>
       <div class="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <span class="text-3xl font-semibold tracking-[-0.04em] text-ink"><span id="d-total-tons">—</span> tons</span>
-        <span class="font-mono text-sm text-body"><span id="d-total-yd3">—</span> yd³ to order</span>
+        <span class="text-3xl font-semibold tracking-[-0.04em] text-ink"><span id="d-total-tons">—</span> <span id="d-primary-weight-unit">US tons</span></span>
+        <span class="font-mono text-sm text-body"><span id="d-total-yd3">—</span> <span id="d-primary-volume-unit">yd³</span> supplier order</span>
       </div>
-      <p class="mt-1 font-mono text-xs text-mute"><span id="d-area">—</span> ft² footprint · <span id="d-total-lb">—</span> lb · <span id="d-total-tonnes">—</span> metric tonnes</p>
+      <p class="mt-1 font-mono text-xs text-mute"><span id="d-area">—</span> <span id="d-primary-area-unit">ft²</span> footprint · <span id="d-secondary-summary">—</span></p>
 
-      <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <div class="rounded-lg border border-hairline bg-canvas p-3"><p class="font-mono text-[11px] text-mute">Installed volume</p><p class="mt-1 text-sm font-semibold text-ink"><span id="d-installed-yd3">—</span> yd³</p></div>
-        <div class="rounded-lg border border-hairline bg-canvas p-3"><p class="font-mono text-[11px] text-mute">Separate-product truck loads</p><p class="mt-1 text-sm font-semibold text-ink"><span id="d-loads">—</span></p><p class="font-mono text-[11px] text-mute">rounded per material layer · <span id="d-load-capacity">—</span></p></div>
-        <div class="rounded-lg border border-hairline bg-canvas p-3"><p class="font-mono text-[11px] text-mute">Material subtotal</p><p class="mt-1 text-sm font-semibold text-ink" id="d-material-cost">—</p></div>
-        <div class="rounded-lg border border-hairline bg-canvas p-3"><p class="font-mono text-[11px] text-mute">Entered-scope total</p><p class="mt-1 text-sm font-semibold text-ink" id="d-total-cost">—</p><p class="font-mono text-[11px] text-mute">material + tax + delivery</p></div>
+      <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        <div class="rounded-lg border border-hairline bg-canvas p-3"><p class="font-mono text-[11px] text-mute">Installed volume</p><p class="mt-1 text-sm font-semibold text-ink"><span id="d-installed-yd3">—</span> <span id="d-installed-unit">yd³</span></p></div>
+        <div class="rounded-lg border border-hairline bg-canvas p-3"><p class="font-mono text-[11px] text-mute">Supplier rounding overage</p><p class="mt-1 text-sm font-semibold text-ink"><span id="d-rounding-overage">—</span> <span id="d-rounding-unit">US tons</span></p></div>
+        <div class="rounded-lg border border-hairline bg-canvas p-3"><p class="font-mono text-[11px] text-mute">Separate-product truck loads</p><p class="mt-1 text-sm font-semibold text-ink"><span id="d-loads">—</span></p><p class="font-mono text-[11px] text-mute">bulk layers only · <span id="d-load-capacity">—</span></p></div>
+        <div class="rounded-lg border border-hairline bg-canvas p-3"><p class="font-mono text-[11px] text-mute">Materials + project extras</p><p class="mt-1 text-sm font-semibold text-ink" id="d-material-cost">—</p></div>
+        <div class="rounded-lg border border-hairline bg-canvas p-3"><p class="font-mono text-[11px] text-mute">Entered-scope total</p><p class="mt-1 text-sm font-semibold text-ink" id="d-total-cost">—</p><p class="font-mono text-[11px] text-mute">materials + tax + delivery</p></div>
       </div>
     </div>
 
     <div class="overflow-x-auto rounded-xl border border-hairline bg-canvas" role="region" aria-label="Driveway gravel layer order summary" tabindex="0">
-      <table class="w-full min-w-[940px] text-left text-sm">
+      <table class="w-full min-w-[980px] text-left text-sm">
         <thead class="bg-canvas-soft font-mono text-[11px] text-mute">
-          <tr><th class="px-3 py-2">LAYER</th><th class="px-3 py-2">INSTALLED yd³</th><th class="px-3 py-2">ORDER yd³</th><th class="px-3 py-2">DENSITY</th><th class="px-3 py-2">TONS</th><th class="px-3 py-2">LOADS</th><th class="px-3 py-2">FINAL LOAD</th><th class="px-3 py-2">MATERIAL COST</th></tr>
+          <tr>
+            <th class="px-3 py-2">LAYER / PRODUCT</th>
+            <th id="d-th-installed" class="px-3 py-2">INSTALLED yd³</th>
+            <th id="d-th-required" class="px-3 py-2">REQUIRED yd³</th>
+            <th id="d-th-supplier" class="px-3 py-2">SUPPLIER ORDER</th>
+            <th class="px-3 py-2">DENSITY</th>
+            <th class="px-3 py-2">DELIVERY / PACKAGE</th>
+            <th class="px-3 py-2">MATERIAL COST</th>
+          </tr>
         </thead>
         <tbody id="d-layer-results" class="divide-y divide-hairline"></tbody>
       </table>
     </div>
 
+    <div id="d-ancillary-results" class="hidden grid gap-3 sm:grid-cols-2">
+      <div id="d-geo-result-card" class="hidden rounded-xl border border-hairline bg-canvas p-4"><p class="font-mono text-[10px] uppercase tracking-widest text-mute">Geotextile</p><p id="d-geo-result" class="mt-1 text-sm font-semibold text-ink">—</p></div>
+      <div id="d-edging-result-card" class="hidden rounded-xl border border-hairline bg-canvas p-4"><p class="font-mono text-[10px] uppercase tracking-widest text-mute">Edging</p><p id="d-edging-result" class="mt-1 text-sm font-semibold text-ink">—</p></div>
+    </div>
+
+    <div class="overflow-x-auto rounded-xl border border-hairline bg-canvas" role="region" aria-label="Driveway supplier bill of materials" tabindex="0">
+      <div class="border-b border-hairline bg-canvas-soft px-4 py-3"><p class="text-sm font-semibold text-ink">Supplier bill of materials</p><p class="mt-1 text-xs text-mute">Order quantities reflect bag rounding, supplier increments/minimums and optional project extras.</p></div>
+      <table class="w-full min-w-[720px] text-left text-sm">
+        <thead class="font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">ITEM</th><th class="px-3 py-2">ORDER QUANTITY</th><th class="px-3 py-2">NOTES</th><th class="px-3 py-2">COST</th></tr></thead>
+        <tbody id="d-bom-results" class="divide-y divide-hairline"></tbody>
+      </table>
+    </div>
+
     <div class="flex flex-wrap gap-2">
       <button type="button" id="d-copy" class="h-10 rounded-lg border border-hairline bg-canvas px-4 text-xs font-medium text-ink hover:bg-canvas-soft">Copy supplier summary</button>
+      <button type="button" id="d-share" class="h-10 rounded-lg border border-hairline bg-canvas px-4 text-xs font-medium text-ink hover:bg-canvas-soft">Copy share link</button>
+      <button type="button" id="d-download-report" class="h-10 rounded-lg border border-hairline bg-canvas px-4 text-xs font-medium text-ink hover:bg-canvas-soft">Download report</button>
+      <button type="button" id="d-download-bom" class="h-10 rounded-lg border border-hairline bg-canvas px-4 text-xs font-medium text-ink hover:bg-canvas-soft">Download BOM CSV</button>
       <button type="button" id="d-print" class="h-10 rounded-lg border border-hairline bg-canvas px-4 text-xs font-medium text-ink hover:bg-canvas-soft">Print / Save PDF</button>
     </div>
     <p id="d-copy-status" class="text-xs text-mute" role="status" aria-live="polite"></p>
