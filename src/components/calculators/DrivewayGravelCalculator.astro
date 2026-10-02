@@ -116,8 +116,8 @@
       </div>
     </div>
 
-    <details class="rounded-xl border border-hairline bg-canvas">
-      <summary class="cursor-pointer px-4 py-3 text-sm font-medium text-ink">3. Delivery &amp; project cost</summary>
+    <details open class="rounded-xl border border-hairline bg-canvas">
+      <summary class="cursor-pointer px-4 py-3 text-sm font-medium text-ink">3. Truck payload, delivery &amp; project cost</summary>
       <div class="grid gap-4 border-t border-hairline p-4 sm:grid-cols-2 lg:grid-cols-4">
         <label class="block"><span class="text-xs font-medium text-ink">Truck payload capacity</span><div class="mt-1 flex"><input id="d-truck-capacity" type="number" min="0.01" step="any" value="20" class="h-10 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><select id="d-truck-capacity-unit" class="h-10 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-xs"><option value="ton">US ton</option><option value="tonne">tonne</option></select></div></label>
         <label class="block"><span class="text-xs font-medium text-ink">Delivery / trucking total</span><div class="mt-1 flex"><span class="flex h-10 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-xs">$</span><input id="d-delivery" type="number" min="0" step="any" value="0" class="h-10 w-full rounded-r-lg border border-l-0 border-hairline bg-canvas px-3 text-sm"/></div></label>
@@ -176,6 +176,7 @@
   const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
   const form = $<HTMLFormElement>("d-form");
   const results = $<HTMLDivElement>("d-results");
+  let hasCalculated = false;
 
   function num(id: string, fallback = 0) {
     const value = Number(($<HTMLInputElement>(id)?.value ?? "").trim());
@@ -210,7 +211,7 @@
     });
   }
   function invalidateResults() {
-    if (!results || results.classList.contains("hidden")) return;
+    if (!results || !hasCalculated) return;
     results.classList.add("hidden");
     $("d-recalc-note")?.classList.remove("hidden");
     setText("d-copy-status", "");
@@ -379,6 +380,7 @@
           calculation.totalCost > 0 ? `Entered-scope total: ${money(calculation.totalCost)}` : "",
         ].filter(Boolean).join("\n");
 
+        hasCalculated = true;
         $("d-recalc-note")?.classList.add("hidden");
         results.classList.remove("hidden");
         results.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -388,6 +390,7 @@
     });
 
     form.addEventListener("reset", () => {
+      hasCalculated = false;
       clearErrors();
       results.classList.add("hidden");
       setText("d-copy-status", "");
