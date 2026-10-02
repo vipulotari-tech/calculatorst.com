@@ -62,7 +62,7 @@ describe('driveway gravel calculation', () => {
 
   it('supports metric density and length conversions', () => {
     expect(lengthToFeet(1,'m')).toBeCloseTo(3.280839895, 8);
-    expect(densityToTonYd3(1600,'kg/m3')).toBeCloseTo(1.348756, 5);
+    expect(densityToTonYd3(1600,'kg/m3')).toBeCloseTo(1.3484439484, 8);
   });
 
   it('reports final truck load utilization', () => {
