@@ -16,13 +16,13 @@ export const supplementalCalculators: CalculatorMeta[] = [
   },
   {
     slug: 'driveway-gravel-calculator',
-    title: 'Driveway Gravel Calculator — Layers, Yards, Tons & Cost',
+    title: 'Driveway Gravel Calculator — Layers, Tons, Truckloads & Cost',
     h1: 'Driveway Gravel Calculator',
-    description: 'Estimate driveway gravel yards, short tons, pounds and material cost from dimensions, equal-depth layers, material density preset and waste allowance.',
+    description: 'Plan driveway gravel by layer with separate depths, densities, compaction and waste. Get cubic yards, tons, truckloads and cost for base and surface materials.',
     category: 'Gravel & Aggregate',
     cluster: 'gravel',
     iconPath: 'M4 10l4-6 4 6H4ZM8 4v8',
-    keywords: ['driveway gravel calculator', 'gravel driveway layers', 'driveway gravel yards tons'],
+    keywords: ['driveway gravel calculator', 'gravel driveway layers', 'driveway gravel tons', 'gravel driveway truckloads'],
   },
   {
     slug: 'pea-gravel-calculator',
