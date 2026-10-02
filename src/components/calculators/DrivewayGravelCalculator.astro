@@ -242,7 +242,7 @@
       <span id="d-form-error" class="mb-3 hidden rounded-lg border border-error/30 bg-error/5 px-3 py-2 text-sm text-error" role="alert"></span>
       <p id="d-recalc-note" class="mb-3 hidden text-xs font-medium text-mute" role="status">Inputs changed. Calculate again to refresh the order plan.</p>
       <div class="flex flex-wrap gap-2">
-        <button type="submit" class="h-11 rounded-lg bg-primary px-6 text-sm font-medium text-on-primary hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Calculate driveway gravel</button>
+        <button id="d-calculate" type="submit" class="h-11 rounded-lg bg-primary px-6 text-sm font-medium text-on-primary hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Calculate driveway gravel</button>
         <button type="reset" id="d-reset" class="h-11 rounded-lg border border-hairline bg-canvas px-5 text-sm font-medium text-ink hover:bg-canvas-soft">Reset</button>
       </div>
     </div>
@@ -802,8 +802,7 @@
 
     refreshDerivedUi();
 
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
+    const runCalculation = () => {
       clearErrors();
 
       const lengthValue = num("d-len", Number.NaN);
@@ -850,6 +849,15 @@
       } catch (error) {
         showError("d-form-error", error instanceof Error ? error.message : "Check the entered values and try again.");
       }
+    };
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      runCalculation();
+    });
+    $("d-calculate")?.addEventListener("click", (event) => {
+      event.preventDefault();
+      runCalculation();
     });
 
     form.addEventListener("reset", () => {
