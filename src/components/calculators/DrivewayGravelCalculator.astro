@@ -1,52 +1,333 @@
 ---
 ---
 
-<div id="driveway-calc" class="rounded-lg border border-hairline bg-canvas p-5 shadow-card sm:p-6">
-  <form id="d-form" novalidate class="space-y-5">
-    <div class="grid gap-4 sm:grid-cols-2">
-      <label class="block"><span class="text-sm font-medium text-ink">Driveway length</span>
-        <div class="mt-1.5 flex"><input id="d-len" type="number" min="0" step="any" placeholder="40" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:ring-2 focus:ring-link/20 focus:border-link focus:outline-none" required/><select id="d-len-unit" class="h-11 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="m">m</option><option value="yd">yd</option></select></div>
-        <span id="d-len-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
-      <label class="block"><span class="text-sm font-medium text-ink">Driveway width</span>
-        <div class="mt-1.5 flex"><input id="d-wid" type="number" min="0" step="any" placeholder="12" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:ring-2 focus:ring-link/20 focus:border-link focus:outline-none" required/><select id="d-wid-unit" class="h-11 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="m">m</option></select></div>
-        <span id="d-wid-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
+<div id="driveway-calc" class="rounded-xl border border-hairline bg-canvas p-5 shadow-card sm:p-7">
+  <form id="d-form" novalidate class="space-y-6">
+    <div class="space-y-3">
+      <div>
+        <p class="font-mono text-[11px] font-semibold uppercase tracking-widest text-mute">1. Driveway footprint</p>
+        <p class="mt-1 text-xs leading-5 text-mute">Measure the main rectangle once. Add an apron, turnout or parking pad as extra area instead of multiplying the same layer blindly.</p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-3">
+        <label class="block">
+          <span class="text-sm font-medium text-ink">Driveway length</span>
+          <div class="mt-1.5 flex">
+            <input id="d-len" type="number" inputmode="decimal" min="0" step="any" value="50" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="d-len-error" required />
+            <select id="d-len-unit" aria-label="Driveway length unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="yd">yd</option><option value="m">m</option></select>
+          </div>
+          <span id="d-len-error" class="mt-1 hidden text-xs text-error" role="alert"></span>
+        </label>
+        <label class="block">
+          <span class="text-sm font-medium text-ink">Driveway width</span>
+          <div class="mt-1.5 flex">
+            <input id="d-wid" type="number" inputmode="decimal" min="0" step="any" value="12" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20" aria-describedby="d-wid-error" required />
+            <select id="d-wid-unit" aria-label="Driveway width unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft">ft</option><option value="yd">yd</option><option value="m">m</option></select>
+          </div>
+          <span id="d-wid-error" class="mt-1 hidden text-xs text-error" role="alert"></span>
+        </label>
+        <label class="block">
+          <span class="text-sm font-medium text-ink">Extra apron / turnout area <span class="font-normal text-mute">(optional)</span></span>
+          <div class="mt-1.5 flex">
+            <input id="d-extra-area" type="number" inputmode="decimal" min="0" step="any" value="0" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm" />
+            <select id="d-extra-area-unit" aria-label="Additional area unit" class="h-11 shrink-0 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="ft2">ft²</option><option value="yd2">yd²</option><option value="m2">m²</option></select>
+          </div>
+        </label>
+      </div>
+      <label class="block max-w-xl">
+        <span class="text-sm font-medium text-ink">Driveway build</span>
+        <select id="d-build" class="mt-1.5 h-11 w-full rounded-lg border border-hairline bg-canvas px-3 text-sm focus:border-link focus:outline-none focus:ring-2 focus:ring-link/20">
+          <option value="surface">Surface refresh only</option>
+          <option value="two" selected>Base + surface</option>
+          <option value="three">Sub-base + base + surface</option>
+        </select>
+      </label>
     </div>
-    <div class="grid gap-4 sm:grid-cols-3">
-      <label class="block"><span class="text-sm font-medium text-ink">Gravel depth</span>
-        <div class="mt-1.5 flex"><input id="d-depth" type="number" min="0" step="any" placeholder="4" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm" required/><select id="d-depth-unit" class="h-11 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-sm"><option value="in" selected>in</option><option value="ft">ft</option><option value="cm">cm</option></select></div>
-        <span id="d-depth-error" class="mt-1 hidden text-xs text-error" role="alert"></span></label>
-      <label class="block"><span class="text-sm font-medium text-ink">Number of layers / sections</span><input id="d-layers" type="number" min="1" max="10" step="1" value="1" class="mt-1.5 h-11 w-full rounded-lg border border-hairline bg-canvas px-3 text-sm"/></label>
-      <label class="block"><span class="text-sm font-medium text-ink">Material</span><select id="d-mat" class="mt-1.5 h-11 w-full rounded-lg border border-hairline bg-canvas px-3 text-sm"><option value="crushed">Crushed Stone 1.40 t/yd³</option><option value="pea">Pea Gravel 1.35</option><option value="river">River Rock 1.33</option><option value="limestone">Limestone 1.60</option></select></label>
-    </div>
-    <div class="grid gap-4 sm:grid-cols-3">
-      <label class="block"><span class="text-sm font-medium text-ink">Waste %</span><div class="mt-1.5 flex"><input id="d-waste" type="number" min="0" max="50" value="10" class="h-11 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><span class="flex h-11 items-center rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-3 text-sm text-mute">%</span></div></label>
-      <label class="block"><span class="text-sm font-medium text-ink">Price</span><div class="mt-1.5 flex"><span class="flex h-11 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-sm text-mute">$</span><input id="d-price" type="number" min="0" step="any" placeholder="45" class="h-11 w-full border-y border-hairline bg-canvas px-3 text-sm"/><select id="d-price-unit" class="h-11 rounded-r-lg border border-hairline bg-canvas-soft px-2 text-xs"><option value="yd">/ yd³</option><option value="ton">/ ton</option></select></div></label>
-      <div class="flex items-end"><p class="font-mono text-[11px] leading-4 text-mute">Multiply by layers for multi-section driveways. Depth per layer.</p></div>
-    </div>
-    <div class="flex gap-2"><button type="submit" class="h-11 rounded-lg bg-primary px-6 text-sm font-medium text-on-primary hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Calculate</button><button type="reset" id="d-reset" class="h-11 rounded-lg border border-hairline bg-canvas px-6 text-sm font-medium text-ink">Reset</button></div>
-  </form>
-  <div id="d-results" class="mt-6 hidden" aria-live="polite">
-    <div class="rounded-lg border border-hairline bg-canvas-soft-2 p-5">
-      <p class="font-mono text-[11px] tracking-widest text-mute">DRIVEWAY GRAVEL ESTIMATE</p>
-      <p class="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink"><span id="d-yd3" class="tabular-nums">—</span> yd³ <span class="text-base font-medium text-body">· <span id="d-tons">—</span> tons</span></p>
-      <p class="font-mono text-xs tabular-nums text-body"><span id="d-ft3">—</span> ft³ · <span id="d-lb">—</span> lb</p>
-      <div class="mt-4 grid gap-3 rounded-md border border-hairline bg-canvas p-3 sm:grid-cols-3">
-        <div><p class="font-mono text-[11px] text-mute">With waste</p><p class="text-sm font-semibold tabular-nums text-ink"><span id="d-yd3w">—</span> yd³</p><p class="font-mono text-xs tabular-nums text-body"><span id="d-tonsw">—</span> tons</p></div>
-        <div><p class="font-mono text-[11px] text-mute">Weight</p><p class="text-sm font-semibold tabular-nums text-ink"><span id="d-lbw">—</span> lb</p></div>
-        <div><p class="font-mono text-[11px] text-mute">Est. cost</p><p id="d-cost" class="text-sm font-semibold text-ink">—</p><p id="d-cost-note" class="font-mono text-xs text-mute">Add price</p></div>
+
+    <div class="space-y-3">
+      <div>
+        <p class="font-mono text-[11px] font-semibold uppercase tracking-widest text-mute">2. Layer-by-layer material</p>
+        <p class="mt-1 text-xs leading-5 text-mute">Each course keeps its own depth, density, compaction allowance, waste and price. Density presets are editable planning values—not product guarantees.</p>
+      </div>
+
+      <div id="d-layer-subbase" class="d-layer-card hidden rounded-xl border border-hairline bg-canvas-soft-2 p-4" data-layer="subbase">
+        <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+          <div><p class="text-sm font-semibold text-ink">Sub-base / bottom layer</p><p class="text-xs text-mute">Optional coarse foundation layer.</p></div>
+          <span class="font-mono text-[11px] text-mute">Layer 1</span>
+        </div>
+        <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <label class="block"><span class="text-xs font-medium text-ink">Installed depth</span><div class="mt-1 flex"><input id="d-subbase-depth" type="number" min="0" step="any" value="4" class="h-10 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><select id="d-subbase-depth-unit" class="h-10 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-xs"><option value="in">in</option><option value="ft">ft</option><option value="cm">cm</option><option value="mm">mm</option></select></div></label>
+          <label class="block"><span class="text-xs font-medium text-ink">Material preset</span><select id="d-subbase-material" data-density-target="d-subbase-density" data-density-unit-target="d-subbase-density-unit" class="d-material mt-1 h-10 w-full rounded-lg border border-hairline bg-canvas px-2 text-xs"><option value="1.50" selected>Crusher run / road base ~1.50 t/yd³</option><option value="1.40">Crushed stone / #57 ~1.40</option><option value="1.60">Limestone ~1.60</option><option value="1.42">Granite gravel ~1.42</option><option value="1.35">Pea gravel ~1.35</option><option value="1.33">River rock ~1.33</option><option value="custom">Custom density</option></select></label>
+          <label class="block"><span class="text-xs font-medium text-ink">Bulk density</span><div class="mt-1 flex"><input id="d-subbase-density" type="number" min="0.01" step="any" value="1.50" class="h-10 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><select id="d-subbase-density-unit" class="h-10 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-xs"><option value="ton/yd3">t/yd³</option><option value="lb/ft3">lb/ft³</option><option value="kg/m3">kg/m³</option></select></div></label>
+          <label class="block"><span class="text-xs font-medium text-ink">Price</span><div class="mt-1 flex"><span class="flex h-10 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-xs text-mute">$</span><input id="d-subbase-price" type="number" min="0" step="any" value="0" class="h-10 w-full border-y border-hairline bg-canvas px-2 text-sm"/><select id="d-subbase-price-basis" class="h-10 rounded-r-lg border border-hairline bg-canvas-soft px-2 text-xs"><option value="ton">/ton</option><option value="yd3">/yd³</option></select></div></label>
+        </div>
+        <details class="mt-3 rounded-lg border border-hairline bg-canvas">
+          <summary class="cursor-pointer px-3 py-2 text-xs font-medium text-ink">Advanced layer allowances</summary>
+          <div class="grid gap-3 border-t border-hairline p-3 sm:grid-cols-2">
+            <label class="block"><span class="text-xs text-mute">Loose-to-placed / compaction allowance</span><div class="mt-1 flex"><input id="d-subbase-compaction" type="number" min="0" max="100" value="0" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">%</span></div></label>
+            <label class="block"><span class="text-xs text-mute">Ordering waste / contingency</span><div class="mt-1 flex"><input id="d-subbase-waste" type="number" min="0" max="100" value="10" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">%</span></div></label>
+          </div>
+        </details>
+      </div>
+
+      <div id="d-layer-base" class="d-layer-card rounded-xl border border-hairline bg-canvas-soft-2 p-4" data-layer="base">
+        <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+          <div><p class="text-sm font-semibold text-ink">Base course</p><p class="text-xs text-mute">Structural gravel course below the surface.</p></div>
+          <span class="font-mono text-[11px] text-mute">Layer 2</span>
+        </div>
+        <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <label class="block"><span class="text-xs font-medium text-ink">Installed depth</span><div class="mt-1 flex"><input id="d-base-depth" type="number" min="0" step="any" value="4" class="h-10 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><select id="d-base-depth-unit" class="h-10 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-xs"><option value="in">in</option><option value="ft">ft</option><option value="cm">cm</option><option value="mm">mm</option></select></div></label>
+          <label class="block"><span class="text-xs font-medium text-ink">Material preset</span><select id="d-base-material" data-density-target="d-base-density" data-density-unit-target="d-base-density-unit" class="d-material mt-1 h-10 w-full rounded-lg border border-hairline bg-canvas px-2 text-xs"><option value="1.50">Crusher run / road base ~1.50 t/yd³</option><option value="1.40" selected>Crushed stone / #57 ~1.40</option><option value="1.60">Limestone ~1.60</option><option value="1.42">Granite gravel ~1.42</option><option value="1.35">Pea gravel ~1.35</option><option value="1.33">River rock ~1.33</option><option value="custom">Custom density</option></select></label>
+          <label class="block"><span class="text-xs font-medium text-ink">Bulk density</span><div class="mt-1 flex"><input id="d-base-density" type="number" min="0.01" step="any" value="1.40" class="h-10 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><select id="d-base-density-unit" class="h-10 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-xs"><option value="ton/yd3">t/yd³</option><option value="lb/ft3">lb/ft³</option><option value="kg/m3">kg/m³</option></select></div></label>
+          <label class="block"><span class="text-xs font-medium text-ink">Price</span><div class="mt-1 flex"><span class="flex h-10 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-xs text-mute">$</span><input id="d-base-price" type="number" min="0" step="any" value="0" class="h-10 w-full border-y border-hairline bg-canvas px-2 text-sm"/><select id="d-base-price-basis" class="h-10 rounded-r-lg border border-hairline bg-canvas-soft px-2 text-xs"><option value="ton">/ton</option><option value="yd3">/yd³</option></select></div></label>
+        </div>
+        <details class="mt-3 rounded-lg border border-hairline bg-canvas">
+          <summary class="cursor-pointer px-3 py-2 text-xs font-medium text-ink">Advanced layer allowances</summary>
+          <div class="grid gap-3 border-t border-hairline p-3 sm:grid-cols-2">
+            <label class="block"><span class="text-xs text-mute">Loose-to-placed / compaction allowance</span><div class="mt-1 flex"><input id="d-base-compaction" type="number" min="0" max="100" value="0" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">%</span></div></label>
+            <label class="block"><span class="text-xs text-mute">Ordering waste / contingency</span><div class="mt-1 flex"><input id="d-base-waste" type="number" min="0" max="100" value="10" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">%</span></div></label>
+          </div>
+        </details>
+      </div>
+
+      <div id="d-layer-surface" class="d-layer-card rounded-xl border border-hairline bg-canvas-soft-2 p-4" data-layer="surface">
+        <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+          <div><p class="text-sm font-semibold text-ink">Surface course</p><p class="text-xs text-mute">Top layer or refresh material.</p></div>
+          <span class="font-mono text-[11px] text-mute">Top layer</span>
+        </div>
+        <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <label class="block"><span class="text-xs font-medium text-ink">Installed depth</span><div class="mt-1 flex"><input id="d-surface-depth" type="number" min="0" step="any" value="2" class="h-10 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><select id="d-surface-depth-unit" class="h-10 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-xs"><option value="in">in</option><option value="ft">ft</option><option value="cm">cm</option><option value="mm">mm</option></select></div></label>
+          <label class="block"><span class="text-xs font-medium text-ink">Material preset</span><select id="d-surface-material" data-density-target="d-surface-density" data-density-unit-target="d-surface-density-unit" class="d-material mt-1 h-10 w-full rounded-lg border border-hairline bg-canvas px-2 text-xs"><option value="1.50">Crusher run / road base ~1.50 t/yd³</option><option value="1.40" selected>Crushed stone / #57 ~1.40</option><option value="1.60">Limestone ~1.60</option><option value="1.42">Granite gravel ~1.42</option><option value="1.35">Pea gravel ~1.35</option><option value="1.33">River rock ~1.33</option><option value="custom">Custom density</option></select></label>
+          <label class="block"><span class="text-xs font-medium text-ink">Bulk density</span><div class="mt-1 flex"><input id="d-surface-density" type="number" min="0.01" step="any" value="1.40" class="h-10 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><select id="d-surface-density-unit" class="h-10 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-xs"><option value="ton/yd3">t/yd³</option><option value="lb/ft3">lb/ft³</option><option value="kg/m3">kg/m³</option></select></div></label>
+          <label class="block"><span class="text-xs font-medium text-ink">Price</span><div class="mt-1 flex"><span class="flex h-10 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-xs text-mute">$</span><input id="d-surface-price" type="number" min="0" step="any" value="0" class="h-10 w-full border-y border-hairline bg-canvas px-2 text-sm"/><select id="d-surface-price-basis" class="h-10 rounded-r-lg border border-hairline bg-canvas-soft px-2 text-xs"><option value="ton">/ton</option><option value="yd3">/yd³</option></select></div></label>
+        </div>
+        <details class="mt-3 rounded-lg border border-hairline bg-canvas">
+          <summary class="cursor-pointer px-3 py-2 text-xs font-medium text-ink">Advanced layer allowances</summary>
+          <div class="grid gap-3 border-t border-hairline p-3 sm:grid-cols-2">
+            <label class="block"><span class="text-xs text-mute">Loose-to-placed / compaction allowance</span><div class="mt-1 flex"><input id="d-surface-compaction" type="number" min="0" max="100" value="0" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">%</span></div></label>
+            <label class="block"><span class="text-xs text-mute">Ordering waste / contingency</span><div class="mt-1 flex"><input id="d-surface-waste" type="number" min="0" max="100" value="10" class="h-9 w-full rounded-l-md border border-hairline bg-canvas px-2 text-sm"/><span class="flex h-9 items-center rounded-r-md border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">%</span></div></label>
+          </div>
+        </details>
       </div>
     </div>
+
+    <details class="rounded-xl border border-hairline bg-canvas">
+      <summary class="cursor-pointer px-4 py-3 text-sm font-medium text-ink">3. Delivery &amp; project cost</summary>
+      <div class="grid gap-4 border-t border-hairline p-4 sm:grid-cols-2 lg:grid-cols-4">
+        <label class="block"><span class="text-xs font-medium text-ink">Truck payload capacity</span><div class="mt-1 flex"><input id="d-truck-capacity" type="number" min="0.01" step="any" value="20" class="h-10 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><select id="d-truck-capacity-unit" class="h-10 rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-xs"><option value="ton">US ton</option><option value="tonne">tonne</option></select></div></label>
+        <label class="block"><span class="text-xs font-medium text-ink">Delivery / trucking</span><div class="mt-1 flex"><span class="flex h-10 items-center rounded-l-lg border border-hairline bg-canvas-soft px-2 text-xs">$</span><input id="d-delivery" type="number" min="0" step="any" value="0" class="h-10 w-full rounded-r-lg border border-l-0 border-hairline bg-canvas px-3 text-sm"/></div></label>
+        <label class="block"><span class="text-xs font-medium text-ink">Material tax</span><div class="mt-1 flex"><input id="d-tax" type="number" min="0" max="100" step="any" value="0" class="h-10 w-full rounded-l-lg border border-hairline bg-canvas px-3 text-sm"/><span class="flex h-10 items-center rounded-r-lg border border-l-0 border-hairline bg-canvas-soft px-2 text-xs">%</span></div></label>
+        <div class="flex items-end"><p class="text-xs leading-5 text-mute">Truck count is based on entered usable payload only. Confirm legal axle limits, truck bed volume, access and supplier minimums.</p></div>
+      </div>
+    </details>
+
+    <div>
+      <span id="d-form-error" class="mb-3 hidden rounded-lg border border-error/30 bg-error/5 px-3 py-2 text-sm text-error" role="alert"></span>
+      <div class="flex flex-wrap gap-2">
+        <button type="submit" class="h-11 rounded-lg bg-primary px-6 text-sm font-medium text-on-primary hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link">Calculate driveway gravel</button>
+        <button type="reset" id="d-reset" class="h-11 rounded-lg border border-hairline bg-canvas px-5 text-sm font-medium text-ink hover:bg-canvas-soft">Reset</button>
+      </div>
+    </div>
+  </form>
+
+  <div id="d-results" class="mt-7 hidden space-y-4" aria-live="polite">
+    <div class="rounded-xl border border-hairline bg-canvas-soft-2 p-5">
+      <p class="font-mono text-[11px] tracking-widest text-mute">DRIVEWAY GRAVEL ORDER PLAN</p>
+      <div class="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span class="text-3xl font-semibold tracking-[-0.04em] text-ink"><span id="d-total-tons">—</span> tons</span>
+        <span class="font-mono text-sm text-body"><span id="d-total-yd3">—</span> yd³ to order</span>
+      </div>
+      <p class="mt-1 font-mono text-xs text-mute"><span id="d-area">—</span> ft² footprint · <span id="d-total-lb">—</span> lb · <span id="d-total-tonnes">—</span> metric tonnes</p>
+
+      <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="rounded-lg border border-hairline bg-canvas p-3"><p class="font-mono text-[11px] text-mute">Installed volume</p><p class="mt-1 text-sm font-semibold text-ink"><span id="d-installed-yd3">—</span> yd³</p></div>
+        <div class="rounded-lg border border-hairline bg-canvas p-3"><p class="font-mono text-[11px] text-mute">Truck loads</p><p class="mt-1 text-sm font-semibold text-ink"><span id="d-loads">—</span></p><p class="font-mono text-[11px] text-mute">final load <span id="d-final-load">—</span> t · <span id="d-final-util">—</span>%</p></div>
+        <div class="rounded-lg border border-hairline bg-canvas p-3"><p class="font-mono text-[11px] text-mute">Material subtotal</p><p class="mt-1 text-sm font-semibold text-ink" id="d-material-cost">—</p></div>
+        <div class="rounded-lg border border-hairline bg-canvas p-3"><p class="font-mono text-[11px] text-mute">Entered-scope total</p><p class="mt-1 text-sm font-semibold text-ink" id="d-total-cost">—</p><p class="font-mono text-[11px] text-mute">material + tax + delivery</p></div>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto rounded-xl border border-hairline bg-canvas" role="region" aria-label="Driveway gravel layer order summary" tabindex="0">
+      <table class="w-full min-w-[720px] text-left text-sm">
+        <thead class="bg-canvas-soft font-mono text-[11px] text-mute">
+          <tr><th class="px-3 py-2">LAYER</th><th class="px-3 py-2">INSTALLED yd³</th><th class="px-3 py-2">ORDER yd³</th><th class="px-3 py-2">DENSITY</th><th class="px-3 py-2">TONS</th><th class="px-3 py-2">MATERIAL COST</th></tr>
+        </thead>
+        <tbody id="d-layer-results" class="divide-y divide-hairline"></tbody>
+      </table>
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+      <button type="button" id="d-copy" class="h-10 rounded-lg border border-hairline bg-canvas px-4 text-xs font-medium text-ink hover:bg-canvas-soft">Copy supplier summary</button>
+      <button type="button" id="d-print" class="h-10 rounded-lg border border-hairline bg-canvas px-4 text-xs font-medium text-ink hover:bg-canvas-soft">Print / Save PDF</button>
+    </div>
+    <p id="d-copy-status" class="text-xs text-mute" role="status" aria-live="polite"></p>
   </div>
 </div>
-<script is:inline>
-(() => { const $ = (id) => document.getElementById(id); const form = $("d-form"), res = $("d-results"); if (!form || !res) return; const dens = { pea: 1.35, crushed: 1.40, river: 1.33, limestone: 1.60 }; function toFeet(v, u) { if (u === "ft") return v; if (u === "in") return v / 12; if (u === "yd") return v * 3; if (u === "m") return v / 0.3048; if (u === "cm") return v / 30.48; return v; }
-function fmt(n,d=2){if(!isFinite(n)) return "—";return new Intl.NumberFormat("en-US",{maximumFractionDigits:d,minimumFractionDigits:d===0?0:d===2?2:0}).format(n);}
-function show(id,msg){const e=$(id);e.textContent=msg;e.classList.remove("hidden");}
-function clear(){["d-len-error","d-wid-error","d-depth-error"].forEach(id=>{$(id).textContent="";$(id).classList.add("hidden");});}
-form.addEventListener("submit",e=>{e.preventDefault();clear();const L=parseFloat($("d-len").value),W=parseFloat($("d-wid").value),D=parseFloat($("d-depth").value),layers=parseInt($("d-layers").value)||1,waste=parseFloat($("d-waste").value)||0,price=parseFloat($("d-price").value);let ok=true;if(!(L>0)){show("d-len-error","Please enter a valid length.");ok=false;}if(!(W>0)){show("d-wid-error","Please enter a valid width.");ok=false;}if(!(D>0)){show("d-depth-error","Depth must be greater than 0.");ok=false;}if(!ok)return;
-const Lf=toFeet(L,$("d-len-unit").value),Wf=toFeet(W,$("d-wid-unit").value),Df=toFeet(D,$("d-depth-unit").value);const tonsPerYd=dens[$("d-mat").value]??1.4;const cuFt=Lf*Wf*Df*layers,cuYd=cuFt/27,tons=cuYd*tonsPerYd,lb=tons*2000,w=1+waste/100;const cuYdW=cuYd*w,tonsW=tons*w,lbW=lb*w;
-$("d-ft3").textContent=fmt(cuFt);$("d-yd3").textContent=fmt(cuYd);$("d-tons").textContent=fmt(tons);$("d-lb").textContent=fmt(lb,0);$("d-yd3w").textContent=fmt(cuYdW);$("d-tonsw").textContent=fmt(tonsW);$("d-lbw").textContent=fmt(lbW,0);
-let cost="—",note="Add price";if(isFinite(price)&&price>=0){const unit=$("d-price-unit").value;const c=unit==="yd"?cuYdW*price:tonsW*price;cost=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(c);note=`at $${fmt(price)} per ${unit==="yd"?"yd³":"ton"} incl. waste`;}
-$("d-cost").textContent=cost;$("d-cost-note").textContent=note;res.classList.remove("hidden");res.scrollIntoView({behavior:"smooth",block:"nearest"});
-});$("d-reset").addEventListener("click",()=>{clear();res.classList.add("hidden");});})();
+
+<script>
+  import { areaToFt2, calculateDrivewayGravel, lengthToFeet, type DensityUnit, type PriceBasis } from "../../lib/calculations/driveway-gravel";
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
+  const form = $<HTMLFormElement>("d-form");
+  const results = $<HTMLDivElement>("d-results");
+
+  function num(id: string, fallback = 0) {
+    const value = Number(($<HTMLInputElement>(id)?.value ?? "").trim());
+    return Number.isFinite(value) ? value : fallback;
+  }
+  function selected(id: string) {
+    return $<HTMLSelectElement>(id)?.value ?? "";
+  }
+  function fmt(value: number, digits = 2) {
+    if (!Number.isFinite(value)) return "—";
+    return new Intl.NumberFormat("en-US", { maximumFractionDigits: digits, minimumFractionDigits: 0 }).format(value);
+  }
+  function money(value: number) {
+    return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
+  }
+  function setText(id: string, value: string) {
+    const el = $(id);
+    if (el) el.textContent = value;
+  }
+  function showError(id: string, message: string) {
+    const el = $(id);
+    if (!el) return;
+    el.textContent = message;
+    el.classList.remove("hidden");
+  }
+  function clearErrors() {
+    ["d-len-error", "d-wid-error", "d-form-error"].forEach((id) => {
+      const el = $(id);
+      if (!el) return;
+      el.textContent = "";
+      el.classList.add("hidden");
+    });
+  }
+  function updateLayerVisibility() {
+    const build = selected("d-build");
+    $("d-layer-subbase")?.classList.toggle("hidden", build !== "three");
+    $("d-layer-base")?.classList.toggle("hidden", build === "surface");
+  }
+  function syncDensityFromPreset(select: HTMLSelectElement) {
+    if (select.value === "custom") return;
+    const densityId = select.dataset.densityTarget;
+    const unitId = select.dataset.densityUnitTarget;
+    if (!densityId || !unitId) return;
+    const densityInput = $<HTMLInputElement>(densityId);
+    const unitSelect = $<HTMLSelectElement>(unitId);
+    if (densityInput) densityInput.value = select.value;
+    if (unitSelect) unitSelect.value = "ton/yd3";
+  }
+  function truckCapacityTons() {
+    const value = num("d-truck-capacity", 20);
+    return selected("d-truck-capacity-unit") === "tonne" ? value / 0.90718474 : value;
+  }
+  function layer(prefix: string, label: string, enabled: boolean) {
+    return {
+      id: prefix,
+      label,
+      enabled,
+      depthFt: lengthToFeet(num(`d-${prefix}-depth`), selected(`d-${prefix}-depth-unit`)),
+      densityValue: num(`d-${prefix}-density`),
+      densityUnit: selected(`d-${prefix}-density-unit`) as DensityUnit,
+      compactionPct: num(`d-${prefix}-compaction`),
+      wastePct: num(`d-${prefix}-waste`),
+      price: num(`d-${prefix}-price`),
+      priceBasis: selected(`d-${prefix}-price-basis`) as PriceBasis,
+    };
+  }
+
+  if (form && results) {
+    $<HTMLSelectElement>("d-build")?.addEventListener("change", updateLayerVisibility);
+    document.querySelectorAll<HTMLSelectElement>(".d-material").forEach((select) => {
+      select.addEventListener("change", () => syncDensityFromPreset(select));
+    });
+    updateLayerVisibility();
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      clearErrors();
+
+      const lengthValue = num("d-len", Number.NaN);
+      const widthValue = num("d-wid", Number.NaN);
+      let valid = true;
+      if (!(lengthValue > 0)) { showError("d-len-error", "Enter a driveway length greater than zero."); valid = false; }
+      if (!(widthValue > 0)) { showError("d-wid-error", "Enter a driveway width greater than zero."); valid = false; }
+      if (!valid) return;
+
+      try {
+        const build = selected("d-build");
+        const calculation = calculateDrivewayGravel({
+          lengthFt: lengthToFeet(lengthValue, selected("d-len-unit")),
+          widthFt: lengthToFeet(widthValue, selected("d-wid-unit")),
+          extraAreaFt2: areaToFt2(num("d-extra-area"), selected("d-extra-area-unit")),
+          layers: [
+            layer("subbase", "Sub-base", build === "three"),
+            layer("base", "Base course", build !== "surface"),
+            layer("surface", "Surface course", true),
+          ],
+          truckCapacityTons: truckCapacityTons(),
+          delivery: num("d-delivery"),
+          taxPct: num("d-tax"),
+        });
+
+        setText("d-total-tons", fmt(calculation.tons));
+        setText("d-total-yd3", fmt(calculation.orderYd3));
+        setText("d-area", fmt(calculation.areaFt2, 1));
+        setText("d-total-lb", fmt(calculation.pounds, 0));
+        setText("d-total-tonnes", fmt(calculation.tonnes));
+        setText("d-installed-yd3", fmt(calculation.installedYd3));
+        setText("d-loads", String(calculation.truckLoads));
+        setText("d-final-load", fmt(calculation.finalLoadTons));
+        setText("d-final-util", fmt(calculation.finalLoadUtilizationPct, 1));
+        setText("d-material-cost", calculation.materialCost > 0 ? money(calculation.materialCost) : "—");
+        setText("d-total-cost", calculation.totalCost > 0 ? money(calculation.totalCost) : "—");
+
+        const body = $<HTMLTableSectionElement>("d-layer-results");
+        if (body) {
+          body.innerHTML = calculation.layers.map((row) => `
+            <tr>
+              <td class="px-3 py-2 font-medium text-ink">${row.label}</td>
+              <td class="px-3 py-2 font-mono tabular-nums">${fmt(row.installedYd3)}</td>
+              <td class="px-3 py-2 font-mono tabular-nums">${fmt(row.orderYd3)}</td>
+              <td class="px-3 py-2 font-mono tabular-nums">${fmt(row.densityTonYd3)} t/yd³</td>
+              <td class="px-3 py-2 font-mono tabular-nums">${fmt(row.tons)}</td>
+              <td class="px-3 py-2 font-mono tabular-nums">${row.materialCost > 0 ? money(row.materialCost) : "—"}</td>
+            </tr>
+          `).join("");
+        }
+
+        results.dataset.summary = [
+          `Driveway area: ${fmt(calculation.areaFt2, 1)} ft²`,
+          ...calculation.layers.map((row) => `${row.label}: ${fmt(row.orderYd3)} yd³ / ${fmt(row.tons)} US tons`),
+          `Total: ${fmt(calculation.orderYd3)} yd³ / ${fmt(calculation.tons)} US tons`,
+          `Truck loads at entered payload: ${calculation.truckLoads} (final ${fmt(calculation.finalLoadTons)} tons, ${fmt(calculation.finalLoadUtilizationPct, 1)}% utilization)`,
+          calculation.totalCost > 0 ? `Entered-scope total: ${money(calculation.totalCost)}` : "",
+        ].filter(Boolean).join("\n");
+
+        results.classList.remove("hidden");
+        results.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      } catch (error) {
+        showError("d-form-error", error instanceof Error ? error.message : "Check the entered values and try again.");
+      }
+    });
+
+    form.addEventListener("reset", () => {
+      clearErrors();
+      results.classList.add("hidden");
+      setText("d-copy-status", "");
+      setTimeout(updateLayerVisibility, 0);
+    });
+
+    $("d-copy")?.addEventListener("click", async () => {
+      const summary = results.dataset.summary ?? "";
+      if (!summary) return;
+      try {
+        await navigator.clipboard.writeText(summary);
+        setText("d-copy-status", "Supplier summary copied.");
+      } catch {
+        setText("d-copy-status", "Copy was blocked by the browser. Select the results table and copy manually.");
+      }
+    });
+    $("d-print")?.addEventListener("click", () => window.print());
+  }
 </script>

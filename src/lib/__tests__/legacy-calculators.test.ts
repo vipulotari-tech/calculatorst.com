@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { calculateDrivewayGravel } from '../calculations/driveway-gravel';
 
 class ElementDouble {
   value=''; textContent=''; classes=new Set<string>(); children:ElementDouble[]=[]; events:Record<string,{fn:Function,capture:boolean}[]>={}; className=''; id=''; tag='';
@@ -55,11 +56,26 @@ const cases: Array<{name:string;values:Record<string,string|number>;outputId:str
   {name:'PaverCalculator',values:{'pv-len':10,'pv-wid':10,'pv-waste':0},outputId:'pv-countw',expected:'100'},
   {name:'MulchCalculator',values:{'m-len':10,'m-wid':10,'m-depth':12,'m-waste':0},outputId:'m-ft3',expected:'100.00'},
   {name:'PeaGravelCalculator',values:{'p-length':10,'p-width':10,'p-depth':12,'p-waste':0},outputId:'p-ft3',expected:'100.00'},
-  {name:'DrivewayGravelCalculator',values:{'d-len':10,'d-wid':10,'d-depth':12,'d-waste':0},outputId:'d-ft3',expected:'100.00'},
   {name:'DeckMaterialCalculator',values:{'dk-len':16,'dk-wid':11,'dk-gap':0,'dk-waste':0},outputId:'dk-boards',expected:'24'},
   {name:'RoofSquareFootageCalculator',values:{'rsq-len':10,'rsq-wid':10,'rsq-pitch':0,'rsq-over':0,'rsq-waste':0},outputId:'rsq-area',expected:'100.0'},
   {name:'FenceCostCalculator',values:{'f-len':100,'f-gates':0,'f-waste':0},outputId:'f-posts',expected:'14'},
 ];
+
+describe('Driveway gravel dedicated calculation contract',()=>{
+  it('computes layered driveway gravel after the dedicated UI migration',()=>{
+    const res=calculateDrivewayGravel({
+      lengthFt:10,
+      widthFt:10,
+      layers:[{id:'surface',label:'Surface course',enabled:true,depthFt:1,densityValue:1.4,densityUnit:'ton/yd3',compactionPct:0,wastePct:0,price:0,priceBasis:'ton'}],
+      truckCapacityTons:20,
+      delivery:0,
+      taxPct:0,
+    });
+    expect(res.areaFt2).toBe(100);
+    expect(res.installedYd3).toBeCloseTo(100/27,8);
+    expect(res.tons).toBeCloseTo((100/27)*1.4,8);
+  });
+});
 
 describe('All ten dedicated production handlers',()=>{
   for(const c of cases)it(`${c.name}: computes the correct output`,()=>{
