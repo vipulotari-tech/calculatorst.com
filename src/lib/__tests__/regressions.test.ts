@@ -164,11 +164,41 @@ describe('Roofing shingle intent separation', () => {
 
 
 describe('Gravel weight traffic-priority calculator', () => {
-  it('calculates weight directly from measured dimensions', () => {
-    const res=calculate('gravel-weight-calculator',{mode:0,length:3,width:3,depth:36,density:1.5});
+  it('calculates weight directly from measured dimensions and preserves the custom-density contract', () => {
+    const res=calculate('gravel-weight-calculator',{mode:0,length:3,width:3,depth:36,material:7,density:1.5});
     expect(res.rows.find(r=>r.key==='volume')?.value).toBeCloseTo(1,8);
     expect(res.rows.find(r=>r.key==='tons')?.value).toBeCloseTo(1.5,8);
     expect(res.rows.find(r=>r.key==='weight')?.value).toBeCloseTo(3000,8);
+    expect(res.rows.find(r=>r.key==='bags')?.value).toBe(60);
+    expect(res.rows.find(r=>r.key==='truckLoads')?.value).toBe(1);
+  });
+
+  it('supports a circular area without forcing a rectangle approximation', () => {
+    const res=calculate('gravel-weight-calculator',{mode:1,diameter:10,depth:6,material:7,density:1.4});
+    const expectedYd3=(Math.PI*25*0.5)/27;
+    expect(res.rows.find(r=>r.key==='volume')?.value).toBeCloseTo(expectedYd3,8);
+    expect(res.rows.find(r=>r.key==='tons')?.value).toBeCloseTo(expectedYd3*1.4,8);
+  });
+
+  it('supports L-shape subtraction and material density presets', () => {
+    const res=calculate('gravel-weight-calculator',{mode:3,outerLength:20,outerWidth:15,cutoutLength:8,cutoutWidth:5,depth:6,material:0});
+    const expectedYd3=((20*15-8*5)*0.5)/27;
+    expect(res.rows.find(r=>r.key==='volume')?.value).toBeCloseTo(expectedYd3,8);
+    expect(res.rows.find(r=>r.key==='tons')?.value).toBeCloseTo(expectedYd3*1.35,8);
+  });
+
+  it('converts a metric custom density and reports practical load planning', () => {
+    const model=getModelForSlug('gravel-weight-calculator');
+    const raw=Object.fromEntries(model.fields.filter(f=>!f.optional).map(f=>[f.id,f.value??100]));
+    const units=Object.fromEntries(model.fields.map(f=>[f.id,f.unit??'']));
+    Object.assign(raw,{mode:5,volume:1,material:7,density:1600,bagWeight:25,truckCapacity:10});
+    units.density='kg/m3';
+    units.bagWeight='kg';
+    units.truckCapacity='tonne';
+    const res=model.calculate(readInputs(model.fields,raw,units),units);
+    expect(res.rows.find(r=>r.key==='kg')?.value).toBeCloseTo(1600*0.764554857984,5);
+    expect(res.rows.find(r=>r.key==='bags')?.value).toBe(49);
+    expect(res.rows.find(r=>r.key==='truckLoads')?.value).toBe(1);
   });
 });
 

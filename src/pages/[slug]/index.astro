@@ -151,8 +151,10 @@ const faqEnhancements: Record<string, { q: string; a: string }[]> = {
     { q: "Is drywall mud the same as joint compound in this calculator?", a: "Yes. The page uses joint compound as the material name and supports the common search term drywall mud, but the quantity should come from the exact product coverage you enter." },
   ],
   "gravel-weight-calculator": [
-    { q: "Can I calculate gravel weight from square feet instead of cubic yards?", a: "Yes. Choose known area plus depth, or enter length, width and depth. If you already know the volume, choose the known-volume mode." },
-    { q: "Why does the gravel weight calculator ask for density?", a: "Weight per cubic yard changes with gravel type, grading, moisture and compaction. Enter a density that matches the material and condition you are estimating instead of relying on one universal value." },
+    { q: "Can I calculate gravel weight for circles, triangles or an L-shaped area?", a: "Yes. Choose rectangle, circle, triangle or L-shape and enter the shown dimensions plus gravel depth. You can also start from a known surface area or known volume." },
+    { q: "Why does the gravel weight calculator ask for density?", a: "Weight per cubic yard changes with gravel type, grading, moisture and compaction. Choose an approximate material preset or enter supplier density in tons per cubic yard, pounds per cubic foot or kilograms per cubic meter." },
+    { q: "How are gravel bags calculated?", a: "The calculator divides the estimated gravel weight by the bag weight you enter and rounds up to a whole bag. Confirm the exact net bag weight on the product label before ordering." },
+    { q: "How are gravel truck loads calculated?", a: "Enter the usable truck payload capacity. The calculator rounds the estimated material weight up to whole loads and shows the final-load weight and payload utilization. It does not infer axle limits, road restrictions or supplier minimum-load rules." },
   ],
   "aggregate-weight-calculator": [
     { q: "How do I convert cubic yards of aggregate to tons?", a: "Enter the aggregate volume and the bulk density for the material you are using. The calculator multiplies normalized volume by that density and reports US tons, pounds, kilograms and metric tonnes." },
@@ -1978,7 +1980,9 @@ const gscSeoRefreshSlugs = new Set([
   "parking-lot-calculator",
   "parking-lot-cost-calculator",
 ]);
-const pageDateModified = ["paint-calculator", "drywall-calculator", "deck-calculator", "fence-calculator", "asphalt-calculator", "earthwork-calculator", "framing-calculator"].includes(calc.slug)
+const pageDateModified = ["gravel-weight-calculator"].includes(calc.slug)
+  ? "2026-10-02"
+  : ["paint-calculator", "drywall-calculator", "deck-calculator", "fence-calculator", "asphalt-calculator", "earthwork-calculator", "framing-calculator"].includes(calc.slug)
   ? "2026-10-01"
   : gscSeoRefreshSlugs.has(calc.slug)
   ? "2026-09-28"
@@ -2026,6 +2030,36 @@ const pageDateModified = ["paint-calculator", "drywall-calculator", "deck-calcul
           {pageGuidance.map(item => <li>{item}</li>)}
         </ul>
       </div>
+    )}
+    {calc.slug === "gravel-weight-calculator" && (
+      <details class="rounded-lg border border-hairline bg-canvas p-6" open>
+        <summary class="cursor-pointer font-semibold text-ink">Gravel density, bags &amp; truck-load reference</summary>
+        <p class="mt-3 text-sm leading-6 text-body">Bulk density can change with stone type, grading, moisture and whether the material is loose or compacted. The presets below are planning references only; use current supplier or scale-ticket data whenever it is available.</p>
+        <div class="mt-4 overflow-x-auto rounded-md border border-hairline" role="region" aria-label="Gravel density planning presets" tabindex="0">
+          <table class="w-full min-w-[660px] text-left text-sm">
+            <thead class="bg-canvas-soft font-mono text-[11px] text-mute">
+              <tr><th class="px-3 py-2">MATERIAL PRESET</th><th class="px-3 py-2">PLANNING DENSITY</th><th class="px-3 py-2">USE NOTE</th></tr>
+            </thead>
+            <tbody class="divide-y divide-hairline">
+              <tr><td class="px-3 py-2">Pea gravel</td><td class="px-3 py-2 font-mono">~1.35 US tons/yd³</td><td class="px-3 py-2">Rounded material; verify local supplier density.</td></tr>
+              <tr><td class="px-3 py-2">Crushed stone / #57</td><td class="px-3 py-2 font-mono">~1.40 US tons/yd³</td><td class="px-3 py-2">Common estimating starting point, not a specification.</td></tr>
+              <tr><td class="px-3 py-2">River rock</td><td class="px-3 py-2 font-mono">~1.33 US tons/yd³</td><td class="px-3 py-2">Grading and moisture can move the actual weight.</td></tr>
+              <tr><td class="px-3 py-2">Limestone</td><td class="px-3 py-2 font-mono">~1.60 US tons/yd³</td><td class="px-3 py-2">Use quarry/supplier data for the exact product.</td></tr>
+              <tr><td class="px-3 py-2">Crusher run / road base</td><td class="px-3 py-2 font-mono">~1.50 US tons/yd³</td><td class="px-3 py-2">Fines and compaction state materially affect bulk weight.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 grid gap-3 md:grid-cols-2">
+          <div class="rounded-md bg-canvas-soft-2 p-4">
+            <h3 class="text-sm font-semibold text-ink">Avoid double-counting compaction</h3>
+            <p class="mt-1 text-xs leading-5 text-mute">If your dimensions describe the compacted layer and your density is also a compacted density, do not add another automatic compaction factor. Match volume and density to the same material condition.</p>
+          </div>
+          <div class="rounded-md bg-canvas-soft-2 p-4">
+            <h3 class="text-sm font-semibold text-ink">Bag and truck outputs are cross-checks</h3>
+            <p class="mt-1 text-xs leading-5 text-mute">Bag count uses the entered net bag weight. Truck loads use entered payload capacity and show final-load utilization; verify legal payload, bed volume and supplier rules separately.</p>
+          </div>
+        </div>
+      </details>
     )}
     {calc.slug === "concrete-calculator" && (
       <details class="rounded-lg border border-hairline bg-canvas p-6">

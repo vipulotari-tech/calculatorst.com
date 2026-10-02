@@ -1273,16 +1273,17 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "gravel-weight-calculator",
-    "title": "Gravel Weight Calculator — Volume, Tons, Pounds & Tonnes",
+    "title": "Gravel Weight Calculator — Tons, Bags & Truck Loads",
     "h1": "Gravel Weight Calculator",
-    "description": "Calculate measured gravel weight from dimensions, known area or volume using editable bulk density, with US tons, pounds, kilograms and metric tonnes.",
+    "description": "Calculate measured gravel weight for rectangles, circles, triangles, L-shapes, known area or volume with density presets, custom density, kilograms, tonnes, bags and truck loads.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
       "gravel weight calculator",
       "gravel tons calculator",
-      "gravel volume to weight calculator"
+      "gravel bags calculator",
+      "gravel truck load calculator"
     ],
     "featured": false
   },
