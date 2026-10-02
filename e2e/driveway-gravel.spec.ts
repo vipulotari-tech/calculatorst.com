@@ -34,7 +34,10 @@ test.describe('Driveway Gravel Calculator', () => {
     await expect(root.locator('#d-surface-index')).toHaveText('Layer 3');
 
     await root.getByRole('button', { name: 'Calculate driveway gravel' }).click();
-    await expect(root.locator('#d-results')).toBeVisible();
+    await expect.poll(async () => {
+      if (await root.locator('#d-results').isVisible()) return 'visible';
+      return (await root.locator('#d-form-error').innerText()) || 'hidden-without-error';
+    }).toBe('visible');
     await expect(root.locator('#d-layer-results tr')).toHaveCount(3);
     expect(await root.locator('#d-results').innerText()).not.toMatch(/NaN|Infinity|undefined/);
 
@@ -81,6 +84,10 @@ test.describe('Driveway Gravel Calculator', () => {
     await root.locator('#d-truck-capacity').fill('20');
 
     await root.getByRole('button', { name: 'Calculate driveway gravel' }).click();
+    await expect.poll(async () => {
+      if (await root.locator('#d-results').isVisible()) return 'visible';
+      return (await root.locator('#d-form-error').innerText()) || 'hidden-without-error';
+    }).toBe('visible');
 
     await expect(root.locator('#d-total-tons')).toHaveText('17.93');
     await expect(root.locator('#d-loads')).toHaveText('2');
@@ -131,6 +138,7 @@ test.describe('Driveway Gravel Calculator', () => {
     await root.locator('#d-cut-wid').fill('5');
     await root.locator('#d-build').selectOption('surface');
     await root.locator('#d-surface-depth').fill('3');
+    await root.locator('#d-layer-surface details summary').click();
     await root.locator('#d-surface-waste').fill('0');
     await expect(root.locator('#d-preview-footprint')).toContainText('L-shape');
 
@@ -156,6 +164,7 @@ test.describe('Driveway Gravel Calculator', () => {
     await root.locator('#d-len').fill('100');
     await root.locator('#d-wid').fill('10');
     await root.locator('#d-surface-depth').fill('3');
+    await root.locator('#d-layer-surface details summary').click();
     await root.locator('#d-surface-waste').fill('0');
     await root.locator('#d-surface-increment').fill('2');
     await root.locator('#d-surface-minimum').fill('15');
