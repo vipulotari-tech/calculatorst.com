@@ -36,17 +36,37 @@ const faq = [
     a: "Yes. Enter the main rectangular driveway dimensions, then add the measured extra area separately. That area is included in every enabled layer without pretending it is another full-length driveway section."
   },
   {
+    q: "Can I calculate an L-shaped driveway or several driveway sections?",
+    a: "Yes. Use L-shape to subtract a rectangular cutout from the primary footprint, or Multiple rectangular sections to add separately measured non-overlapping areas such as parking pads and turnouts."
+  },
+  {
+    q: "What do supplier increment and minimum order do?",
+    a: "They affect the supplier order, not the underlying required quantity. The calculator first determines material required after compaction and waste, then rounds bulk material to the entered ton increment and minimum. The extra supplier/package overage is reported separately."
+  },
+  {
+    q: "Can I calculate bagged gravel for a small surface refresh?",
+    a: "Yes. Set the surface supply to Bagged aggregate, enter the bag net weight and optional price per bag, and the calculator rounds to whole bags instead of assigning bulk truck loads."
+  },
+  {
+    q: "Does the calculator include geotextile and driveway edging?",
+    a: "Yes. Geotextile can include an overlap allowance, roll dimensions and price per roll. Edging can use both long sides, the primary rectangle perimeter, or a custom measured length. Both are added to the supplier bill of materials."
+  },
+  {
+    q: "Can I share or download the finished order plan?",
+    a: "Yes. After calculating you can copy a share link that restores the current inputs, download a text order report, download the supplier bill of materials as CSV, or print/save the page as PDF."
+  },
+  {
     q: "Does this calculator choose the correct driveway depth or aggregate specification?",
-    a: "No. Layer thickness, gradation, drainage, geotextile, compaction requirements and pavement structure depend on site conditions and project requirements. Use the calculator after those inputs have been selected."
+    a: "No. Layer thickness, gradation, drainage, geotextile selection, compaction requirements and pavement structure depend on site conditions and project requirements. Use the calculator after those design inputs have been selected."
   }
 ];
 ---
 
 <CalculatorLayout
   title="Driveway Gravel Calculator — Layers, Tons, Truckloads & Cost"
-  description="Plan driveway gravel by layer with separate depths, densities, compaction and waste. Get cubic yards, tons, truckloads and cost for base and surface materials."
+  description="Plan rectangular, L-shaped or multi-section gravel driveways by layer with supplier rounding, bags, geotextile, edging, truckloads, cost and downloadable BOM."
   h1="Driveway Gravel Calculator"
-  intro="Calculate driveway gravel layer by layer instead of multiplying one material across every course. Plan base, surface and optional sub-base quantities, tons, truckloads and entered-scope cost."
+  intro="Build a supplier-ready gravel driveway takeoff for rectangular, L-shaped or multi-section footprints. Plan each course separately, then add supplier rounding, bags, geotextile, edging, truckloads and entered-scope cost."
   breadcrumbs={[{ label: "Home", href: "/" }, { label: "Construction", href: "/construction/" }, { label: "Gravel", href: "/construction/gravel/" }, { label: "Driveway Gravel Calculator" }]}
   related={related}
   faq={faq}
@@ -64,25 +84,27 @@ const faq = [
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">How the Driveway Gravel Calculator Works</h2>
       <ol class="mt-3 list-decimal space-y-2 pl-5 text-sm leading-6 text-body">
-        <li>Calculate the driveway footprint from length × width, then add any separately measured apron, turnout or parking-pad area.</li>
-        <li>For each enabled course, installed volume = footprint area × installed depth. Convert cubic feet to cubic yards by dividing by 27.</li>
-        <li>Apply the entered loose-to-placed / compaction allowance, then apply ordering waste once. These are shown as separate assumptions instead of one hidden factor.</li>
-        <li>Layer weight = order cubic yards × that layer's bulk density. Each material keeps its own density.</li>
-        <li>Material cost uses the selected price basis for that layer: per US ton or per cubic yard. Material tax and delivery are added only when entered.</li>
-        <li>Truck loads are rounded separately for each material layer using the entered usable payload, then summed for a separate-product haul total. Each layer shows its own final-load utilization.</li>
+        <li>Build the footprint as one rectangle, an outer rectangle minus an L-shaped cutout, or several non-overlapping rectangular sections. A separately measured extra area can still be added.</li>
+        <li>For each enabled course, installed volume = footprint area × installed depth. The calculator retains both cubic yards and cubic meters.</li>
+        <li>Apply the entered loose-to-placed / compaction allowance, then ordering waste once. These remain separate from supplier/package rounding.</li>
+        <li>Layer weight = required order volume × that layer's bulk density. Each course keeps its own material and density.</li>
+        <li>For bulk aggregate, supplier order tonnage can be rounded to an entered increment and minimum. Required quantity and supplier rounding overage are reported separately.</li>
+        <li>For a bagged surface course, required weight is divided by bag net weight and rounded to whole bags instead of bulk truck loads.</li>
+        <li>Optional geotextile rolls and edging are calculated and added to the supplier bill of materials.</li>
+        <li>Truck loads are rounded separately for each bulk material layer using the entered usable payload. The finished plan can be shared, downloaded as a text report/BOM CSV, or printed to PDF.</li>
       </ol>
     </div>
 
     <div class="rounded-lg border border-hairline bg-canvas p-6">
       <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Worked Example: 50 × 12 ft Driveway</h2>
-      <p class="mt-2 text-sm leading-6 text-body">Example only: a 600 ft² driveway with a 4 in base and 2 in surface course, both using 1.40 US tons/yd³, no extra compaction allowance and 10% ordering waste.</p>
+      <p class="mt-2 text-sm leading-6 text-body">Example only: a 600 ft² driveway with a 4 in crusher-run base at 1.50 US tons/yd³ and a 2 in crushed-stone surface at 1.40 US tons/yd³, no extra compaction allowance and 10% ordering waste.</p>
       <div class="mt-4 overflow-x-auto rounded-md border border-hairline" role="region" aria-label="Driveway gravel worked example" tabindex="0">
         <table class="w-full min-w-[640px] text-left text-sm">
           <thead class="bg-canvas-soft font-mono text-[11px] text-mute"><tr><th class="px-3 py-2">COURSE</th><th class="px-3 py-2">INSTALLED VOLUME</th><th class="px-3 py-2">ORDER VOLUME</th><th class="px-3 py-2">ORDER WEIGHT</th></tr></thead>
           <tbody class="divide-y divide-hairline font-mono tabular-nums">
-            <tr><td class="px-3 py-2 font-sans font-medium text-ink">Base — 4 in</td><td class="px-3 py-2">7.41 yd³</td><td class="px-3 py-2">8.15 yd³</td><td class="px-3 py-2">11.41 US tons</td></tr>
+            <tr><td class="px-3 py-2 font-sans font-medium text-ink">Base — 4 in</td><td class="px-3 py-2">7.41 yd³</td><td class="px-3 py-2">8.15 yd³</td><td class="px-3 py-2">12.22 US tons</td></tr>
             <tr><td class="px-3 py-2 font-sans font-medium text-ink">Surface — 2 in</td><td class="px-3 py-2">3.70 yd³</td><td class="px-3 py-2">4.07 yd³</td><td class="px-3 py-2">5.70 US tons</td></tr>
-            <tr><td class="px-3 py-2 font-sans font-semibold text-ink">Combined</td><td class="px-3 py-2">11.11 yd³</td><td class="px-3 py-2">12.22 yd³</td><td class="px-3 py-2">17.11 US tons</td></tr>
+            <tr><td class="px-3 py-2 font-sans font-semibold text-ink">Combined</td><td class="px-3 py-2">11.11 yd³</td><td class="px-3 py-2">12.22 yd³</td><td class="px-3 py-2">17.93 US tons</td></tr>
           </tbody>
         </table>
       </div>
@@ -93,10 +115,10 @@ const faq = [
       <div class="rounded-lg border border-hairline bg-canvas p-6">
         <h2 class="text-display-sm font-semibold tracking-[-0.03em] text-ink">Layer Planning Notes</h2>
         <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-body">
-          <li>Keep different materials in separate rows when ordering. A combined tonnage is useful for transport planning but does not tell a supplier how many tons of each product are needed.</li>
+          <li>Keep different materials in separate rows when ordering. Supplier increments/minimums are applied per layer/product, not to one combined tonnage.</li>
           <li>Density changes with gradation, quarry source, moisture and material state. Use current supplier or scale-ticket data when available.</li>
           <li>If the entered density already represents loose delivered material and the entered order volume is also loose, do not add another conversion for the same compaction effect.</li>
-          <li>Use extra area for a measured apron or turnout. For strongly curved or irregular driveways, split the footprint into non-overlapping measurable sections.</li>
+          <li>Use L-shape or multiple sections for measurable geometry. For curved or highly irregular edges, split the footprint into non-overlapping rectangles and use custom edging length.</li>
         </ul>
       </div>
 
