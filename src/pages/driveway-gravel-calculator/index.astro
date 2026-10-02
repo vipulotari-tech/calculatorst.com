@@ -29,7 +29,7 @@ const faq = [
   },
   {
     q: "How are truck loads calculated?",
-    a: "The calculator divides combined order weight by the usable truck payload you enter and rounds up to whole loads. It also reports the final-load tonnage and payload utilization. Confirm legal axle limits, truck bed volume, site access and supplier minimums separately."
+    a: "The calculator rounds truck loads separately for each enabled material layer, because base and surface aggregate are often different products and should not be assumed to share one partial load. It reports each layer's final-load tonnage and utilization. Confirm legal axle limits, truck bed volume, site access and supplier minimums separately."
   },
   {
     q: "Can I include a widened apron, turnout or parking pad?",
@@ -69,7 +69,7 @@ const faq = [
         <li>Apply the entered loose-to-placed / compaction allowance, then apply ordering waste once. These are shown as separate assumptions instead of one hidden factor.</li>
         <li>Layer weight = order cubic yards × that layer's bulk density. Each material keeps its own density.</li>
         <li>Material cost uses the selected price basis for that layer: per US ton or per cubic yard. Material tax and delivery are added only when entered.</li>
-        <li>Truck loads = total order tons ÷ entered usable payload, rounded up to a whole load. Final-load utilization is shown as a planning check.</li>
+        <li>Truck loads are rounded separately for each material layer using the entered usable payload, then summed for a separate-product haul total. Each layer shows its own final-load utilization.</li>
       </ol>
     </div>
 

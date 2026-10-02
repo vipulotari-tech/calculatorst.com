@@ -20,7 +20,9 @@ describe('driveway gravel calculation', () => {
     expect(res.layers[0].tons).toBeCloseTo(11.4074074074, 8);
     expect(res.layers[1].installedYd3).toBeCloseTo(3.7037037037, 8);
     expect(res.tons).toBeCloseTo(17.1111111111, 8);
-    expect(res.truckLoads).toBe(1);
+    expect(res.truckLoads).toBe(2);
+    expect(res.layers[0].truckLoads).toBe(1);
+    expect(res.layers[1].truckLoads).toBe(1);
   });
 
   it('applies compaction allowance and waste separately and once', () => {
@@ -63,6 +65,23 @@ describe('driveway gravel calculation', () => {
   it('supports metric density and length conversions', () => {
     expect(lengthToFeet(1,'m')).toBeCloseTo(3.280839895, 8);
     expect(densityToTonYd3(1600,'kg/m3')).toBeCloseTo(1.3484439484, 8);
+  });
+
+  it('does not combine different material layers into one partial truck load', () => {
+    const res = calculateDrivewayGravel({
+      lengthFt: 50,
+      widthFt: 12,
+      layers: [
+        { id:'base', label:'Base', enabled:true, depthFt:4/12, densityValue:1.4, densityUnit:'ton/yd3', compactionPct:0, wastePct:10, price:0, priceBasis:'ton' },
+        { id:'surface', label:'Surface', enabled:true, depthFt:2/12, densityValue:1.4, densityUnit:'ton/yd3', compactionPct:0, wastePct:10, price:0, priceBasis:'ton' },
+      ],
+      truckCapacityTons:20,
+      delivery:0,
+      taxPct:0,
+    });
+    expect(res.tons).toBeLessThan(20);
+    expect(res.truckLoads).toBe(2);
+    expect(res.layers.map(layer => layer.truckLoads)).toEqual([1,1]);
   });
 
   it('reports final truck load utilization', () => {
