@@ -1,0 +1,96 @@
+---
+---
+
+<figure class="overflow-hidden rounded-xl border border-border bg-card shadow-card" aria-labelledby="gravel-weight-diagram-title">
+  <div class="flex flex-col gap-1 border-b border-border bg-muted/40 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+    <div>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Visual guide</p>
+      <h3 id="gravel-weight-diagram-title" class="mt-0.5 text-sm font-semibold text-foreground">Measure → volume → density → weight</h3>
+    </div>
+    <span class="font-mono text-[11px] text-muted-foreground">Works with US + metric inputs</span>
+  </div>
+
+  <svg viewBox="0 0 860 330" class="h-auto w-full bg-card p-3 sm:p-5" role="img" aria-describedby="gravel-weight-diagram-desc">
+    <desc id="gravel-weight-diagram-desc">A gravel project area showing length, width and depth, followed by cubic-yard volume, material density, total weight, bag count and truck-load planning.</desc>
+
+    <defs>
+      <pattern id="gravel-dots" width="22" height="18" patternUnits="userSpaceOnUse">
+        <circle cx="5" cy="5" r="2.4" fill="currentColor" opacity="0.18"/>
+        <circle cx="16" cy="11" r="3.1" fill="currentColor" opacity="0.14"/>
+      </pattern>
+      <marker id="gw-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+      </marker>
+    </defs>
+
+    <g transform="translate(28 38)">
+      <rect x="0" y="26" width="268" height="160" rx="16" fill="var(--color-background)" stroke="var(--color-border)"/>
+      <polygon points="44,72 205,72 238,102 77,102" fill="var(--color-muted)" stroke="var(--color-foreground)" stroke-width="1.3"/>
+      <polygon points="77,102 238,102 238,150 77,150" fill="url(#gravel-dots)" stroke="var(--color-foreground)" stroke-width="1.3" style="color:var(--color-foreground)"/>
+      <polygon points="44,72 77,102 77,150 44,120" fill="var(--color-muted)" stroke="var(--color-foreground)" stroke-width="1.3"/>
+
+      <line x1="45" y1="54" x2="205" y2="54" stroke="var(--color-foreground)" marker-start="url(#gw-arrow)" marker-end="url(#gw-arrow)"/>
+      <text x="125" y="44" text-anchor="middle" font-size="12" fill="var(--color-foreground)" font-family="Geist Mono, monospace">LENGTH</text>
+
+      <line x1="214" y1="64" x2="246" y2="94" stroke="var(--color-foreground)" marker-start="url(#gw-arrow)" marker-end="url(#gw-arrow)"/>
+      <text x="250" y="71" font-size="11" fill="var(--color-foreground)" font-family="Geist Mono, monospace">WIDTH</text>
+
+      <line x1="254" y1="104" x2="254" y2="149" stroke="var(--color-foreground)" marker-start="url(#gw-arrow)" marker-end="url(#gw-arrow)"/>
+      <text x="260" y="132" font-size="11" fill="var(--color-foreground)" font-family="Geist Mono, monospace">DEPTH</text>
+
+      <text x="134" y="178" text-anchor="middle" font-size="12" font-weight="600" fill="var(--color-foreground)">Measure the project geometry</text>
+      <text x="134" y="197" text-anchor="middle" font-size="10" fill="var(--color-muted-foreground)" font-family="Geist Mono, monospace">rectangle • circle • triangle • L-shape</text>
+    </g>
+
+    <g transform="translate(335 55)">
+      <rect x="0" y="0" width="205" height="92" rx="14" fill="var(--color-background)" stroke="var(--color-border)"/>
+      <text x="102" y="25" text-anchor="middle" font-size="10" fill="var(--color-muted-foreground)" font-family="Geist Mono, monospace">STEP 1</text>
+      <text x="102" y="49" text-anchor="middle" font-size="16" font-weight="700" fill="var(--color-foreground)">Find volume</text>
+      <text x="102" y="71" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)" font-family="Geist Mono, monospace">Area × depth → yd³ / m³</text>
+
+      <rect x="0" y="118" width="205" height="92" rx="14" fill="var(--color-background)" stroke="var(--color-border)"/>
+      <text x="102" y="143" text-anchor="middle" font-size="10" fill="var(--color-muted-foreground)" font-family="Geist Mono, monospace">STEP 2</text>
+      <text x="102" y="167" text-anchor="middle" font-size="16" font-weight="700" fill="var(--color-foreground)">Apply density</text>
+      <text x="102" y="189" text-anchor="middle" font-size="11" fill="var(--color-muted-foreground)" font-family="Geist Mono, monospace">yd³ × tons/yd³ → weight</text>
+    </g>
+
+    <g transform="translate(580 38)">
+      <rect x="0" y="0" width="245" height="244" rx="18" fill="var(--color-background)" stroke="var(--color-border)"/>
+      <text x="122" y="30" text-anchor="middle" font-size="10" fill="var(--color-muted-foreground)" font-family="Geist Mono, monospace">ORDERING CROSS-CHECKS</text>
+
+      <g transform="translate(20 50)">
+        <rect width="205" height="48" rx="10" fill="var(--color-muted)"/>
+        <text x="14" y="20" font-size="11" fill="var(--color-muted-foreground)" font-family="Geist Mono, monospace">TOTAL WEIGHT</text>
+        <text x="191" y="31" text-anchor="end" font-size="15" font-weight="700" fill="var(--color-foreground)">tons • lb • kg</text>
+      </g>
+
+      <g transform="translate(20 110)">
+        <rect width="96" height="92" rx="12" fill="var(--color-card)" stroke="var(--color-border)"/>
+        <path d="M24 29h48l8 49H16l8-49Z" fill="var(--color-muted)" stroke="var(--color-foreground)" stroke-width="1.2"/>
+        <text x="48" y="56" text-anchor="middle" font-size="12" font-weight="700" fill="var(--color-foreground)">BAGS</text>
+        <text x="48" y="78" text-anchor="middle" font-size="9" fill="var(--color-muted-foreground)" font-family="Geist Mono, monospace">round up</text>
+      </g>
+
+      <g transform="translate(129 110)">
+        <rect width="96" height="92" rx="12" fill="var(--color-card)" stroke="var(--color-border)"/>
+        <rect x="13" y="39" width="52" height="27" rx="4" fill="var(--color-muted)" stroke="var(--color-foreground)" stroke-width="1.2"/>
+        <path d="M65 46h14l9 12v8H65Z" fill="var(--color-muted)" stroke="var(--color-foreground)" stroke-width="1.2"/>
+        <circle cx="31" cy="70" r="7" fill="var(--color-foreground)"/>
+        <circle cx="75" cy="70" r="7" fill="var(--color-foreground)"/>
+        <text x="48" y="28" text-anchor="middle" font-size="12" font-weight="700" fill="var(--color-foreground)">LOADS</text>
+        <text x="48" y="88" text-anchor="middle" font-size="9" fill="var(--color-muted-foreground)" font-family="Geist Mono, monospace">payload check</text>
+      </g>
+
+      <text x="122" y="226" text-anchor="middle" font-size="10" fill="var(--color-muted-foreground)">Use supplier density + legal usable payload when available.</text>
+    </g>
+
+    <g fill="none" stroke="var(--color-muted-foreground)" opacity="0.8">
+      <line x1="306" y1="133" x2="326" y2="101" marker-end="url(#gw-arrow)"/>
+      <line x1="540" y1="165" x2="570" y2="165" marker-end="url(#gw-arrow)"/>
+    </g>
+  </svg>
+
+  <figcaption class="border-t border-border bg-muted/20 px-4 py-3 text-xs leading-5 text-muted-foreground">
+    Match the density condition to the volume you measured. If you use a compacted density with compacted dimensions, do not apply another automatic compaction factor.
+  </figcaption>
+</figure>
