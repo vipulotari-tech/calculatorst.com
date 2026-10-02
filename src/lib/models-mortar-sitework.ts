@@ -333,6 +333,137 @@ const gravelCost:Model={
   }
 };
 
+const gravelWeightDedicated:Model={
+  fields:[
+    {id:'mode',label:'Calculate from',value:0,min:0,max:5,integer:true,dimension:'number',options:[
+      {value:0,label:'Rectangle — length × width × depth'},
+      {value:1,label:'Circle — diameter × depth'},
+      {value:2,label:'Triangle — base × height × depth'},
+      {value:3,label:'L-shape — outer rectangle minus cutout'},
+      {value:4,label:'Known area × depth'},
+      {value:5,label:'Known volume'}
+    ]},
+    {...length('length','Rectangle length',20),visibleWhen:{field:'mode',equals:0}},
+    {...length('width','Rectangle width',10),visibleWhen:{field:'mode',equals:0}},
+    {...length('diameter','Circle diameter',20),visibleWhen:{field:'mode',equals:1}},
+    {...length('triangleBase','Triangle base',20),visibleWhen:{field:'mode',equals:2}},
+    {...length('triangleHeight','Triangle perpendicular height',10),visibleWhen:{field:'mode',equals:2}},
+    {...length('outerLength','L-shape outer length',20),visibleWhen:{field:'mode',equals:3}},
+    {...length('outerWidth','L-shape outer width',15),visibleWhen:{field:'mode',equals:3}},
+    {...length('cutoutLength','L-shape cutout length',8),visibleWhen:{field:'mode',equals:3}},
+    {...length('cutoutWidth','L-shape cutout width',5),visibleWhen:{field:'mode',equals:3}},
+    {...area('area','Known surface area',200),visibleWhen:{field:'mode',equals:4}},
+    {...length('depth','Gravel depth',4,'in'),visibleWhen:{field:'mode',in:[0,1,2,3,4]}},
+    {...volume('volume','Known gravel volume',2),visibleWhen:{field:'mode',equals:5}},
+    {id:'material',label:'Gravel material / density preset',value:7,min:0,max:7,integer:true,dimension:'number',group:'Material & assumptions',options:[
+      {value:0,label:'Pea gravel — ~1.35 US tons/yd³'},
+      {value:1,label:'Crushed stone / #57 — ~1.40 US tons/yd³'},
+      {value:2,label:'River rock — ~1.33 US tons/yd³'},
+      {value:3,label:'Limestone — ~1.60 US tons/yd³'},
+      {value:4,label:'Granite gravel — ~1.42 US tons/yd³'},
+      {value:5,label:'Crusher run / road base — ~1.50 US tons/yd³'},
+      {value:6,label:'Decomposed granite — ~1.45 US tons/yd³'},
+      {value:7,label:'Custom / supplier density'}
+    ]},
+    {...number('density','Custom bulk density',1.4,0.01,'Use supplier or scale-ticket data for the exact material, grading, moisture and loose/compacted state whenever available.'),unit:'ton/yd3',units:['ton/yd3','lb/ft3','kg/m3'],group:'Material & assumptions',visibleWhen:{field:'material',equals:7}},
+    {id:'densityBasis',label:'Density condition',value:0,min:0,max:2,integer:true,dimension:'number',group:'Material & assumptions',options:[
+      {value:0,label:'Loose / delivered bulk density'},
+      {value:1,label:'Compacted / placed density'},
+      {value:2,label:'Supplier-measured / scale-ticket density'}
+    ]},
+    {...number('bagWeight','Bag weight',50,0.01,'Used only for the whole-bag estimate. Enter the net weight printed on the bag.'),dimension:'weight',unit:'lb',units:['lb','kg'],group:'Material & assumptions'},
+    {...number('truckCapacity','Truck payload capacity',20,0.01,'Use the legal or supplier-usable payload capacity. This is a weight limit, not truck bed volume.'),dimension:'weight',unit:'ton',units:['ton','tonne','lb','kg'],group:'Material & assumptions'}
+  ],
+  formula:'Area is calculated from the selected shape, then volume = area × depth (or entered volume). Weight = volume × selected/custom bulk density. Bag count and truck loads divide the calculated weight by the entered package or payload capacity.',
+  assumptions:[
+    'Density presets are approximate planning values, not product guarantees. Supplier data for the exact gravel, grading, moisture and material state is more reliable.',
+    'Do not add a separate compaction percentage when your entered dimensions and density already describe the same compacted state. This weight calculator applies no hidden waste or compaction factor.',
+    'Bag count is a weight-based purchasing cross-check and rounds up to whole bags. Confirm the bag net weight and product suitability.',
+    'Truck loads use the payload capacity you enter and do not check axle limits, local road restrictions, truck bed volume or supplier minimum-load rules.',
+    'US tons are short tons of 2,000 lb; metric tonnes are reported separately.'
+  ],
+  sources:[inchGravel,omniGravel],
+  calculate(v,u){
+    const mode=Math.round(v.mode);
+    let areaFt2=0;
+    let ft3=0;
+    let geometryStep='';
+
+    if(mode===0){
+      areaFt2=v.length*v.width;
+      ft3=areaFt2*v.depth;
+      geometryStep=`Rectangle: ${fmt(v.length)} × ${fmt(v.width)} = ${fmt(areaFt2)} ft²; × ${fmt(v.depth)} ft = ${fmt(ft3)} ft³.`;
+    }else if(mode===1){
+      areaFt2=Math.PI*(v.diameter/2)**2;
+      ft3=areaFt2*v.depth;
+      geometryStep=`Circle: π × (${fmt(v.diameter)} ÷ 2)² = ${fmt(areaFt2)} ft²; × ${fmt(v.depth)} ft = ${fmt(ft3)} ft³.`;
+    }else if(mode===2){
+      areaFt2=0.5*v.triangleBase*v.triangleHeight;
+      ft3=areaFt2*v.depth;
+      geometryStep=`Triangle: ½ × ${fmt(v.triangleBase)} × ${fmt(v.triangleHeight)} = ${fmt(areaFt2)} ft²; × ${fmt(v.depth)} ft = ${fmt(ft3)} ft³.`;
+    }else if(mode===3){
+      const outer=v.outerLength*v.outerWidth;
+      const cutout=v.cutoutLength*v.cutoutWidth;
+      requireCondition(cutout<outer,'cutoutLength','L-shape cutout area must be smaller than the outer rectangle.');
+      areaFt2=outer-cutout;
+      ft3=areaFt2*v.depth;
+      geometryStep=`L-shape: ${fmt(outer)} − ${fmt(cutout)} = ${fmt(areaFt2)} ft²; × ${fmt(v.depth)} ft = ${fmt(ft3)} ft³.`;
+    }else if(mode===4){
+      areaFt2=v.area;
+      ft3=areaFt2*v.depth;
+      geometryStep=`Known area: ${fmt(areaFt2)} ft² × ${fmt(v.depth)} ft = ${fmt(ft3)} ft³.`;
+    }else{
+      ft3=v.volume;
+      geometryStep=`Entered gravel volume = ${fmt(ft3)} ft³.`;
+    }
+
+    requireCondition(ft3>=0,'volume','Gravel volume cannot be negative.');
+    const yd3=ft3/27;
+    const m3=ft3/(FT_PER_M**3);
+    const presets=[1.35,1.40,1.33,1.60,1.42,1.50,1.45];
+    const material=Math.round(v.material);
+    const densityRaw=material===7?v.density:(presets[material]??1.40);
+    const densityLbFt3=material===7
+      ? (u.density==='kg/m3' ? densityRaw*LB_PER_KG/(FT_PER_M**3) : u.density==='lb/ft3' ? densityRaw : densityRaw*2000/27)
+      : densityRaw*2000/27;
+    requireCondition(densityLbFt3>0,'density','Bulk density must be greater than zero.');
+
+    const lb=ft3*densityLbFt3;
+    const tons=lb/2000;
+    const kg=lb/LB_PER_KG;
+    const bags=roundUp(lb/v.bagWeight);
+    const loads=roundUp(lb/v.truckCapacity);
+    const finalLoadLb=loads>0 ? lb-(loads-1)*v.truckCapacity : 0;
+    const finalUtilization=loads>0 ? finalLoadLb/v.truckCapacity*100 : 0;
+    const densityTonYd3=densityLbFt3*27/2000;
+    const basis=['loose / delivered','compacted / placed','supplier-measured'][Math.round(v.densityBasis)]??'entered';
+
+    return result([
+      row('tons','Estimated gravel weight — US tons',tons,'US tons'),
+      row('weight','Estimated gravel weight — lb',lb,'lb'),
+      row('tonnes','Estimated gravel weight — metric tonnes',kg/1000,'metric tonnes'),
+      row('kg','Estimated gravel weight — kg',kg,'kg'),
+      row('volume','Measured gravel volume',yd3,'yd³'),
+      row('m3','Measured gravel volume',m3,'m³'),
+      row('densityUsed','Density used',densityTonYd3,'US tons/yd³'),
+      row('bags','Whole bags at entered bag weight',bags,'bags',true),
+      row('truckLoads','Truck loads at entered payload',loads,'loads',true),
+      row('finalLoad','Final truck load',finalLoadLb/2000,'US tons'),
+      row('finalLoadUtilization','Final truck payload utilization',finalUtilization,'%')
+    ],[
+      geometryStep,
+      `${fmt(ft3)} ft³ ÷ 27 = ${fmt(yd3)} yd³.`,
+      `Density used = ${fmt(densityTonYd3)} US tons/yd³ (${basis} basis).`,
+      `${fmt(yd3)} yd³ × ${fmt(densityTonYd3)} ton/yd³ = ${fmt(tons)} US tons.`,
+      `Whole bags = ceil(${fmt(lb)} lb ÷ ${fmt(v.bagWeight)} lb) = ${bags}.`,
+      `Truck loads = ceil(${fmt(lb)} lb ÷ ${fmt(v.truckCapacity)} lb payload) = ${loads}; final load utilization ${fmt(finalUtilization)}%.`
+    ],[
+      'Preset densities are planning references only. Use supplier or measured density when available.',
+      'Moisture and compaction can change bulk density. Match the density condition to the volume you measured rather than applying an automatic correction twice.'
+    ]);
+  }
+};
+
 function weightModel(label:string,density:number):Model{
   return {
     fields:[
@@ -495,7 +626,7 @@ export const mortarSiteworkModels:Record<string,Model>={
 
   'gravel-general-dedicated':gravelGeneral,
   'gravel-cost-dedicated':gravelCost,
-  'gravel-weight-dedicated':weightModel('Gravel',1.4),
+  'gravel-weight-dedicated':gravelWeightDedicated,
   'gravel-depth-dedicated':gravelDepth,
   'crushed-stone-dedicated':bulkModel({label:'Crushed stone',density:1.5}),
   'crushed-stone-cost-dedicated':bulkModel({label:'Crushed stone',density:1.5,costMode:true}),
