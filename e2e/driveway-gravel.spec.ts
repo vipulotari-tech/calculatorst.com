@@ -14,6 +14,8 @@ test.describe('Driveway Gravel Calculator', () => {
     await expect(root.locator('#d-layer-surface')).toBeVisible();
     await expect(root.locator('#d-base-index')).toHaveText('Layer 1');
     await expect(root.locator('#d-surface-index')).toHaveText('Layer 2');
+    await expect(root.locator('#d-base-allowance-summary')).toContainText('0% compaction allowance');
+    await expect(root.locator('#d-base-allowance-summary')).toContainText('10% waste');
 
     await build.selectOption('surface');
     await expect(root.locator('#d-build-help')).toContainText('Surface refresh');
@@ -49,8 +51,8 @@ test.describe('Driveway Gravel Calculator', () => {
     const density = root.locator('#d-base-density');
     const densityUnit = root.locator('#d-base-density-unit');
 
-    await expect(material).toHaveValue('1.40');
-    await expect(density).toHaveValue('1.40');
+    await expect(material).toHaveValue('1.50');
+    await expect(density).toHaveValue('1.50');
     await expect(density).toHaveAttribute('readonly', '');
     await expect(densityUnit).toBeDisabled();
     await expect(densityUnit).toHaveValue('ton/yd3');
@@ -80,7 +82,7 @@ test.describe('Driveway Gravel Calculator', () => {
 
     await root.getByRole('button', { name: 'Calculate driveway gravel' }).click();
 
-    await expect(root.locator('#d-total-tons')).toHaveText('17.11');
+    await expect(root.locator('#d-total-tons')).toHaveText('17.93');
     await expect(root.locator('#d-loads')).toHaveText('2');
     await expect(root.locator('#d-layer-results tr')).toHaveCount(2);
     await expect(root.locator('#d-layer-results')).toContainText('1');
