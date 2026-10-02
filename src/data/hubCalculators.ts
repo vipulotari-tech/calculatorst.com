@@ -1275,7 +1275,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "slug": "gravel-weight-calculator",
     "title": "Gravel Weight Calculator — Tons, Bags & Truck Loads",
     "h1": "Gravel Weight Calculator",
-    "description": "Calculate gravel weight for rectangles, circles, triangles, L-shapes, known area or volume with density presets/custom density, bag counts and truck-load planning.",
+    "description": "Calculate measured gravel weight for rectangles, circles, triangles, L-shapes, known area or volume with density presets/custom density, kilograms, tonnes, bag counts and truck-load planning.",
     "category": "Gravel & Aggregate",
     "cluster": "gravel",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
