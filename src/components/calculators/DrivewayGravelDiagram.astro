@@ -1,0 +1,65 @@
+---
+---
+
+<figure class="overflow-hidden rounded-xl border border-border bg-card shadow-card" aria-labelledby="driveway-gravel-diagram-title">
+  <div class="flex flex-col gap-1 border-b border-border bg-muted/40 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+    <div>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Visual guide</p>
+      <h3 id="driveway-gravel-diagram-title" class="mt-0.5 text-sm font-semibold text-foreground">Measure once, calculate each driveway course separately</h3>
+    </div>
+    <span class="font-mono text-[11px] text-muted-foreground">Layered order plan</span>
+  </div>
+
+  <svg viewBox="0 0 900 360" class="h-auto w-full bg-card p-3 sm:p-5" role="img" aria-describedby="driveway-gravel-diagram-desc">
+    <desc id="driveway-gravel-diagram-desc">A gravel driveway diagram showing length and width in plan view and optional sub-base, base, and surface gravel layers in cross-section with separate depth and density inputs.</desc>
+    <defs>
+      <marker id="dg-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="currentColor"/></marker>
+      <pattern id="dg-stone" width="20" height="16" patternUnits="userSpaceOnUse">
+        <circle cx="4" cy="5" r="2.3" fill="currentColor" opacity=".22"/>
+        <circle cx="14" cy="10" r="3" fill="currentColor" opacity=".14"/>
+      </pattern>
+    </defs>
+
+    <g transform="translate(24 45)">
+      <rect x="0" y="0" width="335" height="245" rx="16" fill="var(--color-background)" stroke="var(--color-border)"/>
+      <text x="168" y="27" text-anchor="middle" font-size="10" fill="var(--color-muted-foreground)" font-family="Geist Mono, monospace">PLAN VIEW</text>
+      <rect x="58" y="68" width="214" height="110" rx="7" fill="var(--color-muted)" stroke="var(--color-foreground)" stroke-width="1.4"/>
+      <g style="color:var(--color-foreground)"><rect x="58" y="68" width="214" height="110" rx="7" fill="url(#dg-stone)"/></g>
+      <line x1="58" y1="48" x2="272" y2="48" stroke="var(--color-foreground)" marker-start="url(#dg-arrow)" marker-end="url(#dg-arrow)"/>
+      <text x="165" y="41" text-anchor="middle" font-size="11" fill="var(--color-foreground)" font-family="Geist Mono, monospace">LENGTH</text>
+      <line x1="38" y1="68" x2="38" y2="178" stroke="var(--color-foreground)" marker-start="url(#dg-arrow)" marker-end="url(#dg-arrow)"/>
+      <text x="19" y="127" text-anchor="middle" font-size="11" fill="var(--color-foreground)" font-family="Geist Mono, monospace" transform="rotate(-90 19 127)">WIDTH</text>
+      <rect x="234" y="165" width="66" height="42" rx="5" fill="var(--color-card)" stroke="var(--color-border)" stroke-dasharray="4 3"/>
+      <text x="267" y="182" text-anchor="middle" font-size="9" fill="var(--color-muted-foreground)">extra apron</text>
+      <text x="267" y="195" text-anchor="middle" font-size="9" fill="var(--color-muted-foreground)">or turnout</text>
+      <text x="168" y="222" text-anchor="middle" font-size="11" font-weight="600" fill="var(--color-foreground)">Footprint area = main rectangle + optional extra area</text>
+    </g>
+
+    <g transform="translate(395 45)">
+      <rect x="0" y="0" width="480" height="245" rx="16" fill="var(--color-background)" stroke="var(--color-border)"/>
+      <text x="240" y="27" text-anchor="middle" font-size="10" fill="var(--color-muted-foreground)" font-family="Geist Mono, monospace">CROSS-SECTION — EACH COURSE CALCULATED INDEPENDENTLY</text>
+
+      <rect x="45" y="70" width="350" height="42" rx="3" fill="var(--color-card)" stroke="var(--color-foreground)"/>
+      <g style="color:var(--color-foreground)"><rect x="45" y="70" width="350" height="42" rx="3" fill="url(#dg-stone)"/></g>
+      <text x="220" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="var(--color-foreground)">SURFACE COURSE</text>
+
+      <rect x="45" y="112" width="350" height="52" rx="3" fill="var(--color-muted)" stroke="var(--color-foreground)"/>
+      <g style="color:var(--color-foreground)"><rect x="45" y="112" width="350" height="52" rx="3" fill="url(#dg-stone)"/></g>
+      <text x="220" y="143" text-anchor="middle" font-size="12" font-weight="700" fill="var(--color-foreground)">BASE COURSE</text>
+
+      <rect x="45" y="164" width="350" height="48" rx="3" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-dasharray="5 3"/>
+      <g style="color:var(--color-foreground)"><rect x="45" y="164" width="350" height="48" rx="3" fill="url(#dg-stone)"/></g>
+      <text x="220" y="193" text-anchor="middle" font-size="12" font-weight="700" fill="var(--color-foreground)">OPTIONAL SUB-BASE</text>
+
+      <line x1="410" y1="70" x2="410" y2="112" stroke="var(--color-foreground)" marker-start="url(#dg-arrow)" marker-end="url(#dg-arrow)"/>
+      <line x1="430" y1="112" x2="430" y2="164" stroke="var(--color-foreground)" marker-start="url(#dg-arrow)" marker-end="url(#dg-arrow)"/>
+      <line x1="450" y1="164" x2="450" y2="212" stroke="var(--color-foreground)" marker-start="url(#dg-arrow)" marker-end="url(#dg-arrow)"/>
+      <text x="406" y="62" font-size="9" fill="var(--color-muted-foreground)" font-family="Geist Mono, monospace">depth</text>
+      <text x="240" y="231" text-anchor="middle" font-size="10" fill="var(--color-muted-foreground)">Volume × matching bulk density → tons · then price and truck planning</text>
+    </g>
+  </svg>
+
+  <figcaption class="border-t border-border bg-muted/20 px-4 py-3 text-xs leading-5 text-muted-foreground">
+    Enter the installed depth and density for each material separately. If you use a loose-to-placed allowance, keep that separate from ordering waste so the same adjustment is not applied twice.
+  </figcaption>
+</figure>
