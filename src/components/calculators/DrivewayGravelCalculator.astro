@@ -33,19 +33,19 @@
           </div>
         </label>
       </div>
-      <div class="max-w-2xl">
-        <label for="d-build" class="block text-sm font-medium text-ink">Driveway build</label>
-        <div class="relative mt-1.5">
-          <select id="d-build" aria-describedby="d-build-help" class="h-12 w-full appearance-none rounded-xl border-2 border-hairline bg-canvas px-4 pr-12 text-sm font-semibold text-ink shadow-sm focus:border-link focus:outline-none focus:ring-4 focus:ring-link/10">
-            <option value="surface">Surface refresh only — 1 layer</option>
-            <option value="two" selected>Base + surface — 2 layers</option>
-            <option value="three">Sub-base + base + surface — 3 layers</option>
-          </select>
-          <svg class="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-mute" viewBox="0 0 20 20" aria-hidden="true">
-            <path d="M5.5 7.5 10 12l4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <p id="d-build-help" class="mt-2 text-xs leading-5 text-mute">Two-layer build: calculate the base course and surface course separately.</p>
+      <div id="d-build-field" class="w-full min-w-0 max-w-none sm:max-w-2xl" style="width:100%;min-width:0;max-width:100%;">
+        <label for="d-build" class="block w-full text-sm font-medium text-ink">Driveway build</label>
+        <select
+          id="d-build"
+          aria-describedby="d-build-help"
+          class="mt-1.5 block h-12 w-full min-w-0 max-w-full rounded-xl border-2 border-hairline bg-canvas px-4 text-sm font-semibold text-ink shadow-sm focus:border-link focus:outline-none focus:ring-4 focus:ring-link/10"
+          style="display:block;width:100%;min-width:0;max-width:100%;"
+        >
+          <option value="surface">Surface only (1 layer)</option>
+          <option value="two" selected>Base + surface (2 layers)</option>
+          <option value="three">Sub-base + base + surface (3 layers)</option>
+        </select>
+        <p id="d-build-help" class="mt-2 block w-full max-w-none text-xs leading-5 text-mute" style="width:100%;max-width:100%;">Two-layer build: calculate the base course and surface course separately.</p>
       </div>
     </div>
 

@@ -88,16 +88,35 @@ test.describe('Driveway Gravel Calculator', () => {
     await expect(root.locator('#d-layer-results')).toContainText('1');
   });
 
-  test('driveway build dropdown fits a 360px mobile viewport', async ({ page }) => {
+  test('driveway build dropdown stays full-width and usable at 360px', async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 800 });
     await page.goto('/driveway-gravel-calculator/');
+    const field = page.locator('#d-build-field');
     const build = page.locator('#d-build');
+    const help = page.locator('#d-build-help');
+
+    await expect(field).toBeVisible();
     await expect(build).toBeVisible();
-    const box = await build.boundingBox();
-    expect(box).not.toBeNull();
-    expect(box!.x).toBeGreaterThanOrEqual(0);
-    expect(box!.x + box!.width).toBeLessThanOrEqual(360);
+    await expect(build).toHaveValue('two');
+
+    const fieldBox = await field.boundingBox();
+    const buildBox = await build.boundingBox();
+    const helpBox = await help.boundingBox();
+
+    expect(fieldBox).not.toBeNull();
+    expect(buildBox).not.toBeNull();
+    expect(helpBox).not.toBeNull();
+
+    // A collapsed 80–120px select technically does not overflow, so require
+    // a genuinely usable mobile width as well.
+    expect(buildBox!.width).toBeGreaterThan(250);
+    expect(helpBox!.width).toBeGreaterThan(250);
+    expect(Math.abs(buildBox!.width - fieldBox!.width)).toBeLessThan(2);
+    expect(buildBox!.x).toBeGreaterThanOrEqual(0);
+    expect(buildBox!.x + buildBox!.width).toBeLessThanOrEqual(360);
+
     await build.selectOption('three');
+    await expect(build).toHaveValue('three');
     await expect(page.locator('#d-layer-subbase')).toBeVisible();
   });
 });
