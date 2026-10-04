@@ -16,7 +16,8 @@ import FlooringCalculatorDiagram from "./FlooringCalculatorDiagram.astro";
 import CarpetCalculatorDiagram from "./CarpetCalculatorDiagram.astro";
 import TileCalculatorDiagram from "./TileCalculatorDiagram.astro";
 import DrywallCalculatorDiagram from "./DrywallCalculatorDiagram.astro";
-import ConcreteSlabCalculatorDiagram from "./ConcreteSlabCalculatorDiagram.astro";\nimport ConcreteFootingCalculatorDiagram from "./ConcreteFootingCalculatorDiagram.astro";
+import ConcreteSlabCalculatorDiagram from "./ConcreteSlabCalculatorDiagram.astro";
+import ConcreteFootingCalculatorDiagram from "./ConcreteFootingCalculatorDiagram.astro";
 import SlabThicknessCalculatorDiagram from "./SlabThicknessCalculatorDiagram.astro";
 import FenceCalculatorDiagram from "./FenceCalculatorDiagram.astro";
 import DeckCalculatorDiagram from "./DeckCalculatorDiagram.astro";
@@ -423,6 +424,8 @@ const diagramFields = fields
                             ? <DrywallCalculatorDiagram />
                             : slug === "concrete-slab-calculator"
                               ? <ConcreteSlabCalculatorDiagram />
+                              : slug === "concrete-footing-calculator"
+                                ? <ConcreteFootingCalculatorDiagram />
                               : slug === "slab-thickness-calculator"
                                 ? <SlabThicknessCalculatorDiagram />
                               : slug === "fence-calculator"
