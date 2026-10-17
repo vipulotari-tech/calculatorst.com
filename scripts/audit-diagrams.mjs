@@ -59,6 +59,8 @@ if (pages.length > maxItems) {
 
 const server = spawn("npm", ["run", "preview", "--", "--host", "127.0.0.1", "--port", "4321"], {
   stdio: ["ignore", "pipe", "pipe"],
+  // Give npm and its Astro preview child a dedicated process group on Linux.
+  detached: process.platform !== "win32",
 });
 let serverLog = "";
 server.stdout.on("data", (chunk) => { serverLog = (serverLog + String(chunk)).slice(-3000); });
@@ -224,7 +226,15 @@ try {
   finding("/", "critical", "Audit engine error: " + String(err).slice(0, 500));
 } finally {
   if (browser) await browser.close();
-  server.kill("SIGTERM");
+  // Killing npm alone leaves its Astro child holding stdout/stderr open,
+  // preventing Node from exiting even after all page checks have finished.
+  if (process.platform !== "win32" && server.pid) {
+    try { process.kill(-server.pid, "SIGTERM"); } catch { /* already exited */ }
+  } else {
+    server.kill("SIGTERM");
+  }
+  server.stdout.destroy();
+  server.stderr.destroy();
 }
 const priority = { critical: 0, high: 1, medium: 2, review: 3 };
 problems.sort((a, b) => (priority[a.severity] - priority[b.severity]) || a.path.localeCompare(b.path));
