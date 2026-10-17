@@ -8,6 +8,7 @@ import ConcreteVolumeDiagram from "./ConcreteVolumeDiagram.astro";
 import PaintCalculatorDiagram from "./PaintCalculatorDiagram.astro";
 import GravelCalculatorDiagram from "./GravelCalculatorDiagram.astro";
 import GravelWeightCalculatorDiagram from "./GravelWeightCalculatorDiagram.astro";
+import CrushedStoneCalculatorDiagram from "./CrushedStoneCalculatorDiagram.astro";
 import MulchProjectDiagram from "./MulchProjectDiagram.astro";
 import RoofingCalculatorDiagram from "./RoofingCalculatorDiagram.astro";
 import RoofingShingleCalculatorDiagram from "./RoofingShingleCalculatorDiagram.astro";
@@ -404,6 +405,8 @@ const diagramFields = fields
               ? <GravelCalculatorDiagram />
               : slug === "gravel-weight-calculator"
                 ? <GravelWeightCalculatorDiagram />
+              : slug === "crushed-stone-calculator"
+                ? <CrushedStoneCalculatorDiagram />
               : slug === "mulch-calculator"
                 ? <MulchProjectDiagram />
                 : slug === "framing-calculator"
