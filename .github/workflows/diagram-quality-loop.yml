@@ -1,0 +1,174 @@
+name: Calculator Diagram Quality Loop
+
+on:
+  # Every 30 minutes, offset from the top of the hour to reduce peak-time delays.
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: calculator-diagram-quality-loop
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        id: install
+        run: npm ci
+
+      - name: Verify audit runner syntax
+        run: node --check scripts/audit-diagrams.mjs
+
+      - name: Test all calculator formulas, conversions and regressions
+        id: math
+        run: npm test
+        continue-on-error: true
+
+      - name: Type and component validation
+        id: types
+        run: npx astro check
+        continue-on-error: true
+
+      - name: Production build
+        id: build
+        run: npm run build
+        continue-on-error: true
+
+      - name: SEO metadata and crawl validation
+        id: seo
+        if: steps.build.outcome == 'success'
+        run: npm run test:seo
+        continue-on-error: true
+
+      - name: Install headless Chromium
+        if: steps.build.outcome == 'success'
+        run: npx playwright install --with-deps chromium
+
+      - name: Existing Playwright interaction and logic suite
+        id: browser
+        if: steps.build.outcome == 'success'
+        run: npm run test:e2e
+        continue-on-error: true
+
+      - name: Inspect EVERY calculator diagram on desktop and mobile
+        id: diagrams
+        if: steps.build.outcome == 'success'
+        run: node scripts/audit-diagrams.mjs
+        continue-on-error: true
+
+      - name: Upload searchable per-page audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: calculator-diagram-audit
+          path: diagram-audit/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Update one consolidated repair queue issue
+        if: always()
+        uses: actions/github-script@v7
+        env:
+          UNIT_OUTCOME: ${{ steps.math.outcome }}
+          TYPES_OUTCOME: ${{ steps.types.outcome }}
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
+          SEO_OUTCOME: ${{ steps.seo.outcome }}
+          BROWSER_OUTCOME: ${{ steps.browser.outcome }}
+          DIAGRAM_OUTCOME: ${{ steps.diagrams.outcome }}
+        with:
+          script: |
+            const fs = require('fs');
+            const title = 'Diagram Quality Audit — Repair Queue';
+            const outcomes = {
+              formula_tests: process.env.UNIT_OUTCOME,
+              type_check: process.env.TYPES_OUTCOME,
+              production_build: process.env.BUILD_OUTCOME,
+              seo_check: process.env.SEO_OUTCOME,
+              browser_interactions: process.env.BROWSER_OUTCOME,
+              diagram_browser_audit: process.env.DIAGRAM_OUTCOME
+            };
+            let report = null;
+            try { report = JSON.parse(fs.readFileSync('diagram-audit/report.json', 'utf8')); }
+            catch {}
+            const unhealthy = Object.values(outcomes).some(x => x !== 'success');
+            const issues = report?.findings || [];
+            const hasFindings = issues.length > 0 || unhealthy;
+            const runUrl = process.env.GITHUB_SERVER_URL + '/' + process.env.GITHUB_REPOSITORY +
+              '/actions/runs/' + process.env.GITHUB_RUN_ID;
+            const summary = [
+              '# Calculator Diagram Quality — latest scheduled scan',
+              '',
+              '**Run:** ' + new Date().toISOString(),
+              '**Workflow:** ' + runUrl,
+              '**Scope:** Every built calculator page, not only the high-traffic shortlist.',
+              '**Calculator pages checked:** ' + (report?.pagesVisited ?? 'scan unavailable'),
+              '**SVG diagrams checked:** ' + (report?.diagramsFound ?? 'scan unavailable'),
+              '',
+              '## Validation gates',
+              ...Object.entries(outcomes).map(([key,value]) => '- ' + key + ': **' + value + '**'),
+              '',
+              '## Findings by severity',
+              JSON.stringify(report?.severityCounts || { unavailable: true }),
+              '',
+              '## Prioritized repair work',
+              ...(issues.length ? issues.slice(0, 60).map(x =>
+                '- **' + x.severity.toUpperCase() + '** ' + x.path + ' — ' + x.message)
+                : ['- No diagram audit findings were reported.']),
+              '',
+              '## Fix acceptance criteria',
+              'For each affected calculator: correct project-specific SVG geometry, dynamically synced fields/units/modes, readable mobile/desktop labels, truthful title + description, formula + rounding + edge-case tests, print/share where present, and valid SEO. Investigate root cause; fix in a small reviewed PR. Never silently change engineering assumptions or auto-merge a failing PR.',
+              '',
+              'Full per-page JSON and Markdown reports are attached as workflow artifacts (14-day retention).'
+            ].join('\n');
+            const { owner, repo } = context.repo;
+            const found = await github.rest.issues.listForRepo({ owner, repo, state: 'open', per_page: 100 });
+            const current = found.data.find(x => !x.pull_request && x.title === title);
+            if (hasFindings && current) {
+              await github.rest.issues.update({ owner, repo, issue_number: current.number, body: summary });
+              core.info('Updated existing diagram issue #' + current.number);
+            } else if (hasFindings) {
+              const created = await github.rest.issues.create({ owner, repo, title, body: summary });
+              core.info('Opened diagram issue #' + created.data.number);
+            } else if (current) {
+              await github.rest.issues.createComment({ owner, repo, issue_number: current.number,
+                body: 'All scheduled audit checks and reviewed diagram checks now pass: ' + runUrl });
+              await github.rest.issues.update({ owner, repo, issue_number: current.number, state: 'closed' });
+              core.info('Closed resolved diagram issue #' + current.number);
+            } else {
+              core.info('All checks passed; no open repair queue.');
+            }
+
+      - name: Fail workflow if any verification gate failed
+        if: always()
+        env:
+          UNIT_OUTCOME: ${{ steps.math.outcome }}
+          TYPES_OUTCOME: ${{ steps.types.outcome }}
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
+          SEO_OUTCOME: ${{ steps.seo.outcome }}
+          BROWSER_OUTCOME: ${{ steps.browser.outcome }}
+          DIAGRAM_OUTCOME: ${{ steps.diagrams.outcome }}
+        run: |
+          for result in "$UNIT_OUTCOME" "$TYPES_OUTCOME" "$BUILD_OUTCOME" "$SEO_OUTCOME" "$BROWSER_OUTCOME" "$DIAGRAM_OUTCOME"; do
+            if [ "$result" != "success" ]; then
+              echo "::error::At least one calculator quality gate did not pass ($result)."
+              exit 1
+            fi
+          done
+          echo "All calculator quality gates passed."
