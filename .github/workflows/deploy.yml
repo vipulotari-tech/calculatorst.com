@@ -27,7 +27,9 @@ jobs:
         run: npm ci
 
       - name: Check scheduled diagram audit script syntax
-        run: node --check scripts/audit-diagrams.mjs
+        run: |
+          node --check scripts/audit-diagrams.mjs
+          node --check scripts/diagram-repair-queue.mjs
 
       - name: Run tests
         run: npm test
