@@ -33,8 +33,9 @@ function numberText(value) {
 for (const filename of await walk(dist)) {
   if (!filename.endsWith("index.html")) continue;
   const html = await readFile(filename, "utf8");
-  if (!html.includes("data-calculator-slug=")) continue;
   const path = "/" + relative(dist, filename).split(sep).join("/").replace(/index\.html$/, "");
+  // Include legacy standalone calculator pages even when they do not use GenericCalculator.
+  if (!path.endsWith("-calculator/") && !html.includes("data-calculator-slug=")) continue;
   pages.push(path);
 }
 pages.sort();
@@ -90,7 +91,8 @@ try {
           continue;
         }
         const baseline = await page.evaluate(() => {
-          const root = document.querySelector("[data-calculator-slug]");
+          const genericRoot = document.querySelector("[data-calculator-slug]");
+          const root = genericRoot || document.querySelector("main") || document.body;
           if (!root) return null;
           const allSvgs = Array.from(root.querySelectorAll("svg[role='img']"));
           const desc = document.querySelector("meta[name='description']")?.getAttribute("content")?.trim() ?? "";
@@ -106,7 +108,8 @@ try {
             !svg.closest("figure")?.querySelector("figcaption")?.textContent?.trim()
           ).length;
           return {
-            slug: root.getAttribute("data-calculator-slug"),
+            slug: genericRoot?.getAttribute("data-calculator-slug") || location.pathname.split("/").filter(Boolean).pop(),
+            hasGenericRoot: Boolean(genericRoot),
             description: desc,
             canonical,
             svgCount: allSvgs.length,
@@ -132,10 +135,10 @@ try {
         if (!baseline.canonical.endsWith(route)) {
           finding(route, "high", "Canonical URL does not match built route: " + baseline.canonical.slice(0, 120));
         }
-        if (!baseline.hasFormula) finding(route, "review", "Calculation explanation panel not found in calculator root.");
+        if (baseline.hasGenericRoot && !baseline.hasFormula) finding(route, "review", "Calculation explanation panel not found in calculator root.");
 
         const slug = baseline.slug;
-        const selector = '[data-calculator-slug="' + slug + '"]';
+        const selector = baseline.hasGenericRoot ? '[data-calculator-slug="' + slug + '"]' : "main";
         const mode = page.locator(selector + ' select[name="mode"]');
         if (await mode.count()) {
           const options = await mode.locator("option").evaluateAll((els) => els.map((el) => el.value));
