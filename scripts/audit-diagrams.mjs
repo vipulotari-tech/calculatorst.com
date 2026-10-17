@@ -15,6 +15,11 @@ const pages = [];
 const results = [];
 const now = new Date().toISOString();
 const maxItems = 1000;
+const arg = process.argv.indexOf("--page");
+const selectedPage = arg === -1 ? null : process.argv[arg+1];
+if (arg !== -1 && (!selectedPage || !/^\/[a-z0-9/-]+\/$/.test(selectedPage))) {
+  throw new Error("Expected --page /valid-calculator-slug/");
+}
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -39,7 +44,12 @@ for (const filename of await walk(dist)) {
   pages.push(path);
 }
 pages.sort();
-if (pages.length < 30) {
+const discovered = pages.length;
+if (selectedPage) {
+  if (!pages.includes(selectedPage)) throw new Error("Selected calculator page not found in build: " + selectedPage);
+  pages.splice(0, pages.length, selectedPage);
+}
+if (!selectedPage && pages.length < 30) {
   finding("/", "critical", "Found only " + pages.length + " calculator pages in dist; verify route discovery and build output.");
 }
 if (pages.length > maxItems) {
@@ -66,6 +76,7 @@ try {
     await new Promise((done) => setTimeout(done, 250));
   }
   if (!ready) throw new Error("Preview did not become ready: " + serverLog);
+  await mkdir(join(out, "screenshots"), { recursive: true });
 
   browser = await chromium.launch({ headless: true });
   let next = 0;
@@ -178,6 +189,9 @@ try {
           }
         }
 
+        if (selectedPage) {
+          await page.screenshot({ path: join(out, "screenshots", slug + "-desktop.png"), fullPage: true });
+        }
         // Reload at mobile width to catch viewport overflow caused by fixed SVG text and controls.
         await page.setViewportSize({ width: 390, height: 844 });
         await page.reload({ waitUntil: "domcontentloaded", timeout: 18000 });
@@ -186,6 +200,9 @@ try {
           viewport: window.innerWidth,
           diagramCount: document.querySelectorAll("[data-calculator-slug] svg[role='img']").length,
         }));
+        if (selectedPage) {
+          await page.screenshot({ path: join(out, "screenshots", slug + "-mobile.png"), fullPage: true });
+        }
         if (mobile.width > mobile.viewport + 3) {
           finding(route, "high", "Horizontal overflow on 390px mobile: document width " + mobile.width + "px.");
         }
@@ -214,7 +231,9 @@ problems.sort((a, b) => (priority[a.severity] - priority[b.severity]) || a.path.
 const report = {
   date: now,
   site: "https://calculatorst.com/",
-  source: "All built calculator pages in dist",
+  source: selectedPage ? "One selected built calculator page" : "All built calculator pages in dist",
+  selectedPage,
+  totalCalculatorPages: discovered,
   pagesDiscovered: pages.length,
   pagesVisited: results.length,
   diagramsFound: results.reduce((n, r) => n + (r.svgCount || 0), 0),
