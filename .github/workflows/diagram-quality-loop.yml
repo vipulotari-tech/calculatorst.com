@@ -39,8 +39,8 @@ jobs:
 
       - name: Check scheduler scripts
         run: |
-          node --check scripts/audit-diagrams.mjs
-          node --check scripts/diagram-repair-queue.mjs
+          node --check scripts/diagrams/audit.mjs
+          node --check scripts/diagrams/repair-queue.mjs
 
       - name: Verify calculator math and conversions
         id: math
@@ -66,7 +66,7 @@ jobs:
       - name: Lock exactly ONE page for this run
         id: queue
         if: steps.build.outcome == 'success'
-        run: node scripts/diagram-repair-queue.mjs select
+        run: node scripts/diagrams/repair-queue.mjs select
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -83,7 +83,7 @@ jobs:
       - name: Audit ONE selected page and capture screenshots
         id: diagrams
         if: steps.queue.outcome == 'success'
-        run: node scripts/audit-diagrams.mjs --page "$CALCULATOR_PAGE"
+        run: node scripts/diagrams/audit.mjs --page "$CALCULATOR_PAGE"
         continue-on-error: true
         env:
           CALCULATOR_PAGE: ${{ steps.queue.outputs.page }}
@@ -99,7 +99,7 @@ jobs:
 
       - name: Complete page or hold and delegate repair
         if: always() && steps.queue.outcome == 'success'
-        run: node scripts/diagram-repair-queue.mjs complete
+        run: node scripts/diagrams/repair-queue.mjs complete
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COPILOT_AGENT_PAT: ${{ secrets.COPILOT_AGENT_PAT }}

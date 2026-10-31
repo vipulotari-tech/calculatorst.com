@@ -1,5 +1,5 @@
 {
-  "name": "fast-filament",
+  "name": "calculatorst-com",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -13,8 +13,8 @@
     "test": "vitest run --exclude=e2e/**",
     "test:watch": "vitest --exclude=e2e/**",
     "test:e2e": "playwright test",
-    "test:seo": "node scripts/audit-seo.mjs",
-    "audit:seo-content": "node scripts/audit-seo-content.mjs"
+    "test:seo": "node scripts/seo/audit.mjs",
+    "audit:seo-content": "node scripts/seo/content-audit.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.5",

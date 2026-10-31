@@ -130,7 +130,7 @@ if (mode === "select") {
       summary,
       "",
       "## Definition of done",
-      "Inspect the source calculator component and calculation model for this page. Fix genuine diagram errors, project-specific geometry, responsive SVG labels, dynamic units and modes, accurate quantities and rounding, meaningful captions and descriptions, SEO, mobile overflow, accessible SVG title and desc, and print/share if present. Add appropriate regression tests for this page. Validate numeric units and edge cases. Run npm test, npx astro check, npm run build, npm run test:seo, npm run test:e2e, and node scripts/audit-diagrams.mjs --page " + page + ". Create one reviewable PR targeting main. Do NOT change unrelated pages, invent material assumptions, or bypass tests.",
+      "Inspect the source calculator component and calculation model for this page. Fix genuine diagram errors, project-specific geometry, responsive SVG labels, dynamic units and modes, accurate quantities and rounding, meaningful captions and descriptions, SEO, mobile overflow, accessible SVG title and desc, and print/share if present. Add appropriate regression tests for this page. Validate numeric units and edge cases. Run npm test, npx astro check, npm run build, npm run test:seo, npm run test:e2e, and node scripts/diagrams/audit.mjs --page " + page + ". Create one reviewable PR targeting main. Do NOT change unrelated pages, invent material assumptions, or bypass tests.",
       "",
       "The sequential scheduler will hold on this page until the changes are merged and pass all tests on main."
     ].join("\n");

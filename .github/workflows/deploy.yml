@@ -28,8 +28,8 @@ jobs:
 
       - name: Check scheduled diagram audit script syntax
         run: |
-          node --check scripts/audit-diagrams.mjs
-          node --check scripts/diagram-repair-queue.mjs
+          node --check scripts/diagrams/audit.mjs
+          node --check scripts/diagrams/repair-queue.mjs
 
       - name: Run tests
         run: npm test
