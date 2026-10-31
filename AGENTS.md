@@ -12,11 +12,13 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 
 The `diagram-design` skill is vendored as a Git submodule at `.claude/skills/diagram-design`. Before creating or redesigning diagrams, read its `SKILL.md` and the matching type reference under `references/`. For construction calculators, use the skill's design and accessibility rules, but implement production visuals as responsive, inline SVG/Astro components that integrate with the existing site rather than shipping standalone HTML files as calculator UI.
 
+- Use `docs/diagram-design-calculatorst-brand.md` as the project's brand and engineering-accuracy reference; the live site CSS is the source of truth for semantic colors and fonts.
 - Prefer accurate, input-aware engineering illustrations for dimensions, sections, and measurement callouts.
-- Keep labels and units consistent with the calculator formula and user inputs; do not alter calculation logic just to fit a diagram.
+- Keep labels and units consistent with the calculator model and user inputs; do not alter calculation logic just to fit a diagram.
+- Never generate sample dimensions, waste percentages, densities, or outputs from a slug/hash. Use actual model values or label any example explicitly as illustrative.
 - Include accessible SVG title/description, unique IDs, responsive sizing, and dark-mode compatibility.
-- Run the skill's self-check when generating standalone HTML examples; also run the project's relevant tests and visual/browser checks.
-- Do not mass-rewrite existing calculator pages or deploy to production without validating the scope and results.
+- Run math tests, `astro check`, build, SEO tests, browser tests, and the selected-page diagram audit when applicable.
+- Audit and repair one calculator page at a time; do not mass-rewrite unrelated pages or deploy unvalidated changes.
 
 ## Documentation
 
