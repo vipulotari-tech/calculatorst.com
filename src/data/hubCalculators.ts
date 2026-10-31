@@ -61,9 +61,9 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
   },
   {
     "slug": "concrete-mix-calculator",
-    "title": "Concrete Mix Calculator — Cement, Sand & Aggregate Ratio",
-    "h1": "Concrete Mix Calculator",
-    "description": "Calculate cement, sand, coarse aggregate, water and whole cement bags from concrete volume and a custom mix ratio, dry-volume factor and water-cement ratio.",
+    "title": "Cement Mix Calculator — Ratios, Sand & Aggregate",
+    "h1": "Cement Mix Calculator",
+    "description": "Calculate cement, sand, coarse aggregate, water and whole bags from concrete volume and your mix ratio. Adjust dry-volume and water-cement factors.",
     "category": "Concrete",
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
