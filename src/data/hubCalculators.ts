@@ -68,6 +68,7 @@ export const hubCalculators: (CalculatorMeta & { cluster: string; category: stri
     "cluster": "concrete",
     "iconPath": "M4 10l4-6 4 6H4ZM8 4v8",
     "keywords": [
+      "cement mix calculator",
       "concrete mix calculator"
     ],
     "featured": true
