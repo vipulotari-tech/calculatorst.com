@@ -43,6 +43,9 @@ jobs:
       - name: Validate generated SEO and crawl paths
         run: npm run test:seo
 
+      - name: Audit rendered SEO content
+        run: npm run audit:seo-content
+
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
