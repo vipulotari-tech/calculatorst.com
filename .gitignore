@@ -1,8 +1,10 @@
 # build output
 dist/
+coverage/
 
-# generated types
+# generated types and build metadata
 .astro/
+*.tsbuildinfo
 
 # dependencies
 node_modules/
@@ -11,7 +13,7 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
+*.log
 
 # environment variables
 .env
@@ -26,11 +28,12 @@ Thumbs.db
 # editors / tooling
 .idea/
 .vscode/
+.eslintcache
 
 # Cloudflare / Wrangler state
 .wrangler/
 
-# local AI agent state (not required for build)
+# local AI agent state (required skill/agent source files remain tracked)
 .calc.txt
 .opencode/
 .claude/*
@@ -62,9 +65,6 @@ audit/**/*.html
 audit/**/*.png
 audit/**/*.log
 audit/**/*.txt
-spec-kit/
-.claude-tool-sources/
-spec-kit/
 
 # MCP server configuration
 .mcp.json
