@@ -32,7 +32,8 @@ const isCurb = slug.includes("curb");
 const isStair = slug.includes("stair");
 const isRamp = slug.includes("ramp");
 const isConcrete = cluster==="concrete";
-const kind = isTube ? "tube" : isColumn ? "column" : isCurb ? "curb" : isStair ? "stair" : isRamp ? "ramp" : isPitch ? "pitch" : isRoof ? "roof" : isRebar ? "rebar" : isBrick ? "brick" : isFence ? "fence" : isDeck ? "deck" : isPaver ? "paver" : "volume";
+const isConcreteWall = slug === "concrete-wall-calculator";
+const kind = isConcreteWall ? "wall" : isTube ? "tube" : isColumn ? "column" : isCurb ? "curb" : isStair ? "stair" : isRamp ? "ramp" : isPitch ? "pitch" : isRoof ? "roof" : isRebar ? "rebar" : isBrick ? "brick" : isFence ? "fence" : isDeck ? "deck" : isPaver ? "paver" : "volume";
 ---
 <figure class="overflow-hidden rounded-lg border border-border bg-card shadow-card">
   <div class="bg-muted px-4 py-2 flex items-center justify-between border-b border-border gap-2">
@@ -125,6 +126,46 @@ const kind = isTube ? "tube" : isColumn ? "column" : isCurb ? "curb" : isStair ?
         <p class="text-center font-mono text-[11px] tracking-widest text-muted-foreground px-4 pt-4 mb-3">HOW IT WORKS — 3 SIMPLE STEPS (ORIGINAL 4K)</p>
         <img src="/visuals/concrete-howto-3steps-4k.jpg" alt="Understanding Your Concrete Calculator — 3 simple steps: 1 Measure & Input your project size, 2 Automatic calculation of volume needed, 3 Get precise quantities for ordering" width="3840" height="2160" class="w-full h-auto" loading="lazy" decoding="async" />
         <p class="text-center font-mono text-[10px] text-muted-foreground/70 px-4 pb-3 mt-2">Your original — Measure → Automatic Volume → Order Bags/Truck — 4K upscaled, 846KB JPEG</p>
+      </div>
+    </div>
+  )}
+
+  {kind==="wall" && (
+    <div class="grid md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:divide-x divide-hairline">
+      <div class="p-5 bg-card">
+        <p class="text-center font-mono text-[11px] text-muted-foreground mb-3">WALL ELEVATION · LENGTH × HEIGHT</p>
+        <svg viewBox="0 0 360 220" class="w-full h-auto" role="img" aria-labelledby="wall-elevation-title wall-elevation-desc">
+          <title id="wall-elevation-title">Concrete wall elevation with length and height dimensions</title>
+          <desc id="wall-elevation-desc">A wall face showing its length and height. The opening area is deducted before concrete volume is calculated.</desc>
+          <defs><marker id="wall-arrow-elev" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse"><path d="M0,0 L6,3 L0,6 Z" fill={accent}/></marker></defs>
+          <rect x="0" y="0" width="360" height="220" rx="8" fill="var(--color-background)" stroke="var(--color-border)"/>
+          <rect x="60" y="42" width="240" height="112" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.5"/>
+          <path d="M60 70 H300 M60 98 H300 M60 126 H300 M100 42 V70 M160 70 V98 M220 42 V70 M280 70 V98 M120 98 V126 M200 126 V154 M260 98 V126" stroke="var(--color-border)" stroke-width="1"/>
+          <rect x="143" y="91" width="48" height="63" fill="var(--color-background)" stroke={accent} stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="167" y="120" text-anchor="middle" font-size="8" fill="var(--color-foreground)">Opening</text>
+          <line x1="60" y1="174" x2="300" y2="174" stroke={accent} stroke-width="1.4" marker-start="url(#wall-arrow-elev)" marker-end="url(#wall-arrow-elev)"/>
+          <text x="180" y="190" text-anchor="middle" font-size="10" fill={accent} font-weight="700">{dimA}: {exL} {unitA}</text>
+          <line x1="40" y1="42" x2="40" y2="154" stroke={accent} stroke-width="1.4" marker-start="url(#wall-arrow-elev)" marker-end="url(#wall-arrow-elev)"/>
+          <text x="25" y="98" text-anchor="middle" transform="rotate(-90 25 98)" font-size="10" fill={accent} font-weight="700">{dimB}: {exW} {unitB}</text>
+          <text x="180" y="208" text-anchor="middle" font-size="9" fill="var(--color-muted-foreground)">Openings deducted from gross wall area</text>
+        </svg>
+      </div>
+      <div class="p-5 bg-card">
+        <p class="text-center font-mono text-[11px] text-muted-foreground mb-3">CROSS-SECTION · THICKNESS</p>
+        <svg viewBox="0 0 360 220" class="w-full h-auto" role="img" aria-labelledby="wall-section-title wall-section-desc">
+          <title id="wall-section-title">Concrete wall cross-section showing thickness</title>
+          <desc id="wall-section-desc">A section through the wall showing thickness; net volume equals net wall face area multiplied by thickness.</desc>
+          <defs><marker id="wall-arrow-sec" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse"><path d="M0,0 L6,3 L0,6 Z" fill={accent2}/></marker></defs>
+          <rect x="0" y="0" width="360" height="220" rx="8" fill="var(--color-background)" stroke="var(--color-border)"/>
+          <path d="M95 54 L250 54 L278 75 L123 75 Z" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.4"/>
+          <path d="M95 54 L95 144 L123 165 L123 75 Z" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.4"/>
+          <path d="M95 144 L250 144 L278 165 L123 165 Z" fill="var(--color-card)" stroke="var(--color-foreground)" stroke-width="1.4"/>
+          <path d="M250 54 L278 75 L278 165 L250 144 Z" fill={accent2} opacity="0.28" stroke={accent2} stroke-width="1.4"/>
+          <line x1="250" y1="183" x2="278" y2="201" stroke={accent2} stroke-width="1.4" marker-start="url(#wall-arrow-sec)" marker-end="url(#wall-arrow-sec)"/>
+          <text x="226" y="198" text-anchor="middle" font-size="10" fill={accent2} font-weight="700">{dimC}: {exD} {unitC}</text>
+          <text x="176" y="105" text-anchor="middle" font-size="10" fill="var(--color-foreground)" font-weight="600">Concrete wall</text>
+          <text x="180" y="28" text-anchor="middle" font-size="10" fill="var(--color-muted-foreground)">Net volume = net face area × thickness</text>
+        </svg>
       </div>
     </div>
   )}
