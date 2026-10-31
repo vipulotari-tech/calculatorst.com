@@ -127,3 +127,29 @@ Connect the site's Google Search Console data source or export:
 3. URL Inspection results for the representative URLs listed above.
 
 With those, prioritize the first 10 URLs by opportunity and deliver page-specific changes instead of guessing from public HTML alone.
+
+
+## Second-pass review: concrete source-level findings (2026-10-31)
+
+This pass inspected the current `main` branch's actual source for the shared layout, consent component, homepage, directory pages, sitemap, robots route, calculator-content generator, and SEO audit script. These are code observations, not Search Console measurements.
+
+### Confirmed implementation facts
+
+1. **Analytics measurement is consent-dependent.** The shared layout loads GA4 (`G-7RX7TP3LKB`) and initializes Consent Mode with `analytics_storage: denied`. The consent component grants analytics storage only after Accept and sets it denied on Decline. This is a deliberate consent design, but it means a GA4 "0 active users" report alone cannot prove the site has no visitors. Verify GA4 real-time/tag diagnostics and compare with Search Console clicks before concluding there is no traffic. Do not remove consent protections as an SEO fix.
+2. **Two public directory pages have related intent but distinct functionality.** `/construction/` is a category hub with selected calculators and topic clusters; `/calculators/` is the full searchable catalog. Their title tags differ, but both H1s currently read "Construction Calculators". This is not automatically a ranking problem. Keep both only if their search purpose and internal links remain distinct; assess query/page overlap in Search Console before changing or redirecting either.
+3. **Sitemap and robots logic are present in source.** The sitemap builds canonical trailing-slash URLs from static routes, categories, and calculator slugs. Robots allows crawling and declares the sitemap. This confirms implementation intent, not production HTTP status or Google's accepted/indexed URL counts.
+4. **The SEO audit script checks important structural invariants.** It checks one title, one description, one H1, self-canonical, valid JSON-LD, sitemap membership, internal links, orphan pages, crawl depth, and robots sitemap declaration. It does not currently compare titles/descriptions across different pages, grade title/description lengths, measure rendered main-content uniqueness, verify image alt text, check response status/redirects, or validate Google-selected canonicals. These should be separate checks; do not mistake the current audit passing for proof of rankings or content uniqueness.
+5. **Calculator descriptions are generated from model fields and outputs.** This is better than one identical description template, but model-derived text can still be similar across related calculators. Compare actual rendered descriptions and main content across the whole catalog before adding copy or creating more URLs.
+6. **The public search surface shows the homepage and both directory/hub pages.** Public search results are a limited snapshot, not proof of complete index coverage, clicks, or impressions.
+
+### Revised next actions
+
+- First compare Search Console clicks with GA4. If GSC clicks are also near zero, investigate query impressions/indexing; if GSC has clicks but GA4 is zero, debug measurement/consent.
+- In Search Console, compare `/construction/`, `/calculators/`, and the homepage for overlapping queries and selected canonicals before altering headings or merging pages.
+- Extend the existing audit script in a separate tested change to report cross-page duplicate titles/descriptions and content signatures, missing image alt text, sitemap URL status/redirects, and page-specific title/H1/description data. Start as warnings/report output before failing CI; establish baseline first.
+- Sample calculator pages from distinct families and compare formula correctness, unique functionality, examples, assumptions, citations, and generated text. Prioritize based on Search Console impressions and user value, not arbitrary keyword-density targets.
+- Run `npm run build`, `npm run test`, `npm run test:seo`, and `npx astro check` in the project environment before considering any code change for production.
+
+### Important limitation
+
+No connected Search Console report, GA4 report, live Google URL Inspection response, or production HTTP/redirect test result was available in this review. No claim is made here that the site has zero indexed pages, a broken sitemap, a confirmed analytics bug, or a Google penalty.
