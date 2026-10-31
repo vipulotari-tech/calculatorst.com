@@ -15,7 +15,9 @@ This guide describes the intended ownership of files in CalculatorSt. It is deli
 ## Non-runtime support files
 
 - `e2e/`: Playwright end-to-end regression tests.
-- `scripts/`: executable audit/maintenance entry points. If a script moves, update every npm script, workflow, documentation link, and script-relative file reference in the same change.
+- `scripts/diagrams/`: diagram audit and sequential repair-queue tooling. `audit.mjs` inspects built calculator pages; `repair-queue.mjs` coordinates the one-page-at-a-time workflow.
+- `scripts/seo/`: rendered-page SEO validation and content diagnostics. `audit.mjs` validates crawl/indexability invariants; `content-audit.mjs` reports metadata and image-alt diagnostics.
+- When moving a script, update every npm script, workflow, documentation link, and script-relative file reference in the same change.
 - `audit/`: checked-in, intentional audit reports/reference cases. Temporary screenshots, logs, generated reports, and local crawl evidence should not be committed unless explicitly serving as a baseline.
 - `docs/`: maintainer-facing architecture, brand, and process documentation.
 - `.github/workflows/`: CI/deployment and scheduled audit automation.
