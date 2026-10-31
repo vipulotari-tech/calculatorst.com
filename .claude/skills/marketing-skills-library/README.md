@@ -10,6 +10,6 @@ Included skill entrypoints:
 - `marketing-programmatic-seo` — SEO-driven page generation strategy
 - `marketing-schema` — structured data and schema markup
 
-The upstream skills may reference supporting files in their respective `references/` directories. Those reference files have not yet been imported; see the upstream repository for the complete source and supporting material.
+Supporting reference files for all four imported skills are included in each skill's `references/` directory. The imported references are limited to those referenced by these four skill entrypoints; other skills in the upstream repository are not included.
 
 This import does not change application code or deploy the website. Review and validate before merging to `main`.
