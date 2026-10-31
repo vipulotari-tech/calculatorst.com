@@ -139,36 +139,51 @@ const webPageSchema: any = (!effectiveNoindex && canonicalUrl) ? {
 
     <title>{title}</title>
 
-    <!-- Google tag (gtag.js) with Google Consent Mode v2 -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-7RX7TP3LKB"></script>
+    <!-- Google tag (gtag.js) with Google Consent Mode v2; production hosts only -->
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      // Initialize with all storage denied by default for proper consent compliance
-      gtag('consent', 'default', {
-        ad_storage: 'denied',
-        analytics_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied'
-      });
-      // Restore consent on subsequent navigations BEFORE config sends page_view
-      // This fixes the bug where returning users with accepted consent still sent denied page_views
-      try {
-        const saved = localStorage.getItem('cookieConsent');
-        if (saved === 'accepted') {
-          gtag('consent', 'update', {
-            ad_storage: 'granted',
-            analytics_storage: 'granted',
-            ad_user_data: 'granted',
-            ad_personalization: 'granted'
-          });
-        }
-      } catch {}
-      gtag('js', new Date());
-      gtag('config', 'G-7RX7TP3LKB', {
-        anonymize_ip: true,
-        send_page_view: true
-      });
+      (function () {
+        var allowedHosts = ["calculatorst.com", "www.calculatorst.com"];
+        var hostname = window.location.hostname.toLowerCase();
+        if (allowedHosts.indexOf(hostname) === -1) return;
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { window.dataLayer.push(arguments); }
+        window.gtag = gtag;
+
+        // Initialize with all storage denied by default for consent compliance.
+        gtag("consent", "default", {
+          ad_storage: "denied",
+          analytics_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied"
+        });
+
+        // Restore accepted consent before config sends its automatic page_view.
+        try {
+          var savedConsent = window.localStorage.getItem("cookieConsent");
+          if (savedConsent === "accepted") {
+            gtag("consent", "update", {
+              ad_storage: "granted",
+              analytics_storage: "granted",
+              ad_user_data: "granted",
+              ad_personalization: "granted"
+            });
+          }
+        } catch (e) {}
+
+        gtag("js", new Date());
+        gtag("config", "G-7RX7TP3LKB", {
+          anonymize_ip: true,
+          send_page_view: true
+        });
+
+        // Inject gtag.js only on the production domain; preview hosts stay untracked.
+        var script = document.createElement("script");
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-7RX7TP3LKB";
+        script.setAttribute("data-google-analytics", "production-only");
+        document.head.appendChild(script);
+      })();
     </script>
 
     <!-- Open Graph -->
